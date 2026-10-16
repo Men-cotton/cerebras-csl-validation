@@ -1,0 +1,309 @@
+// Native-u16 header/rows followed by separate f32 values.
+param memcpy_params;
+param ROLE: i16;
+// 0: uninstrumented sibling; 1: callback events; 2: u32 payload task.
+param OBSERVE: i16;
+param DATA: color;
+const sys = @import_module("<memcpy/memcpy>",memcpy_params);
+const TX_DONE = @get_local_task_id(10);
+const RX_DONE = @get_local_task_id(11);
+const iq = @get_input_queue(2);
+const oq = @get_output_queue(2);
+const out_ut = @get_ut_id(3);
+const rx_task_id = @get_data_task_id(iq);
+const clock = @import_module("<time>");
+const tile = @import_module("<tile_config>");
+const END_WORD: u32 = 0xfefedcba;
+const UNUSED: u32 = 0xcafebabe;
+// variant, payload count, overflow, markers, events, event overflow, done, reserved.
+var diag_state = @zeros([8]u32);
+// Two guards on either side of 64 bounded data words, including the end marker.
+var rx_payload = @zeros([68]u32);
+// Sixteen event rows: id, phase, tsc low/mid/high, IQ flags, OQ flags, reserved.
+var diag_events = @zeros([128]u32);
+var end_word = [1]u32{END_WORD};
+const end_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->end_word[i]});
+
+fn reset_diagnostics() void {
+  for (@range(i16,8)) |i| { diag_state[i]=0; }
+  diag_state[0]=@as(u32,OBSERVE);
+  for (@range(i16,68)) |i| { rx_payload[i]=UNUSED; }
+  rx_payload[0]=0x12345678; rx_payload[1]=0x23456789;
+  rx_payload[66]=0x6789abcd; rx_payload[67]=0x789abcde;
+  for (@range(i16,128)) |i| { diag_events[i]=0; }
+  if (comptime OBSERVE == 1) { clock.enable_tsc(); }
+}
+
+fn record_event(event: u32) void {
+  if (comptime OBSERVE == 1) {
+    const n=diag_state[4];
+    if (n >= 16) { diag_state[5]=1; return; }
+    var stamp = @zeros([3]u16);
+    clock.get_timestamp(&stamp);
+    const input=tile.input_queue_status.get();
+    const output=tile.output_queue_status.get();
+    const k=@as(u16,n)*8;
+    diag_events[k]=event;
+    diag_events[k+1]=@as(u32,phase);
+    diag_events[k+2]=@as(u32,stamp[0]);
+    diag_events[k+3]=@as(u32,stamp[1]);
+    diag_events[k+4]=@as(u32,stamp[2]);
+    diag_events[k+5]=@as(u32,input.empty) | (@as(u32,input.full) << 8);
+    diag_events[k+6]=@as(u32,output.empty) | (@as(u32,output.full) << 8);
+    diag_state[4]=n+1;
+  }
+}
+
+fn send_end() void {
+  phase=5;
+  @load_to_dsr(wire_dest,wire_out,.{.async=true,.activate=transmitted,.ut_id=out_ut});
+  @load_to_dsr(wire_src,end_dsd);
+  @mov32(wire_dest,wire_src,.{.async=true,.ut_id=out_ut});
+}
+
+task record_payload(data: u32) void {
+  const n=diag_state[1];
+  if (n < 64) { rx_payload[@as(u16,n)+2]=data; }
+  else { diag_state[2]=1; }
+  // Counts stay bounded even if a malformed stream never terminates.
+  if (n < 65535) { diag_state[1]=n+1; }
+  if (n == 0) { status[5]=data & 0xffff; }
+  if (data == END_WORD) {
+    diag_state[3]+=1;
+    @block(rx_task_id);
+    finish();
+  }
+}
+
+// Host may replace all source words. configure/run never modify these arrays.
+// Every default position, including both end guards, is nonzero and distinct.
+var source_rows = [32]u16{
+  0xa55a,274,291,308,325,342,359,376,
+  393,410,427,444,461,478,495,512,
+  529,546,563,580,597,614,631,648,
+  665,682,699,716,733,750,767,0x5aa5
+};
+var source_values = [32]f32{
+  1000.0,1000.25,1000.5,1000.75,1001.0,1001.25,1001.5,1001.75,
+  1002.0,1002.25,1002.5,1002.75,1003.0,1003.25,1003.5,1003.75,
+  1004.0,1004.25,1004.5,1004.75,1005.0,1005.25,1005.5,1005.75,
+  1006.0,1006.25,1006.5,1006.75,1007.0,1007.25,1007.5,1007.75
+};
+// Two leading/trailing guards keep all payload bases word-aligned.
+var local_copy = @zeros([20]u16);
+var compact_rows = @zeros([20]u16);
+var received_rows = @zeros([20]u16);
+var received_values = @zeros([20]f32);
+// error,phase,offset,length,mode,received_header,TX_callbacks,RX_callbacks.
+var status = @zeros([8]u32);
+var header = @zeros([1]u16);
+var configured: bool = false;
+var offset: i16 = 0;
+var length: u16 = 0;
+var mode: i16 = 0;
+var phase: u16 = 0;
+
+const source_rows_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{32}->source_rows[i]});
+const source_values_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{32}->source_values[i]});
+const local_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{16}->local_copy[i+2]});
+const compact_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{16}->compact_rows[i+2]});
+const rows_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{16}->received_rows[i+2]});
+const values_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{16}->received_values[i+2]});
+const header_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->header[i]});
+// Extent-one output descriptor for the header, rows and values.
+const wire_out = @get_dsd(fabout_dsd,.{.extent=1,.fabric_color=DATA,.output_queue=oq});
+const wire_in = @get_dsd(fabin_dsd,.{.extent=1,.fabric_color=DATA,.input_queue=iq});
+// Local synchronous copy finishes before either endpoint posts wire work.
+const copy_dest = @get_dsr(dsr_dest,3);
+const copy_src = @get_dsr(dsr_src1,3);
+// Sender uses dest2/src1=3. Receiver uses its own dest2/src1=2.
+// Sender reloads the SAME source1 DSR used by the completed local extraction.
+const wire_dest = @get_dsr(dsr_dest,2);
+const wire_src = @get_dsr(dsr_src1,if (ROLE == 0) 3 else 2);
+
+fn reset_outputs() void {
+  for (@range(i16,20)) |i| {
+    local_copy[i]=0xd00d;
+    compact_rows[i]=0xd00d;
+    received_rows[i]=0xd00d;
+    received_values[i]=-12345.5;
+  }
+  local_copy[0]=0x1234; local_copy[1]=0x2345;
+  local_copy[18]=0x6789; local_copy[19]=0x789a;
+  compact_rows[0]=0x1234; compact_rows[1]=0x2345;
+  compact_rows[18]=0x6789; compact_rows[19]=0x789a;
+  received_rows[0]=0x1234; received_rows[1]=0x2345;
+  received_rows[18]=0x6789; received_rows[19]=0x789a;
+  received_values[0]=-10001.0; received_values[1]=-10002.0;
+  received_values[18]=-10003.0; received_values[19]=-10004.0;
+}
+
+fn configure(off: i16, count: i16, selected_mode: i16) void {
+  configured=false;
+  for (@range(i16,8)) |i| { status[i]=0; }
+  // Bound signed arguments before addition or narrowing to u16.
+  if (off < 0 or off > 31 or count < 0 or count > 16 or
+      (selected_mode != 0 and selected_mode != 1)) {
+    status[0]=1;
+    sys.unblock_cmd_stream();
+    return;
+  }
+  if (off+count > 32) {
+    status[0]=1;
+    sys.unblock_cmd_stream();
+    return;
+  }
+  offset=off; length=@as(u16,count); mode=selected_mode;
+  status[2]=@as(u32,off); status[3]=@as(u32,count); status[4]=@as(u32,mode);
+  configured=true;
+  sys.unblock_cmd_stream();
+}
+
+fn finish() void {
+  phase=4;
+  status[1]=4;
+  diag_state[6]=1;
+  record_event(4);
+  sys.unblock_cmd_stream();
+}
+
+fn run_probe() void {
+  if (!configured) {
+    status[0]=2;
+    sys.unblock_cmd_stream();
+    return;
+  }
+  reset_outputs();
+  reset_diagnostics();
+  status[0]=0; status[5]=0; status[6]=0; status[7]=0;
+  // This direct shifted memory-only extraction is identical in both modes.
+  if (length > 0) {
+    const shifted = @increment_dsd_offset(@set_dsd_length(source_rows_dsd,length),offset,u16);
+    @load_to_dsr(copy_dest,@set_dsd_length(local_dsd,length));
+    @load_to_dsr(copy_src,shifted);
+    @mov16(copy_dest,copy_src);
+  }
+  phase=1; status[1]=1;
+  record_event(0);
+  if (comptime ROLE == 0) {
+    if (mode == 1) {
+      var i: u16=0;
+      while (i < length) : (i+=1) {
+        compact_rows[i+2]=source_rows[@as(u16,offset)+i];
+      }
+    }
+    header[0]=length;
+    @load_to_dsr(wire_dest,wire_out,.{.async=true,.activate=transmitted,.ut_id=out_ut});
+    @load_to_dsr(wire_src,header_dsd);
+    @mov16(wire_dest,wire_src,.{.async=true,.ut_id=out_ut});
+  } else {
+    if (comptime OBSERVE == 2) {
+      @unblock(rx_task_id);
+      return;
+    }
+    header[0]=0xbeef;
+    @load_to_dsr(wire_src,wire_in,.{.async=true,.activate=received});
+    @load_to_dsr(wire_dest,header_dsd);
+    @mov16(wire_dest,wire_src,.{.async=true});
+  }
+}
+
+task transmitted() void {
+  record_event(@as(u32,phase));
+  status[6]+=1;
+  if (phase == 1) {
+    if (length == 0) {
+      if (comptime OBSERVE == 2 and ROLE == 0) { send_end(); } else { finish(); }
+      return;
+    }
+    phase=2; status[1]=2;
+    @load_to_dsr(wire_dest,wire_out,.{.async=true,.activate=transmitted,.ut_id=out_ut});
+    if (mode == 0) {
+      const shifted = @increment_dsd_offset(@set_dsd_length(source_rows_dsd,length),offset,u16);
+      @load_to_dsr(wire_src,shifted);
+    } else {
+      @load_to_dsr(wire_src,@set_dsd_length(compact_dsd,length));
+    }
+    @mov16(wire_dest,wire_src,.{.async=true,.ut_id=out_ut});
+  } else if (phase == 2) {
+    phase=3; status[1]=3;
+    const shifted = @increment_dsd_offset(@set_dsd_length(source_values_dsd,length),offset,f32);
+    @load_to_dsr(wire_dest,wire_out,.{.async=true,.activate=transmitted,.ut_id=out_ut});
+    @load_to_dsr(wire_src,shifted);
+    @mov32(wire_dest,wire_src,.{.async=true,.ut_id=out_ut});
+  } else if (phase == 3) {
+    if (comptime OBSERVE == 2 and ROLE == 0) { send_end(); } else { finish(); }
+  } else if (phase == 5 and OBSERVE == 2 and ROLE == 0) {
+    finish();
+  } else {
+    status[0]=4;
+    sys.unblock_cmd_stream();
+  }
+}
+
+task received() void {
+  record_event(@as(u32,phase));
+  status[7]+=1;
+  if (phase == 1) {
+    status[5]=@as(u32,header[0]);
+    if (header[0] != length or header[0] > 16) {
+      status[0]=3;
+      sys.unblock_cmd_stream();
+      return;
+    }
+    if (length == 0) {
+      if (comptime OBSERVE == 2 and ROLE == 0) { send_end(); } else { finish(); }
+      return;
+    }
+    phase=2; status[1]=2;
+    @load_to_dsr(wire_src,@set_dsd_length(wire_in,length),.{.async=true,.activate=received});
+    @load_to_dsr(wire_dest,rows_dsd);
+    @mov16(wire_dest,wire_src,.{.async=true});
+  } else if (phase == 2) {
+    phase=3; status[1]=3;
+    @load_to_dsr(wire_src,@set_dsd_length(wire_in,length),.{.async=true,.activate=received});
+    @load_to_dsr(wire_dest,values_dsd);
+    @mov32(wire_dest,wire_src,.{.async=true});
+  } else if (phase == 3) {
+    if (comptime OBSERVE == 2 and ROLE == 0) { send_end(); } else { finish(); }
+  } else if (phase == 5 and OBSERVE == 2 and ROLE == 0) {
+    finish();
+  } else {
+    status[0]=4;
+    sys.unblock_cmd_stream();
+  }
+}
+
+var source_rows_ptr: [*]u16=&source_rows;
+var source_values_ptr: [*]f32=&source_values;
+var local_copy_ptr: [*]u16=&local_copy;
+var compact_rows_ptr: [*]u16=&compact_rows;
+var received_rows_ptr: [*]u16=&received_rows;
+var received_values_ptr: [*]f32=&received_values;
+var status_ptr: [*]u32=&status;
+var diag_state_ptr: [*]u32=&diag_state;
+var rx_payload_ptr: [*]u32=&rx_payload;
+var diag_events_ptr: [*]u32=&diag_events;
+comptime {
+  if (ROLE == 0) {
+    @initialize_queue(oq,.{.color=DATA});
+    @bind_local_task(transmitted,TX_DONE);
+  } else {
+    @initialize_queue(iq,.{.color=DATA});
+    @block(rx_task_id);
+    if (OBSERVE == 2) { @bind_data_task(record_payload,rx_task_id); }
+    else { @bind_local_task(received,RX_DONE); }
+  }
+  @export_symbol(source_rows_ptr,"source_rows");
+  @export_symbol(source_values_ptr,"source_values");
+  @export_symbol(local_copy_ptr,"local_copy");
+  @export_symbol(compact_rows_ptr,"compact_rows");
+  @export_symbol(received_rows_ptr,"received_rows");
+  @export_symbol(received_values_ptr,"received_values");
+  @export_symbol(status_ptr,"status");
+  @export_symbol(diag_state_ptr,"diag_state");
+  @export_symbol(rx_payload_ptr,"rx_payload");
+  @export_symbol(diag_events_ptr,"diag_events");
+  @export_symbol(configure);
+  @export_symbol(run_probe);
+}

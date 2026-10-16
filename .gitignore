@@ -1,7 +1,19 @@
-# Only the standalone reproducer source belongs in this repository.
+# Explicit source allowlist: keep captures, SDK files and local setup private.
 *
 !/.gitignore
 !/run.py
 !/source/
 !/source/layout.csl
 !/source/pe.csl
+!/USAGE.md
+!/appliance.py
+!/collect_jobs.py
+!/inspect_result.py
+!/diagnostic.py
+!/diagnostics/
+!/diagnostics/layout.csl
+!/diagnostics/pe.csl
+!/tests/
+!/tests/test_appliance.py
+!/tests/test_collect_jobs.py
+!/tests/test_diagnostics.py
