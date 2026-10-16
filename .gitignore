@@ -1,0 +1,7 @@
+# Only the standalone reproducer source belongs in this repository.
+*
+!/.gitignore
+!/run.py
+!/source/
+!/source/layout.csl
+!/source/pe.csl

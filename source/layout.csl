@@ -1,0 +1,21 @@
+// Two-PE native-u16 transfer with a configurable source offset and length.
+const DATA = @get_color(1);
+const memcpy = @import_module("<memcpy/get_params>", .{.width=2,.height=1});
+
+layout {
+  @set_rectangle(2,1);
+  for (@range(i16,2)) |x| {
+    @set_tile_code(x,0,"pe.csl",.{.memcpy_params=memcpy.get_params(x),.ROLE=x,.DATA=DATA});
+  }
+  @set_color_config(0,0,DATA,.{.routes=.{.rx=.{RAMP},.tx=.{EAST}}});
+  @set_color_config(1,0,DATA,.{.routes=.{.rx=.{WEST},.tx=.{RAMP}}});
+  @export_name("source_rows",[*]u16,true);
+  @export_name("source_values",[*]f32,true);
+  @export_name("local_copy",[*]u16,true);
+  @export_name("compact_rows",[*]u16,true);
+  @export_name("received_rows",[*]u16,true);
+  @export_name("received_values",[*]f32,true);
+  @export_name("status",[*]u32,true);
+  @export_name("configure",fn(i16,i16,i16)void);
+  @export_name("run_probe",fn()void);
+}
