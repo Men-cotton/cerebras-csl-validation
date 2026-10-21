@@ -17,3 +17,16 @@
 !/tests/test_appliance.py
 !/tests/test_collect_jobs.py
 !/tests/test_diagnostics.py
+!/clock_common.py
+!/clock_probe.py
+!/clock_local.py
+!/clock_appliance.py
+!/clock_inspect.py
+!/CLOCKS.md
+!/clock_source/
+!/clock_source/layout.csl
+!/clock_source/pe.csl
+!/tests/test_clock_common.py
+!/tests/test_clock_appliance.py
+!/clock_pmu.py
+!/tests/test_clock_pmu.py
