@@ -30,3 +30,12 @@
 !/tests/test_clock_appliance.py
 !/clock_pmu.py
 !/tests/test_clock_pmu.py
+!/clock_campaign.py
+!/clock_plan.py
+!/clock_report.py
+!/CLOCK_CAMPAIGN.md
+!/tests/test_clock_campaign.py
+!/tests/test_clock_plan.py
+!/tests/test_clock_report.py
+!/tests/test_clock_probe.py
+!/tests/test_clock_extensions.py

@@ -7,14 +7,16 @@ layout {
   @set_rectangle(C, R);
   for (@range(u16, C)) |x| {
     for (@range(u16, R)) |y| {
-      @set_tile_code(x, y, "pe.csl", .{.memcpy_params=memcpy.get_params(x), .W=W});
+      @set_tile_code(x, y, "pe.csl", .{.memcpy_params=memcpy.get_params(x), .W=W, .M=C*R});
     }
   }
   @export_name("data", [*]u32, true);
   @export_name("seen", [*]u32, false);
   @export_name("report", [*]u32, false);
+  @export_name("marks", [*]u32, false);
   @export_name("init", fn()void);
   @export_name("tic", fn(u16)void);
   @export_name("toc", fn(u16)void);
   @export_name("internal", fn(u16, u16)void);
+  @export_name("mark", fn(u16, u16)void);
 }

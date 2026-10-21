@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 param memcpy_params;
 param W: u16;
+param M: u16;
 const sys = @import_module("<memcpy/memcpy>", memcpy_params);
 const clock = @import_module("<time>");
 var data = @zeros([W]u32);
@@ -11,11 +12,16 @@ var work_start = @zeros([3]u16);
 // start[3], end[3], start/end generation, work, kind, copied words,
 // guard, work_start[3], guard. Every clock limb is a native u32 low16.
 var report = @zeros([16]u32);
+// One record per command boundary: timestamp[3], generation, index,
+// data[0], data[W-1], guard. Unused slots retain all-one sentinels.
+var marks = @zeros([M*8]u32);
+var mark_clock = @zeros([3]u16);
 var data_dsd = @get_dsd(mem1d_dsd, .{.base_address=&data, .extent=W});
 var seen_dsd = @get_dsd(mem1d_dsd, .{.base_address=&seen, .extent=W});
 var ptr_data: [*]u32 = &data;
 const ptr_seen: [*]u32 = &seen;
 const ptr_report: [*]u32 = &report;
+const ptr_marks: [*]u32 = &marks;
 
 fn init() void {
   clock.enable_tsc();
@@ -28,6 +34,7 @@ fn begin(generation: u16, kind: u16) void {
   @assert(@as(u32, generation) == report[7] + 1);
   report[6] = @as(u32, generation);
   report[9] = @as(u32, kind);
+  for (@range(u16, M*8)) |i| { marks[i] = 0xffffffff; }
   clock.get_timestamp(&start);
   for (@range(u16, 3)) |i| { report[i] = @as(u32, start[i]); }
 }
@@ -52,6 +59,21 @@ fn tic(generation: u16) void {
   sys.unblock_cmd_stream();
 }
 fn toc(work: u16) void { complete(work); }
+fn mark(index: u16, generation: u16) void {
+  @assert(index < M);
+  @assert(report[6] == @as(u32, generation));
+  @assert(report[7] + 1 == report[6]);
+  const offset: u16 = index * 8;
+  @assert(marks[offset+7] == 0xffffffff);
+  clock.get_timestamp(&mark_clock);
+  for (@range(u16, 3)) |i| { marks[offset+i] = @as(u32, mark_clock[i]); }
+  marks[offset+3] = @as(u32, generation);
+  marks[offset+4] = @as(u32, index);
+  marks[offset+5] = data[0];
+  marks[offset+6] = data[W-1];
+  marks[offset+7] = 0x4d41524b;
+  sys.unblock_cmd_stream();
+}
 fn internal(generation: u16, work: u16) void {
   begin(generation, 1);
   complete(work);
@@ -60,8 +82,10 @@ comptime {
   @export_symbol(ptr_data, "data");
   @export_symbol(ptr_seen, "seen");
   @export_symbol(ptr_report, "report");
+  @export_symbol(ptr_marks, "marks");
   @export_symbol(init);
   @export_symbol(tic);
   @export_symbol(toc);
   @export_symbol(internal);
+  @export_symbol(mark);
 }

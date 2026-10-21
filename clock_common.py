@@ -9,6 +9,8 @@ import uuid
 SCHEMA = 1
 MASK48 = (1 << 48) - 1
 REPORT_WORDS = 16
+MARK_WORDS = 8
+MARK_GUARD = 0x4D41524B
 BACKENDS = ('local-sim', 'appliance-sim', 'hardware')
 DEFAULT_CONFIG = dict(kind='transfer', start='witness', transfer='queued',
                       arm='rectangle', pause_at='none', pause_seconds=0.0,
@@ -57,9 +59,16 @@ def validate_params(value):
 
 
 def validate_config(value):
-    require(isinstance(value, dict) and not (set(value)-set(DEFAULT_CONFIG)-{'host_pmu'}), 'configuration keys')
+    require(isinstance(value, dict) and not (set(value)-set(DEFAULT_CONFIG)-
+            {'host_pmu', 'piece_order', 'markers', 'pmu_controls'}), 'configuration keys')
     result = dict(DEFAULT_CONFIG, **value)
     require('host_pmu' not in result or type(result['host_pmu']) is bool, 'host_pmu boolean')
+    require(result.get('piece_order', 'forward') in ('forward', 'reverse'), 'piece order')
+    require(type(result.get('markers', False)) is bool, 'markers boolean')
+    require(not result.get('markers', False) or result['kind'] in ('empty', 'transfer'), 'marker command window')
+    controls = result.get('pmu_controls', 0)
+    require(type(controls) is int and 0 <= controls <= 8, 'PMU control bound')
+    require(not controls or result.get('host_pmu', False), 'PMU controls require host_pmu')
     for key, allowed in (
         ('kind', ('empty', 'transfer', 'internal')),
         ('start', ('blocking', 'queued', 'wait', 'witness')),
@@ -91,13 +100,20 @@ def fixture(params, step):
     return words.reshape(params['R'], params['C'], params['W'])
 
 
-def pieces(value, arm):
+def pieces(value, arm, order='forward'):
     r, c, w = value.shape
     if arm == 'rectangle':
-        return [(0, 0, c, r, value.reshape(-1).copy())]
-    if arm == 'strips':
-        return [(0, y, c, 1, value[y].reshape(-1).copy()) for y in range(r)]
-    return [(x, y, 1, 1, value[y, x].copy()) for y in range(r) for x in range(c)]
+        result = [(0, 0, c, r, value.reshape(-1).copy())]
+    elif arm == 'strips':
+        result = [(0, y, c, 1, value[y].reshape(-1).copy()) for y in range(r)]
+    else:
+        result = [(x, y, 1, 1, value[y, x].copy()) for y in range(r) for x in range(c)]
+    return result if order == 'forward' else result[::-1]
+
+
+def piece_count(params, config):
+    return (1 if config['arm'] == 'rectangle' else params['R'] if config['arm'] == 'strips'
+            else params['C'] * params['R'])
 
 
 def u48(limbs):
@@ -131,6 +147,44 @@ def decode_report(value, params, config, step):
     return result
 
 
+def decode_marks(value, decoded, params, config, step):
+    """Command-boundary observations; each interval uses one PE's own clock."""
+    import numpy as np
+    slots = params['C'] * params['R']
+    require(value.dtype == np.uint32 and value.shape == (params['R'], params['C'], slots * MARK_WORDS),
+            'marker ABI')
+    records = value.reshape(params['R'], params['C'], slots, MARK_WORDS)
+    count = piece_count(params, config)
+    require(np.all(records[:, :, count:, :] == 0xffffffff), 'unused marker sentinels')
+    wanted = fixture(params, step)
+    observed = np.bitwise_not(wanted) if config['kind'] == 'transfer' else wanted.copy()
+    payloads = pieces(wanted, config['arm'], config.get('piece_order', 'forward'))
+    previous = [[p['start'] for p in row] for row in decoded]
+    result = []
+    for index, (x0, y0, width, height, payload) in enumerate(payloads):
+        if config['kind'] == 'transfer':
+            observed[y0:y0+height, x0:x0+width] = payload.reshape(height, width, params['W'])
+        rows = []
+        for y in range(params['R']):
+            row = []
+            for x in range(params['C']):
+                mark = records[y, x, index]
+                require(list(map(int, mark[3:5])) == [step+1, index], 'marker generation/index')
+                require(int(mark[7]) == MARK_GUARD, 'marker guard')
+                require(int(mark[5]) == int(observed[y, x, 0]) and
+                        int(mark[6]) == int(observed[y, x, -1]), 'marker prefix payload endpoints')
+                timestamp = u48(mark[:3])
+                elapsed = delta(timestamp, decoded[y][x]['start'])
+                interval = delta(timestamp, previous[y][x])
+                require(elapsed < decoded[y][x]['pre_work_cycles'], 'marker within command window')
+                previous[y][x] = timestamp
+                row.append(dict(timestamp=timestamp, from_start_cycles=elapsed,
+                                from_previous_cycles=interval, first_word=int(mark[5]), last_word=int(mark[6])))
+            rows.append(row)
+        result.append(dict(index=index, piece_rectangle=[x0, y0, width, height], pe=rows))
+    return result
+
+
 def validate_arrays(raw, params, config):
     import numpy as np
     expected = {f'{n}_{s}' for n in ('data', 'seen', 'report') for s in range(3)}
@@ -138,6 +192,8 @@ def validate_arrays(raw, params, config):
         expected |= {f'start_{s}' for s in range(3)}
     if config['pause_at'] == 'after_end_witness':
         expected |= {f'end_before_pause_{s}' for s in range(3)}
+    if config.get('markers', False):
+        expected |= {f'marks_{s}' for s in range(3)}
     require(set(raw) == expected, 'complete raw array inventory')
     steps, prior = [], None
     for step in range(3):
@@ -161,9 +217,12 @@ def validate_arrays(raw, params, config):
                 for x in range(params['C']):
                     delta(decoded[y][x]['start'], prior[y][x]['end'])
         prior = decoded
-        steps.append(dict(step=step, pe=decoded,
-                          max_span_cycles=max(p['span_cycles'] for row in decoded for p in row),
-                          max_work_cycles=max(p['work_cycles'] for row in decoded for p in row)))
+        record = dict(step=step, pe=decoded,
+                      max_span_cycles=max(p['span_cycles'] for row in decoded for p in row),
+                      max_work_cycles=max(p['work_cycles'] for row in decoded for p in row))
+        if config.get('markers', False):
+            record['marks'] = decode_marks(raw[f'marks_{step}'], decoded, params, config, step)
+        steps.append(record)
     return steps
 
 
@@ -192,12 +251,15 @@ def read_raw(data):
 
 def expected_calls(params, config):
     names = ['construct', 'get_id:data', 'get_id:seen', 'get_id:report', 'load', 'run', 'init']
+    if config.get('markers', False):
+        names.insert(4, 'get_id:marks')
     if config.get('host_pmu', False):
         names.insert(0, 'pmu-empty')
     for step in range(3):
         def pause(where):
             if config['pause_at'] == where:
                 names.append(f'pause:{step}:{where}')
+        names.extend(f'pmu-empty:{step}:before:{i}' for i in range(config.get('pmu_controls', 0)))
         names.append(f'preload:{step}')
         pause('before_start')
         if config['kind'] == 'internal':
@@ -211,12 +273,14 @@ def expected_calls(params, config):
             if config['start'] == 'witness':
                 names.append(f'd2h:{step}:start')
             pause('after_start')
-            if config['kind'] == 'transfer':
-                count = 1 if config['arm'] == 'rectangle' else params['R'] if config['arm'] == 'strips' else params['R']*params['C']
-                for i in range(count):
-                    names.append(f'h2d:{step}:{i}')
-                    if config['transfer'] == 'wait':
-                        names.append(f'h2d:{step}:{i}:wait')
+            if config['kind'] == 'transfer' or config.get('markers', False):
+                for i in range(piece_count(params, config)):
+                    if config['kind'] == 'transfer':
+                        names.append(f'h2d:{step}:{i}')
+                        if config['transfer'] == 'wait':
+                            names.append(f'h2d:{step}:{i}:wait')
+                    if config.get('markers', False):
+                        names.append(f'mark:{step}:{i}')
                     if i == 0:
                         pause('between_h2d')
             pause('before_end')
@@ -226,6 +290,9 @@ def expected_calls(params, config):
             names.append(f'd2h:{step}:end_before_pause')
             pause('after_end_witness')
         names.extend(f'd2h:{step}:{n}' for n in ('report', 'data', 'seen'))
+        if config.get('markers', False):
+            names.append(f'd2h:{step}:marks')
+        names.extend(f'pmu-empty:{step}:after:{i}' for i in range(config.get('pmu_controls', 0)))
     return names + ['stop']
 
 
@@ -233,20 +300,27 @@ def validate_calls(calls, params, config):
     require(isinstance(calls, list) and len(calls) <= 1000, 'API record bound')
     require([x['name'] for x in calls] == expected_calls(params, config), 'exact API sequence')
     ids = {event['args'][0]:event.get('result') for event in calls if event['name'].startswith('get_id:')}
-    require(set(ids) == {'data','seen','report'} and all(type(v) is int for v in ids.values())
-            and len(set(ids.values())) == 3, 'distinct native symbol IDs')
+    symbols = {'data', 'seen', 'report'} | ({'marks'} if config.get('markers', False) else set())
+    require(set(ids) == symbols and all(type(v) is int for v in ids.values())
+            and len(set(ids.values())) == len(symbols), 'distinct native symbol IDs')
     previous = 0
     for event in calls:
         require(event['status'] == 'pass', 'API completion')
         require(('pmu' in event) == config.get('host_pmu',False), 'PMU instrumentation matches request')
         if 'pmu' in event:
             validate_pmu(event['pmu'])
+        require(('thread_before' in event) == bool(config.get('pmu_controls', 0)) and
+                ('thread_after' in event) == bool(config.get('pmu_controls', 0)), 'thread diagnostics match request')
+        if 'thread_before' in event:
+            validate_thread_samples(event['thread_before'], event['thread_after'])
         require(all(type(event[k]) is int and event[k] >= 0 for k in ('wall_start_ns','wall_end_ns','cpu_start_ns','cpu_end_ns')), 'nonnegative integer nanoseconds')
         require(type(event['wall_start_ns']) is int and event['wall_start_ns'] >= previous
                 and event['wall_end_ns'] >= event['wall_start_ns'], 'ordered host wall record')
         require(event['cpu_end_ns'] >= event['cpu_start_ns'], 'nonnegative host CPU record')
         previous = event['wall_end_ns']
         name, kw = event['name'], event['kwargs']
+        if name.startswith('pmu-empty'):
+            require(event['args'] == [] and not kw and event.get('result') is None, 'empty control arguments')
         if name.startswith('get_id:'):
             require(event['args'] == [name.split(':')[1]] and not kw, 'symbol lookup arguments')
         if name in ('construct','load','run','stop'):
@@ -265,6 +339,9 @@ def validate_calls(calls, params, config):
             require(event['args'] == (['tic',step+1] if name.startswith('tic:') else ['internal',step+1,config['work']]), 'launch arguments')
         if name.startswith('toc:'):
             require(event['args'] == ['toc',config['work']] and kw == {'nonblock':False}, 'end launch')
+        if name.startswith('mark:'):
+            _, step, index = name.split(':')
+            require(event['args'] == ['mark', int(index), int(step)+1] and kw == {'nonblock': True}, 'marker launch')
         if name.startswith(('preload:', 'h2d:', 'd2h:')):
             require(kw['streaming'] is False and kw['nonblock'] == (name.startswith('h2d:') and config['transfer'] != 'blocking'), 'transfer flags')
             require(len(event['args']) == 7, 'transfer argument count')
@@ -276,9 +353,11 @@ def validate_calls(calls, params, config):
             wanted = fixture(params, step)
             if name.startswith('d2h:'):
                 n = name.split(':')[2]
-                symbol = n if n in ('data','seen') else 'report'
+                symbol = n if n in ('data','seen','marks') else 'report'
                 require(a[1] == ids[symbol], 'D2H symbol ID')
-                receive = np.full((params['R'],params['C'],params['W'] if symbol != 'report' else REPORT_WORDS),0xffffffff,dtype=np.uint32)
+                size = (REPORT_WORDS if symbol == 'report' else params['C']*params['R']*MARK_WORDS
+                        if symbol == 'marks' else params['W'])
+                receive = np.full((params['R'],params['C'],size),0xffffffff,dtype=np.uint32)
                 descriptor = a[0]
                 initial = receive.reshape(-1)
                 role = f'{n}:{step}'
@@ -288,23 +367,30 @@ def validate_calls(calls, params, config):
                 if name.startswith('preload:'):
                     initial = (np.bitwise_not(wanted) if config['kind'] == 'transfer' else wanted).reshape(-1)
                 else:
-                    initial = pieces(wanted,config['arm'])[int(name.split(':')[2])][4]
+                    initial = pieces(wanted,config['arm'],config.get('piece_order','forward'))[int(name.split(':')[2])][4]
                 role = name
             require(descriptor == dict(role=role,dtype='uint32',shape=list(initial.shape),
                                        initial_sha256=digest_bytes(initial.tobytes())), 'complete payload/receive descriptor')
             shape = a[2:]
             if name.startswith('h2d:'):
                 i = int(name.split(':')[2])
-                if config['arm'] == 'rectangle':
-                    expected = [0,0,params['C'],params['R'],params['W']]
-                elif config['arm'] == 'strips':
-                    expected = [0,i,params['C'],1,params['W']]
-                else:
-                    expected = [i % params['C'],i // params['C'],1,1,params['W']]
+                expected = list(pieces(wanted,config['arm'],config.get('piece_order','forward'))[i][:4]) + [params['W']]
             else:
-                count = params['W'] if not name.startswith('d2h:') or name.split(':')[2] in ('data','seen') else REPORT_WORDS
+                count = (params['W'] if not name.startswith('d2h:') or name.split(':')[2] in ('data','seen')
+                         else params['C']*params['R']*MARK_WORDS if name.split(':')[2] == 'marks' else REPORT_WORDS)
                 expected = [0,0,params['C'],params['R'],count]
             require(shape == expected, 'exact transfer rectangle')
+
+
+def validate_thread_samples(before, after):
+    fields = {'thread_time_ns', 'cpu', 'voluntary_context_switches',
+              'involuntary_context_switches', 'minor_faults', 'major_faults'}
+    for sample in (before, after):
+        require(isinstance(sample, dict) and set(sample) == fields, 'thread diagnostic fields')
+        require(all(v is None or type(v) is int and v >= 0 for v in sample.values()), 'thread diagnostic integers')
+    for field in fields - {'cpu'}:
+        require(before[field] is None or after[field] is None or after[field] >= before[field],
+                'monotonic thread diagnostic: '+field)
 
 
 def validate_capture_content(meta, calls, raw_bytes, manifest, request):
