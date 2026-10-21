@@ -156,6 +156,19 @@ class ClockApplianceTests(unittest.TestCase):
         with mock.patch.object(adapter.common, "validate_capture_content", side_effect=numerical_hook):
             return adapter.run_program(args, self.root, Launcher), output
 
+    def test_collection_reports_unavailable_pmu_separately_from_numerical_pass(self):
+        path = self.compile_record()
+        manifest = adapter.read_json(path)
+        request = dict(config=dict(CONFIG,host_pmu=True),run_id='test-pmu',manifest_sha256=adapter.digest(path))
+        errors = dict(stage='open',type='PermissionError',errno=1,message='denied')
+        calls = [dict(pmu=dict(status='unavailable',scope='thread-self-user',error=errors))]
+        capture = self.root/'pmu.tar.gz'
+        capture.write_bytes(self.capture(manifest,request,calls=calls))
+        with mock.patch.object(adapter.common,'validate_capture_content',return_value=dict(status='pass')):
+            meta, receipt = adapter.validate_capture(capture,manifest,request)
+        self.assertEqual(meta['status'],'pass')
+        self.assertEqual(receipt['pmu'],dict(requested=True,samples=1,measured=0,unavailable=1,errors=[errors]))
+
     def test_compile_pins_source_host_adapter_params_and_exact_options(self):
         path = self.compile_record()
         manifest, artifact = adapter.load_manifest(path, "simulator", self.root)

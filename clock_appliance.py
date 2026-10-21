@@ -339,6 +339,14 @@ def validate_capture(path, manifest, request):
     validation = common.validate_capture_content(meta, calls, payloads["raw.npz"], manifest, request)
     require(isinstance(validation, dict) and validation.get("status") == meta["status"],
             "raw validation status differs from capture")
+    if request['config'].get('host_pmu',False):
+        samples = [c['pmu'] for c in calls if 'pmu' in c]
+        validation['pmu'] = dict(requested=True, samples=len(samples),
+                                 measured=sum(s['status'] == 'ok' for s in samples),
+                                 unavailable=sum(s['status'] == 'unavailable' for s in samples),
+                                 errors=[s['error'] for s in samples if s['status'] == 'unavailable'][:1])
+    else:
+        validation['pmu'] = dict(requested=False)
     return meta, validation
 
 
