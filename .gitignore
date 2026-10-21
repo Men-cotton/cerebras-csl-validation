@@ -39,3 +39,5 @@
 !/tests/test_clock_report.py
 !/tests/test_clock_probe.py
 !/tests/test_clock_extensions.py
+!/clock_retry.py
+!/tests/test_clock_retry.py

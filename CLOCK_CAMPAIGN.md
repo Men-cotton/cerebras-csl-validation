@@ -53,6 +53,36 @@ valid artifacts can be recovered; otherwise it becomes `unknown` and is skipped.
 Launching the default command again creates a new independent campaign. Do not
 use that as an implicit retry of an uncertain remote job.
 
+To explicitly retry unfinished entries after losing the tmux session, use the
+original directory on the SDK client node:
+
+```bash
+git pull --ff-only origin tank22-host-command-clocks
+uv run python clock_retry.py ./clock-campaign-20261021T193310Z-8eacf5
+```
+
+This reads the live plan/state, excludes completed numerical results, and checks
+saved captures for completed attempts whose state was not finalized. It then
+creates `clock-campaign-20261021T193310Z-8eacf5-retry` and starts the existing
+private tmux launcher. The same SDK environment, namespace, parameters and
+frozen driver are retained. Valid compiled builds are copied and revalidated;
+only missing or invalid builds need compilation. Individual failures still
+allow later independent entries to continue.
+
+The original plan, results and failure records remain unchanged. The new plan
+records the parent hashes, selected entries, prior job IDs and unconfirmed
+remote termination. A released local lock or closed tmux session does not prove
+that a remote job ended; this command is an explicit retry and can overlap an
+old remote job. A validated terminal raw capture without finalized collection
+is excluded from retry but is not promoted to campaign PASS.
+
+The default retry directory must be new, so repeating the command cannot silently
+create another campaign. `--plan-only` prepares that directory without submission;
+start its pending entries with `uv run python clock_campaign.py --resume PATH`.
+If a retry campaign is interrupted again, pass that retry directory to
+`clock_retry.py`. Analyze each retry subset separately: an old failed member and
+a later retry do not restore the original contemporaneous paired comparison.
+
 The implementation follows Modelzoo's `benchmark_launcher.py` private tmux
 server, interpreter/environment inheritance, atomic state and locking, and its
 `worker_campaign.py` / `non_gnn/campaign.py` per-attempt failure handling. It has
