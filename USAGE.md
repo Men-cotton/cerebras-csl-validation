@@ -124,3 +124,12 @@ API references: [appliance](https://sdk.cerebras.ai/api-docs/appliance-api),
 [data tasks](https://sdk.cerebras.ai/csl/language/task-ids),
 [queue and time libraries](https://sdk.cerebras.ai/csl/language/libraries),
 [job monitoring](https://training-docs.cerebras.ai/rel-2.10.0/cluster-monitoring/cerebras-job-scheduling-and-monitoring/cli-for-job-monitoring-csctl).
+
+## Host submission and device clocks
+
+The separate [command-clock probe](CLOCKS.md) provides start/end witnesses,
+full-word A/B/A validation, independent start/H2D modes, pause placement,
+rectangle/row/tile transfers, device-contained work and optional host-thread
+PMU counters. It has local SIM and appliance/hardware drivers; this addition
+does not change the native16 tests above. See the guide for representative
+comparisons, source-bound captures and the current validation limits.
