@@ -1,5 +1,8 @@
 # Host command and device clocks
 
+For the fixed hardware campaign with tmux, continued execution after failures,
+and one-command collection, use [CLOCK_CAMPAIGN.md](CLOCK_CAMPAIGN.md).
+
 This additive probe investigates host command submission without changing the
 native16 reproducer. It runs the same CSL source and full-word oracle on local
 SDK SIM, appliance SIM, and hardware. Only local SDK 2.10.2 SIM has been run by
