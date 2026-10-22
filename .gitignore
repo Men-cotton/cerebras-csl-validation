@@ -41,3 +41,17 @@
 !/tests/test_clock_extensions.py
 !/clock_retry.py
 !/tests/test_clock_retry.py
+
+# Frozen MeshGraphNet validation sources and local evidence only.
+!/mesh_appliance.py
+!/mesh_campaign.py
+!/mesh_audit.py
+!/mesh_worker.py
+!/test_mesh_appliance.py
+!/test_mesh_audit.py
+!/test_mesh_worker.py
+!/MESHGRAPHNET.md
+!/mesh_cases/
+!/mesh_cases/**
+!/mesh_local_evidence/
+!/mesh_local_evidence/**

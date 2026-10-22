@@ -1,0 +1,209 @@
+{
+  "rpc_symbols": [
+    {
+      "id": 3,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "node_type",
+      "sym_name": "p_node_type",
+      "type": "[*]u32"
+    },
+    {
+      "id": 22,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "rx_slot",
+      "sym_name": "halo.p_rx_slot",
+      "type": "[*]u32"
+    },
+    {
+      "id": 12,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "cached_e0",
+      "sym_name": "p_cached_e0",
+      "type": "[*]f32"
+    },
+    {
+      "id": 6,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "src_begin",
+      "sym_name": "p_src_begin",
+      "type": "[*]u32"
+    },
+    {
+      "id": 24,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "round_sources",
+      "sym_name": "p_round_sources",
+      "type": "[*]u32"
+    },
+    {
+      "id": 2,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "velocity",
+      "sym_name": "p_velocity",
+      "type": "[*]f32"
+    },
+    {
+      "id": 15,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "panel",
+      "sym_name": "p_panel",
+      "type": "[*]f32"
+    },
+    {
+      "id": 18,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "lifecycle",
+      "sym_name": "p_lifecycle",
+      "type": "[*]u32"
+    },
+    {
+      "id": 4,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "edge_features",
+      "sym_name": "p_edge_features",
+      "type": "[*]f32"
+    },
+    {
+      "id": 13,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "sender_cache",
+      "sym_name": "p_sender_cache",
+      "type": "[*]f32"
+    },
+    {
+      "id": 23,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "comm_stats",
+      "sym_name": "halo.p_comm_stats",
+      "type": "[*]u32"
+    },
+    {
+      "id": 1,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "counts",
+      "sym_name": "p_counts",
+      "type": "[*]u32"
+    },
+    {
+      "id": 17,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "clocks",
+      "sym_name": "p_clocks",
+      "type": "[*]u16"
+    },
+    {
+      "id": 20,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "tx_slots",
+      "sym_name": "halo.p_tx_slots",
+      "type": "[*]u32"
+    },
+    {
+      "id": 11,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "e",
+      "sym_name": "p_e",
+      "type": "[*]f32"
+    },
+    {
+      "id": 14,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "aggregate",
+      "sym_name": "p_aggregate",
+      "type": "[*]f32"
+    },
+    {
+      "id": 10,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "h",
+      "sym_name": "p_h",
+      "type": "[*]f32"
+    },
+    {
+      "id": 7,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "src_slot",
+      "sym_name": "p_src_slot",
+      "type": "[*]u32"
+    },
+    {
+      "id": 8,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "dst_slot",
+      "sym_name": "p_dst_slot",
+      "type": "[*]u32"
+    },
+    {
+      "id": 16,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "stats",
+      "sym_name": "p_stats",
+      "type": "[*]u32"
+    },
+    {
+      "id": 19,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "tx_begin",
+      "sym_name": "halo.p_tx_begin",
+      "type": "[*]u32"
+    },
+    {
+      "id": 5,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "src_owner",
+      "sym_name": "p_src_owner",
+      "type": "[*]u32"
+    },
+    {
+      "id": 21,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "rx_count",
+      "sym_name": "halo.p_rx_count",
+      "type": "[*]u32"
+    },
+    {
+      "id": 25,
+      "inputs": [
+        {
+          "name": "steps",
+          "type": "u16"
+        }
+      ],
+      "kind": "Func",
+      "name": "run",
+      "sym_name": "run",
+      "type": "void"
+    },
+    {
+      "id": 9,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "weights",
+      "sym_name": "p_weights",
+      "type": "[*]f32"
+    }
+  ]
+}

@@ -1,0 +1,533 @@
+{
+  "status": "COMPLETED",
+  "request_sha256": "b8e412e0ab9408f5ce65b6980daba43f39087ad0cf5a9915e7d50b2956a74f38",
+  "package_manifest_sha256": "6d147ae320fcf727735fbeea3834e8b9c2b16d4cb281a45e04ef8e7ea0fa282e",
+  "run_id": "37cd75ba-e402-4218-8a39-a89e1c4a9fdf",
+  "case_sha256": "9a45c4dc94ccf024fd8d64da00e861b3f3fdd05773b4128dfac58d8d8b600e9c",
+  "case_name": "small-colored",
+  "artifact_sha256": "d6c8d2dd9c6bcedaf4f0d409884d375c3d82238010d5dff8e2155e125a5d1bcc",
+  "worker_sha256": "4b5549b06b2bc898a0ea848f11ae6f9ec88f8445a47e52ad1540e52da5d03f1d",
+  "backend": "local-sim",
+  "compiled_sha256": {
+    "out.json": "336113ea1a463993c8bd268d92a7e52d13b873d209f4bf35122aa2ee89d2ee51",
+    "out_rpc.json": "86ae77df6168af3f274c6a82656e7daf1fe550c4c51026b2127d9f99d6899599"
+  },
+  "sdk_identity": {
+    "packages": {
+      "cerebras_sdk": "unknown",
+      "cerebras_appliance": "unknown",
+      "numpy": "1.25.0"
+    },
+    "modules": [
+      {
+        "module": "cerebras.sdk",
+        "version": "unknown",
+        "file_name": "__init__.py",
+        "file_sha256": "76b6ea682b37ffd02a62f003e3ffd759737350022151b905ab607091b944d345"
+      },
+      {
+        "module": "cerebras.sdk.runtime",
+        "version": "unknown",
+        "file_name": "__init__.py",
+        "file_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "module": "cerebras.sdk.runtime.sdkruntimepybind",
+        "version": "unknown",
+        "file_name": "sdkruntimepybind.cpython-311-x86_64-linux-gnu.so",
+        "file_sha256": "23e374b71e118d3a7ec24427c17bad6aad780a1afa66126ff7d9c43c67824ebc"
+      }
+    ]
+  },
+  "api": [
+    "construct",
+    "get_id:counts",
+    "get_id:dst_slot",
+    "get_id:edge_features",
+    "get_id:node_type",
+    "get_id:round_sources",
+    "get_id:rx_count",
+    "get_id:rx_slot",
+    "get_id:src_begin",
+    "get_id:src_owner",
+    "get_id:src_slot",
+    "get_id:tx_begin",
+    "get_id:tx_slots",
+    "get_id:velocity",
+    "get_id:weights",
+    "get_id:aggregate",
+    "get_id:cached_e0",
+    "get_id:clocks",
+    "get_id:comm_stats",
+    "get_id:e",
+    "get_id:h",
+    "get_id:lifecycle",
+    "get_id:panel",
+    "get_id:sender_cache",
+    "get_id:stats",
+    "load",
+    "run",
+    "h2d:counts",
+    "h2d:velocity",
+    "h2d:node_type",
+    "h2d:edge_features",
+    "h2d:src_owner",
+    "h2d:src_slot",
+    "h2d:dst_slot",
+    "h2d:src_begin",
+    "h2d:weights",
+    "h2d:tx_begin",
+    "h2d:tx_slots",
+    "h2d:rx_count",
+    "h2d:rx_slot",
+    "h2d:round_sources",
+    "d2h:initial_stats",
+    "d2h:initial_lifecycle",
+    "d2h:before_counts",
+    "d2h:before_velocity",
+    "d2h:before_node_type",
+    "d2h:before_edge_features",
+    "d2h:before_src_owner",
+    "d2h:before_src_slot",
+    "d2h:before_dst_slot",
+    "d2h:before_src_begin",
+    "d2h:before_weights",
+    "d2h:before_tx_begin",
+    "d2h:before_tx_slots",
+    "d2h:before_rx_count",
+    "d2h:before_rx_slot",
+    "d2h:before_round_sources",
+    "launch:run",
+    "d2h:chunk0_aggregate",
+    "d2h:chunk0_cached_e0",
+    "d2h:chunk0_clocks",
+    "d2h:chunk0_comm_stats",
+    "d2h:chunk0_e",
+    "d2h:chunk0_h",
+    "d2h:chunk0_lifecycle",
+    "d2h:chunk0_panel",
+    "d2h:chunk0_sender_cache",
+    "d2h:chunk0_stats",
+    "d2h:chunk0_velocity",
+    "launch:run",
+    "d2h:chunk1_aggregate",
+    "d2h:chunk1_cached_e0",
+    "d2h:chunk1_clocks",
+    "d2h:chunk1_comm_stats",
+    "d2h:chunk1_e",
+    "d2h:chunk1_h",
+    "d2h:chunk1_lifecycle",
+    "d2h:chunk1_panel",
+    "d2h:chunk1_sender_cache",
+    "d2h:chunk1_stats",
+    "d2h:chunk1_velocity",
+    "d2h:after_counts",
+    "d2h:after_node_type",
+    "d2h:after_edge_features",
+    "d2h:after_src_owner",
+    "d2h:after_src_slot",
+    "d2h:after_dst_slot",
+    "d2h:after_src_begin",
+    "d2h:after_weights",
+    "d2h:after_tx_begin",
+    "d2h:after_tx_slots",
+    "d2h:after_rx_count",
+    "d2h:after_rx_slot",
+    "d2h:after_round_sources",
+    "stop"
+  ],
+  "api_timings": [
+    {
+      "api": "construct",
+      "wall_seconds": 0.09960765799769433
+    },
+    {
+      "api": "get_id:counts",
+      "wall_seconds": 5.759399937232956e-05
+    },
+    {
+      "api": "get_id:dst_slot",
+      "wall_seconds": 2.270700133522041e-05
+    },
+    {
+      "api": "get_id:edge_features",
+      "wall_seconds": 2.8015998395858333e-05
+    },
+    {
+      "api": "get_id:node_type",
+      "wall_seconds": 2.1372998162405565e-05
+    },
+    {
+      "api": "get_id:round_sources",
+      "wall_seconds": 1.666200114414096e-05
+    },
+    {
+      "api": "get_id:rx_count",
+      "wall_seconds": 1.591299951542169e-05
+    },
+    {
+      "api": "get_id:rx_slot",
+      "wall_seconds": 1.8365997675573453e-05
+    },
+    {
+      "api": "get_id:src_begin",
+      "wall_seconds": 0.00014924999777576886
+    },
+    {
+      "api": "get_id:src_owner",
+      "wall_seconds": 1.921199873322621e-05
+    },
+    {
+      "api": "get_id:src_slot",
+      "wall_seconds": 1.8594000721350312e-05
+    },
+    {
+      "api": "get_id:tx_begin",
+      "wall_seconds": 1.6769998183008283e-05
+    },
+    {
+      "api": "get_id:tx_slots",
+      "wall_seconds": 5.715999941457994e-05
+    },
+    {
+      "api": "get_id:velocity",
+      "wall_seconds": 3.21080005960539e-05
+    },
+    {
+      "api": "get_id:weights",
+      "wall_seconds": 2.7624999347608536e-05
+    },
+    {
+      "api": "get_id:aggregate",
+      "wall_seconds": 2.8688002203125507e-05
+    },
+    {
+      "api": "get_id:cached_e0",
+      "wall_seconds": 1.984200207516551e-05
+    },
+    {
+      "api": "get_id:clocks",
+      "wall_seconds": 1.5424000594066456e-05
+    },
+    {
+      "api": "get_id:comm_stats",
+      "wall_seconds": 1.7963997379411012e-05
+    },
+    {
+      "api": "get_id:e",
+      "wall_seconds": 1.4869998267386109e-05
+    },
+    {
+      "api": "get_id:h",
+      "wall_seconds": 1.4794997696299106e-05
+    },
+    {
+      "api": "get_id:lifecycle",
+      "wall_seconds": 2.7309997676638886e-05
+    },
+    {
+      "api": "get_id:panel",
+      "wall_seconds": 1.5337001968873665e-05
+    },
+    {
+      "api": "get_id:sender_cache",
+      "wall_seconds": 1.8225000530947e-05
+    },
+    {
+      "api": "get_id:stats",
+      "wall_seconds": 1.5663001249777153e-05
+    },
+    {
+      "api": "load",
+      "wall_seconds": 0.0015357839984062593
+    },
+    {
+      "api": "run",
+      "wall_seconds": 0.08341656499760575
+    },
+    {
+      "api": "h2d:counts",
+      "wall_seconds": 0.0024543250001443084
+    },
+    {
+      "api": "h2d:velocity",
+      "wall_seconds": 0.00012900500223622657
+    },
+    {
+      "api": "h2d:node_type",
+      "wall_seconds": 0.0009498679974058177
+    },
+    {
+      "api": "h2d:edge_features",
+      "wall_seconds": 0.00012498900105128996
+    },
+    {
+      "api": "h2d:src_owner",
+      "wall_seconds": 0.001364174000627827
+    },
+    {
+      "api": "h2d:src_slot",
+      "wall_seconds": 0.00024646299789310433
+    },
+    {
+      "api": "h2d:dst_slot",
+      "wall_seconds": 8.351399810635485e-05
+    },
+    {
+      "api": "h2d:src_begin",
+      "wall_seconds": 7.432100028381683e-05
+    },
+    {
+      "api": "h2d:weights",
+      "wall_seconds": 0.00031659399974159896
+    },
+    {
+      "api": "h2d:tx_begin",
+      "wall_seconds": 0.000695372000336647
+    },
+    {
+      "api": "h2d:tx_slots",
+      "wall_seconds": 0.00012364400026854128
+    },
+    {
+      "api": "h2d:rx_count",
+      "wall_seconds": 0.00014073999773245305
+    },
+    {
+      "api": "h2d:rx_slot",
+      "wall_seconds": 0.000900512000953313
+    },
+    {
+      "api": "h2d:round_sources",
+      "wall_seconds": 0.0001225259984494187
+    },
+    {
+      "api": "d2h:initial_stats",
+      "wall_seconds": 1.3163288590003503
+    },
+    {
+      "api": "d2h:initial_lifecycle",
+      "wall_seconds": 0.07164557099895319
+    },
+    {
+      "api": "d2h:before_counts",
+      "wall_seconds": 0.05567603999952553
+    },
+    {
+      "api": "d2h:before_velocity",
+      "wall_seconds": 0.06779263000134961
+    },
+    {
+      "api": "d2h:before_node_type",
+      "wall_seconds": 0.05968550199759193
+    },
+    {
+      "api": "d2h:before_edge_features",
+      "wall_seconds": 0.10002918199825217
+    },
+    {
+      "api": "d2h:before_src_owner",
+      "wall_seconds": 0.06343171099797473
+    },
+    {
+      "api": "d2h:before_src_slot",
+      "wall_seconds": 0.06379863600159297
+    },
+    {
+      "api": "d2h:before_dst_slot",
+      "wall_seconds": 0.06364724800005206
+    },
+    {
+      "api": "d2h:before_src_begin",
+      "wall_seconds": 0.07576292700105114
+    },
+    {
+      "api": "d2h:before_weights",
+      "wall_seconds": 3.747751613998844
+    },
+    {
+      "api": "d2h:before_tx_begin",
+      "wall_seconds": 0.07968568299838807
+    },
+    {
+      "api": "d2h:before_tx_slots",
+      "wall_seconds": 0.051832392000505934
+    },
+    {
+      "api": "d2h:before_rx_count",
+      "wall_seconds": 0.0717196099976718
+    },
+    {
+      "api": "d2h:before_rx_slot",
+      "wall_seconds": 0.06776897899908363
+    },
+    {
+      "api": "d2h:before_round_sources",
+      "wall_seconds": 0.05964928100001998
+    },
+    {
+      "api": "launch:run",
+      "wall_seconds": 0.00011680500028887764
+    },
+    {
+      "api": "d2h:chunk0_aggregate",
+      "wall_seconds": 5.483547486001044
+    },
+    {
+      "api": "d2h:chunk0_cached_e0",
+      "wall_seconds": 0.12359501699756947
+    },
+    {
+      "api": "d2h:chunk0_clocks",
+      "wall_seconds": 0.08779278000292834
+    },
+    {
+      "api": "d2h:chunk0_comm_stats",
+      "wall_seconds": 0.11944473900075536
+    },
+    {
+      "api": "d2h:chunk0_e",
+      "wall_seconds": 0.12371361300029093
+    },
+    {
+      "api": "d2h:chunk0_h",
+      "wall_seconds": 0.09570139999777894
+    },
+    {
+      "api": "d2h:chunk0_lifecycle",
+      "wall_seconds": 0.06773088999761967
+    },
+    {
+      "api": "d2h:chunk0_panel",
+      "wall_seconds": 0.09577916200214531
+    },
+    {
+      "api": "d2h:chunk0_sender_cache",
+      "wall_seconds": 0.11967524599822355
+    },
+    {
+      "api": "d2h:chunk0_stats",
+      "wall_seconds": 0.1477134019987716
+    },
+    {
+      "api": "d2h:chunk0_velocity",
+      "wall_seconds": 0.07168487499802723
+    },
+    {
+      "api": "launch:run",
+      "wall_seconds": 0.000121288001537323
+    },
+    {
+      "api": "d2h:chunk1_aggregate",
+      "wall_seconds": 5.135669666000467
+    },
+    {
+      "api": "d2h:chunk1_cached_e0",
+      "wall_seconds": 0.12339914800031693
+    },
+    {
+      "api": "d2h:chunk1_clocks",
+      "wall_seconds": 0.08368608200180461
+    },
+    {
+      "api": "d2h:chunk1_comm_stats",
+      "wall_seconds": 0.12675167199995485
+    },
+    {
+      "api": "d2h:chunk1_e",
+      "wall_seconds": 0.12472472300214577
+    },
+    {
+      "api": "d2h:chunk1_h",
+      "wall_seconds": 0.09975476900217473
+    },
+    {
+      "api": "d2h:chunk1_lifecycle",
+      "wall_seconds": 0.07173332999809645
+    },
+    {
+      "api": "d2h:chunk1_panel",
+      "wall_seconds": 0.09966189699844108
+    },
+    {
+      "api": "d2h:chunk1_sender_cache",
+      "wall_seconds": 0.12373662599929958
+    },
+    {
+      "api": "d2h:chunk1_stats",
+      "wall_seconds": 0.14772541700222064
+    },
+    {
+      "api": "d2h:chunk1_velocity",
+      "wall_seconds": 0.07169960499959416
+    },
+    {
+      "api": "d2h:after_counts",
+      "wall_seconds": 0.059840558998985216
+    },
+    {
+      "api": "d2h:after_node_type",
+      "wall_seconds": 0.05938069600233575
+    },
+    {
+      "api": "d2h:after_edge_features",
+      "wall_seconds": 0.10399473800134729
+    },
+    {
+      "api": "d2h:after_src_owner",
+      "wall_seconds": 0.0675205180014018
+    },
+    {
+      "api": "d2h:after_src_slot",
+      "wall_seconds": 0.06358512799852178
+    },
+    {
+      "api": "d2h:after_dst_slot",
+      "wall_seconds": 0.06778450000274461
+    },
+    {
+      "api": "d2h:after_src_begin",
+      "wall_seconds": 0.07969799200145644
+    },
+    {
+      "api": "d2h:after_weights",
+      "wall_seconds": 3.6837753690015234
+    },
+    {
+      "api": "d2h:after_tx_begin",
+      "wall_seconds": 0.07834297999943374
+    },
+    {
+      "api": "d2h:after_tx_slots",
+      "wall_seconds": 0.04905080200114753
+    },
+    {
+      "api": "d2h:after_rx_count",
+      "wall_seconds": 0.06776324800011935
+    },
+    {
+      "api": "d2h:after_rx_slot",
+      "wall_seconds": 0.06772103299954324
+    },
+    {
+      "api": "d2h:after_round_sources",
+      "wall_seconds": 0.05571607199817663
+    },
+    {
+      "api": "stop",
+      "wall_seconds": 0.008109267000691034
+    }
+  ],
+  "wall_seconds": 24.53581766100251,
+  "launches": [
+    {
+      "entrypoint": "run",
+      "steps": 2
+    },
+    {
+      "entrypoint": "run",
+      "steps": 2
+    }
+  ],
+  "raw_sha256": "c3c3e890e7a1753c73413d4e547439fe2c3e7d0bbc690171e963651372ed77af"
+}

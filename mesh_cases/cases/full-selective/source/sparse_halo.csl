@@ -1,0 +1,154 @@
+// SPDX-License-Identifier: Apache-2.0
+// Exact sparse neighborhood exchange. Caller supplies a globally agreed round
+// and endpoint-disjoint source/sink/idle roles, then a consumption barrier.
+param C: u16;
+param R: u16;
+param H: u16;
+param L: u16;
+param E: u16;
+param T: u16;
+param K: u16;
+param done_task;
+const P = C*R;
+const TX_DONE = @get_local_task_id(13);
+const RX_DONE = @get_local_task_id(19);
+const mp = @import_module("<message_passing>", .{
+  .bank_id=14, .input_queue_id=6, .output_queue_id=6, .enable_asserts=true
+});
+var tx_begin = @zeros([P+1]u32);
+var tx_slots = @zeros([T]u32);
+var rx_count = @zeros([P]u32);
+var rx_slot = @zeros([E]u32);
+// tx/rx packets, tx/rx features, tx/rx wire words (including SDK header),
+// local/remote edge copies, completed turns, last generation/source, error.
+var comm_stats = @zeros([12]u32);
+// One PE is either a source or a receiver within a turn. Full SDK maximum
+// capacity also bounds the library's header-driven receive length.
+var packet = @zeros([31]u32);
+var features: [*]f32;
+var cache: [*]f32;
+var edge_begin: [*]u32;
+var edge_source_slot: [*]u32;
+var me: u16 = 0;
+var source: u16 = 0;
+var generation: u32 = 0;
+var destination: u16 = 0;
+var cursor: u16 = 0;
+var remaining: u16 = 0;
+var in_flight: u16 = 0;
+
+fn init(x: u16, y: u16) void { me = y*C+x; mp.init(); }
+fn reset_stats() void {
+  for (@range(u16, 12)) |i| { comm_stats[i] = 0; }
+}
+fn finish() void {
+  comm_stats[8] += 1;
+  comm_stats[9] = generation;
+  comm_stats[10] = @as(u32, source);
+  @activate(done_task);
+}
+fn send_next() void {
+  while (destination < P) {
+    const first = @as(u16, tx_begin[destination]);
+    const last = @as(u16, tx_begin[destination+1]);
+    @assert(first <= last and last <= T);
+    if (cursor < last-first) {
+      @assert(destination != me);
+      const left = last-first-cursor;
+      in_flight = if (left < K) left else K;
+      packet[0] = generation;
+      packet[1] = @as(u32, source);
+      packet[2] = @as(u32, cursor);
+      packet[3] = @as(u32, in_flight);
+      for (@range(u16, K)) |v| {
+        if (v < in_flight) {
+          const slot = @as(u16, tx_slots[first+cursor+v]);
+          @assert(slot < L);
+          for (@range(u16, H)) |f| {
+            packet[4+v*H+f] = @bitcast(u32, features[slot*H+f]);
+          }
+        }
+      }
+      mp.send_message(destination%C, destination/C, @ptrcast([*]u32, &packet),
+                      4+in_flight*H, .{.activate=TX_DONE});
+      return;
+    }
+    destination += 1;
+    cursor = 0;
+  }
+  finish();
+}
+task transmitted() void {
+  comm_stats[0] += 1;
+  comm_stats[2] += @as(u32, in_flight)*H;
+  comm_stats[4] += 5+@as(u32, in_flight)*H;
+  cursor += in_flight;
+  // Reuse packet storage only after the asynchronous send completes.
+  send_next();
+}
+fn receive_next() void {
+  // Header read is synchronous: no local send or collective may be pending.
+  mp.recv_message(@ptrcast([*]u32, &packet), .{.activate=RX_DONE});
+}
+task received() void {
+  const count = if (remaining < K) remaining else K;
+  @assert(packet[0] == generation and packet[1] == @as(u32, source));
+  @assert(packet[2] == @as(u32, cursor) and packet[3] == @as(u32, count));
+  const first = @as(u16, edge_begin[source]);
+  const last = @as(u16, edge_begin[source+1]);
+  @assert(first <= last and last <= E);
+  var edge = first;
+  while (edge < last) : (edge += 1) {
+    const position = @as(u16, rx_slot[edge]);
+    if (position >= cursor and position < cursor+count) {
+      for (@range(u16, H)) |f| {
+        cache[edge*H+f] = @bitcast(f32, packet[4+(position-cursor)*H+f]);
+      }
+      comm_stats[7] += 1;
+    }
+  }
+  comm_stats[1] += 1;
+  comm_stats[3] += @as(u32, count)*H;
+  comm_stats[5] += 5+@as(u32, count)*H;
+  cursor += count;
+  remaining -= count;
+  // Consume every edge occurrence before overwriting the receive buffer.
+  if (remaining > 0) { receive_next(); } else { finish(); }
+}
+fn start(owner: u16, tag: u32, node_features: [*]f32,
+         sender_cache: [*]f32, src_begin: [*]u32, src_slot: [*]u32) void {
+  source = owner; generation = tag;
+  features = node_features; cache = sender_cache;
+  edge_begin = src_begin; edge_source_slot = src_slot;
+  cursor = 0;
+  @assert(source <= P);
+  if (source == P) { finish(); return; }
+  if (source == me) {
+    const first = @as(u16, edge_begin[source]);
+    const last = @as(u16, edge_begin[source+1]);
+    @assert(first <= last and last <= E);
+    var edge = first;
+    while (edge < last) : (edge += 1) {
+      const slot = @as(u16, edge_source_slot[edge]);
+      @assert(slot < L);
+      for (@range(u16, H)) |f| { cache[edge*H+f] = features[slot*H+f]; }
+      comm_stats[6] += 1;
+    }
+    destination = 0;
+    send_next();
+  } else {
+    @assert(rx_count[source] <= @as(u32, L));
+    remaining = @as(u16, rx_count[source]);
+    if (remaining > 0) { receive_next(); } else { finish(); }
+  }
+}
+var p_tx_begin: [*]u32 = &tx_begin;
+var p_tx_slots: [*]u32 = &tx_slots;
+var p_rx_count: [*]u32 = &rx_count;
+var p_rx_slot: [*]u32 = &rx_slot;
+var p_comm_stats: [*]u32 = &comm_stats;
+comptime {
+  @comptime_assert(H >= 2 and H <= 27 and K >= 1 and K*H <= 27);
+  @bind_local_task(transmitted, TX_DONE);
+  @bind_local_task(received, RX_DONE);
+}

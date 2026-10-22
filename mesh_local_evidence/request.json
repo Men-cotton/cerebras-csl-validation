@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "run_id": "37cd75ba-e402-4218-8a39-a89e1c4a9fdf",
+  "backend": "local-sim",
+  "case_name": "small-colored",
+  "case_sha256": "9a45c4dc94ccf024fd8d64da00e861b3f3fdd05773b4128dfac58d8d8b600e9c",
+  "package_manifest_sha256": "6d147ae320fcf727735fbeea3834e8b9c2b16d4cb281a45e04ef8e7ea0fa282e",
+  "artifact_sha256": "d6c8d2dd9c6bcedaf4f0d409884d375c3d82238010d5dff8e2155e125a5d1bcc",
+  "worker_sha256": "4b5549b06b2bc898a0ea848f11ae6f9ec88f8445a47e52ad1540e52da5d03f1d"
+}

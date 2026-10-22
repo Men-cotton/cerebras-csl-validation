@@ -1,0 +1,421 @@
+{
+  "adversarial": false,
+  "census": {
+    "broadcast_panel_words": 256,
+    "broadcast_processed_panel_words_per_pe": 256,
+    "broadcast_received_words_per_pe": 224,
+    "broadcast_scope": "implemented all-owner padded panels per processor block, excludes DONE/RELEASE",
+    "broadcast_tree_word_hops": 1792,
+    "cut_edges": 24,
+    "degree_max": 8,
+    "degree_min": 0,
+    "directed_edges": 24,
+    "distinct_remote_source_deliveries": 23,
+    "edge_counts": [
+      5,
+      3,
+      8,
+      8,
+      0,
+      0,
+      0,
+      0
+    ],
+    "edge_imbalance": 2.6666666666666665,
+    "max_edges": 8,
+    "max_nodes": 8,
+    "node_counts": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    "nodes": 64,
+    "owners": 8,
+    "selective_scope": "analytical XY payload baseline; implemented selective packet counts are in transport_census; actual router order unmeasured",
+    "selective_xy_max_link_words": 60,
+    "selective_xy_word_hops": 188
+  },
+  "crossing": true,
+  "data_provenance": null,
+  "edge_encoder_probe": "normal",
+  "experiment": "E189",
+  "files": {
+    "inputs.npz": "2c44f3e8b8bbb1b56e587cb2fccff2a8a28ef3ec6a193e26d300d749e785d676",
+    "mapping.npz": "c808914ca2e42b05d570c22cd6a36c905e44ee787564444b1b4e7e0fd4f71988",
+    "original.npz": "cee1c89df05b05f18791e67952c349ef8bfbe78f18395485ea7123e75478ed6a",
+    "sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "source/layout.csl": "0d4bbb5c124113e84883060dd67031c6bdc7619318bc10c3a4f756d26e7cda82",
+    "source/no_halo.csl": "464611b8f60fbfd5342bcf9e6e3dc07b7db3eaf63748c722c29b50076a6cb48e",
+    "source/pe.csl": "449446e19572880bc64e86d78a118325178c17768d2200038ace30df91141f37",
+    "source/sparse_halo.csl": "5b7e557dab095c3c8bc7204afca11e0445e3b69e9391f3a9ec0822a45aa0a881"
+  },
+  "graph_limit": null,
+  "graph_scope": "full",
+  "graph_source": null,
+  "inputs": {
+    "counts": [
+      2,
+      "uint32"
+    ],
+    "dst_slot": [
+      8,
+      "uint32"
+    ],
+    "edge_features": [
+      24,
+      "float32"
+    ],
+    "node_type": [
+      8,
+      "uint32"
+    ],
+    "round_sources": [
+      2,
+      "uint32"
+    ],
+    "rx_count": [
+      8,
+      "uint32"
+    ],
+    "rx_slot": [
+      8,
+      "uint32"
+    ],
+    "src_begin": [
+      9,
+      "uint32"
+    ],
+    "src_owner": [
+      8,
+      "uint32"
+    ],
+    "src_slot": [
+      8,
+      "uint32"
+    ],
+    "tx_begin": [
+      9,
+      "uint32"
+    ],
+    "tx_slots": [
+      8,
+      "uint32"
+    ],
+    "velocity": [
+      16,
+      "float32"
+    ],
+    "weights": [
+      578,
+      "float32"
+    ]
+  },
+  "model": "deterministic untrained public CFD operator probe; identity input norms; output std .01",
+  "original_graph_counts": {
+    "edges": 24,
+    "nodes": 64
+  },
+  "outputs": {
+    "aggregate": [
+      32,
+      "float32"
+    ],
+    "cached_e0": [
+      32,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "e": [
+      32,
+      "float32"
+    ],
+    "h": [
+      32,
+      "float32"
+    ],
+    "lifecycle": [
+      4,
+      "uint32"
+    ],
+    "panel": [
+      32,
+      "float32"
+    ],
+    "sender_cache": [
+      32,
+      "float32"
+    ],
+    "stats": [
+      16,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 4,
+    "E": 8,
+    "H": 4,
+    "K": 6,
+    "L": 8,
+    "MODE": 2,
+    "NORM": 0,
+    "Q": 2,
+    "R": 2,
+    "S": 2,
+    "STEPS": 4,
+    "T": 8,
+    "W": 578
+  },
+  "partition": "id",
+  "residency": {
+    "chunks": [
+      2,
+      2
+    ],
+    "schema": 1
+  },
+  "sources": {
+    "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+    "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+    "kernels/communication/sparse-halo/pe.csl": "5b7e557dab095c3c8bc7204afca11e0445e3b69e9391f3a9ec0822a45aa0a881",
+    "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+    "models/meshgraphnet/colored_schedule.py": "aa52008a00aa6fffcad520065ce60ee4c74e98f9dc8c59db8e69ea7c2494a23a",
+    "models/meshgraphnet/colored_validation.py": "8a78bdc96ae8938548248bb04739ce744c1f2381305b7e9ee95f9a2ff59436eb",
+    "models/meshgraphnet/data.py": "6e16f4199841df21c8a665648e728d41224794a7748f2a721f0638ca0b950c33",
+    "models/meshgraphnet/device/layout.csl": "0d4bbb5c124113e84883060dd67031c6bdc7619318bc10c3a4f756d26e7cda82",
+    "models/meshgraphnet/device/no_halo.csl": "464611b8f60fbfd5342bcf9e6e3dc07b7db3eaf63748c722c29b50076a6cb48e",
+    "models/meshgraphnet/device/pe.csl": "449446e19572880bc64e86d78a118325178c17768d2200038ace30df91141f37",
+    "models/meshgraphnet/driver.py": "7f11422810b40d0717e17cef8e0a7f94e30c05ea3348fbc633f41affedf46ff6",
+    "models/meshgraphnet/mapping.py": "6ebf2990edcaf82aa4899cc74d669aa22a7dc872623834466f3b569a0f0e8aa7",
+    "models/meshgraphnet/reference.py": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+    "models/meshgraphnet/resident_validation.py": "6f81f70eddb5a3172d63d213d66bffc5310deb5a540cb7411a0c809a05fbbdf7",
+    "models/meshgraphnet/sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "models/meshgraphnet/selective_schedule.py": "290bf5ef44ef20b59602183415df492bc0a1ec147e5e3c540590da4172db959f",
+    "models/meshgraphnet/selective_validation.py": "730bcea57f99f19f6f457aa145d6f6fe52f1e2b2e91203896781b764d771d5a3",
+    "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+    "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+    "sdk-2.10.2/sdk_debug_shell": "d6c4cf9ac6932855cd72d7ea22e343bc9e70eeca48646aaa43f5c7559e4ecfb9",
+    "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404",
+    "sdk_debug_shell": "0f397ee525aefc1a2661e3255bc36793a81e1c6c11c866fd33d3b4bce214a59a"
+  },
+  "transport": "colored",
+  "transport_census": {
+    "K": 6,
+    "T": 8,
+    "application_header_words": 24,
+    "batch": 6,
+    "coloring": {
+      "Q": 2,
+      "closed_endpoints": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ]
+      ],
+      "colors": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "columns": 4,
+      "conflict_counts": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "endpoint_collisions": 0,
+      "final_round_sources": [
+        3,
+        2,
+        2,
+        3,
+        8,
+        8,
+        8,
+        8
+      ],
+      "greedy_order": [
+        1,
+        0,
+        3,
+        2,
+        4,
+        5,
+        6,
+        7
+      ],
+      "idle": 8,
+      "last_active_sources": [
+        3,
+        2,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "owners": 8,
+      "remote_pairs_covered": 4,
+      "round_active_endpoint_counts": [
+        8,
+        4
+      ],
+      "round_sources": [
+        [
+          0,
+          1,
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "rows": 2,
+      "schedule_bytes_per_pe": 8,
+      "schema": 1,
+      "scope": "analytical deterministic closed-source-star coloring; endpoint exclusion and source coverage checked; no routing-link exclusion or cycle prediction",
+      "source_round_assignments": 8,
+      "source_unique_vertices": [
+        7,
+        8,
+        3,
+        5,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sources_covered": 8
+    },
+    "columns": 4,
+    "header_words": 30,
+    "hidden": 4,
+    "local_edge_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "max_pair_vertices": 8,
+    "owners": 8,
+    "packet_count": 6,
+    "packet_counts_sink": [
+      1,
+      1,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0
+    ],
+    "packet_counts_source": [
+      2,
+      2,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "payload_words": 92,
+    "remote_edge_counts": [
+      5,
+      3,
+      8,
+      8,
+      0,
+      0,
+      0,
+      0
+    ],
+    "remote_unique": 23,
+    "routing_header_words": 6,
+    "rows": 2,
+    "schedule_array_bytes_per_pe": 132,
+    "schema": 1,
+    "sink_payload_words": [
+      20,
+      12,
+      32,
+      28,
+      0,
+      0,
+      0,
+      0
+    ],
+    "source_payload_words": [
+      28,
+      32,
+      12,
+      20,
+      0,
+      0,
+      0,
+      0
+    ],
+    "traffic_scope": "analytical Y-then-X payload, four-word application headers and one-word SDK routing headers; excludes completion/control traffic, contention and timing",
+    "yx_application_header_word_hops": 48,
+    "yx_header_word_hops": 60,
+    "yx_max_link_header_words": 20,
+    "yx_max_link_payload_words": 60,
+    "yx_max_link_total_words": 80,
+    "yx_payload_word_hops": 188,
+    "yx_routing_header_word_hops": 12
+  }
+}

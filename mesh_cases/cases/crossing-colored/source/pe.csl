@@ -1,0 +1,379 @@
+// SPDX-License-Identifier: Apache-2.0
+// Reduced-width MeshGraphNet inference; all weights and graph state are resident.
+// Official precedents: gemm-collectives_2d for FMAC/broadcast ownership,
+// topic-02-libraries for sqrt/TSC, and E177 for consumption/release ordering.
+param memcpy_params;
+param c2d_params;
+param C: u16;
+param R: u16;
+param H: u16;
+param S: u16;
+param STEPS: u16;
+param NORM: u16;
+param L: u16;
+param E: u16;
+param W: u16;
+param MODE: u16;
+param T: u16;
+param K: u16;
+param Q: u16;
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const math = @import_module("<math>");
+const tsc = @import_module("<time>");
+const mx = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.x, .queues=[2]u16{2,4},
+  .dest_dsr_ids=[1]u16{1}, .src0_dsr_ids=[1]u16{1}, .src1_dsr_ids=[1]u16{1}
+});
+const my = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.y, .queues=[2]u16{3,5},
+  .dest_dsr_ids=[1]u16{2}, .src0_dsr_ids=[1]u16{2}, .src1_dsr_ids=[1]u16{2}
+});
+const progress_id = @get_local_task_id(12);
+const halo = @import_module(if (MODE > 0) "sparse_halo.csl" else "no_halo.csl", .{
+  .C=C,.R=R,.H=H,.L=L,.E=E,.T=T,.K=K,.done_task=progress_id
+});
+const P = C*R;
+const INPUT = if (3*H > 11) 3*H else 11;
+const NODE_ENCODER_SIZE = 2*H*H+16*H;
+const EDGE_ENCODER_SIZE = 2*H*H+8*H;
+const EDGE_BLOCK_SIZE = 5*H*H+5*H;
+const BLOCK_SIZE = 9*H*H+10*H;
+const PROCESSOR_BASE = NODE_ENCODER_SIZE+EDGE_ENCODER_SIZE;
+const DECODER_BASE = PROCESSOR_BASE+S*BLOCK_SIZE;
+
+// Active lengths are nodes and incoming directed edge occurrences.
+var round_sources = @zeros([Q]u32);
+var counts = @zeros([2]u32);
+var velocity = @zeros([L*2]f32);
+var node_type = @zeros([L]u32);
+var edge_features = @zeros([E*3]f32);
+var src_owner = @zeros([E]u32);
+var src_begin = @zeros([P+1]u32);
+var src_slot = @zeros([E]u32);
+var dst_slot = @zeros([E]u32);
+var weights = @zeros([W]f32);
+var h = @zeros([L*H]f32);
+var e = @zeros([E*H]f32);
+var cached_e0 = @zeros([E*H]f32);
+// Snapshot every required sender before edge MLPs run concurrently on owners.
+var sender_cache = @zeros([E*H]f32);
+var aggregate = @zeros([L*H]f32);
+var panel = @zeros([L*H]f32);
+var mlp_input = @zeros([INPUT]f32);
+var hidden_a = @zeros([H]f32);
+var hidden_b = @zeros([H]f32);
+var mlp_output = @zeros([H]f32);
+var done_local = @zeros([1]f32);
+var done_row = @zeros([1]f32);
+var release = @zeros([1]f32);
+// magic, steps, blocks, encoded_edges, encoded_nodes, edge_updates,
+// node_updates, decoded_nodes, panels, barriers, MACs, block, owner,
+// local_nodes, local_edges, error (zero on completion).
+var stats = @zeros([16]u32);
+var clocks = @zeros([6]u16);
+// initialized, completed launches, completed physical steps, geometry encodings.
+// These counters and all model/graph state survive output checkpoints.
+var lifecycle = @zeros([4]u32);
+var px: u16 = 0;
+var py: u16 = 0;
+var physical_step: u16 = 0;
+var requested_steps: u16 = 0;
+var block: u16 = 0;
+var source_owner: u16 = 0;
+var phase: u16 = 0;
+var barrier_action: u16 = 0;
+const lane_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{H}->hidden_a[i]});
+const panel_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*H}->panel[i]});
+
+fn affine(input: [*]f32, output: [*]f32, ni: u16, no: u16, base: u16) void {
+  const out = @set_dsd_base_addr(@set_dsd_length(lane_dsd, no), output);
+  const bias_base = @ptrcast([*]f32, &weights[base+ni*no]);
+  const bias = @set_dsd_base_addr(@set_dsd_length(lane_dsd, no), bias_base);
+  @fmovs(out, bias);
+  var row = @set_dsd_base_addr(@set_dsd_length(lane_dsd, no), @ptrcast([*]f32, &weights[base]));
+  for (@range(u16, ni)) |k| {
+    @fmacs(out, out, row, input[k]);
+    row = @increment_dsd_offset(row, @as(i16, no), f32);
+  }
+  stats[10] += @as(u32, ni)*@as(u32, no);
+}
+
+fn mlp(ni: u16, no: u16, base: u16, normalize: bool) void {
+  affine(&mlp_input, &hidden_a, ni, H, base);
+  for (@range(u16, H)) |i| {
+    if (hidden_a[i] < 0.0) { hidden_a[i] = 0.0; }
+  }
+  const second = base+ni*H+H;
+  affine(&hidden_a, &hidden_b, H, H, second);
+  for (@range(u16, H)) |i| {
+    if (hidden_b[i] < 0.0) { hidden_b[i] = 0.0; }
+  }
+  const third = second+H*H+H;
+  affine(&hidden_b, &mlp_output, H, no, third);
+  if (normalize) {
+    var mean: f32 = 0.0;
+    for (@range(u16, no)) |i| { mean += mlp_output[i]; }
+    mean /= @as(f32, no);
+    var variance: f32 = 0.0;
+    for (@range(u16, no)) |i| {
+      const centered = mlp_output[i]-mean;
+      variance += centered*centered;
+    }
+    variance /= @as(f32, no);
+    const variance_eps = variance+@as(f32, 1.0e-5);
+    const scale = if (NORM == 0) math.sqrt_f32(variance_eps)
+                 else math.invsqrt_f32(variance_eps);
+    const gamma = third+H*no+no;
+    const beta = gamma+no;
+    for (@range(u16, no)) |i| {
+      const centered = mlp_output[i]-mean;
+      const normalized = if (NORM == 0) centered/scale else centered*scale;
+      mlp_output[i] = normalized*weights[gamma+i]+weights[beta+i];
+    }
+  }
+}
+
+fn begin_barrier(action: u16) void {
+  barrier_action = action;
+  done_local[0] = 1.0; done_row[0] = 0.0; release[0] = 0.0;
+  phase = 10;
+  mx.reduce_fadds(0, &done_local, &done_row, 1, progress_id);
+}
+
+fn begin_block() void {
+  for (@range(u16, L*H)) |i| { aggregate[i] = 0.0; }
+  // Variable local MLP work has completed on every PE before the source phase.
+  begin_barrier(0);
+}
+
+fn begin_step() void {
+  for (@range(u16, E*H)) |i| { e[i] = cached_e0[i]; }
+  for (@range(u16, L*H)) |i| { h[i] = 0.0; }
+  for (@range(u16, L)) |v| {
+    if (@as(u32, v) < counts[0]) {
+      @assert(node_type[v] < 9);
+      mlp_input[0] = velocity[2*v]; mlp_input[1] = velocity[2*v+1];
+      for (@range(u16, 9)) |t| {
+        mlp_input[2+t] = if (@as(u32, t) == node_type[v]) @as(f32, 1.0) else @as(f32, 0.0);
+      }
+      mlp(11, H, 0, true);
+      for (@range(u16, H)) |f| { h[v*H+f] = mlp_output[f]; }
+      stats[4] += 1;
+    }
+  }
+  block = 0;
+  begin_block();
+}
+
+fn begin_panel() void {
+  if (comptime MODE > 0) {
+    phase = 30;
+    const generation = (lifecycle[2]+@as(u32, physical_step))*S+@as(u32, block)+1;
+    if (comptime MODE == 2) { @assert(round_sources[source_owner] <= @as(u32, P)); }
+    const source = if (MODE == 2) @as(u16, round_sources[source_owner]) else source_owner;
+    halo.start(source, generation, &h, &sender_cache, &src_begin, &src_slot);
+    return;
+  }
+  @fmovs(panel_dsd, 0.0);
+  const owner_x = source_owner % C;
+  const owner_y = source_owner / C;
+  phase = 1;
+  if (py == owner_y) {
+    if (px == owner_x) {
+      for (@range(u16, L*H)) |i| { panel[i] = h[i]; }
+    }
+    mx.broadcast(owner_x, @ptrcast([*]u32, &panel), L*H, progress_id);
+  } else { @activate(progress_id); }
+}
+
+fn consume_panel() void {
+  const lo = src_begin[source_owner];
+  const hi = src_begin[source_owner+1];
+  @assert(lo <= hi and hi <= counts[1]);
+  var edge = @as(u16, lo);
+  const end = @as(u16, hi);
+  while (edge < end) : (edge += 1) {
+    @assert(src_owner[edge] == @as(u32, source_owner) and src_slot[edge] < @as(u32, L));
+    const src = @as(u16, src_slot[edge]);
+    for (@range(u16, H)) |f| { sender_cache[edge*H+f] = panel[src*H+f]; }
+  }
+  stats[8] += 1;
+  stats[12] = @as(u32, source_owner);
+  begin_barrier(1);
+}
+
+fn complete_block() void {
+  const edge_base = PROCESSOR_BASE+block*BLOCK_SIZE;
+  // All old sender features are resident. No global wait separates these MLPs.
+  for (@range(u16, E)) |edge| {
+    if (@as(u32, edge) < counts[1]) {
+      @assert(dst_slot[edge] < counts[0]);
+      const dst = @as(u16, dst_slot[edge]);
+      for (@range(u16, H)) |f| {
+        mlp_input[f] = sender_cache[edge*H+f];
+        mlp_input[H+f] = h[dst*H+f];
+        mlp_input[2*H+f] = e[edge*H+f];
+      }
+      mlp(3*H, H, edge_base, true);
+      for (@range(u16, H)) |f| {
+        // Official GraphNetBlock sums edge deltas BEFORE adding edge residuals.
+        aggregate[dst*H+f] += mlp_output[f];
+        e[edge*H+f] += mlp_output[f];
+      }
+      stats[5] += 1;
+    }
+  }
+  const node_base = PROCESSOR_BASE+block*BLOCK_SIZE+EDGE_BLOCK_SIZE;
+  for (@range(u16, L)) |v| {
+    if (@as(u32, v) < counts[0]) {
+      for (@range(u16, H)) |f| {
+        mlp_input[f] = h[v*H+f];
+        mlp_input[H+f] = aggregate[v*H+f];
+      }
+      mlp(2*H, H, node_base, true);
+      for (@range(u16, H)) |f| { h[v*H+f] += mlp_output[f]; }
+      stats[6] += 1;
+    }
+  }
+  stats[2] += 1; stats[11] = @as(u32, block);
+  block += 1;
+  if (block < S) { begin_block(); }
+  else {
+    for (@range(u16, L)) |v| {
+      if (@as(u32, v) < counts[0]) {
+        for (@range(u16, H)) |f| { mlp_input[f] = h[v*H+f]; }
+        mlp(H, 2, DECODER_BASE, false);
+        if (node_type[v] == 0 or node_type[v] == 5) {
+          velocity[2*v] += @as(f32, 0.01)*mlp_output[0];
+          velocity[2*v+1] += @as(f32, 0.01)*mlp_output[1];
+        }
+        stats[7] += 1;
+      }
+    }
+    physical_step += 1; stats[1] = @as(u32, physical_step);
+    if (physical_step < requested_steps) { begin_step(); }
+    else { begin_barrier(2); }
+  }
+}
+
+task progress() void {
+  if (phase == 1) {
+    phase = 2;
+    my.broadcast(source_owner/C, @ptrcast([*]u32, &panel), L*H, progress_id);
+  } else if (phase == 2) {
+    consume_panel();
+  } else if (phase == 30) {
+    stats[8] += 1;
+    stats[12] = @as(u32, source_owner);
+    begin_barrier(1);
+  } else if (phase == 10) {
+    phase = 11;
+    if (px == 0) { my.reduce_fadds(0, &done_row, &release, 1, progress_id); }
+    else { @activate(progress_id); }
+  } else if (phase == 11) {
+    phase = 12;
+    if (px == 0) { my.broadcast(0, @ptrcast([*]u32, &release), 1, progress_id); }
+    else { @activate(progress_id); }
+  } else if (phase == 12) {
+    phase = 13;
+    mx.broadcast(0, @ptrcast([*]u32, &release), 1, progress_id);
+  } else if (phase == 13) {
+    @assert(release[0] == @as(f32, P));
+    stats[9] += 1;
+    if (barrier_action == 0) { source_owner = 0; begin_panel(); }
+    else if (barrier_action == 1) {
+      source_owner += 1;
+      if (source_owner < Q) { begin_panel(); }
+      else { complete_block(); }
+    } else {
+      @assert(barrier_action == 2);
+      tsc.get_timestamp(@ptrcast(*[3]u16, &clocks[3]));
+      tsc.disable_tsc();
+      lifecycle[1] += 1;
+      lifecycle[2] += @as(u32, requested_steps);
+      stats[0] = 0x600D;
+      sys.unblock_cmd_stream();
+    }
+  } else { stats[15] = @as(u32, phase)+1; @assert(false); }
+}
+
+fn run(steps: u16) void {
+  @assert(steps > 0 and steps <= STEPS);
+  @assert(lifecycle[2]+@as(u32, steps) <= @as(u32, STEPS));
+  if (lifecycle[0] == 0) {
+    mx.init(); my.init(); px = mx.pe_id; py = my.pe_id;
+    if (comptime MODE > 0) { halo.init(px, py); }
+  } else { @assert(stats[0] == 0x600D); }
+  @assert(counts[0] <= @as(u32, L) and counts[1] <= @as(u32, E));
+  for (@range(u16, 16)) |i| { stats[i] = 0; }
+  if (comptime MODE > 0) { halo.reset_stats(); }
+  stats[13] = counts[0]; stats[14] = counts[1];
+  tsc.enable_tsc(); tsc.get_timestamp(@ptrcast(*[3]u16, &clocks[0]));
+  if (lifecycle[0] == 0) {
+    for (@range(u16, E*H)) |i| { cached_e0[i] = 0.0; }
+    for (@range(u16, E)) |edge| {
+      if (@as(u32, edge) < counts[1]) {
+        @assert(src_owner[edge] < @as(u32, P));
+        for (@range(u16, 3)) |f| { mlp_input[f] = edge_features[edge*3+f]; }
+        mlp(3, H, NODE_ENCODER_SIZE, true);
+        for (@range(u16, H)) |f| { cached_e0[edge*H+f] = mlp_output[f]; }
+        stats[3] += 1;
+      }
+    }
+    lifecycle[0] = 1;
+    lifecycle[3] += 1;
+  }
+  requested_steps = steps;
+  physical_step = 0;
+  begin_step();
+}
+
+var p_round_sources: [*]u32 = &round_sources;
+var p_counts: [*]u32 = &counts;
+var p_velocity: [*]f32 = &velocity;
+var p_node_type: [*]u32 = &node_type;
+var p_edge_features: [*]f32 = &edge_features;
+var p_src_owner: [*]u32 = &src_owner;
+var p_src_begin: [*]u32 = &src_begin;
+var p_src_slot: [*]u32 = &src_slot;
+var p_dst_slot: [*]u32 = &dst_slot;
+var p_weights: [*]f32 = &weights;
+var p_h: [*]f32 = &h;
+var p_e: [*]f32 = &e;
+var p_cached_e0: [*]f32 = &cached_e0;
+var p_sender_cache: [*]f32 = &sender_cache;
+var p_aggregate: [*]f32 = &aggregate;
+var p_panel: [*]f32 = &panel;
+var p_stats: [*]u32 = &stats;
+var p_clocks: [*]u16 = &clocks;
+var p_lifecycle: [*]u32 = &lifecycle;
+comptime {
+  @bind_local_task(progress, progress_id);
+  @export_symbol(p_counts, "counts");
+  @export_symbol(p_velocity, "velocity");
+  @export_symbol(p_node_type, "node_type");
+  @export_symbol(p_edge_features, "edge_features");
+  @export_symbol(p_src_owner, "src_owner");
+  @export_symbol(p_src_begin, "src_begin");
+  @export_symbol(p_src_slot, "src_slot");
+  @export_symbol(p_dst_slot, "dst_slot");
+  @export_symbol(p_weights, "weights");
+  @export_symbol(p_h, "h");
+  @export_symbol(p_e, "e");
+  @export_symbol(p_cached_e0, "cached_e0");
+  @export_symbol(p_sender_cache, "sender_cache");
+  @export_symbol(p_aggregate, "aggregate");
+  @export_symbol(p_panel, "panel");
+  @export_symbol(p_stats, "stats");
+  @export_symbol(p_clocks, "clocks");
+  @export_symbol(p_lifecycle, "lifecycle");
+  if (MODE > 0) {
+    @export_symbol(halo.p_tx_begin, "tx_begin");
+    @export_symbol(halo.p_tx_slots, "tx_slots");
+    @export_symbol(halo.p_rx_count, "rx_count");
+    @export_symbol(halo.p_rx_slot, "rx_slot");
+    @export_symbol(halo.p_comm_stats, "comm_stats");
+  }
+  if (MODE == 2) { @export_symbol(p_round_sources, "round_sources"); }
+  @export_symbol(run);
+}
