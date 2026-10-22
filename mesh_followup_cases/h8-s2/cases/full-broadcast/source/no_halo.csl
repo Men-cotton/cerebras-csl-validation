@@ -1,0 +1,10 @@
+// SPDX-License-Identifier: Apache-2.0
+// Broadcast mode has no selective transport resources.
+param C: u16;
+param R: u16;
+param H: u16;
+param L: u16;
+param E: u16;
+param T: u16;
+param K: u16;
+param done_task;

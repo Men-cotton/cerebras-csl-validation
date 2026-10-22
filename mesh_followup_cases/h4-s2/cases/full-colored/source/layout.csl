@@ -1,0 +1,67 @@
+// SPDX-License-Identifier: Apache-2.0
+param C: u16;
+param R: u16;
+param H: u16;
+param S: u16;
+param STEPS: u16;
+param NORM: u16;
+param L: u16;
+param E: u16;
+param W: u16;
+param MODE: u16;
+param T: u16;
+param K: u16;
+param Q: u16;
+const memcpy = @import_module("<memcpy/get_params>", .{.width=C, .height=R});
+const c2d = @import_module("<collectives_2d/params>");
+layout {
+  @set_rectangle(C, R);
+  @comptime_assert(C >= 2 and R >= 2 and C*R <= 32767);
+  @comptime_assert(H >= 2 and H <= 32 and S >= 1 and STEPS >= 1);
+  @comptime_assert(NORM <= 1 and MODE <= 2);
+  @comptime_assert(L >= 1 and E >= 1 and L*H <= 32767 and E*H <= 32767);
+  @comptime_assert(W <= 32767 and Q >= 1 and Q <= C*R);
+  @comptime_assert(MODE == 2 or Q == C*R);
+  @comptime_assert(@as(u32, W) == (6+9*@as(u32, S))*H*H+(28+10*@as(u32, S))*H+2);
+  for (@range(u16, C)) |x| {
+    for (@range(u16, R)) |y| {
+      const cp = c2d.get_params(x, y, .{
+        .x_colors=.{@get_color(0), @get_color(1)},
+        .x_entrypoints=.{@get_local_task_id(8), @get_local_task_id(9)},
+        .y_colors=.{@get_color(4), @get_color(5)},
+        .y_entrypoints=.{@get_local_task_id(10), @get_local_task_id(11)}
+      });
+      @set_tile_code(x, y, "pe.csl", .{
+        .memcpy_params=memcpy.get_params(x), .c2d_params=cp,
+        .C=C,.R=R,.H=H,.S=S,.STEPS=STEPS,.NORM=NORM,.L=L,.E=E,.W=W,.MODE=MODE,.T=T,.K=K,.Q=Q
+      });
+    }
+  }
+  @export_name("counts", [*]u32, true);
+  @export_name("velocity", [*]f32, true);
+  @export_name("node_type", [*]u32, true);
+  @export_name("edge_features", [*]f32, true);
+  @export_name("src_owner", [*]u32, true);
+  @export_name("src_begin", [*]u32, true);
+  @export_name("src_slot", [*]u32, true);
+  @export_name("dst_slot", [*]u32, true);
+  @export_name("weights", [*]f32, true);
+  @export_name("h", [*]f32, true);
+  @export_name("e", [*]f32, true);
+  @export_name("cached_e0", [*]f32, true);
+  @export_name("sender_cache", [*]f32, true);
+  @export_name("aggregate", [*]f32, true);
+  @export_name("panel", [*]f32, true);
+  @export_name("stats", [*]u32, true);
+  @export_name("clocks", [*]u16, true);
+  @export_name("lifecycle", [*]u32, true);
+  if (MODE > 0) {
+    @export_name("tx_begin", [*]u32, true);
+    @export_name("tx_slots", [*]u32, true);
+    @export_name("rx_count", [*]u32, true);
+    @export_name("rx_slot", [*]u32, true);
+    @export_name("comm_stats", [*]u32, true);
+  }
+  if (MODE == 2) { @export_name("round_sources", [*]u32, true); }
+  @export_name("run", fn(u16)void);
+}

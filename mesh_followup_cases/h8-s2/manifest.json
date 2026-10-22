@@ -1,0 +1,101 @@
+{
+  "cases": {
+    "full-broadcast": {
+      "case_sha256": "545bf7844abb52c73c313d90d4f56c531728a1010292856c0fd9961a15a39173",
+      "params": {
+        "C": 16,
+        "E": 92,
+        "H": 8,
+        "K": 1,
+        "L": 15,
+        "MODE": 0,
+        "NORM": 0,
+        "Q": 128,
+        "R": 8,
+        "S": 2,
+        "STEPS": 4,
+        "T": 1,
+        "W": 1922
+      }
+    },
+    "full-colored": {
+      "case_sha256": "4c1d86365c2f1d7ba7ea42a105e71e9bce84012c18844cfaa2108b6f2c53d1c5",
+      "params": {
+        "C": 16,
+        "E": 92,
+        "H": 8,
+        "K": 3,
+        "L": 15,
+        "MODE": 2,
+        "NORM": 0,
+        "Q": 11,
+        "R": 8,
+        "S": 2,
+        "STEPS": 4,
+        "T": 24,
+        "W": 1922
+      }
+    },
+    "full-selective": {
+      "case_sha256": "f740b94ab63fc34aef01d3c74a268fb4619433c49f2d7e3c1ab124b193773fc4",
+      "params": {
+        "C": 16,
+        "E": 92,
+        "H": 8,
+        "K": 3,
+        "L": 15,
+        "MODE": 1,
+        "NORM": 0,
+        "Q": 128,
+        "R": 8,
+        "S": 2,
+        "STEPS": 4,
+        "T": 24,
+        "W": 1922
+      }
+    }
+  },
+  "files": {
+    "cases/full-broadcast/case.json": "545bf7844abb52c73c313d90d4f56c531728a1010292856c0fd9961a15a39173",
+    "cases/full-broadcast/inputs.npz": "a224cea19643be2302377799e65c72aebd386b419bdadf9bb3c11fba007c40f5",
+    "cases/full-broadcast/mapping.npz": "65986fb9e7d919c60e1f0653c1c054e6cb6a459f53b7bdb57e5ef324b6b46f02",
+    "cases/full-broadcast/original.npz": "b9e90273b5bf941405366b7277a6fc607d918beff7412d982f5c57fbc327afd8",
+    "cases/full-broadcast/sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "cases/full-broadcast/source/layout.csl": "0d4bbb5c124113e84883060dd67031c6bdc7619318bc10c3a4f756d26e7cda82",
+    "cases/full-broadcast/source/no_halo.csl": "464611b8f60fbfd5342bcf9e6e3dc07b7db3eaf63748c722c29b50076a6cb48e",
+    "cases/full-broadcast/source/pe.csl": "449446e19572880bc64e86d78a118325178c17768d2200038ace30df91141f37",
+    "cases/full-broadcast/source/sparse_halo.csl": "5b7e557dab095c3c8bc7204afca11e0445e3b69e9391f3a9ec0822a45aa0a881",
+    "cases/full-colored/case.json": "4c1d86365c2f1d7ba7ea42a105e71e9bce84012c18844cfaa2108b6f2c53d1c5",
+    "cases/full-colored/inputs.npz": "5e5183e6d778937f1e9d2c3cde9bce34846f0ec3186a120aa9dbd9f80f913283",
+    "cases/full-colored/mapping.npz": "65986fb9e7d919c60e1f0653c1c054e6cb6a459f53b7bdb57e5ef324b6b46f02",
+    "cases/full-colored/original.npz": "b9e90273b5bf941405366b7277a6fc607d918beff7412d982f5c57fbc327afd8",
+    "cases/full-colored/sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "cases/full-colored/source/layout.csl": "0d4bbb5c124113e84883060dd67031c6bdc7619318bc10c3a4f756d26e7cda82",
+    "cases/full-colored/source/no_halo.csl": "464611b8f60fbfd5342bcf9e6e3dc07b7db3eaf63748c722c29b50076a6cb48e",
+    "cases/full-colored/source/pe.csl": "449446e19572880bc64e86d78a118325178c17768d2200038ace30df91141f37",
+    "cases/full-colored/source/sparse_halo.csl": "5b7e557dab095c3c8bc7204afca11e0445e3b69e9391f3a9ec0822a45aa0a881",
+    "cases/full-selective/case.json": "f740b94ab63fc34aef01d3c74a268fb4619433c49f2d7e3c1ab124b193773fc4",
+    "cases/full-selective/inputs.npz": "9b746fe48c5c9eb765e22e6775a6db474b76d786ceb4819124445a53922a503c",
+    "cases/full-selective/mapping.npz": "65986fb9e7d919c60e1f0653c1c054e6cb6a459f53b7bdb57e5ef324b6b46f02",
+    "cases/full-selective/original.npz": "b9e90273b5bf941405366b7277a6fc607d918beff7412d982f5c57fbc327afd8",
+    "cases/full-selective/sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "cases/full-selective/source/layout.csl": "0d4bbb5c124113e84883060dd67031c6bdc7619318bc10c3a4f756d26e7cda82",
+    "cases/full-selective/source/no_halo.csl": "464611b8f60fbfd5342bcf9e6e3dc07b7db3eaf63748c722c29b50076a6cb48e",
+    "cases/full-selective/source/pe.csl": "449446e19572880bc64e86d78a118325178c17768d2200038ace30df91141f37",
+    "cases/full-selective/source/sparse_halo.csl": "5b7e557dab095c3c8bc7204afca11e0445e3b69e9391f3a9ec0822a45aa0a881",
+    "oracle/models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+    "oracle/models/meshgraphnet/colored_schedule.py": "aa52008a00aa6fffcad520065ce60ee4c74e98f9dc8c59db8e69ea7c2494a23a",
+    "oracle/models/meshgraphnet/colored_validation.py": "8a78bdc96ae8938548248bb04739ce744c1f2381305b7e9ee95f9a2ff59436eb",
+    "oracle/models/meshgraphnet/data.py": "6e16f4199841df21c8a665648e728d41224794a7748f2a721f0638ca0b950c33",
+    "oracle/models/meshgraphnet/driver.py": "7f11422810b40d0717e17cef8e0a7f94e30c05ea3348fbc633f41affedf46ff6",
+    "oracle/models/meshgraphnet/mapping.py": "6ebf2990edcaf82aa4899cc74d669aa22a7dc872623834466f3b569a0f0e8aa7",
+    "oracle/models/meshgraphnet/reference.py": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+    "oracle/models/meshgraphnet/resident_validation.py": "6f81f70eddb5a3172d63d213d66bffc5310deb5a540cb7411a0c809a05fbbdf7",
+    "oracle/models/meshgraphnet/sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "oracle/models/meshgraphnet/selective_schedule.py": "290bf5ef44ef20b59602183415df492bc0a1ec147e5e3c540590da4172db959f",
+    "oracle/models/meshgraphnet/selective_validation.py": "730bcea57f99f19f6f457aa145d6f6fe52f1e2b2e91203896781b764d771d5a3"
+  },
+  "schema": 1,
+  "scope": "Prepared numerical probes; hardware compile/runtime unrun at export",
+  "source_commit": "c198e401b546df65f371dae452bcb4460f1f4fad"
+}

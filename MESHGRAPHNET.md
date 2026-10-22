@@ -121,3 +121,11 @@ uv run python -B -m unittest -q test_mesh_worker test_mesh_audit test_mesh_appli
 The package exporter is `models/meshgraphnet/export_hardware.py` in gnn-csl.
 Export always creates a new package; it rejects source changes relative to
 prepared cases and never rewrites an existing experiment's identity.
+
+## Two-block continuation follow-up
+
+After this campaign finishes, [MESH_FOLLOWUP.md](MESH_FOLLOWUP.md) describes
+`uv run python mesh_followup.py`: two separate full-mesh H4/S2 and H8/S2
+cohorts, with four steps in chunks2,2. The H8 colored case is a capacity
+diagnostic because its local static ELF endpoint exceeds the44 KiB guard.
+The existing campaign, worker and frozen `mesh_cases/` are unchanged.

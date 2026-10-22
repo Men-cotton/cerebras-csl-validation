@@ -55,3 +55,10 @@
 !/mesh_cases/**
 !/mesh_local_evidence/
 !/mesh_local_evidence/**
+
+# E190 independent continuation cohorts; no runtime output.
+!/mesh_followup.py
+!/test_mesh_followup.py
+!/MESH_FOLLOWUP.md
+!/mesh_followup_cases/
+!/mesh_followup_cases/**
