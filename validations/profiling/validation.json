@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "id": "profiling",
+  "description": "Bounded PE phase timestamps and their observer effect, with full transport and completion checks.",
+  "entrypoints": ["profile_appliance.py", "profile_compare.py"],
+  "tests": ["tests"]
+}

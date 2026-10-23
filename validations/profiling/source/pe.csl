@@ -1,0 +1,299 @@
+// H101/E195: E178 protocol with bounded receiver phase records.
+param memcpy_params;
+param ROLE: i16;
+param MODE: i16;
+param N: i16;
+param BATCH: i16;
+param DATA: color;
+param CONTROL: color;
+const sys = @import_module("<memcpy/memcpy>",memcpy_params);
+const time = @import_module("<time>");
+const TX_DONE = @get_local_task_id(10);
+const CONTROL_DONE = @get_local_task_id(11);
+const RX_DONE = @get_local_task_id(12);
+const data_iq = @get_input_queue(2);
+const data_oq = @get_output_queue(2);
+const control_iq = @get_input_queue(4);
+const control_oq = @get_output_queue(4);
+const SEND_WORDS: i16 = (if (MODE == 0) 2*N else 6*N)+1;
+const ACCEPTED_WORDS: i16 = 2*N+1;
+var source = @zeros([6*N+3]u32);
+var received = @zeros([2*N+3]u32);
+var scratch = @zeros([2*N+3]u32);
+var scratch_mirror = @zeros([2*N+3]u32);
+var control = @zeros([2]u32);
+// 0..29 retain E147 counters. 30: upper-index checks; 31: low16 masks.
+// BATCH1 fill/store counts follow completed extent, not per-wavelet events.
+var stats = @zeros([32]u32);
+// Sender-local start, TX callback, terminal ACK, joined end; u48 triples.
+var clocks = @zeros([12]u32);
+var stamp = @zeros([3]u16);
+// Runtime flag: 0 keeps only the original sender clocks; 1 records RX phases;
+// 2 also reads the two raw, undocumented-event performance counters.
+// All arms retain this storage, event calls and receiver TSC enable/disable.
+var profile_control = @zeros([1]u32);
+// Five records: [generation, event_id, tsc_lo16, tsc_mid16, tsc_hi16].
+var profile_records = @zeros([25]u32);
+// [generation, records_written, overflow_attempts, error_flags].
+// Error bit0: invalid trace flag; bit1: record overflow.
+var profile_status = @zeros([4]u32);
+var profile_stamp = @zeros([3]u16);
+// Receiver-only u48 triples: start0, start1, end0, end1. Sequential samples.
+// Counter IDs do not establish an event mapping, IPC, or a stall fraction.
+var perf_samples = @zeros([12]u32);
+var token = @zeros([1]u32);
+var invocations: u32 = 0;
+var armed: bool = false;
+var started: bool = false;
+var ack_started: bool = false;
+var control_phase: u16 = 0;
+const data_mem = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{SEND_WORDS}->source[i+1]});
+const data_out = @get_dsd(fabout_dsd,.{.extent=SEND_WORDS,.output_queue=data_oq});
+const token_mem = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->token[i]});
+const token_out = @get_dsd(fabout_dsd,.{.extent=1,.output_queue=control_oq});
+const scratch_mem = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{ACCEPTED_WORDS}->scratch[i+1]});
+const data_in = @get_dsd(fabin_dsd,.{.extent=ACCEPTED_WORDS,.input_queue=data_iq});
+// Receive DSR ownership spans READY transmission through RX_DONE.
+const receive_dest = @get_dsr(dsr_dest,2);
+const receive_src = @get_dsr(dsr_src1,2);
+
+fn clock_at(offset: i16) void {
+  time.get_timestamp(&stamp);
+  for (@range(i16,3)) |i| { clocks[offset+i]=@as(u32,stamp[i]); }
+}
+
+fn profile_record(event_id: u32) void {
+  if (profile_control[0] != 1 and profile_control[0] != 2) { return; }
+  if (profile_status[1] >= 5) {
+    profile_status[2]+=1;
+    profile_status[3]=profile_status[3]|2;
+    return;
+  }
+  const offset: i16 = @as(i16,profile_status[1])*5;
+  profile_records[offset]=profile_status[0];
+  profile_records[offset+1]=event_id;
+  time.get_timestamp(&profile_stamp);
+  for (@range(i16,3)) |i| {
+    profile_records[offset+2+i]=@as(u32,profile_stamp[i]);
+  }
+  profile_status[1]+=1;
+}
+
+fn profile_perf_at(offset: i16, counter_id: i16) void {
+  time.get_perf_cntr(&profile_stamp,counter_id);
+  for (@range(i16,3)) |i| {
+    perf_samples[offset+i]=@as(u32,profile_stamp[i]);
+  }
+}
+
+fn snapshot_scratch() void {
+  for (@range(i16,2*N+3)) |i| {
+    scratch_mirror[i]=scratch[i];
+    stats[23]+=1;
+  }
+}
+
+fn finish_sender() void {
+  if (stats[6] == 1 and stats[7] == 1 and stats[11] == 0) {
+    snapshot_scratch();
+    clock_at(9);
+    time.disable_tsc();
+    stats[11]=1;
+    sys.unblock_cmd_stream();
+  }
+}
+
+fn start_sender() void {
+  if (armed and stats[8] == 1 and !started) {
+    started=true;
+    time.enable_tsc();
+    clock_at(0);
+    @mov32(data_out,data_mem,.{.async=true,.ut_id=@get_ut_id(4),.activate=TX_DONE});
+    stats[13]=@as(u32,SEND_WORDS);
+  }
+}
+
+fn maybe_ack() void {
+  // READY completion releases the shared token/output/UT lease for ACK.
+  if (stats[27] == 1 and stats[12] == 0 and
+      stats[9] == 1 and !ack_started) {
+    ack_started=true;
+    control_phase=2;
+    token[0]=(control[0]<<4)|2;
+    // Event4: before ACK issue. Record stores themselves precede @mov32.
+    profile_record(4);
+    @mov32(token_out,token_mem,.{.async=true,.ut_id=@get_ut_id(6),.activate=CONTROL_DONE});
+  }
+}
+
+fn prepare() void {
+  invocations+=1;
+  for (@range(i16,32)) |i| { stats[i]=0; }
+  for (@range(i16,12)) |i| { clocks[i]=0; }
+  for (@range(i16,25)) |i| { profile_records[i]=0; }
+  for (@range(i16,4)) |i| { profile_status[i]=0; }
+  for (@range(i16,12)) |i| { perf_samples[i]=0; }
+  profile_status[0]=control[0];
+  if (profile_control[0] > 2) { profile_status[3]=1; }
+  for (@range(i16,2*N+3)) |i| { scratch[i]=0xdeadbeef; }
+  scratch[0]=0x1234abcd; scratch[2*N+2]=0x7890fedc;
+  stats[0]=@as(u32,MODE); stats[1]=@as(u32,N); stats[2]=@as(u32,ROLE);
+  stats[3]=control[0]; stats[4]=invocations; stats[14]=@as(u32,2*N);
+  stats[18]=@as(u32,BATCH);
+  if (control[0] != invocations or control[1] > 1) { stats[12]=1; }
+  armed=false; started=false; ack_started=false; control_phase=0; token[0]=0;
+  sys.unblock_cmd_stream();
+}
+
+fn run_probe() void {
+  if (comptime ROLE == 0) {
+    armed=true;
+    start_sender();
+  } else {
+    // Enable on all trace arms. No cross-PE timestamp subtraction is valid.
+    time.enable_tsc();
+    if (profile_control[0] == 2) {
+      profile_perf_at(0,0);
+      profile_perf_at(3,1);
+    }
+    profile_record(1); // Receiver arm, before posting DATA receive and READY.
+    stats[19]=1;
+    if (comptime BATCH == 1) {
+      stats[26]=1;
+      @load_to_dsr(receive_dest,scratch_mem);
+      @load_to_dsr(receive_src,data_in,.{.async=true,.ut_id=@get_ut_id(5),.activate=RX_DONE});
+      @mov32(receive_dest,receive_src,.{.async=true,.ut_id=@get_ut_id(5)});
+    }
+    control_phase=1;
+    token[0]=(control[0]<<4)|1;
+    @mov32(token_out,token_mem,.{.async=true,.ut_id=@get_ut_id(6),.activate=CONTROL_DONE});
+  }
+}
+
+task transmitted() void {
+  clock_at(3);
+  if (stats[6] != 0) { stats[12]+=2; }
+  stats[6]+=1;
+  finish_sender();
+}
+
+task received_control(data: u32) void {
+  if (data == ((control[0]<<4)|1)) {
+    stats[8]+=1;
+    if (stats[8] != 1) { stats[12]+=4; }
+    start_sender();
+  } else if (data == ((control[0]<<4)|2)) {
+    clock_at(6);
+    stats[7]+=1;
+    if (!started or stats[7] != 1) { stats[12]+=8; }
+    finish_sender();
+  } else { stats[12]+=16; }
+}
+
+task received_data(data: u32) void {
+  stats[25]+=1;
+  if (stats[19] != 1 or stats[20] >= @as(u32,ACCEPTED_WORDS)) {
+    stats[12]+=128;
+    return;
+  }
+  scratch[@as(i16,stats[20])+1]=data;
+  stats[20]+=1; stats[29]+=1;
+  if (stats[20] == @as(u32,ACCEPTED_WORDS)) { @activate(RX_DONE); }
+}
+
+task received_frame() void {
+  profile_record(2); // RX completion callback entry, before validation work.
+  stats[21]+=1;
+  if (stats[21] != 1 or stats[19] != 1) { stats[12]+=256; return; }
+  if (comptime BATCH == 1) {
+    stats[20]=@as(u32,ACCEPTED_WORDS);
+    stats[29]=@as(u32,ACCEPTED_WORDS);
+  }
+  if (stats[20] != @as(u32,ACCEPTED_WORDS)) { stats[12]+=512; }
+  snapshot_scratch();
+  stats[28]+=1;
+  if (scratch[0] != 0x1234abcd) { stats[12]+=1024; }
+  stats[28]+=1;
+  if (scratch[2*N+2] != 0x7890fedc) { stats[12]+=2048; }
+  for (@range(i16,2*N)) |i| {
+    const word: u32=scratch[i+1];
+    stats[30]+=1;
+    if ((word>>16) != (@as(u32,i)&1)) { stats[12]+=4096; }
+    const bits: u32=word&0xffff;
+    stats[31]+=1;
+    received[i+1]=bits;
+    stats[24]+=1; stats[22]+=1; stats[5]+=1;
+    if (bits != 0x3400+(control[1]<<8)+@as(u32,i)) { stats[12]+=32; }
+  }
+  const terminal_word: u32=scratch[2*N+1];
+  stats[30]+=1;
+  if ((terminal_word>>16) != 1) { stats[12]+=8192; }
+  const terminal: u32=terminal_word&0xffff;
+  stats[31]+=1;
+  received[2*N+1]=terminal;
+  stats[24]+=1; stats[22]+=1; stats[17]=terminal;
+  if (terminal == 0x6000+control[0]) { stats[16]=1; }
+  else { stats[12]+=128; }
+  if (stats[12] == 0) { stats[27]=1; }
+  profile_record(3); // Validation and output copies complete, before maybe_ack.
+  maybe_ack();
+}
+
+task control_sent() void {
+  stats[15]+=1;
+  if (control_phase == 1) {
+    stats[9]+=1;
+    maybe_ack();
+  } else if (control_phase == 2) {
+    profile_record(5); // ACK TX callback, after phase dispatch and stats15.
+    if (profile_control[0] == 2) {
+      profile_perf_at(6,0);
+      profile_perf_at(9,1);
+    }
+    time.disable_tsc();
+    stats[10]+=1;
+    stats[11]+=1;
+    sys.unblock_cmd_stream();
+  } else { stats[12]+=64; }
+}
+
+var source_ptr: [*]u32=&source;
+var received_ptr: [*]u32=&received;
+var control_ptr: [*]u32=&control;
+var stats_ptr: [*]u32=&stats;
+var clocks_ptr: [*]u32=&clocks;
+var scratch_mirror_ptr: [*]u32=&scratch_mirror;
+var profile_control_ptr: [*]u32=&profile_control;
+var profile_records_ptr: [*]u32=&profile_records;
+var profile_status_ptr: [*]u32=&profile_status;
+var perf_samples_ptr: [*]u32=&perf_samples;
+comptime {
+  if (ROLE == 0) {
+    @initialize_queue(data_oq,.{.color=DATA});
+    @initialize_queue(control_iq,.{.color=CONTROL});
+    @bind_local_task(transmitted,TX_DONE);
+    @bind_data_task(received_control,@get_data_task_id(control_iq));
+  } else {
+    @initialize_queue(data_iq,.{.color=DATA});
+    @initialize_queue(control_oq,.{.color=CONTROL});
+    @bind_local_task(control_sent,CONTROL_DONE);
+    @bind_local_task(received_frame,RX_DONE);
+    if (BATCH == 0) {
+      @bind_data_task(received_data,@get_data_task_id(data_iq));
+    } else {
+      @block(@get_data_task_id(data_iq));
+    }
+  }
+  @export_symbol(source_ptr,"source");
+  @export_symbol(received_ptr,"received");
+  @export_symbol(control_ptr,"control");
+  @export_symbol(stats_ptr,"stats");
+  @export_symbol(clocks_ptr,"clocks");
+  @export_symbol(scratch_mirror_ptr,"scratch_mirror");
+  @export_symbol(profile_control_ptr,"profile_control");
+  @export_symbol(profile_records_ptr,"profile_records");
+  @export_symbol(profile_status_ptr,"profile_status");
+  @export_symbol(perf_samples_ptr,"perf_samples");
+  @export_symbol(prepare);
+  @export_symbol(run_probe);
+}

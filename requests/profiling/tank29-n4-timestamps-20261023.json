@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "id": "tank29-n4-timestamps-20261023",
+  "description": "TANK29 feasibility: one N4 two-PE build, four serial fresh runtimes off/on/on/off, five receiver timestamps per instrumented invocation, and a host-only comparison.",
+  "steps": [
+    {
+      "name": "compile-n4",
+      "kind": "appliance",
+      "script": "validations/profiling/profile_appliance.py",
+      "args": ["compile", "--backend", "hardware", "--namespace", "job-operator", "--out", "{output}/build"],
+      "timeout_seconds": 1200
+    },
+    {
+      "name": "off-first",
+      "kind": "appliance",
+      "script": "validations/profiling/profile_appliance.py",
+      "args": ["run", "--backend", "hardware", "--artifact-record", "{output}/build/profile-build.json", "--flag", "0", "--host-timeout", "300", "--out", "{output}/off-first"],
+      "timeout_seconds": 1200
+    },
+    {
+      "name": "on-first",
+      "kind": "appliance",
+      "script": "validations/profiling/profile_appliance.py",
+      "args": ["run", "--backend", "hardware", "--artifact-record", "{output}/build/profile-build.json", "--flag", "1", "--host-timeout", "300", "--out", "{output}/on-first"],
+      "timeout_seconds": 1200
+    },
+    {
+      "name": "on-second",
+      "kind": "appliance",
+      "script": "validations/profiling/profile_appliance.py",
+      "args": ["run", "--backend", "hardware", "--artifact-record", "{output}/build/profile-build.json", "--flag", "1", "--host-timeout", "300", "--out", "{output}/on-second"],
+      "timeout_seconds": 1200
+    },
+    {
+      "name": "off-second",
+      "kind": "appliance",
+      "script": "validations/profiling/profile_appliance.py",
+      "args": ["run", "--backend", "hardware", "--artifact-record", "{output}/build/profile-build.json", "--flag", "0", "--host-timeout", "300", "--out", "{output}/off-second"],
+      "timeout_seconds": 1200
+    },
+    {
+      "name": "compare",
+      "kind": "host",
+      "script": "validations/profiling/profile_compare.py",
+      "args": ["--captures", "{output}/off-first/capture-data", "{output}/on-first/capture-data", "{output}/on-second/capture-data", "{output}/off-second/capture-data", "--out", "{output}/comparison.json"],
+      "timeout_seconds": 60
+    }
+  ]
+}

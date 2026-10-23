@@ -1,0 +1,38 @@
+// H101/E195: fixed direct u32 wire and batched receive, two PEs.
+const MODE: i16 = 0;
+param N: i16;
+const BATCH: i16 = 1;
+const DATA = @get_color(1);
+const CONTROL = @get_color(2);
+const memcpy = @import_module("<memcpy/get_params>", .{.width=2,.height=1});
+layout {
+  @comptime_assert(MODE == 0 or MODE == 1);
+  @comptime_assert(N == 4 or N == 32);
+  @comptime_assert(BATCH == 0 or BATCH == 1);
+  @set_rectangle(2,1);
+  for (@range(i16,2)) |x| {
+    @set_tile_code(x,0,"pe.csl",.{.memcpy_params=memcpy.get_params(x),
+      .ROLE=x,.MODE=MODE,.N=N,.BATCH=BATCH,.DATA=DATA,.CONTROL=CONTROL});
+  }
+  @set_color_config(0,0,DATA,.{.routes=.{.rx=.{RAMP},.tx=.{EAST}}});
+  if (MODE == 1) {
+    @set_color_config(1,0,DATA,.{.routes=.{.rx=.{WEST},.tx=.{RAMP}},
+      .filter=.{.kind=.{.range=true},.min_idx=0,.max_idx=1}});
+  } else {
+    @set_color_config(1,0,DATA,.{.routes=.{.rx=.{WEST},.tx=.{RAMP}}});
+  }
+  @set_color_config(1,0,CONTROL,.{.routes=.{.rx=.{RAMP},.tx=.{WEST}}});
+  @set_color_config(0,0,CONTROL,.{.routes=.{.rx=.{EAST},.tx=.{RAMP}}});
+  @export_name("source",[*]u32,true);
+  @export_name("received",[*]u32,true);
+  @export_name("control",[*]u32,true);
+  @export_name("stats",[*]u32,true);
+  @export_name("clocks",[*]u32,true);
+  @export_name("scratch_mirror",[*]u32,true);
+  @export_name("profile_control",[*]u32,true);
+  @export_name("profile_records",[*]u32,true);
+  @export_name("profile_status",[*]u32,true);
+  @export_name("perf_samples",[*]u32,true);
+  @export_name("prepare",fn()void);
+  @export_name("run_probe",fn()void);
+}
