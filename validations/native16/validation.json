@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "native16",
+  "description": "Native16 transfer controls and boundary diagnostics.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "primitives",
+  "description": "Frozen Top-K and halo cases with host oracles.",
+  "entrypoints": [
+    "tank_appliance.py"
+  ],
+  "tests": [
+    "."
+  ]
+}

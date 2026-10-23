@@ -167,17 +167,20 @@ class SchemaTests(unittest.TestCase):
                 watch.files_under(root / "dangling", 1024)
 
     def test_shipped_manifests_match_real_entrypoint_argument_parsers(self):
-        # Importing parser modules does not import or invoke the appliance SDK.
-        import appliance
-        import tank_appliance
-        root = Path(__file__).resolve().parent
-        parsers = {"appliance.py": appliance.parser, "tank_appliance.py": tank_appliance.parser}
-        for name in ("native16-baseline.json", "topk-small.json"):
-            value = watch.manifest(watch.read_json(root / "requests" / name), watch.DEFAULT_SCRIPTS)
+        # Import only parsers; neither handler nor appliance SDK is invoked.
+        import importlib.util
+        from csl_validation import catalog
+        root = Path(__file__).resolve().parents[1]
+        for name in ("native16/native16-baseline.json", "primitives/topk-small.json"):
+            value = catalog.request_file(root, "requests/" + name)
             with tempfile.TemporaryDirectory() as temporary:
                 for step in value["steps"]:
-                    with self.subTest(manifest=name, step=step["name"]):
-                        args = parsers[step["script"]]().parse_args([a.replace("{output}", temporary) for a in step["args"]])
+                    script = root / step["script"]
+                    with patch.object(sys, "path", [str(script.parent)] + sys.path):
+                        spec = importlib.util.spec_from_file_location("shipped_parser", script)
+                        module = importlib.util.module_from_spec(spec)
+                        spec.loader.exec_module(module)
+                        args = module.parser().parse_args([a.replace("{output}", temporary) for a in step["args"]])
                         self.assertTrue(args.out.is_absolute())
                         self.assertEqual(args.backend, "hardware")
                         self.assertEqual(step["kind"], "appliance")

@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "clocks",
+  "description": "Clock probes and measurement result checks.",
+  "entrypoints": [
+    "clock_appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

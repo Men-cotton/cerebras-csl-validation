@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "id": "native16-baseline-3-7-0",
+  "description": "Compile the original two-PE native16 transfer probe and validate its offset 3, length 7, mode 0 control on hardware.",
+  "steps": [
+    {
+      "name": "compile",
+      "script": "validations/native16/appliance.py",
+      "args": [
+        "compile",
+        "hardware",
+        "--variant",
+        "baseline",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/build"
+      ],
+      "timeout_seconds": 1200,
+      "kind": "appliance"
+    },
+    {
+      "name": "run-control",
+      "script": "validations/native16/appliance.py",
+      "args": [
+        "run",
+        "hardware",
+        "--variant",
+        "baseline",
+        "--artifact-record",
+        "{output}/build/artifact.json",
+        "--case",
+        "3:7:0",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-control"
+      ],
+      "timeout_seconds": 1200,
+      "kind": "appliance"
+    }
+  ]
+}

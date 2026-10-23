@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "id": "topk-small-aba",
+  "description": "Compile the frozen uneven 3x2 Top-K case and validate one hardware run with its full A/B/A capture and host oracle.",
+  "steps": [
+    {
+      "name": "compile",
+      "script": "validations/primitives/tank_appliance.py",
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "topk-small",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/build"
+      ],
+      "timeout_seconds": 1200,
+      "kind": "appliance"
+    },
+    {
+      "name": "run-aba",
+      "script": "validations/primitives/tank_appliance.py",
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "topk-small",
+        "--artifact-record",
+        "{output}/build/build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-aba"
+      ],
+      "timeout_seconds": 1200,
+      "kind": "appliance"
+    }
+  ]
+}

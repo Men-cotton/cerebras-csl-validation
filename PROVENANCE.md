@@ -44,3 +44,12 @@ the SDK 2.10.2 official references used for compatibility checks.
 The new repository name describes the broader validation purpose. It does not
 change the ownership of imported sources, certify a kernel for hardware, or turn
 local simulation evidence into a hardware measurement.
+
+## Family-directory organization
+
+After initial publication at `9606ae15e25565904172018e3a3f8abdbc5d51fd`, the 262
+inherited files other than `.gitignore` moved into validation families and the
+shared job-inspection tool. Their bytes remain unchanged. The explicit
+[old-to-new map](docs/architecture/relocation.json) permits comparison against that
+revision; it does not rewrite the source revisions recorded inside case manifests.
+The new [layout contract](docs/architecture/layout.md) owns current navigation.

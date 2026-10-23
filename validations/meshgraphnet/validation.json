@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "meshgraphnet",
+  "description": "Frozen MeshGraphNet cases and capture audits.",
+  "entrypoints": [
+    "mesh_appliance.py"
+  ],
+  "tests": [
+    "."
+  ]
+}
