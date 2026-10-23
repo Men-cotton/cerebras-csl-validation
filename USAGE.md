@@ -133,3 +133,9 @@ rectangle/row/tile transfers, device-contained work and optional host-thread
 PMU counters. It has local SIM and appliance/hardware drivers; this addition
 does not change the native16 tests above. See the guide for representative
 comparisons, source-bound captures and the current validation limits.
+
+
+The [cross-tank campaign](TANK_CAMPAIGN.md) adds full-capture Top-K capacity
+checks and fixed-work halo weak-scaling cases. Run `uv run python tank_campaign.py`
+for a private tmux campaign with failure continuation and pending-only resume.
+Existing native16, clock and MeshGraphNet capsules retain their original files.

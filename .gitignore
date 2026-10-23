@@ -62,3 +62,17 @@
 !/MESH_FOLLOWUP.md
 !/mesh_followup_cases/
 !/mesh_followup_cases/**
+
+# Cross-tank hardware validation source and deterministic cases.
+!/tank_appliance.py
+!/tank_campaign.py
+!/tank_worker.py
+!/tank_audit.py
+!/export_tank_cases.py
+!/test_tank_appliance.py
+!/test_tank_adapters.py
+!/test_tank_queue.py
+!/test_tank_queue_extras.py
+!/TANK_CAMPAIGN.md
+!/tank_cases/
+!/tank_cases/**

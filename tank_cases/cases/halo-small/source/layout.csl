@@ -1,0 +1,28 @@
+param width: i16;
+param height: i16;
+
+const stencil = @import_module("vendor_layout.csl", .{
+  .colors = [8]color{@get_color(0), @get_color(1), @get_color(2), @get_color(3),
+                     @get_color(4), @get_color(5), @get_color(6), @get_color(7)},
+  .entrypoints = [3]local_task_id{@get_local_task_id(14), @get_local_task_id(15), @get_local_task_id(16)},
+  .width = width, .height = height
+});
+const memcpy = @import_module("<memcpy/get_params>", .{.width=width, .height=height});
+
+layout {
+  @comptime_assert(width >= 2 and height >= 2);
+  @set_rectangle(width, height);
+  for (@range(i16, height)) |py| {
+    for (@range(i16, width)) |px| {
+      @set_tile_code(px, py, "pe.csl", .{
+        .X=px, .Y=py, .memcpy_params=memcpy.get_params(px),
+        .stencil_params=stencil.get_params(px,py)
+      });
+    }
+  }
+  @export_name("y", [*]f32, true);
+  @export_name("Q", [*]f32, true);
+  @export_name("count", [*]u32, true);
+  @export_name("clocks", [*]u16, true);
+  @export_name("apply_epochs", fn(i16, i16)void);
+}

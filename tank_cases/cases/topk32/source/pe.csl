@@ -1,0 +1,172 @@
+param memcpy_params;
+param Pw: u16;
+param Ph: u16;
+param CAP: u16;
+param D: u16;
+param K: u16;
+param row_send: color;
+param row_recv: color;
+param col_send: color;
+param col_recv: color;
+const sys=@import_module("<memcpy/memcpy>",memcpy_params);
+const coords=@import_module("<layout>");
+const Q=@get_color(4);
+const row_iq=@get_input_queue(2);
+const row_oq=@get_output_queue(2);
+const col_iq=@get_input_queue(3);
+const col_oq=@get_output_queue(3);
+const query_iq=@get_input_queue(4);
+const query_oq=@get_output_queue(4);
+// Only one async operation is live per PE. All use this one microthread.
+const FABRIC=@get_ut_id(4);
+const COMPUTE=@get_local_task_id(8);
+const ROW_MERGE=@get_local_task_id(9);
+const ROW_SENT=@get_local_task_id(10);
+const COL_MERGE=@get_local_task_id(11);
+const DONE=@get_local_task_id(12);
+const INF: u32=0x7f800000;
+const INVALID: u32=0xffffffff;
+const QNAN: u32=0x7fc00176;
+var database=@zeros([CAP*D]f32);
+var identities=@zeros([CAP]u32);
+var meta=@zeros([2]u32);
+var query_seed=@zeros([D]f32);
+var query=@zeros([D]f32);
+var distances=@zeros([CAP]f32);
+// No candidate buffer depends on the number of PEs.
+var best=@zeros([2*K]u32);
+var incoming=@zeros([2*K]u32);
+var scratch=@zeros([2*K]u32);
+var stats=@zeros([16]u32);
+var arithmetic=@zeros([5]f32);
+var loaded: bool=false;
+var completed: u32=0;
+const qmem=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{D}->query[i]});
+const bmem=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{2*K}->best[i]});
+const imem=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{2*K}->incoming[i]});
+const qin=@get_dsd(fabin_dsd,.{.extent=D,.input_queue=query_iq});
+const qout=@get_dsd(fabout_dsd,.{.extent=D,.output_queue=query_oq});
+const rin=@get_dsd(fabin_dsd,.{.extent=2*K,.input_queue=row_iq});
+const rout=@get_dsd(fabout_dsd,.{.extent=2*K,.output_queue=row_oq});
+const cin=@get_dsd(fabin_dsd,.{.extent=2*K,.input_queue=col_iq});
+const cout=@get_dsd(fabout_dsd,.{.extent=2*K,.output_queue=col_oq});
+const lhs=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->arithmetic[i]});
+const rhs=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->arithmetic[1+i]});
+const delta=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->arithmetic[2+i]});
+const square=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->arithmetic[3+i]});
+const sum=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->arithmetic[4+i]});
+fn finite(v:f32) bool { return (@bitcast(u32,v)&0x7f800000)!=0x7f800000; }
+fn less(ad:u32,ai:u32,bd:u32,bi:u32) bool {
+  const a=@bitcast(f32,ad); const b=@bitcast(f32,bd);
+  return a<b or (a==b and ai<bi);
+}
+fn reject(code:u32) void { stats[0]=0xbad; stats[12]=code; sys.unblock_cmd_stream(); }
+fn insert(distance:u32,identity:u32) void {
+  var at:u16=0;
+  while (at<K) : (at+=1) {
+    if (less(distance,identity,best[2*at],best[2*at+1])) {
+      var j:u16=K-1;
+      while (j>at) : (j-=1) { best[2*j]=best[2*(j-1)]; best[2*j+1]=best[2*(j-1)+1]; }
+      best[2*at]=distance; best[2*at+1]=identity; return;
+    }
+  }
+}
+fn merge() void {
+  var a:u16=0; var b:u16=0; var i:u16=0;
+  while (i<K) : (i+=1) {
+    if (less(best[2*a],best[2*a+1],incoming[2*b],incoming[2*b+1])) {
+      scratch[2*i]=best[2*a]; scratch[2*i+1]=best[2*a+1]; a+=1;
+    } else { scratch[2*i]=incoming[2*b]; scratch[2*i+1]=incoming[2*b+1]; b+=1; }
+  }
+  i=0; while (i<2*K) : (i+=1) { best[i]=scratch[i]; }
+  stats[14]+=1;
+}
+fn f_load() void {
+  loaded=false; var i:u16=0;
+  while (i<16) : (i+=1) { stats[i]=0; }
+  if (completed!=0 or meta[0]>@as(u32,CAP) or meta[1]!=0x176) { reject(1); return; }
+  i=0;
+  while (i<CAP) : (i+=1) {
+    if (@as(u32,i)<meta[0]) {
+      if (identities[i]==INVALID) { reject(2); return; }
+    } else if (identities[i]!=INVALID) { reject(3); return; }
+    var j:u16=0;
+    while (j<D) : (j+=1) {
+      if (@as(u32,i)<meta[0]) { if (!finite(database[D*i+j])) { reject(4); return; } }
+      else if (@bitcast(u32,database[D*i+j])!=0) { reject(5); return; }
+    }
+  }
+  i=0; while (i<D) : (i+=1) { if (@bitcast(u32,query_seed[i])!=QNAN) { reject(6); return; } }
+  loaded=true; stats[0]=0xad01; stats[2]=1; stats[4]=meta[0]; sys.unblock_cmd_stream();
+}
+fn f_query(generation:i16) void {
+  if (!loaded or generation<1 or @as(u32,generation)!=completed+1) { reject(7); return; }
+  var i:u16=0; while (i<16) : (i+=1) { stats[i]=0; }
+  stats[0]=1; stats[1]=@as(u32,generation); stats[2]=1; stats[3]=completed; stats[4]=meta[0]; stats[13]=1;
+  i=0; while (i<K) : (i+=1) {
+    best[2*i]=INF; best[2*i+1]=INVALID;
+    incoming[2*i]=INF; incoming[2*i+1]=INVALID;
+    scratch[2*i]=INF; scratch[2*i+1]=INVALID;
+  }
+  i=0; while (i<CAP) : (i+=1) { distances[i]=@bitcast(f32,INF); }
+  i=0; while (i<D) : (i+=1) { query[i]=@bitcast(f32,QNAN); }
+  if (coords.get_x_coord()==0 and coords.get_y_coord()==0) {
+    i=0; while (i<D) : (i+=1) { query[i]=query_seed[i]; }
+    @mov32(qout,qmem,.{.async=true,.ut_id=FABRIC,.activate=COMPUTE});
+  } else { @mov32(qmem,qin,.{.async=true,.ut_id=FABRIC,.activate=COMPUTE}); }
+}
+fn row_complete() void {
+  if (coords.get_x_coord()>0) {
+    stats[9]=1; @mov32(rout,bmem,.{.async=true,.ut_id=FABRIC,.activate=ROW_SENT});
+  } else if (coords.get_y_coord()<Ph-1) {
+    stats[10]=1; stats[13]=4; @mov32(imem,cin,.{.async=true,.ut_id=FABRIC,.activate=COL_MERGE});
+  } else { column_complete(); }
+}
+fn column_complete() void {
+  if (coords.get_y_coord()>0) {
+    stats[11]=1; stats[13]=5; @mov32(cout,bmem,.{.async=true,.ut_id=FABRIC,.activate=DONE});
+  } else { @activate(DONE); }
+}
+task compute() void {
+  stats[5]=1; stats[15]=@as(u32,D); stats[13]=2;
+  var row:u16=0;
+  while (@as(u32,row)<meta[0]) : (row+=1) {
+    arithmetic[4]=0.0; var j:u16=0;
+    while (j<D) : (j+=1) {
+      arithmetic[0]=database[D*row+j]; arithmetic[1]=query[j];
+      @fsubs(delta,lhs,rhs); @fmuls(square,delta,arithmetic[2]); @fadds(sum,sum,square);
+      if (!finite(arithmetic[2]) or !finite(arithmetic[3]) or !finite(arithmetic[4])) { stats[12]=8; }
+      stats[6]+=1;
+    }
+    distances[row]=arithmetic[4]; stats[7]+=1;
+    if (finite(distances[row])) { insert(@bitcast(u32,distances[row]),identities[row]); }
+  }
+  stats[13]=3;
+  if (coords.get_x_coord()<Pw-1) {
+    stats[8]=1; @mov32(imem,rin,.{.async=true,.ut_id=FABRIC,.activate=ROW_MERGE});
+  } else { row_complete(); }
+}
+task merge_row() void { merge(); row_complete(); }
+task row_sent() void { @activate(DONE); }
+task merge_column() void { merge(); column_complete(); }
+task done() void { completed+=1; stats[0]=0x600d; stats[3]=completed; stats[13]=6; sys.unblock_cmd_stream(); }
+var ptr_database:[*]f32=&database;
+var ptr_identities:[*]u32=&identities;
+var ptr_meta:[*]u32=&meta;
+var ptr_query_seed:[*]f32=&query_seed;
+var ptr_query:[*]f32=&query;
+var ptr_distances:[*]f32=&distances;
+var ptr_best:[*]u32=&best;
+var ptr_stats:[*]u32=&stats;
+comptime {
+  @comptime_assert(@is_arch("wse3"));
+  @bind_local_task(compute,COMPUTE); @bind_local_task(merge_row,ROW_MERGE);
+  @bind_local_task(row_sent,ROW_SENT); @bind_local_task(merge_column,COL_MERGE); @bind_local_task(done,DONE);
+  @initialize_queue(row_iq,.{.color=row_recv}); @initialize_queue(row_oq,.{.color=row_send});
+  @initialize_queue(col_iq,.{.color=col_recv}); @initialize_queue(col_oq,.{.color=col_send});
+  @initialize_queue(query_iq,.{.color=Q}); @initialize_queue(query_oq,.{.color=Q});
+  @export_symbol(ptr_database,"database"); @export_symbol(ptr_identities,"identities"); @export_symbol(ptr_meta,"meta");
+  @export_symbol(ptr_query_seed,"query_seed"); @export_symbol(ptr_query,"query");
+  @export_symbol(ptr_distances,"distances"); @export_symbol(ptr_best,"best"); @export_symbol(ptr_stats,"stats");
+  @export_symbol(f_load); @export_symbol(f_query);
+}
