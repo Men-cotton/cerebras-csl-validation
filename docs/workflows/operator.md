@@ -10,7 +10,8 @@ Read [result collection](collection.md) for the laptop side and
 
 On ALCF, enter the Cerebras user node through `cerebras.alcf.anl.gov`. Reconnect to
 the same user node for later operator sessions. Keep the existing, site-compatible
-SDK virtual environment: this repository does not choose or upgrade its SDK.
+SDK virtual environment, or create an independent one with the
+[SDK environment workflow](sdk-environment.md). The watcher never upgrades it.
 
 ```bash
 export HTTPS_PROXY=http://proxy.alcf.anl.gov:3128
@@ -43,8 +44,9 @@ or missing individual job never establishes that remote work has ended.
 
 ## Initialize the operator
 
-Replace the SDK environment path with an existing environment that already runs
-the site's appliance jobs. Do not point it at the new controller project's
+Replace the SDK environment path with the separately prepared environment from
+the [SDK setup workflow](sdk-environment.md), or another site-compatible SDK
+environment. Do not point it at the new controller project's
 `.venv`. Keep the configuration and state directory outside both that project
 and the request clones.
 

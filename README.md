@@ -5,8 +5,10 @@ results, and collect verified bundles for local analysis. The operator checks ne
 Git requests while idle and runs appliance actions serially. Server-side Git push
 is optional; the laptop can collect status and results over authenticated SSH.
 
-Use uv and Python 3.11 or newer. The controller has no SDK dependency; an existing
-site-compatible SDK environment is selected separately for hardware actions.
+Use uv and Python 3.11 or newer. The controller has no SDK dependency; a separate
+site-compatible SDK environment is selected for hardware actions.
+You can [create a fresh SDK environment](docs/workflows/sdk-environment.md)
+independent of the old repository.
 
 ```bash
 unset UV_PROJECT_ENVIRONMENT

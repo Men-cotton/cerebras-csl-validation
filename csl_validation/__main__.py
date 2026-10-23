@@ -5,7 +5,7 @@ import sys
 def main(argv=None):
     args = sys.argv[1:] if argv is None else argv
     if not args or args[0] in {"-h", "--help"}:
-        print("Usage: uv run --locked -m csl_validation {watch|fetch|jobs|check} ...")
+        print("Usage: uv run --locked -m csl_validation {watch|fetch|jobs|check|sdk-env} ...")
         return 0
     if args[0] == "watch":
         from .watch import main as run
@@ -15,6 +15,8 @@ def main(argv=None):
         from .catalog import main as run
     elif args[0] == "check":
         from .checks import main as run
+    elif args[0] == "sdk-env":
+        from .sdk_setup import main as run
     else:
         print("unknown command: " + args[0], file=sys.stderr)
         return 2

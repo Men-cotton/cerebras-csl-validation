@@ -1,0 +1,6 @@
+# ALCF CSL appliance setup, checked 2026-10-23.
+# CPython 3.11 on Linux x86_64; keep separate from controller dependencies.
+cerebras-appliance==2.10.0
+cerebras-sdk==2.10.0
+# Local result inspectors use NumPy; this pin matches appliance 2.10.0.
+numpy==1.25.0
