@@ -76,3 +76,13 @@
 !/TANK_CAMPAIGN.md
 !/tank_cases/
 !/tank_cases/**
+
+# Generic validation controller and operator/laptop workflow.
+!/README.md
+!/PROVENANCE.md
+!/csl_watch.py
+!/csl_fetch.py
+!/test_csl_watch.py
+!/test_csl_fetch.py
+!/requests/
+!/requests/**
