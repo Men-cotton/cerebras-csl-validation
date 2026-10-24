@@ -1,0 +1,11 @@
+{
+  "description": "Frozen full-graph CSL GNN forward, backward and SGD correctness with exact capture checks.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "id": "csl-training",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

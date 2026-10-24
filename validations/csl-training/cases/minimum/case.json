@@ -1,0 +1,212 @@
+{
+  "census": {
+    "broadcast_panel_words": 32,
+    "broadcast_processed_panel_words_per_pe": 32,
+    "broadcast_received_words_per_pe": 24,
+    "broadcast_scope": "implemented all-owner padded panels per processor block, excludes DONE/RELEASE",
+    "broadcast_tree_word_hops": 96,
+    "cut_edges": 11,
+    "degree_max": 4,
+    "degree_min": 0,
+    "directed_edges": 12,
+    "distinct_remote_source_deliveries": 10,
+    "edge_counts": [
+      3,
+      4,
+      3,
+      2
+    ],
+    "edge_imbalance": 1.3333333333333333,
+    "max_edges": 4,
+    "max_nodes": 2,
+    "node_counts": [
+      1,
+      1,
+      1,
+      2
+    ],
+    "nodes": 5,
+    "owners": 4,
+    "selective_scope": "modeled source deduplication and XY unicast, excludes headers/contention; not implemented",
+    "selective_xy_max_link_words": 8,
+    "selective_xy_word_hops": 48
+  },
+  "experiment": "E198",
+  "files": {
+    "expected.npz": "8f979f4d5fc9dcc2f09d26ff528ed6c3b48d2ae2ce86c0d91f21fe6c92747d9f",
+    "graph.npz": "5fe4932782fc5093c9455498bbb3f06d5c897b68394b42b3bd3d52835c8e0c82",
+    "inputs.npz": "34e0042903ecea6b7c721b599d6eb6ffb16be7bc89b68c76a2003dac54e182f9",
+    "mapping.npz": "909a7f4ac38058abc35454fa859e3a1299b771d599232a0410dc887532cc673a",
+    "original_samples.npz": "75e8dd2bdac0129456dd7c99b5a337990a0bba774995fac8a75bb20ee997f7d4",
+    "samples.npz": "ded414e9ee4803b75b596a3adce2a69a288656665915b925760790b345100819",
+    "sdk_runner.py": "55414f46549a24c5f61bbe1abcafbd77122001c1255d1d50e13f30ed783ca189",
+    "source/layout.csl": "eb7372a95d02424b34b08f22943a123ee6fef1cbd7743b898b67177a295aadc7",
+    "source/pe.csl": "b3c3faf70ebc2de4cd2935f7baae54ad80e1aebc0c16d24081e16ba939d3a9db"
+  },
+  "gradient_signal": [
+    {
+      "decoder": {
+        "elements_above_atol": 35,
+        "max_abs": 0.2797926366329193
+      },
+      "edge_encoder": {
+        "elements_above_atol": 20,
+        "max_abs": 0.027672724798321724
+      },
+      "node_encoder": {
+        "elements_above_atol": 56,
+        "max_abs": 0.2294500172138214
+      },
+      "processor_0_edge": {
+        "elements_above_atol": 63,
+        "max_abs": 0.06070389971137047
+      },
+      "processor_0_node": {
+        "elements_above_atol": 64,
+        "max_abs": 0.33652234077453613
+      },
+      "processor_1_edge": {
+        "elements_above_atol": 71,
+        "max_abs": 0.008582239970564842
+      },
+      "processor_1_node": {
+        "elements_above_atol": 32,
+        "max_abs": 0.23898762464523315
+      }
+    },
+    {
+      "decoder": {
+        "elements_above_atol": 36,
+        "max_abs": 0.6224992871284485
+      },
+      "edge_encoder": {
+        "elements_above_atol": 23,
+        "max_abs": 0.50494384765625
+      },
+      "node_encoder": {
+        "elements_above_atol": 63,
+        "max_abs": 0.39779984951019287
+      },
+      "processor_0_edge": {
+        "elements_above_atol": 69,
+        "max_abs": 0.5303124189376831
+      },
+      "processor_0_node": {
+        "elements_above_atol": 68,
+        "max_abs": 0.6715701818466187
+      },
+      "processor_1_edge": {
+        "elements_above_atol": 74,
+        "max_abs": 0.01257465872913599
+      },
+      "processor_1_node": {
+        "elements_above_atol": 32,
+        "max_abs": 0.6840769052505493
+      }
+    }
+  ],
+  "host_scope": "supply normalized supervised frames; no gradient or optimizer computation during SDK run",
+  "inputs": {
+    "counts": [
+      2,
+      "uint32"
+    ],
+    "dst_slot": [
+      4,
+      "uint32"
+    ],
+    "edge_input": [
+      12,
+      "float32"
+    ],
+    "loss_mask": [
+      2,
+      "float32"
+    ],
+    "node_input": [
+      22,
+      "float32"
+    ],
+    "scalars": [
+      2,
+      "float32"
+    ],
+    "src_begin": [
+      5,
+      "uint32"
+    ],
+    "src_owner": [
+      4,
+      "uint32"
+    ],
+    "src_slot": [
+      4,
+      "uint32"
+    ],
+    "target": [
+      4,
+      "float32"
+    ],
+    "weights": [
+      578,
+      "float32"
+    ]
+  },
+  "loss": "sum squared normalized velocity component errors / global active node count",
+  "optimizer": {
+    "kind": "SGD",
+    "learning_rate": 0.001
+  },
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "gradients": [
+      578,
+      "float32"
+    ],
+    "lifecycle": [
+      2,
+      "uint32"
+    ],
+    "loss": [
+      1,
+      "float32"
+    ],
+    "prediction": [
+      4,
+      "float32"
+    ],
+    "stats": [
+      16,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 2,
+    "E": 4,
+    "H": 4,
+    "L": 2,
+    "R": 2,
+    "S": 2,
+    "W": 578
+  },
+  "provenance": null,
+  "schema": 1,
+  "scope": "synthetic duplicate/self edges, isolated supervised vertex and fixed boundaries",
+  "sources": {
+    "models/meshgraphnet/csl_training/device/layout.csl": "eb7372a95d02424b34b08f22943a123ee6fef1cbd7743b898b67177a295aadc7",
+    "models/meshgraphnet/csl_training/device/pe.csl": "b3c3faf70ebc2de4cd2935f7baae54ad80e1aebc0c16d24081e16ba939d3a9db",
+    "models/meshgraphnet/csl_training/driver.py": "9fe315fb67336c09d296f5ce3dd7ddeaaaab6acad5f17476e0dc6f3f4ffd93cf",
+    "models/meshgraphnet/csl_training/oracle.py": "5e5daea8556341b84bd8ba07666c4cb8311b1c59b307c5c0758594cc7c632c3f",
+    "models/meshgraphnet/csl_training/saved_audit.py": "8f32cf24b762018fa6104e131a4257a23b1a7d3909e15020472c505c70b0b7ed",
+    "models/meshgraphnet/csl_training/sdk_runner.py": "55414f46549a24c5f61bbe1abcafbd77122001c1255d1d50e13f30ed783ca189",
+    "models/meshgraphnet/data.py": "6e16f4199841df21c8a665648e728d41224794a7748f2a721f0638ca0b950c33",
+    "models/meshgraphnet/mapping.py": "6ebf2990edcaf82aa4899cc74d669aa22a7dc872623834466f3b569a0f0e8aa7",
+    "models/meshgraphnet/reference.py": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+    "models/meshgraphnet/training/model.py": "4f5445d89f64d8835b012299f37c8f843b03fff324aa19a565443c1beed11123",
+    "models/meshgraphnet/training/train.py": "9f651cb09a022aa0fe1783afd3bee491962020e0b94d63216236e22cf7a9964a"
+  },
+  "steps": 2
+}

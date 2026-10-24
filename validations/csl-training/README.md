@@ -1,0 +1,9 @@
+# Full CSL GNN training validation
+
+Each named case fixes normalized inputs, supervised targets, initial weights, graph ownership, CSL sources and independently computed expected predictions, gradients and SGD updates. The appliance worker supplies frames and invokes the compiled kernel; it computes no gradients or optimizer updates. The portable NumPy auditor compares every prediction, parameter gradient and updated parameter, plus input readbacks, exact SDK calls, all operation counters, lifecycle and local clocks.
+
+`appliance.py compile --case NAME --backend hardware --namespace job-operator --out OUT` submits one compiler operation. `appliance.py run --case NAME --backend hardware --artifact-record BUILD/training-build.json --host-timeout 300 --out OUT` submits one runtime. Outputs must be fresh. Both actions record job IDs through SDK logging and retain failed states. The request template bounds each client action to 1200 seconds; the worker has a separate 300-second timeout and 15-second termination grace. A client timeout does not establish remote termination.
+
+Case admission is bounded to 128 MiB; capture admission to 256 MiB and 256 regular entries. Download sizes are checked after transfer; these are admission limits, not live remote disk quotas. Captures include frozen case/host source, compiled ABI metadata and all raw arrays. Compiler artifacts and caller outputs stay outside the source tree. No retry or campaign loop exists here.
+
+H4/S2 and a few SGD steps establish a numerical training primitive only. They do not establish converged fluid accuracy, Adam training, native H128/S15 admission, or an end-to-end speedup. `request-template.json` is a draft: follow the parent request contract to publish it with a new execution ID and explicit request trailers. No job was submitted by export.
