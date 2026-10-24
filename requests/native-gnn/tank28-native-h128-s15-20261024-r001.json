@@ -1,0 +1,203 @@
+{
+  "description": "Native H128 fluid inference: gate a complete S2 synthetic model before trained S15 full-mesh C32/C64 streamed and C64 colored cases. Keep the same1896-node/10908-edge graph, checkpoint and saved normalization; compare feature lanes and transport separately.",
+  "id": "tank28-native-h128-s15-20261024-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "minimum-s2",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-minimum-s2"
+      ],
+      "kind": "appliance",
+      "name": "compile-minimum-s2",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "minimum-s2",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-minimum-s2/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-minimum-s2"
+      ],
+      "kind": "appliance",
+      "name": "run-minimum-s2",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-minimum-s2/capture-data",
+        "--out",
+        "{output}/numerical-minimum-s2.json"
+      ],
+      "kind": "host",
+      "name": "audit-minimum-s2",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "trained-c32-streamed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-trained-c32-streamed"
+      ],
+      "kind": "appliance",
+      "name": "compile-trained-c32-streamed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "trained-c32-streamed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c32-streamed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-trained-c32-streamed"
+      ],
+      "kind": "appliance",
+      "name": "run-trained-c32-streamed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-trained-c32-streamed/capture-data",
+        "--out",
+        "{output}/numerical-trained-c32-streamed.json"
+      ],
+      "kind": "host",
+      "name": "audit-trained-c32-streamed",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "trained-c64-streamed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-trained-c64-streamed"
+      ],
+      "kind": "appliance",
+      "name": "compile-trained-c64-streamed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-streamed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-streamed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-trained-c64-streamed"
+      ],
+      "kind": "appliance",
+      "name": "run-trained-c64-streamed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-trained-c64-streamed/capture-data",
+        "--out",
+        "{output}/numerical-trained-c64-streamed.json"
+      ],
+      "kind": "host",
+      "name": "audit-trained-c64-streamed",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "trained-c64-colored",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-trained-c64-colored"
+      ],
+      "kind": "appliance",
+      "name": "compile-trained-c64-colored",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-colored",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-colored/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-trained-c64-colored"
+      ],
+      "kind": "appliance",
+      "name": "run-trained-c64-colored",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-trained-c64-colored/capture-data",
+        "--out",
+        "{output}/numerical-trained-c64-colored.json"
+      ],
+      "kind": "host",
+      "name": "audit-trained-c64-colored",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}
