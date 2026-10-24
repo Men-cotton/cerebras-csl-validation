@@ -1,0 +1,1158 @@
+{
+  "accounting": {
+    "affine_macs": 15787206144,
+    "all_owner_panel_bytes_per_pe": 0,
+    "bank_bytes_per_pe": 1148,
+    "bank_padding_words": 1920,
+    "communication_counter_scope": "stats11=broadcasts,16=column consumption barriers,17=source rounds; comm_stats all zero",
+    "declared_array_bytes_per_pe": 14964,
+    "halo_barrier_word_hops": 31211520,
+    "halo_column_barriers": 1920,
+    "halo_global_barriers": 0,
+    "halo_header_scope": "zero application packet headers; collective SDK protocol words uncounted",
+    "halo_header_words": 0,
+    "halo_payload_word_hops": 468172800,
+    "halo_payload_words": 3686400,
+    "halo_source_broadcasts_per_column": 1920,
+    "intermediate_workspace_bytes_per_pe": 736,
+    "padded_weight_bytes": 9396736,
+    "parameter_bytes": 9331720,
+    "row_broadcast_collectives": 814236,
+    "row_broadcast_word_hops": 9434202624,
+    "row_gather_collectives": 1169916,
+    "row_gather_word_hops": 4717101312,
+    "scope": "declared arrays/algorithm traffic only; code, SDK state, alignment, stack and congestion require compiler/device evidence",
+    "source_panel_bytes_per_pe": 120,
+    "streamed_padding_words": 46080,
+    "weight_column_barrier_word_hops": 1609344,
+    "weight_payload_word_hops": 298346368
+  },
+  "claim": "complete H128 normalized one-step physical forward with all untied weights resident; no training, convergence, long rollout or speedup claim",
+  "encoding_provenance": {
+    "compressor_source_file": "compressor-source.py",
+    "compressor_source_sha256": "02072d818e4f3c88ee1e25db951aa4f57f85e1f68fd1834da20b78059273381e",
+    "dependency_sha256": {
+      "models/meshgraphnet/native_appliance/saved_audit.py": "8e662256462db318152939f613786ad3cfa3de38d2de1013e387b262f4692bde",
+      "models/meshgraphnet/native_full/driver.py": "3cb778d66a6e791f6e861362d54631ea1ec168b925e75ab80f63ac87d969f3d6"
+    },
+    "derived_files_bytes_excluding_manifest": 39653602,
+    "equivalence": "identical array keys, shapes, dtypes and C-order bits, including signed zero",
+    "files": {
+      "PUBLIC_MODEL_LICENSE": {
+        "derived": {
+          "bytes": 1098,
+          "sha256": "769f7db97e1ca994ae879392c520acc9ae1d6e45df225ac38426c3e11c0d6267"
+        },
+        "encoding": "byte-identical copy",
+        "parent": {
+          "bytes": 1098,
+          "sha256": "769f7db97e1ca994ae879392c520acc9ae1d6e45df225ac38426c3e11c0d6267"
+        }
+      },
+      "exact_masks.npz": {
+        "arrays": {
+          "velocity_out": {
+            "bytes": 983040,
+            "dtype": "<u4",
+            "sha256": "47ee6845b602fc3c4974d6b21438400c2b21fe0c5e23053415a8f5d99dd1f534",
+            "shape": [
+              8192,
+              30
+            ]
+          }
+        },
+        "derived": {
+          "bytes": 2412,
+          "sha256": "05d7141ac5f3bf4fecc81aa07f9dde16bd7f9a68247dfdf3c5e0dddb5cfe18f4"
+        },
+        "encoding": "NPZ ZIP_DEFLATED",
+        "parent": {
+          "bytes": 983318,
+          "sha256": "e3fda72ed72816a48a63051d0a8a41a2d5c9cb6993a9aecbf40edfbf402e69c0"
+        }
+      },
+      "expected.npz": {
+        "arrays": {
+          "aggregate": {
+            "bytes": 983040,
+            "dtype": "<f4",
+            "sha256": "d46a3fb6a866096b6bc77d2bfc6940b788023363a233e3844dd67ba2c5e9f150",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "cached_e0": {
+            "bytes": 6029312,
+            "dtype": "<f4",
+            "sha256": "565ab04188e652635488cbda2ca2d7c29c0f69a7f6c18f64372ca7e4608478fd",
+            "shape": [
+              8192,
+              184
+            ]
+          },
+          "comm_stats": {
+            "bytes": 393216,
+            "dtype": "<u4",
+            "sha256": "a6619f482fee91a315f76cdcd8705d39b6ce11077c435ccc696142e130c27762",
+            "shape": [
+              8192,
+              12
+            ]
+          },
+          "decoder_output": {
+            "bytes": 983040,
+            "dtype": "<f4",
+            "sha256": "c62c7ce94424db97c0ce65d01c7a4e862bd8a3c19771597388644a73efea30e4",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "delta_e": {
+            "bytes": 6029312,
+            "dtype": "<f4",
+            "sha256": "0ecad0d58e88b13bcc8b0ea6a2f4971f2e2d5696146bd586e27e104420cfbf49",
+            "shape": [
+              8192,
+              184
+            ]
+          },
+          "delta_h": {
+            "bytes": 983040,
+            "dtype": "<f4",
+            "sha256": "6b6ca0eaa0936a449f8a10e19f55333107931f684565597464781618f5a3ad96",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "e_out": {
+            "bytes": 6029312,
+            "dtype": "<f4",
+            "sha256": "e4bdd5f9dea145a5d7d7bd931fe235d44e5b89b453602c0aa95c9f96400e6fbf",
+            "shape": [
+              8192,
+              184
+            ]
+          },
+          "encoded_h": {
+            "bytes": 983040,
+            "dtype": "<f4",
+            "sha256": "65e0c077258901edb0eb8ba9e94335fa2a1112cd42bd3cafbf3c56ec6ad27425",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "h_out": {
+            "bytes": 983040,
+            "dtype": "<f4",
+            "sha256": "44be772225f4a67d39e3377d4a09f54cba49c46f90ea8e1e602058e800688430",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "sender_cache": {
+            "bytes": 6029312,
+            "dtype": "<f4",
+            "sha256": "80024d20abbf7c5a2d9188060d3d55c6e3c967d84cad757b45941c1c2178e034",
+            "shape": [
+              8192,
+              184
+            ]
+          },
+          "stats": {
+            "bytes": 589824,
+            "dtype": "<u4",
+            "sha256": "e90d106903729d9938943c80ed7a5583b734eef31352c1cf11e3045381954d0e",
+            "shape": [
+              8192,
+              18
+            ]
+          },
+          "velocity_out": {
+            "bytes": 983040,
+            "dtype": "<f4",
+            "sha256": "6a77f3ad9a44758ca801ad6a0261d01c18d0474855ebe51c02dd7f7ec00190dc",
+            "shape": [
+              8192,
+              30
+            ]
+          }
+        },
+        "derived": {
+          "bytes": 21631207,
+          "sha256": "e7d5504f40c933b7c400f1c09316a5d780fb6e3a15656daa91749a9f5463571c"
+        },
+        "encoding": "NPZ ZIP_DEFLATED",
+        "parent": {
+          "bytes": 31001542,
+          "sha256": "980de3f6657e1a6cf722485dcdb7f505d14b7379357f073a397a7b41bb3243e3"
+        }
+      },
+      "inputs.npz": {
+        "arrays": {
+          "bank": {
+            "bytes": 9404416,
+            "dtype": "<f4",
+            "sha256": "26a9d86a1c8261a5888d08d7d831e5bd66d77f0e93e11b99549e9f91196f34e1",
+            "shape": [
+              8192,
+              287
+            ]
+          },
+          "counts": {
+            "bytes": 65536,
+            "dtype": "<u4",
+            "sha256": "81f4f0e4ec362595f432a86c7230bc9f1ecce711dff8350d9585222c51f47fc2",
+            "shape": [
+              8192,
+              2
+            ]
+          },
+          "dst_slot": {
+            "bytes": 3014656,
+            "dtype": "<u4",
+            "sha256": "3e97878e14dd5a74cc171fcbb470c43875751ac3e9a4eff2dbe31f1f7001c995",
+            "shape": [
+              8192,
+              92
+            ]
+          },
+          "geometry": {
+            "bytes": 9043968,
+            "dtype": "<f4",
+            "sha256": "c2ce192b7593fed8ccd8bb417740fec86989145aeb12f8695db035a576ca06d5",
+            "shape": [
+              8192,
+              276
+            ]
+          },
+          "node_type": {
+            "bytes": 491520,
+            "dtype": "<u4",
+            "sha256": "8c983d1c39708c80a45908f202cbe647210ae1de1aca78090fc0cc7174f952aa",
+            "shape": [
+              8192,
+              15
+            ]
+          },
+          "normalizers": {
+            "bytes": 1048576,
+            "dtype": "<f4",
+            "sha256": "9ecc25f4b82a25def66a0c6c58f4a5298727c526d726d7687883c09d7ca0b995",
+            "shape": [
+              8192,
+              32
+            ]
+          },
+          "round_sources": {
+            "bytes": 4194304,
+            "dtype": "<u4",
+            "sha256": "caf9e1e831ef7d73a7ec866a30bd6abb4dff1ab4c1df128b897fead63385b52c",
+            "shape": [
+              8192,
+              128
+            ]
+          },
+          "rx_count": {
+            "bytes": 4194304,
+            "dtype": "<u4",
+            "sha256": "e1645f4142943878c3f49270b8b0139dbacf8d269c66f8638ca6d51448471bdf",
+            "shape": [
+              8192,
+              128
+            ]
+          },
+          "rx_slot": {
+            "bytes": 3014656,
+            "dtype": "<u4",
+            "sha256": "993ba69e81231df69cad606793a788ac3020205ea47618fd23988d8a59ebee1b",
+            "shape": [
+              8192,
+              92
+            ]
+          },
+          "src_owner": {
+            "bytes": 3014656,
+            "dtype": "<u4",
+            "sha256": "2b1361540c339c19db9a7266e99d554f341013542da078ab028abb4ef925442f",
+            "shape": [
+              8192,
+              92
+            ]
+          },
+          "src_slot": {
+            "bytes": 3014656,
+            "dtype": "<u4",
+            "sha256": "564dcb849ede39a8cd61c5d22bed325f7288c256b0adf006257d14a2a3b3d67f",
+            "shape": [
+              8192,
+              92
+            ]
+          },
+          "tx_begin": {
+            "bytes": 4227072,
+            "dtype": "<u4",
+            "sha256": "703f0492006ac25cce8ce8e9a9df035cbe8cdc31c0ca14337eddab72f4e4bfb5",
+            "shape": [
+              8192,
+              129
+            ]
+          },
+          "tx_slots": {
+            "bytes": 786432,
+            "dtype": "<u4",
+            "sha256": "588041a2e011ad48cb229b36497417f1d4d0326005e1f6732fe6422df2ca6a4c",
+            "shape": [
+              8192,
+              24
+            ]
+          },
+          "velocity": {
+            "bytes": 983040,
+            "dtype": "<f4",
+            "sha256": "4b9557c2d255ac1593fbfe023966d982ec2c5f3ecfd0c9ed56b2df0354408574",
+            "shape": [
+              8192,
+              30
+            ]
+          }
+        },
+        "derived": {
+          "bytes": 8994738,
+          "sha256": "12e97ed2696b564e598fda127c964caad910b40991b390bd6275904bb8c35f20"
+        },
+        "encoding": "NPZ ZIP_DEFLATED",
+        "parent": {
+          "bytes": 46501292,
+          "sha256": "7828cb9762edbdcbf9507e5d4e5a40b5851fd9dc71ab829cde8c81682476ac98"
+        }
+      },
+      "original.npz": {
+        "arrays": {
+          "edge_features": {
+            "bytes": 130896,
+            "dtype": "<f4",
+            "sha256": "6300ba4f932c60b1eb0124897884227a6166e69e517aac529de9eb10cd513de3",
+            "shape": [
+              10908,
+              3
+            ]
+          },
+          "edge_ids": {
+            "bytes": 47104,
+            "dtype": "<i4",
+            "sha256": "372e34d59e78f39b435a1f685ecb5d47008139bece9c01da4a48e7c23b0a5641",
+            "shape": [
+              128,
+              92
+            ]
+          },
+          "edge_mean": {
+            "bytes": 12,
+            "dtype": "<f4",
+            "sha256": "50f9d72b2de66a67844090408f18d281de7241626e19c499401d0b60be84a4cd",
+            "shape": [
+              3
+            ]
+          },
+          "edge_std": {
+            "bytes": 12,
+            "dtype": "<f4",
+            "sha256": "d21f5ec3aceaeda78b0155280893ce8c5d332b469e88050d24fc415c93b84f49",
+            "shape": [
+              3
+            ]
+          },
+          "flat": {
+            "bytes": 9331720,
+            "dtype": "<f4",
+            "sha256": "a3d4b05046c36e53a5d569957fcf7b81b1f2b1d624251495579b213858564a44",
+            "shape": [
+              2332930
+            ]
+          },
+          "mesh_pos": {
+            "bytes": 15168,
+            "dtype": "<f4",
+            "sha256": "620cd6dfae08736d50bdc9b17f84e4a84e86f3c9653234bc16baed2ef9b177d4",
+            "shape": [
+              1896,
+              2
+            ]
+          },
+          "node_ids": {
+            "bytes": 7680,
+            "dtype": "<i4",
+            "sha256": "d7def6e8791d659ac51cac161bfb60bdc7cd3bb5ac40d53bb869797f41fbc675",
+            "shape": [
+              128,
+              15
+            ]
+          },
+          "node_mean": {
+            "bytes": 44,
+            "dtype": "<f4",
+            "sha256": "1686517b8cfc7971ac893875fd67ea85a7dde7f96f96c6bbb1681ec3cbe79a94",
+            "shape": [
+              11
+            ]
+          },
+          "node_std": {
+            "bytes": 44,
+            "dtype": "<f4",
+            "sha256": "bea8ac7ac294f15f521a3aa4dcd3f09c6e2d2bb7f35afbdbe254fdd86b15f4f7",
+            "shape": [
+              11
+            ]
+          },
+          "node_type": {
+            "bytes": 7584,
+            "dtype": "<i4",
+            "sha256": "14821c48776de157e744b01894b706df8c76231bf8542ba3ff63dfc31d24877f",
+            "shape": [
+              1896
+            ]
+          },
+          "output_mean": {
+            "bytes": 8,
+            "dtype": "<f4",
+            "sha256": "75d70a50b4deb61d2fc3bc52ab63a749376900e54ec4ff01b7f6b61b1e4d0c4c",
+            "shape": [
+              2
+            ]
+          },
+          "output_std": {
+            "bytes": 8,
+            "dtype": "<f4",
+            "sha256": "3fc7f8a7c4bf5da0e9641bd894447148fd106b06c3c56f2adb9933917738c701",
+            "shape": [
+              2
+            ]
+          },
+          "receivers": {
+            "bytes": 43632,
+            "dtype": "<i4",
+            "sha256": "8a8c4e69ec1119e08b522ed81f6838984fd5a7ff31df5b4f7f3a965cf6fd79f7",
+            "shape": [
+              10908
+            ]
+          },
+          "senders": {
+            "bytes": 43632,
+            "dtype": "<i4",
+            "sha256": "05551beae9a7abb8d7e6473a51a6eb59c5238aa49654cccfff8157f4cb4e92b8",
+            "shape": [
+              10908
+            ]
+          },
+          "velocity": {
+            "bytes": 15168,
+            "dtype": "<f4",
+            "sha256": "f3d5cde5edd8a2020ee65ffbb9478a69b50c6a52fe017ed6e4086ab3a8c53217",
+            "shape": [
+              1896,
+              2
+            ]
+          }
+        },
+        "derived": {
+          "bytes": 8838114,
+          "sha256": "a859b09ad08ca8b008645dda90a58d7b03e77eab91f2608ecba74e0ac5b90999"
+        },
+        "encoding": "NPZ ZIP_DEFLATED",
+        "parent": {
+          "bytes": 9646472,
+          "sha256": "7c8350c0bc0d0d20125199509589235dad39ac07485fb2a46e1de3f0625833e5"
+        }
+      },
+      "public-model-import.json": {
+        "derived": {
+          "bytes": 29385,
+          "sha256": "13eeffb997030e16d9042cb1549b4b1bc7758ccafe130112313c86888dc3be31"
+        },
+        "encoding": "byte-identical copy",
+        "parent": {
+          "bytes": 29385,
+          "sha256": "13eeffb997030e16d9042cb1549b4b1bc7758ccafe130112313c86888dc3be31"
+        }
+      },
+      "sdk_runner.py": {
+        "derived": {
+          "bytes": 3412,
+          "sha256": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8"
+        },
+        "encoding": "byte-identical copy",
+        "parent": {
+          "bytes": 3412,
+          "sha256": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8"
+        }
+      },
+      "source/layout.csl": {
+        "derived": {
+          "bytes": 2433,
+          "sha256": "1631077c1a4512878f1b908af648a1df7f7d504a30e5d7177728f76c0f02bb32"
+        },
+        "encoding": "byte-identical copy",
+        "parent": {
+          "bytes": 2433,
+          "sha256": "1631077c1a4512878f1b908af648a1df7f7d504a30e5d7177728f76c0f02bb32"
+        }
+      },
+      "source/no_halo.csl": {
+        "derived": {
+          "bytes": 756,
+          "sha256": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073"
+        },
+        "encoding": "byte-identical copy",
+        "parent": {
+          "bytes": 756,
+          "sha256": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073"
+        }
+      },
+      "source/pe.csl": {
+        "derived": {
+          "bytes": 17230,
+          "sha256": "eb508d53a236aaf7f94897d1e671ccd6294f6b56adb57764020f22eb1ae64f5a"
+        },
+        "encoding": "byte-identical copy",
+        "parent": {
+          "bytes": 17230,
+          "sha256": "eb508d53a236aaf7f94897d1e671ccd6294f6b56adb57764020f22eb1ae64f5a"
+        }
+      },
+      "source/sliced_halo.csl": {
+        "derived": {
+          "bytes": 4984,
+          "sha256": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9"
+        },
+        "encoding": "byte-identical copy",
+        "parent": {
+          "bytes": 4984,
+          "sha256": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9"
+        }
+      },
+      "storage-admission.json": {
+        "derived": {
+          "bytes": 1490,
+          "sha256": "ebd518ffec9b83d75cf8190ba6866d7659afec95d5ddf7b48a5d94f9f8f22e5e"
+        },
+        "encoding": "byte-identical copy",
+        "parent": {
+          "bytes": 1490,
+          "sha256": "ebd518ffec9b83d75cf8190ba6866d7659afec95d5ddf7b48a5d94f9f8f22e5e"
+        }
+      },
+      "zero_masks.npz": {
+        "arrays": {
+          "aggregate": {
+            "bytes": 983040,
+            "dtype": "<u4",
+            "sha256": "c98e8426e568ef79d3bd8fc87d8784f3e80fd8be7c5c057ec145bef737d56222",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "cached_e0": {
+            "bytes": 6029312,
+            "dtype": "<u4",
+            "sha256": "75917fb050d3ea32e6d76458e9d2814f4740cd7db0daefe32ef3a207ee45749d",
+            "shape": [
+              8192,
+              184
+            ]
+          },
+          "decoder_output": {
+            "bytes": 983040,
+            "dtype": "<u4",
+            "sha256": "c98e8426e568ef79d3bd8fc87d8784f3e80fd8be7c5c057ec145bef737d56222",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "delta_e": {
+            "bytes": 6029312,
+            "dtype": "<u4",
+            "sha256": "75917fb050d3ea32e6d76458e9d2814f4740cd7db0daefe32ef3a207ee45749d",
+            "shape": [
+              8192,
+              184
+            ]
+          },
+          "delta_h": {
+            "bytes": 983040,
+            "dtype": "<u4",
+            "sha256": "c98e8426e568ef79d3bd8fc87d8784f3e80fd8be7c5c057ec145bef737d56222",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "e_out": {
+            "bytes": 6029312,
+            "dtype": "<u4",
+            "sha256": "75917fb050d3ea32e6d76458e9d2814f4740cd7db0daefe32ef3a207ee45749d",
+            "shape": [
+              8192,
+              184
+            ]
+          },
+          "encoded_h": {
+            "bytes": 983040,
+            "dtype": "<u4",
+            "sha256": "c98e8426e568ef79d3bd8fc87d8784f3e80fd8be7c5c057ec145bef737d56222",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "h_out": {
+            "bytes": 983040,
+            "dtype": "<u4",
+            "sha256": "c98e8426e568ef79d3bd8fc87d8784f3e80fd8be7c5c057ec145bef737d56222",
+            "shape": [
+              8192,
+              30
+            ]
+          },
+          "sender_cache": {
+            "bytes": 6029312,
+            "dtype": "<u4",
+            "sha256": "75917fb050d3ea32e6d76458e9d2814f4740cd7db0daefe32ef3a207ee45749d",
+            "shape": [
+              8192,
+              184
+            ]
+          },
+          "velocity_out": {
+            "bytes": 983040,
+            "dtype": "<u4",
+            "sha256": "c98e8426e568ef79d3bd8fc87d8784f3e80fd8be7c5c057ec145bef737d56222",
+            "shape": [
+              8192,
+              30
+            ]
+          }
+        },
+        "derived": {
+          "bytes": 103662,
+          "sha256": "2c432d8519bb96d1b4f73b64e0173f9d294e5528a302bdec9a5fa3288a004e26"
+        },
+        "encoding": "NPZ ZIP_DEFLATED",
+        "parent": {
+          "bytes": 30018008,
+          "sha256": "8cade638faff938d0ccc42cf56ae471f5436c60649f9a671bec8ac7b913dfa1c"
+        }
+      }
+    },
+    "parent_case_sha256": "3468c9a965ddb7e7a469fe04f89aa0f24665a951921413c20c23594335195ad1",
+    "parent_frozen_bytes": 118223879,
+    "parent_manifest_file": "parent-case.json",
+    "schema": "e200-lossless-npz-case-v1",
+    "scope": "NPZ encoding only; no parent compile/run artifacts copied; no new compile or execution claim"
+  },
+  "experiment": "native-full-physical-v1",
+  "field_tolerances": {
+    "velocity_out": {
+      "atol": 1e-06,
+      "rtol": 3e-05
+    }
+  },
+  "files": {
+    "PUBLIC_MODEL_LICENSE": "769f7db97e1ca994ae879392c520acc9ae1d6e45df225ac38426c3e11c0d6267",
+    "compressor-source.py": "02072d818e4f3c88ee1e25db951aa4f57f85e1f68fd1834da20b78059273381e",
+    "exact_masks.npz": "05d7141ac5f3bf4fecc81aa07f9dde16bd7f9a68247dfdf3c5e0dddb5cfe18f4",
+    "expected.npz": "e7d5504f40c933b7c400f1c09316a5d780fb6e3a15656daa91749a9f5463571c",
+    "inputs.npz": "12e97ed2696b564e598fda127c964caad910b40991b390bd6275904bb8c35f20",
+    "original.npz": "a859b09ad08ca8b008645dda90a58d7b03e77eab91f2608ecba74e0ac5b90999",
+    "parent-case.json": "3468c9a965ddb7e7a469fe04f89aa0f24665a951921413c20c23594335195ad1",
+    "public-model-import.json": "13eeffb997030e16d9042cb1549b4b1bc7758ccafe130112313c86888dc3be31",
+    "sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+    "source/layout.csl": "1631077c1a4512878f1b908af648a1df7f7d504a30e5d7177728f76c0f02bb32",
+    "source/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+    "source/pe.csl": "eb508d53a236aaf7f94897d1e671ccd6294f6b56adb57764020f22eb1ae64f5a",
+    "source/sliced_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "storage-admission.json": "ebd518ffec9b83d75cf8190ba6866d7659afec95d5ddf7b48a5d94f9f8f22e5e",
+    "zero_masks.npz": "2c432d8519bb96d1b4f73b64e0173f9d294e5528a302bdec9a5fa3288a004e26"
+  },
+  "inputs": {
+    "bank": [
+      287,
+      "float32"
+    ],
+    "counts": [
+      2,
+      "uint32"
+    ],
+    "dst_slot": [
+      92,
+      "uint32"
+    ],
+    "geometry": [
+      276,
+      "float32"
+    ],
+    "node_type": [
+      15,
+      "uint32"
+    ],
+    "normalizers": [
+      32,
+      "float32"
+    ],
+    "round_sources": [
+      128,
+      "uint32"
+    ],
+    "rx_count": [
+      128,
+      "uint32"
+    ],
+    "rx_slot": [
+      92,
+      "uint32"
+    ],
+    "src_owner": [
+      92,
+      "uint32"
+    ],
+    "src_slot": [
+      92,
+      "uint32"
+    ],
+    "tx_begin": [
+      129,
+      "uint32"
+    ],
+    "tx_slots": [
+      24,
+      "uint32"
+    ],
+    "velocity": [
+      30,
+      "float32"
+    ]
+  },
+  "oracle_crosscheck": "independent dense normalized full-model oracle; bank reconstruction is covered by adversarial host tests",
+  "outputs": {
+    "aggregate": [
+      30,
+      "float32"
+    ],
+    "cached_e0": [
+      184,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "decoder_output": [
+      30,
+      "float32"
+    ],
+    "delta_e": [
+      184,
+      "float32"
+    ],
+    "delta_h": [
+      30,
+      "float32"
+    ],
+    "e_out": [
+      184,
+      "float32"
+    ],
+    "encoded_h": [
+      30,
+      "float32"
+    ],
+    "h_out": [
+      30,
+      "float32"
+    ],
+    "sender_cache": [
+      184,
+      "float32"
+    ],
+    "stats": [
+      18,
+      "uint32"
+    ],
+    "velocity_out": [
+      30,
+      "float32"
+    ]
+  },
+  "params": {
+    "C": 64,
+    "E": 92,
+    "H": 128,
+    "HCAP": 24,
+    "K": 13,
+    "L": 15,
+    "MODE": 0,
+    "Q": 128,
+    "R": 128,
+    "S": 15,
+    "T": 2
+  },
+  "portable_oracle_module": "models.meshgraphnet.native_full.driver",
+  "provenance": {
+    "directed_edges": 10908,
+    "frame": 1,
+    "framing_crc32c_verified": true,
+    "kind": "complete official CylinderFlow record",
+    "metadata_sha256": "2a3e39429a55a0cf47355717cc07f4b292629daeb48a89abd518ea0402033e96",
+    "model": {
+      "blocks": 15,
+      "import_sha256": "13eeffb997030e16d9042cb1549b4b1bc7758ccafe130112313c86888dc3be31",
+      "kind": "strict author H128/S15 import",
+      "provenance_limit": "author describes DeepMind TF1 training on17 official train trajectories, frames[0,400); original DeepMind commit and actual training data hashes not published",
+      "weights_sha256": "491db4b9be1b845a3e6ff363d22dc4e53d26148c2adf4c09442f8062334f85a3"
+    },
+    "nodes": 1896,
+    "partition": {
+      "logical_columns": 16,
+      "logical_rows": 8,
+      "method": "spatial",
+      "physical_mapping": "group ID -> PE row; feature lane -> PE column"
+    },
+    "physical_scope": "one complete model step; no accuracy or rollout claim",
+    "record_sha256": "a78c18b2fee9c8b5371224cac12f8c2b3b0f5e6921a2eca350633f7cfc5b887b"
+  },
+  "schedule": {
+    "colors": {
+      "Q": 128
+    },
+    "traffic": {
+      "C": 64,
+      "E": 92,
+      "F": 2,
+      "H": 128,
+      "K": 13,
+      "L": 15,
+      "R": 128,
+      "T": 24,
+      "application_header_words": 171008,
+      "header_words": 213760,
+      "local_edge_copies_per_lane": [
+        50,
+        54,
+        56,
+        56,
+        54,
+        58,
+        52,
+        52,
+        50,
+        56,
+        50,
+        56,
+        50,
+        52,
+        50,
+        54,
+        58,
+        50,
+        58,
+        60,
+        62,
+        60,
+        56,
+        54,
+        58,
+        58,
+        60,
+        56,
+        54,
+        58,
+        56,
+        56,
+        48,
+        58,
+        60,
+        60,
+        56,
+        58,
+        52,
+        58,
+        50,
+        52,
+        58,
+        56,
+        54,
+        58,
+        56,
+        56,
+        56,
+        60,
+        62,
+        56,
+        58,
+        62,
+        62,
+        50,
+        60,
+        62,
+        60,
+        58,
+        58,
+        62,
+        58,
+        60,
+        56,
+        60,
+        50,
+        60,
+        52,
+        56,
+        54,
+        56,
+        56,
+        58,
+        50,
+        60,
+        56,
+        62,
+        54,
+        60,
+        56,
+        56,
+        60,
+        58,
+        58,
+        58,
+        60,
+        60,
+        58,
+        58,
+        56,
+        60,
+        52,
+        56,
+        58,
+        58,
+        50,
+        58,
+        60,
+        56,
+        50,
+        60,
+        54,
+        56,
+        48,
+        52,
+        56,
+        56,
+        50,
+        56,
+        54,
+        52,
+        58,
+        58,
+        62,
+        60,
+        62,
+        62,
+        60,
+        58,
+        56,
+        58,
+        54,
+        58,
+        56,
+        58,
+        52,
+        56
+      ],
+      "modeled_header_word_hops": 2310400,
+      "modeled_max_link_words": 438,
+      "modeled_payload_word_hops": 3176192,
+      "packet_count": 42752,
+      "payload_words": 279040,
+      "remote_edge_copies_per_lane": [
+        17,
+        22,
+        20,
+        31,
+        26,
+        24,
+        20,
+        24,
+        22,
+        22,
+        22,
+        20,
+        24,
+        24,
+        22,
+        17,
+        29,
+        40,
+        32,
+        30,
+        26,
+        31,
+        34,
+        36,
+        32,
+        32,
+        30,
+        34,
+        36,
+        32,
+        34,
+        31,
+        32,
+        33,
+        29,
+        23,
+        24,
+        29,
+        38,
+        32,
+        34,
+        38,
+        32,
+        34,
+        30,
+        32,
+        34,
+        30,
+        29,
+        30,
+        27,
+        26,
+        25,
+        27,
+        30,
+        39,
+        30,
+        29,
+        30,
+        33,
+        32,
+        28,
+        30,
+        26,
+        22,
+        30,
+        33,
+        25,
+        26,
+        33,
+        31,
+        35,
+        28,
+        31,
+        34,
+        29,
+        28,
+        29,
+        29,
+        25,
+        28,
+        35,
+        29,
+        31,
+        31,
+        32,
+        31,
+        30,
+        32,
+        32,
+        34,
+        30,
+        38,
+        34,
+        32,
+        28,
+        31,
+        32,
+        31,
+        34,
+        35,
+        31,
+        34,
+        33,
+        36,
+        38,
+        34,
+        34,
+        34,
+        34,
+        36,
+        33,
+        15,
+        20,
+        20,
+        24,
+        20,
+        20,
+        20,
+        20,
+        22,
+        20,
+        22,
+        20,
+        22,
+        20,
+        24,
+        17
+      ],
+      "remote_unique": 2180,
+      "routing_header_words": 42752,
+      "schedule_bytes_per_pe": 2228,
+      "source_rounds": 128,
+      "traffic_scope": "per generation; same-column Manhattan links, 4 application plus1 SDK header words; excludes caller barriers"
+    },
+    "traffic_scope": "unused selective schedule census; streamed traffic is in accounting"
+  },
+  "schema": 1,
+  "sources": {
+    "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+    "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+    "kernels/communication/sliced-halo/audit.py": "9117f82827bae38d4c5f803cb99ff1fe03a7cc7c7caa3a0bd3960cecbcbcca72",
+    "kernels/communication/sliced-halo/pe.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "kernels/communication/sliced-halo/schedule.py": "1b3e71b20ac8778548fe5df89cadba02966f2efcf266ffc000bf275d05650477",
+    "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+    "models/meshgraphnet/colored_schedule.py": "aa52008a00aa6fffcad520065ce60ee4c74e98f9dc8c59db8e69ea7c2494a23a",
+    "models/meshgraphnet/colored_validation.py": "8a78bdc96ae8938548248bb04739ce744c1f2381305b7e9ee95f9a2ff59436eb",
+    "models/meshgraphnet/data.py": "6e16f4199841df21c8a665648e728d41224794a7748f2a721f0638ca0b950c33",
+    "models/meshgraphnet/native_full/driver.py": "3cb778d66a6e791f6e861362d54631ea1ec168b925e75ab80f63ac87d969f3d6",
+    "models/meshgraphnet/native_full/elf_reader.py": "2dbf314237ff068edd95fe20187aaae19576708723384256fd0067dfe5bfbc8b",
+    "models/meshgraphnet/native_full/layout.csl": "1631077c1a4512878f1b908af648a1df7f7d504a30e5d7177728f76c0f02bb32",
+    "models/meshgraphnet/native_full/model.py": "05d092283ff2b5647902586822d25b0dc4d20b0ff9c80d14d795656962244df0",
+    "models/meshgraphnet/native_full/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+    "models/meshgraphnet/native_full/pe.csl": "eb508d53a236aaf7f94897d1e671ccd6294f6b56adb57764020f22eb1ae64f5a",
+    "models/meshgraphnet/native_full/sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+    "models/meshgraphnet/native_mesh/model.py": "251964fe86d4da9d9daa2eaf3c16fe4d316537fea6e4da0893ebdc6a248bee4a",
+    "models/meshgraphnet/pretrained/inference.py": "c767341c43b5dbcc29925a0be5f1a171302954c1e3229ffe33295cb37ec9300e",
+    "models/meshgraphnet/reference.py": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+    "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+    "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+    "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404"
+  },
+  "storage_admission": {
+    "declared_array_bytes_per_pe": 14964,
+    "remaining_bytes_for_code_sdk_alignment_stack": 30092,
+    "scope": "necessary declared-array condition only; compiled ELF guard remains mandatory",
+    "static_limit_bytes": 45056,
+    "status": "ADMITTED"
+  },
+  "tolerances": {
+    "atol": 0.0003,
+    "rtol": 0.0003
+  },
+  "transport": "streamed"
+}

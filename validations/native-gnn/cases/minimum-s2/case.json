@@ -1,0 +1,272 @@
+{
+  "checks": {
+    "aggregate": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "cached_e0": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "clocks": {
+      "kind": "clock"
+    },
+    "comm_stats": {
+      "kind": "exact"
+    },
+    "decoder_output": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "delta_e": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "delta_h": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "e_out": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "encoded_h": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "h_out": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "sender_cache": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "stats": {
+      "kind": "exact"
+    },
+    "velocity_out": {
+      "atol": 1e-06,
+      "kind": "approx",
+      "rtol": 3e-05
+    }
+  },
+  "evidence": "frozen host oracle only; no device execution",
+  "exact_mask_counts": {
+    "velocity_out": 128
+  },
+  "experiment": "native-full-physical-v1",
+  "family": "native-gnn",
+  "files": {
+    "exact_masks.npz": "244a367ffd139f59d0b86e4c29d1e7ca31252a6091bb59af353925c3b3a43266",
+    "expected.npz": "a262709fcfba958a163a7682bfc2f11643ec23e5a20502af372da5cd0ea74610",
+    "inputs.npz": "f22af9b3eb9826fe48c1b1b1b14eb860b7167e4fa5647d86ba7fbf257cfc4ce5",
+    "origin-case.json": "8fd301de5e005e93c3199400c32f55ccbc24b60a6e1637ba0073a397a0a56907",
+    "original.npz": "f61d4dd2ac0623aa352f1f398b073d19b8289bebb6fbaa94b927075738801ff4",
+    "sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+    "source/layout.csl": "1631077c1a4512878f1b908af648a1df7f7d504a30e5d7177728f76c0f02bb32",
+    "source/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+    "source/pe.csl": "eb508d53a236aaf7f94897d1e671ccd6294f6b56adb57764020f22eb1ae64f5a",
+    "source/sliced_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "storage-admission.json": "c4ca32a9ccafed2cc28bf0e73112ce1ba72025e0cfff82eaef82f700c44f54e2",
+    "zero_masks.npz": "22c9115d6e79be6d07fa13fd9702a6952d7083ab455f5b882e108f8dadaf54dc"
+  },
+  "immutable_inputs": [
+    "bank",
+    "counts",
+    "dst_slot",
+    "geometry",
+    "node_type",
+    "normalizers",
+    "round_sources",
+    "rx_count",
+    "rx_slot",
+    "src_owner",
+    "src_slot",
+    "tx_begin",
+    "tx_slots",
+    "velocity"
+  ],
+  "inputs": {
+    "bank": [
+      3247,
+      "float32"
+    ],
+    "counts": [
+      2,
+      "uint32"
+    ],
+    "dst_slot": [
+      3,
+      "uint32"
+    ],
+    "geometry": [
+      9,
+      "float32"
+    ],
+    "node_type": [
+      2,
+      "uint32"
+    ],
+    "normalizers": [
+      32,
+      "float32"
+    ],
+    "round_sources": [
+      4,
+      "uint32"
+    ],
+    "rx_count": [
+      4,
+      "uint32"
+    ],
+    "rx_slot": [
+      3,
+      "uint32"
+    ],
+    "src_owner": [
+      3,
+      "uint32"
+    ],
+    "src_slot": [
+      3,
+      "uint32"
+    ],
+    "tx_begin": [
+      5,
+      "uint32"
+    ],
+    "tx_slots": [
+      1,
+      "uint32"
+    ],
+    "velocity": [
+      4,
+      "float32"
+    ]
+  },
+  "launch": {
+    "arguments": [],
+    "entrypoint": "run"
+  },
+  "oracle_export": {
+    "exporter_sha256": "09284a053c4af4d351d8da5a98e9cb75878651684147be62fe0abd3021ac86a5",
+    "implementation": "models.meshgraphnet.native_full.driver:portable_expectations",
+    "source_hashes": {
+      "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+      "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+      "kernels/communication/sliced-halo/audit.py": "9117f82827bae38d4c5f803cb99ff1fe03a7cc7c7caa3a0bd3960cecbcbcca72",
+      "kernels/communication/sliced-halo/pe.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+      "kernels/communication/sliced-halo/schedule.py": "1b3e71b20ac8778548fe5df89cadba02966f2efcf266ffc000bf275d05650477",
+      "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+      "models/meshgraphnet/colored_schedule.py": "aa52008a00aa6fffcad520065ce60ee4c74e98f9dc8c59db8e69ea7c2494a23a",
+      "models/meshgraphnet/colored_validation.py": "8a78bdc96ae8938548248bb04739ce744c1f2381305b7e9ee95f9a2ff59436eb",
+      "models/meshgraphnet/data.py": "6e16f4199841df21c8a665648e728d41224794a7748f2a721f0638ca0b950c33",
+      "models/meshgraphnet/native_full/driver.py": "3cb778d66a6e791f6e861362d54631ea1ec168b925e75ab80f63ac87d969f3d6",
+      "models/meshgraphnet/native_full/elf_reader.py": "2dbf314237ff068edd95fe20187aaae19576708723384256fd0067dfe5bfbc8b",
+      "models/meshgraphnet/native_full/layout.csl": "1631077c1a4512878f1b908af648a1df7f7d504a30e5d7177728f76c0f02bb32",
+      "models/meshgraphnet/native_full/model.py": "05d092283ff2b5647902586822d25b0dc4d20b0ff9c80d14d795656962244df0",
+      "models/meshgraphnet/native_full/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+      "models/meshgraphnet/native_full/pe.csl": "eb508d53a236aaf7f94897d1e671ccd6294f6b56adb57764020f22eb1ae64f5a",
+      "models/meshgraphnet/native_full/sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+      "models/meshgraphnet/native_mesh/model.py": "251964fe86d4da9d9daa2eaf3c16fe4d316537fea6e4da0893ebdc6a248bee4a",
+      "models/meshgraphnet/pretrained/inference.py": "c767341c43b5dbcc29925a0be5f1a171302954c1e3229ffe33295cb37ec9300e",
+      "models/meshgraphnet/reference.py": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+      "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+      "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+      "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404"
+    }
+  },
+  "origin_case_sha256": "8fd301de5e005e93c3199400c32f55ccbc24b60a6e1637ba0073a397a0a56907",
+  "origin_files": {
+    "exact_masks.npz": "exact_masks.npz",
+    "expected.npz": "expected.npz",
+    "inputs.npz": "inputs.npz",
+    "original.npz": "original.npz",
+    "sdk_runner.py": "sdk_runner.py",
+    "source/layout.csl": "source/layout.csl",
+    "source/no_halo.csl": "source/no_halo.csl",
+    "source/pe.csl": "source/pe.csl",
+    "source/sliced_halo.csl": "source/sliced_halo.csl",
+    "storage-admission.json": "storage-admission.json",
+    "zero_masks.npz": "zero_masks.npz"
+  },
+  "outputs": {
+    "aggregate": [
+      8,
+      "float32"
+    ],
+    "cached_e0": [
+      12,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "decoder_output": [
+      4,
+      "float32"
+    ],
+    "delta_e": [
+      12,
+      "float32"
+    ],
+    "delta_h": [
+      8,
+      "float32"
+    ],
+    "e_out": [
+      12,
+      "float32"
+    ],
+    "encoded_h": [
+      8,
+      "float32"
+    ],
+    "h_out": [
+      8,
+      "float32"
+    ],
+    "sender_cache": [
+      12,
+      "float32"
+    ],
+    "stats": [
+      18,
+      "uint32"
+    ],
+    "velocity_out": [
+      4,
+      "float32"
+    ]
+  },
+  "params": {
+    "C": 32,
+    "E": 3,
+    "H": 128,
+    "HCAP": 1,
+    "K": 6,
+    "L": 2,
+    "MODE": 0,
+    "Q": 4,
+    "R": 4,
+    "S": 2,
+    "T": 4
+  },
+  "schema": 1,
+  "scope": "complete H128 normalized one-step physical forward with all untied weights resident; no training, convergence, long rollout or speedup claim"
+}

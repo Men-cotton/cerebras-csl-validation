@@ -1,0 +1,64 @@
+// SPDX-License-Identifier: Apache-2.0
+param C: u16;
+param R: u16;
+param H: u16;
+param T: u16;
+param L: u16;
+param E: u16;
+param MODE: u16;
+param HCAP: u16;
+param K: u16;
+param Q: u16;
+param S: u16;
+const memcpy = @import_module("<memcpy/get_params>", .{.width=C,.height=R});
+const c2d = @import_module("<collectives_2d/params>");
+layout {
+  @comptime_assert(R >= 2 and R <= 128 and H == 128 and C*T == H and C >= 16);
+  @comptime_assert(L >= 1 and E >= L and E*T <= 32767);
+  @comptime_assert(MODE <= 2 and HCAP >= 1 and K >= 1 and K*T <= 27);
+  @comptime_assert(Q >= 1 and Q <= R and (MODE == 2 or Q == R));
+  @comptime_assert(C*R <= 32767 and L*T <= 32767 and E*T <= 32767);
+  @comptime_assert(S >= 1 and S <= 15 and 3*E <= 32767 and 2*L <= 32767);
+  @set_rectangle(C,R);
+  for (@range(u16,C)) |x| {
+    for (@range(u16,R)) |y| {
+      const cp = c2d.get_params(x,y,.{
+        .x_colors=.{@get_color(0),@get_color(1)},
+        .x_entrypoints=.{@get_local_task_id(8),@get_local_task_id(9)},
+        .y_colors=.{@get_color(4),@get_color(5)},
+        .y_entrypoints=.{@get_local_task_id(10),@get_local_task_id(11)}
+      });
+      @set_tile_code(x,y,"pe.csl",.{.memcpy_params=memcpy.get_params(x),
+        .c2d_params=cp,.C=C,.R=R,.H=H,.T=T,.L=L,.E=E,
+        .MODE=MODE,.HCAP=HCAP,.K=K,.Q=Q,.S=S});
+    }
+  }
+  @export_name("counts",[*]u32,true);
+  @export_name("src_owner",[*]u32,true);
+  @export_name("src_slot",[*]u32,true);
+  @export_name("dst_slot",[*]u32,true);
+  @export_name("velocity",[*]f32,true);
+  @export_name("node_type",[*]u32,true);
+  @export_name("geometry",[*]f32,true);
+  @export_name("normalizers",[*]f32,true);
+  @export_name("bank",[*]f32,true);
+  @export_name("h_out",[*]f32,true);
+  @export_name("e_out",[*]f32,true);
+  @export_name("delta_h",[*]f32,true);
+  @export_name("delta_e",[*]f32,true);
+  @export_name("aggregate",[*]f32,true);
+  @export_name("sender_cache",[*]f32,true);
+  @export_name("encoded_h",[*]f32,true);
+  @export_name("cached_e0",[*]f32,true);
+  @export_name("decoder_output",[*]f32,true);
+  @export_name("velocity_out",[*]f32,true);
+  @export_name("stats",[*]u32,true);
+  @export_name("clocks",[*]u16,true);
+  @export_name("tx_begin",[*]u32,true);
+  @export_name("tx_slots",[*]u32,true);
+  @export_name("rx_count",[*]u32,true);
+  @export_name("rx_slot",[*]u32,true);
+  @export_name("comm_stats",[*]u32,true);
+  @export_name("round_sources",[*]u32,true);
+  @export_name("run",fn()void);
+}

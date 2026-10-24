@@ -1,0 +1,43 @@
+{
+  "declared_array_bytes_per_pe": 23480,
+  "params": {
+    "C": 32,
+    "E": 92,
+    "H": 128,
+    "HCAP": 24,
+    "K": 6,
+    "L": 15,
+    "MODE": 0,
+    "Q": 128,
+    "R": 128,
+    "S": 15,
+    "T": 4
+  },
+  "provenance": {
+    "directed_edges": 10908,
+    "frame": 1,
+    "framing_crc32c_verified": true,
+    "kind": "complete official CylinderFlow record",
+    "metadata_sha256": "2a3e39429a55a0cf47355717cc07f4b292629daeb48a89abd518ea0402033e96",
+    "model": {
+      "blocks": 15,
+      "import_sha256": "13eeffb997030e16d9042cb1549b4b1bc7758ccafe130112313c86888dc3be31",
+      "kind": "strict author H128/S15 import",
+      "provenance_limit": "author describes DeepMind TF1 training on17 official train trajectories, frames[0,400); original DeepMind commit and actual training data hashes not published",
+      "weights_sha256": "491db4b9be1b845a3e6ff363d22dc4e53d26148c2adf4c09442f8062334f85a3"
+    },
+    "nodes": 1896,
+    "partition": {
+      "logical_columns": 16,
+      "logical_rows": 8,
+      "method": "spatial",
+      "physical_mapping": "group ID -> PE row; feature lane -> PE column"
+    },
+    "physical_scope": "one complete model step; no accuracy or rollout claim",
+    "record_sha256": "a78c18b2fee9c8b5371224cac12f8c2b3b0f5e6921a2eca350633f7cfc5b887b"
+  },
+  "remaining_bytes_for_code_sdk_alignment_stack": 21576,
+  "scope": "necessary declared-array condition only; compiled ELF guard remains mandatory",
+  "static_limit_bytes": 45056,
+  "status": "ADMITTED"
+}

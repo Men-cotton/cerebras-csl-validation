@@ -1,0 +1,12 @@
+{
+  "description": "Native H128 GNN execution capture and separate strict local numerical audit.",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py"
+  ],
+  "id": "native-gnn",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "declared_array_bytes_per_pe": 21576,
+  "params": {
+    "C": 32,
+    "E": 3,
+    "H": 128,
+    "HCAP": 1,
+    "K": 6,
+    "L": 2,
+    "MODE": 0,
+    "Q": 4,
+    "R": 4,
+    "S": 2,
+    "T": 4
+  },
+  "provenance": {
+    "directed_edges": 4,
+    "fixture": "tiny",
+    "kind": "tiny synthetic graph",
+    "model": {
+      "blocks": 2,
+      "kind": "seeded numerical probe",
+      "seed": 20261023
+    },
+    "nodes": 4,
+    "physical_scope": "one complete model step; no accuracy or rollout claim"
+  },
+  "remaining_bytes_for_code_sdk_alignment_stack": 23480,
+  "scope": "necessary declared-array condition only; compiled ELF guard remains mandatory",
+  "static_limit_bytes": 45056,
+  "status": "ADMITTED"
+}
