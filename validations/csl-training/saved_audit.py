@@ -1,4 +1,5 @@
 """Portable frozen-case and full SGD-capture checks; NumPy only, no PyTorch/SDK."""
+import argparse
 import hashlib
 import io
 import json
@@ -202,10 +203,13 @@ def unpack_archive(path, destination, prefix, limit, required=()):
     return destination
 
 
-def audit_capture(folder):
+def admit_capture(folder, *, allow_incomplete_worker=False):
     folder = Path(folder).absolute()
     record, build, request = (read_json(folder/name) for name in ("capture.json", "manifest.json", "request.json"))
-    require(record.get("status") == "PASS" and record.get("backend") == build.get("backend")
+    statuses = {"PASS", "COMPLETED"}
+    if allow_incomplete_worker:
+        statuses.add("incomplete")  # Older workers ran the numerical audit remotely.
+    require(record.get("status") in statuses and record.get("backend") == build.get("backend")
             and build.get("backend") in ("hardware", "simulator"), "complete capture backend")
     require(record.get("run_id") == request.get("run_id") and
             record.get("manifest_sha256") == request.get("manifest_sha256") == sha(folder/"manifest.json"),
@@ -220,26 +224,26 @@ def audit_capture(folder):
         require(name in ("out.json", "bin/out_rpc.json") and sha(folder/"build"/name) == expected,
                 "captured compiled metadata")
     require(set(record["compiled_metadata_sha256"]) == {"out.json", "bin/out_rpc.json"}, "compiled metadata inventory")
-    result = audit(folder/"case", folder/"runtime")
+    result = admit_execution(folder/"case", folder/"runtime")
     require(result["backend"] == build["backend"], "runtime backend binding")
     result.update(run_id=request["run_id"], manifest_sha256=sha(folder/"manifest.json"),
-                  request_sha256=sha(folder/"request.json"), host_sha256=build["host_sha256"])
+                  request_sha256=sha(folder/"request.json"), host_sha256=build["host_sha256"],
+                  worker_status=record["status"], worker_error=record.get("error"))
     return result
 
 
-def audit(case, output):
+def _load_execution(case, output):
     case, output = Path(case), Path(output)
     manifest = load(case)
     execution = read_json(output / "execution.json")
     require(execution["status"] == "COMPLETED" and
+            "error" not in execution and "stop_error" not in execution and
             execution["case_sha256"] == sha(case / "case.json") and
             execution["raw_sha256"] == sha(output / "raw.npz"), "completed bound capture")
     raw = load_npz(output / "raw.npz")
-    expected = load_npz(case / "expected.npz")
     fixed = load_npz(case / "inputs.npz")
     samples = load_npz(case / "samples.npz")
     ids = load_npz(case / "mapping.npz")["node_ids"]
-    p, reports = manifest["params"], []
     schema = dict(manifest["inputs"], **manifest["outputs"])
     expected_calls = ["construct"] + ["get_id:"+name for name in schema] + ["load", "run"]
     expected_calls += ["h2d:"+name for name in fixed]
@@ -267,6 +271,31 @@ def audit(case, output):
         carrier = "uint32" if dtype == "uint16" else dtype
         require(raw[name].shape == (len(ids), count) and raw[name].dtype == np.dtype(carrier),
                 "capture shape/dtype: " + name)
+    return manifest, execution, raw, fixed, samples, ids
+
+
+def admit_execution(case, output):
+    """Verify completed SDK calls and complete, bound arrays without value checks."""
+    manifest, execution, raw, fixed, samples, ids = _load_execution(case, output)
+    return dict(status="PASS", execution_status="PASS", numerical_status="NOT_RUN",
+                backend=execution["backend"], case_sha256=execution["case_sha256"],
+                raw_sha256=execution["raw_sha256"], steps=manifest["steps"], arrays=len(raw),
+                claim="SDK calls and capture complete; numerical correctness not checked")
+
+
+def audit_capture(folder):
+    """Replay numerical checks locally, including complete legacy failed workers."""
+    folder = Path(folder)
+    admission = admit_capture(folder, allow_incomplete_worker=True)
+    result = audit(folder/"case", folder/"runtime")
+    return dict(admission, **result)
+
+
+def audit(case, output):
+    case, output = Path(case), Path(output)
+    manifest, execution, raw, fixed, samples, ids = _load_execution(case, output)
+    expected = load_npz(case/"expected.npz")
+    p, reports = manifest["params"], []
     np.testing.assert_array_equal(raw["initial_lifecycle"], 0)
     np.testing.assert_array_equal(raw["initial_weights"], fixed["weights"])
     require(sorted(ids[ids >= 0].tolist()) == list(range(int(fixed["counts"][:, 0].sum()))), "node ownership coverage")
@@ -285,7 +314,7 @@ def audit(case, output):
                 wanted = np.tile(wanted.reshape(1, -1), (len(ids), 1))
                 np.testing.assert_array_equal(observed, np.tile(observed[0], (len(ids), 1)),
                                                err_msg="replicated " + name)
-            np.testing.assert_allclose(observed, wanted, rtol=8e-4, atol=8e-5, err_msg=name)
+            np.testing.assert_allclose(observed, wanted, rtol=8e-4, atol=8e-5, err_msg=f"step{step}_{name}")
             errors[name] = float(np.max(np.abs(observed.astype(np.float64)-wanted)))
         lifecycle = np.tile(np.array([1, step+1], np.uint32), (len(ids), 1))
         np.testing.assert_array_equal(raw[f"step{step}_lifecycle"], lifecycle)
@@ -311,8 +340,46 @@ def audit(case, output):
     calls = [call["api"] for call in execution["calls"]]
     require(calls.count("launch:run") == manifest["steps"] and calls.count("h2d:weights") == 1,
             "exact update count, no host weight update")
-    return dict(status="PASS", reports=reports, backend=execution["backend"],
+    return dict(status="PASS", numerical_status="PASS", reports=reports, backend=execution["backend"],
         case_sha256=sha(case / "case.json"), raw_sha256=sha(output / "raw.npz"),
         claim=("fabricated host fixture accepted; no device execution" if execution["backend"] == "host-test"
                else "full CSL forward/backward/SGD numerical agreement; PE-local cycles only"),
         scope=manifest["scope"], tolerance=dict(rtol=8e-4, atol=8e-5))
+
+
+def audit_report(folder):
+    """A numerical failure is a separate result; incomplete capture still raises."""
+    admission = admit_capture(folder, allow_incomplete_worker=True)
+    try:
+        result = audit(Path(folder)/"case", Path(folder)/"runtime")
+    except (AssertionError, ValueError) as error:
+        return dict(admission, status="FAIL", numerical_status="FAIL",
+                    numerical_error=str(error)[:65536],
+                    claim="SDK calls and capture complete; local numerical checks failed")
+    return dict(admission, **result)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description="Audit a saved CSL training capture locally; no SDK calls.")
+    parser.add_argument("capture", type=Path, help="capture-data directory or downloaded capture tar.gz")
+    parser.add_argument("--out", type=Path, required=True, help="fresh numerical report path")
+    args = parser.parse_args(argv)
+    require(not args.out.exists() and not args.out.is_symlink(), "report output must be fresh")
+    try:
+        if args.capture.is_dir():
+            report = audit_report(args.capture)
+        else:
+            with tempfile.TemporaryDirectory(prefix="csl-training-audit-") as temporary:
+                folder = unpack_archive(args.capture, Path(temporary)/"capture", "capture", CAPTURE_LIMIT)
+                report = audit_report(folder)
+    except (ValueError, OSError, KeyError, TypeError, zipfile.BadZipFile, tarfile.TarError) as error:
+        report = dict(status="FAIL", execution_status="FAIL", numerical_status="NOT_RUN",
+                      error=str(error)[:65536], claim="capture completeness or identity check failed")
+    write_json(args.out, report)
+    print(json.dumps(dict(status=report["status"], execution_status=report["execution_status"],
+                          numerical_status=report["numerical_status"], report=str(args.out))))
+    return 0 if report["numerical_status"] == "PASS" else 1 if report["execution_status"] == "PASS" else 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

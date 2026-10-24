@@ -248,17 +248,19 @@ def run_program(args, root=ROOT, launcher_type=None):
             ("capture.json", "manifest.json", "request.json", "runtime/raw.npz", "runtime/execution.json"))
         common.require(common.bounded(capture/"manifest.json", common.JSON_LIMIT) == manifest_bytes, "captured manifest differs")
         common.require(common.bounded(capture/"request.json", common.JSON_LIMIT) == request_bytes, "captured request differs")
-        audited = common.audit_capture(capture)
+        audited = common.admit_capture(capture)
         for key, value in dict(status="PASS", run_id=request["run_id"], backend=args.backend,
                                manifest_sha256=request["manifest_sha256"]).items():
             common.require(audited.get(key) == value, "capture admission differs: " + key)
-        summary.update(status="complete", host_exit=0, capture_path="capture-data", audit=audited)
+        summary.update(status="complete", execution_status="PASS", numerical_status="NOT_RUN",
+                       host_exit=0, capture_path="capture-data", execution_admission=audited)
     except BaseException as error:
         summary["error"] = repr(error)
         raise
     finally:
         common.write_json(destination/"collection.json", summary)
-    print(json.dumps(dict(status="PASS", out=str(destination), run_id=request["run_id"])), flush=True)
+    print(json.dumps(dict(status="PASS", execution_status="PASS", numerical_status="NOT_RUN",
+                          out=str(destination), run_id=request["run_id"])), flush=True)
     return 0
 
 

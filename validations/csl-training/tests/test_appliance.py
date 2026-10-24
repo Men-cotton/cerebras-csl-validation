@@ -133,7 +133,7 @@ class ApplianceTests(unittest.TestCase):
                 return path.name
 
         self.Compiler, self.Launcher = Compiler, Launcher
-        self.audit_patch = mock.patch.object(common, "audit_capture", side_effect=self.mock_audit)
+        self.audit_patch = mock.patch.object(common, "admit_capture", side_effect=self.mock_audit)
         self.audit = self.audit_patch.start()
         self.addCleanup(self.audit_patch.stop)
 
@@ -169,7 +169,11 @@ class ApplianceTests(unittest.TestCase):
         self.assertEqual(len(self.runs), 1)
         self.assertEqual(set(self.staged), {*common.HOST_FILES, "case.tar.gz", "training-build.json", "run-request.json"})
         self.assertIn("--cmaddr %CMADDR%", self.runs[0])
-        self.assertEqual(common.read_json(self.base/"run/collection.json")["status"], "complete")
+        collection = common.read_json(self.base/"run/collection.json")
+        self.assertEqual(collection["status"], "complete")
+        self.assertEqual(collection["execution_status"], "PASS")
+        self.assertEqual(collection["numerical_status"], "NOT_RUN")
+        self.assertNotIn("audit", collection)
 
     def test_simulator_uses_case_fabric_without_hardware_address(self):
         path = self.compile("simulator")
@@ -426,14 +430,110 @@ class WorkerTests(unittest.TestCase):
         self.assertTrue((args.out/"runtime/raw.npz").is_file())
         self.assertIn(("stop",), self.sdk_calls)
 
-    def test_worker_rejects_actual_portable_gradient_mismatch(self):
+    def test_gradient_mismatch_passes_execution_but_fails_local_audit(self):
         self.gradient_error = True
         args = self.arguments("bad-gradient", "hardware")
-        with self.assertRaisesRegex(AssertionError, "gradients"):
-            worker.capture(args, root=self.root)
+        with mock.patch.object(common, "audit", side_effect=AssertionError("remote numerical audit forbidden")):
+            self.assertEqual(worker.capture(args, root=self.root), 0)
+            self.assertEqual(common.admit_capture(args.out)["execution_status"], "PASS")
         record = common.read_json(args.out/"capture.json")
-        self.assertEqual(record["status"], "incomplete")
-        self.assertIn("gradients", record["error"])
+        self.assertEqual(record["status"], "COMPLETED")
+        self.assertEqual(record["numerical_status"], "NOT_RUN")
+        self.assertFalse((args.out/"audit.json").exists())
+        with self.assertRaisesRegex(AssertionError, "step0_gradients"):
+            common.audit_capture(args.out)
+        # Exercise the actual archive admission used by collection.
+        archive = self.base/"capture.tar.gz"
+        with tarfile.open(archive, "w:gz") as stream:
+            stream.add(args.out, arcname="capture")
+        restored = common.unpack_archive(archive, self.base/"restored", "capture", common.CAPTURE_LIMIT)
+        self.assertEqual(common.admit_capture(restored)["numerical_status"], "NOT_RUN")
+        report_path = self.base/"numerical-failure.json"
+        self.assertEqual(common.main([str(archive), "--out", str(report_path)]), 1)
+        report = common.read_json(report_path)
+        self.assertEqual((report["execution_status"], report["numerical_status"]), ("PASS", "FAIL"))
+        self.assertIn("step0_gradients", report["numerical_error"])
+        self.assertEqual(common.read_json(args.out/"capture.json"), record)
+
+    def test_local_audit_recovers_legacy_worker_failure_without_rewriting(self):
+        self.gradient_error = True
+        args = self.arguments("legacy", "hardware")
+        worker.capture(args, root=self.root)
+        record = common.read_json(args.out/"capture.json")
+        record.update(status="incomplete", error="historical numerical failure")
+        common.write_json(args.out/"capture.json", record)
+        original = (args.out/"capture.json").read_bytes()
+        with self.assertRaisesRegex(ValueError, "complete capture backend"):
+            common.admit_capture(args.out)
+        result = common.audit_report(args.out)
+        self.assertEqual(result["execution_status"], "PASS")
+        self.assertEqual(result["numerical_status"], "FAIL")
+        self.assertEqual(result["worker_error"], record["error"])
+        self.assertEqual((args.out/"capture.json").read_bytes(), original)
+
+    def test_execution_rejects_missing_stop_errors_and_incomplete_status(self):
+        args = self.arguments("bad-execution", "hardware")
+        worker.capture(args, root=self.root)
+        path = args.out/"runtime/execution.json"
+        original = common.read_json(path)
+        changes = ({"calls": original["calls"][:-1]}, {"status": "FAILED"},
+                   {"stop_error": "stop failed"}, {"error": "launch failed"})
+        for change in changes:
+            with self.subTest(change=change):
+                common.write_json(path, dict(original, **change))
+                with self.assertRaises(ValueError):
+                    common.admit_capture(args.out)
+        report_path = self.base/"execution-failure.json"
+        self.assertEqual(common.main([str(args.out), "--out", str(report_path)]), 2)
+        result = common.read_json(report_path)
+        self.assertEqual((result["execution_status"], result["numerical_status"]), ("FAIL", "NOT_RUN"))
+
+    def test_execution_rejects_missing_wrong_shape_and_unbound_arrays(self):
+        args = self.arguments("bad-arrays", "hardware")
+        worker.capture(args, root=self.root)
+        path = args.out/"runtime/raw.npz"
+        execution_path = args.out/"runtime/execution.json"
+        execution = common.read_json(execution_path)
+        raw = common.load_npz(path)
+        for mode in ("missing", "shape", "hash"):
+            with self.subTest(mode=mode):
+                values = dict(raw)
+                if mode == "missing":
+                    del values["step0_gradients"]
+                elif mode == "shape":
+                    values["step0_gradients"] = values["step0_gradients"][:, :-1]
+                else:
+                    values["step0_gradients"] = values["step0_gradients"] + 1
+                np.savez(path, **values)
+                common.write_json(execution_path, dict(execution, raw_sha256=(
+                    execution["raw_sha256"] if mode == "hash" else common.sha(path))))
+                with self.assertRaises(ValueError):
+                    common.admit_capture(args.out)
+
+    def test_nonfinite_values_are_local_numerical_failure(self):
+        args = self.arguments("nonfinite", "hardware")
+        worker.capture(args, root=self.root)
+        path = args.out/"runtime/raw.npz"
+        raw = common.load_npz(path)
+        raw["step0_gradients"][:, 0] = np.nan
+        np.savez(path, **raw)
+        execution_path = args.out/"runtime/execution.json"
+        execution = common.read_json(execution_path)
+        common.write_json(execution_path, dict(execution, raw_sha256=common.sha(path)))
+        self.assertEqual(common.admit_capture(args.out)["execution_status"], "PASS")
+        result = common.audit_report(args.out)
+        self.assertEqual(result["numerical_status"], "FAIL")
+        self.assertIn("finite gradients", result["numerical_error"])
+
+    def test_local_cli_success_and_report_collision(self):
+        args = self.arguments("cli-pass", "hardware")
+        worker.capture(args, root=self.root)
+        report_path = self.base/"numerical-pass.json"
+        self.assertEqual(common.main([str(args.out), "--out", str(report_path)]), 0)
+        result = common.read_json(report_path)
+        self.assertEqual(result["numerical_status"], "PASS")
+        with self.assertRaisesRegex(ValueError, "fresh"):
+            common.main([str(args.out), "--out", str(report_path)])
 
     def test_worker_rejects_missing_capture(self):
         args = self.arguments("missing-capture", "simulator")

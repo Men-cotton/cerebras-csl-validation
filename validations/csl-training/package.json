@@ -4,12 +4,12 @@
     "minimum": "fda5447070f45e00e1d0e926f281d30f8cfa160e73d90a4deeedefaa645bf486"
   },
   "evidence": "export only; no compile, simulation or hardware execution",
-  "exporter_sha256": "c5c1428376e5395c835105eb73e8d4f5f275fa7b9bbd64656153e067fa72f672",
+  "exporter_sha256": "7345a21c957482b2a75fa4677bb933bd12b245a00c339031b64f803f51fc4ee1",
   "family": "csl-training",
   "host_sha256": {
-    "appliance.py": "2b737c8a353181c23b339aa3f58e30d5fea2c7bdfc29129b1ca39d6590efd78b",
-    "appliance_worker.py": "8fd6d6598741f700706a190a5f44df2f758db22e440063248cbeb2f13b42358c",
-    "saved_audit.py": "8f32cf24b762018fa6104e131a4257a23b1a7d3909e15020472c505c70b0b7ed"
+    "appliance.py": "0bcca2ba0bf457455a434a8f9f0ff5c75fe847ff264e41fe1863a340025cdb1a",
+    "appliance_worker.py": "4cc5cd1f2e92e8e7d56d47ed18c5a3eeedb668b29cd6fd4a634d94ff3ddf761e",
+    "saved_audit.py": "895219b2d53155cffb4111390a3a57c773c6775dfdf9f0e3629d6ed041bb8550"
   },
   "schema": 1,
   "scope": "frozen complete CSL forward/backward/SGD; no host gradient or optimizer during runtime"

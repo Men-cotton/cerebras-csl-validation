@@ -30,7 +30,7 @@ def capture(args, root=ROOT, runner=None):
     out = Path(args.out).absolute()
     common.require(out == out.resolve(), "worker output symlink")
     out.mkdir(parents=True, exist_ok=False)
-    record = dict(schema=1, status="incomplete", backend=args.backend, run_id=request["run_id"],
+    record = dict(schema=1, status="incomplete", backend=args.backend, numerical_status="NOT_RUN", run_id=request["run_id"],
                   manifest_sha256=common.sha(args.manifest), request_sha256=common.sha(args.request))
     common.write_json(out/"capture.json", record)
     started = time.monotonic()
@@ -57,17 +57,17 @@ def capture(args, root=ROOT, runner=None):
             spec.loader.exec_module(module)
             runner = module.main
         runner(case, Path(args.build).absolute(), out/"runtime", args.backend, args.cmaddr)
-        result = common.audit(case, out/"runtime")
+        result = common.admit_execution(case, out/"runtime")
         common.require(result["backend"] == args.backend, "runtime backend")
-        common.write_json(out/"audit.json", result)
-        record["status"] = "PASS"
+        common.write_json(out/"execution-admission.json", result)
+        record["status"] = "COMPLETED"
     except BaseException as error:
         record["error"] = repr(error)
         raise
     finally:
         record["seconds"] = time.monotonic()-started
         common.write_json(out/"capture.json", record)
-    common.audit_capture(out)
+    common.admit_capture(out)
     return 0
 
 
