@@ -59,6 +59,8 @@ def capture(args, sdk_factory=sdk, root=ROOT):
     destination = Path(args.out).absolute()
     common.require(destination == destination.resolve(), "capture path cannot traverse symlinks")
     destination.mkdir(parents=True, exist_ok=False)
+    runtime_directory = destination.with_name(destination.name + "-runtime")
+    runtime_directory.mkdir(exist_ok=False)
     (destination / "sources/source").mkdir(parents=True)
     for name in manifest["host_sha256"]:
         shutil.copyfile(root / name, destination / "sources" / name)
@@ -102,8 +104,10 @@ def capture(args, sdk_factory=sdk, root=ROOT):
             row["wall_seconds"] = time.monotonic() - started
 
     try:
+        # The SDK writes configuration and diagnostics relative to cwd. Keep
+        # these outside the bounded capture archive, including during stop().
+        os.chdir(runtime_directory)
         runtime_type, options = sdk_factory()
-        os.chdir(destination)
         runtime_options = {"cmaddr": args.cmaddr} if args.backend == "hardware" else {
             "simfab_numthreads": 1, "suppress_simfab_trace": True}
 

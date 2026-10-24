@@ -1,9 +1,11 @@
 """Worker contracts using a fake runtime; never import or construct the SDK."""
 import copy
 import json
+import os
 from pathlib import Path
 import shutil
 import tempfile
+import tarfile
 from types import SimpleNamespace
 import unittest
 from unittest import mock
@@ -13,6 +15,7 @@ import numpy as np
 
 import oracle
 import profile_common as common
+import profile_appliance as appliance
 import profile_worker as worker
 
 
@@ -82,6 +85,8 @@ class WorkerTests(unittest.TestCase):
         self.fail_at = None
         self.corrupt = None
         self.constructor_calls = []
+        self.runtime_directories = []
+        self.config_bytes = 0
         self.factory = mock.Mock(side_effect=lambda: (self.construct, OPTIONS))
 
     def write_abi(self, symbols):
@@ -94,6 +99,12 @@ class WorkerTests(unittest.TestCase):
 
     def construct(self, name, **options):
         self.constructor_calls.append((name, options))
+        self.runtime_directories.append(Path.cwd())
+        if self.config_bytes:
+            config = Path("cs_hio_config_files/hw_chain_cm.conf")
+            config.parent.mkdir()
+            with config.open("wb") as stream:
+                stream.truncate(self.config_bytes)
         if self.fail_at == "construct":
             raise RuntimeError("constructor failure")
         test = self
@@ -152,6 +163,9 @@ class WorkerTests(unittest.TestCase):
                 self.downloads.append((symbol, geometry))
 
             def stop(self):
+                test.assertEqual(Path.cwd(), test.runtime_directories[-1])
+                if test.config_bytes:
+                    Path("runtime-stop.log").write_text("stopped")
                 self.stopped = True
                 if test.fail_at == "stop":
                     raise RuntimeError("stop failure")
@@ -241,6 +255,69 @@ class WorkerTests(unittest.TestCase):
                 np.testing.assert_array_equal(raw[f"output{invocation}_{name}"], outputs[name])
         self.assertEqual(common.audit_capture(self.args.out)["status"], "pass")
 
+    def test_runtime_files_stay_outside_downloadable_capture(self):
+        # The hardware failure contained this 50 MB SDK-generated file.
+        self.config_bytes = 50_250_000
+        previous = Path.cwd()
+        self.assertEqual(self.run_capture(), 0)
+        self.assertEqual(Path.cwd(), previous)
+        runtime_directory = self.runtime_directories[-1]
+        self.assertFalse(runtime_directory.is_relative_to(self.args.out))
+        self.assertEqual((runtime_directory / "cs_hio_config_files/hw_chain_cm.conf").stat().st_size,
+                         self.config_bytes)
+        self.assertTrue((runtime_directory / "runtime-stop.log").is_file())
+        archive = self.directory / "capture.tar.gz"
+        with tarfile.open(archive, "w:gz") as stream:
+            stream.add(self.args.out, arcname="capture")
+        extracted = appliance.unpack_capture(archive, self.directory / "downloaded")
+        self.assertFalse((extracted / "cs_hio_config_files").exists())
+        self.assertFalse((extracted / "runtime-stop.log").exists())
+        self.assertEqual(common.audit_capture(extracted)["status"], "pass")
+
+    def test_existing_runtime_directory_is_not_reused(self):
+        runtime_directory = self.args.out.with_name(self.args.out.name + "-runtime")
+        runtime_directory.mkdir()
+        marker = runtime_directory / "marker"
+        marker.write_text("previous runtime")
+        with self.assertRaises(FileExistsError):
+            self.run_capture()
+        self.factory.assert_not_called()
+        self.assertEqual(marker.read_text(), "previous runtime")
+
+    def test_relative_paths_remain_valid_after_runtime_cwd_change(self):
+        previous = Path.cwd()
+        os.chdir(self.directory)
+        try:
+            self.args.name = "build"
+            self.args.out = Path("capture")
+            self.args.manifest = Path("manifest.json")
+            self.args.request = Path("request.json")
+            self.assertEqual(self.run_capture(), 0)
+            self.assertEqual(Path.cwd(), self.directory)
+            self.assertEqual(common.audit_capture(self.args.out)["status"], "pass")
+        finally:
+            os.chdir(previous)
+
+    def test_sdk_factory_failure_restores_cwd_and_preserves_capture(self):
+        previous = Path.cwd()
+        self.factory.side_effect = RuntimeError("SDK factory failure")
+        with self.assertRaisesRegex(ValueError, "SDK factory failure"):
+            self.run_capture()
+        self.assertEqual(Path.cwd(), previous)
+        self.assertIsNone(self.runtime)
+        self.assertEqual(common.read_json(self.args.out / "capture.json")["status"], "incomplete")
+        self.assertTrue((self.args.out / "raw.npz").is_file())
+
+    def test_symlinked_runtime_directory_is_not_followed(self):
+        runtime_directory = self.args.out.with_name(self.args.out.name + "-runtime")
+        target = self.directory / "other-runtime"
+        target.mkdir()
+        runtime_directory.symlink_to(target, target_is_directory=True)
+        with self.assertRaises(FileExistsError):
+            self.run_capture()
+        self.factory.assert_not_called()
+        self.assertEqual(list(target.iterdir()), [])
+
     def test_simulator_modes_have_trace_off_and_no_hardware_address(self):
         for backend, flag in (("simulator", 0), ("local-sim", 1)):
             with self.subTest(backend=backend):
@@ -264,6 +341,7 @@ class WorkerTests(unittest.TestCase):
 
     def test_runtime_failures_stop_and_preserve_incomplete_capture(self):
         original_cwd = Path.cwd()
+        self.config_bytes = 64
         for stage in ("load", "run", "launch", "read", "stop"):
             with self.subTest(stage=stage):
                 self.fail_at = stage
@@ -272,6 +350,7 @@ class WorkerTests(unittest.TestCase):
                     self.run_capture()
                 self.assertTrue(self.runtime.stopped)
                 self.assertEqual(Path.cwd(), original_cwd)
+                self.assertFalse((self.args.out / "cs_hio_config_files").exists())
                 capture = common.read_json(self.args.out / "capture.json")
                 self.assertEqual(capture["status"], "incomplete")
                 self.assertIsNotNone(capture["error"])
@@ -280,9 +359,13 @@ class WorkerTests(unittest.TestCase):
 
     def test_constructor_failure_keeps_record_without_stop_on_unowned_runtime(self):
         self.fail_at = "construct"
+        self.config_bytes = 64
+        original_cwd = Path.cwd()
         with self.assertRaisesRegex(ValueError, "constructor failure"):
             self.run_capture()
         self.assertIsNone(self.runtime)
+        self.assertEqual(Path.cwd(), original_cwd)
+        self.assertFalse((self.args.out / "cs_hio_config_files").exists())
         capture = common.read_json(self.args.out / "capture.json")
         self.assertEqual(capture["status"], "incomplete")
         self.assertEqual([row["name"] for row in capture["api"]], ["construct"])

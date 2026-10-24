@@ -55,6 +55,13 @@ arrays, compiled parameter/RPC metadata, and the five frozen CSL/host files are
 hashed and retained. `comparison.json` preserves each runtime and invocation,
 same-PE phases, source work/traffic quantities and off/on differences.
 
+The worker runs the SDK in a fresh sibling of the capture directory: with
+`--out capture`, runtime configuration and diagnostics stay in `capture-runtime/`.
+Only `capture/` is downloaded as the numerical evidence archive. Both successful
+and failed runtimes keep their working files separate, and the worker restores
+its original working directory after stopping the runtime. The existing capture
+size and member limits still apply.
+
 Per invocation, source accounting gives 44 endpoint-injected bytes over the
 adjacent links, including READY/ACK; 40 bytes belong to the sender's interval
 because READY precedes it. Do not add TX and RX counts. Both arms export
