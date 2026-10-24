@@ -1,0 +1,79 @@
+{
+  "description": "One compile and one runtime per frozen case; each launch performs one complete CSL SGD update.",
+  "id": "tank28-csl-training-20261023-01",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "minimum",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-minimum"
+      ],
+      "kind": "appliance",
+      "name": "compile-minimum",
+      "script": "validations/csl-training/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "minimum",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-minimum/training-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-minimum"
+      ],
+      "kind": "appliance",
+      "name": "run-minimum",
+      "script": "validations/csl-training/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-training",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-full-training"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-training",
+      "script": "validations/csl-training/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-training",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-training/training-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-full-training"
+      ],
+      "kind": "appliance",
+      "name": "run-full-training",
+      "script": "validations/csl-training/appliance.py",
+      "timeout_seconds": 1200
+    }
+  ]
+}
