@@ -365,7 +365,8 @@ class AdapterTests(unittest.TestCase):
         pairs = (("halo-rc-small", "halo-small"), ("halo-rc-uneven", "halo-uneven"),
                  ("halo-rc16", "halo16"), ("halo-rc32", "halo32"), ("halo-rc64", "halo64"),
                  ("halo-rc128", "halo128"))
-        self.assertEqual(set(exporter.RUNTIME_CASES), {candidate for candidate, _ in pairs})
+        self.assertEqual(set(exporter.RUNTIME_CASES),
+                         {candidate for candidate, _ in pairs} | {"halo-rc256", "halo-rc512"})
         for candidate, control in pairs:
             self.assertEqual(exporter.CASES[candidate], exporter.CASES[control])
         sources = exporter.source_map("halo", runtime_coords=True)
@@ -375,6 +376,41 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(sources["source/pe.csl"][0], exporter.HALO_RUNTIME + "/pe.csl")
         with self.assertRaisesRegex(ValueError, "only to halo"):
             exporter.source_map("topk", runtime_coords=True)
+
+    def test_large_halo_recipes_are_opt_in_and_preserve_defaults(self):
+        wanted_defaults = (
+            "topk-small", "topk24", "topk32", "topk64",
+            "halo-small", "halo16", "halo32", "halo64", "halo-uneven", "halo128",
+            "halo-rc-small", "halo-rc-uneven", "halo-rc16", "halo-rc32", "halo-rc64", "halo-rc128",
+        )
+        self.assertEqual(exporter.DEFAULT_CASES, wanted_defaults)
+        self.assertEqual(set(exporter.CASES) - set(exporter.DEFAULT_CASES),
+                         {"halo-rc256", "halo-rc512"})
+        old_recipes = {
+            "topk-small": ("topk", 3, 2, "uneven"),
+            "topk24": ("topk", 24, 24, "balanced"),
+            "topk32": ("topk", 32, 32, "balanced"),
+            "topk64": ("topk", 64, 64, "balanced"),
+            "halo-small": ("halo", 2, 2, ((17, 0), (32, 1), (32, 0))),
+            "halo16": ("halo", 16, 16, ((32, 0),)),
+            "halo32": ("halo", 32, 32, ((32, 0),)),
+            "halo64": ("halo", 64, 64, ((32, 0),)),
+            "halo-uneven": ("halo", 3, 2, ((17, 0), (32, 1), (32, 0))),
+            "halo128": ("halo", 128, 128, ((32, 0),)),
+        }
+        for name, recipe in old_recipes.items():
+            self.assertEqual(exporter.CASES[name], recipe)
+        for side in (256, 512):
+            name = "halo-rc" + str(side)
+            self.assertEqual(exporter.CASES[name], ("halo", side, side, ((32, 0),)))
+            self.assertIn(name, exporter.RUNTIME_CASES)
+            self.assertNotIn("halo" + str(side), exporter.CASES)
+
+    def test_export_rejects_more_than_sixteen_cases_before_reading_sources(self):
+        with patch.object(exporter, "read", side_effect=AssertionError("source read before admission")):
+            with self.assertRaisesRegex(ValueError, "1..16 known unique cases"):
+                exporter.export(self.root / "source", self.root / "too-many-cases",
+                                "1" * 40, list(exporter.CASES))
 
     def test_halo_128_admission_keeps_allocation_bound_and_topk_limit(self):
         f = fixture(self.root, "halo")
@@ -387,7 +423,7 @@ class AdapterTests(unittest.TestCase):
                 operation["rect"] = [0, 0, 128, 128]
         _, outputs = worker.validate_manifest(case)
         self.assertEqual(outputs["s0_y"][0], (16384, 32))
-        too_wide = dict(case, grid=[129, 128])
+        too_wide = dict(case, grid=[513, 128])
         with self.assertRaisesRegex(ValueError, "PE axes"):
             worker.validate_manifest(too_wide)
         with self.assertRaisesRegex(ValueError, "PE axes"):
@@ -395,6 +431,33 @@ class AdapterTests(unittest.TestCase):
         case["symbols"]["y"][0] = 16384
         with self.assertRaisesRegex(ValueError, "allocation bound"):
             worker.validate_manifest(case)
+
+    def test_halo_512_single_launch_fits_but_two_launches_exceed_total_bound(self):
+        f = fixture(self.root, "halo")
+        case = json.loads(json.dumps(f.case))
+        case["grid"] = [512, 512]
+        case["params"] = dict(width=512, height=512)
+        case["symbols"]["y"][0] = case["symbols"]["Q"][0] = 32
+        # One launch followed by y, Q, count and clock readbacks.
+        case["operations"] = case["operations"][:5]
+        for operation in case["operations"]:
+            if "rect" in operation:
+                operation["rect"] = [0, 0, 512, 512]
+        _, outputs = worker.validate_manifest(case)
+        sizes = [shape[0] * shape[1] * 4 for shape, _ in outputs.values()]
+        self.assertEqual(max(sizes), 32 << 20)
+        self.assertEqual(sum(sizes), 74448896)
+        self.assertEqual(outputs["s0_y"][0], (262144, 32))
+        self.assertEqual(worker.ARRAY_LIMIT, 96 << 20)
+        self.assertEqual(worker.ARRAY_LIMIT - worker.JSON_LIMIT, 92 << 20)
+
+        two_launches = json.loads(json.dumps(case))
+        for operation in json.loads(json.dumps(case["operations"])):
+            if "array" in operation:
+                operation["array"] = operation["array"].replace("s0_", "s1_", 1)
+            two_launches["operations"].append(operation)
+        with self.assertRaisesRegex(ValueError, "allocation bound"):
+            worker.validate_manifest(two_launches)
 
     def test_runtime_coordinate_metadata_preserves_operations_and_oracle(self):
         # The variant changes source placement, never numerical fixture inputs.

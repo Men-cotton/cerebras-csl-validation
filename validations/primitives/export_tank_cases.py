@@ -76,6 +76,14 @@ RUNTIME_CASES = {
     "halo-rc128": CASES["halo128"],
 }
 CASES.update(RUNTIME_CASES)
+# Keep the existing sixteen recipes as the default capsule. Larger halos are
+# opt-in so the unchanged sixteen-case package bound remains meaningful.
+DEFAULT_CASES = tuple(CASES)
+RUNTIME_CASES.update({
+    "halo-rc256": ("halo", 256, 256, ((32, 0),)),
+    "halo-rc512": ("halo", 512, 512, ((32, 0),)),
+})
+CASES.update(RUNTIME_CASES)
 FILE_LIMIT = 96 << 20
 
 
@@ -264,8 +272,9 @@ def export(repo, output, source_commit, names=None):
     repo, output = Path(repo).resolve(), Path(output).absolute()
     require(output == output.resolve() and not output.exists(), "fresh canonical output required")
     require(re.fullmatch(r"[0-9a-f]{40}", source_commit), "full source commit")
-    names = list(CASES) if names is None else list(names)
-    require(names and len(names) == len(set(names)) and all(n in CASES for n in names), "known unique cases")
+    names = list(DEFAULT_CASES) if names is None else list(names)
+    require(1 <= len(names) <= 16 and len(names) == len(set(names)) and
+            all(n in CASES for n in names), "1..16 known unique cases")
     original = {name: read(repo / name) for name in ORACLES + ORIGINALS}
     exporter_bytes = read(Path(__file__).resolve())
     output.mkdir(parents=True)
@@ -355,7 +364,7 @@ def main():
     parser.add_argument("--repo", type=Path)
     parser.add_argument("--out", type=Path)
     parser.add_argument("--source-commit")
-    parser.add_argument("--cases", help="Comma-separated subset; default is all registered recipes")
+    parser.add_argument("--cases", help="Up to 16 comma-separated recipes; default is the existing cases through halo128; halo-rc256/halo-rc512 require explicit selection")
     parser.add_argument("--verify", type=Path, help="Regenerate every expected array from a frozen package")
     args = parser.parse_args()
     if args.verify is not None:
