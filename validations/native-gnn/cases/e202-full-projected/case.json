@@ -1,0 +1,277 @@
+{
+  "checks": {
+    "aggregate": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "cached_e0": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "clocks": {
+      "kind": "clock"
+    },
+    "comm_stats": {
+      "kind": "exact"
+    },
+    "decoder_output": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "delta_e": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "delta_h": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "e_out": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "encoded_h": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "h_out": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "sender_cache": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "stats": {
+      "kind": "exact"
+    },
+    "velocity_out": {
+      "atol": 1e-06,
+      "kind": "approx",
+      "rtol": 3e-05
+    }
+  },
+  "evidence": "frozen host oracle only; no device execution",
+  "exact_mask_counts": {
+    "velocity_out": 27776
+  },
+  "experiment": "native-full-physical-v1",
+  "family": "native-gnn",
+  "files": {
+    "PUBLIC_MODEL_LICENSE": "769f7db97e1ca994ae879392c520acc9ae1d6e45df225ac38426c3e11c0d6267",
+    "exact_masks.npz": "e3fda72ed72816a48a63051d0a8a41a2d5c9cb6993a9aecbf40edfbf402e69c0",
+    "expected.npz": "fdf82510210a0d4b304bf31d19bc5233d55cfccaa4431f2ffdcff2192330c100",
+    "inputs.npz": "c8fa0b26234c9c3ed08cf55a142e1b90672dbb1f809c972ec9c2226ee9660672",
+    "origin-case.json": "dde7d17acdd3cd54029d3ef59b9828eabb49513be46aecfd11ddc871f367d6b6",
+    "original.npz": "7c8350c0bc0d0d20125199509589235dad39ac07485fb2a46e1de3f0625833e5",
+    "public-model-import.json": "13eeffb997030e16d9042cb1549b4b1bc7758ccafe130112313c86888dc3be31",
+    "sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+    "source/layout.csl": "2e9599bdf877b129532581bb6a57123a9842a34016760b592f32300fc84d9520",
+    "source/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+    "source/pe.csl": "ae61eb05a9ff38a90fa74fcd63528d7f7e2ef009d26f494115d59434b91a3c14",
+    "source/sliced_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "storage-admission.json": "5f1109b278f5abc52cf20aead8d9cc7533ab2d719ec94afe018b8f4e5802f8a8",
+    "zero_masks.npz": "8cade638faff938d0ccc42cf56ae471f5436c60649f9a671bec8ac7b913dfa1c"
+  },
+  "immutable_inputs": [
+    "bank",
+    "counts",
+    "dst_slot",
+    "geometry",
+    "node_type",
+    "normalizers",
+    "round_sources",
+    "rx_count",
+    "rx_slot",
+    "src_owner",
+    "src_slot",
+    "tx_begin",
+    "tx_slots",
+    "velocity"
+  ],
+  "inputs": {
+    "bank": [
+      287,
+      "float32"
+    ],
+    "counts": [
+      2,
+      "uint32"
+    ],
+    "dst_slot": [
+      92,
+      "uint32"
+    ],
+    "geometry": [
+      276,
+      "float32"
+    ],
+    "node_type": [
+      15,
+      "uint32"
+    ],
+    "normalizers": [
+      32,
+      "float32"
+    ],
+    "round_sources": [
+      11,
+      "uint32"
+    ],
+    "rx_count": [
+      128,
+      "uint32"
+    ],
+    "rx_slot": [
+      92,
+      "uint32"
+    ],
+    "src_owner": [
+      92,
+      "uint32"
+    ],
+    "src_slot": [
+      92,
+      "uint32"
+    ],
+    "tx_begin": [
+      129,
+      "uint32"
+    ],
+    "tx_slots": [
+      24,
+      "uint32"
+    ],
+    "velocity": [
+      30,
+      "float32"
+    ]
+  },
+  "launch": {
+    "arguments": [],
+    "entrypoint": "run"
+  },
+  "oracle_export": {
+    "exporter_sha256": "0e5ac5a1a695eb14cddb123ed68f4a2559e19f9d7bb7a8afebe0e0c63f14749f",
+    "implementation": "models.meshgraphnet.native_full.driver:portable_expectations",
+    "source_hashes": {
+      "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+      "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+      "kernels/communication/sliced-halo/audit.py": "9117f82827bae38d4c5f803cb99ff1fe03a7cc7c7caa3a0bd3960cecbcbcca72",
+      "kernels/communication/sliced-halo/pe.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+      "kernels/communication/sliced-halo/schedule.py": "1b3e71b20ac8778548fe5df89cadba02966f2efcf266ffc000bf275d05650477",
+      "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+      "models/meshgraphnet/colored_schedule.py": "aa52008a00aa6fffcad520065ce60ee4c74e98f9dc8c59db8e69ea7c2494a23a",
+      "models/meshgraphnet/colored_validation.py": "8a78bdc96ae8938548248bb04739ce744c1f2381305b7e9ee95f9a2ff59436eb",
+      "models/meshgraphnet/data.py": "6e16f4199841df21c8a665648e728d41224794a7748f2a721f0638ca0b950c33",
+      "models/meshgraphnet/native_full/driver.py": "41cfeac278af462c24d0e8a08de7e4697fffcac112266f615793b480fe6b73f7",
+      "models/meshgraphnet/native_full/elf_reader.py": "2dbf314237ff068edd95fe20187aaae19576708723384256fd0067dfe5bfbc8b",
+      "models/meshgraphnet/native_full/layout.csl": "2e9599bdf877b129532581bb6a57123a9842a34016760b592f32300fc84d9520",
+      "models/meshgraphnet/native_full/model.py": "9e5bcb1988d118e843e2f48d0b566606b1de6537d788adfff785420b4632b70f",
+      "models/meshgraphnet/native_full/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+      "models/meshgraphnet/native_full/pe.csl": "ae61eb05a9ff38a90fa74fcd63528d7f7e2ef009d26f494115d59434b91a3c14",
+      "models/meshgraphnet/native_full/sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+      "models/meshgraphnet/native_mesh/model.py": "251964fe86d4da9d9daa2eaf3c16fe4d316537fea6e4da0893ebdc6a248bee4a",
+      "models/meshgraphnet/pretrained/inference.py": "c767341c43b5dbcc29925a0be5f1a171302954c1e3229ffe33295cb37ec9300e",
+      "models/meshgraphnet/reference.py": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+      "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+      "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+      "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404"
+    }
+  },
+  "origin_case_sha256": "dde7d17acdd3cd54029d3ef59b9828eabb49513be46aecfd11ddc871f367d6b6",
+  "origin_files": {
+    "PUBLIC_MODEL_LICENSE": "PUBLIC_MODEL_LICENSE",
+    "exact_masks.npz": "exact_masks.npz",
+    "expected.npz": "expected.npz",
+    "inputs.npz": "inputs.npz",
+    "original.npz": "original.npz",
+    "public-model-import.json": "public-model-import.json",
+    "sdk_runner.py": "sdk_runner.py",
+    "source/layout.csl": "source/layout.csl",
+    "source/no_halo.csl": "source/no_halo.csl",
+    "source/pe.csl": "source/pe.csl",
+    "source/sliced_halo.csl": "source/sliced_halo.csl",
+    "storage-admission.json": "storage-admission.json",
+    "zero_masks.npz": "zero_masks.npz"
+  },
+  "outputs": {
+    "aggregate": [
+      30,
+      "float32"
+    ],
+    "cached_e0": [
+      184,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "decoder_output": [
+      30,
+      "float32"
+    ],
+    "delta_e": [
+      184,
+      "float32"
+    ],
+    "delta_h": [
+      30,
+      "float32"
+    ],
+    "e_out": [
+      184,
+      "float32"
+    ],
+    "encoded_h": [
+      30,
+      "float32"
+    ],
+    "h_out": [
+      30,
+      "float32"
+    ],
+    "sender_cache": [
+      184,
+      "float32"
+    ],
+    "stats": [
+      18,
+      "uint32"
+    ],
+    "velocity_out": [
+      30,
+      "float32"
+    ]
+  },
+  "params": {
+    "C": 64,
+    "E": 92,
+    "H": 128,
+    "HCAP": 24,
+    "K": 13,
+    "L": 15,
+    "MODE": 2,
+    "PROJECTED": 1,
+    "Q": 11,
+    "R": 128,
+    "S": 15,
+    "T": 2
+  },
+  "schema": 1,
+  "scope": "complete H128 normalized one-step physical forward with all untied weights resident; no training, convergence, long rollout or speedup claim"
+}

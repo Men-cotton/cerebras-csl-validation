@@ -1,5 +1,8 @@
 {
   "cases": {
+    "e202-full-direct": "64e0b112ee4357e9acab1863c0fd0e0835427e02b2a2bcd7b490322740f095b1",
+    "e202-full-projected": "f93a2b87f4ffd9bf2d0362345df608b12c37c4d04453cc5785592ae9074dad54",
+    "e202-pilot-projected": "0180a25dbbc6ca5b8a08dd5bf8e5b01fcf6243a42b47815cc8b4721b2368f3ca",
     "minimum-s2": "f3739602d999c7c0f7a8ee205883a1c661f4cf1df157082ada2373beb53b625e",
     "minimum-s2-split": "6a7b4fe5677a15a8fac62b67f4922de7217d965637bb97c7016ed2fbf3aa5f20",
     "minimum-s2-whole": "641c92d4d08a6355cfed37165fd9036f033ab9ca520ad5244c559927f369f088",
@@ -11,7 +14,7 @@
     "trained-c64-whole": "fb66c9f1a661e5a7e391b71c1ca9b9e49d25ebea7263fcf25f3fc3f62f802a38"
   },
   "comparator_sha256": "0402156f789f725d61570b0e9a5b9448b96117a06fa072bd504ddd5f1dd070ba",
-  "compile_workers": 4,
+  "compile_workers": 1,
   "evidence": "export only; no compile or hardware execution",
   "exporter_sha256": "0e5ac5a1a695eb14cddb123ed68f4a2559e19f9d7bb7a8afebe0e0c63f14749f",
   "family": "native-gnn",
