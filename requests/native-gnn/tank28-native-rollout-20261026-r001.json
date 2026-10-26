@@ -1,0 +1,276 @@
+{
+  "description": "Compare four resident steps against two two-step launches, first on the small S2 graph then on the trained full H128/S15 mesh. Strict checkpoint audits and bitwise whole/split comparisons gate the final 200-step resident run. Generated ELF identity is reported separately.",
+  "id": "tank28-native-rollout-20261026-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "minimum-s2-whole",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-minimum-s2-whole"
+      ],
+      "kind": "appliance",
+      "name": "compile-minimum-s2-whole",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "minimum-s2-whole",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-minimum-s2-whole/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-minimum-s2-whole"
+      ],
+      "kind": "appliance",
+      "name": "run-minimum-s2-whole",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-minimum-s2-whole/capture-data",
+        "--out",
+        "{output}/numerical-minimum-s2-whole.json"
+      ],
+      "kind": "host",
+      "name": "audit-minimum-s2-whole",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "minimum-s2-split",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-minimum-s2-split"
+      ],
+      "kind": "appliance",
+      "name": "compile-minimum-s2-split",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "minimum-s2-split",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-minimum-s2-split/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-minimum-s2-split"
+      ],
+      "kind": "appliance",
+      "name": "run-minimum-s2-split",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-minimum-s2-split/capture-data",
+        "--out",
+        "{output}/numerical-minimum-s2-split.json"
+      ],
+      "kind": "host",
+      "name": "audit-minimum-s2-split",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "name": "compare-minimum-s2",
+      "kind": "host",
+      "script": "validations/native-gnn/compare_rollouts.py",
+      "timeout_seconds": 120,
+      "args": [
+        "{output}/run-minimum-s2-whole/capture-data",
+        "{output}/run-minimum-s2-split/capture-data",
+        "--out",
+        "{output}/compare-minimum-s2.json"
+      ]
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "trained-c64-whole",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-trained-c64-whole"
+      ],
+      "kind": "appliance",
+      "name": "compile-trained-c64-whole",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-whole",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-whole/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-trained-c64-whole"
+      ],
+      "kind": "appliance",
+      "name": "run-trained-c64-whole",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-trained-c64-whole/capture-data",
+        "--out",
+        "{output}/numerical-trained-c64-whole.json"
+      ],
+      "kind": "host",
+      "name": "audit-trained-c64-whole",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "trained-c64-split",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-trained-c64-split"
+      ],
+      "kind": "appliance",
+      "name": "compile-trained-c64-split",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-split",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-split/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-trained-c64-split"
+      ],
+      "kind": "appliance",
+      "name": "run-trained-c64-split",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-trained-c64-split/capture-data",
+        "--out",
+        "{output}/numerical-trained-c64-split.json"
+      ],
+      "kind": "host",
+      "name": "audit-trained-c64-split",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "name": "compare-trained-c64",
+      "kind": "host",
+      "script": "validations/native-gnn/compare_rollouts.py",
+      "timeout_seconds": 120,
+      "args": [
+        "{output}/run-trained-c64-whole/capture-data",
+        "{output}/run-trained-c64-split/capture-data",
+        "--out",
+        "{output}/compare-trained-c64.json"
+      ]
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "trained-c64-resident200",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-trained-c64-resident200"
+      ],
+      "kind": "appliance",
+      "name": "compile-trained-c64-resident200",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-resident200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-resident200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-trained-c64-resident200"
+      ],
+      "kind": "appliance",
+      "name": "run-trained-c64-resident200",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-trained-c64-resident200/capture-data",
+        "--out",
+        "{output}/numerical-trained-c64-resident200.json"
+      ],
+      "kind": "host",
+      "name": "audit-trained-c64-resident200",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}
