@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "id": "tank28-csl-training-restart-20261026-r001",
+  "description": "Restart the recovered second SGD update twice from its exact observed previous weights. Compile once, capture two fresh sessions, then audit gradients locally; numerical differences do not gate the second capture.",
+  "steps": [
+    {
+      "name": "compile-restart-step1",
+      "kind": "appliance",
+      "script": "validations/csl-training/appliance.py",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--case",
+        "restart-step1",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-restart-step1"
+      ]
+    },
+    {
+      "name": "run-first",
+      "kind": "appliance",
+      "script": "validations/csl-training/appliance.py",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--case",
+        "restart-step1",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-restart-step1/training-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-first"
+      ]
+    },
+    {
+      "name": "run-second",
+      "kind": "appliance",
+      "script": "validations/csl-training/appliance.py",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--case",
+        "restart-step1",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-restart-step1/training-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-second"
+      ]
+    }
+  ]
+}
