@@ -354,12 +354,76 @@ class AdapterTests(unittest.TestCase):
             worker.arrays(path)
 
     def test_export_recipes_have_two_independent_families_and_explicit_adaptations(self):
-        self.assertEqual(list(exporter.CASES), ["topk-small", "topk24", "topk32", "topk64", "halo-small", "halo16", "halo32", "halo64"])
+        self.assertEqual(list(exporter.CASES)[:8], ["topk-small", "topk24", "topk32", "topk64", "halo-small", "halo16", "halo32", "halo64"])
         self.assertTrue(all(change is None for _, change in exporter.source_map("topk").values()))
         changes = [(original, change) for original, change in exporter.source_map("halo").values() if change is not None]
         self.assertEqual(dict(changes), audit.LOCAL_IMPORTS)
         self.assertEqual(exporter.SDK_TRANSFORMS, audit.SDK_TRANSFORMS)
         self.assertEqual(exporter.CASES["halo-small"][3], ((17, 0), (32, 1), (32, 0)))
+
+    def test_runtime_coordinate_recipes_keep_legacy_work_and_source_bytes(self):
+        pairs = (("halo-rc-small", "halo-small"), ("halo-rc-uneven", "halo-uneven"),
+                 ("halo-rc16", "halo16"), ("halo-rc32", "halo32"), ("halo-rc64", "halo64"),
+                 ("halo-rc128", "halo128"))
+        self.assertEqual(set(exporter.RUNTIME_CASES), {candidate for candidate, _ in pairs})
+        for candidate, control in pairs:
+            self.assertEqual(exporter.CASES[candidate], exporter.CASES[control])
+        sources = exporter.source_map("halo", runtime_coords=True)
+        self.assertEqual(set(sources), set(exporter.source_map("halo")))
+        self.assertTrue(all(change is None for _, change in sources.values()))
+        self.assertEqual(sources["source/vendor_pe.csl"][0], exporter.ACTIVE_VENDOR + "/wse3/pe.csl")
+        self.assertEqual(sources["source/pe.csl"][0], exporter.HALO_RUNTIME + "/pe.csl")
+        with self.assertRaisesRegex(ValueError, "only to halo"):
+            exporter.source_map("topk", runtime_coords=True)
+
+    def test_halo_128_admission_keeps_allocation_bound_and_topk_limit(self):
+        f = fixture(self.root, "halo")
+        case = json.loads(json.dumps(f.case))
+        case["grid"] = [128, 128]
+        case["params"] = dict(width=128, height=128)
+        case["symbols"]["y"][0] = case["symbols"]["Q"][0] = 32
+        for operation in case["operations"]:
+            if "rect" in operation:
+                operation["rect"] = [0, 0, 128, 128]
+        _, outputs = worker.validate_manifest(case)
+        self.assertEqual(outputs["s0_y"][0], (16384, 32))
+        too_wide = dict(case, grid=[129, 128])
+        with self.assertRaisesRegex(ValueError, "PE axes"):
+            worker.validate_manifest(too_wide)
+        with self.assertRaisesRegex(ValueError, "PE axes"):
+            worker.validate_manifest(dict(case, kind="topk", grid=[65, 2]))
+        case["symbols"]["y"][0] = 16384
+        with self.assertRaisesRegex(ValueError, "allocation bound"):
+            worker.validate_manifest(case)
+
+    def test_runtime_coordinate_metadata_preserves_operations_and_oracle(self):
+        # The variant changes source placement, never numerical fixture inputs.
+        class Oracle:
+            @staticmethod
+            def expected(height, width, length, phase):
+                return {name: np.full((height, width, size), length + phase, dtype)
+                        for name, size, dtype in (("y", 32, np.float32), ("Q", 32, np.float32),
+                                                  ("count", 1, np.uint32))}
+            vectorized_control = expected
+
+            @staticmethod
+            def verify_result(actual, expected):
+                for name in expected:
+                    np.testing.assert_array_equal(actual[name], expected[name])
+
+            @staticmethod
+            def metrics(height, width, length):
+                return dict(work=height * width * length)
+
+        seq = ((17, 0), (32, 1), (32, 0))
+        direct, inputs, expected = exporter.halo_case(Oracle, 3, 2, seq)
+        candidate, other_inputs, other_expected = exporter.halo_case(Oracle, 3, 2, seq, runtime_coords=True)
+        self.assertEqual(inputs, other_inputs)
+        self.assertNotEqual(direct["census"]["placement"], candidate["census"]["placement"])
+        candidate["census"]["placement"] = direct["census"]["placement"]
+        self.assertEqual(candidate, direct)
+        for name in expected:
+            np.testing.assert_array_equal(expected[name], other_expected[name])
 
     def test_sdk_stencil_compatibility_has_original_and_active_reference_provenance(self):
         f = fixture(self.root, "halo")

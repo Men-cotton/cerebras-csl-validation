@@ -17,6 +17,7 @@ import numpy as np
 
 TOPK = "kernels/sparse/exact-knn/mesh"
 HALO = "kernels/stencil/independent-halo"
+HALO_RUNTIME = HALO + "/runtime_coords"
 VENDOR = "csl-extras-202505230211-4-d9070058/examples/benchmarks/benchmark-libs/stencil_3d_7pts"
 ACTIVE_VENDOR = "sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/benchmark-libs/stencil_3d_7pts"
 ORACLES = (TOPK + "/model.py", "kernels/sparse/exact-knn/model.py",
@@ -25,7 +26,8 @@ ORACLES = (TOPK + "/model.py", "kernels/sparse/exact-knn/model.py",
            HALO + "/oracle.py")
 ORIGINALS = (TOPK + "/layout.csl", TOPK + "/pe.csl", HALO + "/layout.csl",
              HALO + "/pe.csl", VENDOR + "/layout.csl", VENDOR + "/wse3/pe.csl",
-             ACTIVE_VENDOR + "/layout.csl", ACTIVE_VENDOR + "/wse3/pe.csl", ACTIVE_VENDOR + "/pe.csl")
+             ACTIVE_VENDOR + "/layout.csl", ACTIVE_VENDOR + "/wse3/pe.csl", ACTIVE_VENDOR + "/pe.csl",
+             HALO_RUNTIME + "/layout.csl", HALO_RUNTIME + "/pe.csl")
 FORWARDED_STENCIL_PARAMS = ("c_recv_west", "c_send_east", "c_recv_east", "c_send_west",
     "c_recv_south", "c_send_north", "c_recv_north", "c_send_south",
     "COMM", "SEND", "RECV", "first_px", "last_px", "first_py", "last_py")
@@ -62,6 +64,18 @@ CASES = {
     "halo32": ("halo", 32, 32, ((32, 0),)),
     "halo64": ("halo", 64, 64, ((32, 0),)),
 }
+# Existing recipes remain unchanged; independent variants use fresh capsules.
+CASES["halo-uneven"] = ("halo", 3, 2, ((17, 0), (32, 1), (32, 0)))
+CASES["halo128"] = ("halo", 128, 128, ((32, 0),))
+RUNTIME_CASES = {
+    "halo-rc-small": CASES["halo-small"],
+    "halo-rc-uneven": CASES["halo-uneven"],
+    "halo-rc16": CASES["halo16"],
+    "halo-rc32": CASES["halo32"],
+    "halo-rc64": CASES["halo64"],
+    "halo-rc128": CASES["halo128"],
+}
+CASES.update(RUNTIME_CASES)
 FILE_LIMIT = 96 << 20
 
 
@@ -191,7 +205,7 @@ def topk_case(model, width, height, profile):
                             query_winners=winners, timing_scope="No device clock; worker and client turnaround only.")), inputs, expected
 
 
-def halo_case(oracle, width, height, sequence):
+def halo_case(oracle, width, height, sequence, *, runtime_coords=False):
     symbols = {"y": [32, "float32"], "Q": [32, "float32"], "count": [1, "uint32"], "clocks": [6, "uint16"]}
     operations, expected, launches = [], {}, []
     for index, (n, phase) in enumerate(sequence):
@@ -211,10 +225,17 @@ def halo_case(oracle, width, height, sequence):
                 operations=operations, validations=dict(restore=[]),
                 census=dict(epochs_per_launch=64, max_n=32, block_size=16, sequence=[list(s) for s in sequence], launches=launches,
                             timing_scope="PE-local timestamp interval over 64 independent epochs; not global makespan.",
-                            placement="Original compile-time X/Y specialization; wrapper imports localized and parameters explicitly forwarded; vendor layout/DSD syntax matches SDK 2.10.2 official source.")), {}, expected
+                            placement=("Runtime coordinates computed once per launch inside the PE-local clock; boundary/parity routing and active SDK stencil unchanged." if runtime_coords else
+                                       "Original compile-time X/Y specialization; wrapper imports localized and parameters explicitly forwarded; vendor layout/DSD syntax matches SDK 2.10.2 official source."))), {}, expected
 
 
-def source_map(kind):
+def source_map(kind, *, runtime_coords=False):
+    if runtime_coords:
+        require(kind == "halo", "runtime coordinates apply only to halo")
+        return {"source/layout.csl": (HALO_RUNTIME + "/layout.csl", None),
+                "source/pe.csl": (HALO_RUNTIME + "/pe.csl", None),
+                "source/vendor_layout.csl": (ACTIVE_VENDOR + "/layout.csl", None),
+                "source/vendor_pe.csl": (ACTIVE_VENDOR + "/wse3/pe.csl", None)}
     base = TOPK if kind == "topk" else HALO
     result = {"source/layout.csl": (base + "/layout.csl", None), "source/pe.csl": (base + "/pe.csl", None)}
     if kind == "halo":
@@ -259,13 +280,13 @@ def export(repo, output, source_commit, names=None):
         for name in names:
             kind, width, height, argument = CASES[name]
             case, inputs, expected = (topk_case(topk, width, height, argument) if kind == "topk"
-                                      else halo_case(halo, width, height, argument))
+                                      else halo_case(halo, width, height, argument, runtime_coords=name in RUNTIME_CASES))
             directory = output / "cases" / name
             directory.mkdir(parents=True)
             np.savez(directory / "inputs.npz", **inputs)
             np.savez(directory / "expected.npz", **expected)
             origins = {}
-            for relative, (original_name, change) in source_map(kind).items():
+            for relative, (original_name, change) in source_map(kind, runtime_coords=name in RUNTIME_CASES).items():
                 payload = original[original_name]
                 transformation = "none"
                 compatibility_reference = None
@@ -316,7 +337,7 @@ def verify(package):
             require(name in CASES, "known frozen case recipe")
             kind, width, height, argument = CASES[name]
             wanted, inputs, expected = (topk_case(topk, width, height, argument) if kind == "topk"
-                                        else halo_case(halo, width, height, argument))
+                                        else halo_case(halo, width, height, argument, runtime_coords=name in RUNTIME_CASES))
             directory = package / "cases" / name
             saved = json.loads(read(directory / "case.json"))
             require(all(saved[key] == value for key, value in wanted.items()), "regenerated case recipe")
@@ -334,7 +355,7 @@ def main():
     parser.add_argument("--repo", type=Path)
     parser.add_argument("--out", type=Path)
     parser.add_argument("--source-commit")
-    parser.add_argument("--cases", help="Comma-separated subset; default is all eight cases")
+    parser.add_argument("--cases", help="Comma-separated subset; default is all registered recipes")
     parser.add_argument("--verify", type=Path, help="Regenerate every expected array from a frozen package")
     args = parser.parse_args()
     if args.verify is not None:
