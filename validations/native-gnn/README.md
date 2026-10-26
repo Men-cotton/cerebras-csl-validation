@@ -15,8 +15,10 @@ and bank, counter, padding element and PE-local clock interval. Numerical
 failure leaves the original raw arrays and worker records intact.
 
 The adapter stages all graph states and weight banks once, reads the uploaded
-values back, launches the zero-argument resident `run()` once, and collects
-all outputs plus final inputs. Each case states which inputs are immutable;
+values back, executes the frozen launch schedule, and collects all outputs
+plus final inputs. Schema1 keeps the single zero-argument `run()` contract.
+Schema2 calls `run(steps: u32)` for each declared chunk without another upload.
+Each case states which inputs are immutable;
 any mutable input must also be a numerically checked output. This transport
 contract supports the banked processor block and the general graph-group
 native mesh adapter. A processor-only case does not establish encoded input
@@ -24,13 +26,60 @@ generation, physical rollout, model training or fluid prediction accuracy.
 
 `export_appliance.py` converts a prepared native-block case through its checked
 NumPy oracle. Mesh and complete-model cases declare
-`portable_oracle_module=models.meshgraphnet.native_mesh.driver` or
-`models.meshgraphnet.native_full.driver`. Only these module names are admitted.
+`portable_oracle_module=models.meshgraphnet.native_mesh.driver`,
+`models.meshgraphnet.native_full.driver`, or
+`models.meshgraphnet.native_rollout.driver`. Only these module names are admitted.
 Their `portable_expectations(case)` returns packed expectations, exact-field
 names, zero masks, default tolerances, immutable inputs and scope. Optional
 `tolerances` entries set `rtol`/`atol` for individual approximate outputs; the
 physical velocity contract uses3e-5/1e-6, while normalized arrays use3e-4/3e-4.
 Export never submits work.
+
+Schema2 freezes one to16 launches, each exactly
+`{"entrypoint": "run", "steps": N}`. Positive chunk lengths must total at most
+the compiled `MAX_STEPS`, which is bounded to256. The originating model's
+`residency.chunks` must equal this schedule. Compiled ABI checking requires
+the u32 argument and a four-word u32 `lifecycle` output. Initial lifecycle and
+stats must be zero; the model oracle supplies each checkpoint's exact counters
+and lifecycle values. The model also owns arithmetic-counter and generation
+bounds for its selected shape.
+
+Every output is read after every launch. Captures, expectations and masks use
+`launch0_FIELD`, `launch1_FIELD`, and so on; ABI declarations and numerical
+tolerances remain keyed by device field. Input readbacks occur once before the
+first launch and once after the last. The exact recorded API sequence and
+launch argument inventory reject missing checkpoints, extra uploads and changed
+chunk lengths. Execution admission still does not compare numerical values.
+The numerical audit checks every checkpoint, including nonzero fixed-boundary
+bits, padding, immutable banks and PE-local clocks. Its total cycle statistic
+sums chunk intervals on each same PE and excludes host checkpoint gaps; each
+chunk's interval remains separately reported.
+
+New schema2 expectation and capture archives use lossless ZIP compression.
+Prepare source inputs, expectations and masks in compressed form before export:
+the exporter preserves every originating byte and cannot remove an uncompressed
+source file merely because another encoding is smaller. The128MiB case,
+256MiB capture and256-entry limits remain unchanged. Projected capture admission
+counts all expanded raw arrays for every checkpoint, including initial and final
+input readbacks, so compression does not bypass that limit. Individual NPZ
+expanded extents remain bounded too.
+
+Changing the chunk schedule changes the frozen case identity. The existing
+artifact record therefore cannot be reused across differently scheduled cases;
+compile each case and compare generated kernel hashes before claiming identical
+ELFs. Repeating one unchanged case in fresh sessions can reuse its exact build
+record without another compile.
+
+`compare_rollouts.py FIRST_CAPTURE SECOND_CAPTURE --out FRESH_REPORT` first
+runs the strict auditor on both captures. It then requires matching backends,
+parameters, uploaded and original arrays, source files and model provenance,
+with different chunk schedules ending at the same physical step. All ten final
+numerical arrays must match bit for bit. Initialization, completed steps and
+geometry count must agree, while each launch count must match its own schedule.
+The report retains each PE's sum of chunk intervals and both generated ELF hash
+inventories. Different executable hashes are reported explicitly and do not
+turn numerical agreement into a failure. This host-only comparator is included
+and registered by export; it submits no jobs and changes no captures.
 
 An optional `exactmasks` dictionary supplies uint32 zero/one masks with each
 selected float output's shape. The exporter freezes these arrays and their
@@ -53,15 +102,20 @@ The generated `validation.json` and `request-template.json` can be integrated
 into `cerebras-csl-validation` after host checks and review. Each case produces
 three foreground steps in order: appliance compile, appliance run, then a
 separate `kind=host` invocation of `saved_audit.py`. The descriptor registers
-both entrypoints. The controller advances to the next case only after the
+these entrypoints and the rollout comparator. The controller advances to the next case only after the
 audit exits with numerical PASS. The run's execution-admission record remains
 separate, and a failed audit preserves the complete capture for diagnosis.
+For a paired rollout request, append a `kind=host` step invoking
+`validations/native-gnn/compare_rollouts.py` with both runs' `capture-data`
+directories after both numerical audits. The exporter registers this entrypoint
+but does not infer which case pairs should be compared.
 
 ```text
 python3 -B -m models.meshgraphnet.native_appliance.export_appliance --case NAME=/ABS/CASE --output /ABS/FRESH --request-id UNIQUE-ID
 python3 appliance.py compile --case NAME --backend hardware --namespace job-operator --out /ABS/BUILD
 python3 appliance.py run --case NAME --backend hardware --artifact-record /ABS/BUILD/native-build.json --host-timeout 300 --out /ABS/RUN
 python3 saved_audit.py /ABS/RUN/capture-data --out /ABS/NEW-numerical-report.json
+python3 compare_rollouts.py /ABS/WHOLE/capture-data /ABS/SPLIT/capture-data --out /ABS/NEW-comparison.json
 ```
 
 The first command runs from the source repository using its budget runner; the

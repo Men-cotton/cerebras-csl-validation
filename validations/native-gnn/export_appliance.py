@@ -14,7 +14,8 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent
 REPOSITORY = ROOT.parents[2]
-ORACLE_MODULES = {"models.meshgraphnet.native_mesh.driver", "models.meshgraphnet.native_full.driver"}
+ORACLE_MODULES = {"models.meshgraphnet.native_mesh.driver", "models.meshgraphnet.native_full.driver",
+                  "models.meshgraphnet.native_rollout.driver"}
 
 
 def same_arrays(path, expected):
@@ -83,11 +84,23 @@ def freeze(case, output, oracle=None):
     for name, digest in original["files"].items():
         common.require(common.sha(common.local_file(case, name)) == digest, "source file changed during oracle")
     expected = contract["expectedarrays"]
-    common.require(set(expected) == set(original["outputs"]) - {"clocks"}, "oracle must cover every output")
+    resident = "launches" in contract
+    schedule = dict(schema=2 if resident else 1, params=original["params"], outputs=original["outputs"])
+    if resident:
+        schedule["launches"] = contract["launches"]
+        common.launch_contract(schedule)
+        common.require(original.get("residency") == dict(schema=1, chunks=[row["steps"] for row in contract["launches"]]),
+                       "source and portable resident schedules differ")
+    else:
+        common.require("residency" not in original, "resident source requires launch contract")
+        schedule["launch"] = dict(entrypoint="run", arguments=[])
+    fields = common.checkpoint_fields(schedule)
+    common.require(set(expected) == {label for label, name in fields.items() if name != "clocks"},
+                   "oracle must cover every output")
     masks = common.mask_arrays(contract.get("zeromasks", {}), expected, "zero-mask")
     bit_masks = common.mask_arrays(contract.get("exactmasks", {}), expected, "exact-mask", float_outputs=True)
     exact = set(contract["exactfields"])
-    common.require(exact <= set(expected), "oracle exact fields")
+    common.require(exact <= set(original["outputs"]) - {"clocks"}, "oracle exact fields")
     overrides = contract.get("tolerances", {})
     approximate = {name for name, (_, dtype) in original["outputs"].items()
                    if dtype == "float32" and name not in exact}
@@ -122,11 +135,12 @@ def freeze(case, output, oracle=None):
     (output / "origin-case.json").write_bytes(original_bytes)
     for name, values in archives.items():
         if name not in reused:
-            np.savez(output / name, **values)
+            save = np.savez_compressed if resident else np.savez
+            save(output / name, **values)
     names = set(origin_mapping.values()) | {"origin-case.json"} | set(archives)
-    manifest = dict(schema=1, family="native-gnn", experiment=original["experiment"],
+    manifest = dict(schema=schedule["schema"], family="native-gnn", experiment=original["experiment"],
                     params=original["params"], inputs=original["inputs"], outputs=original["outputs"],
-                    launch=dict(entrypoint="run", arguments=[]), checks=checks,
+                    checks=checks,
                     immutable_inputs=contract.get("immutable_inputs", list(original["inputs"])),
                     scope=contract["scope"], origin_files=origin_mapping,
                     origin_case_sha256=common.sha(output / "origin-case.json"),
@@ -135,6 +149,9 @@ def freeze(case, output, oracle=None):
                         implementation=oracle.__module__ + ":" + oracle.__qualname__,
                         source_hashes=original.get("sources", {})),
                     evidence="frozen host oracle only; no device execution")
+    manifest.update({name: schedule[name] for name in ("launches",) if name in schedule})
+    if not resident:
+        manifest["launch"] = schedule["launch"]
     if "exactmasks" in contract:
         manifest["exact_mask_counts"] = {name: int(value.sum(dtype=np.uint64)) for name, value in bit_masks.items()}
     common.write_json(output / "case.json", manifest)
@@ -149,7 +166,7 @@ def export(cases, output, request_id="tank28-native-gnn-20261023", root=ROOT, co
     output = Path(output).absolute()
     common.require(output == output.resolve(), "export symlink")
     output.mkdir(parents=True, exist_ok=False)
-    for name in (*common.HOST_FILES, "export_appliance.py"):
+    for name in (*common.HOST_FILES, "export_appliance.py", "compare_rollouts.py"):
         shutil.copyfile(Path(root) / name, output / name)
     (output / "tests").mkdir()
     shutil.copyfile(Path(root) / "test_appliance.py", output / "tests/test_appliance.py")
@@ -157,6 +174,7 @@ def export(cases, output, request_id="tank28-native-gnn-20261023", root=ROOT, co
                    compile_workers=compile_workers,
                    host_sha256={name: common.sha(output / name) for name in common.HOST_FILES},
                    exporter_sha256=common.sha(output / "export_appliance.py"),
+                   comparator_sha256=common.sha(output / "compare_rollouts.py"),
                    scope="frozen native-width GNN cases with numerical checks separated from execution admission",
                    evidence="export only; no compile or hardware execution")
     steps = []
@@ -182,7 +200,7 @@ def export(cases, output, request_id="tank28-native-gnn-20261023", root=ROOT, co
     common.write_json(output / "package.json", package)
     common.write_json(output / "validation.json", dict(schema=1, id="native-gnn",
         description="Native H128 GNN execution capture and separate strict local numerical audit.",
-        entrypoints=["appliance.py", "saved_audit.py"], tests=["tests"]))
+        entrypoints=["appliance.py", "saved_audit.py", "compare_rollouts.py"], tests=["tests"]))
     common.write_json(output / "request-template.json", dict(schema=1, id=request_id,
         description="Compile, run and separately audit each frozen native GNN case; numerical PASS gates the next case.", steps=steps))
     shutil.copyfile(Path(root) / "README.md", output / "README.md")

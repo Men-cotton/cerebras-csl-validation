@@ -1,0 +1,33 @@
+{
+  "declared_array_bytes_per_pe": 11912,
+  "params": {
+    "C": 64,
+    "E": 3,
+    "H": 128,
+    "HCAP": 1,
+    "K": 13,
+    "L": 2,
+    "MAX_STEPS": 4,
+    "MODE": 2,
+    "Q": 2,
+    "R": 4,
+    "S": 2,
+    "T": 2
+  },
+  "provenance": {
+    "directed_edges": 4,
+    "fixture": "tiny",
+    "kind": "tiny synthetic graph",
+    "model": {
+      "blocks": 2,
+      "kind": "seeded numerical probe",
+      "seed": 20261023
+    },
+    "nodes": 4,
+    "physical_scope": "one complete model step; no accuracy or rollout claim"
+  },
+  "remaining_bytes_for_code_sdk_alignment_stack": 33144,
+  "scope": "necessary array condition only; unchanged compiled 44 KiB guard remains mandatory",
+  "static_limit_bytes": 45056,
+  "status": "ADMITTED"
+}

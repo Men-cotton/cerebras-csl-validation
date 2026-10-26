@@ -116,7 +116,7 @@ def check_abi(build, manifest):
     symbols = read_json(build/"bin/out_rpc.json")["rpc_symbols"]
     expected = {name: ("Var", {"float32": "[*]f32", "uint32": "[*]u32", "uint16": "[*]u16"}[dtype], ())
                 for name, (_, dtype) in dict(manifest["inputs"], **manifest["outputs"]).items()}
-    expected["run"] = ("Func", "void", ())
+    expected["run"] = ("Func", "void", ("u32",) if manifest["schema"] == 2 else ())
     require(len(symbols) == len(expected) and len({s["name"] for s in symbols}) == len(symbols)
             and len({s["id"] for s in symbols}) == len(symbols), "unique complete compiled symbols")
     require({s["name"]: (s["kind"], s["type"], tuple(arg["type"] for arg in s.get("inputs", [])))
@@ -220,10 +220,60 @@ def exact_masks(case, manifest, expected):
     return masks
 
 
+def launch_contract(manifest):
+    """Validate the bounded launch schedule without weakening schema-1 cases."""
+    version = manifest.get("schema")
+    require(type(version) is int and version in (1, 2), "native case schema")
+    if version == 1:
+        require(manifest.get("launch") == {"entrypoint": "run", "arguments": []}
+                and "launches" not in manifest, "single zero-argument launch")
+        return [manifest["launch"]]
+    require("launch" not in manifest, "resident launch contract is exclusive")
+    launches = manifest.get("launches")
+    require(isinstance(launches, list) and 1 <= len(launches) <= 16, "one to sixteen resident launches")
+    maximum = manifest["params"].get("MAX_STEPS")
+    require(type(maximum) is int and 1 <= maximum <= 256, "resident MAX_STEPS bound")
+    for launch in launches:
+        require(isinstance(launch, dict) and set(launch) == {"entrypoint", "steps"}
+                and launch["entrypoint"] == "run" and type(launch["steps"]) is int
+                and 1 <= launch["steps"] <= maximum, "resident u32 launch argument")
+    require(sum(launch["steps"] for launch in launches) <= maximum, "resident cumulative step bound")
+    require(manifest["outputs"].get("lifecycle") == [4, "uint32"], "resident lifecycle ABI")
+    return launches
+
+
+def checkpoint_fields(manifest):
+    """Map captured checkpoint labels to device symbols in invocation order."""
+    launches = launch_contract(manifest)
+    if manifest["schema"] == 1:
+        return {name: name for name in manifest["outputs"]}
+    return {f"launch{index}_{name}": name for index in range(len(launches))
+            for name in manifest["outputs"]}
+
+
+def checkpoint_schema(manifest):
+    return {label: manifest["outputs"][name] for label, name in checkpoint_fields(manifest).items()}
+
+
+def raw_schema(manifest):
+    schema = checkpoint_schema(manifest)
+    require("initial_stats" not in schema and "initial_lifecycle" not in schema, "capture symbol collision")
+    schema["initial_stats"] = manifest["outputs"]["stats"]
+    if manifest["schema"] == 2:
+        schema["initial_lifecycle"] = manifest["outputs"]["lifecycle"]
+    for name, field in manifest["inputs"].items():
+        for prefix in ("before_", "after_"):
+            label = prefix + name
+            require(label not in schema, "capture symbol collision")
+            schema[label] = field
+    require(len(schema) <= 256, "raw capture entry bound")
+    return schema
+
+
 def load(case):
     case = Path(case).absolute()
     manifest = read_json(local_file(case, "case.json"))
-    require(manifest.get("schema") == 1 and manifest.get("family") == "native-gnn", "native case identity")
+    require(manifest.get("family") == "native-gnn", "native case identity")
     params = manifest.get("params")
     require(isinstance(params, dict) and {"C", "R", "H"} <= set(params)
             and len(params) <= 32 and all(isinstance(k, str) and re.fullmatch("[A-Z][A-Z0-9_]*", k)
@@ -236,7 +286,7 @@ def load(case):
     require(all(field[1] in ("float32", "uint32") for field in inputs.values()), "native inputs use 32-bit carriers")
     require(all(inputs[n] == outputs[n] for n in set(inputs) & set(outputs)), "inout ABI")
     require(outputs.get("clocks") == [6, "uint16"] and outputs.get("stats", [0, ""])[1] == "uint32", "clock/stats ABI")
-    require(manifest.get("launch") == {"entrypoint": "run", "arguments": []}, "single zero-argument launch")
+    launch_contract(manifest)
     immutable = manifest.get("immutable_inputs")
     require(isinstance(immutable, list) and len(immutable) == len(set(immutable))
             and set(immutable) <= set(inputs) and set(inputs) - set(immutable) <= set(outputs), "input mutation contract")
@@ -276,29 +326,32 @@ def load(case):
     for name, (count, dtype) in inputs.items():
         require(actual[name].shape == (pes, count) and actual[name].dtype == np.dtype(dtype), "input array ABI: " + name)
     expected = load_npz(case / "expected.npz")
-    require(set(expected) == set(outputs) - {"clocks"}, "expected array inventory")
+    fields = checkpoint_fields(manifest)
+    require(set(expected) == {label for label, name in fields.items() if name != "clocks"}, "expected array inventory")
     for name, value in expected.items():
-        count, dtype = outputs[name]
+        count, dtype = outputs[fields[name]]
         require(value.shape == (pes, count) and value.dtype == np.dtype("uint32" if dtype == "uint16" else dtype)
                 and np.isfinite(value).all(), "expected finite array ABI: " + name)
     masks = mask_arrays(load_npz(case / "zero_masks.npz"), expected, "zero-mask")
     for name, value in masks.items():
         require(np.all(expected[name][value != 0] == 0), "zero-mask oracle consistency")
     exact_masks(case, manifest, expected)
-    raw_words = (2 * sum(field[0] for field in inputs.values())
-                 + sum(field[0] for field in outputs.values()) + outputs["stats"][0]) * pes
+    raw_words = sum(field[0] for field in raw_schema(manifest).values()) * pes
     require(total + raw_words * 4 + (32 << 20) <= CAPTURE_LIMIT,
             "projected complete capture exceeds admission limit")
     return manifest
 
 
 def api_sequence(manifest):
-    return (["construct"] + ["get_id:" + n for n in dict(manifest["inputs"], **manifest["outputs"])]
-            + ["load", "run"] + ["h2d:" + n for n in manifest["inputs"]]
-            + ["d2h:before_" + n for n in manifest["inputs"]]
-            + ["d2h:initial_stats", "launch:run"]
-            + ["d2h:" + n for n in manifest["outputs"]]
-            + ["d2h:after_" + n for n in manifest["inputs"]] + ["stop"])
+    calls = (["construct"] + ["get_id:" + n for n in dict(manifest["inputs"], **manifest["outputs"])]
+             + ["load", "run"] + ["h2d:" + n for n in manifest["inputs"]]
+             + ["d2h:before_" + n for n in manifest["inputs"]] + ["d2h:initial_stats"])
+    if manifest["schema"] == 2:
+        calls.append("d2h:initial_lifecycle")
+    for index, _ in enumerate(launch_contract(manifest)):
+        prefix = f"launch{index}_" if manifest["schema"] == 2 else ""
+        calls += ["launch:run"] + ["d2h:" + prefix + name for name in manifest["outputs"]]
+    return calls + ["d2h:after_" + name for name in manifest["inputs"]] + ["stop"]
 
 
 def execution_arrays(case, output):
@@ -310,15 +363,15 @@ def execution_arrays(case, output):
             and execution.get("raw_sha256") == sha(Path(output) / "raw.npz", CAPTURE_LIMIT), "bound execution arrays")
     wanted_calls = api_sequence(manifest)
     require(execution.get("api") == wanted_calls, "exact SDK API sequence")
+    if manifest["schema"] == 2:
+        observed_launches = launch_contract(dict(manifest, launches=execution.get("launches")))
+        require(observed_launches == launch_contract(manifest), "captured resident launch arguments")
     timings = execution.get("api_timings", [])
     require([entry.get("api") for entry in timings] == wanted_calls
             and all(type(entry.get("wall_seconds")) in (int, float)
                     and math.isfinite(entry["wall_seconds"]) and entry["wall_seconds"] >= 0 for entry in timings), "complete SDK timing inventory")
     raw = load_npz(Path(output) / "raw.npz", CAPTURE_LIMIT)
-    schema = dict(manifest["outputs"], initial_stats=manifest["outputs"]["stats"])
-    for name, field in manifest["inputs"].items():
-        schema["before_" + name] = field
-        schema["after_" + name] = field
+    schema = raw_schema(manifest)
     require(set(raw) == set(schema), "complete raw capture inventory")
     pes = manifest["params"]["C"] * manifest["params"]["R"]
     for name, (count, dtype) in schema.items():
@@ -444,13 +497,18 @@ def audit(case, output):
     masks = load_npz(Path(case) / "zero_masks.npz")
     bit_masks = exact_masks(case, manifest, expected)
     np.testing.assert_array_equal(raw["initial_stats"], 0, err_msg="initial stats")
+    fields = checkpoint_fields(manifest)
+    last_prefix = ""
+    if manifest["schema"] == 2:
+        np.testing.assert_array_equal(raw["initial_lifecycle"], 0, err_msg="initial lifecycle")
+        last_prefix = f"launch{len(manifest['launches'])-1}_"
     for name, value in inputs.items():
         np.testing.assert_array_equal(raw["before_" + name].view(np.uint32), value.view(np.uint32), err_msg="initial input " + name)
-        final = value if name in manifest["immutable_inputs"] else raw[name]
+        final = value if name in manifest["immutable_inputs"] else raw[last_prefix + name]
         np.testing.assert_array_equal(raw["after_" + name].view(np.uint32), final.view(np.uint32), err_msg="final input " + name)
     errors = {}
     for name, wanted in expected.items():
-        observed, check = raw[name], manifest["checks"][name]
+        observed, check = raw[name], manifest["checks"][fields[name]]
         require(np.isfinite(observed).all(), "finite output: " + name)
         if check["kind"] == "exact":
             np.testing.assert_array_equal(observed.view(np.uint32), wanted.view(np.uint32), err_msg=name)
@@ -463,16 +521,29 @@ def audit(case, output):
             np.testing.assert_array_equal(observed[selected].view(np.uint32), wanted[selected].view(np.uint32),
                                           err_msg="exact masked values " + name)
         errors[name] = float(np.max(np.abs(observed.astype(np.float64) - wanted)))
-    clocks = raw["clocks"].astype(np.uint64)
-    require(np.all(clocks < 65536), "clock carrier")
-    begin = clocks[:, 0] + (clocks[:, 1] << 16) + (clocks[:, 2] << 32)
-    end = clocks[:, 3] + (clocks[:, 4] << 16) + (clocks[:, 5] << 32)
-    spans = (end - begin) & ((1 << 48) - 1)
-    require(np.all((spans > 0) & (spans < 1 << 47)), "valid PE-local clock intervals")
-    return dict(status="PASS", numerical_status="PASS", backend=execution["backend"], errors=errors,
-                local_cycles_min=int(spans.min()), local_cycles_max=int(spans.max()),
+    totals = np.zeros(manifest["params"]["C"] * manifest["params"]["R"], dtype=np.uint64)
+    intervals, cumulative = [], 0
+    for index, launch in enumerate(launch_contract(manifest)):
+        prefix = f"launch{index}_" if manifest["schema"] == 2 else ""
+        clocks = raw[prefix + "clocks"].astype(np.uint64)
+        require(np.all(clocks < 65536), "clock carrier")
+        begin = clocks[:, 0] + (clocks[:, 1] << 16) + (clocks[:, 2] << 32)
+        end = clocks[:, 3] + (clocks[:, 4] << 16) + (clocks[:, 5] << 32)
+        spans = (end - begin) & ((1 << 48) - 1)
+        require(np.all((spans > 0) & (spans < 1 << 47)), "valid PE-local clock intervals")
+        totals += spans
+        if manifest["schema"] == 2:
+            cumulative += launch["steps"]
+            intervals.append(dict(index=index, steps=launch["steps"], cumulative_steps=cumulative,
+                                  local_cycles_min=int(spans.min()), local_cycles_max=int(spans.max())))
+    result = dict(status="PASS", numerical_status="PASS", backend=execution["backend"], errors=errors,
+                local_cycles_min=int(totals.min()), local_cycles_max=int(totals.max()),
                 scope=manifest["scope"], tolerance_contract=manifest["checks"],
                 claim="frozen native GNN numerical agreement; PE-local intervals, no global makespan or trained accuracy claim")
+    if manifest["schema"] == 2:
+        result.update(checkpoints=intervals,
+                      cycle_scope="sum of launch-local intervals on each same PE; excludes host checkpoint gaps")
+    return result
 
 
 def audit_report(folder):

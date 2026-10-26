@@ -1,0 +1,292 @@
+{
+  "checks": {
+    "aggregate": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "cached_e0": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "clocks": {
+      "kind": "clock"
+    },
+    "comm_stats": {
+      "kind": "exact"
+    },
+    "decoder_output": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "delta_e": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "delta_h": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "e_out": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "encoded_h": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "h_out": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "lifecycle": {
+      "kind": "exact"
+    },
+    "sender_cache": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "stats": {
+      "kind": "exact"
+    },
+    "velocity_out": {
+      "atol": 1e-06,
+      "kind": "approx",
+      "rtol": 3e-05
+    }
+  },
+  "evidence": "frozen host oracle only; no device execution",
+  "exact_mask_counts": {
+    "launch0_velocity_out": 27776
+  },
+  "experiment": "native-rollout-physical-v1",
+  "family": "native-gnn",
+  "files": {
+    "PUBLIC_MODEL_LICENSE": "769f7db97e1ca994ae879392c520acc9ae1d6e45df225ac38426c3e11c0d6267",
+    "exact_masks.npz": "158183855b6943c6127277b825d4b97e278ad91b3007471a8d230edcdb76350c",
+    "expected.npz": "36cca53193db4fd7bd24682abed6c8474e4535ff58fe945b90c2fa5307e2d154",
+    "inputs.npz": "195367358b24fba5c4eb2786418d78a150e5aaa8af5f6c0ab2aefd9ee3c9ef33",
+    "origin-case.json": "8b632f6e24053f2a2e1a98b038fabb080d6685e909c6d3d0c917900d2246ccb6",
+    "original.npz": "a859b09ad08ca8b008645dda90a58d7b03e77eab91f2608ecba74e0ac5b90999",
+    "public-model-import.json": "13eeffb997030e16d9042cb1549b4b1bc7758ccafe130112313c86888dc3be31",
+    "sdk_runner.py": "02551f1d753f0135a6e459247fe124b45f57850ddd1cef32aec0cdbc3eced0b5",
+    "source/layout.csl": "eb19f6cd3d197bbe920bfc1ebfb64e3d7d9bb146c6cbe6b6265393b7b10b87da",
+    "source/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+    "source/pe.csl": "c1eb231d7605def9cde0ba7258ae9b652ec6c16e98e936d58b65c120644cb6bc",
+    "source/sliced_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "storage-admission.json": "42c9f8272640a08000f1e805fd91d462e8682cdc11e3f22a9334e787721aae87",
+    "zero_masks.npz": "a4da06dd617797999e36c8cc28940dd46b7cff9530de07ff5c709470a89e9bd4"
+  },
+  "immutable_inputs": [
+    "bank",
+    "counts",
+    "dst_slot",
+    "geometry",
+    "node_type",
+    "normalizers",
+    "round_sources",
+    "rx_count",
+    "rx_slot",
+    "src_owner",
+    "src_slot",
+    "tx_begin",
+    "tx_slots",
+    "velocity"
+  ],
+  "inputs": {
+    "bank": [
+      287,
+      "float32"
+    ],
+    "counts": [
+      2,
+      "uint32"
+    ],
+    "dst_slot": [
+      92,
+      "uint32"
+    ],
+    "geometry": [
+      276,
+      "float32"
+    ],
+    "node_type": [
+      15,
+      "uint32"
+    ],
+    "normalizers": [
+      32,
+      "float32"
+    ],
+    "round_sources": [
+      11,
+      "uint32"
+    ],
+    "rx_count": [
+      128,
+      "uint32"
+    ],
+    "rx_slot": [
+      92,
+      "uint32"
+    ],
+    "src_owner": [
+      92,
+      "uint32"
+    ],
+    "src_slot": [
+      92,
+      "uint32"
+    ],
+    "tx_begin": [
+      129,
+      "uint32"
+    ],
+    "tx_slots": [
+      24,
+      "uint32"
+    ],
+    "velocity": [
+      30,
+      "float32"
+    ]
+  },
+  "launches": [
+    {
+      "entrypoint": "run",
+      "steps": 200
+    }
+  ],
+  "oracle_export": {
+    "exporter_sha256": "0e5ac5a1a695eb14cddb123ed68f4a2559e19f9d7bb7a8afebe0e0c63f14749f",
+    "implementation": "models.meshgraphnet.native_rollout.driver:portable_expectations",
+    "source_hashes": {
+      "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+      "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+      "kernels/communication/sliced-halo/audit.py": "9117f82827bae38d4c5f803cb99ff1fe03a7cc7c7caa3a0bd3960cecbcbcca72",
+      "kernels/communication/sliced-halo/pe.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+      "kernels/communication/sliced-halo/schedule.py": "1b3e71b20ac8778548fe5df89cadba02966f2efcf266ffc000bf275d05650477",
+      "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+      "models/meshgraphnet/colored_schedule.py": "aa52008a00aa6fffcad520065ce60ee4c74e98f9dc8c59db8e69ea7c2494a23a",
+      "models/meshgraphnet/colored_validation.py": "8a78bdc96ae8938548248bb04739ce744c1f2381305b7e9ee95f9a2ff59436eb",
+      "models/meshgraphnet/data.py": "6e16f4199841df21c8a665648e728d41224794a7748f2a721f0638ca0b950c33",
+      "models/meshgraphnet/native_full/driver.py": "3cb778d66a6e791f6e861362d54631ea1ec168b925e75ab80f63ac87d969f3d6",
+      "models/meshgraphnet/native_full/elf_reader.py": "2dbf314237ff068edd95fe20187aaae19576708723384256fd0067dfe5bfbc8b",
+      "models/meshgraphnet/native_full/layout.csl": "1631077c1a4512878f1b908af648a1df7f7d504a30e5d7177728f76c0f02bb32",
+      "models/meshgraphnet/native_full/model.py": "05d092283ff2b5647902586822d25b0dc4d20b0ff9c80d14d795656962244df0",
+      "models/meshgraphnet/native_full/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+      "models/meshgraphnet/native_full/pe.csl": "eb508d53a236aaf7f94897d1e671ccd6294f6b56adb57764020f22eb1ae64f5a",
+      "models/meshgraphnet/native_full/sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+      "models/meshgraphnet/native_mesh/model.py": "251964fe86d4da9d9daa2eaf3c16fe4d316537fea6e4da0893ebdc6a248bee4a",
+      "models/meshgraphnet/native_rollout/driver.py": "a1d7577947108d18463fe066f54fa1398f82c7d20458ff5a368d68ebf9eff910",
+      "models/meshgraphnet/native_rollout/layout.csl": "eb19f6cd3d197bbe920bfc1ebfb64e3d7d9bb146c6cbe6b6265393b7b10b87da",
+      "models/meshgraphnet/native_rollout/model.py": "80cde0f01126bab155ca912221312744d66010849227837db493ec2caa096156",
+      "models/meshgraphnet/native_rollout/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+      "models/meshgraphnet/native_rollout/pe.csl": "c1eb231d7605def9cde0ba7258ae9b652ec6c16e98e936d58b65c120644cb6bc",
+      "models/meshgraphnet/native_rollout/sdk_runner.py": "02551f1d753f0135a6e459247fe124b45f57850ddd1cef32aec0cdbc3eced0b5",
+      "models/meshgraphnet/pretrained/inference.py": "c767341c43b5dbcc29925a0be5f1a171302954c1e3229ffe33295cb37ec9300e",
+      "models/meshgraphnet/reference.py": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+      "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+      "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+      "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404"
+    }
+  },
+  "origin_case_sha256": "8b632f6e24053f2a2e1a98b038fabb080d6685e909c6d3d0c917900d2246ccb6",
+  "origin_files": {
+    "PUBLIC_MODEL_LICENSE": "PUBLIC_MODEL_LICENSE",
+    "exact_masks.npz": "exact_masks.npz",
+    "expected.npz": "expected.npz",
+    "inputs.npz": "inputs.npz",
+    "original.npz": "original.npz",
+    "public-model-import.json": "public-model-import.json",
+    "sdk_runner.py": "sdk_runner.py",
+    "source/layout.csl": "source/layout.csl",
+    "source/no_halo.csl": "source/no_halo.csl",
+    "source/pe.csl": "source/pe.csl",
+    "source/sliced_halo.csl": "source/sliced_halo.csl",
+    "storage-admission.json": "storage-admission.json",
+    "zero_masks.npz": "zero_masks.npz"
+  },
+  "outputs": {
+    "aggregate": [
+      30,
+      "float32"
+    ],
+    "cached_e0": [
+      184,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "decoder_output": [
+      30,
+      "float32"
+    ],
+    "delta_e": [
+      184,
+      "float32"
+    ],
+    "delta_h": [
+      30,
+      "float32"
+    ],
+    "e_out": [
+      184,
+      "float32"
+    ],
+    "encoded_h": [
+      30,
+      "float32"
+    ],
+    "h_out": [
+      30,
+      "float32"
+    ],
+    "lifecycle": [
+      4,
+      "uint32"
+    ],
+    "sender_cache": [
+      184,
+      "float32"
+    ],
+    "stats": [
+      18,
+      "uint32"
+    ],
+    "velocity_out": [
+      30,
+      "float32"
+    ]
+  },
+  "params": {
+    "C": 64,
+    "E": 92,
+    "H": 128,
+    "HCAP": 24,
+    "K": 13,
+    "L": 15,
+    "MAX_STEPS": 200,
+    "MODE": 2,
+    "Q": 11,
+    "R": 128,
+    "S": 15,
+    "T": 2
+  },
+  "schema": 2,
+  "scope": "complete H128 autoregressive physical chunks with fixed resident weights and geometry cached once; no training or accuracy/speedup claim"
+}

@@ -17,11 +17,13 @@ try:
     from models.meshgraphnet.native_appliance import appliance as app, saved_audit as common
     from models.meshgraphnet.native_appliance import appliance_worker as worker
     from models.meshgraphnet.native_appliance import export_appliance as exporter
+    from models.meshgraphnet.native_appliance import compare_rollouts as comparison
 except ModuleNotFoundError:
     import appliance as app
     import saved_audit as common
     import appliance_worker as worker
     import export_appliance as exporter
+    import compare_rollouts as comparison
 
 
 def tar_bytes(files):
@@ -76,7 +78,7 @@ class ApplianceTests(unittest.TestCase):
         self.base = Path(temporary.name)
         self.root = self.base/"family"
         make_case(self.root/"cases/minimum")
-        for name in (*common.HOST_FILES, "export_appliance.py", "test_appliance.py", "README.md"):
+        for name in (*common.HOST_FILES, "export_appliance.py", "compare_rollouts.py", "test_appliance.py", "README.md"):
             (self.root/name).write_text("fixture "+name)
         common.write_json(self.root/"package.json", dict(schema=1, family="native-gnn",
             cases={"minimum": common.sha(self.root/"cases/minimum/case.json")},
@@ -324,7 +326,8 @@ class ApplianceTests(unittest.TestCase):
             script="validations/native-gnn/saved_audit.py", timeout_seconds=120,
             args=["{output}/run-minimum/capture-data", "--out", "{output}/numerical-minimum.json"]))
         descriptor = common.read_json(output/"validation.json")
-        self.assertEqual(descriptor["entrypoints"], ["appliance.py", "saved_audit.py"])
+        self.assertEqual(descriptor["entrypoints"], ["appliance.py", "saved_audit.py", "compare_rollouts.py"])
+        self.assertEqual(package["comparator_sha256"], common.sha(output / "compare_rollouts.py"))
         with self.assertRaises(FileExistsError):
             exporter.export({"minimum": self.root/"cases/minimum"}, output, root=self.root)
 
@@ -388,6 +391,8 @@ class WorkerTests(unittest.TestCase):
             def __init__(self, build, **options):
                 parent.sdk_calls.append(("construct", options))
                 self.values = {"stats": np.zeros((4, 3), np.uint32)}
+                self.values["lifecycle"] = np.zeros((4, 4), np.uint32)
+                self.launch_count = 0
 
             def get_id(self, name):
                 return name
@@ -404,11 +409,18 @@ class WorkerTests(unittest.TestCase):
             def memcpy_d2h(self, values, name, *args, **kwargs):
                 values[:] = self.values[name].ravel()
 
-            def launch(self, name, **kwargs):
-                parent.sdk_calls.append(("launch", name))
-                if parent.mode == "launch_failure":
+            def launch(self, name, *arguments, **kwargs):
+                parent.sdk_calls.append(("launch", name, arguments) if arguments else ("launch", name))
+                if parent.mode == "launch_failure" or parent.mode == "launch_failure_second" and self.launch_count == 1:
                     raise RuntimeError("fabricated SDK launch failure")
-                self.values.update({name: value.copy() for name, value in parent.expected.items()})
+                if parent.manifest["schema"] == 2:
+                    index = 0 if parent.mode == "replay" else self.launch_count
+                    prefix = f"launch{index}_"
+                    self.values.update({key[len(prefix):]: value.copy() for key, value in parent.expected.items()
+                                        if key.startswith(prefix)})
+                else:
+                    self.values.update({name: value.copy() for name, value in parent.expected.items()})
+                self.launch_count += 1
                 self.values["clocks"] = np.tile(np.array([1, 0, 0, 2, 0, 0], np.uint32), (4, 1))
                 if parent.mode == "nan":
                     self.values["h_out"][0, 0] = np.nan
@@ -603,7 +615,7 @@ class WorkerTests(unittest.TestCase):
         exported = self.base / "exported"
         export_source = self.base / "export-source"
         export_source.mkdir()
-        for name in (*common.HOST_FILES, "export_appliance.py", "test_appliance.py", "README.md"):
+        for name in (*common.HOST_FILES, "export_appliance.py", "compare_rollouts.py", "test_appliance.py", "README.md"):
             (export_source / name).write_text("fixture " + name)
         exporter.export({"minimum": self.case}, exported, root=export_source)
         step = common.read_json(exported / "request-template.json")["steps"][2]
@@ -893,6 +905,292 @@ class IntegrityTests(unittest.TestCase):
             common.write_json(case / "case.json", manifest)
             with self.assertRaisesRegex(ValueError, "complete numerical contract"):
                 common.load(case)
+
+
+class ResidentWorkerTests(unittest.TestCase):
+    """Exercise advancing checkpoints through the real worker and fake SDK."""
+
+    setUp = WorkerTests.setUp
+    arguments = WorkerTests.arguments
+
+    def resident(self):
+        self.manifest["schema"] = 2
+        self.manifest.pop("launch")
+        self.manifest["launches"] = [dict(entrypoint="run", steps=2), dict(entrypoint="run", steps=2)]
+        self.manifest["params"]["MAX_STEPS"] = 4
+        self.manifest["outputs"]["lifecycle"] = [4, "uint32"]
+        self.manifest["checks"]["lifecycle"] = dict(kind="exact")
+        base = self.expected
+        self.expected, masks, exact = {}, {}, {}
+        for index in range(2):
+            prefix = f"launch{index}_"
+            values = {name: value.copy() for name, value in base.items()}
+            values["h_out"][:, 0] += np.float32(index / 4)
+            values["stats"][:, 1] = 2
+            values["lifecycle"] = np.tile(np.array([1, index+1, 2*(index+1), 1], np.uint32), (4, 1))
+            self.expected.update({prefix + name: value for name, value in values.items()})
+            masks[prefix + "h_out"] = np.tile(np.array([0, 1], np.uint32), (4, 1))
+            exact[prefix + "h_out"] = np.tile(np.array([1, 0], np.uint32), (4, 1))
+        for name, values in (("expected.npz", self.expected), ("zero_masks.npz", masks), ("exact_masks.npz", exact)):
+            np.savez_compressed(self.case / name, **values)
+            self.manifest["files"][name] = common.sha(self.case / name)
+        self.manifest["exact_mask_counts"] = {name: 4 for name in exact}
+        common.write_json(self.case / "case.json", self.manifest)
+        self.archive.write_bytes(tar_bytes([("case/" + name, (self.case / name).read_bytes())
+            for name in sorted(set(self.manifest["files"]) | {"case.json"})]))
+        common.write_json(self.build / "out.json", dict(params=self.manifest["params"]))
+        symbols = common.read_json(self.build / "bin/out_rpc.json")["rpc_symbols"]
+        symbols[-1]["inputs"] = [dict(type="u32")]
+        symbols.append(dict(id=len(symbols), name="lifecycle", kind="Var", type="[*]u32"))
+        common.write_json(self.build / "bin/out_rpc.json", dict(rpc_symbols=symbols))
+
+    def test_two_advancing_checkpoints_upload_once_and_check_every_output(self):
+        self.resident()
+        args = self.arguments()
+        self.assertEqual(worker.capture(args), 0)
+        report = common.audit_report(args.out)
+        self.assertEqual(report["numerical_status"], "PASS")
+        self.assertEqual([row["cumulative_steps"] for row in report["checkpoints"]], [2, 4])
+        self.assertEqual(report["local_cycles_max"], 2)
+        self.assertEqual(set(report["errors"]), set(self.expected))
+        raw = common.load_npz(args.out / "runtime/raw.npz", common.CAPTURE_LIMIT)
+        self.assertEqual(set(raw), set(common.raw_schema(self.manifest)))
+        execution = common.read_json(args.out / "runtime/execution.json")
+        self.assertEqual(execution["launches"], self.manifest["launches"])
+        self.assertEqual(execution["api"], common.api_sequence(common.load(self.case)))
+        last_upload = max(i for i, label in enumerate(execution["api"]) if label.startswith("h2d:"))
+        first_launch = execution["api"].index("launch:run")
+        self.assertLess(last_upload, first_launch)
+        calls = [row for row in self.sdk_calls if row[0] == "launch"]
+        self.assertEqual(len(calls), 2)
+        self.assertTrue(all(type(row[2][0]) is np.uint32 and row[2][0] == 2 for row in calls))
+        with zipfile.ZipFile(args.out / "runtime/raw.npz") as archive:
+            self.assertTrue(all(row.compress_type == zipfile.ZIP_DEFLATED for row in archive.infolist()))
+
+    def test_replayed_state_and_bad_values_remain_completed_numerical_failures(self):
+        self.resident()
+        for mode in ("replay", "nan", "padding", "counter", "immutable", "clock", "boundary_ulp"):
+            with self.subTest(mode=mode):
+                self.mode = mode
+                args = self.arguments(mode)
+                self.assertEqual(worker.capture(args), 0)
+                digest = common.sha(args.out / "runtime/raw.npz")
+                report = common.audit_report(args.out)
+                self.assertEqual(report["execution_status"], "PASS")
+                self.assertEqual(report["numerical_status"], "FAIL")
+                self.assertEqual(digest, common.sha(args.out / "runtime/raw.npz"))
+
+    def test_interrupted_second_launch_preserves_first_checkpoint(self):
+        self.resident()
+        self.mode = "launch_failure_second"
+        args = self.arguments()
+        with self.assertRaisesRegex(RuntimeError, "partial arrays retained"):
+            worker.capture(args)
+        raw = common.load_npz(args.out / "runtime/raw.npz")
+        self.assertIn("launch0_h_out", raw)
+        self.assertNotIn("launch1_h_out", raw)
+        self.assertEqual(common.read_json(args.out / "runtime/execution.json")["launches"], self.manifest["launches"][:1])
+        with self.assertRaisesRegex(ValueError, "completed capture"):
+            common.admit_capture(args.out)
+
+    def test_u32_entrypoint_abi_required_before_runtime(self):
+        self.resident()
+        symbols = common.read_json(self.build / "bin/out_rpc.json")
+        next(row for row in symbols["rpc_symbols"] if row["name"] == "run")["inputs"] = []
+        common.write_json(self.build / "bin/out_rpc.json", symbols)
+        with self.assertRaisesRegex(ValueError, "compiled symbol ABI"):
+            worker.capture(self.arguments())
+        self.assertFalse(self.sdk_calls)
+
+    def test_launch_argument_and_checkpoint_inventory_corruption_rejected(self):
+        self.resident()
+        args = self.arguments()
+        worker.capture(args)
+        path = args.out / "runtime/execution.json"
+        original = common.read_json(path)
+        for argument in (1, True):
+            with self.subTest(argument=argument):
+                changed = dict(original, launches=[dict(entrypoint="run", steps=argument), self.manifest["launches"][1]])
+                common.write_json(path, changed)
+                with self.assertRaisesRegex(ValueError, "launch argument"):
+                    common.admit_capture(args.out)
+        common.write_json(path, original)
+        raw_path = args.out / "runtime/raw.npz"
+        raw = common.load_npz(raw_path)
+        del raw["launch1_h_out"]
+        np.savez_compressed(raw_path, **raw)
+        original["raw_sha256"] = common.sha(raw_path)
+        common.write_json(path, original)
+        with self.assertRaisesRegex(ValueError, "complete raw capture inventory"):
+            common.admit_capture(args.out)
+
+    def test_schedule_bounds_and_expanded_capture_bound_remain_strict(self):
+        self.resident()
+        good = self.manifest
+        for launches in ([], [dict(entrypoint="run", steps=0)], [dict(entrypoint="run", steps=True)],
+                         [dict(entrypoint="other", steps=2)], [dict(entrypoint="run", steps=2)] * 3,
+                         [dict(entrypoint="run", steps=1)] * 17):
+            with self.subTest(launches=launches), self.assertRaises(ValueError):
+                common.launch_contract(dict(good, launches=launches))
+        with self.assertRaisesRegex(ValueError, "MAX_STEPS"):
+            common.launch_contract(dict(good, params=dict(good["params"], MAX_STEPS=257)))
+        common.load(self.case)
+        size = (self.case / "case.json").stat().st_size + sum((self.case / name).stat().st_size for name in good["files"])
+        raw_bytes = sum(field[0] for field in common.raw_schema(good).values()) * 4 * 4
+        with mock.patch.object(common, "CAPTURE_LIMIT", size + raw_bytes + (32 << 20) - 1):
+            with self.assertRaisesRegex(ValueError, "projected complete capture"):
+                common.load(self.case)
+
+    def test_export_freezes_schedule_and_checkpoint_masks(self):
+        self.resident()
+        original = dict(self.manifest)
+        original.pop("family")
+        original["residency"] = dict(schema=1, chunks=[2, 2])
+        common.write_json(self.case / "case.json", original)
+        contract = dict(launches=self.manifest["launches"], expectedarrays=self.expected,
+                        zeromasks=common.load_npz(self.case / "zero_masks.npz"),
+                        exactmasks=common.load_npz(self.case / "exact_masks.npz"),
+                        exactfields=["stats", "lifecycle"], rtol=3e-4, atol=3e-4,
+                        immutable_inputs=self.manifest["immutable_inputs"], scope="fake resident test only")
+        out = self.base / "portable"
+        result = exporter.freeze(self.case, out, oracle=lambda case: contract)
+        self.assertEqual(result["schema"], 2)
+        self.assertEqual(result["launches"], self.manifest["launches"])
+        self.assertEqual(result["exact_mask_counts"], self.manifest["exact_mask_counts"])
+        self.assertEqual(set(common.load_npz(out / "expected.npz")), set(self.expected))
+        self.assertEqual((out / "expected.npz").read_bytes(), (self.case / "expected.npz").read_bytes())
+        bad = dict(contract, launches=[dict(entrypoint="run", steps=4)])
+        with self.assertRaisesRegex(ValueError, "schedules differ"):
+            exporter.freeze(self.case, self.base / "bad", oracle=lambda case: bad)
+
+
+class RolloutComparisonTests(unittest.TestCase):
+    """Compare separately captured fake physical cases through strict audits."""
+
+    setUp = WorkerTests.setUp
+    arguments = WorkerTests.arguments
+    resident = ResidentWorkerTests.resident
+
+    def make_capture(self, name, chunks, variation=None, backend="hardware"):
+        self.case = self.base / (name + "-case")
+        self.manifest = make_case(self.case)
+        self.inputs = common.load_npz(self.case / "inputs.npz")
+        self.expected = common.load_npz(self.case / "expected.npz")
+        symbols = []
+        for index, (field, (_, dtype)) in enumerate(dict(self.manifest["inputs"], **self.manifest["outputs"]).items()):
+            symbols.append(dict(id=index, name=field, kind="Var", type={"float32": "[*]f32", "uint32": "[*]u32", "uint16": "[*]u16"}[dtype]))
+        symbols.append(dict(id=len(symbols), name="run", kind="Func", type="void", inputs=[]))
+        common.write_json(self.build / "bin/out_rpc.json", dict(rpc_symbols=symbols))
+        self.resident()
+        for field in comparison.NUMERICAL:
+            self.manifest["outputs"][field] = [2, "float32"]
+            self.manifest["checks"][field] = dict(kind="approx", rtol=3e-4, atol=3e-4)
+            for index in range(2):
+                self.expected[f"launch{index}_" + field] = self.expected[f"launch{index}_h_out"].copy()
+        masks = common.load_npz(self.case / "zero_masks.npz")
+        exact = common.load_npz(self.case / "exact_masks.npz")
+        if chunks == [4]:
+            self.expected = {"launch0_" + key[len("launch1_"):]: value.copy()
+                             for key, value in self.expected.items() if key.startswith("launch1_")}
+            self.expected["launch0_stats"][:, 1] = 4
+            self.expected["launch0_lifecycle"][:, 1] = 1
+            masks = {"launch0_h_out": masks["launch1_h_out"]}
+            exact = {"launch0_h_out": exact["launch1_h_out"]}
+        self.manifest["launches"] = [dict(entrypoint="run", steps=n) for n in chunks]
+        if variation == "state":
+            field = f"launch{len(chunks)-1}_delta_h"
+            self.expected[field][0, 0] = np.nextafter(self.expected[field][0, 0], np.float32(1))
+        if variation == "graph":
+            self.inputs["counts"][0, 0] = 0
+        original_arrays = dict(edges=np.array([[0, 1]], np.uint32), weights=np.array([.25], np.float32))
+        if variation == "original":
+            original_arrays["edges"][0, 1] = 2
+        if variation == "source":
+            (self.case / "source/pe.csl").write_text("changed mock source, never compile")
+            self.manifest["files"]["source/pe.csl"] = common.sha(self.case / "source/pe.csl")
+        for filename, values in (("inputs.npz", self.inputs), ("expected.npz", self.expected),
+                                 ("zero_masks.npz", masks), ("exact_masks.npz", exact), ("original.npz", original_arrays)):
+            np.savez_compressed(self.case / filename, **values)
+            self.manifest["files"][filename] = common.sha(self.case / filename)
+        origin = dict(schema=1, files={"original.npz": common.sha(self.case / "original.npz")},
+                      provenance=dict(dataset="mock-graph", model="other" if variation == "provenance" else "mock-weights"),
+                      sources={"source/pe.csl": common.sha(self.case / "source/pe.csl")},
+                      transport="mock-colored", schedule=dict(rounds=2), residency=dict(schema=1, chunks=chunks))
+        common.write_json(self.case / "origin-case.json", origin)
+        self.manifest["origin_files"] = {"original.npz": "original.npz"}
+        self.manifest["origin_case_sha256"] = common.sha(self.case / "origin-case.json")
+        self.manifest["files"]["origin-case.json"] = self.manifest["origin_case_sha256"]
+        self.manifest["exact_mask_counts"] = {field: int(value.sum()) for field, value in exact.items()}
+        common.write_json(self.case / "case.json", self.manifest)
+        self.archive.write_bytes(tar_bytes([("case/" + filename, (self.case / filename).read_bytes())
+            for filename in sorted(set(self.manifest["files"]) | {"case.json"})]))
+        symbols = []
+        for index, (field, (_, dtype)) in enumerate(dict(self.manifest["inputs"], **self.manifest["outputs"]).items()):
+            symbols.append(dict(id=index, name=field, kind="Var", type={"float32": "[*]f32", "uint32": "[*]u32", "uint16": "[*]u16"}[dtype]))
+        symbols.append(dict(id=len(symbols), name="run", kind="Func", type="void", inputs=[dict(type="u32")]))
+        common.write_json(self.build / "bin/out_rpc.json", dict(rpc_symbols=symbols))
+        (self.build / "bin/out_0_0.elf").write_bytes(minimal_elf(4356 if variation == "elf" else 4352))
+        self.mode = "replay" if variation == "replay" else "normal"
+        args = self.arguments(name, backend)
+        self.assertEqual(worker.capture(args), 0)
+        return args.out
+
+    def test_complete_matched_rollouts_and_host_cli(self):
+        first = self.make_capture("whole", [4])
+        second = self.make_capture("split", [2, 2])
+        report = comparison.compare(first, second)
+        self.assertEqual(report["status"], "PASS")
+        self.assertEqual(report["bit_equal_arrays"], list(comparison.NUMERICAL))
+        self.assertEqual(report["chunks"], [[4], [2, 2]])
+        self.assertTrue(report["identical_generated_elf_hashes"])
+        self.assertEqual(report["intervals"][0]["per_pe_sum_cycles"], [1] * 4)
+        self.assertEqual(report["intervals"][1]["per_pe_sum_cycles"], [2] * 4)
+        calls = list(self.sdk_calls)
+        output = self.base / "comparison.json"
+        self.assertEqual(comparison.main([str(first), str(second), "--out", str(output)]), 0)
+        self.assertEqual(self.sdk_calls, calls)
+        with self.assertRaisesRegex(ValueError, "fresh comparison"):
+            comparison.main([str(first), str(second), "--out", str(output)])
+
+    def test_numerically_admitted_changed_final_bits_still_rejected(self):
+        first = self.make_capture("whole", [4])
+        second = self.make_capture("changed", [2, 2], "state")
+        self.assertEqual(common.audit_report(second)["numerical_status"], "PASS")
+        with self.assertRaisesRegex(ValueError, "final numerical state array bits: delta_h"):
+            comparison.compare(first, second)
+
+    def test_changed_source_graph_original_and_provenance_rejected(self):
+        first = self.make_capture("whole", [4])
+        for variation, message in (("source", "frozen CSL"), ("graph", "uploaded physical inputs"),
+                                   ("original", "original graph"), ("provenance", "originating provenance")):
+            with self.subTest(variation=variation):
+                second = self.make_capture(variation, [2, 2], variation)
+                self.assertEqual(common.audit_report(second)["numerical_status"], "PASS")
+                with self.assertRaisesRegex(ValueError, message):
+                    comparison.compare(first, second)
+
+    def test_replayed_checkpoint_fails_strict_audit_before_comparison(self):
+        first = self.make_capture("whole", [4])
+        second = self.make_capture("replay", [2, 2], "replay")
+        with self.assertRaisesRegex(ValueError, "both captures must pass strict numerical"):
+            comparison.compare(first, second)
+
+    def test_generated_elf_difference_is_reported_without_changing_numerical_result(self):
+        first = self.make_capture("whole", [4])
+        second = self.make_capture("different-elf", [2, 2], "elf")
+        report = comparison.compare(first, second)
+        self.assertEqual(report["status"], "PASS")
+        self.assertFalse(report["identical_generated_elf_hashes"])
+        self.assertTrue(report["identical_artifact_hashes"])
+
+    def test_same_schedule_and_mixed_backend_rejected(self):
+        first = self.make_capture("whole", [4])
+        same = self.make_capture("same", [4])
+        with self.assertRaisesRegex(ValueError, "different chunks"):
+            comparison.compare(first, same)
+        simulator = self.make_capture("simulator", [2, 2], backend="simulator")
+        with self.assertRaisesRegex(ValueError, "same execution backend"):
+            comparison.compare(first, simulator)
 
 
 class LocalCompileBindingTests(unittest.TestCase):

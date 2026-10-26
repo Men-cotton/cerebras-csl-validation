@@ -1,19 +1,25 @@
 {
   "cases": {
     "minimum-s2": "f3739602d999c7c0f7a8ee205883a1c661f4cf1df157082ada2373beb53b625e",
+    "minimum-s2-split": "6a7b4fe5677a15a8fac62b67f4922de7217d965637bb97c7016ed2fbf3aa5f20",
+    "minimum-s2-whole": "641c92d4d08a6355cfed37165fd9036f033ab9ca520ad5244c559927f369f088",
     "trained-c32-streamed": "ee352a1bb9dcdff139c770830c6fa2054f64da1fad59f279bf008094de303950",
     "trained-c64-colored": "a03af5ebc95043bd93b5830fcb72b9178bbb031c02371c7bc2e44dd71ef1be4a",
-    "trained-c64-streamed": "f1e090649dee7aeee4525f72d8793d27ba3705012e6b44e2de34aab2103e82ed"
+    "trained-c64-resident200": "238944449200fbc128b89b0b6bb82f80fb0b006b9b4346d31a120a4c2840a7e5",
+    "trained-c64-split": "d788961967c382ebbb765ce6c9f05279eecb1bd7225df0e4f2134eb509a71bb3",
+    "trained-c64-streamed": "f1e090649dee7aeee4525f72d8793d27ba3705012e6b44e2de34aab2103e82ed",
+    "trained-c64-whole": "fb66c9f1a661e5a7e391b71c1ca9b9e49d25ebea7263fcf25f3fc3f62f802a38"
   },
+  "comparator_sha256": "0402156f789f725d61570b0e9a5b9448b96117a06fa072bd504ddd5f1dd070ba",
   "compile_workers": 4,
   "evidence": "export only; no compile or hardware execution",
-  "exporter_sha256": "09284a053c4af4d351d8da5a98e9cb75878651684147be62fe0abd3021ac86a5",
+  "exporter_sha256": "0e5ac5a1a695eb14cddb123ed68f4a2559e19f9d7bb7a8afebe0e0c63f14749f",
   "family": "native-gnn",
   "host_sha256": {
     "appliance.py": "499f1e44d21d17b049534461d2f07ac6889793b57894692f52e506b5808b8357",
     "appliance_worker.py": "eaa6fd47669354056904b23770081b8f6c456124dbd23d4e9ff97a7f94d36a9c",
-    "saved_audit.py": "8e662256462db318152939f613786ad3cfa3de38d2de1013e387b262f4692bde",
-    "sdk_runner.py": "b4dcad3e75c15da1c05db49bd0413f4b4e96b3567a182c46b63b62b8b649ac41"
+    "saved_audit.py": "00a9c9476ca7f90bf7a83289c39d8d89395a10404d2e795b4fb5c4e206a9988a",
+    "sdk_runner.py": "cdf834e4ea2c1e6ad6005c6b83cd6bdab5fa402a2d7d6ce52ef9cf353cece246"
   },
   "schema": 1,
   "scope": "frozen native-width GNN cases with numerical checks separated from execution admission"

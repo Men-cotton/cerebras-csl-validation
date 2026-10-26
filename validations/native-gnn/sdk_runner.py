@@ -1,4 +1,4 @@
-"""Raw SDK capture only; one resident native GNN launch, no numerical audit."""
+"""Raw SDK capture with a frozen launch schedule; no numerical audit."""
 import hashlib
 import json
 from pathlib import Path
@@ -18,6 +18,7 @@ def main(case, build, output, backend, cmaddr=None):
     params = manifest["params"]
     arrays = dict(np.load(case / "inputs.npz", allow_pickle=False))
     raw, api, timings, runtime = {}, [], [], None
+    launches = []
     result = dict(status="FAILED", backend=backend,
                   case_sha256=hashlib.sha256((case / "case.json").read_bytes()).hexdigest())
     started = time.monotonic()
@@ -63,9 +64,17 @@ def main(case, build, output, backend, cmaddr=None):
         for name in manifest["inputs"]:
             read("before_" + name, name)
         read("initial_stats", "stats")
-        call("launch:run", runtime.launch, "run", nonblock=False)
-        for name in manifest["outputs"]:
-            read(name, name)
+        if manifest["schema"] == 2:
+            read("initial_lifecycle", "lifecycle")
+            for index, launch in enumerate(manifest["launches"]):
+                call("launch:run", runtime.launch, "run", np.uint32(launch["steps"]), nonblock=False)
+                launches.append(dict(entrypoint="run", steps=int(launch["steps"])))
+                for name in manifest["outputs"]:
+                    read(f"launch{index}_{name}", name)
+        else:
+            call("launch:run", runtime.launch, "run", nonblock=False)
+            for name in manifest["outputs"]:
+                read(name, name)
         for name in manifest["inputs"]:
             read("after_" + name, name)
     except Exception as error:
@@ -77,9 +86,12 @@ def main(case, build, output, backend, cmaddr=None):
         except Exception as error:
             result["stop_error"] = repr(error)
         result.update(api=api, api_timings=timings, wall_seconds=time.monotonic() - started)
+        if manifest["schema"] == 2:
+            result["launches"] = launches
         if "error" not in result and "stop_error" not in result:
             result["status"] = "COMPLETED"
-        np.savez(output / "raw.npz", **raw)
+        save = np.savez_compressed if manifest["schema"] == 2 else np.savez
+        save(output / "raw.npz", **raw)
         result["raw_sha256"] = hashlib.sha256((output / "raw.npz").read_bytes()).hexdigest()
         (output / "execution.json").write_text(json.dumps(result, indent=2) + "\n")
     if result["status"] != "COMPLETED":
