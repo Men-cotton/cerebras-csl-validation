@@ -1,0 +1,225 @@
+{
+  "schema": 1,
+  "id": "tank28-native-repeat-20261026-r001",
+  "description": "Repeat the accepted full-mesh H128/S15 raw-frame1 forward with unchanged inputs, weights and strict oracle. Compile C64 streamed and C64 colored once each; collect three fresh sessions per condition in A,B,B,A,A,B order. Each runtime has one resident step, all outputs, immutable inputs and same-PE clocks. Establish repeatability before comparing local-interval distributions; no GPU speedup or long-rollout accuracy claim.",
+  "steps": [
+    {
+      "name": "compile-trained-c64-streamed",
+      "script": "validations/native-gnn/appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--case",
+        "trained-c64-streamed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-trained-c64-streamed"
+      ]
+    },
+    {
+      "name": "compile-trained-c64-colored",
+      "script": "validations/native-gnn/appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--case",
+        "trained-c64-colored",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "4",
+        "--out",
+        "{output}/compile-trained-c64-colored"
+      ]
+    },
+    {
+      "name": "run-0-streamed",
+      "script": "validations/native-gnn/appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-streamed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-streamed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-0-streamed"
+      ]
+    },
+    {
+      "name": "audit-0-streamed",
+      "script": "validations/native-gnn/saved_audit.py",
+      "kind": "host",
+      "timeout_seconds": 120,
+      "args": [
+        "{output}/run-0-streamed/capture-data",
+        "--out",
+        "{output}/run-0-streamed-numerical.json"
+      ]
+    },
+    {
+      "name": "run-1-colored",
+      "script": "validations/native-gnn/appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-colored",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-colored/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-1-colored"
+      ]
+    },
+    {
+      "name": "audit-1-colored",
+      "script": "validations/native-gnn/saved_audit.py",
+      "kind": "host",
+      "timeout_seconds": 120,
+      "args": [
+        "{output}/run-1-colored/capture-data",
+        "--out",
+        "{output}/run-1-colored-numerical.json"
+      ]
+    },
+    {
+      "name": "run-2-colored",
+      "script": "validations/native-gnn/appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-colored",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-colored/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-2-colored"
+      ]
+    },
+    {
+      "name": "audit-2-colored",
+      "script": "validations/native-gnn/saved_audit.py",
+      "kind": "host",
+      "timeout_seconds": 120,
+      "args": [
+        "{output}/run-2-colored/capture-data",
+        "--out",
+        "{output}/run-2-colored-numerical.json"
+      ]
+    },
+    {
+      "name": "run-3-streamed",
+      "script": "validations/native-gnn/appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-streamed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-streamed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-3-streamed"
+      ]
+    },
+    {
+      "name": "audit-3-streamed",
+      "script": "validations/native-gnn/saved_audit.py",
+      "kind": "host",
+      "timeout_seconds": 120,
+      "args": [
+        "{output}/run-3-streamed/capture-data",
+        "--out",
+        "{output}/run-3-streamed-numerical.json"
+      ]
+    },
+    {
+      "name": "run-4-streamed",
+      "script": "validations/native-gnn/appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-streamed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-streamed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-4-streamed"
+      ]
+    },
+    {
+      "name": "audit-4-streamed",
+      "script": "validations/native-gnn/saved_audit.py",
+      "kind": "host",
+      "timeout_seconds": 120,
+      "args": [
+        "{output}/run-4-streamed/capture-data",
+        "--out",
+        "{output}/run-4-streamed-numerical.json"
+      ]
+    },
+    {
+      "name": "run-5-colored",
+      "script": "validations/native-gnn/appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--case",
+        "trained-c64-colored",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-trained-c64-colored/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-5-colored"
+      ]
+    },
+    {
+      "name": "audit-5-colored",
+      "script": "validations/native-gnn/saved_audit.py",
+      "kind": "host",
+      "timeout_seconds": 120,
+      "args": [
+        "{output}/run-5-colored/capture-data",
+        "--out",
+        "{output}/run-5-colored-numerical.json"
+      ]
+    }
+  ]
+}
