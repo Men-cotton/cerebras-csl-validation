@@ -1,7 +1,8 @@
 {
   "cases": {
     "full-training": "cec2606de6b2b447093088601730e7b2fd5014153d31765d89319bc8fc29edf8",
-    "minimum": "fda5447070f45e00e1d0e926f281d30f8cfa160e73d90a4deeedefaa645bf486"
+    "minimum": "fda5447070f45e00e1d0e926f281d30f8cfa160e73d90a4deeedefaa645bf486",
+    "restart-step1": "7ea0bb21853957cafebf1ec5383d36e77e192fe406256720d7006193503d3d2a"
   },
   "evidence": "export only; no compile, simulation or hardware execution",
   "exporter_sha256": "7345a21c957482b2a75fa4677bb933bd12b245a00c339031b64f803f51fc4ee1",
