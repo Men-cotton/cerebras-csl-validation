@@ -82,6 +82,9 @@ DEFAULT_CASES = tuple(CASES)
 RUNTIME_CASES.update({
     "halo-rc256": ("halo", 256, 256, ((32, 0),)),
     "halo-rc512": ("halo", 512, 512, ((32, 0),)),
+    "halo-rc-odd": ("halo", 3, 3, ((17, 0), (32, 1), (32, 0))),
+    "halo-rc512x663": ("halo", 512, 663, ((32, 0),)),
+    "halo-rc663x512": ("halo", 663, 512, ((32, 0),)),
 })
 CASES.update(RUNTIME_CASES)
 FILE_LIMIT = 96 << 20
@@ -364,7 +367,7 @@ def main():
     parser.add_argument("--repo", type=Path)
     parser.add_argument("--out", type=Path)
     parser.add_argument("--source-commit")
-    parser.add_argument("--cases", help="Up to 16 comma-separated recipes; default is the existing cases through halo128; halo-rc256/halo-rc512 require explicit selection")
+    parser.add_argument("--cases", help="Up to 16 comma-separated recipes; default is the existing cases through halo128; runtime cases beyond halo-rc128 and the odd pilot require explicit selection")
     parser.add_argument("--verify", type=Path, help="Regenerate every expected array from a frozen package")
     args = parser.parse_args()
     if args.verify is not None:

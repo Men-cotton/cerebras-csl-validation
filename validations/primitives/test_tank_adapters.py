@@ -366,7 +366,7 @@ class AdapterTests(unittest.TestCase):
                  ("halo-rc16", "halo16"), ("halo-rc32", "halo32"), ("halo-rc64", "halo64"),
                  ("halo-rc128", "halo128"))
         self.assertEqual(set(exporter.RUNTIME_CASES),
-                         {candidate for candidate, _ in pairs} | {"halo-rc256", "halo-rc512"})
+                         {candidate for candidate, _ in pairs} | {"halo-rc256", "halo-rc512", "halo-rc-odd", "halo-rc512x663", "halo-rc663x512"})
         for candidate, control in pairs:
             self.assertEqual(exporter.CASES[candidate], exporter.CASES[control])
         sources = exporter.source_map("halo", runtime_coords=True)
@@ -385,7 +385,7 @@ class AdapterTests(unittest.TestCase):
         )
         self.assertEqual(exporter.DEFAULT_CASES, wanted_defaults)
         self.assertEqual(set(exporter.CASES) - set(exporter.DEFAULT_CASES),
-                         {"halo-rc256", "halo-rc512"})
+                         {"halo-rc256", "halo-rc512", "halo-rc-odd", "halo-rc512x663", "halo-rc663x512"})
         old_recipes = {
             "topk-small": ("topk", 3, 2, "uneven"),
             "topk24": ("topk", 24, 24, "balanced"),
@@ -423,7 +423,7 @@ class AdapterTests(unittest.TestCase):
                 operation["rect"] = [0, 0, 128, 128]
         _, outputs = worker.validate_manifest(case)
         self.assertEqual(outputs["s0_y"][0], (16384, 32))
-        too_wide = dict(case, grid=[513, 128])
+        too_wide = dict(case, grid=[756, 128])
         with self.assertRaisesRegex(ValueError, "PE axes"):
             worker.validate_manifest(too_wide)
         with self.assertRaisesRegex(ValueError, "PE axes"):
@@ -458,6 +458,33 @@ class AdapterTests(unittest.TestCase):
             two_launches["operations"].append(operation)
         with self.assertRaisesRegex(ValueError, "allocation bound"):
             worker.validate_manifest(two_launches)
+
+    def test_shape_capture_frontier_and_coordinate_guard(self):
+        f = fixture(self.root, "halo")
+        def shaped(width, height):
+            case = json.loads(json.dumps(f.case))
+            case["grid"] = [width, height]
+            case["params"] = dict(width=width, height=height)
+            case["symbols"]["y"][0] = case["symbols"]["Q"][0] = 32
+            case["operations"] = case["operations"][:5]
+            for op in case["operations"]:
+                if "rect" in op: op["rect"] = [0, 0, width, height]
+            return case
+        for width, height in ((3,3), (513,128), (512,640), (640,512), (512,663), (663,512), (582,582)):
+            with self.subTest(shape=(width,height)):
+                _, outputs = worker.validate_manifest(shaped(width,height))
+                self.assertEqual(sum(shape[0]*shape[1]*4 for shape,_ in outputs.values()), width*height*284)
+        for width,height in ((512,664), (664,512), (583,583), (640,640)):
+            with self.subTest(shape=(width,height)), self.assertRaisesRegex(ValueError, "allocation bound"):
+                worker.validate_manifest(shaped(width,height))
+        # Small area can still overflow the old i16 coordinate expression.
+        with self.assertRaisesRegex(ValueError, "coordinate sum"):
+            worker.validate_manifest(shaped(2,1051))
+        worker.validate_manifest(shaped(2,1050))
+        with self.assertRaisesRegex(ValueError, "grid/parameter identity"):
+            worker.validate_manifest(dict(shaped(3,3), params=dict(width=3,height=2)))
+        with self.assertRaisesRegex(ValueError, "PE axes"):
+            worker.validate_manifest(dict(shaped(3,3), grid=[True,3]))
 
     def test_runtime_coordinate_metadata_preserves_operations_and_oracle(self):
         # The variant changes source placement, never numerical fixture inputs.

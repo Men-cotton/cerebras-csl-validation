@@ -76,12 +76,16 @@ def arrays(path):
 def validate_manifest(case):
     require(case.get("schema") == 1 and case.get("kind") in ("topk", "halo"), "case schema/kind")
     grid, symbols, functions = case["grid"], case["symbols"], case["functions"]
-    # Larger halo shapes remain subject to the same allocation/capture bounds.
-    # A full 512x512 halo fits one launch; two full launches exceed that bound.
-    axis_limit = 512 if case["kind"] == "halo" else 64
+    # Geometry, coordinate arithmetic and captured bytes are separate bounds.
+    limits = (755, 1170) if case["kind"] == "halo" else (64, 64)
     require(isinstance(grid, list) and len(grid) == 2 and
-            all(type(v) is int and 2 <= v <= axis_limit for v in grid),
-            f"2..{axis_limit} PE axes")
+            all(type(v) is int and 2 <= v <= limit for v, limit in zip(grid, limits)),
+            "PE axes exceed family/fabric limits")
+    if case["kind"] == "halo":
+        require(case["params"] == dict(width=grid[0], height=grid[1]), "halo grid/parameter identity")
+        # Static halo adds 7*k+11*phase before modulo (k<=31, phase<=1).
+        # Keep a shared conservative bound; runtime coordinates need no such margin.
+        require(17*(grid[0]-1)+31*(grid[1]-1)+228 <= 32767, "halo i16 coordinate sum")
     require(isinstance(case["params"], dict) and 1 <= len(case["params"]) <= 16 and
             all(NAME.fullmatch(k) and type(v) is int and 0 <= v <= 65535 for k, v in case["params"].items()), "compile parameters")
     require(isinstance(symbols, dict) and 1 <= len(symbols) <= 32 and isinstance(functions, dict) and
