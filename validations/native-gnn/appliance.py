@@ -234,7 +234,8 @@ def run_program(args, root=ROOT, launcher_type=None):
                             requested = destination/remote
                             saved = downloaded_path(launcher.download_artifact(remote, str(requested)), requested, limit)
                             common.require(saved.name not in {x["path"] for x in summary["downloaded"].values()}, "download aliases")
-                            summary["downloaded"][remote] = dict(path=saved.name, sha256=common.sha(saved, limit))
+                            summary["downloaded"][remote] = dict(path=saved.name, sha256=common.sha(saved, limit),
+                                                                  bytes=saved.stat().st_size, retained=True)
                         except Exception as error:
                             summary["errors"][remote] = repr(error)
         common.require(not log.truncated, "client log truncated")
@@ -254,6 +255,17 @@ def run_program(args, root=ROOT, launcher_type=None):
             common.require(audited.get(key) == value, "capture admission differs: " + key)
         summary.update(status="complete", execution_status="PASS", numerical_status="NOT_RUN",
                        host_exit=0, capture_path="capture-data", execution_admission=audited)
+        # The admitted tree contains every byte needed for offline replay. Keep
+        # the transport receipt, but do not store the archive a second time.
+        transport = summary["downloaded"]["capture"]
+        transport.update(extracted_path="capture-data", retention="remove-after-admission")
+        common.write_json(destination/"collection.json", summary)
+        try:
+            (destination/transport["path"]).unlink()
+        except OSError as error:
+            transport["cleanup_error"] = str(error)[:4096]
+        else:
+            transport.update(retained=False, retention="verified-extraction")
     except BaseException as error:
         summary["error"] = repr(error)
         raise

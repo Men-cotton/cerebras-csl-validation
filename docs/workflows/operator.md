@@ -135,8 +135,11 @@ bundles are `STATE_DIR/exports/REQUEST_ID.zip` and its `.sha256` file. The atomi
 `STATE_DIR/status.json` identifies source revisions and finalized bundle
 checksums/sizes. Failed notification delivery does not resubmit a calculation.
 
-Request output is capped at 2 GiB, with separately bounded logs and a 4 GiB
-archive ceiling. Before cloning, the watcher checks a 32 GiB total state budget,
+`output_bytes` (default 2 GiB) is an advisory threshold for accumulated request
+output, not an execution limit. Job-ID discovery bounds directory traversal and
+log bytes independently of numerical payload size. The watcher checks at least
+1 GiB free before each new step. Logs retain their separate bounds and completed
+ZIP bundles retain the collector's 4 GiB ceiling. Before cloning, the watcher checks a 32 GiB total state budget,
 100,000 entries and at least 1 GiB free space. It does not automatically delete
 completed clones or results. Keep the ledger and receipts when cleaning
 artifacts after verified collection and analysis.
@@ -145,3 +148,25 @@ New work stops at 16 MiB of ledger metadata or 1,024 request records. The 32 MiB
 ledger read/write bound reserves room for active-request recovery. If admission
 stops at that bound, preserve the state and reconcile pending requests before
 selecting a baseline for a new state directory.
+
+## Packaging failures
+
+Execution `status` remains `passed`, `failed`, or `interrupted` when export
+packaging fails. Public status records `packaged: false`, `packaging_status:
+failed`, and `packaging_error`. Independent requests may proceed; the watcher
+does not rerun completed steps or repeatedly rebuild a failed archive. After
+correcting the packaging problem, retry packaging only:
+
+```bash
+uv run --locked -m csl_validation watch package \
+  --config "$HOME/csl-operator.json" --request REQUEST_ID
+```
+
+The existing 4 GiB collector ceiling still applies. An oversized bundle needs
+an independently designed sharded collection path; raising `output_bytes`
+does not raise that transfer limit. Older `blocked` attempts remain explicit
+recovery cases; updating the controller does not silently mark them successful
+or modify their frozen request clones. `resolve` closes them as `interrupted`.
+Native-GNN adapters newly frozen after the retention update remove only the
+verified redundant capture transport archive; complete capture-data and failed
+transfers remain available.

@@ -29,6 +29,7 @@ ACTIVE = {"CREATED", "QUEUED", "QUEUEING", "PENDING", "SCHEDULED", "INITIALIZING
 DEFAULT_SCRIPTS = ["appliance.py", "tank_appliance.py", "mesh_appliance.py", "clock_appliance.py"]
 LEDGER_LIMIT = 32 << 20
 ADMISSION_LIMIT = 16 << 20
+BUNDLE_LIMIT = 4 << 30
 
 
 def encoded_size(value):
@@ -231,17 +232,18 @@ def files_under(root, byte_limit, entry_limit=20000):
             require(not path.is_symlink(), "output symlink")
             if path.is_file():
                 total += path.stat().st_size
-                require(total <= byte_limit, "output byte limit")
+                require(byte_limit is None or total <= byte_limit, "output byte limit")
                 result.append(path)
             else:
                 require(path.is_dir(), "nonregular output")
     return sorted(result)
 
 
-def job_ids(root, limit):
+def job_ids(root, limit=None):
     result = set()
     log_bytes = 0
-    for path in files_under(root, limit):
+    # Payload bytes are unrelated to job discovery; bound traversal and log bytes.
+    for path in files_under(root, None):
         if path.suffix != ".log":
             continue
         log_bytes += path.stat().st_size
@@ -278,7 +280,7 @@ class Watcher:
         records = []
         for ident in self.ledger["order"]:
             entry = self.ledger["requests"][ident]
-            public = {key: entry[key] for key in ("id", "sha", "status", "finished_at", "bundle_sha256", "bundle_bytes", "packaged") if key in entry}
+            public = {key: entry[key] for key in ("id", "sha", "status", "finished_at", "bundle_sha256", "bundle_bytes", "packaged", "packaging_status", "packaging_error", "output_bytes", "output_warning") if key in entry}
             if entry.get("packaged"):
                 public["archive"] = Path(entry["bundle"]).name
             records.append(public)
@@ -365,7 +367,8 @@ class Watcher:
         src, output = root / "src", root / "output"
         require(git(["rev-parse", "HEAD"], src).strip() == entry["sha"], "clone revision changed")
         require(git(["diff", "--name-only", "HEAD"], src) == "", "tracked source modified")
-        before = job_ids(output, self.config["output_bytes"])
+        require(shutil.disk_usage(self.root).free >= 1 << 30, "less than 1 GiB free; defer next step")
+        before = job_ids(output)
         argv = sdk_argv(self.config, ["-B", str(contained(src, step["script"]))])
         argv += [arg.replace("{output}", str(output)) for arg in step["args"]]
         require(encoded_size(argv) <= 64 << 10, "expanded step argv exceeds 64 KiB")
@@ -387,7 +390,7 @@ class Watcher:
                     require(time.monotonic() - began < step["timeout_seconds"], "client timeout; remote stop unconfirmed")
                     require(log.stat().st_size <= 64 << 20, "client log limit")
                     if time.monotonic() - checked >= self.config["poll_seconds"]:
-                        observed = sorted((set(job_ids(output, self.config["output_bytes"])) - set(before)) | set(JOB.findall(log.read_text(errors="replace"))))
+                        observed = sorted((set(job_ids(output)) - set(before)) | set(JOB.findall(log.read_text(errors="replace"))))
                         require(len(observed) <= 32 and all(len(name) <= 128 for name in observed), "single-action job ID limit")
                         record["jobs"] = observed
                         self.record(entry)
@@ -402,7 +405,7 @@ class Watcher:
             else:
                 raise ValueError("child descendants remain after foreground exit")
             require(log.stat().st_size <= 64 << 20, "client log limit")
-            observed = sorted((set(job_ids(output, self.config["output_bytes"])) - set(before)) | set(JOB.findall(log.read_text(errors="replace"))))
+            observed = sorted((set(job_ids(output)) - set(before)) | set(JOB.findall(log.read_text(errors="replace"))))
             require(len(observed) <= 32 and all(len(name) <= 128 for name in observed), "single-action job ID limit")
             record["jobs"] = observed
             require(step["kind"] != "appliance" or record["jobs"], "no job IDs captured; submission outcome unknown")
@@ -445,21 +448,50 @@ class Watcher:
         entry["finished_at"] = entry.get("finished_at", now())
         atomic_json(root / "receipt.json", entry)
         paths = [root / "request.json", root / "receipt.json", root / "environment.json"]
-        paths += files_under(root / "output", self.config["output_bytes"])
+        output = files_under(root / "output", None)
+        entry["output_bytes"] = sum(path.stat().st_size for path in output)
+        entry["output_warning"] = entry["output_bytes"] > self.config["output_bytes"]
+        atomic_json(root / "receipt.json", entry)
+        paths += output
         paths += files_under(root / "logs", 128 << 20)
         # A restart during packaging recreates only the archive, never the calculation.
         with zipfile.ZipFile(pending, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=1) as archive:
             for path in paths:
-                archive.write(path, path.relative_to(root))
+                with path.open("rb") as source, archive.open(str(path.relative_to(root)), "w", force_zip64=True) as member:
+                    while block := source.read(1 << 20):
+                        member.write(block)
+                        require(pending.stat().st_size <= BUNDLE_LIMIT, "archive exceeds collector size limit")
+                require(pending.stat().st_size <= BUNDLE_LIMIT, "archive exceeds collector size limit")
         with pending.open("rb") as stream:
             os.fsync(stream.fileno())
         checksum = digest(pending)
-        require(pending.stat().st_size <= 4 << 30, "archive exceeds collector size limit")
+        require(pending.stat().st_size <= BUNDLE_LIMIT, "archive exceeds collector size limit")
         os.replace(pending, target)
         checksum_path = exports / (entry["id"] + ".zip.sha256")
         checksum_path.write_text(checksum + "  " + target.name + "\n")
-        entry.update(bundle=str(target), bundle_sha256=checksum, bundle_bytes=target.stat().st_size, packaged=True)
+        entry.update(bundle=str(target), bundle_sha256=checksum, bundle_bytes=target.stat().st_size, packaged=True, packaging_status="complete")
         self.record(entry)
+
+    def package(self, entry, retry=False):
+        require(entry["status"] in {"passed", "failed", "interrupted"}, "package requires terminal execution")
+        if entry.get("packaged") or (entry.get("packaging_status") == "failed" and not retry):
+            return
+        entry.update(packaging_status="pending", packaged=False)
+        entry.pop("packaging_error", None)
+        self.record(entry)  # Terminal execution survives a packaging interruption.
+        try:
+            self.finish(entry)
+        except (ValueError, OSError) as error:
+            entry.update(packaging_status="failed", packaged=False, packaging_error=str(error)[:4096])
+            for key in ("bundle", "bundle_sha256", "bundle_bytes"):
+                entry.pop(key, None)
+            partial = self.root / "exports" / (entry["id"] + ".zip.partial")
+            try:
+                partial.unlink(missing_ok=True)
+            except OSError:
+                pass
+            self.record(entry)
+            print("PACKAGING FAILED", entry["id"], entry["packaging_error"], flush=True)
 
     def publish(self, entry):
         if entry.get("notified") or not entry.get("packaged") or not self.config["publish_status"]:
@@ -495,7 +527,7 @@ class Watcher:
             entry = self.ledger["requests"][ident]
             if entry["status"] in {"passed", "failed", "interrupted"}:
                 if not entry.get("packaged"):
-                    self.finish(entry)
+                    self.package(entry)
                 try:
                     self.publish(entry)
                 except (ValueError, OSError) as error:
@@ -510,13 +542,13 @@ class Watcher:
                     if not self.reconcile(entry):
                         return
                     if entry["status"] == "failed":
-                        self.finish(entry)
+                        self.package(entry)
                         self.ledger["last_check"] = 0
                         self.save()
                         return
                 if len(entry["steps"]) == len(entry["manifest"]["steps"]):
                     entry["status"] = "passed"
-                    self.finish(entry)
+                    self.package(entry)
                     self.ledger["last_check"] = 0
                     self.save()
                     return
@@ -553,7 +585,7 @@ class Watcher:
         require(self.scheduler.idle(), "own remote jobs remain active")
         entry.update(status="interrupted", resolution=reason, resolved_at=now())
         self.record(entry)
-        self.finish(entry)
+        self.package(entry)
         self.ledger["last_check"] = 0
         self.save()
 
@@ -568,8 +600,10 @@ def validate_config(value):
     require(value["branch"] != value["status_branch"], "status branch must differ from request branch")
     require(NAME.fullmatch(value["namespace"]) and value["username"], "namespace/username")
     require(value["idle_seconds"] >= 60 and value["poll_seconds"] >= 1, "poll bounds")
-    require(1 << 20 <= value["output_bytes"] <= 2 << 30, "output budget must be 1 MiB..2 GiB")
-    require(value.get("state_bytes", 32 << 30) >= value["output_bytes"], "total state budget")
+    require(type(value["output_bytes"]) is int and value["output_bytes"] >= 1 << 20,
+            "output warning threshold must be at least 1 MiB")
+    require(type(value.get("state_bytes", 32 << 30)) is int and value.get("state_bytes", 32 << 30) >= 1 << 20,
+            "total state budget")
     require(Path(value["python"]).is_absolute() and Path(value["python"]).is_file(), "absolute existing Python required")
     for field in ("state_dir", "lock_file"):
         require(Path(value[field]).is_absolute() and Path(value[field]).resolve() == Path(value[field]), "absolute nonsymlink " + field)
@@ -629,11 +663,12 @@ def main(argv=None):
     init.add_argument("--baseline", required=True)
     init.add_argument("--namespace", default="job-operator")
     init.add_argument("--publish-status", action="store_true")
-    for name in ("run", "once", "status", "resolve"):
+    for name in ("run", "once", "status", "resolve", "package"):
         sub = commands.add_parser(name)
         sub.add_argument("--config", required=True, type=Path)
-        if name == "resolve":
+        if name in {"resolve", "package"}:
             sub.add_argument("--request", required=True)
+        if name == "resolve":
             sub.add_argument("--reason", required=True)
     args = parser.parse_args(argv)
     os.umask(0o077)
@@ -644,11 +679,16 @@ def main(argv=None):
         config = load_config(args.config)
         if args.action == "status":
             ledger = read_json(Path(config["state_dir"]) / "ledger.json", LEDGER_LIMIT)
-            print(json.dumps(dict(cursor=ledger["cursor"], requests=[{k: ledger["requests"][i].get(k) for k in ("id", "sha", "status", "bundle", "notified", "error")} for i in ledger["order"]]), indent=2))
+            print(json.dumps(dict(cursor=ledger["cursor"], requests=[{k: ledger["requests"][i].get(k) for k in ("id", "sha", "status", "bundle", "notified", "error", "packaging_status", "packaging_error", "output_bytes", "output_warning")} for i in ledger["order"]]), indent=2))
             return 0
         with operator_lock(config) as fd:
             watcher = Watcher(config, lock_fd=fd)
             watcher.save()  # Repair a crash between the ledger and public-status writes.
+            if args.action == "package":
+                require(args.request in watcher.ledger["requests"], "unknown request")
+                entry = watcher.ledger["requests"][args.request]
+                watcher.package(entry, retry=True)
+                return 0 if entry.get("packaged") else 2
             if args.action == "resolve":
                 watcher.resolve(args.request, args.reason)
                 return 0

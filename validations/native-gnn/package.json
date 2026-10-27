@@ -21,13 +21,13 @@
   "comparator_sha256": "0402156f789f725d61570b0e9a5b9448b96117a06fa072bd504ddd5f1dd070ba",
   "compile_workers": 1,
   "evidence": "export only; no compile or hardware execution",
-  "exporter_sha256": "0e5ac5a1a695eb14cddb123ed68f4a2559e19f9d7bb7a8afebe0e0c63f14749f",
+  "exporter_sha256": "df9a01b2e0f550477cbb636ac35f74309a01b6a735cef44d341033cf2d6c3910",
   "family": "native-gnn",
   "host_sha256": {
-    "appliance.py": "499f1e44d21d17b049534461d2f07ac6889793b57894692f52e506b5808b8357",
+    "appliance.py": "64a8ec9a42a77e5307d72bc7f9d14fa914385cc78c1174352f6ff2a356031ed9",
     "appliance_worker.py": "eaa6fd47669354056904b23770081b8f6c456124dbd23d4e9ff97a7f94d36a9c",
     "saved_audit.py": "00a9c9476ca7f90bf7a83289c39d8d89395a10404d2e795b4fb5c4e206a9988a",
-    "sdk_runner.py": "cdf834e4ea2c1e6ad6005c6b83cd6bdab5fa402a2d7d6ce52ef9cf353cece246"
+    "sdk_runner.py": "6c110ecc791e07a48d63244ac16400e49ad3909a2dd0e700dfdcb4bfab787668"
   },
   "schema": 1,
   "scope": "frozen native-width GNN cases with numerical checks separated from execution admission"

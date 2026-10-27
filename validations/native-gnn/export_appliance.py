@@ -135,7 +135,7 @@ def freeze(case, output, oracle=None):
     (output / "origin-case.json").write_bytes(original_bytes)
     for name, values in archives.items():
         if name not in reused:
-            save = np.savez_compressed if resident else np.savez
+            save = np.savez_compressed
             save(output / name, **values)
     names = set(origin_mapping.values()) | {"origin-case.json"} | set(archives)
     manifest = dict(schema=schedule["schema"], family="native-gnn", experiment=original["experiment"],

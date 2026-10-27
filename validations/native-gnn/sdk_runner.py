@@ -90,7 +90,7 @@ def main(case, build, output, backend, cmaddr=None):
             result["launches"] = launches
         if "error" not in result and "stop_error" not in result:
             result["status"] = "COMPLETED"
-        save = np.savez_compressed if manifest["schema"] == 2 else np.savez
+        save = np.savez_compressed
         save(output / "raw.npz", **raw)
         result["raw_sha256"] = hashlib.sha256((output / "raw.npz").read_bytes()).hexdigest()
         (output / "execution.json").write_text(json.dumps(result, indent=2) + "\n")

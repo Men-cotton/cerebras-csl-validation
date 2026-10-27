@@ -55,7 +55,7 @@ bits, padding, immutable banks and PE-local clocks. Its total cycle statistic
 sums chunk intervals on each same PE and excludes host checkpoint gaps; each
 chunk's interval remains separately reported.
 
-New schema2 expectation and capture archives use lossless ZIP compression.
+New schema1 and schema2 expectation and capture archives use lossless ZIP compression.
 Prepare source inputs, expectations and masks in compressed form before export:
 the exporter preserves every originating byte and cannot remove an uncompressed
 source file merely because another encoding is smaller. The128MiB case,
@@ -172,3 +172,10 @@ execution, and2 for incomplete/corrupt capture. `test_appliance.py` uses mock
 compiler/launcher objects and a fake SDK memory implementation. These tests
 establish adapter behavior only; they are not simulation or hardware results.
 No hardware result is implied by exporting a package or publishing a request.
+
+After complete extraction, request/source binding and execution admission, the
+collector removes the redundant downloaded capture archive. Its SHA-256, byte
+count and original name remain in `collection.json`, with `retained: false` and
+`extracted_path: capture-data`. The complete extracted tree remains auditable.
+Failed launches, extraction and admission retain their transport files for
+diagnosis. Existing frozen cases and captures keep their original bytes.

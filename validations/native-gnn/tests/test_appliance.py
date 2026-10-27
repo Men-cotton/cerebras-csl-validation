@@ -197,6 +197,27 @@ class ApplianceTests(unittest.TestCase):
         self.assertEqual(collection["execution_status"], "PASS")
         self.assertEqual(collection["numerical_status"], "NOT_RUN")
         self.assertNotIn("audit", collection)
+        transport = collection["downloaded"]["capture"]
+        self.assertFalse(transport["retained"])
+        self.assertGreater(transport["bytes"], 0)
+        self.assertFalse((self.base/"run"/transport["path"]).exists())
+        self.assertTrue((self.base/"run/capture-data/runtime/raw.npz").is_file())
+
+    def test_transport_cleanup_failure_does_not_fail_completed_execution(self):
+        self.compile()
+        original = Path.unlink
+        def refuse_transport(path, *args, **kwargs):
+            if path.name == "capture.tar.gz":
+                raise PermissionError("cleanup denied")
+            return original(path, *args, **kwargs)
+        with mock.patch.object(Path, "unlink", refuse_transport):
+            self.assertEqual(app.run_program(self.run_args(), self.root, self.Launcher), 0)
+        summary = common.read_json(self.base/"run/collection.json")
+        self.assertEqual(summary["execution_status"], "PASS")
+        transport = summary["downloaded"]["capture"]
+        self.assertTrue(transport["retained"])
+        self.assertEqual(transport["cleanup_error"], "cleanup denied")
+        self.assertTrue((self.base/"run"/transport["path"]).is_file())
 
     def test_compile_workers_scale_compiler_cpu_only(self):
         for workers in (4, 8):
@@ -277,6 +298,9 @@ class ApplianceTests(unittest.TestCase):
         summary = common.read_json(self.base/"run/collection.json")
         self.assertEqual(summary["status"], "incomplete")
         self.assertEqual(set(summary["downloaded"]), {"host.log", "host-exit.txt", "capture"})
+        transport = summary["downloaded"]["capture"]
+        self.assertTrue(transport["retained"])
+        self.assertTrue((self.base/"run"/transport["path"]).is_file())
         self.audit.assert_not_called()
 
     def test_timeout_wrong_request_and_missing_or_colliding_download_fail(self):
@@ -473,6 +497,9 @@ class WorkerTests(unittest.TestCase):
         args = self.arguments()
         self.assertEqual(worker.capture(args), 0)
         admission = common.admit_capture(args.out)
+        import zipfile
+        with zipfile.ZipFile(args.out/"runtime/raw.npz") as archive:
+            self.assertTrue(all(item.compress_type == zipfile.ZIP_DEFLATED for item in archive.infolist()))
         self.assertEqual(admission["execution_status"], "PASS")
         self.assertEqual(admission["numerical_status"], "NOT_RUN")
         self.assertEqual(admission["compiled_inventory"]["max_static_sram_end"], 4352)

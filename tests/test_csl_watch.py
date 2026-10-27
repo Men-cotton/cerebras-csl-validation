@@ -484,12 +484,122 @@ class GitControllerTests(unittest.TestCase):
         with watch.operator_lock(self.config):
             pass
 
-    def test_output_budget_cannot_exceed_collector_two_gib_bound(self):
-        config = dict(self.config, idle_seconds=60, poll_seconds=1, output_bytes=2 << 30)
+    def test_output_warning_threshold_can_exceed_two_gib(self):
+        config = dict(self.config, idle_seconds=60, poll_seconds=1, output_bytes=3 << 30)
         self.assertIs(watch.validate_config(config), config)
-        config["output_bytes"] += 1
-        with self.assertRaisesRegex(ValueError, "2 GiB"):
+        config["output_bytes"] = 0
+        with self.assertRaisesRegex(ValueError, "at least 1 MiB"):
             watch.validate_config(config)
+
+    def test_payload_size_does_not_block_remote_reconciliation(self):
+        self.submit(request(modes=("ok", "ok")))
+        self.watcher.tick()
+        output = self.state / "requests/example/output"
+        output.mkdir(exist_ok=True)
+        with (output / "raw.npz").open("wb") as stream:
+            stream.truncate(3 << 20)
+        self.watcher.tick()
+        self.assertEqual(self.entry()["steps"][0]["status"], "awaiting")
+        self.scheduler.phases["wsjob-step0"] = "RUNNING"
+        self.watcher.tick()
+        self.assertEqual(self.invocations(), ["wsjob-step0"])
+        self.scheduler.phases["wsjob-step0"] = "SUCCEEDED"
+        entry = self.complete()
+        self.assertEqual(entry["status"], "passed")
+        self.assertTrue(entry["output_warning"])
+        self.assertEqual(self.invocations(), ["wsjob-step0", "wsjob-step1"])
+
+    def test_packaging_failure_preserves_execution_and_allows_independent_request(self):
+        self.submit()
+        self.watcher.tick()
+        self.watcher.tick()
+        with patch.object(watch, "BUNDLE_LIMIT", 1):
+            self.watcher.tick()
+        entry = self.entry()
+        self.assertEqual(entry["status"], "passed")
+        self.assertEqual(entry["packaging_status"], "failed")
+        self.assertFalse(entry["packaged"])
+        self.assertNotIn("bundle_bytes", entry)
+        self.assertFalse((self.state / "exports/example.zip.partial").exists())
+        public = watch.read_json(self.state / "status.json")["requests"][0]
+        self.assertEqual(public["status"], "passed")
+        self.assertEqual(public["packaging_status"], "failed")
+        self.submit(request(ident="independent"))
+        restarted = watch.Watcher(self.config, self.scheduler)
+        with patch.object(restarted, "finish", side_effect=AssertionError("must not auto-retry packaging")):
+            restarted.tick()
+        self.assertEqual(restarted.ledger["requests"]["independent"]["status"], "running")
+        self.assertEqual(self.invocations(), ["wsjob-step0"])
+        restarted.package(restarted.ledger["requests"]["example"], retry=True)
+        self.assertTrue(restarted.ledger["requests"]["example"]["packaged"])
+        self.assertEqual(self.invocations(), ["wsjob-step0"])
+
+    def test_failed_final_save_does_not_leave_invalid_packaged_state(self):
+        self.submit()
+        self.watcher.tick()
+        self.watcher.tick()
+        record = self.watcher.record
+        rejected = []
+        def fail_once(entry):
+            if entry.get("packaged") and not rejected:
+                rejected.append(True)
+                raise OSError("simulated receipt failure")
+            record(entry)
+        with patch.object(self.watcher, "record", side_effect=fail_once):
+            self.watcher.tick()
+        entry = self.entry()
+        self.assertEqual(entry["status"], "passed")
+        self.assertFalse(entry["packaged"])
+        self.assertNotIn("bundle", entry)
+        self.watcher.package(entry, retry=True)
+        self.assertTrue(entry["packaged"])
+        self.assertEqual(self.invocations(), ["wsjob-step0"])
+
+    def test_one_large_archive_member_stops_before_reading_whole_file(self):
+        self.submit()
+        self.watcher.tick()
+        self.watcher.tick()
+        payload = self.state / "requests/example/output/large.bin"
+        payload.write_bytes(os.urandom(4 << 20))
+        opened = Path.open
+        consumed = []
+        class Reader:
+            def __init__(self, stream):
+                self.stream = stream
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                self.stream.close()
+            def read(self, size):
+                block = self.stream.read(size)
+                consumed.append(len(block))
+                return block
+        def tracked(path, *args, **kwargs):
+            stream = opened(path, *args, **kwargs)
+            return Reader(stream) if path == payload and args == ("rb",) else stream
+        with patch.object(Path, "open", tracked), patch.object(watch, "BUNDLE_LIMIT", 128 << 10):
+            self.watcher.tick()
+        self.assertEqual(self.entry()["status"], "passed")
+        self.assertEqual(self.entry()["packaging_status"], "failed")
+        self.assertGreater(sum(consumed), 0)
+        self.assertLess(sum(consumed), payload.stat().st_size)
+
+    def test_job_scan_keeps_log_and_path_bounds(self):
+        output = self.base / "bounded-output"
+        output.mkdir()
+        log = output / "job.log"
+        log.write_text("Job id: wsjob-example\n")
+        with (output / "large.npz").open("wb") as stream:
+            stream.truncate(3 << 30)
+        self.assertEqual(watch.job_ids(output, 1), ["wsjob-example"])
+        with log.open("wb") as stream:
+            stream.truncate((128 << 20) + 1)
+        with self.assertRaisesRegex(ValueError, "log scan limit"):
+            watch.job_ids(output)
+        log.unlink()
+        (output / "link").symlink_to(output / "large.npz")
+        with self.assertRaisesRegex(ValueError, "symlink"):
+            watch.job_ids(output)
 
     def test_ledger_loader_and_writer_use_explicit_size_limit(self):
         ledger = copy.deepcopy(self.watcher.ledger)
