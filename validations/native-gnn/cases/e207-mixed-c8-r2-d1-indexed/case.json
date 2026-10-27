@@ -1,0 +1,155 @@
+{
+  "checks": {
+    "aggregate_history": {
+      "kind": "exact"
+    },
+    "cache": {
+      "kind": "exact"
+    },
+    "clocks": {
+      "kind": "clock"
+    },
+    "comm_stats": {
+      "kind": "exact"
+    },
+    "stats": {
+      "kind": "exact"
+    }
+  },
+  "evidence": "frozen host oracle only; no device execution",
+  "experiment": "E207-indexed-source-cache",
+  "family": "native-gnn",
+  "files": {
+    "expected.npz": "0442bfaf95d2ee03fe267b72acb4126bde2382066568a299167581062656c586",
+    "inputs.npz": "9bca34064f64d61bae2126c653cf4d49eff40b9f03420f7bbec335d1e7fe3d7d",
+    "origin-case.json": "944f9817ec1d947ff7f5a501029eb9637a899dd753242407a04c07821765656c",
+    "original.npz": "aa6459cf0373a71cb88fce64375080e5a2cbc0267b9a8ff67f06e16209d15c53",
+    "sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "source/baseline_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "source/layout.csl": "6f6ac9b3f0ec78416428ef19b562848b931bfbd8b149c05ee5cb527ab06c59fd",
+    "source/pe.csl": "5a7c280cda0dc0eb2208add2cff7802ac3d66abce1c70fbef1ba10044be6510c",
+    "source/probe.csl": "99f4dcfcbd1797a5bbc842386fa26edeb5523b710ede345279bdaf4c717af3dd",
+    "zero_masks.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85"
+  },
+  "immutable_inputs": [
+    "dst_slot",
+    "features",
+    "rx_begin",
+    "rx_slot",
+    "src_owner",
+    "src_slot",
+    "tx_begin",
+    "tx_slots",
+    "weight"
+  ],
+  "inputs": {
+    "dst_slot": [
+      9,
+      "uint32"
+    ],
+    "features": [
+      112,
+      "float32"
+    ],
+    "rx_begin": [
+      3,
+      "uint32"
+    ],
+    "rx_slot": [
+      9,
+      "uint32"
+    ],
+    "src_owner": [
+      9,
+      "uint32"
+    ],
+    "src_slot": [
+      9,
+      "uint32"
+    ],
+    "tx_begin": [
+      3,
+      "uint32"
+    ],
+    "tx_slots": [
+      7,
+      "uint32"
+    ],
+    "weight": [
+      9,
+      "float32"
+    ]
+  },
+  "launch": {
+    "arguments": [],
+    "entrypoint": "run"
+  },
+  "oracle_export": {
+    "exporter_sha256": "df9a01b2e0f550477cbb636ac35f74309a01b6a735cef44d341033cf2d6c3910",
+    "implementation": "e207_indexed_driver:portable_expectations",
+    "source_hashes": {
+      "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+      "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+      "kernels/communication/sliced-halo/audit.py": "9117f82827bae38d4c5f803cb99ff1fe03a7cc7c7caa3a0bd3960cecbcbcca72",
+      "kernels/communication/sliced-halo/indexed_cache/driver.py": "a95a422b2357daac05a635facdc9cc727318ada47a36a5ea21848a6c570f68d0",
+      "kernels/communication/sliced-halo/indexed_cache/layout.csl": "6f6ac9b3f0ec78416428ef19b562848b931bfbd8b149c05ee5cb527ab06c59fd",
+      "kernels/communication/sliced-halo/indexed_cache/model.py": "0b5927d279ca24a2009ba360f083b873b576ed4c886770c192d3994a812ea109",
+      "kernels/communication/sliced-halo/indexed_cache/pe.csl": "5a7c280cda0dc0eb2208add2cff7802ac3d66abce1c70fbef1ba10044be6510c",
+      "kernels/communication/sliced-halo/indexed_cache/probe.csl": "99f4dcfcbd1797a5bbc842386fa26edeb5523b710ede345279bdaf4c717af3dd",
+      "kernels/communication/sliced-halo/pe.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+      "kernels/communication/sliced-halo/schedule.py": "1b3e71b20ac8778548fe5df89cadba02966f2efcf266ffc000bf275d05650477",
+      "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+      "models/meshgraphnet/sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+      "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+      "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+      "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404"
+    }
+  },
+  "origin_case_sha256": "944f9817ec1d947ff7f5a501029eb9637a899dd753242407a04c07821765656c",
+  "origin_files": {
+    "inputs.npz": "inputs.npz",
+    "original.npz": "original.npz",
+    "sdk_runner.py": "sdk_runner.py",
+    "source/baseline_halo.csl": "source/baseline_halo.csl",
+    "source/layout.csl": "source/layout.csl",
+    "source/pe.csl": "source/pe.csl",
+    "source/probe.csl": "source/probe.csl"
+  },
+  "outputs": {
+    "aggregate_history": [
+      224,
+      "float32"
+    ],
+    "cache": [
+      112,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 8,
+    "E": 9,
+    "F": 16,
+    "GENERATIONS": 2,
+    "H": 128,
+    "K": 1,
+    "L": 7,
+    "MODE": 1,
+    "R": 2,
+    "T": 7,
+    "U": 7
+  },
+  "schema": 1,
+  "scope": "H128 selective halo plus original-edge-order weighted aggregation, final cache and every generation aggregate; no GNN edge latent, backward kernel, training or end-to-end speedup"
+}
