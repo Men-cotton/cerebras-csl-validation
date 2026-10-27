@@ -170,3 +170,33 @@ or modify their frozen request clones. `resolve` closes them as `interrupted`.
 Native-GNN adapters newly frozen after the retention update remove only the
 verified redundant capture transport archive; complete capture-data and failed
 transfers remain available.
+
+## Discover without execution and skip an unstarted request
+
+Stop the continuous watcher before these commands; they acquire the same
+operator lock. `discover` fetches the watched branch and records new pending
+requests even when an older request is blocked. It never calls the scheduler,
+prepares a source clone or executes a validation step. This differs from `once`,
+which can execute work.
+
+```bash
+uv run --locked -m csl_validation watch discover --config "$HOME/csl-operator.json"
+uv run --locked -m csl_validation watch status --config "$HOME/csl-operator.json"
+uv run --locked -m csl_validation watch skip \
+  --config "$HOME/csl-operator.json" --request REQUEST_ID \
+  --reason 'Unstarted request superseded by corrected REQUEST_ID'
+```
+
+`skip` accepts only `pending` requests whose step list is exactly empty. It
+preserves the original request ID, SHA and manifest, and records `interrupted`,
+`execution_status: NOT_RUN`, the reason, and `packaging_status: not_applicable`.
+The authoritative ledger is saved before auxiliary receipts, so interruption
+while writing a receipt cannot make the skipped request runnable again. There
+is no fabricated SDK environment, execution output, ZIP bundle or Git result
+notification. Public status and the local receipt retain the skip evidence.
+Even an explicit package retry does not package a never-started request.
+
+Started or blocked attempts still require `resolve` and its process/job
+termination checks. A skipped ID cannot be reused; submit a fresh request ID.
+See [the October recovery sequence](recovery-20261027.md) for the LayerNorm
+output-limit interruption and indexed-case registration replacement.

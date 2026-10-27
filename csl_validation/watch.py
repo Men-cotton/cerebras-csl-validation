@@ -280,7 +280,7 @@ class Watcher:
         records = []
         for ident in self.ledger["order"]:
             entry = self.ledger["requests"][ident]
-            public = {key: entry[key] for key in ("id", "sha", "status", "finished_at", "bundle_sha256", "bundle_bytes", "packaged", "packaging_status", "packaging_error", "output_bytes", "output_warning") if key in entry}
+            public = {key: entry[key] for key in ("id", "sha", "status", "finished_at", "bundle_sha256", "bundle_bytes", "packaged", "packaging_status", "packaging_error", "output_bytes", "output_warning", "execution_status", "resolution") if key in entry}
             if entry.get("packaged"):
                 public["archive"] = Path(entry["bundle"]).name
             records.append(public)
@@ -474,7 +474,7 @@ class Watcher:
 
     def package(self, entry, retry=False):
         require(entry["status"] in {"passed", "failed", "interrupted"}, "package requires terminal execution")
-        if entry.get("packaged") or (entry.get("packaging_status") == "failed" and not retry):
+        if entry.get("packaged") or entry.get("packaging_status") == "not_applicable" or (entry.get("packaging_status") == "failed" and not retry):
             return
         entry.update(packaging_status="pending", packaged=False)
         entry.pop("packaging_error", None)
@@ -566,6 +566,22 @@ class Watcher:
             if entry["status"] == "pending":
                 self.prepare(entry)
                 return
+
+    def skip(self, ident, reason):
+        require(ident in self.ledger["requests"], "unknown request")
+        require(isinstance(reason, str) and 0 < len(reason.strip()) <= 4096, "bounded skip reason required")
+        entry = self.ledger["requests"][ident]
+        require(entry["status"] == "pending" and entry.get("steps") == [],
+                "only pending requests without any step intent can be skipped")
+        entry.update(status="interrupted", execution_status="NOT_RUN", resolution=reason.strip(),
+                     resolved_at=now(), finished_at=now(), packaged=False, packaging_status="not_applicable")
+        # The ledger must cease admitting this request BEFORE optional receipt
+        # creation. A crash here cannot leave a runnable request with a skip receipt.
+        self.save()
+        directory = self.root / "requests" / ident
+        directory.mkdir(parents=True, exist_ok=True)
+        atomic_json(directory / "request.json", entry["manifest"])
+        atomic_json(directory / "receipt.json", entry)
 
     def resolve(self, ident, reason):
         require(ident in self.ledger["requests"] and reason.strip(), "request and reason required")
@@ -663,12 +679,12 @@ def main(argv=None):
     init.add_argument("--baseline", required=True)
     init.add_argument("--namespace", default="job-operator")
     init.add_argument("--publish-status", action="store_true")
-    for name in ("run", "once", "status", "resolve", "package"):
+    for name in ("run", "once", "status", "resolve", "package", "discover", "skip"):
         sub = commands.add_parser(name)
         sub.add_argument("--config", required=True, type=Path)
-        if name in {"resolve", "package"}:
+        if name in {"resolve", "package", "skip"}:
             sub.add_argument("--request", required=True)
-        if name == "resolve":
+        if name in {"resolve", "skip"}:
             sub.add_argument("--reason", required=True)
     args = parser.parse_args(argv)
     os.umask(0o077)
@@ -679,11 +695,19 @@ def main(argv=None):
         config = load_config(args.config)
         if args.action == "status":
             ledger = read_json(Path(config["state_dir"]) / "ledger.json", LEDGER_LIMIT)
-            print(json.dumps(dict(cursor=ledger["cursor"], requests=[{k: ledger["requests"][i].get(k) for k in ("id", "sha", "status", "bundle", "notified", "error", "packaging_status", "packaging_error", "output_bytes", "output_warning")} for i in ledger["order"]]), indent=2))
+            print(json.dumps(dict(cursor=ledger["cursor"], requests=[{k: ledger["requests"][i].get(k) for k in ("id", "sha", "status", "bundle", "notified", "error", "packaging_status", "packaging_error", "output_bytes", "output_warning", "execution_status", "resolution")} for i in ledger["order"]]), indent=2))
             return 0
         with operator_lock(config) as fd:
             watcher = Watcher(config, lock_fd=fd)
             watcher.save()  # Repair a crash between the ledger and public-status writes.
+            if args.action == "discover":
+                watcher.discover()  # Git/ledger only, even while another entry is blocked.
+                print("Discovery complete; no validation steps executed", flush=True)
+                return 0
+            if args.action == "skip":
+                watcher.skip(args.request, args.reason)
+                print("Skipped unstarted request", args.request, flush=True)
+                return 0
             if args.action == "package":
                 require(args.request in watcher.ledger["requests"], "unknown request")
                 entry = watcher.ledger["requests"][args.request]

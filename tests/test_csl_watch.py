@@ -636,6 +636,108 @@ class GitControllerTests(unittest.TestCase):
         self.assertEqual(self.watcher.ledger["cursor"], cursor)
         self.assertEqual(self.invocations(), [])
 
+    def test_discover_cli_adds_pending_while_blocked_without_executing(self):
+        self.submit()
+        self.watcher.discover()
+        self.entry().update(status="blocked", error="previous unresolved attempt")
+        self.watcher.save()
+        sha = self.submit(request(ident="replacement"))
+        config = dict(self.config, idle_seconds=60, poll_seconds=1)
+        path = self.base / "config.json"
+        watch.atomic_json(path, config)
+        with patch.object(watch, "Scheduler") as scheduler, \
+             patch.object(watch.Watcher, "tick", side_effect=AssertionError("must not execute")), \
+             patch.object(watch.Watcher, "prepare", side_effect=AssertionError("must not prepare")), \
+             patch.object(watch.os, "umask"):
+            self.assertEqual(watch.main(["discover", "--config", str(path)]), 0)
+            self.assertEqual(scheduler.return_value.mock_calls, [])
+        ledger = watch.read_json(self.state / "ledger.json")
+        self.assertEqual(ledger["requests"]["example"]["status"], "blocked")
+        self.assertEqual(ledger["requests"]["replacement"]["status"], "pending")
+        self.assertEqual(ledger["requests"]["replacement"]["sha"], sha)
+        self.assertEqual(self.invocations(), [])
+        with watch.operator_lock(config), patch.object(watch.os, "umask"):
+            self.assertEqual(watch.main(["discover", "--config", str(path)]), 2)
+
+    def test_skip_cli_retains_identity_and_never_executes_or_packages(self):
+        from csl_validation.fetch import parse_status
+        sha = self.submit()
+        self.watcher.discover()
+        manifest = copy.deepcopy(self.entry()["manifest"])
+        config = dict(self.config, idle_seconds=60, poll_seconds=1)
+        path = self.base / "config.json"
+        watch.atomic_json(path, config)
+        command = ["skip", "--config", str(path), "--request", "example", "--reason", "superseded invalid package"]
+        with patch.object(watch.os, "umask"), watch.operator_lock(config):
+            self.assertEqual(watch.main(command), 2)
+        with patch.object(watch.os, "umask"), patch.object(watch, "Scheduler") as scheduler:
+            self.assertEqual(watch.main(command), 0)
+            self.assertEqual(scheduler.return_value.mock_calls, [])
+        restarted = watch.Watcher(config, self.scheduler)
+        entry = restarted.ledger["requests"]["example"]
+        self.assertEqual(entry["status"], "interrupted")
+        self.assertEqual(entry["execution_status"], "NOT_RUN")
+        self.assertEqual(entry["packaging_status"], "not_applicable")
+        self.assertEqual(entry["sha"], sha)
+        self.assertEqual(entry["manifest"], manifest)
+        self.assertEqual(watch.read_json(self.state / "requests/example/receipt.json"), entry)
+        parsed = parse_status((self.state / "status.json").read_bytes())
+        self.assertEqual(parsed["requests"][0]["execution_status"], "NOT_RUN")
+        with patch.object(restarted, "prepare", side_effect=AssertionError("skipped request")), \
+             patch.object(restarted, "finish", side_effect=AssertionError("no bundle")):
+            restarted.tick()
+            restarted.package(entry, retry=True)
+        self.assertFalse((self.state / "requests/example/src").exists())
+        self.assertFalse((self.state / "exports").exists())
+        self.submit(request(ident="replacement"))
+        restarted.discover()
+        restarted.tick()
+        self.assertEqual(restarted.ledger["requests"]["replacement"]["status"], "running")
+        self.assertEqual(self.invocations(), [])
+
+    def test_skip_rejects_started_or_ambiguous_records_and_bad_reasons(self):
+        self.submit()
+        self.watcher.discover()
+        with self.assertRaisesRegex(ValueError, "unknown request"):
+            self.watcher.skip("missing", "reason")
+        for reason in ("", "   ", "x" * 4097):
+            with self.assertRaisesRegex(ValueError, "reason"):
+                self.watcher.skip("example", reason)
+        for status in ("running", "blocked", "passed", "failed", "interrupted"):
+            self.entry()["status"] = status
+            with self.subTest(status=status), self.assertRaisesRegex(ValueError, "only pending"):
+                self.watcher.skip("example", "reason")
+        self.entry()["status"] = "pending"
+        for steps in (None, {}, [{"name": "step-0", "status": "running"}]):
+            self.entry()["steps"] = steps
+            with self.subTest(steps=steps), self.assertRaisesRegex(ValueError, "only pending"):
+                self.watcher.skip("example", "reason")
+
+    def test_skip_is_durable_before_auxiliary_receipt_failure(self):
+        self.submit()
+        self.watcher.discover()
+        original = watch.atomic_json
+        def fail_receipt(path, value):
+            if Path(path).name == "receipt.json":
+                raise OSError("injected receipt failure")
+            original(path, value)
+        with patch.object(watch, "atomic_json", side_effect=fail_receipt), self.assertRaises(OSError):
+            self.watcher.skip("example", "superseded")
+        restarted = watch.Watcher(self.config, self.scheduler)
+        self.assertEqual(restarted.ledger["requests"]["example"]["status"], "interrupted")
+        with patch.object(restarted, "prepare", side_effect=AssertionError("must not execute")), \
+             patch.object(restarted, "finish", side_effect=AssertionError("must not package")):
+            restarted.tick()
+        self.assertEqual(self.invocations(), [])
+
+    def test_skipped_id_cannot_be_reused(self):
+        self.submit()
+        self.watcher.discover()
+        self.watcher.skip("example", "superseded")
+        self.submit()
+        with self.assertRaisesRegex(ValueError, "reused request ID"):
+            self.watcher.discover()
+
     def test_startup_repairs_stale_public_status_while_holding_operator_lock(self):
         self.submit()
         self.watcher.discover()
