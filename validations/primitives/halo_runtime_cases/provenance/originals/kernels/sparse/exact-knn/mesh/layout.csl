@@ -1,0 +1,48 @@
+param Pw: u16;
+param Ph: u16;
+param CAP: u16;
+param D: u16;
+param K: u16;
+const memcpy = @import_module("<memcpy/get_params>",.{.width=Pw,.height=Ph});
+const Q=@get_color(4);
+layout {
+  @comptime_assert(Pw>=2 and Ph>=2 and CAP>0 and D>0 and K>0);
+  @comptime_assert(@as(u32,CAP)*@as(u32,D)<=4096 and K<=256);
+  @set_rectangle(Pw,Ph);
+  for (@range(u16,Pw)) |x| {
+    for (@range(u16,Ph)) |y| {
+      const row_send=@get_color(x%2);
+      const row_recv=@get_color(1-x%2);
+      const col_send=@get_color(2+y%2);
+      const col_recv=@get_color(3-y%2);
+      @set_tile_code(x,y,"pe.csl",.{.memcpy_params=memcpy.get_params(x),
+        .Pw=Pw,.Ph=Ph,.CAP=CAP,.D=D,.K=K,
+        .row_send=row_send,.row_recv=row_recv,.col_send=col_send,.col_recv=col_recv});
+      @set_color_config(x,y,row_send,.{.routes=.{.rx=.{RAMP},.tx=.{WEST}}});
+      @set_color_config(x,y,row_recv,.{.routes=.{.rx=.{EAST},.tx=.{RAMP}}});
+      @set_color_config(x,y,col_send,.{.routes=.{.rx=.{RAMP},.tx=.{NORTH}}});
+      @set_color_config(x,y,col_recv,.{.routes=.{.rx=.{SOUTH},.tx=.{RAMP}}});
+      if (x==0 and y==0) {
+        @set_color_config(x,y,Q,.{.routes=.{.rx=.{RAMP},.tx=.{EAST,SOUTH}}});
+      } else if (y==0 and x==Pw-1) {
+        @set_color_config(x,y,Q,.{.routes=.{.rx=.{WEST},.tx=.{RAMP,SOUTH}}});
+      } else if (y==0) {
+        @set_color_config(x,y,Q,.{.routes=.{.rx=.{WEST},.tx=.{RAMP,EAST,SOUTH}}});
+      } else if (y==Ph-1) {
+        @set_color_config(x,y,Q,.{.routes=.{.rx=.{NORTH},.tx=.{RAMP}}});
+      } else {
+        @set_color_config(x,y,Q,.{.routes=.{.rx=.{NORTH},.tx=.{RAMP,SOUTH}}});
+      }
+    }
+  }
+  @export_name("database",[*]f32,true);
+  @export_name("identities",[*]u32,true);
+  @export_name("meta",[*]u32,true);
+  @export_name("query_seed",[*]f32,true);
+  @export_name("query",[*]f32,true);
+  @export_name("distances",[*]f32,true);
+  @export_name("best",[*]u32,true);
+  @export_name("stats",[*]u32,true);
+  @export_name("f_load",fn()void);
+  @export_name("f_query",fn(i16)void);
+}

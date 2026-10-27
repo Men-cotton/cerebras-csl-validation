@@ -1,0 +1,175 @@
+{
+  "census": {
+    "block_size": 16,
+    "epochs_per_launch": 64,
+    "launches": [
+      {
+        "active_n": 32,
+        "boundary_pe_fraction": 0.0077972412109375,
+        "length": 32,
+        "maximum_mean_send_ratio": 1.0019569471624266,
+        "maximum_sent_words_per_pe": 8192,
+        "mean_sent_words_per_pe": 8176.0,
+        "missing_direction_slot_fraction": 0.001953125,
+        "modeled_directed_link_words": 2048,
+        "modeled_payload_word_hops": 2143289344,
+        "phase": 0,
+        "scope": "analytic payload/work only; excludes SDK control and measured traffic",
+        "work_per_pe_per_epoch": {
+          "checksum_adds": 32,
+          "generated_input_elements": 32,
+          "output_zero_elements": 32,
+          "stencil_fmas": 222
+        }
+      }
+    ],
+    "max_n": 32,
+    "placement": "Runtime coordinates computed once per launch inside the PE-local clock; boundary/parity routing and active SDK stencil unchanged.",
+    "sequence": [
+      [
+        32,
+        0
+      ]
+    ],
+    "timing_scope": "PE-local timestamp interval over 64 independent epochs; not global makespan."
+  },
+  "files": {
+    "expected.npz": "bd4867040d6f27a4d40768bdf54fce4bf7aef3c556eb40d5c582196d45b37a94",
+    "inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "source/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "source/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27"
+  },
+  "functions": {
+    "apply_epochs": [
+      {
+        "name": "length",
+        "type": "i16"
+      },
+      {
+        "name": "input_phase",
+        "type": "i16"
+      }
+    ]
+  },
+  "grid": [
+    512,
+    512
+  ],
+  "kind": "halo",
+  "operations": [
+    {
+      "args": [
+        32,
+        0
+      ],
+      "op": "launch",
+      "symbol": "apply_epochs"
+    },
+    {
+      "array": "s0_y",
+      "op": "d2h",
+      "rect": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "symbol": "y"
+    },
+    {
+      "array": "s0_Q",
+      "op": "d2h",
+      "rect": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "symbol": "Q"
+    },
+    {
+      "array": "s0_count",
+      "op": "d2h",
+      "rect": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "symbol": "count"
+    },
+    {
+      "array": "s0_clocks",
+      "clock": true,
+      "op": "d2h",
+      "rect": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "symbol": "clocks"
+    }
+  ],
+  "oracle_sources": {
+    "oracle/kernels/sparse/exact-knn/mesh/model.py": "553aabe51a1932b2b162083f8926347306035399de94b8103a258b7e8235b2cb",
+    "oracle/kernels/sparse/exact-knn/model.py": "027142307c90088c306b95d48a4182ea3db3f21fd0d1e380f0f0be2a4e0fe463",
+    "oracle/kernels/sparse/exact-knn/reference.py": "d9649d220099da2a054343c8979c1adfa350feaae185dbbcb0897faf256a014b",
+    "oracle/kernels/sparse/resident-2d-spmm/physical_schedule/armed_clock/storage.py": "88d72e7b982caf91dea4bf989093dc52573766663b2c6a2e6f1b54443617e778",
+    "oracle/kernels/stencil/independent-halo/oracle.py": "b909a12dc27c5f5d8d8118f3382a6365597ab60ec7d89447e8a9881aab532176"
+  },
+  "params": {
+    "height": 512,
+    "width": 512
+  },
+  "schema": 1,
+  "source_origin": {
+    "source/layout.csl": {
+      "exported_sha256": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+      "original_path": "kernels/stencil/independent-halo/runtime_coords/layout.csl",
+      "original_sha256": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+      "transformation": "none"
+    },
+    "source/pe.csl": {
+      "exported_sha256": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+      "original_path": "kernels/stencil/independent-halo/runtime_coords/pe.csl",
+      "original_sha256": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+      "transformation": "none"
+    },
+    "source/vendor_layout.csl": {
+      "exported_sha256": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+      "original_path": "sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/benchmark-libs/stencil_3d_7pts/layout.csl",
+      "original_sha256": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+      "transformation": "none"
+    },
+    "source/vendor_pe.csl": {
+      "exported_sha256": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+      "original_path": "sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/benchmark-libs/stencil_3d_7pts/wse3/pe.csl",
+      "original_sha256": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+      "transformation": "none"
+    }
+  },
+  "symbols": {
+    "Q": [
+      32,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "count": [
+      1,
+      "uint32"
+    ],
+    "y": [
+      32,
+      "float32"
+    ]
+  },
+  "validations": {
+    "restore": []
+  }
+}

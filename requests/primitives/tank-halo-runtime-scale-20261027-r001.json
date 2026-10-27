@@ -1,0 +1,726 @@
+{
+  "schema": 1,
+  "id": "tank-halo-runtime-scale-20261027-r001",
+  "description": "E203: compare static/runtime-coordinate independent halo at 16x16 and 64x64 in ABBAAB order; scale runtime coordinates through 512x512 with fixed 32 cells and 64 epochs per PE. Every run captures and audits every PE before advancing. Three separate one-launch runtimes per shape; retain compile/load and same-PE intervals separately. Static64 control follows the scaling ladder. Compile bounds use local runtime scaling and E194 static64 1081s; worker600s allows E194 load254s plus capture, without treating timeout as remote termination.",
+  "steps": [
+    {
+      "name": "compile-halo16",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo16",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo16"
+      ]
+    },
+    {
+      "name": "compile-halo-rc16",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc16",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc16"
+      ]
+    },
+    {
+      "name": "run-pair16-1-halo16",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo16",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair16-1-halo16"
+      ]
+    },
+    {
+      "name": "run-pair16-2-halo-rc16",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc16",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair16-2-halo-rc16"
+      ]
+    },
+    {
+      "name": "run-pair16-3-halo-rc16",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc16",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair16-3-halo-rc16"
+      ]
+    },
+    {
+      "name": "run-pair16-4-halo16",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo16",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair16-4-halo16"
+      ]
+    },
+    {
+      "name": "run-pair16-5-halo16",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo16",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair16-5-halo16"
+      ]
+    },
+    {
+      "name": "run-pair16-6-halo-rc16",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc16",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair16-6-halo-rc16"
+      ]
+    },
+    {
+      "name": "compile-halo-rc32",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc32",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc32"
+      ]
+    },
+    {
+      "name": "run-scale32-1",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc32",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc32/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale32-1"
+      ]
+    },
+    {
+      "name": "run-scale32-2",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc32",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc32/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale32-2"
+      ]
+    },
+    {
+      "name": "run-scale32-3",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc32",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc32/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale32-3"
+      ]
+    },
+    {
+      "name": "compile-halo-rc64",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc64"
+      ]
+    },
+    {
+      "name": "run-scale64-1",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc64/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale64-1"
+      ]
+    },
+    {
+      "name": "run-scale64-2",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc64/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale64-2"
+      ]
+    },
+    {
+      "name": "run-scale64-3",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc64/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale64-3"
+      ]
+    },
+    {
+      "name": "compile-halo-rc128",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc128",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc128"
+      ]
+    },
+    {
+      "name": "run-scale128-1",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc128",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc128/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale128-1"
+      ]
+    },
+    {
+      "name": "run-scale128-2",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc128",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc128/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale128-2"
+      ]
+    },
+    {
+      "name": "run-scale128-3",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc128",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc128/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale128-3"
+      ]
+    },
+    {
+      "name": "compile-halo-rc256",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc256",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc256"
+      ]
+    },
+    {
+      "name": "run-scale256-1",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc256",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc256/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale256-1"
+      ]
+    },
+    {
+      "name": "run-scale256-2",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc256",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc256/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale256-2"
+      ]
+    },
+    {
+      "name": "run-scale256-3",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc256",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc256/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale256-3"
+      ]
+    },
+    {
+      "name": "compile-halo-rc512",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc512"
+      ]
+    },
+    {
+      "name": "run-scale512-1",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc512/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale512-1"
+      ]
+    },
+    {
+      "name": "run-scale512-2",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc512/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale512-2"
+      ]
+    },
+    {
+      "name": "run-scale512-3",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc512/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-scale512-3"
+      ]
+    },
+    {
+      "name": "compile-halo64",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1800,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo64"
+      ]
+    },
+    {
+      "name": "run-pair64-1-halo64",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo64/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair64-1-halo64"
+      ]
+    },
+    {
+      "name": "run-pair64-2-halo-rc64",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc64/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair64-2-halo-rc64"
+      ]
+    },
+    {
+      "name": "run-pair64-3-halo-rc64",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc64/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair64-3-halo-rc64"
+      ]
+    },
+    {
+      "name": "run-pair64-4-halo64",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo64/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair64-4-halo64"
+      ]
+    },
+    {
+      "name": "run-pair64-5-halo64",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo64/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair64-5-halo64"
+      ]
+    },
+    {
+      "name": "run-pair64-6-halo-rc64",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc64",
+        "--package",
+        "validations/primitives/halo_runtime_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc64/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-pair64-6-halo-rc64"
+      ]
+    }
+  ]
+}

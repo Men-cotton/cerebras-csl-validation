@@ -1,0 +1,233 @@
+{
+  "cases": {
+    "halo-rc-small": {
+      "case_sha256": "2ba194db85016c24dd9e812bdd671a4ec38f90830a7a9ec46c99cb90a50754f5",
+      "family": "halo",
+      "grid": [
+        2,
+        2
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 2,
+        "width": 2
+      }
+    },
+    "halo-rc-uneven": {
+      "case_sha256": "59663a371e845a9632f01cee474b9cd6edcaf47834bbca8677d789933a960eb9",
+      "family": "halo",
+      "grid": [
+        3,
+        2
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 2,
+        "width": 3
+      }
+    },
+    "halo-rc128": {
+      "case_sha256": "5541367ef7d423a4a58b81136077ddf01abf9456641a81326a69d844cad41c6d",
+      "family": "halo",
+      "grid": [
+        128,
+        128
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 128,
+        "width": 128
+      }
+    },
+    "halo-rc16": {
+      "case_sha256": "21bba6e482c109e483786cc671950d29c7088a363d15033b49e5da774927542a",
+      "family": "halo",
+      "grid": [
+        16,
+        16
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 16,
+        "width": 16
+      }
+    },
+    "halo-rc256": {
+      "case_sha256": "48619a0ec7b353d5f1f556f714175cc3ff0c373139cf05422b44f03cbff0798d",
+      "family": "halo",
+      "grid": [
+        256,
+        256
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 256,
+        "width": 256
+      }
+    },
+    "halo-rc32": {
+      "case_sha256": "16881a087b68d050cd2d6b41de3a8defb4084e1effbcebb8d2b7b9b7e554a867",
+      "family": "halo",
+      "grid": [
+        32,
+        32
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 32,
+        "width": 32
+      }
+    },
+    "halo-rc512": {
+      "case_sha256": "2fb11a2665ef0db1a48f66852828069cb7585970dc3e7ad7a4f590721309b712",
+      "family": "halo",
+      "grid": [
+        512,
+        512
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 512,
+        "width": 512
+      }
+    },
+    "halo-rc64": {
+      "case_sha256": "99b5f153de0e20cee4b4ca875c3f9a2db0616511e89fe9ec3ec584eaf910bf7c",
+      "family": "halo",
+      "grid": [
+        64,
+        64
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 64,
+        "width": 64
+      }
+    },
+    "halo16": {
+      "case_sha256": "56e8969eade286f7fd5a21e72de528e1488d17d723a89ec37c695f7e90809cdf",
+      "family": "halo",
+      "grid": [
+        16,
+        16
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 16,
+        "width": 16
+      }
+    },
+    "halo64": {
+      "case_sha256": "0a216fa4442a30c1af32419ff57116ef3bf2236908a9403cdc88fa848575fe67",
+      "family": "halo",
+      "grid": [
+        64,
+        64
+      ],
+      "kind": "halo",
+      "params": {
+        "height": 64,
+        "width": 64
+      }
+    }
+  },
+  "exporter_sha256": "299bddfa89a2aee12c54629825cb56f0c3545e6115d727b73b033b93687cbfaf",
+  "files": {
+    "cases/halo-rc-small/case.json": "2ba194db85016c24dd9e812bdd671a4ec38f90830a7a9ec46c99cb90a50754f5",
+    "cases/halo-rc-small/expected.npz": "c21394dc54db64a71088e821828df5da47f553912e1f98249f0793a9d5e80943",
+    "cases/halo-rc-small/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo-rc-small/source/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "cases/halo-rc-small/source/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "cases/halo-rc-small/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo-rc-small/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "cases/halo-rc-uneven/case.json": "59663a371e845a9632f01cee474b9cd6edcaf47834bbca8677d789933a960eb9",
+    "cases/halo-rc-uneven/expected.npz": "ace755f64f35a8e21cf9ea75022fd1b6a1bd860a2e2f4b2bebee777a6eb67131",
+    "cases/halo-rc-uneven/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo-rc-uneven/source/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "cases/halo-rc-uneven/source/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "cases/halo-rc-uneven/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo-rc-uneven/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "cases/halo-rc128/case.json": "5541367ef7d423a4a58b81136077ddf01abf9456641a81326a69d844cad41c6d",
+    "cases/halo-rc128/expected.npz": "11dc2d0cc4e3c857a019010767474362e7659f3354d72b16dfd2271d59d96401",
+    "cases/halo-rc128/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo-rc128/source/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "cases/halo-rc128/source/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "cases/halo-rc128/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo-rc128/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "cases/halo-rc16/case.json": "21bba6e482c109e483786cc671950d29c7088a363d15033b49e5da774927542a",
+    "cases/halo-rc16/expected.npz": "121dee64a55c6a07d97b16aa218303fa920851e7bc5e4bf81eb3f8540a9a3e55",
+    "cases/halo-rc16/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo-rc16/source/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "cases/halo-rc16/source/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "cases/halo-rc16/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo-rc16/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "cases/halo-rc256/case.json": "48619a0ec7b353d5f1f556f714175cc3ff0c373139cf05422b44f03cbff0798d",
+    "cases/halo-rc256/expected.npz": "c0cf3d742cb625ccc68b49cc9eea4cb4775f7c4046ea123b8def9d5ee8f2993a",
+    "cases/halo-rc256/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo-rc256/source/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "cases/halo-rc256/source/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "cases/halo-rc256/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo-rc256/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "cases/halo-rc32/case.json": "16881a087b68d050cd2d6b41de3a8defb4084e1effbcebb8d2b7b9b7e554a867",
+    "cases/halo-rc32/expected.npz": "7f73cac8c0916eb50c2e90d4289e1b15436f6ace3e0e20bc85606f10dda29124",
+    "cases/halo-rc32/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo-rc32/source/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "cases/halo-rc32/source/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "cases/halo-rc32/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo-rc32/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "cases/halo-rc512/case.json": "2fb11a2665ef0db1a48f66852828069cb7585970dc3e7ad7a4f590721309b712",
+    "cases/halo-rc512/expected.npz": "bd4867040d6f27a4d40768bdf54fce4bf7aef3c556eb40d5c582196d45b37a94",
+    "cases/halo-rc512/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo-rc512/source/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "cases/halo-rc512/source/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "cases/halo-rc512/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo-rc512/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "cases/halo-rc64/case.json": "99b5f153de0e20cee4b4ca875c3f9a2db0616511e89fe9ec3ec584eaf910bf7c",
+    "cases/halo-rc64/expected.npz": "2477d6cc68cc1c65d3c58e7dba4cfb001f012eb2a17c15e7533c82dab00b1bb4",
+    "cases/halo-rc64/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo-rc64/source/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "cases/halo-rc64/source/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "cases/halo-rc64/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo-rc64/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "cases/halo16/case.json": "56e8969eade286f7fd5a21e72de528e1488d17d723a89ec37c695f7e90809cdf",
+    "cases/halo16/expected.npz": "121dee64a55c6a07d97b16aa218303fa920851e7bc5e4bf81eb3f8540a9a3e55",
+    "cases/halo16/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo16/source/layout.csl": "b5694b030b318384d4510da10cd5cd2d67dacf11939e28ad3a12c0c0bf4c6b59",
+    "cases/halo16/source/pe.csl": "8814951bf95ae51abde4418d045ad55031121c33583bf2519fcc1c195874361b",
+    "cases/halo16/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo16/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "cases/halo64/case.json": "0a216fa4442a30c1af32419ff57116ef3bf2236908a9403cdc88fa848575fe67",
+    "cases/halo64/expected.npz": "2477d6cc68cc1c65d3c58e7dba4cfb001f012eb2a17c15e7533c82dab00b1bb4",
+    "cases/halo64/inputs.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "cases/halo64/source/layout.csl": "b5694b030b318384d4510da10cd5cd2d67dacf11939e28ad3a12c0c0bf4c6b59",
+    "cases/halo64/source/pe.csl": "8814951bf95ae51abde4418d045ad55031121c33583bf2519fcc1c195874361b",
+    "cases/halo64/source/vendor_layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "cases/halo64/source/vendor_pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27",
+    "oracle/kernels/sparse/exact-knn/mesh/model.py": "553aabe51a1932b2b162083f8926347306035399de94b8103a258b7e8235b2cb",
+    "oracle/kernels/sparse/exact-knn/model.py": "027142307c90088c306b95d48a4182ea3db3f21fd0d1e380f0f0be2a4e0fe463",
+    "oracle/kernels/sparse/exact-knn/reference.py": "d9649d220099da2a054343c8979c1adfa350feaae185dbbcb0897faf256a014b",
+    "oracle/kernels/sparse/resident-2d-spmm/physical_schedule/armed_clock/storage.py": "88d72e7b982caf91dea4bf989093dc52573766663b2c6a2e6f1b54443617e778",
+    "oracle/kernels/stencil/independent-halo/oracle.py": "b909a12dc27c5f5d8d8118f3382a6365597ab60ec7d89447e8a9881aab532176",
+    "provenance/export_tank_cases.py": "299bddfa89a2aee12c54629825cb56f0c3545e6115d727b73b033b93687cbfaf",
+    "provenance/originals/csl-extras-202505230211-4-d9070058/examples/benchmarks/benchmark-libs/stencil_3d_7pts/layout.csl": "c29c7b715d2c5b1306f5ced6c42ac9d8e2b243ea5df00237751f9a516dd84dcd",
+    "provenance/originals/csl-extras-202505230211-4-d9070058/examples/benchmarks/benchmark-libs/stencil_3d_7pts/wse3/pe.csl": "3a338183c52d18a7eb5e1b9817e4b9fceccc0c3af9fd2c3044de27dc12612c61",
+    "provenance/originals/kernels/sparse/exact-knn/mesh/layout.csl": "89b27b1ac32ee2bdc398adbd5289638b4d698df945f53edccaa7637825e2b5d3",
+    "provenance/originals/kernels/sparse/exact-knn/mesh/pe.csl": "1bfbe743bbac1fd58b44c15dd935891a10ee50a836191d5a980bc1fdceccf24c",
+    "provenance/originals/kernels/stencil/independent-halo/layout.csl": "c80787692985ec8866c54b358019df5f95760bc75d95210f7e4370aed1f3ce0f",
+    "provenance/originals/kernels/stencil/independent-halo/pe.csl": "3bec9f2d8c904e1a5c6d8bb77f4a252af9744e1c6097e1d84ec6e656aa99c35b",
+    "provenance/originals/kernels/stencil/independent-halo/runtime_coords/layout.csl": "d338856da440403d6149660cd1003f6b50e22a1de192d4c60fbc17195e67e2af",
+    "provenance/originals/kernels/stencil/independent-halo/runtime_coords/pe.csl": "4ba3521d88a6eefe535acf72d7a14e7cf3be35659148e977a4bfb1b663cf5fad",
+    "provenance/originals/sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/benchmark-libs/stencil_3d_7pts/layout.csl": "ac649f0b79bccbd46e8fb4ec22f9ebaf61de29f34808fa23e6f28285f7edd4ce",
+    "provenance/originals/sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/benchmark-libs/stencil_3d_7pts/pe.csl": "554a19dc1b17cd429a9c3cd3e73dca3296cfc3f9d616f8e8c1e85ad4ede5da9b",
+    "provenance/originals/sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/benchmark-libs/stencil_3d_7pts/wse3/pe.csl": "82f491bac656ee9491f93666b2bd0227b5bfcb11e95a25a52dc1cc1065209e27"
+  },
+  "oracle_sources": {
+    "oracle/kernels/sparse/exact-knn/mesh/model.py": "553aabe51a1932b2b162083f8926347306035399de94b8103a258b7e8235b2cb",
+    "oracle/kernels/sparse/exact-knn/model.py": "027142307c90088c306b95d48a4182ea3db3f21fd0d1e380f0f0be2a4e0fe463",
+    "oracle/kernels/sparse/exact-knn/reference.py": "d9649d220099da2a054343c8979c1adfa350feaae185dbbcb0897faf256a014b",
+    "oracle/kernels/sparse/resident-2d-spmm/physical_schedule/armed_clock/storage.py": "88d72e7b982caf91dea4bf989093dc52573766663b2c6a2e6f1b54443617e778",
+    "oracle/kernels/stencil/independent-halo/oracle.py": "b909a12dc27c5f5d8d8118f3382a6365597ab60ec7d89447e8a9881aab532176"
+  },
+  "schema": 1,
+  "source_commit": "c0353e097e054f58179fce418e97f928f5395630"
+}

@@ -1,0 +1,101 @@
+// H055: independent inputs; this is not a time-evolving stencil solver.
+param memcpy_params;
+param stencil_params;
+
+const NEXT = @get_local_task_id(12);
+const STARTUP = @get_local_task_id(13);
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const time = @import_module("<time>");
+const coords = @import_module("<layout>");
+// The exporter supplies the unchanged active official WSE-3 implementation.
+const stencil = @import_module("vendor_pe.csl", .{
+  .c_recv_west=stencil_params.c_recv_west,
+  .c_send_east=stencil_params.c_send_east,
+  .c_recv_east=stencil_params.c_recv_east,
+  .c_send_west=stencil_params.c_send_west,
+  .c_recv_south=stencil_params.c_recv_south,
+  .c_send_north=stencil_params.c_send_north,
+  .c_recv_north=stencil_params.c_recv_north,
+  .c_send_south=stencil_params.c_send_south,
+  .COMM=stencil_params.COMM,
+  .SEND=stencil_params.SEND,
+  .RECV=stencil_params.RECV,
+  .first_px=stencil_params.first_px,
+  .last_px=stencil_params.last_px,
+  .first_py=stencil_params.first_py,
+  .last_py=stencil_params.last_py,
+  .f_callback=completed,
+  .input_queues=[4]u16{4,5,6,7}, .output_queues=[4]u16{4,5,6,7},
+  .output_ut_id=3, .BLOCK_SIZE=16,
+  .dest_dsr_ids=[2]u16{2,3}, .src0_dsr_ids=[1]u16{2}, .src1_dsr_ids=[2]u16{2,3}
+});
+
+var x = @zeros([32]f32);
+var y = @zeros([32]f32);
+var Q = @zeros([32]f32);
+var count = @zeros([1]u32);
+var coeff = [7]f32{1.0,2.0,3.0,4.0,5.0,6.0,7.0};
+var clocks = @zeros([6]u16);
+var start = @zeros([3]u16);
+var finish = @zeros([3]u16);
+var n: i16 = 32;
+var phase: i16 = 0;
+var epoch: i16 = 0;
+var coordinate_offset: i16 = 0;
+var y_ptr: [*]f32 = &y;
+var q_ptr: [*]f32 = &Q;
+var count_ptr: [*]u32 = &count;
+var clocks_ptr: [*]u16 = &clocks;
+
+fn apply_epochs(length: i16, input_phase: i16) void {
+  @assert(length >= 2 and length <= 32);
+  @assert(input_phase == 0 or input_phase == 1);
+  n = length;
+  phase = input_phase;
+  count[0] = 0;
+  epoch = 0;
+  for (@range(u16,32)) |k| { Q[k]=0.0; y[k]=0.0; }
+  time.get_timestamp(&start);
+  // Include one coordinate calculation per launch in the measured interval.
+  // At the admitted512x512 bound, 17*px+31*py <=24528<32768.
+  const px = @as(i16,coords.get_x_coord());
+  const py = @as(i16,coords.get_y_coord());
+  coordinate_offset = (17*px + 31*py) % 64;
+  @activate(NEXT);
+}
+
+task next_epoch() void {
+  for (@range(i16,32)) |k| {
+    // Reducing the nonnegative coordinate term first preserves the input bits.
+    // This numerator is <=291; retain i16 scalar arithmetic on WSE-3.
+    const base = (coordinate_offset + 7*k + 11*phase) % 64;
+    x[k] = @as(f32,1 + base + 64*epoch);
+  }
+  stencil.spmv(n,&coeff,&x,&y);
+}
+
+fn completed() void {
+  for (@range(i16,n)) |k| { Q[k] += y[k]; }
+  count[0] += 1;
+  epoch += 1;
+  if (epoch < 64) {
+    @activate(NEXT);
+  } else {
+    time.get_timestamp(&finish);
+    for (@range(u16,3)) |k| { clocks[k]=start[k]; clocks[k+3]=finish[k]; }
+    sys.unblock_cmd_stream();
+  }
+}
+
+task startup() void { time.enable_tsc(); }
+
+comptime {
+  @bind_local_task(next_epoch,NEXT);
+  @bind_local_task(startup,STARTUP);
+  @activate(STARTUP);
+  @export_symbol(y_ptr,"y");
+  @export_symbol(q_ptr,"Q");
+  @export_symbol(count_ptr,"count");
+  @export_symbol(clocks_ptr,"clocks");
+  @export_symbol(apply_epochs);
+}
