@@ -1,0 +1,293 @@
+{
+  "schema": 1,
+  "id": "tank-halo-shape-frontier-20261027-r001",
+  "description": "E205: shape-dependent runtime-coordinate halo at the full-output capture frontier. Fresh3x3 pilot(length/phase17:0,32:1,32:0), fresh512x512 control and512x663/663x512 (339456PE), three independent runtimes each with rotating ABC/BCA/CAB order. Keep32cells and64independent epochs perPE, audit every PE and retain load vs samePE intervals separately. Each rectangle raw96405504B,63488B below92MiB; shared static-compatible coordinate margin228 and unchanged128MiB capture/256MiB package caps. E203 hardware512compile180.660s predicts~234s at rectangle area; client1200s/worker600s allow load30.514s plus capture. Projected total output uses raw sum801787380B plus compressed builds/capture archives and audits;2GiB remains a fail-closed request stop, not a worst-case sum of per-step caps. Large local SDK runs omitted after exact3x3 SIM; geometry/kernel/capture limits remain separate.",
+  "steps": [
+    {
+      "name": "compile-halo-rc-odd",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc-odd",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc-odd"
+      ]
+    },
+    {
+      "name": "run-odd",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc-odd",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc-odd/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-odd"
+      ]
+    },
+    {
+      "name": "compile-halo-rc512",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc512"
+      ]
+    },
+    {
+      "name": "compile-halo-rc512x663",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512x663",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc512x663"
+      ]
+    },
+    {
+      "name": "compile-halo-rc663x512",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc663x512",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-halo-rc663x512"
+      ]
+    },
+    {
+      "name": "run-r1-halo-rc512",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc512/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r1-halo-rc512"
+      ]
+    },
+    {
+      "name": "run-r1-halo-rc512x663",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512x663",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc512x663/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r1-halo-rc512x663"
+      ]
+    },
+    {
+      "name": "run-r1-halo-rc663x512",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc663x512",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc663x512/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r1-halo-rc663x512"
+      ]
+    },
+    {
+      "name": "run-r2-halo-rc512x663",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512x663",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc512x663/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r2-halo-rc512x663"
+      ]
+    },
+    {
+      "name": "run-r2-halo-rc663x512",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc663x512",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc663x512/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r2-halo-rc663x512"
+      ]
+    },
+    {
+      "name": "run-r2-halo-rc512",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc512/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r2-halo-rc512"
+      ]
+    },
+    {
+      "name": "run-r3-halo-rc663x512",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc663x512",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc663x512/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r3-halo-rc663x512"
+      ]
+    },
+    {
+      "name": "run-r3-halo-rc512",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc512/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r3-halo-rc512"
+      ]
+    },
+    {
+      "name": "run-r3-halo-rc512x663",
+      "script": "validations/primitives/tank_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--backend",
+        "hardware",
+        "--case",
+        "halo-rc512x663",
+        "--package",
+        "validations/primitives/halo_shape_cases",
+        "--artifact-record",
+        "{output}/compile-halo-rc512x663/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r3-halo-rc512x663"
+      ]
+    }
+  ]
+}
