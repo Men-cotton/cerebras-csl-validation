@@ -1,0 +1,492 @@
+{
+  "schema": 1,
+  "id": "tank-layernorm-composition-20261027-r001",
+  "description": "Root-statistics LayerNorm composed with projected first-edge affine: fresh colored S2 pilot, then full1896-node H128S15 C64R128 factorial A=direct/full-vector, B=projected/full-vector, C=direct/root-statistics, D=projected/root-statistics. Twelve independent runtimes in ABCDDCBAACDB order, unchanged complete numerical audit after every capture. Compare A/C and B/D bitwise after collection; PE-local clocks exclude initialization and do not measure SDK end-to-end speed.",
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e204-pilot",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e204-pilot"
+      ],
+      "kind": "appliance",
+      "name": "compile-e204-pilot",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-pilot",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-pilot/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e204-pilot"
+      ],
+      "kind": "appliance",
+      "name": "run-e204-pilot",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e204-pilot/capture-data",
+        "--out",
+        "{output}/numerical-e204-pilot.json"
+      ],
+      "kind": "host",
+      "name": "audit-e204-pilot",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e204-a",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e204-a"
+      ],
+      "kind": "appliance",
+      "name": "compile-e204-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e204-b",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e204-b"
+      ],
+      "kind": "appliance",
+      "name": "compile-e204-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e204-c",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e204-c"
+      ],
+      "kind": "appliance",
+      "name": "compile-e204-c",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e204-d",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e204-d"
+      ],
+      "kind": "appliance",
+      "name": "compile-e204-d",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-a",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-a/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r01-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r01-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r01-a/capture-data",
+        "--out",
+        "{output}/numerical-r01-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r01-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-b",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-b/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r02-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r02-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r02-b/capture-data",
+        "--out",
+        "{output}/numerical-r02-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r02-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-c",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-c/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r03-c"
+      ],
+      "kind": "appliance",
+      "name": "run-r03-c",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r03-c/capture-data",
+        "--out",
+        "{output}/numerical-r03-c.json"
+      ],
+      "kind": "host",
+      "name": "audit-r03-c",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-d",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-d/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r04-d"
+      ],
+      "kind": "appliance",
+      "name": "run-r04-d",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r04-d/capture-data",
+        "--out",
+        "{output}/numerical-r04-d.json"
+      ],
+      "kind": "host",
+      "name": "audit-r04-d",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-d",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-d/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r05-d"
+      ],
+      "kind": "appliance",
+      "name": "run-r05-d",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r05-d/capture-data",
+        "--out",
+        "{output}/numerical-r05-d.json"
+      ],
+      "kind": "host",
+      "name": "audit-r05-d",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-c",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-c/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r06-c"
+      ],
+      "kind": "appliance",
+      "name": "run-r06-c",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r06-c/capture-data",
+        "--out",
+        "{output}/numerical-r06-c.json"
+      ],
+      "kind": "host",
+      "name": "audit-r06-c",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-b",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-b/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r07-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r07-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r07-b/capture-data",
+        "--out",
+        "{output}/numerical-r07-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r07-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-a",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-a/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r08-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r08-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r08-a/capture-data",
+        "--out",
+        "{output}/numerical-r08-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r08-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-a",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-a/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r09-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r09-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r09-a/capture-data",
+        "--out",
+        "{output}/numerical-r09-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r09-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-c",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-c/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r10-c"
+      ],
+      "kind": "appliance",
+      "name": "run-r10-c",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r10-c/capture-data",
+        "--out",
+        "{output}/numerical-r10-c.json"
+      ],
+      "kind": "host",
+      "name": "audit-r10-c",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-d",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-d/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r11-d"
+      ],
+      "kind": "appliance",
+      "name": "run-r11-d",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r11-d/capture-data",
+        "--out",
+        "{output}/numerical-r11-d.json"
+      ],
+      "kind": "host",
+      "name": "audit-r11-d",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e204-b",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e204-b/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r12-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r12-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r12-b/capture-data",
+        "--out",
+        "{output}/numerical-r12-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r12-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}

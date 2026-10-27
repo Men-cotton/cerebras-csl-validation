@@ -1,0 +1,400 @@
+{
+  "accounting": {
+    "affine_macs": 4376832,
+    "all_owner_panel_bytes_per_pe": 0,
+    "bank_bytes_per_pe": 3248,
+    "bank_padding_words": 128,
+    "communication_counter_scope": "stats11=block halos,16=global consumption barriers,17=source rounds; comm_stats=sliced message counters",
+    "declared_array_bytes_per_pe": 9524,
+    "halo_barrier_word_hops": 11424,
+    "halo_column_barriers": 0,
+    "halo_global_barriers": 6,
+    "halo_header_scope": "four application words plus one SDK routing word per fixed-message packet; collective headers excluded",
+    "halo_header_words": 1280,
+    "halo_payload_word_hops": 2304,
+    "halo_payload_words": 2304,
+    "halo_source_broadcasts_per_column": 0,
+    "intermediate_workspace_bytes_per_pe": 72,
+    "layernorm_statistics_evaluations": 66,
+    "layernorm_vectors": 66,
+    "padded_weight_bytes": 1662464,
+    "parameter_bytes": 1597448,
+    "projected_first_affine_scalar_adds": 6144,
+    "projection_workspace_bytes_per_pe": 112,
+    "row_broadcast_collectives": 302,
+    "row_broadcast_word_hops": 2072700,
+    "row_gather_collectives": 322,
+    "row_gather_word_hops": 1298304,
+    "scope": "declared arrays/algorithm traffic only; code, SDK state, alignment, stack and congestion require compiler/device evidence",
+    "source_panel_bytes_per_pe": 0,
+    "streamed_padding_words": 0,
+    "weight_column_barrier_word_hops": 20608,
+    "weight_payload_word_hops": 2909312
+  },
+  "claim": "complete H128 normalized one-step physical forward with all untied weights resident; no training, convergence, long rollout or speedup claim",
+  "experiment": "native-full-physical-v1",
+  "field_tolerances": {
+    "velocity_out": {
+      "atol": 1e-06,
+      "rtol": 3e-05
+    }
+  },
+  "files": {
+    "exact_masks.npz": "654cf97bea6b463f1001eafe71850ceceb76e454e551bf860acf491f39b8d205",
+    "expected.npz": "c2e8d9116891d7ec647be1a86c8b6d07940a69f23f4f8995c404793f7a141270",
+    "inputs.npz": "d8b322c23f0bc7c0e14e5b058c706c9ef7601f2123d08dadd4bf1bb6497d1114",
+    "original.npz": "f2ebccc59f21ef28dea8e30d5209e9b90fed3099392810eced9a4fbc85ad8513",
+    "sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+    "source/layout.csl": "fcf90c4c79df9d699b97eb405ecb178051801a882fa8925a9ee39acfc5fdca62",
+    "source/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+    "source/pe.csl": "921231175f09d154f5dc86c4f93889f26a2738f3751c196289c0818d65fdf7db",
+    "source/sliced_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "source/statistics.csl": "9bb438636f0e0f6e212014a3aad5d85442076b787f1a9dcccd50e8fbfe29b26b",
+    "storage-admission.json": "8164fb3d9d36923d16f141867d35e5e5c8747b61c5712d50dbaf79a61d1efd2f",
+    "zero_masks.npz": "9ebbfb3c9737258aaaeed530f2681fa525384b8a58f59dcd033693d8147a1515"
+  },
+  "inputs": {
+    "bank": [
+      812,
+      "float32"
+    ],
+    "counts": [
+      2,
+      "uint32"
+    ],
+    "dst_slot": [
+      9,
+      "uint32"
+    ],
+    "geometry": [
+      27,
+      "float32"
+    ],
+    "node_type": [
+      7,
+      "uint32"
+    ],
+    "normalizers": [
+      32,
+      "float32"
+    ],
+    "round_sources": [
+      2,
+      "uint32"
+    ],
+    "rx_count": [
+      8,
+      "uint32"
+    ],
+    "rx_slot": [
+      9,
+      "uint32"
+    ],
+    "src_owner": [
+      9,
+      "uint32"
+    ],
+    "src_slot": [
+      9,
+      "uint32"
+    ],
+    "tx_begin": [
+      9,
+      "uint32"
+    ],
+    "tx_slots": [
+      7,
+      "uint32"
+    ],
+    "velocity": [
+      14,
+      "float32"
+    ]
+  },
+  "oracle_crosscheck": "independent dense normalized full-model oracle; bank reconstruction is covered by adversarial host tests",
+  "outputs": {
+    "aggregate": [
+      14,
+      "float32"
+    ],
+    "cached_e0": [
+      18,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "decoder_output": [
+      14,
+      "float32"
+    ],
+    "delta_e": [
+      18,
+      "float32"
+    ],
+    "delta_h": [
+      14,
+      "float32"
+    ],
+    "e_out": [
+      18,
+      "float32"
+    ],
+    "encoded_h": [
+      14,
+      "float32"
+    ],
+    "h_out": [
+      14,
+      "float32"
+    ],
+    "sender_cache": [
+      18,
+      "float32"
+    ],
+    "stats": [
+      18,
+      "uint32"
+    ],
+    "velocity_out": [
+      14,
+      "float32"
+    ]
+  },
+  "params": {
+    "C": 64,
+    "E": 9,
+    "H": 128,
+    "HCAP": 7,
+    "K": 13,
+    "L": 7,
+    "MODE": 2,
+    "PROJECTED": 1,
+    "Q": 2,
+    "R": 8,
+    "ROOT_STATS": 1,
+    "S": 2,
+    "T": 2
+  },
+  "portable_oracle_module": "models.meshgraphnet.native_full.driver",
+  "provenance": {
+    "directed_edges": 12,
+    "fixture": "adversarial",
+    "kind": "adversarial synthetic graph",
+    "model": {
+      "blocks": 2,
+      "kind": "seeded numerical probe",
+      "seed": 20261023
+    },
+    "nodes": 10,
+    "physical_scope": "one complete model step; no accuracy or rollout claim"
+  },
+  "schedule": {
+    "colors": {
+      "Q": 2,
+      "closed_endpoints": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ]
+      ],
+      "colors": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "columns": 1,
+      "conflict_counts": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "endpoint_collisions": 0,
+      "final_round_sources": [
+        1,
+        1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "greedy_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "idle": 8,
+      "last_active_sources": [
+        1,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "owners": 8,
+      "remote_pairs_covered": 2,
+      "round_active_endpoint_counts": [
+        8,
+        2
+      ],
+      "round_sources": [
+        [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          1
+        ]
+      ],
+      "rows": 8,
+      "schedule_bytes_per_pe": 8,
+      "schema": 1,
+      "scope": "analytical deterministic closed-source-star coloring; endpoint exclusion and source coverage checked; no routing-link exclusion or cycle prediction",
+      "source_round_assignments": 8,
+      "source_unique_vertices": [
+        7,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sources_covered": 8
+    },
+    "traffic": {
+      "C": 64,
+      "E": 9,
+      "F": 2,
+      "H": 128,
+      "K": 13,
+      "L": 7,
+      "R": 8,
+      "T": 7,
+      "application_header_words": 512,
+      "header_words": 640,
+      "local_edge_copies_per_lane": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "modeled_header_word_hops": 640,
+      "modeled_max_link_words": 19,
+      "modeled_payload_word_hops": 1152,
+      "packet_count": 128,
+      "payload_words": 1152,
+      "remote_edge_copies_per_lane": [
+        2,
+        8,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "remote_unique": 9,
+      "routing_header_words": 128,
+      "schedule_bytes_per_pe": 204,
+      "source_rounds": 8,
+      "traffic_scope": "per generation; same-column Manhattan links, 4 application plus1 SDK header words; excludes caller barriers"
+    },
+    "traffic_scope": "executed selective halo schedule census"
+  },
+  "schema": 1,
+  "sources": {
+    "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+    "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+    "kernels/communication/sliced-halo/audit.py": "9117f82827bae38d4c5f803cb99ff1fe03a7cc7c7caa3a0bd3960cecbcbcca72",
+    "kernels/communication/sliced-halo/pe.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "kernels/communication/sliced-halo/schedule.py": "1b3e71b20ac8778548fe5df89cadba02966f2efcf266ffc000bf275d05650477",
+    "kernels/dense/layernorm-stats/statistics.csl": "9bb438636f0e0f6e212014a3aad5d85442076b787f1a9dcccd50e8fbfe29b26b",
+    "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+    "models/meshgraphnet/colored_schedule.py": "aa52008a00aa6fffcad520065ce60ee4c74e98f9dc8c59db8e69ea7c2494a23a",
+    "models/meshgraphnet/colored_validation.py": "8a78bdc96ae8938548248bb04739ce744c1f2381305b7e9ee95f9a2ff59436eb",
+    "models/meshgraphnet/data.py": "6e16f4199841df21c8a665648e728d41224794a7748f2a721f0638ca0b950c33",
+    "models/meshgraphnet/native_full/driver.py": "e75b58c2ddcadea2c8b66ecedd144addec99d533acb5e532ecc212a9f682dff9",
+    "models/meshgraphnet/native_full/elf_reader.py": "2dbf314237ff068edd95fe20187aaae19576708723384256fd0067dfe5bfbc8b",
+    "models/meshgraphnet/native_full/layout.csl": "fcf90c4c79df9d699b97eb405ecb178051801a882fa8925a9ee39acfc5fdca62",
+    "models/meshgraphnet/native_full/model.py": "f65b281ab62d6f8e4334e1604bf6137b1c3802614b944af433ff9c83cd64af37",
+    "models/meshgraphnet/native_full/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+    "models/meshgraphnet/native_full/pe.csl": "921231175f09d154f5dc86c4f93889f26a2738f3751c196289c0818d65fdf7db",
+    "models/meshgraphnet/native_full/sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+    "models/meshgraphnet/native_mesh/model.py": "251964fe86d4da9d9daa2eaf3c16fe4d316537fea6e4da0893ebdc6a248bee4a",
+    "models/meshgraphnet/pretrained/inference.py": "c767341c43b5dbcc29925a0be5f1a171302954c1e3229ffe33295cb37ec9300e",
+    "models/meshgraphnet/reference.py": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+    "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+    "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+    "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404"
+  },
+  "storage_admission": {
+    "declared_array_bytes_per_pe": 9524,
+    "remaining_bytes_for_code_sdk_alignment_stack": 35532,
+    "scope": "necessary declared-array condition only; compiled ELF guard remains mandatory",
+    "static_limit_bytes": 45056,
+    "status": "ADMITTED"
+  },
+  "tolerances": {
+    "atol": 0.0003,
+    "rtol": 0.0003
+  },
+  "transport": "colored"
+}
