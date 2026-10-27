@@ -1,0 +1,236 @@
+{
+  "barrier_count": 9,
+  "barrier_word_hops_per_barrier": 104,
+  "experiment": "E207-indexed-source-cache",
+  "files": {
+    "inputs.npz": "56288fffcfebd753129275e5795201246436ac639dc46c7537d6aaee8dde2146",
+    "original.npz": "04578951d7a843a221149a124d68b0be979f0904c6dc836ddd1e6853fbf8bf4f",
+    "sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "source/baseline_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "source/layout.csl": "6f6ac9b3f0ec78416428ef19b562848b931bfbd8b149c05ee5cb527ab06c59fd",
+    "source/pe.csl": "5a7c280cda0dc0eb2208add2cff7802ac3d66abce1c70fbef1ba10044be6510c",
+    "source/probe.csl": "99f4dcfcbd1797a5bbc842386fa26edeb5523b710ede345279bdaf4c717af3dd"
+  },
+  "fixture": {
+    "duplicates": 64,
+    "kind": "balanced"
+  },
+  "inputs": {
+    "dst_slot": [
+      1152,
+      "uint32"
+    ],
+    "features": [
+      112,
+      "float32"
+    ],
+    "rx_begin": [
+      5,
+      "uint32"
+    ],
+    "rx_slot": [
+      1152,
+      "uint32"
+    ],
+    "src_owner": [
+      1152,
+      "uint32"
+    ],
+    "src_slot": [
+      1152,
+      "uint32"
+    ],
+    "tx_begin": [
+      5,
+      "uint32"
+    ],
+    "tx_slots": [
+      14,
+      "uint32"
+    ],
+    "weight": [
+      1152,
+      "float32"
+    ]
+  },
+  "outputs": {
+    "aggregate_history": [
+      224,
+      "float32"
+    ],
+    "cache": [
+      224,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 8,
+    "E": 1152,
+    "F": 16,
+    "GENERATIONS": 2,
+    "H": 128,
+    "K": 1,
+    "L": 7,
+    "MODE": 1,
+    "R": 4,
+    "T": 14,
+    "U": 14
+  },
+  "resources": {
+    "accounting_scope": "named source arrays only; cache is final state, aggregate history is identical in both arms; ELF admission includes code/library/scalars",
+    "active_edges_per_owner": [
+      640,
+      1152,
+      1152,
+      640
+    ],
+    "aggregate_history_bytes_per_pe": 896,
+    "baseline_edge_predicates_per_pe_per_generation": [
+      9216,
+      9216,
+      9216,
+      9216,
+      9216,
+      9216,
+      9216,
+      9216,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      17280,
+      9216,
+      9216,
+      9216,
+      9216,
+      9216,
+      9216,
+      9216,
+      9216
+    ],
+    "cache_bytes_per_pe": 896,
+    "consumer_edge_capacity_per_pe": 1152,
+    "consumer_features_per_edge": 16,
+    "declared_array_bytes_per_pe": 26500,
+    "indexed_cache_net_saving_bytes_per_pe": 72828,
+    "indexed_packet_loop_iterations_per_pe_per_generation": [
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+    ],
+    "input_bytes_per_pe": 23584,
+    "output_bytes_per_pe": 1884,
+    "scratch_array_bytes_per_pe": 1032,
+    "unique_remote_per_owner": [
+      7,
+      14,
+      14,
+      7
+    ],
+    "work_scope": "modeled loop counts, not instruction counts or timing; wire schedule is unchanged"
+  },
+  "scope": "H128 selective halo plus original-edge-order weighted aggregation, final cache and every generation aggregate; no GNN edge latent, backward kernel, training or end-to-end speedup",
+  "sources": {
+    "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+    "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+    "kernels/communication/sliced-halo/audit.py": "9117f82827bae38d4c5f803cb99ff1fe03a7cc7c7caa3a0bd3960cecbcbcca72",
+    "kernels/communication/sliced-halo/indexed_cache/driver.py": "a95a422b2357daac05a635facdc9cc727318ada47a36a5ea21848a6c570f68d0",
+    "kernels/communication/sliced-halo/indexed_cache/layout.csl": "6f6ac9b3f0ec78416428ef19b562848b931bfbd8b149c05ee5cb527ab06c59fd",
+    "kernels/communication/sliced-halo/indexed_cache/model.py": "0b5927d279ca24a2009ba360f083b873b576ed4c886770c192d3994a812ea109",
+    "kernels/communication/sliced-halo/indexed_cache/pe.csl": "5a7c280cda0dc0eb2208add2cff7802ac3d66abce1c70fbef1ba10044be6510c",
+    "kernels/communication/sliced-halo/indexed_cache/probe.csl": "99f4dcfcbd1797a5bbc842386fa26edeb5523b710ede345279bdaf4c717af3dd",
+    "kernels/communication/sliced-halo/pe.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "kernels/communication/sliced-halo/schedule.py": "1b3e71b20ac8778548fe5df89cadba02966f2efcf266ffc000bf275d05650477",
+    "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+    "models/meshgraphnet/sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+    "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+    "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404"
+  },
+  "traffic_per_generation": {
+    "C": 8,
+    "E": 1152,
+    "F": 16,
+    "H": 128,
+    "K": 1,
+    "L": 7,
+    "R": 4,
+    "T": 14,
+    "application_header_words": 1344,
+    "header_words": 1680,
+    "local_edge_copies_per_lane": [
+      128,
+      128,
+      128,
+      128
+    ],
+    "modeled_header_word_hops": 1680,
+    "modeled_max_link_words": 147,
+    "modeled_payload_word_hops": 5376,
+    "packet_count": 336,
+    "payload_words": 5376,
+    "remote_edge_copies_per_lane": [
+      512,
+      1024,
+      1024,
+      512
+    ],
+    "remote_unique": 42,
+    "routing_header_words": 336,
+    "schedule_bytes_per_pe": 13916,
+    "source_rounds": 4,
+    "traffic_scope": "per generation; same-column Manhattan links, 4 application plus1 SDK header words; excludes caller barriers"
+  }
+}

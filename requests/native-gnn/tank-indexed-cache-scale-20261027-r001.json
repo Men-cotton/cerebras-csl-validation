@@ -1,0 +1,884 @@
+{
+  "description": "E207 original-edge weighted consumer: occurrence cache A versus distinct remote-source indexed cache B, H128 C8 K1 and two changing generations. Mixed R2 pilot pair; balanced R4 d1 ABBAAB; balanced R16/R64/R128 pairs; balanced R4 d16 ABBAAB; indexed-only R4 d64 capacity case. Each runtime has complete exact output/input/counter and same-PE clock audit before progression. Both arms preserve graph, wire schedule and original edge order. Timings include source-round barriers, clearing, consumer and history copies; d64 is not a matched speed comparison.",
+  "id": "tank-indexed-cache-scale-20261027-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-mixed-c8-r2-d1-baseline",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-mixed-c8-r2-d1-baseline"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-mixed-c8-r2-d1-baseline",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-mixed-c8-r2-d1-indexed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-mixed-c8-r2-d1-indexed"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-mixed-c8-r2-d1-indexed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-mixed-c8-r2-d1-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-mixed-c8-r2-d1-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r01-mixed-c8-r2-d1-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r01-mixed-c8-r2-d1-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r01-mixed-c8-r2-d1-a/capture-data",
+        "--out",
+        "{output}/numerical-r01-mixed-c8-r2-d1-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r01-mixed-c8-r2-d1-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-mixed-c8-r2-d1-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-mixed-c8-r2-d1-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r02-mixed-c8-r2-d1-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r02-mixed-c8-r2-d1-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r02-mixed-c8-r2-d1-b/capture-data",
+        "--out",
+        "{output}/numerical-r02-mixed-c8-r2-d1-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r02-mixed-c8-r2-d1-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r4-d1-baseline",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r4-d1-baseline"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r4-d1-baseline",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r4-d1-indexed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r4-d1-indexed"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r4-d1-indexed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d1-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d1-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r03-balanced-c8-r4-d1-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r03-balanced-c8-r4-d1-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r03-balanced-c8-r4-d1-a/capture-data",
+        "--out",
+        "{output}/numerical-r03-balanced-c8-r4-d1-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r03-balanced-c8-r4-d1-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d1-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d1-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r04-balanced-c8-r4-d1-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r04-balanced-c8-r4-d1-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r04-balanced-c8-r4-d1-b/capture-data",
+        "--out",
+        "{output}/numerical-r04-balanced-c8-r4-d1-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r04-balanced-c8-r4-d1-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d1-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d1-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r05-balanced-c8-r4-d1-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r05-balanced-c8-r4-d1-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r05-balanced-c8-r4-d1-b/capture-data",
+        "--out",
+        "{output}/numerical-r05-balanced-c8-r4-d1-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r05-balanced-c8-r4-d1-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d1-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d1-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r06-balanced-c8-r4-d1-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r06-balanced-c8-r4-d1-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r06-balanced-c8-r4-d1-a/capture-data",
+        "--out",
+        "{output}/numerical-r06-balanced-c8-r4-d1-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r06-balanced-c8-r4-d1-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d1-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d1-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r07-balanced-c8-r4-d1-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r07-balanced-c8-r4-d1-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r07-balanced-c8-r4-d1-a/capture-data",
+        "--out",
+        "{output}/numerical-r07-balanced-c8-r4-d1-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r07-balanced-c8-r4-d1-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d1-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d1-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r08-balanced-c8-r4-d1-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r08-balanced-c8-r4-d1-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r08-balanced-c8-r4-d1-b/capture-data",
+        "--out",
+        "{output}/numerical-r08-balanced-c8-r4-d1-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r08-balanced-c8-r4-d1-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r16-d1-baseline",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r16-d1-baseline"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r16-d1-baseline",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r16-d1-indexed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r16-d1-indexed"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r16-d1-indexed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r16-d1-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r16-d1-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r09-balanced-c8-r16-d1-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r09-balanced-c8-r16-d1-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r09-balanced-c8-r16-d1-a/capture-data",
+        "--out",
+        "{output}/numerical-r09-balanced-c8-r16-d1-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r09-balanced-c8-r16-d1-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r16-d1-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r16-d1-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r10-balanced-c8-r16-d1-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r10-balanced-c8-r16-d1-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r10-balanced-c8-r16-d1-b/capture-data",
+        "--out",
+        "{output}/numerical-r10-balanced-c8-r16-d1-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r10-balanced-c8-r16-d1-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r64-d1-baseline",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r64-d1-baseline"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r64-d1-baseline",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r64-d1-indexed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r64-d1-indexed"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r64-d1-indexed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r64-d1-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r64-d1-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r11-balanced-c8-r64-d1-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r11-balanced-c8-r64-d1-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r11-balanced-c8-r64-d1-a/capture-data",
+        "--out",
+        "{output}/numerical-r11-balanced-c8-r64-d1-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r11-balanced-c8-r64-d1-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r64-d1-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r64-d1-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r12-balanced-c8-r64-d1-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r12-balanced-c8-r64-d1-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r12-balanced-c8-r64-d1-b/capture-data",
+        "--out",
+        "{output}/numerical-r12-balanced-c8-r64-d1-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r12-balanced-c8-r64-d1-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r128-d1-baseline",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r128-d1-baseline"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r128-d1-baseline",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r128-d1-indexed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r128-d1-indexed"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r128-d1-indexed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r128-d1-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r128-d1-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r13-balanced-c8-r128-d1-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r13-balanced-c8-r128-d1-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r13-balanced-c8-r128-d1-a/capture-data",
+        "--out",
+        "{output}/numerical-r13-balanced-c8-r128-d1-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r13-balanced-c8-r128-d1-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r128-d1-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r128-d1-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r14-balanced-c8-r128-d1-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r14-balanced-c8-r128-d1-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r14-balanced-c8-r128-d1-b/capture-data",
+        "--out",
+        "{output}/numerical-r14-balanced-c8-r128-d1-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r14-balanced-c8-r128-d1-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r4-d16-baseline",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r4-d16-baseline"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r4-d16-baseline",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-balanced-c8-r4-d16-indexed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-balanced-c8-r4-d16-indexed"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-balanced-c8-r4-d16-indexed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d16-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d16-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r15-balanced-c8-r4-d16-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r15-balanced-c8-r4-d16-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r15-balanced-c8-r4-d16-a/capture-data",
+        "--out",
+        "{output}/numerical-r15-balanced-c8-r4-d16-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r15-balanced-c8-r4-d16-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d16-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d16-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r16-balanced-c8-r4-d16-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r16-balanced-c8-r4-d16-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r16-balanced-c8-r4-d16-b/capture-data",
+        "--out",
+        "{output}/numerical-r16-balanced-c8-r4-d16-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r16-balanced-c8-r4-d16-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d16-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d16-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r17-balanced-c8-r4-d16-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r17-balanced-c8-r4-d16-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r17-balanced-c8-r4-d16-b/capture-data",
+        "--out",
+        "{output}/numerical-r17-balanced-c8-r4-d16-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r17-balanced-c8-r4-d16-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d16-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d16-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r18-balanced-c8-r4-d16-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r18-balanced-c8-r4-d16-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r18-balanced-c8-r4-d16-a/capture-data",
+        "--out",
+        "{output}/numerical-r18-balanced-c8-r4-d16-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r18-balanced-c8-r4-d16-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d16-baseline",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d16-baseline/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r19-balanced-c8-r4-d16-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r19-balanced-c8-r4-d16-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r19-balanced-c8-r4-d16-a/capture-data",
+        "--out",
+        "{output}/numerical-r19-balanced-c8-r4-d16-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r19-balanced-c8-r4-d16-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-balanced-c8-r4-d16-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-balanced-c8-r4-d16-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r20-balanced-c8-r4-d16-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r20-balanced-c8-r4-d16-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r20-balanced-c8-r4-d16-b/capture-data",
+        "--out",
+        "{output}/numerical-r20-balanced-c8-r4-d16-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r20-balanced-c8-r4-d16-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e207-capacity-c8-r4-d64-indexed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e207-capacity-c8-r4-d64-indexed"
+      ],
+      "kind": "appliance",
+      "name": "compile-e207-capacity-c8-r4-d64-indexed",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e207-capacity-c8-r4-d64-indexed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e207-capacity-c8-r4-d64-indexed/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r21-capacity-c8-r4-d64-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r21-capacity-c8-r4-d64-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r21-capacity-c8-r4-d64-b/capture-data",
+        "--out",
+        "{output}/numerical-r21-capacity-c8-r4-d64-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r21-capacity-c8-r4-d64-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}

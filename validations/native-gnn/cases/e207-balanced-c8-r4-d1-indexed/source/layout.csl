@@ -1,0 +1,41 @@
+// SPDX-License-Identifier: Apache-2.0
+param C: u16;
+param R: u16;
+param H: u16;
+param F: u16;
+param L: u16;
+param E: u16;
+param T: u16;
+param U: u16;
+param K: u16;
+param GENERATIONS: u16;
+param MODE: u16;
+const memcpy=@import_module("<memcpy/get_params>",.{.width=C,.height=R});
+const c2d=@import_module("<collectives_2d/params>");
+layout {
+  @comptime_assert(C>=8 and R>=2 and H==128 and C*F==H and MODE<=1);
+  @set_rectangle(C,R);
+  for (@range(u16,C)) |x| {
+    for (@range(u16,R)) |y| {
+      const cp=c2d.get_params(x,y,.{
+        .x_colors=.{@get_color(0),@get_color(1)},
+        .x_entrypoints=.{@get_local_task_id(8),@get_local_task_id(9)},
+        .y_colors=.{@get_color(4),@get_color(5)},
+        .y_entrypoints=.{@get_local_task_id(10),@get_local_task_id(11)}
+      });
+      @set_tile_code(x,y,"probe.csl",.{.memcpy_params=memcpy.get_params(x),
+        .c2d_params=cp,.C=C,.R=R,.F=F,.L=L,.E=E,.T=T,.U=U,.K=K,
+        .GENERATIONS=GENERATIONS,.MODE=MODE});
+    }
+  }
+  @export_name("features",[*]f32,true);
+  @export_name("src_owner",[*]u32,true); @export_name("src_slot",[*]u32,true);
+  @export_name("dst_slot",[*]u32,true); @export_name("weight",[*]f32,true);
+  @export_name("tx_begin",[*]u32,true); @export_name("tx_slots",[*]u32,true);
+  if (MODE==0) { @export_name("rx_count",[*]u32,true); }
+  else { @export_name("rx_begin",[*]u32,true); }
+  @export_name("rx_slot",[*]u32,true); @export_name("cache",[*]f32,true);
+  @export_name("aggregate_history",[*]f32,true);
+  @export_name("comm_stats",[*]u32,true); @export_name("stats",[*]u32,true);
+  @export_name("clocks",[*]u16,true); @export_name("run",fn()void);
+}

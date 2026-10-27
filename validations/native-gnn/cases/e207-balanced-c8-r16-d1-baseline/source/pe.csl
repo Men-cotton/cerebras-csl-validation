@@ -1,0 +1,131 @@
+// SPDX-License-Identifier: Apache-2.0
+// Distinct remote slots; callers read local edges from their live node slice.
+// Callers retain that slice and barrier after every source-owner callback.
+param C: u16;
+param R: u16;
+param F: u16;
+param L: u16;
+param E: u16;
+param T: u16;
+param U: u16;
+param K: u16;
+param done_task;
+const TX_DONE=@get_local_task_id(13);
+const RX_DONE=@get_local_task_id(19);
+const mp=@import_module("<message_passing>",.{
+  .bank_id=14,.input_queue_id=6,.output_queue_id=6,.enable_asserts=true
+});
+var tx_begin=@zeros([R+1]u32);
+var tx_slots=@zeros([T]u32);
+var rx_begin=@zeros([R+1]u32);
+// Absolute compact slots for remote edge occurrences; zero for local/padding.
+var rx_slot=@zeros([E]u32);
+// tx/rx packets, feature words, wire words, local copies (zero), remote slot
+// writes, completed rounds, last generation/source, reserved.
+var comm_stats=@zeros([12]u32);
+var packet=@zeros([31]u32);
+var features: [*]f32;
+var cache: [*]f32;
+var lane: u16=0;
+var me: u16=0;
+var source: u16=0;
+var generation: u32=0;
+var destination: u16=0;
+var cursor: u16=0;
+var remaining: u16=0;
+var in_flight: u16=0;
+
+fn init(x: u16,y: u16) void { lane=x; me=y; mp.init(); }
+fn reset_stats() void { for (@range(u16,12)) |i| { comm_stats[i]=0; } }
+fn finish() void {
+  comm_stats[8]+=1; comm_stats[9]=generation; comm_stats[10]=@as(u32,source);
+  @activate(done_task);
+}
+fn send_next() void {
+  while (destination<R) {
+    const first=@as(u16,tx_begin[destination]);
+    const last=@as(u16,tx_begin[destination+1]);
+    @assert(first<=last and last<=T);
+    if (cursor<last-first) {
+      @assert(destination!=me);
+      const left=last-first-cursor;
+      in_flight=if (left<K) left else K;
+      packet[0]=generation;
+      packet[1]=@as(u32,source)*C+lane;
+      packet[2]=@as(u32,cursor); packet[3]=@as(u32,in_flight);
+      for (@range(u16,K)) |v| {
+        if (v<in_flight) {
+          const slot=@as(u16,tx_slots[first+cursor+v]);
+          @assert(slot<L);
+          for (@range(u16,F)) |f| {
+            packet[4+v*F+f]=@bitcast(u32,features[slot*F+f]);
+          }
+        }
+      }
+      mp.send_message(lane,destination,@ptrcast([*]u32,&packet),
+        4+in_flight*F,.{.activate=TX_DONE});
+      return;
+    }
+    destination+=1; cursor=0;
+  }
+  finish();
+}
+task transmitted() void {
+  comm_stats[0]+=1; comm_stats[2]+=@as(u32,in_flight)*F;
+  comm_stats[4]+=5+@as(u32,in_flight)*F;
+  cursor+=in_flight;
+  // TX completion releases packet storage.
+  send_next();
+}
+fn receive_next() void {
+  // The SDK header read is synchronous: caller barriers drain other operations.
+  mp.recv_message(@ptrcast([*]u32,&packet),.{.activate=RX_DONE});
+}
+task received() void {
+  const count=if (remaining<K) remaining else K;
+  @assert(packet[0]==generation and packet[1]==@as(u32,source)*C+lane);
+  @assert(packet[2]==@as(u32,cursor) and packet[3]==@as(u32,count));
+  const first=@as(u16,rx_begin[source]);
+  @assert(@as(u32,first)+cursor+count<=rx_begin[source+1]);
+  for (@range(u16,K)) |v| {
+    if (v<count) {
+      const slot=first+cursor+v;
+      @assert(slot<U);
+      for (@range(u16,F)) |f| {
+        cache[slot*F+f]=@bitcast(f32,packet[4+v*F+f]);
+      }
+      comm_stats[7]+=1;
+    }
+  }
+  comm_stats[1]+=1; comm_stats[3]+=@as(u32,count)*F;
+  comm_stats[5]+=5+@as(u32,count)*F;
+  cursor+=count; remaining-=count;
+  // Every compact write finishes before RX storage is reused.
+  if (remaining>0) { receive_next(); } else { finish(); }
+}
+fn start(owner: u16,tag: u32,node_features: [*]f32,sender_cache: [*]f32) void {
+  source=owner; generation=tag; features=node_features; cache=sender_cache; cursor=0;
+  @assert(source<=R and rx_begin[0]==0 and rx_begin[R]<=U);
+  if (source==R) { finish(); return; }
+  if (source==me) {
+    @assert(rx_begin[source]==rx_begin[source+1]);
+    destination=0; send_next();
+  } else {
+    @assert(rx_begin[source]<=rx_begin[source+1] and rx_begin[source+1]<=U);
+    const count=rx_begin[source+1]-rx_begin[source];
+    @assert(count<=L);
+    remaining=@as(u16,count);
+    if (remaining>0) { receive_next(); } else { finish(); }
+  }
+}
+var p_tx_begin: [*]u32=&tx_begin;
+var p_tx_slots: [*]u32=&tx_slots;
+var p_rx_begin: [*]u32=&rx_begin;
+var p_rx_slot: [*]u32=&rx_slot;
+var p_comm_stats: [*]u32=&comm_stats;
+comptime {
+  @comptime_assert(C>=2 and R>=2 and F>=1 and F<=27 and K>=1 and K*F<=27);
+  @comptime_assert(U>=1 and U*F<=32767);
+  @bind_local_task(transmitted,TX_DONE);
+  @bind_local_task(received,RX_DONE);
+}
