@@ -17,6 +17,7 @@ import appliance
 
 SPECS = {
     "tank-adjacent-owner-phases-20261028-r001": (58, 14, 22, 22, 0),
+    "tank-adjacent-owner-phases-20261028-r002": (32, 8, 12, 12, 0),
     "tank28-resident-root-statistics-20261028-r001": (24, 4, 8, 8, 4),
 }
 
