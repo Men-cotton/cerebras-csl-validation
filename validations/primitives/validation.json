@@ -3,7 +3,8 @@
   "id": "primitives",
   "description": "Frozen Top-K and halo cases with host oracles.",
   "entrypoints": [
-    "tank_appliance.py"
+    "tank_appliance.py",
+    "stream_appliance.py"
   ],
   "tests": [
     "."
