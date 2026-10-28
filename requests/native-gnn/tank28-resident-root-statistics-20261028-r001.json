@@ -1,0 +1,371 @@
+{
+  "description": "E209: root-statistics resident rollout, exact pilot chunk continuity then matched full H128/S15 200-step ABBAAB with complete audits and pairwise bit equality.",
+  "id": "tank28-resident-root-statistics-20261028-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e209-pilot-root4",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e209-pilot-root4"
+      ],
+      "kind": "appliance",
+      "name": "compile-e209-pilot-root4",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e209-pilot-root4",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e209-pilot-root4/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e209-pilot-root4"
+      ],
+      "kind": "appliance",
+      "name": "run-e209-pilot-root4",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e209-pilot-root4/capture-data",
+        "--out",
+        "{output}/numerical-e209-pilot-root4.json"
+      ],
+      "kind": "host",
+      "name": "audit-e209-pilot-root4",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e209-pilot-root22",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e209-pilot-root22"
+      ],
+      "kind": "appliance",
+      "name": "compile-e209-pilot-root22",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e209-pilot-root22",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e209-pilot-root22/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e209-pilot-root22"
+      ],
+      "kind": "appliance",
+      "name": "run-e209-pilot-root22",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e209-pilot-root22/capture-data",
+        "--out",
+        "{output}/numerical-e209-pilot-root22.json"
+      ],
+      "kind": "host",
+      "name": "audit-e209-pilot-root22",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "{output}/run-e209-pilot-root4/capture-data",
+        "{output}/run-e209-pilot-root22/capture-data",
+        "--out",
+        "{output}/compare-pilot-chunks.json"
+      ],
+      "kind": "host",
+      "name": "compare-pilot-chunks",
+      "script": "validations/native-gnn/compare_rollouts.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e209-full-baseline200",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e209-full-baseline200"
+      ],
+      "kind": "appliance",
+      "name": "compile-e209-full-baseline200",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e209-full-root200",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e209-full-root200"
+      ],
+      "kind": "appliance",
+      "name": "compile-e209-full-root200",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e209-full-baseline200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e209-full-baseline200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r01-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r01-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r01-a/capture-data",
+        "--out",
+        "{output}/audit-r01-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r01-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e209-full-root200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e209-full-root200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r02-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r02-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r02-b/capture-data",
+        "--out",
+        "{output}/audit-r02-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r02-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "{output}/run-r01-a/capture-data",
+        "{output}/run-r02-b/capture-data",
+        "--out",
+        "{output}/compare-full-pair1.json"
+      ],
+      "kind": "host",
+      "name": "compare-full-pair1",
+      "script": "validations/native-gnn/compare_statistics.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e209-full-root200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e209-full-root200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r03-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r03-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r03-b/capture-data",
+        "--out",
+        "{output}/audit-r03-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r03-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e209-full-baseline200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e209-full-baseline200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r04-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r04-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r04-a/capture-data",
+        "--out",
+        "{output}/audit-r04-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r04-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "{output}/run-r04-a/capture-data",
+        "{output}/run-r03-b/capture-data",
+        "--out",
+        "{output}/compare-full-pair2.json"
+      ],
+      "kind": "host",
+      "name": "compare-full-pair2",
+      "script": "validations/native-gnn/compare_statistics.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e209-full-baseline200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e209-full-baseline200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r05-a"
+      ],
+      "kind": "appliance",
+      "name": "run-r05-a",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r05-a/capture-data",
+        "--out",
+        "{output}/audit-r05-a.json"
+      ],
+      "kind": "host",
+      "name": "audit-r05-a",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e209-full-root200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e209-full-root200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-r06-b"
+      ],
+      "kind": "appliance",
+      "name": "run-r06-b",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r06-b/capture-data",
+        "--out",
+        "{output}/audit-r06-b.json"
+      ],
+      "kind": "host",
+      "name": "audit-r06-b",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "{output}/run-r05-a/capture-data",
+        "{output}/run-r06-b/capture-data",
+        "--out",
+        "{output}/compare-full-pair3.json"
+      ],
+      "kind": "host",
+      "name": "compare-full-pair3",
+      "script": "validations/native-gnn/compare_statistics.py",
+      "timeout_seconds": 120
+    }
+  ]
+}
