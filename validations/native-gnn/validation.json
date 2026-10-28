@@ -3,7 +3,8 @@
   "entrypoints": [
     "appliance.py",
     "saved_audit.py",
-    "compare_rollouts.py"
+    "compare_rollouts.py",
+    "compare_statistics.py"
   ],
   "id": "native-gnn",
   "schema": 1,

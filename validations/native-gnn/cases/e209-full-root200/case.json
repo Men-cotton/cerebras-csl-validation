@@ -1,0 +1,298 @@
+{
+  "checks": {
+    "aggregate": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "cached_e0": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "clocks": {
+      "kind": "clock"
+    },
+    "comm_stats": {
+      "kind": "exact"
+    },
+    "decoder_output": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "delta_e": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "delta_h": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "e_out": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "encoded_h": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "h_out": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "lifecycle": {
+      "kind": "exact"
+    },
+    "sender_cache": {
+      "atol": 0.0003,
+      "kind": "approx",
+      "rtol": 0.0003
+    },
+    "stats": {
+      "kind": "exact"
+    },
+    "velocity_out": {
+      "atol": 1e-06,
+      "kind": "approx",
+      "rtol": 3e-05
+    }
+  },
+  "evidence": "frozen host oracle only; no device execution",
+  "exact_mask_counts": {
+    "launch0_velocity_out": 27776
+  },
+  "experiment": "native-rollout-physical-v1",
+  "family": "native-gnn",
+  "files": {
+    "PUBLIC_MODEL_LICENSE": "769f7db97e1ca994ae879392c520acc9ae1d6e45df225ac38426c3e11c0d6267",
+    "derivation.json": "d7604edd62f5f2d5b019743f1dd5dd11d50de5502d2c3130c9b0495ce9f753e3",
+    "exact_masks.npz": "158183855b6943c6127277b825d4b97e278ad91b3007471a8d230edcdb76350c",
+    "expected.npz": "36cca53193db4fd7bd24682abed6c8474e4535ff58fe945b90c2fa5307e2d154",
+    "inputs.npz": "195367358b24fba5c4eb2786418d78a150e5aaa8af5f6c0ab2aefd9ee3c9ef33",
+    "origin-case.json": "63dc50f7946af3c177d961973ce0c05ff75dffcfd8541c7173e7b91a4115da50",
+    "original.npz": "a859b09ad08ca8b008645dda90a58d7b03e77eab91f2608ecba74e0ac5b90999",
+    "public-model-import.json": "13eeffb997030e16d9042cb1549b4b1bc7758ccafe130112313c86888dc3be31",
+    "sdk_runner.py": "02551f1d753f0135a6e459247fe124b45f57850ddd1cef32aec0cdbc3eced0b5",
+    "source/layout.csl": "3f8e451d2077e8398a804249f26b76213144cd229d7b4739d06e45453cd22dcc",
+    "source/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+    "source/pe.csl": "10de17b8a27f9c99f6cdb0b8546e12095edf71b4d59a27e2fd040553dfec9a61",
+    "source/sliced_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "source/statistics.csl": "9bb438636f0e0f6e212014a3aad5d85442076b787f1a9dcccd50e8fbfe29b26b",
+    "storage-admission.json": "0df223d60c97efc17a1be0c85bd68f565b67533bf58fc7c392f7949e2ef3e067",
+    "zero_masks.npz": "a4da06dd617797999e36c8cc28940dd46b7cff9530de07ff5c709470a89e9bd4"
+  },
+  "immutable_inputs": [
+    "bank",
+    "counts",
+    "dst_slot",
+    "geometry",
+    "node_type",
+    "normalizers",
+    "round_sources",
+    "rx_count",
+    "rx_slot",
+    "src_owner",
+    "src_slot",
+    "tx_begin",
+    "tx_slots",
+    "velocity"
+  ],
+  "inputs": {
+    "bank": [
+      287,
+      "float32"
+    ],
+    "counts": [
+      2,
+      "uint32"
+    ],
+    "dst_slot": [
+      92,
+      "uint32"
+    ],
+    "geometry": [
+      276,
+      "float32"
+    ],
+    "node_type": [
+      15,
+      "uint32"
+    ],
+    "normalizers": [
+      32,
+      "float32"
+    ],
+    "round_sources": [
+      11,
+      "uint32"
+    ],
+    "rx_count": [
+      128,
+      "uint32"
+    ],
+    "rx_slot": [
+      92,
+      "uint32"
+    ],
+    "src_owner": [
+      92,
+      "uint32"
+    ],
+    "src_slot": [
+      92,
+      "uint32"
+    ],
+    "tx_begin": [
+      129,
+      "uint32"
+    ],
+    "tx_slots": [
+      24,
+      "uint32"
+    ],
+    "velocity": [
+      30,
+      "float32"
+    ]
+  },
+  "launches": [
+    {
+      "entrypoint": "run",
+      "steps": 200
+    }
+  ],
+  "oracle_export": {
+    "exporter_sha256": "df9a01b2e0f550477cbb636ac35f74309a01b6a735cef44d341033cf2d6c3910",
+    "implementation": "models.meshgraphnet.native_rollout.driver:portable_expectations",
+    "source_hashes": {
+      "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+      "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+      "kernels/communication/sliced-halo/audit.py": "9117f82827bae38d4c5f803cb99ff1fe03a7cc7c7caa3a0bd3960cecbcbcca72",
+      "kernels/communication/sliced-halo/pe.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+      "kernels/communication/sliced-halo/schedule.py": "1b3e71b20ac8778548fe5df89cadba02966f2efcf266ffc000bf275d05650477",
+      "kernels/dense/layernorm-stats/statistics.csl": "9bb438636f0e0f6e212014a3aad5d85442076b787f1a9dcccd50e8fbfe29b26b",
+      "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+      "models/meshgraphnet/colored_schedule.py": "aa52008a00aa6fffcad520065ce60ee4c74e98f9dc8c59db8e69ea7c2494a23a",
+      "models/meshgraphnet/colored_validation.py": "8a78bdc96ae8938548248bb04739ce744c1f2381305b7e9ee95f9a2ff59436eb",
+      "models/meshgraphnet/data.py": "6e16f4199841df21c8a665648e728d41224794a7748f2a721f0638ca0b950c33",
+      "models/meshgraphnet/native_full/driver.py": "e75b58c2ddcadea2c8b66ecedd144addec99d533acb5e532ecc212a9f682dff9",
+      "models/meshgraphnet/native_full/elf_reader.py": "2dbf314237ff068edd95fe20187aaae19576708723384256fd0067dfe5bfbc8b",
+      "models/meshgraphnet/native_full/layout.csl": "fcf90c4c79df9d699b97eb405ecb178051801a882fa8925a9ee39acfc5fdca62",
+      "models/meshgraphnet/native_full/model.py": "f65b281ab62d6f8e4334e1604bf6137b1c3802614b944af433ff9c83cd64af37",
+      "models/meshgraphnet/native_full/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+      "models/meshgraphnet/native_full/pe.csl": "921231175f09d154f5dc86c4f93889f26a2738f3751c196289c0818d65fdf7db",
+      "models/meshgraphnet/native_full/sdk_runner.py": "51388bf6ec0e6972384a99fbffd0ed86620acebd8d0eaf1a86743359c3309ce8",
+      "models/meshgraphnet/native_mesh/model.py": "251964fe86d4da9d9daa2eaf3c16fe4d316537fea6e4da0893ebdc6a248bee4a",
+      "models/meshgraphnet/native_rollout/driver.py": "871b4859cb303043f99a91fa57592c6d5cd248efd58d47555e1cc8b01e2ac1ff",
+      "models/meshgraphnet/native_rollout/layout.csl": "3f8e451d2077e8398a804249f26b76213144cd229d7b4739d06e45453cd22dcc",
+      "models/meshgraphnet/native_rollout/model.py": "b2d48e415a62cffdff5dcf3a671305445d57998043ad3b3cbcb00c22930ee7bb",
+      "models/meshgraphnet/native_rollout/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+      "models/meshgraphnet/native_rollout/pe.csl": "10de17b8a27f9c99f6cdb0b8546e12095edf71b4d59a27e2fd040553dfec9a61",
+      "models/meshgraphnet/native_rollout/sdk_runner.py": "02551f1d753f0135a6e459247fe124b45f57850ddd1cef32aec0cdbc3eced0b5",
+      "models/meshgraphnet/pretrained/inference.py": "c767341c43b5dbcc29925a0be5f1a171302954c1e3229ffe33295cb37ec9300e",
+      "models/meshgraphnet/reference.py": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+      "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+      "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+      "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404"
+    }
+  },
+  "origin_case_sha256": "63dc50f7946af3c177d961973ce0c05ff75dffcfd8541c7173e7b91a4115da50",
+  "origin_files": {
+    "PUBLIC_MODEL_LICENSE": "PUBLIC_MODEL_LICENSE",
+    "derivation.json": "derivation.json",
+    "exact_masks.npz": "exact_masks.npz",
+    "expected.npz": "expected.npz",
+    "inputs.npz": "inputs.npz",
+    "original.npz": "original.npz",
+    "public-model-import.json": "public-model-import.json",
+    "sdk_runner.py": "sdk_runner.py",
+    "source/layout.csl": "source/layout.csl",
+    "source/no_halo.csl": "source/no_halo.csl",
+    "source/pe.csl": "source/pe.csl",
+    "source/sliced_halo.csl": "source/sliced_halo.csl",
+    "source/statistics.csl": "source/statistics.csl",
+    "storage-admission.json": "storage-admission.json",
+    "zero_masks.npz": "zero_masks.npz"
+  },
+  "outputs": {
+    "aggregate": [
+      30,
+      "float32"
+    ],
+    "cached_e0": [
+      184,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "decoder_output": [
+      30,
+      "float32"
+    ],
+    "delta_e": [
+      184,
+      "float32"
+    ],
+    "delta_h": [
+      30,
+      "float32"
+    ],
+    "e_out": [
+      184,
+      "float32"
+    ],
+    "encoded_h": [
+      30,
+      "float32"
+    ],
+    "h_out": [
+      30,
+      "float32"
+    ],
+    "lifecycle": [
+      4,
+      "uint32"
+    ],
+    "sender_cache": [
+      184,
+      "float32"
+    ],
+    "stats": [
+      18,
+      "uint32"
+    ],
+    "velocity_out": [
+      30,
+      "float32"
+    ]
+  },
+  "params": {
+    "C": 64,
+    "E": 92,
+    "H": 128,
+    "HCAP": 24,
+    "K": 13,
+    "L": 15,
+    "MAX_STEPS": 200,
+    "MODE": 2,
+    "Q": 11,
+    "R": 128,
+    "ROOT_STATS": 1,
+    "S": 15,
+    "T": 2
+  },
+  "schema": 2,
+  "scope": "resident H128 rollout with direct affine and selected LayerNorm statistics sharing; independent frozen CPU expectations; no measured speedup yet"
+}
