@@ -1,0 +1,884 @@
+{
+  "barrier_count": 13,
+  "barrier_word_hops_per_barrier": 464,
+  "controller": "route-interval-phases",
+  "experiment": "E207-indexed-source-cache",
+  "files": {
+    "inputs.npz": "bf0c30651e36078480935008e61dd5beba2c6830398e58aae278eff5889118de",
+    "original.npz": "9d9fe4f5b2d97b786e7f908f1f8ebb7210b150a973661e938004ae3af1e58c19",
+    "sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "source/baseline_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "source/layout.csl": "208429e43c2f15f0fa6e674b8d8253bb87b8147de119728a400c676658a7c9d6",
+    "source/pe.csl": "2776d40560c8330d98e8d5b7fefaa2f78d8e566eb9b76ba49527b4f73f7c2e72",
+    "source/probe.csl": "b4a02561e743b34f167d82f730bcf480696fc524e0bae2fb89a93d4749331748"
+  },
+  "fixture": {
+    "duplicates": 1,
+    "kind": "stride2"
+  },
+  "inputs": {
+    "dst_slot": [
+      18,
+      "uint32"
+    ],
+    "features": [
+      112,
+      "float32"
+    ],
+    "phase_destination": [
+      6,
+      "uint32"
+    ],
+    "phase_source": [
+      6,
+      "uint32"
+    ],
+    "rx_begin": [
+      17,
+      "uint32"
+    ],
+    "rx_slot": [
+      18,
+      "uint32"
+    ],
+    "src_owner": [
+      18,
+      "uint32"
+    ],
+    "src_slot": [
+      18,
+      "uint32"
+    ],
+    "tx_begin": [
+      17,
+      "uint32"
+    ],
+    "tx_slots": [
+      14,
+      "uint32"
+    ],
+    "weight": [
+      18,
+      "float32"
+    ]
+  },
+  "outputs": {
+    "aggregate_history": [
+      224,
+      "float32"
+    ],
+    "cache": [
+      224,
+      "float32"
+    ],
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "comm_stats": [
+      12,
+      "uint32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ]
+  },
+  "params": {
+    "ADJACENT": 0,
+    "C": 8,
+    "E": 18,
+    "F": 16,
+    "GENERATIONS": 2,
+    "H": 128,
+    "K": 1,
+    "L": 7,
+    "MODE": 1,
+    "PHASES": 6,
+    "R": 16,
+    "ROUTED": 1,
+    "T": 14,
+    "TABLED": 1,
+    "U": 14
+  },
+  "resources": {
+    "accounting_scope": "named source arrays only; cache is final state, aggregate history is identical in both arms; ELF admission includes code/library/scalars",
+    "active_edges_per_owner": [
+      10,
+      10,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      10,
+      10
+    ],
+    "aggregate_history_bytes_per_pe": 896,
+    "baseline_edge_predicates_per_pe_per_generation": [
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144,
+      144
+    ],
+    "cache_bytes_per_pe": 896,
+    "consumer_edge_capacity_per_pe": 18,
+    "consumer_features_per_edge": 16,
+    "declared_array_bytes_per_pe": 3964,
+    "indexed_cache_net_saving_bytes_per_pe": 252,
+    "indexed_packet_loop_iterations_per_pe_per_generation": [
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+    ],
+    "input_bytes_per_pe": 1048,
+    "output_bytes_per_pe": 1884,
+    "route_schedule": {
+      "directed_link_words_per_lane": [
+        {
+          "destination": 1,
+          "source": 0,
+          "words": 147
+        },
+        {
+          "destination": 0,
+          "source": 1,
+          "words": 147
+        },
+        {
+          "destination": 2,
+          "source": 1,
+          "words": 294
+        },
+        {
+          "destination": 1,
+          "source": 2,
+          "words": 294
+        },
+        {
+          "destination": 3,
+          "source": 2,
+          "words": 294
+        },
+        {
+          "destination": 2,
+          "source": 3,
+          "words": 294
+        },
+        {
+          "destination": 4,
+          "source": 3,
+          "words": 294
+        },
+        {
+          "destination": 3,
+          "source": 4,
+          "words": 294
+        },
+        {
+          "destination": 5,
+          "source": 4,
+          "words": 294
+        },
+        {
+          "destination": 4,
+          "source": 5,
+          "words": 294
+        },
+        {
+          "destination": 6,
+          "source": 5,
+          "words": 294
+        },
+        {
+          "destination": 5,
+          "source": 6,
+          "words": 294
+        },
+        {
+          "destination": 7,
+          "source": 6,
+          "words": 294
+        },
+        {
+          "destination": 6,
+          "source": 7,
+          "words": 294
+        },
+        {
+          "destination": 8,
+          "source": 7,
+          "words": 294
+        },
+        {
+          "destination": 7,
+          "source": 8,
+          "words": 294
+        },
+        {
+          "destination": 9,
+          "source": 8,
+          "words": 294
+        },
+        {
+          "destination": 8,
+          "source": 9,
+          "words": 294
+        },
+        {
+          "destination": 10,
+          "source": 9,
+          "words": 294
+        },
+        {
+          "destination": 9,
+          "source": 10,
+          "words": 294
+        },
+        {
+          "destination": 11,
+          "source": 10,
+          "words": 294
+        },
+        {
+          "destination": 10,
+          "source": 11,
+          "words": 294
+        },
+        {
+          "destination": 12,
+          "source": 11,
+          "words": 294
+        },
+        {
+          "destination": 11,
+          "source": 12,
+          "words": 294
+        },
+        {
+          "destination": 13,
+          "source": 12,
+          "words": 294
+        },
+        {
+          "destination": 12,
+          "source": 13,
+          "words": 294
+        },
+        {
+          "destination": 14,
+          "source": 13,
+          "words": 294
+        },
+        {
+          "destination": 13,
+          "source": 14,
+          "words": 294
+        },
+        {
+          "destination": 15,
+          "source": 14,
+          "words": 147
+        },
+        {
+          "destination": 14,
+          "source": 15,
+          "words": 147
+        }
+      ],
+      "max_directed_link_words": 294,
+      "pairs": [
+        {
+          "destination": 2,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 0,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 5,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 3,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 8,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 6,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 11,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 9,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 14,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 12,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 0,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 2,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 3,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 5,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 6,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 8,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 9,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 11,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 12,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 14,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 3,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 1,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 6,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 4,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 9,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 7,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 12,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 10,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 15,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 13,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 1,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 3,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 4,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 6,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 7,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 9,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 10,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 12,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 13,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 15,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 4,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 2,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 7,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 5,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 10,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 8,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 13,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 11,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 2,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 4,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 5,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 7,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 8,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 10,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        },
+        {
+          "destination": 11,
+          "distance": 2,
+          "packets_per_lane": 7,
+          "source": 13,
+          "vectors": 7,
+          "wire_words_per_lane": 147
+        }
+      ],
+      "phase_max_directed_link_words": [
+        147,
+        147,
+        147,
+        147,
+        147,
+        147
+      ],
+      "phases": 6,
+      "scope": "per generation; same-column paths; excludes caller barriers; closed intervals are conservative",
+      "table_bytes_per_pe": 48,
+      "wire_word_hops": 65856
+    },
+    "scratch_array_bytes_per_pe": 1032,
+    "unique_remote_per_owner": [
+      7,
+      7,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      7,
+      7
+    ],
+    "work_scope": "modeled loop counts, not instruction counts or timing; wire packet contents and counts are unchanged"
+  },
+  "rounds_per_generation": 6,
+  "scope": "H128 selective halo plus original-edge-order weighted aggregation, final cache and every generation aggregate; no GNN edge latent, backward kernel, training or end-to-end speedup",
+  "sources": {
+    "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+    "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+    "kernels/communication/sliced-halo/audit.py": "9117f82827bae38d4c5f803cb99ff1fe03a7cc7c7caa3a0bd3960cecbcbcca72",
+    "kernels/communication/sliced-halo/indexed_cache/driver.py": "8d67e5985689f47a4fb4dc436c357473a72a06bf14b11c90560aa0fc24f00088",
+    "kernels/communication/sliced-halo/indexed_cache/layout.csl": "208429e43c2f15f0fa6e674b8d8253bb87b8147de119728a400c676658a7c9d6",
+    "kernels/communication/sliced-halo/indexed_cache/model.py": "c12d11bd307133f0c729af2c0340c5dcf41257f0b029ea813c61d50d0d0f96ef",
+    "kernels/communication/sliced-halo/indexed_cache/pe.csl": "2776d40560c8330d98e8d5b7fefaa2f78d8e566eb9b76ba49527b4f73f7c2e72",
+    "kernels/communication/sliced-halo/indexed_cache/probe.csl": "b4a02561e743b34f167d82f730bcf480696fc524e0bae2fb89a93d4749331748",
+    "kernels/communication/sliced-halo/indexed_cache/route_phases.py": "4d0f9cd0c72bcdca4749304a722037500366193985f5d3f381bc6e44826b19be",
+    "kernels/communication/sliced-halo/pe.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "kernels/communication/sliced-halo/schedule.py": "1b3e71b20ac8778548fe5df89cadba02966f2efcf266ffc000bf275d05650477",
+    "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+    "models/meshgraphnet/sdk_runner.py": "8daf17db2f0e0211b7699dc712a556fbd1f9e6cf4101819370193b2fa14ccb97",
+    "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+    "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+    "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404"
+  },
+  "traffic_per_generation": {
+    "C": 8,
+    "E": 18,
+    "F": 16,
+    "H": 128,
+    "K": 1,
+    "L": 7,
+    "R": 16,
+    "T": 14,
+    "application_header_words": 6272,
+    "header_words": 7840,
+    "local_edge_copies_per_lane": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "modeled_header_word_hops": 15680,
+    "modeled_max_link_words": 294,
+    "modeled_payload_word_hops": 50176,
+    "packet_count": 1568,
+    "payload_words": 25088,
+    "remote_edge_copies_per_lane": [
+      8,
+      8,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      8,
+      8
+    ],
+    "remote_unique": 196,
+    "routing_header_words": 1568,
+    "schedule_bytes_per_pe": 404,
+    "source_rounds": 16,
+    "traffic_scope": "per generation; same-column Manhattan links, 4 application plus1 SDK header words; excludes caller barriers"
+  }
+}

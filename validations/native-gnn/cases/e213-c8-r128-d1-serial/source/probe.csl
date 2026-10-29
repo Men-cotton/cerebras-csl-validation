@@ -1,0 +1,165 @@
+// SPDX-License-Identifier: Apache-2.0
+param memcpy_params;
+param c2d_params;
+param C: u16;
+param R: u16;
+param F: u16;
+param L: u16;
+param E: u16;
+param T: u16;
+param U: u16;
+param K: u16;
+param GENERATIONS: u16;
+param MODE: u16;
+param ADJACENT: u16;
+param ROUTED: u16;
+param TABLED: u16;
+param PHASES: u16;
+const sys=@import_module("<memcpy/memcpy>",memcpy_params);
+const coord=@import_module("<layout>");
+const tsc=@import_module("<time>");
+const progress_id=@get_local_task_id(12);
+const halo=@import_module(if (MODE==0) "baseline_halo.csl" else "pe.csl",
+  if (MODE==0) .{.C=C,.R=R,.F=F,.L=L,.E=E,.T=T,.K=K,.done_task=progress_id}
+  else .{.C=C,.R=R,.F=F,.L=L,.E=E,.T=T,.U=U,.K=K,.ADJACENT=ADJACENT==1,.ROUTED=ROUTED==1,.done_task=progress_id});
+const mx=@import_module("<collectives_2d/pe>",.{
+  .dim_params=c2d_params.x,.queues=[2]u16{2,4},
+  .dest_dsr_ids=[1]u16{1},.src0_dsr_ids=[1]u16{1},.src1_dsr_ids=[1]u16{1}
+});
+const my=@import_module("<collectives_2d/pe>",.{
+  .dim_params=c2d_params.y,.queues=[2]u16{3,5},
+  .dest_dsr_ids=[1]u16{2},.src0_dsr_ids=[1]u16{2},.src1_dsr_ids=[1]u16{2}
+});
+const CACHE=if (MODE==0) E else U;
+var features=@zeros([L*F]f32);
+var current=@zeros([L*F]f32);
+var src_owner=@zeros([E]u32);
+var src_slot=@zeros([E]u32);
+var dst_slot=@zeros([E]u32);
+var weight=@zeros([E]f32);
+var phase_source=@zeros([if (TABLED==1) PHASES else 0]u32);
+var phase_destination=@zeros([if (TABLED==1) PHASES else 0]u32);
+var cache=@zeros([CACHE*F]f32);
+var aggregate=@zeros([L*F]f32);
+var aggregate_history=@zeros([GENERATIONS*L*F]f32);
+// magic, generations, rounds, barriers, lane, owner, consumed edges, local edges.
+var stats=@zeros([8]u32);
+var clocks=@zeros([6]u16);
+var one=@zeros([1]f32);
+var row_sum=@zeros([1]f32);
+var total=@zeros([1]f32);
+var phase: u16=0;
+var source: u16=0;
+var generation: u16=0;
+var lane: u16=0;
+var owner: u16=0;
+var initial: bool=true;
+
+fn begin_generation() void {
+  for (@range(u16,L*F)) |i| { current[i]=features[i]+8.0*@as(f32,generation); aggregate[i]=0.0; }
+  for (@range(u16,CACHE*F)) |i| { cache[i]=-777.0; }
+  source=0;
+}
+fn begin_round() void {
+  phase=10;
+  if (comptime MODE==0) {
+    halo.start(source,@as(u32,generation+1),&current,&cache,&src_owner,&src_slot);
+  } else if (comptime ROUTED==1) {
+    @assert(phase_source[source]<=R and phase_destination[source]<=R);
+    halo.start_pair(@as(u16,phase_source[source]),@as(u16,phase_destination[source]),
+      @as(u32,generation+1),&current,&cache);
+  } else if (comptime ADJACENT==1) {
+    halo.start_neighbor(source,@as(u32,generation+1),&current,&cache);
+  } else { halo.start(source,@as(u32,generation+1),&current,&cache); }
+}
+fn consume() void {
+  // Keep original receiver-owned edge order, including duplicate/zero edges.
+  for (@range(u16,E)) |edge| {
+    @assert(src_owner[edge]<=R);
+    if (src_owner[edge]<R) {
+      const dst=@as(u16,dst_slot[edge]);
+      @assert(dst<L);
+      stats[6]+=1;
+      if (src_owner[edge]==@as(u32,owner)) { stats[7]+=1; }
+      for (@range(u16,F)) |f| {
+        var value: f32=0.0;
+        if (comptime MODE==0) { value=cache[edge*F+f]; }
+        else if (src_owner[edge]==@as(u32,owner)) {
+          const slot=@as(u16,src_slot[edge]);
+          @assert(slot<L); value=current[slot*F+f];
+        } else {
+          const slot=@as(u16,halo.rx_slot[edge]);
+          @assert(slot<U); value=cache[slot*F+f];
+        }
+        // Identical scalar arithmetic in both arms; no source-group reduction.
+        aggregate[dst*F+f]=aggregate[dst*F+f]+weight[edge]*value;
+      }
+    }
+  }
+  for (@range(u16,L*F)) |i| { aggregate_history[generation*L*F+i]=aggregate[i]; }
+}
+fn barrier() void {
+  one[0]=1.0; row_sum[0]=0.0; total[0]=0.0; phase=1;
+  mx.reduce_fadds(0,&one,&row_sum,1,progress_id);
+}
+task progress() void {
+  if (phase==1) {
+    phase=2; my.reduce_fadds(0,&row_sum,&total,1,progress_id);
+  } else if (phase==2) {
+    phase=3; my.broadcast(0,@ptrcast([*]u32,&total),1,progress_id);
+  } else if (phase==3) {
+    phase=4; mx.broadcast(0,@ptrcast([*]u32,&total),1,progress_id);
+  } else if (phase==4) {
+    @assert(total[0]==@as(f32,C*R)); stats[3]+=1;
+    if (initial) { initial=false; begin_generation(); begin_round(); }
+    else {
+      source+=1;
+      if (source<(if (ROUTED==1) PHASES else if (ADJACENT==1) 4 else R)) { begin_round(); }
+      else {
+        consume(); generation+=1; stats[1]+=1;
+        if (generation<GENERATIONS) { begin_generation(); begin_round(); }
+        else {
+          tsc.get_timestamp(@ptrcast(*[3]u16,&clocks[3])); tsc.disable_tsc();
+          stats[0]=0x600D; sys.unblock_cmd_stream();
+        }
+      }
+    }
+  } else if (phase==10) { stats[2]+=1; barrier(); }
+  else { @assert(false); }
+}
+fn run() void {
+  lane=coord.get_x_coord(); owner=coord.get_y_coord();
+  mx.init(); my.init(); halo.init(lane,owner); halo.reset_stats();
+  for (@range(u16,8)) |i| { stats[i]=0; }
+  stats[4]=lane; stats[5]=owner; generation=0; initial=true;
+  tsc.enable_tsc(); tsc.get_timestamp(@ptrcast(*[3]u16,&clocks[0])); barrier();
+}
+var p_features:[*]f32=&features;
+var p_src_owner:[*]u32=&src_owner;
+var p_src_slot:[*]u32=&src_slot;
+var p_dst_slot:[*]u32=&dst_slot;
+var p_weight:[*]f32=&weight;
+var p_phase_source:[*]u32=&phase_source;
+var p_phase_destination:[*]u32=&phase_destination;
+var p_cache:[*]f32=&cache;
+var p_history:[*]f32=&aggregate_history;
+var p_stats:[*]u32=&stats;
+var p_clocks:[*]u16=&clocks;
+comptime {
+  @comptime_assert(MODE<=1 and GENERATIONS>=2 and GENERATIONS*L*F<=32767);
+  @bind_local_task(progress,progress_id);
+  @export_symbol(p_features,"features");
+  @export_symbol(p_src_owner,"src_owner"); @export_symbol(p_src_slot,"src_slot");
+  @export_symbol(p_dst_slot,"dst_slot"); @export_symbol(p_weight,"weight");
+  @export_symbol(halo.p_tx_begin,"tx_begin"); @export_symbol(halo.p_tx_slots,"tx_slots");
+  if (MODE==0) { @export_symbol(halo.p_rx_count,"rx_count"); }
+  else { @export_symbol(halo.p_rx_begin,"rx_begin"); }
+  @export_symbol(halo.p_rx_slot,"rx_slot");
+  if (TABLED==1) {
+    @export_symbol(p_phase_source,"phase_source");
+    @export_symbol(p_phase_destination,"phase_destination");
+  }
+  @export_symbol(p_cache,"cache"); @export_symbol(p_history,"aggregate_history");
+  @export_symbol(halo.p_comm_stats,"comm_stats");
+  @export_symbol(p_stats,"stats"); @export_symbol(p_clocks,"clocks"); @export_symbol(run);
+}
