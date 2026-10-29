@@ -3,6 +3,7 @@ import hashlib
 from collections import Counter
 import os
 from pathlib import Path
+import re
 import sys
 import stat
 import tempfile
@@ -58,11 +59,80 @@ def source_tree(cache, src, sha, deadline=None):
     return "clone"
 
 
+def sdk_metadata_plan(src, status, entry, deadline):
+    """Preflight only known root-level SDK sidecars; preserve their opaque bytes."""
+    jobs = {job for step in entry["steps"] for job in step.get("jobs", [])}
+    destination = contained(src.parent, "sdk-metadata")
+    require(not destination.exists() or destination.is_dir(), "SDK metadata directory conflict")
+    plan, total = [], 0
+    for item in filter(None, status.split("\0")):
+        check_time(deadline)
+        name = item[3:]
+        match = re.fullmatch(r"(wsjob-[A-Za-z0-9-]+)-cluster-details\.json", name)
+        require(item.startswith("?? ") and (name == "run_meta.json" or
+                (match is not None and match[1] in jobs)),
+                "source contains changed, untracked or ignored files outside recognized SDK metadata")
+        path = contained(src, name)
+        before = stamp(path)
+        total += before[2]
+        require(len(plan) < 2049 and before[2] <= 16 << 20 and total <= 64 << 20,
+                "SDK metadata preservation bound")
+        sha = file_hash(path, deadline)
+        require(stamp(path) == before, "SDK metadata changed during inventory")
+        target = contained(destination, name)
+        if target.exists():
+            saved = stamp(target)
+            require(saved[2] == before[2] and equal_bytes(path, target, deadline),
+                    "SDK metadata destination conflict: " + name)
+            require(stamp(path) == before and stamp(target) == saved, "SDK metadata changed during comparison")
+        plan.append((path, target, before, sha))
+    return plan
+
+
+def sync_directory(path):
+    fd = os.open(path, os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+
+
+def preserve_sdk_metadata(plan, records, deadline):
+    if not plan:
+        return
+    destination = plan[0][1].parent
+    contained(destination.parent, destination.name)
+    destination.mkdir(exist_ok=True)
+    sync_directory(destination.parent)
+    for (path, target, before, sha), record in zip(plan, records):
+        check_time(deadline)
+        require(stamp(path) == before, "SDK metadata changed before preservation")
+        contained(destination, target.name)
+        if not target.exists():
+            # No overwrite; on interruption both names can safely refer to the
+            # same inode. The next attempt verifies and finishes the relocation.
+            os.link(path, target, follow_symlinks=False)
+        saved = stamp(target)
+        require(file_hash(target, deadline) == sha and stamp(target) == saved,
+                "SDK metadata destination changed")
+        with target.open("rb") as stream:
+            os.fsync(stream.fileno())
+        sync_directory(destination)
+        current = stamp(path)
+        require(current[:4] == before[:4] and current[5:] == before[5:] and
+                file_hash(path, deadline) == sha and stamp(path) == current,
+                "SDK metadata changed before source unlink")
+        path.unlink()
+        record["status"] = "preserved"
+        sync_directory(path.parent)
+
+
 def clean_source(watcher, entry, apply=False, deadline=None):
-    """Drop only reproducible, clean source; never delete generated files."""
+    """Retire reproducible source after preserving recognized SDK metadata."""
     deadline = deadline or time.monotonic() + 120
     result = {"id": entry["id"], "status": "ineligible"}
     removing = False
+    preserving = False
     if not completed(entry):
         return result
     try:
@@ -73,8 +143,7 @@ def clean_source(watcher, entry, apply=False, deadline=None):
                 pin_source(watcher.cache, entry, deadline=deadline)
             return dict(result, status="absent", ref=ref)
         kind = source_tree(watcher.cache, src, entry["sha"], deadline)
-        require(source_git(["status", "--porcelain", "--untracked-files=all", "--ignored"], src, deadline) == "",
-                "source contains changed, untracked or ignored files")
+        status = source_git(["status", "--porcelain=v1", "-z", "--untracked-files=all", "--ignored"], src, deadline)
         if kind == "clone":
             # Only the watcher's inherited remote ref is disposable. Preserve
             # locally created branches/tags/stashes even if their objects exist.
@@ -84,9 +153,18 @@ def clean_source(watcher, entry, apply=False, deadline=None):
                 require(name == "refs/remotes/origin/watched", "source has additional local refs")
                 source_git(["--git-dir", str(watcher.cache), "merge-base", "--is-ancestor",
                             sha, "refs/heads/watched"], deadline=deadline)
+        plan = sdk_metadata_plan(src, status, entry, deadline)
+        if plan:
+            result["sdk_metadata_path"] = str(plan[0][1].parent)
+            result["sdk_metadata"] = [dict(name=path.name, bytes=before[2], sha256=sha.hex(), status="planned")
+                                      for path, target, before, sha in plan]
         if apply:
             pin_source(watcher.cache, entry, deadline=deadline)
             result.update(ref=ref, path=str(src))
+            preserving = bool(plan)
+            preserve_sdk_metadata(plan, result.get("sdk_metadata", []), deadline)
+            require(source_git(["status", "--porcelain", "--untracked-files=all", "--ignored"], src, deadline) == "",
+                    "source changed during SDK metadata preservation")
             removing = True
             if kind == "worktree":
                 source_git(["--git-dir", str(watcher.cache), "worktree", "remove", str(src)], deadline=deadline)
@@ -95,7 +173,7 @@ def clean_source(watcher, entry, apply=False, deadline=None):
                         seconds=remaining(deadline))
         return dict(result, status="removed" if apply else "removable", kind=kind, ref=ref)
     except (ValueError, OSError) as error:
-        return dict(result, status="incomplete" if removing else "retained", reason=str(error)[:4096])
+        return dict(result, status="incomplete" if removing or preserving else "retained", reason=str(error)[:4096])
 
 
 def stamp(path):

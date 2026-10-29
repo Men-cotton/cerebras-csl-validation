@@ -159,6 +159,140 @@ class StorageTests(unittest.TestCase):
         self.assertEqual((result["status"], result["kind"]), ("removed", "clone"))
         self.assertFalse(src.exists())
 
+    def test_sdk_sidecars_are_preserved_before_terminal_source_removal(self):
+        for legacy in (False, True):
+            with self.subTest(legacy=legacy):
+                entry = self.entry("sdk-legacy" if legacy else "sdk-worktree")
+                entry["steps"] = [dict(jobs=["wsjob-%02d" % i for i in range(28)])]
+                src = self.source(entry, clone=legacy)
+                payloads = {"run_meta.json": b'{"last_job":"wsjob-27"}\n'}
+                payloads.update({job + "-cluster-details.json": (job + "\n").encode()
+                                 for job in entry["steps"][0]["jobs"]})
+                for name, data in payloads.items():
+                    (src / name).write_bytes(data)
+                self.output(entry, "capture.bin")
+                evidence = self.snapshot(self.evidence())
+                output = self.snapshot(list((src.parent / "output").iterdir()))
+                destination = src.parent / "sdk-metadata"
+                dry = storage.clean_source(self.watcher, entry)
+                self.assertEqual(dry["status"], "removable")
+                self.assertEqual(len(dry["sdk_metadata"]), 29)
+                self.assertFalse(destination.exists())
+                self.assertEqual({p.name: p.read_bytes() for p in src.glob("*.json")}, payloads)
+                result = storage.clean_source(self.watcher, entry, apply=True)
+                self.assertEqual(result["status"], "removed")
+                self.assertFalse(src.exists())
+                self.assertEqual({p.name: p.read_bytes() for p in destination.iterdir()}, payloads)
+                self.assertTrue(all(item["status"] == "preserved" for item in result["sdk_metadata"]))
+                for item in result["sdk_metadata"]:
+                    self.assertEqual(item["sha256"], watch.digest(destination / item["name"]))
+                self.assertEqual(self.snapshot([Path(name) for name in evidence]), evidence)
+                self.assertEqual(self.snapshot(list((src.parent / "output").iterdir())), output)
+                self.assertEqual(storage.clean_source(self.watcher, entry, apply=True)["status"], "absent")
+
+    def test_sdk_metadata_does_not_relax_other_source_guards(self):
+        for kind in ("tracked", "ignored", "unknown-job", "nested", "symlink", "branch", "conflict", "dest-link"):
+            with self.subTest(kind=kind):
+                entry = self.entry(kind)
+                src = self.source(entry, clone=True)
+                meta = src / "run_meta.json"
+                meta.write_bytes(b"original SDK metadata")
+                destination = src.parent / "sdk-metadata"
+                if kind == "tracked":
+                    (src / "fake_appliance.py").write_bytes(b"local change")
+                elif kind == "ignored":
+                    (src / ".git/info/exclude").write_text("*.scratch\n")
+                    (src / "user.scratch").write_bytes(b"keep me")
+                elif kind == "unknown-job":
+                    (src / "wsjob-other-cluster-details.json").write_bytes(b"unrecorded job")
+                elif kind == "nested":
+                    (src / "nested").mkdir()
+                    (src / "nested/run_meta.json").write_bytes(b"nested file")
+                elif kind == "symlink":
+                    meta.unlink()
+                    meta.symlink_to(self.fixture.source / "fake_appliance.py")
+                elif kind == "branch":
+                    self.git("branch", "operator-save", entry["sha"], cwd=src)
+                elif kind == "conflict":
+                    destination.mkdir()
+                    (destination / meta.name).write_bytes(b"different earlier metadata")
+                else:
+                    outside = self.fixture.base / "outside-metadata"
+                    outside.mkdir()
+                    destination.symlink_to(outside, target_is_directory=True)
+                original = meta.read_bytes()
+                result = storage.clean_source(self.watcher, entry, apply=True)
+                self.assertEqual(result["status"], "retained", result)
+                self.assertTrue(src.exists())
+                self.assertEqual(meta.read_bytes(), original)
+                if kind not in ("conflict", "dest-link"):
+                    self.assertFalse(destination.exists())
+
+    def test_metadata_preflight_checks_every_destination_before_first_move(self):
+        entry = self.entry("late-conflict")
+        entry["steps"] = [dict(jobs=["wsjob-last"])]
+        src = self.source(entry)
+        (src / "run_meta.json").write_bytes(b"first")
+        last = "wsjob-last-cluster-details.json"
+        (src / last).write_bytes(b"last")
+        destination = src.parent / "sdk-metadata"
+        destination.mkdir()
+        (destination / last).write_bytes(b"previous contents")
+        result = storage.clean_source(self.watcher, entry, apply=True)
+        self.assertEqual(result["status"], "retained")
+        self.assertFalse((destination / "run_meta.json").exists())
+        self.assertEqual((src / "run_meta.json").read_bytes(), b"first")
+        self.assertEqual((src / last).read_bytes(), b"last")
+        self.assertEqual((destination / last).read_bytes(), b"previous contents")
+
+    def test_interrupted_metadata_preservation_resumes_without_overwriting(self):
+        entry = self.entry("partial-metadata")
+        entry["steps"] = [dict(jobs=["wsjob-last"])]
+        src = self.source(entry)
+        metadata = {"run_meta.json": b"first", "wsjob-last-cluster-details.json": b"last"}
+        for name, data in metadata.items():
+            (src / name).write_bytes(data)
+        destination = src.parent / "sdk-metadata"
+        evidence = self.snapshot(self.evidence())
+        native_link = os.link
+        calls = []
+
+        def interrupted(source, target, **kwargs):
+            native_link(source, target, **kwargs)
+            calls.append(Path(target).name)
+            if len(calls) == 2:
+                raise OSError("injected interruption after publishing destination")
+
+        with patch.object(storage.os, "link", side_effect=interrupted):
+            report = storage.compact(self.watcher, apply=True)
+        self.assertTrue(report["errors"])
+        result = report["sources"][0]
+        self.assertEqual(result["status"], "incomplete")
+        self.assertEqual(result["sdk_metadata"][0]["status"], "preserved")
+        self.assertFalse((src / "run_meta.json").exists())
+        self.assertTrue((src / "wsjob-last-cluster-details.json").exists())
+        self.assertEqual({p.name: p.read_bytes() for p in destination.iterdir()}, metadata)
+        # An independent but identical existing destination is also admissible.
+        target = destination / "wsjob-last-cluster-details.json"
+        target.unlink()
+        target.write_bytes(metadata[target.name])
+        result = storage.clean_source(self.watcher, entry, apply=True)
+        self.assertEqual(result["status"], "removed", result)
+        self.assertEqual({p.name: p.read_bytes() for p in destination.iterdir()}, metadata)
+        after = {name: value for name, value in self.snapshot(self.evidence()).items()
+                 if "/sdk-metadata/" not in name}
+        self.assertEqual(after, evidence)
+
+    def test_live_sdk_metadata_is_not_moved(self):
+        for status in ("pending", "running", "blocked"):
+            entry = self.entry("live-" + status, status=status)
+            src = self.source(entry)
+            (src / "run_meta.json").write_bytes(b"active SDK consumer")
+            result = storage.clean_source(self.watcher, entry, apply=True)
+            self.assertEqual(result["status"], "ineligible")
+            self.assertEqual((src / "run_meta.json").read_bytes(), b"active SDK consumer")
+            self.assertFalse((src.parent / "sdk-metadata").exists())
+
     def test_changed_untracked_and_ignored_source_are_retained(self):
         (self.cache / "info/exclude").write_text("*.scratch\n")
         for kind in ("changed", "untracked", "ignored"):

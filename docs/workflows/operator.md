@@ -155,9 +155,19 @@ selecting a baseline for a new state directory.
 New requests share the Git objects in `STATE_DIR/source.git`. Each request has
 an independent detached working tree and a permanent `refs/requests/ID` source
 pin. Once execution and packaging finish, the watcher removes a clean `src/`.
-It retains changed, untracked or ignored files and records the reason separately
-from the execution result. Legacy independent clones are checked in the same
-way. The pinned source can be restored from `source.git` at its recorded SHA.
+Before removing a terminal source, it preserves the SDK's root-level
+`run_meta.json` and `wsjob-…-cluster-details.json` files under the request's
+`sdk-metadata/` directory. Job-detail names must match this request's recorded
+job IDs. Original filenames and bytes are retained; the cleanup report includes
+sizes and SHA-256 values. This operational metadata remains local and is not
+added retroactively to a finalized ZIP. It is separate from numerical captures.
+
+Any other changed, untracked or ignored file, additional local ref, nested
+sidecar, symlink or conflicting destination keeps the source in place. All
+candidates are checked before the first relocation. An existing destination with
+identical bytes is reused when resuming interrupted preservation; another value
+is never overwritten. These rules apply to legacy independent clones too.
+The pinned source can be restored from `source.git` at its recorded SHA.
 This does not change frozen validation code or the source revision of a request.
 
 For existing results, stop the watcher at an idle boundary, update the controller
@@ -188,12 +198,16 @@ by replacement. Already shared inodes are skipped. `du` measures the remaining
 allocated storage; JSON `output_bytes` and ZIP members retain their original
 logical sizes. ZIP files are neither rewritten nor deduplicated with raw trees.
 A compaction timeout leaves completed output replacements valid and can be retried.
-Interrupted source deletion is reported as `incomplete`; the retained source pin
-can restore that tree, and the execution record is not replayed.
+Interrupted metadata preservation or source deletion is reported as `incomplete`
+and returns a nonzero compact exit status. Already preserved metadata stays in
+`sdk-metadata/`; retrying compact finishes remaining relocations. The retained
+source pin can restore a partially removed tree. No execution record is replayed.
 Use `--request ID` to work on one request or `--seconds N` to adjust the default
 300-second maintenance budget. These are bounds for this maintenance command,
 not admission limits on accumulated results. Cleanup errors do not block the
 next request. Dirty sources are retained for inspection rather than force-cleaned.
+Previously recorded cleanup failures are not automatically retried every tick;
+use `compact --apply` after updating the controller at an idle boundary.
 
 ## Packaging failures
 
