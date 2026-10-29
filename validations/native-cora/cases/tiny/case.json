@@ -1,0 +1,208 @@
+{
+  "admission": {
+    "admitted": true,
+    "code_reserve_bytes": 18432,
+    "forecast_bytes": 20414,
+    "named_bytes": 1982,
+    "scope": "uniform arrays plus eight scalar bytes and explicit code/SDK reserve; actual ELF gate required, stack unmeasured"
+  },
+  "atol": 2e-05,
+  "collective_model": {
+    "calls_per_pe": 24,
+    "payload_word_hops": 768,
+    "tiles": 6
+  },
+  "family": "native-cora",
+  "features": 23,
+  "files": {
+    "expected.npz": "65d834de4a995c8df245ecdd18b51f8ca13a7df01e4e682056fa89b65ed363f5",
+    "inputs.npz": "9defe7bdc9ab98284169966cef0f89539901cfebef1aac1feefdb231b62dd77b",
+    "node_ids.npz": "e69649bb44b03c19367fc6542d83f25c9d4bb0ec54ba66ac3503ccabc4d74240",
+    "original.npz": "6a6e24454949889d837d6646dfdcc776176c5b9ca9523fc2cc7482867bd11869",
+    "provenance.json": "2b928bfde12876af8673a51e5e68708682787f86650d247dd96ed506beb8ee09",
+    "source/layout.csl": "de711680bc0f7f47cd9bf0caa6108e0720e6dac756d0fa8f73e25c540bc05518",
+    "source/pe.csl": "9ef642f5e75d9473c63178ed8ba2d6a2485d12562d4631be874e50fec80a95fc"
+  },
+  "immutable_inputs": [
+    "g_ptr",
+    "g_src",
+    "g_val",
+    "slots",
+    "w0",
+    "w1",
+    "x_col",
+    "x_ptr",
+    "x_val"
+  ],
+  "inputs": {
+    "g_ptr": [
+      7,
+      "uint16"
+    ],
+    "g_src": [
+      5,
+      "uint16"
+    ],
+    "g_val": [
+      5,
+      "float32"
+    ],
+    "slots": [
+      3,
+      "uint16"
+    ],
+    "w0": [
+      192,
+      "float32"
+    ],
+    "w1": [
+      112,
+      "float32"
+    ],
+    "x_col": [
+      23,
+      "uint16"
+    ],
+    "x_ptr": [
+      5,
+      "uint16"
+    ],
+    "x_val": [
+      23,
+      "float32"
+    ]
+  },
+  "kind": "tiny",
+  "launch": {
+    "arguments": [],
+    "entrypoint": "f_run"
+  },
+  "metadata": {
+    "collective_calls_per_pe": 24,
+    "collective_tiles": 6,
+    "column_broadcast_calls_per_pe": 12,
+    "communication_scope": "analytic chain-collective payload, including padded lanes/vertices; independent of pruning at fixed owner map, not measured cycles",
+    "declared_bytes_excludes": "code, collective library state, alignment, stack; not SRAM admission",
+    "declared_float_words_per_pe": 461,
+    "declared_u16_words_per_pe": 43,
+    "delivery_count_scope": "selective descriptor model only; excludes local fanout and ingress, not executed by full-panel kernel",
+    "dense_x_full_bytes": 644,
+    "dense_x_sharded_uniform_bytes_per_pe": 192,
+    "directed_edge_occurrences": 12,
+    "graph_nnz": {
+      "maximum": 5,
+      "maximum_over_mean": 1.6666666666666667,
+      "mean": 3.0,
+      "total": 12
+    },
+    "group_node_work": {
+      "maximum": 4,
+      "maximum_over_mean": 1.1428571428571428,
+      "mean": 3.5,
+      "total": 7
+    },
+    "input_contract": "finite FP32 X, coefficients and weights; FP64 scatter reference",
+    "input_features": 23,
+    "logical_fma_work": {
+      "maximum": 684,
+      "maximum_over_mean": 1.2643253234750462,
+      "mean": 541.0,
+      "total": 2164
+    },
+    "logical_fmas": {
+      "graph_aggregation": 276,
+      "hidden_projection": 784,
+      "sparse_x_projection": 1104
+    },
+    "modeled_full_panel_hop_words": 768,
+    "node_work": {
+      "maximum": 3,
+      "maximum_over_mean": 1.7142857142857142,
+      "mean": 1.75,
+      "total": 7
+    },
+    "nodes": 7,
+    "per_group_nodes": [
+      3,
+      4
+    ],
+    "per_pe_graph_nnz": [
+      5,
+      0,
+      3,
+      4
+    ],
+    "per_pe_logical_fmas": [
+      595,
+      240,
+      645,
+      684
+    ],
+    "per_pe_nodes": [
+      3,
+      0,
+      2,
+      2
+    ],
+    "per_pe_x_nnz": [
+      9,
+      15,
+      22,
+      23
+    ],
+    "row_broadcast_calls_per_pe": 6,
+    "row_reduce_calls_per_pe": 6,
+    "sparse_x_uniform_bytes_per_pe": 148,
+    "sparse_x_unpadded_bytes_total": 454,
+    "uniform_declared_array_bytes_per_pe": 1974,
+    "uniform_declared_array_bytes_total": 7896,
+    "unique_remote_pe_deliveries": 5,
+    "unique_remote_row_group_deliveries": 2,
+    "upload_bytes_per_pe": 1414,
+    "x_nnz": {
+      "maximum": 23,
+      "maximum_over_mean": 1.3333333333333333,
+      "mean": 17.25,
+      "total": 69
+    }
+  },
+  "nodes": 7,
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "logits": [
+      21,
+      "float32"
+    ],
+    "panel_sum": [
+      16,
+      "float32"
+    ],
+    "pre": [
+      48,
+      "float32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 2,
+    "FW": 12,
+    "H": 16,
+    "K": 4,
+    "L": 3,
+    "MG": 5,
+    "MX": 23,
+    "O": 7,
+    "R": 2,
+    "T": 4
+  },
+  "profile": "adversarial",
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "One complete sparse-input GCN forward pass: Ahat ReLU(Ahat X W0) W1, H16/O7. Cora uses every native1433 feature and the retained unpruned seed11 final200epoch checkpoint. Full2708 cases report custom500-node validation; induced subsets report no accuracy. Inference with host-trained weights; no resident training or global makespan claim."
+}

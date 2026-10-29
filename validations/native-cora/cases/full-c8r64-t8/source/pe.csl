@@ -1,0 +1,208 @@
+// SPDX-License-Identifier: Apache-2.0
+// Official gemv/gemm collectives_2d callback patterns; no message-passing root.
+param memcpy_params;
+param c2d_params;
+param C: u16;
+param R: u16;
+param K: u16;
+param L: u16;
+param FW: u16;
+param H: u16;
+param O: u16;
+param T: u16;
+param MX: u16;
+param MG: u16;
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const timestamp = @import_module("<time>");
+const mpi_x = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.x, .queues=[2]u16{2,4},
+  .dest_dsr_ids=[1]u16{1}, .src0_dsr_ids=[1]u16{1}, .src1_dsr_ids=[1]u16{1}
+});
+const mpi_y = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.y, .queues=[2]u16{3,5},
+  .dest_dsr_ids=[1]u16{2}, .src0_dsr_ids=[1]u16{2}, .src1_dsr_ids=[1]u16{2}
+});
+const tile_task = @get_local_task_id(12);
+const reduced_task = @get_local_task_id(13);
+const shared_task = @get_local_task_id(14);
+const received_task = @get_local_task_id(15);
+
+var x_ptr = @zeros([K+1]u16);
+var x_col = @zeros([MX]u16);
+var x_val = @zeros([MX]f32);
+var w0 = @zeros([FW*H]f32);
+var w1 = @zeros([H*O]f32);
+var g_ptr = @zeros([R*L+1]u16);
+var g_src = @zeros([MG]u16);
+var g_val = @zeros([MG]f32);
+var slots = @zeros([L]u16);
+var pre = @zeros([L*H]f32);
+var logits = @zeros([L*O]f32);
+var panel_local = @zeros([K*T]f32);
+// Home panel survives all column broadcasts. RX never overwrites it.
+var panel_sum = @zeros([K*T]f32);
+var panel_rx = @zeros([K*T]f32);
+var accum = @zeros([L*T]f32);
+var stats = @zeros([8]u32);
+var clocks = @zeros([6]u16);
+const lane_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{T}->panel_local[i]});
+const local_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{K*T}->panel_local[i]});
+const sum_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{K*T}->panel_sum[i]});
+const rx_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{K*T}->panel_rx[i]});
+const accum_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*T}->accum[i]});
+const pre_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*H}->pre[i]});
+const logits_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*O}->logits[i]});
+
+var phase: u16 = 0;
+var lane: u16 = 0;
+var source_group: u16 = 0;
+var py: u16 = 0;
+
+fn f_run() void {
+  mpi_x.init();
+  mpi_y.init();
+  py = mpi_y.pe_id;
+  phase = 0;
+  lane = 0;
+  for (@range(u16, 8)) |i| { stats[i] = 0; }
+  @fmovs(pre_dsd, 0.0);
+  @fmovs(logits_dsd, 0.0);
+  timestamp.enable_tsc();
+  timestamp.get_timestamp(@ptrcast(*[3]u16, &clocks[0]));
+  @activate(tile_task);
+}
+
+task compute_tile() void {
+  const width = if (phase == 0) H else O;
+  const active = if (lane+T <= width) T else width-lane;
+  const active_dsd = @set_dsd_length(lane_dsd, active);
+  @fmovs(local_dsd, 0.0);
+  @fmovs(sum_dsd, 0.0);
+  @fmovs(rx_dsd, 0.0);
+  @fmovs(accum_dsd, 0.0);
+  if (phase == 0) {
+    for (@range(u16, K)) |v| {
+      const output = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &panel_local[v*T]));
+      var e = x_ptr[v];
+      while (e < x_ptr[v+1]) : (e += 1) {
+        const input = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &w0[x_col[e]*H+lane]));
+        @fmacs(output, output, input, x_val[e]);
+        stats[4] += @as(u32, active);
+      }
+    }
+  } else {
+    // Exactly one owner contributes each row; row reduction assembles the panel.
+    for (@range(u16, L)) |v| {
+      if (slots[v] != 65535) {
+        const output = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &panel_local[slots[v]*T]));
+        for (@range(u16, H)) |h| {
+          const value = if (pre[v*H+h] > 0.0) pre[v*H+h] else @as(f32, 0.0);
+          const input = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &w1[h*O+lane]));
+          @fmacs(output, output, input, value);
+          stats[6] += @as(u32, active);
+        }
+      }
+    }
+  }
+  mpi_x.reduce_fadds(0, &panel_local, &panel_sum, K*T, reduced_task);
+}
+
+task reduced() void {
+  stats[1] += 1;
+  mpi_x.broadcast(0, @ptrcast([*]u32, &panel_sum), K*T, shared_task);
+}
+
+fn broadcast_source() void {
+  const buffer = if (py == source_group) &panel_sum else &panel_rx;
+  mpi_y.broadcast(source_group, @ptrcast([*]u32, buffer), K*T, received_task);
+}
+
+task shared() void {
+  stats[2] += 1;
+  source_group = 0;
+  broadcast_source();
+}
+
+task received() void {
+  stats[3] += 1;
+  const buffer = if (py == source_group) &panel_sum else &panel_rx;
+  const width = if (phase == 0) H else O;
+  const active = if (lane+T <= width) T else width-lane;
+  const active_dsd = @set_dsd_length(lane_dsd, active);
+  const input_base = @set_dsd_base_addr(active_dsd, buffer);
+  for (@range(u16, L)) |v| {
+    const output = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &accum[v*T]));
+    const row = source_group*L+v;
+    var e = g_ptr[row];
+    while (e < g_ptr[row+1]) : (e += 1) {
+      const input = @increment_dsd_offset(input_base, @as(i16, g_src[e]*T), f32);
+      @fmacs(output, output, input, g_val[e]);
+      stats[5] += @as(u32, active);
+    }
+  }
+  source_group += 1;
+  if (source_group < R) {
+    broadcast_source();
+  } else {
+    for (@range(u16, L)) |v| {
+      for (@range(u16, T)) |t| {
+        if (lane+t < width) {
+          if (phase == 0) { pre[v*H+lane+t] = accum[v*T+t]; }
+          else { logits[v*O+lane+t] = accum[v*T+t]; }
+        }
+      }
+    }
+    stats[7] += 1;
+    lane += T;
+    if (lane < width) {
+      @activate(tile_task);
+    } else if (phase == 0) {
+      phase = 1;
+      lane = 0;
+      @activate(tile_task);
+    } else {
+      timestamp.get_timestamp(@ptrcast(*[3]u16, &clocks[3]));
+      timestamp.disable_tsc();
+      stats[0] = 0x600D;
+      sys.unblock_cmd_stream();
+    }
+  }
+}
+
+// Exports require global pointer symbols, as in the official GEMV example.
+var ptr_x_ptr: [*]u16 = &x_ptr;
+var ptr_x_col: [*]u16 = &x_col;
+var ptr_x_val: [*]f32 = &x_val;
+var ptr_w0: [*]f32 = &w0;
+var ptr_w1: [*]f32 = &w1;
+var ptr_g_ptr: [*]u16 = &g_ptr;
+var ptr_g_src: [*]u16 = &g_src;
+var ptr_g_val: [*]f32 = &g_val;
+var ptr_slots: [*]u16 = &slots;
+var ptr_pre: [*]f32 = &pre;
+var ptr_logits: [*]f32 = &logits;
+var ptr_panel_sum: [*]f32 = &panel_sum;
+var ptr_stats: [*]u32 = &stats;
+var ptr_clocks: [*]u16 = &clocks;
+
+comptime {
+  @bind_local_task(compute_tile, tile_task);
+  @bind_local_task(reduced, reduced_task);
+  @bind_local_task(shared, shared_task);
+  @bind_local_task(received, received_task);
+  @export_symbol(ptr_x_ptr, "x_ptr");
+  @export_symbol(ptr_x_col, "x_col");
+  @export_symbol(ptr_x_val, "x_val");
+  @export_symbol(ptr_w0, "w0");
+  @export_symbol(ptr_w1, "w1");
+  @export_symbol(ptr_g_ptr, "g_ptr");
+  @export_symbol(ptr_g_src, "g_src");
+  @export_symbol(ptr_g_val, "g_val");
+  @export_symbol(ptr_slots, "slots");
+  @export_symbol(ptr_pre, "pre");
+  @export_symbol(ptr_logits, "logits");
+  @export_symbol(ptr_panel_sum, "panel_sum");
+  @export_symbol(ptr_stats, "stats");
+  @export_symbol(ptr_clocks, "clocks");
+  @export_symbol(f_run);
+}

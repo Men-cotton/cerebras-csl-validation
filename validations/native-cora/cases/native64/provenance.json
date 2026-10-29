@@ -1,0 +1,25 @@
+{
+  "adapter_source_sha256": {
+    "appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
+    "appliance_worker.py": "88dd6a1a9140712eaad13cec6d05e409dbe7147e807a3f695137177ad12a2189",
+    "portable.py": "a8248f5919ad53951a2be087dfd811dc7fdb9c8af5af00fb00708540cc8edd79",
+    "saved_audit.py": "7364b8cdd39ec75277adfe3d3530a3869f81c831149bdc4539d83c8531305fff",
+    "sdk_runner.py": "58c3e03ff9b2efb4281be327a3b110875e87c8752347f5fe4dfdb5e61b164a73"
+  },
+  "beyond16_feature_logit_difference": null,
+  "host_max_abs_error": {
+    "logits": 5.345234832532242e-07,
+    "pre": 4.4944043431360825e-08
+  },
+  "origin": "E087",
+  "preparer_sha256": "d53bb183adb39f658229f4ecc271b1b19b9d5ff4b14cc29941dde8d912a29095",
+  "source_change": "two removed comptime_struct annotations replaced by untyped module parameters; no arithmetic edits",
+  "source_sha256": {
+    "csl-extras-202505230211-4-d9070058/examples/benchmarks/gemv-collectives_2d/pe.csl": "9baa047b8804ab3d5bc7ff470d233f4a131727dc5f18c36237a8eeec18e2994a",
+    "models/hierarchical_gnn/grouped_csr/layout.csl": "de711680bc0f7f47cd9bf0caa6108e0720e6dac756d0fa8f73e25c540bc05518",
+    "models/hierarchical_gnn/grouped_csr/oracle.py": "fcce8e9c8aa92c0e7d6e49174dec13b562612a8554d2f30b2c28a1d236cdcd9e",
+    "models/hierarchical_gnn/grouped_csr/pe.csl": "a0739e39fe677aacc7723980be5ca3b933c4c2b68a8c4eb0f961875b0f05eddc",
+    "models/hierarchical_gnn/partition.py": "93d4b179e43a6b0ca5916e1ee5ca686f9eda1e43db3d1c34e1b803a74dc2eaee",
+    "sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/gemv-collectives_2d/pe.csl": "f5e3c81f33859adbf8c6b410786eba1588dbb6cd4fc504edb1bee8191d91f8f3"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "description": "Complete native-feature Cora GCN inference with retained trained weights and independent portable audit.",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py"
+  ],
+  "id": "native-cora",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

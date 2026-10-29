@@ -1,0 +1,21 @@
+{
+  "cases": {
+    "full-c8r128-t8": "14511476427c648e6122fe07be2b22fed5161a9eff4706624a8ed90eb43a245d",
+    "full-c8r64-t8": "796f97aa67c9c360334e0d82b4674829085bc7e73e5873292b8dc18f58d67160",
+    "native64": "b3abe95875454afd6788129b8d76339ca868c299cdd7ecd822c47453bcbd1c8c",
+    "tiny": "86694f8a1241e44f7cc53436f5721b5b9bb83ef901f8eb5f306d00d37cad13bb"
+  },
+  "compile_workers": 1,
+  "evidence": "package preparation only; no remote execution claim",
+  "exporter_sha256": "3ce36558807c811c378cfd7ef304ecd9275c1aa188bad534ec9b4945f6e778ad",
+  "family": "native-cora",
+  "host_sha256": {
+    "appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
+    "appliance_worker.py": "88dd6a1a9140712eaad13cec6d05e409dbe7147e807a3f695137177ad12a2189",
+    "portable.py": "a8248f5919ad53951a2be087dfd811dc7fdb9c8af5af00fb00708540cc8edd79",
+    "saved_audit.py": "7364b8cdd39ec75277adfe3d3530a3869f81c831149bdc4539d83c8531305fff",
+    "sdk_runner.py": "58c3e03ff9b2efb4281be327a3b110875e87c8752347f5fe4dfdb5e61b164a73"
+  },
+  "schema": 1,
+  "scope": "native1433-feature original-Cora learned1433-16-7 inference; complete portable numerical audits"
+}
