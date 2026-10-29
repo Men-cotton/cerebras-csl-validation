@@ -1,0 +1,56 @@
+// SPDX-License-Identifier: Apache-2.0
+// H064: full-row feature shards and column-shared source panels.
+param C: u16;
+param R: u16;
+param K: u16;
+param L: u16;
+param FW: u16;
+param H: u16;
+param O: u16;
+param T: u16;
+param MX: u16;
+param MG: u16;
+param STEPS: u16;
+const memcpy = @import_module("<memcpy/get_params>", .{.width=C, .height=R});
+const c2d = @import_module("<collectives_2d/params>");
+layout {
+  @set_rectangle(C, R);
+  @comptime_assert(STEPS >= 2 and STEPS <= 16);
+  @comptime_assert(C >= 2 and R >= 2 and (T == 4 or T == 8 or T == 16));
+  for (@range(u16, C)) |x| {
+    for (@range(u16, R)) |y| {
+      const cp = c2d.get_params(x, y, .{
+        .x_colors=.{@get_color(0), @get_color(1)},
+        .x_entrypoints=.{@get_local_task_id(8), @get_local_task_id(9)},
+        .y_colors=.{@get_color(4), @get_color(5)},
+        .y_entrypoints=.{@get_local_task_id(10), @get_local_task_id(11)}
+      });
+      @set_tile_code(x, y, "pe.csl", .{
+        .memcpy_params=memcpy.get_params(x), .c2d_params=cp,
+        .C=C,.R=R,.K=K,.L=L,.FW=FW,.H=H,.O=O,.T=T,.MX=MX,.MG=MG,.STEPS=STEPS
+      });
+    }
+  }
+  @export_name("x_ptr", [*]u16, true);
+  @export_name("x_col", [*]u16, true);
+  @export_name("g_ptr", [*]u16, true);
+  @export_name("g_src", [*]u16, true);
+  @export_name("slots", [*]u16, true);
+  @export_name("mask", [*]u16, true);
+  @export_name("x_val", [*]f32, true);
+  @export_name("w0", [*]f32, true);
+  @export_name("w1", [*]f32, true);
+  @export_name("g_val", [*]f32, true);
+  @export_name("targets", [*]f32, true);
+  @export_name("rate", [*]f32, true);
+  @export_name("history", [*]f32, true);
+  @export_name("checkpoint_step", [*]u32, true);
+  @export_name("run_summary", [*]u32, true);
+  @export_name("stats", [*]u32, true);
+  @export_name("release", [*]u32, true);
+  @export_name("control", [*]u32, true);
+  @export_name("control_status", [*]u32, true);
+  @export_name("step_times", [*]u16, true);
+  @export_name("f_run", fn()void);
+  @export_name("f_resume", fn(u32)void);
+}

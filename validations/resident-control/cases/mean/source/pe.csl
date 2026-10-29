@@ -1,0 +1,529 @@
+// SPDX-License-Identifier: Apache-2.0
+// Official gemv/gemm collectives_2d callback patterns; no message-passing root.
+param memcpy_params;
+param c2d_params;
+param C: u16;
+param R: u16;
+param K: u16;
+param L: u16;
+param FW: u16;
+param H: u16;
+param O: u16;
+param T: u16;
+param MX: u16;
+param MG: u16;
+param STEPS: u16;
+const tsc = @import_module("<time>");
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const mpi_x = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.x, .queues=[2]u16{2,4},
+  .dest_dsr_ids=[1]u16{1}, .src0_dsr_ids=[1]u16{1}, .src1_dsr_ids=[1]u16{1}
+});
+const mpi_y = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.y, .queues=[2]u16{3,5},
+  .dest_dsr_ids=[1]u16{2}, .src0_dsr_ids=[1]u16{2}, .src1_dsr_ids=[1]u16{2}
+});
+const tile_task = @get_local_task_id(12);
+const reduced_task = @get_local_task_id(13);
+const shared_task = @get_local_task_id(14);
+const received_task = @get_local_task_id(15);
+
+var x_ptr = @zeros([K+1]u16);
+var x_col = @zeros([MX]u16);
+var x_val = @zeros([MX]f32);
+var w0 = @zeros([FW*H]f32);
+var w1 = @zeros([H*O]f32);
+var g_ptr = @zeros([R*L+1]u16);
+var g_src = @zeros([MG]u16);
+var g_val = @zeros([MG]f32);
+var slots = @zeros([L]u16);
+var pre = @zeros([L*H]f32);
+var logits = @zeros([L*O]f32);
+var panel_local = @zeros([K*T]f32);
+// Home panel survives all column broadcasts. RX never overwrites it.
+var panel_sum = @zeros([K*T]f32);
+var panel_rx = @zeros([K*T]f32);
+var accum = @zeros([L*T]f32);
+var stats = @zeros([32]u32);
+const lane_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{T}->panel_local[i]});
+const local_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{K*T}->panel_local[i]});
+const sum_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{K*T}->panel_sum[i]});
+const rx_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{K*T}->panel_rx[i]});
+const accum_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*T}->accum[i]});
+const pre_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*H}->pre[i]});
+const logits_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*O}->logits[i]});
+
+// Fixed two-slot checkpoint ring; logical steps do not index physical storage.
+const Q: u16 = if (FW*H > H*O) (if (FW*H > 2) FW*H else 2) else (if (H*O > 2) H*O else 2);
+var targets = @zeros([L*O]f32);
+var mask = @zeros([L]u16);
+var rate = @zeros([1]f32);
+var red_local = @zeros([Q]f32);
+var red_row = @zeros([Q]f32);
+var red_global = @zeros([Q]f32);
+var release = @zeros([1]u32);
+var step: u16 = 0;
+var slot: u16 = 0;
+var checkpoint_step = @zeros([2]u32);
+var run_summary = @zeros([4]u32);
+// Runtime control: resident/staged mode and optional one-based fault step.
+var control = @zeros([2]u32);
+// Phase, accepted resumes, rejected entrypoints, initialization count.
+var control_status = @zeros([4]u32);
+var step_times = @zeros([96]u16);
+var stamp = @zeros([3]u16);
+var px: u16 = 0;
+var token: u32 = 0;
+var reverse_phase: u16 = 0;
+var global_kind: u16 = 0;
+var global_stage: u16 = 0;
+var global_len: u16 = 0;
+var loss: f32 = 0.0;
+var count: f32 = 0.0;
+const adj_scatter_id = @get_local_task_id(16);
+const adj_column_id = @get_local_task_id(17);
+const adj_row_id = @get_local_task_id(18);
+const adj_shared_id = @get_local_task_id(19);
+const adj_release_id = @get_local_task_id(20);
+const global_id = @get_local_task_id(24);
+const w0_id = @get_local_task_id(25);
+var w0_stage: u16 = 0;
+var hidden = @zeros([L*H]f32);
+var D1 = @zeros([L*O]f32);
+var E1 = @zeros([L*O]f32);
+var E1_shared = @zeros([K*O]f32);
+var dH = @zeros([L*H]f32);
+var D0 = @zeros([L*H]f32);
+var E0 = @zeros([L*H]f32);
+var E0_shared = @zeros([K*H]f32);
+var dW0_local = @zeros([FW*H]f32);
+var dW0 = @zeros([FW*H]f32);
+var dW1_local = @zeros([H*O]f32);
+var dW1 = @zeros([H*O]f32);
+var W0_old = @zeros([FW*H]f32);
+var W1_old = @zeros([H*O]f32);
+const FRAME: u16 = L*H+L*H+L*O+L*O+L*O+K*O+L*H+L*H+L*H+K*H+FW*H+FW*H+H*O+H*O+FW*H+H*O+FW*H+H*O+1+1;
+var history = @zeros([2*FRAME]f32);
+
+var phase: u16 = 0;
+var lane: u16 = 0;
+var source_group: u16 = 0;
+var py: u16 = 0;
+
+fn f_run() void {
+  if (control_status[0] != 0) { control_status[2] += 1; sys.unblock_cmd_stream(); return; }
+  if (control[0] > 1 or control[1] > STEPS) {
+    control_status[0] = 4; control_status[2] += 1;
+    sys.unblock_cmd_stream(); return;
+  }
+  control_status[0] = 1;
+  control_status[3] += 1;
+  tsc.enable_tsc();
+  mpi_x.init();
+  mpi_y.init();
+  px = mpi_x.pe_id;
+  step = 0;
+  token = 0;
+  for (@range(u16, 2)) |i| { checkpoint_step[i] = 0; }
+  for (@range(u16, 4)) |i| { run_summary[i] = 0; }
+  begin_step();
+}
+
+fn f_resume(expected: u32) void {
+  if (control[0] != 1 or control_status[0] != 2 or expected != @as(u32, step) or step >= STEPS) {
+    control_status[2] += 1; sys.unblock_cmd_stream(); return;
+  }
+  control_status[0] = 1;
+  control_status[1] += 1;
+  begin_step();
+}
+
+fn begin_step() void {
+  tsc.get_timestamp(&stamp);
+  for (@range(u16, 3)) |i| { step_times[step*6+i] = stamp[i]; }
+  slot = step % 2;
+  py = mpi_y.pe_id;
+  phase = 0;
+  lane = 0;
+  for (@range(u16, 16)) |i| { stats[slot*16+i] = 0; }
+  @fmovs(pre_dsd, 0.0);
+  @fmovs(logits_dsd, 0.0);
+  for (@range(u16, FW*H)) |i| { W0_old[i] = w0[i]; }
+  for (@range(u16, H*O)) |i| { W1_old[i] = w1[i]; }
+  @activate(tile_task);
+}
+
+task compute_tile() void {
+  const width = if (phase == 0) H else O;
+  const active = if (lane+T <= width) T else width-lane;
+  const active_dsd = @set_dsd_length(lane_dsd, active);
+  @fmovs(local_dsd, 0.0);
+  @fmovs(sum_dsd, 0.0);
+  @fmovs(rx_dsd, 0.0);
+  @fmovs(accum_dsd, 0.0);
+  if (phase == 0) {
+    for (@range(u16, K)) |v| {
+      const output = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &panel_local[v*T]));
+      var e = x_ptr[v];
+      while (e < x_ptr[v+1]) : (e += 1) {
+        const input = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &w0[x_col[e]*H+lane]));
+        @fmacs(output, output, input, x_val[e]);
+        stats[slot*16+4] += @as(u32, active);
+      }
+    }
+  } else {
+    // Exactly one owner contributes each row; row reduction assembles the panel.
+    for (@range(u16, L)) |v| {
+      if (slots[v] != 65535) {
+        const output = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &panel_local[slots[v]*T]));
+        for (@range(u16, H)) |h| {
+          const value = if (pre[v*H+h] > 0.0) pre[v*H+h] else @as(f32, 0.0);
+          const input = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &w1[h*O+lane]));
+          @fmacs(output, output, input, value);
+          stats[slot*16+6] += @as(u32, active);
+        }
+      }
+    }
+  }
+  mpi_x.reduce_fadds(0, &panel_local, &panel_sum, K*T, reduced_task);
+}
+
+task reduced() void {
+  stats[slot*16+1] += 1;
+  mpi_x.broadcast(0, @ptrcast([*]u32, &panel_sum), K*T, shared_task);
+}
+
+fn broadcast_source() void {
+  const buffer = if (py == source_group) &panel_sum else &panel_rx;
+  mpi_y.broadcast(source_group, @ptrcast([*]u32, buffer), K*T, received_task);
+}
+
+task shared() void {
+  stats[slot*16+2] += 1;
+  source_group = 0;
+  broadcast_source();
+}
+
+task received() void {
+  stats[slot*16+3] += 1;
+  const buffer = if (py == source_group) &panel_sum else &panel_rx;
+  const width = if (phase == 0) H else O;
+  const active = if (lane+T <= width) T else width-lane;
+  const active_dsd = @set_dsd_length(lane_dsd, active);
+  const input_base = @set_dsd_base_addr(active_dsd, buffer);
+  for (@range(u16, L)) |v| {
+    const output = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &accum[v*T]));
+    const row = source_group*L+v;
+    var e = g_ptr[row];
+    while (e < g_ptr[row+1]) : (e += 1) {
+      const input = @increment_dsd_offset(input_base, @as(i16, g_src[e]*T), f32);
+      @fmacs(output, output, input, g_val[e]);
+      stats[slot*16+5] += @as(u32, active);
+    }
+  }
+  source_group += 1;
+  if (source_group < R) {
+    broadcast_source();
+  } else {
+    for (@range(u16, L)) |v| {
+      for (@range(u16, T)) |t| {
+        if (lane+t < width) {
+          if (phase == 0) { pre[v*H+lane+t] = accum[v*T+t]; }
+          else { logits[v*O+lane+t] = accum[v*T+t]; }
+        }
+      }
+    }
+    stats[slot*16+7] += 1;
+    lane += T;
+    if (lane < width) {
+      @activate(tile_task);
+    } else if (phase == 0) {
+      phase = 1;
+      lane = 0;
+      @activate(tile_task);
+    } else {
+      begin_loss();
+    }
+  }
+}
+
+
+fn begin_loss() void {
+  for (@range(u16, L*H)) |i| { hidden[i] = if (pre[i] > 0.0) pre[i] else @as(f32, 0.0); }
+  red_local[0] = 0.0;
+  red_local[1] = 0.0;
+  for (@range(u16, L)) |v| {
+    if (mask[v] != 0) {
+      red_local[1] += 1.0;
+      for (@range(u16, O)) |o| {
+        const error = logits[v*O+o]-targets[v*O+o];
+        red_local[0] += error*error;
+      }
+    }
+  }
+  begin_global(0, 2);
+}
+// All-PE reduction: every row reduces once; only column zero reduces the
+// row sums, broadcasts down column zero, then each row broadcasts its result.
+fn begin_global(kind: u16, length: u16) void {
+  global_kind = kind;
+  global_len = length;
+  global_stage = 0;
+  mpi_x.reduce_fadds(0, &red_local, &red_row, length, global_id);
+}
+task global_done() void {
+  if (global_stage == 0) {
+    if (px == 0) {
+      global_stage = 1;
+      mpi_y.reduce_fadds(0, &red_row, &red_global, global_len, global_id);
+    } else {
+      global_stage = 3;
+      mpi_x.broadcast(0, @ptrcast([*]u32, &red_global), global_len, global_id);
+    }
+  } else if (global_stage == 1) {
+    global_stage = 2;
+    mpi_y.broadcast(0, @ptrcast([*]u32, &red_global), global_len, global_id);
+  } else if (global_stage == 2) {
+    global_stage = 3;
+    mpi_x.broadcast(0, @ptrcast([*]u32, &red_global), global_len, global_id);
+  } else {
+    stats[slot*16+12] += 1;
+    if (global_kind == 0) {
+      count = red_global[1];
+      const denom = count*@as(f32, O);
+      loss = red_global[0]/(2.0*denom);
+      for (@range(u16, L)) |v| {
+        for (@range(u16, O)) |o| {
+          D1[v*O+o] = if (mask[v] != 0) (logits[v*O+o]-targets[v*O+o])/denom else @as(f32, 0.0);
+        }
+      }
+      begin_adjoint(0);
+    } else if (global_kind == 1) {
+      for (@range(u16, H*O)) |i| { dW1[i] = red_global[i]; }
+      begin_adjoint(1);
+    } else {
+      if (red_global[0] != @as(f32, C*R*(step+1))) { stats[slot*16+15] += 1; }
+      stats[slot*16+14] = @as(u32, C*R*(step+1));
+      stats[slot*16+0] = 0x600D;
+      snapshot();
+      checkpoint_step[slot] = @as(u32, step+1);
+      run_summary[0] += 1;
+      run_summary[1] += stats[slot*16+15];
+      run_summary[2] += 1;
+      tsc.get_timestamp(&stamp);
+      for (@range(u16, 3)) |i| { step_times[step*6+3+i] = stamp[i]; }
+      step += 1;
+      if (step == STEPS) {
+        run_summary[3] = 0x600D; control_status[0] = 3; sys.unblock_cmd_stream();
+      } else if (control[0] == 1) {
+        control_status[0] = 2; sys.unblock_cmd_stream();
+      } else { begin_step(); }
+    }
+  }
+}
+fn begin_adjoint(which: u16) void {
+  reverse_phase = which;
+  lane = 0;
+  source_group = 0;
+  for (@range(u16, L*O)) |i| { if (which == 0) { E1[i] = 0.0; } }
+  for (@range(u16, K*O)) |i| { if (which == 0) { E1_shared[i] = 0.0; } }
+  for (@range(u16, L*H)) |i| { if (which == 1) { E0[i] = 0.0; } }
+  for (@range(u16, K*H)) |i| { if (which == 1) { E0_shared[i] = 0.0; } }
+  @activate(adj_scatter_id);
+}
+task adj_scatter() void {
+  @fmovs(local_dsd, 0.0);
+  @fmovs(sum_dsd, 0.0);
+  @fmovs(rx_dsd, 0.0);
+  token += 1;
+  const width = if (reverse_phase == 0) O else H;
+  const active = if (lane+T <= width) T else width-lane;
+  const active_dsd = @set_dsd_length(lane_dsd, active);
+  const derivative = if (reverse_phase == 0) @ptrcast([*]f32, &D1) else @ptrcast([*]f32, &D0);
+  for (@range(u16, L)) |v| {
+    const input_base = @set_dsd_base_addr(active_dsd, derivative);
+    const input = @increment_dsd_offset(input_base, @as(i16, v*width+lane), f32);
+    const row = source_group*L+v;
+    var e = g_ptr[row];
+    while (e < g_ptr[row+1]) : (e += 1) {
+      const output = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &panel_local[g_src[e]*T]));
+      @fmacs(output, output, input, g_val[e]);
+      stats[slot*16+9] += @as(u32, active);
+    }
+  }
+  mpi_y.reduce_fadds(source_group, &panel_local, &panel_sum, K*T, adj_column_id);
+}
+fn release_group() void {
+  release[0] = if (py == source_group) token else 0xffffffff;
+  mpi_y.broadcast(source_group, &release, 1, adj_release_id);
+}
+task adj_column() void {
+  if (py == source_group) { mpi_x.reduce_fadds(0, &panel_sum, &panel_rx, K*T, adj_row_id); }
+  else { release_group(); }
+}
+task adj_row() void { mpi_x.broadcast(0, @ptrcast([*]u32, &panel_rx), K*T, adj_shared_id); }
+task adj_shared() void {
+  const width = if (reverse_phase == 0) O else H;
+  const owner = if (reverse_phase == 0) @ptrcast([*]f32, &E1) else @ptrcast([*]f32, &E0);
+  const shared_out = if (reverse_phase == 0) @ptrcast([*]f32, &E1_shared) else @ptrcast([*]f32, &E0_shared);
+  for (@range(u16, K)) |k| {
+    for (@range(u16, T)) |t| { if (lane+t < width) { shared_out[k*width+lane+t] = panel_rx[k*T+t]; } }
+  }
+  for (@range(u16, L)) |v| {
+    if (slots[v] != 65535) {
+      for (@range(u16, T)) |t| { if (lane+t < width) { owner[v*width+lane+t] = panel_rx[slots[v]*T+t]; } }
+    }
+  }
+  stats[slot*16+10] += 1;
+  release_group();
+}
+task adj_released() void {
+  // Corrupt the real release token before its existing validator, once on PE0.
+  if (control[1] == @as(u32, step+1) and px == 0 and py == 0 and
+      reverse_phase == 0 and lane == 0 and source_group == 0) { release[0] += 1; }
+  if (release[0] != token) { stats[slot*16+15] += 1; }
+  stats[slot*16+11] += 1;
+  source_group += 1;
+  if (source_group == R) { source_group = 0; lane += T; }
+  const width = if (reverse_phase == 0) O else H;
+  if (lane < width) { @activate(adj_scatter_id); }
+  else if (reverse_phase == 0) { backward_hidden(); }
+  else { gradient_w0(); }
+}
+fn backward_hidden() void {
+  for (@range(u16, H*O)) |i| { dW1_local[i] = 0.0; }
+  for (@range(u16, L)) |v| {
+    for (@range(u16, H)) |h| {
+      var value: f32 = 0.0;
+      for (@range(u16, O)) |o| {
+        value += E1[v*O+o]*W1_old[h*O+o];
+        dW1_local[h*O+o] += hidden[v*H+h]*E1[v*O+o];
+      }
+      dH[v*H+h] = value;
+      D0[v*H+h] = if (pre[v*H+h] > 0.0) value else @as(f32, 0.0);
+    }
+  }
+  for (@range(u16, H*O)) |i| { red_local[i] = dW1_local[i]; }
+  begin_global(1, H*O);
+}
+fn gradient_w0() void {
+  for (@range(u16, FW*H)) |i| { dW0_local[i] = 0.0; }
+  for (@range(u16, K)) |k| {
+    var e = x_ptr[k];
+    while (e < x_ptr[k+1]) : (e += 1) {
+      for (@range(u16, H)) |h| { dW0_local[x_col[e]*H+h] += x_val[e]*E0_shared[k*H+h]; }
+    }
+  }
+  w0_stage = 0;
+  mpi_y.reduce_fadds(0, &dW0_local, &dW0, FW*H, w0_id);
+}
+task w0_done() void {
+  if (w0_stage == 0) {
+    w0_stage = 1;
+    mpi_y.broadcast(0, @ptrcast([*]u32, &dW0), FW*H, w0_id);
+  } else {
+    stats[slot*16+13] += 1;
+    for (@range(u16, FW*H)) |i| { w0[i] = W0_old[i]-rate[0]*dW0[i]; }
+    for (@range(u16, H*O)) |i| { w1[i] = W1_old[i]-rate[0]*dW1[i]; }
+    red_local[0] = @as(f32, step+1);
+    begin_global(2, 1);
+  }
+}
+fn snapshot() void {
+  var offset: u16 = slot*FRAME;
+  for (@range(u16, L*H)) |i| { history[offset+i] = pre[i]; }
+  offset += L*H;
+  for (@range(u16, L*H)) |i| { history[offset+i] = hidden[i]; }
+  offset += L*H;
+  for (@range(u16, L*O)) |i| { history[offset+i] = logits[i]; }
+  offset += L*O;
+  for (@range(u16, L*O)) |i| { history[offset+i] = D1[i]; }
+  offset += L*O;
+  for (@range(u16, L*O)) |i| { history[offset+i] = E1[i]; }
+  offset += L*O;
+  for (@range(u16, K*O)) |i| { history[offset+i] = E1_shared[i]; }
+  offset += K*O;
+  for (@range(u16, L*H)) |i| { history[offset+i] = dH[i]; }
+  offset += L*H;
+  for (@range(u16, L*H)) |i| { history[offset+i] = D0[i]; }
+  offset += L*H;
+  for (@range(u16, L*H)) |i| { history[offset+i] = E0[i]; }
+  offset += L*H;
+  for (@range(u16, K*H)) |i| { history[offset+i] = E0_shared[i]; }
+  offset += K*H;
+  for (@range(u16, FW*H)) |i| { history[offset+i] = dW0_local[i]; }
+  offset += FW*H;
+  for (@range(u16, FW*H)) |i| { history[offset+i] = dW0[i]; }
+  offset += FW*H;
+  for (@range(u16, H*O)) |i| { history[offset+i] = dW1_local[i]; }
+  offset += H*O;
+  for (@range(u16, H*O)) |i| { history[offset+i] = dW1[i]; }
+  offset += H*O;
+  for (@range(u16, FW*H)) |i| { history[offset+i] = W0_old[i]; }
+  offset += FW*H;
+  for (@range(u16, H*O)) |i| { history[offset+i] = W1_old[i]; }
+  offset += H*O;
+  for (@range(u16, FW*H)) |i| { history[offset+i] = w0[i]; }
+  offset += FW*H;
+  for (@range(u16, H*O)) |i| { history[offset+i] = w1[i]; }
+  offset += H*O;
+  history[offset] = loss;
+  offset += 1;
+  history[offset] = count;
+  offset += 1;
+}
+var ptr_x_ptr: [*]u16 = &x_ptr;
+var ptr_x_col: [*]u16 = &x_col;
+var ptr_g_ptr: [*]u16 = &g_ptr;
+var ptr_g_src: [*]u16 = &g_src;
+var ptr_slots: [*]u16 = &slots;
+var ptr_mask: [*]u16 = &mask;
+var ptr_x_val: [*]f32 = &x_val;
+var ptr_w0: [*]f32 = &w0;
+var ptr_w1: [*]f32 = &w1;
+var ptr_g_val: [*]f32 = &g_val;
+var ptr_targets: [*]f32 = &targets;
+var ptr_rate: [*]f32 = &rate;
+var ptr_history: [*]f32 = &history;
+var ptr_checkpoint_step: [*]u32 = &checkpoint_step;
+var ptr_run_summary: [*]u32 = &run_summary;
+var ptr_stats: [*]u32 = &stats;
+var ptr_release: [*]u32 = &release;
+var ptr_control: [*]u32 = &control;
+var ptr_control_status: [*]u32 = &control_status;
+var ptr_step_times: [*]u16 = &step_times;
+comptime {
+  @export_symbol(ptr_control, "control");
+  @export_symbol(ptr_control_status, "control_status");
+  @export_symbol(ptr_step_times, "step_times");
+  @export_symbol(f_resume);
+  @bind_local_task(compute_tile, tile_task);
+  @bind_local_task(reduced, reduced_task);
+  @bind_local_task(shared, shared_task);
+  @bind_local_task(received, received_task);
+  @bind_local_task(adj_scatter, adj_scatter_id);
+  @bind_local_task(adj_column, adj_column_id);
+  @bind_local_task(adj_row, adj_row_id);
+  @bind_local_task(adj_shared, adj_shared_id);
+  @bind_local_task(adj_released, adj_release_id);
+  @bind_local_task(global_done, global_id);
+  @bind_local_task(w0_done, w0_id);
+  @export_symbol(ptr_x_ptr, "x_ptr");
+  @export_symbol(ptr_x_col, "x_col");
+  @export_symbol(ptr_g_ptr, "g_ptr");
+  @export_symbol(ptr_g_src, "g_src");
+  @export_symbol(ptr_slots, "slots");
+  @export_symbol(ptr_mask, "mask");
+  @export_symbol(ptr_x_val, "x_val");
+  @export_symbol(ptr_w0, "w0");
+  @export_symbol(ptr_w1, "w1");
+  @export_symbol(ptr_g_val, "g_val");
+  @export_symbol(ptr_targets, "targets");
+  @export_symbol(ptr_rate, "rate");
+  @export_symbol(ptr_history, "history");
+  @export_symbol(ptr_checkpoint_step, "checkpoint_step");
+  @export_symbol(ptr_run_summary, "run_summary");
+  @export_symbol(ptr_stats, "stats");
+  @export_symbol(ptr_release, "release");
+  @export_symbol(f_run);
+}

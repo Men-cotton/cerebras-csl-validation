@@ -1,0 +1,139 @@
+{
+  "arms": [
+    "resident",
+    "staged",
+    "download"
+  ],
+  "atol": 2e-05,
+  "family": "resident-control",
+  "files": {
+    "expected.npz": "264ae27b739219503c59f3fc115bed1a1a59818bbf49b61f50f13e9722e9f2b7",
+    "inputs.npz": "667781a41a7f32bca1f5bf921d1bb445708563b9791183228a97405bed56a49a",
+    "provenance.json": "c256259faa5ab1b898a7416869564d048827b8847a3f6e23a1d56c0bd7f6486c",
+    "source/layout.csl": "e847a44ee2802920541ff5e9006a13a8ac1f07eb33d989d1341324a3e222a41a",
+    "source/pe.csl": "31d3d60075208768c87caa84f9f375f4385f8df368579d69eb43c662cbfbd2e3"
+  },
+  "immutable_inputs": [
+    "control",
+    "g_ptr",
+    "g_src",
+    "g_val",
+    "mask",
+    "rate",
+    "slots",
+    "targets",
+    "x_col",
+    "x_ptr",
+    "x_val"
+  ],
+  "input_features": 7,
+  "inputs": {
+    "control": [
+      2,
+      "uint32"
+    ],
+    "g_ptr": [
+      7,
+      "uint16"
+    ],
+    "g_src": [
+      3,
+      "uint16"
+    ],
+    "g_val": [
+      3,
+      "float32"
+    ],
+    "mask": [
+      2,
+      "uint16"
+    ],
+    "rate": [
+      1,
+      "float32"
+    ],
+    "slots": [
+      2,
+      "uint16"
+    ],
+    "targets": [
+      6,
+      "float32"
+    ],
+    "w0": [
+      15,
+      "float32"
+    ],
+    "w1": [
+      15,
+      "float32"
+    ],
+    "x_col": [
+      7,
+      "uint16"
+    ],
+    "x_ptr": [
+      5,
+      "uint16"
+    ],
+    "x_val": [
+      7,
+      "float32"
+    ]
+  },
+  "kind": "adversarial",
+  "outputs": {
+    "checkpoint_step": [
+      2,
+      "uint32"
+    ],
+    "control_status": [
+      4,
+      "uint32"
+    ],
+    "history": [
+      444,
+      "float32"
+    ],
+    "release": [
+      1,
+      "uint32"
+    ],
+    "run_summary": [
+      4,
+      "uint32"
+    ],
+    "stats": [
+      32,
+      "uint32"
+    ],
+    "step_times": [
+      96,
+      "uint16"
+    ],
+    "w0": [
+      15,
+      "float32"
+    ],
+    "w1": [
+      15,
+      "float32"
+    ]
+  },
+  "params": {
+    "C": 3,
+    "FW": 3,
+    "H": 5,
+    "K": 4,
+    "L": 2,
+    "MG": 3,
+    "MX": 7,
+    "O": 3,
+    "R": 3,
+    "STEPS": 8,
+    "T": 4
+  },
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "E166 fixed eight-step grouped masked-MSE/SGD workload, unchanged E159 CSL; resident, seven host resumes, and seven intermediate history downloads use one artifact. Same-PE TSC intervals and host API wall durations have different clock domains. No global makespan, speedup, training-quality or native-H128 claim."
+}

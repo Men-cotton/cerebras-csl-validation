@@ -1,0 +1,106 @@
+{
+  "adapter_source_sha256": {
+    "appliance.py": "abce9a418699ed7234fe7106e592b2c70a78091378f4cee5d43d94c804bc3cf4",
+    "appliance_worker.py": "f6936adf2fe6e1383300178b1ca1fec992fe5864dd9d722565878253d675a90c",
+    "portable.py": "f344bb234d5161ba96a573e1b04dcc413f881b09060ed7a6a74945b16f1d74d0",
+    "saved_audit.py": "e23dc8d1b92353a1d545f73ae457c9779ad487ee463c0857661041e8eeca8b79",
+    "sdk_runner.py": "cca7e4280b50ac47899244b87298637bcc63adeb8d0be0c62b3e7c111e46f5d0"
+  },
+  "arithmetic_origin": "E159",
+  "host_check": {
+    "atol": 2e-05,
+    "errors": [
+      {
+        "D0": 1.864519726113567e-09,
+        "D1": 2.515831779015265e-09,
+        "E0": 9.322598630567835e-10,
+        "E0_shared": 9.322598630567835e-10,
+        "E1": 2.3803301552050016e-09,
+        "E1_shared": 2.3803301552050016e-09,
+        "W0": 2.51048617450067e-08,
+        "W0_old": 1.9542036544528685e-08,
+        "W1": 4.4902034423977e-08,
+        "W1_old": 2.9869709150531776e-08,
+        "count": 0.0,
+        "dH": 1.864519726113567e-09,
+        "dW0": 2.1289879165165004e-09,
+        "dW0_local": 2.1289879165165004e-09,
+        "dW1": 1.6927593424198584e-09,
+        "dW1_local": 1.6927593424198584e-09,
+        "hidden": 2.6262184538161648e-08,
+        "logits": 2.3742754151623302e-08,
+        "loss": 1.2393800430388069e-09,
+        "pre": 2.6262184538161648e-08
+      },
+      {
+        "D0": 1.9022106390043092e-08,
+        "D1": 1.2522276437998414e-08,
+        "E0": 9.511053195021546e-09,
+        "E0_shared": 9.511053195021546e-09,
+        "E1": 2.5044552875996828e-08,
+        "E1_shared": 2.5044552875996828e-08,
+        "W0": 1.8390422296121756e-08,
+        "W0_old": 2.51048617450067e-08,
+        "W1": 5.9601575785883654e-08,
+        "W1_old": 4.4902034423977e-08,
+        "count": 0.0,
+        "dH": 1.9022106390043092e-08,
+        "dW0": 1.1352780361628678e-08,
+        "dW0_local": 1.1352780361628678e-08,
+        "dW1": 1.3498344691997843e-08,
+        "dW1_local": 1.3498344691997843e-08,
+        "hidden": 4.411206966370429e-08,
+        "logits": 5.0089105751993657e-08,
+        "loss": 6.911812441834364e-09,
+        "pre": 4.411206966370429e-08
+      }
+    ],
+    "max_absolute_error": 5.9601575785883654e-08,
+    "rtol": 0.0002,
+    "status": "PASS"
+  },
+  "origin": "E166",
+  "preparation": "host packed executor versus independent FP64 raw-edge reference",
+  "preparer_sha256": "0737b155afd0d2ad750f803a094ff6b478ecb093d51a2d8ed55b50c7e374f825",
+  "resources": {
+    "added_ring_control_bytes_per_pe": 24,
+    "communication_scope": "abstract collective tree payload, padded panels and release/generation included; no measured link bytes",
+    "continuation_array_bytes_per_pe": 222,
+    "declared_array_bytes_per_pe": 1182,
+    "excluded": "scalar state, pointers, DSDs, library, code, alignment, stack",
+    "feature_nnz_per_pe": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "graph_fmas_per_pe": [
+      64,
+      64,
+      0,
+      128
+    ],
+    "graph_nnz_per_pe": [
+      1,
+      1,
+      0,
+      2
+    ],
+    "history_bytes_per_pe": 400,
+    "modeled_hop_words": 2512,
+    "retained_checkpoints": 2,
+    "saved_history_and_stats_bytes_per_pe": 1584,
+    "steps": 8
+  },
+  "source_sha256": {
+    "models/hierarchical_gnn/grouped_csr/checkpoint_training/control_receipts/model.py": "8312bc368631a67f5740287786fd2074790eb4a0e96ac942f44cabc2336460a2",
+    "models/hierarchical_gnn/grouped_csr/checkpoint_training/control_split/layout.csl": "e847a44ee2802920541ff5e9006a13a8ac1f07eb33d989d1341324a3e222a41a",
+    "models/hierarchical_gnn/grouped_csr/checkpoint_training/control_split/model.py": "68004a9bbc9f8cac63ee3b7e0da23bf7d25086d14923f0f762dc2570cc4680c0",
+    "models/hierarchical_gnn/grouped_csr/checkpoint_training/control_split/pe.csl": "31d3d60075208768c87caa84f9f375f4385f8df368579d69eb43c662cbfbd2e3",
+    "models/hierarchical_gnn/grouped_csr/checkpoint_training/model.py": "eb36a54d7dcf078d03e4c9de9cc8706bf348f0788d2327eb094447d9a859dd15",
+    "models/hierarchical_gnn/grouped_csr/oracle.py": "fcce8e9c8aa92c0e7d6e49174dec13b562612a8554d2f30b2c28a1d236cdcd9e",
+    "models/hierarchical_gnn/grouped_csr/training/contract.py": "2e755be1e4c3cbf7bc66eca18ea811abae5526b9a0323a81586cf0bc79de262a",
+    "models/hierarchical_gnn/grouped_csr/training/reference.py": "2987bd41f31746429415e04e7796fba7429bd89651aa459f45759a6426444ba4",
+    "models/hierarchical_gnn/grouped_csr/training/test_contract.py": "c6f6469f4f38183a828a353b40f4db574cc554e525ae71a4c159b0d7250b924f"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "cases": {
+    "adversarial": "776252e7965bfd50bd35704228dc93999f133a2ba22ccdc1a5b0647e6db7587f",
+    "mean": "8038e75d52bff7b353c2ba18bcf8a6f1ab83907000ad753ce86afc806606e1de"
+  },
+  "compile_workers": 1,
+  "evidence": "Local SDK two-shape three-arm numerical and final-bit comparisons passed; hardware execution unrun.",
+  "exporter_sha256": "789ee315c3ae38632897503be9b4dbf9fd2c601746369c1854dcb5a9be2d8b9e",
+  "family": "resident-control",
+  "host_sha256": {
+    "appliance.py": "abce9a418699ed7234fe7106e592b2c70a78091378f4cee5d43d94c804bc3cf4",
+    "appliance_worker.py": "f6936adf2fe6e1383300178b1ca1fec992fe5864dd9d722565878253d675a90c",
+    "portable.py": "f344bb234d5161ba96a573e1b04dcc413f881b09060ed7a6a74945b16f1d74d0",
+    "saved_audit.py": "e23dc8d1b92353a1d545f73ae457c9779ad487ee463c0857661041e8eeca8b79",
+    "sdk_runner.py": "cca7e4280b50ac47899244b87298637bcc63adeb8d0be0c62b3e7c111e46f5d0"
+  },
+  "schema": 1,
+  "scope": "E166 fixed eight-step grouped masked-MSE/SGD workload, unchanged E159 CSL; resident, seven host resumes, and seven intermediate history downloads use one artifact. Same-PE TSC intervals and host API wall durations have different clock domains. No global makespan, speedup, training-quality or native-H128 claim."
+}

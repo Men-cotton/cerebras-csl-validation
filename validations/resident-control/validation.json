@@ -1,0 +1,13 @@
+{
+  "description": "Finite eight-step f_run/f_resume control ABI with separate numerical audit.",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py",
+    "compare_arms.py"
+  ],
+  "id": "resident-control",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

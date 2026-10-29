@@ -1,0 +1,265 @@
+{
+  "description": "E215 same-artifact resident/staged/download pilot at mean2x2 and signed duplicate-edge3x3; separate numerical audits and exact three-arm comparisons. Six fresh runtimes; no balanced timing or speedup claim.",
+  "id": "tank01-resident-control-20261029-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "mean",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-mean"
+      ],
+      "kind": "appliance",
+      "name": "compile-mean",
+      "script": "validations/resident-control/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "mean",
+        "--backend",
+        "hardware",
+        "--arm",
+        "resident",
+        "--artifact-record",
+        "{output}/compile-mean/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-mean-resident"
+      ],
+      "kind": "appliance",
+      "name": "run-mean-resident",
+      "script": "validations/resident-control/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-mean-resident/capture-data",
+        "--out",
+        "{output}/numerical-mean-resident.json"
+      ],
+      "kind": "host",
+      "name": "audit-mean-resident",
+      "script": "validations/resident-control/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "mean",
+        "--backend",
+        "hardware",
+        "--arm",
+        "staged",
+        "--artifact-record",
+        "{output}/compile-mean/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-mean-staged"
+      ],
+      "kind": "appliance",
+      "name": "run-mean-staged",
+      "script": "validations/resident-control/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-mean-staged/capture-data",
+        "--out",
+        "{output}/numerical-mean-staged.json"
+      ],
+      "kind": "host",
+      "name": "audit-mean-staged",
+      "script": "validations/resident-control/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "mean",
+        "--backend",
+        "hardware",
+        "--arm",
+        "download",
+        "--artifact-record",
+        "{output}/compile-mean/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-mean-download"
+      ],
+      "kind": "appliance",
+      "name": "run-mean-download",
+      "script": "validations/resident-control/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-mean-download/capture-data",
+        "--out",
+        "{output}/numerical-mean-download.json"
+      ],
+      "kind": "host",
+      "name": "audit-mean-download",
+      "script": "validations/resident-control/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "--capture",
+        "{output}/run-mean-resident/capture-data",
+        "{output}/run-mean-staged/capture-data",
+        "{output}/run-mean-download/capture-data",
+        "--out",
+        "{output}/comparison-mean.json"
+      ],
+      "kind": "host",
+      "name": "compare-mean",
+      "script": "validations/resident-control/compare_arms.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "adversarial",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-adversarial"
+      ],
+      "kind": "appliance",
+      "name": "compile-adversarial",
+      "script": "validations/resident-control/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "adversarial",
+        "--backend",
+        "hardware",
+        "--arm",
+        "resident",
+        "--artifact-record",
+        "{output}/compile-adversarial/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-adversarial-resident"
+      ],
+      "kind": "appliance",
+      "name": "run-adversarial-resident",
+      "script": "validations/resident-control/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-adversarial-resident/capture-data",
+        "--out",
+        "{output}/numerical-adversarial-resident.json"
+      ],
+      "kind": "host",
+      "name": "audit-adversarial-resident",
+      "script": "validations/resident-control/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "adversarial",
+        "--backend",
+        "hardware",
+        "--arm",
+        "staged",
+        "--artifact-record",
+        "{output}/compile-adversarial/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-adversarial-staged"
+      ],
+      "kind": "appliance",
+      "name": "run-adversarial-staged",
+      "script": "validations/resident-control/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-adversarial-staged/capture-data",
+        "--out",
+        "{output}/numerical-adversarial-staged.json"
+      ],
+      "kind": "host",
+      "name": "audit-adversarial-staged",
+      "script": "validations/resident-control/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "adversarial",
+        "--backend",
+        "hardware",
+        "--arm",
+        "download",
+        "--artifact-record",
+        "{output}/compile-adversarial/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-adversarial-download"
+      ],
+      "kind": "appliance",
+      "name": "run-adversarial-download",
+      "script": "validations/resident-control/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-adversarial-download/capture-data",
+        "--out",
+        "{output}/numerical-adversarial-download.json"
+      ],
+      "kind": "host",
+      "name": "audit-adversarial-download",
+      "script": "validations/resident-control/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "--capture",
+        "{output}/run-adversarial-resident/capture-data",
+        "{output}/run-adversarial-staged/capture-data",
+        "{output}/run-adversarial-download/capture-data",
+        "--out",
+        "{output}/comparison-adversarial.json"
+      ],
+      "kind": "host",
+      "name": "compare-adversarial",
+      "script": "validations/resident-control/compare_arms.py",
+      "timeout_seconds": 120
+    }
+  ]
+}
