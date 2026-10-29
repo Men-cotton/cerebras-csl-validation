@@ -139,10 +139,11 @@ checksums/sizes. Failed notification delivery does not resubmit a calculation.
 output, not an execution limit. Job-ID discovery bounds directory traversal and
 log bytes independently of numerical payload size. The watcher checks at least
 1 GiB free before each new step. Logs retain their separate bounds and completed
-ZIP bundles retain the collector's 4 GiB ceiling. Before cloning, the watcher checks a 32 GiB total state budget,
-100,000 entries and at least 1 GiB free space. It does not automatically delete
-completed clones or results. Keep the ledger and receipts when cleaning
-artifacts after verified collection and analysis.
+ZIP bundles retain the collector's 4 GiB ceiling. Accumulated source and result
+size does not gate new requests: preparation no longer scans the entire state
+directory. Older configurations may retain `state_bytes`; it is ignored.
+The free-space check still applies before preparation and each step. Keep the
+ledger and receipts when cleaning artifacts after verified collection and analysis.
 
 New work stops at 16 MiB of ledger metadata or 1,024 request records. The 32 MiB
 ledger read/write bound reserves room for active-request recovery. If admission

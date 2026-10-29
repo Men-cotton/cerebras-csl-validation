@@ -336,7 +336,6 @@ class Watcher:
     def prepare(self, entry):
         require(encoded_size(self.ledger) <= ADMISSION_LIMIT, "metadata admission limit; retain state and inspect pending requests before rotating controller")
         require(shutil.disk_usage(self.root).free >= (1 << 30), "less than 1 GiB free; collect/clean completed artifacts")
-        files_under(self.root, self.config.get("state_bytes", 32 << 30), entry_limit=100000)
         root = self.root / "requests" / entry["id"]
         root.mkdir(parents=True, exist_ok=True)
         src = root / "src"
@@ -618,8 +617,6 @@ def validate_config(value):
     require(value["idle_seconds"] >= 60 and value["poll_seconds"] >= 1, "poll bounds")
     require(type(value["output_bytes"]) is int and value["output_bytes"] >= 1 << 20,
             "output warning threshold must be at least 1 MiB")
-    require(type(value.get("state_bytes", 32 << 30)) is int and value.get("state_bytes", 32 << 30) >= 1 << 20,
-            "total state budget")
     require(Path(value["python"]).is_absolute() and Path(value["python"]).is_file(), "absolute existing Python required")
     for field in ("state_dir", "lock_file"):
         require(Path(value[field]).is_absolute() and Path(value[field]).resolve() == Path(value[field]), "absolute nonsymlink " + field)
@@ -644,7 +641,7 @@ def initialize(args):
                   namespace=args.namespace, username=getpass.getuser(),
                   hostname=socket.gethostname(), csctl="csctl", idle_seconds=3600, poll_seconds=60,
                   output_bytes=2 << 30, publish_status=args.publish_status, allowed_scripts=DEFAULT_SCRIPTS,
-                  state_bytes=32 << 30, lock_file=str(Path.home() / ".csl-validation.lock"))
+                  lock_file=str(Path.home() / ".csl-validation.lock"))
     # Reject invalid configuration before mutating the remote or running any experiment.
     validate_config(config)
     root.mkdir(parents=True)

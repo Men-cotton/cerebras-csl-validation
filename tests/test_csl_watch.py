@@ -300,6 +300,24 @@ class GitControllerTests(unittest.TestCase):
         restarted.tick()
         self.assertEqual(self.invocations(), ["wsjob-step0", "wsjob-step1"])
 
+    def test_accumulated_state_does_not_block_pending_preparation(self):
+        self.submit()
+        exports = self.state / "exports"
+        exports.mkdir()
+        # Exceed a legacy configured limit without a large test artifact.
+        with (exports / "old-result.zip").open("wb") as stream:
+            stream.truncate(2 << 20)
+        self.config["state_bytes"] = 1
+        with patch.object(watch, "files_under", side_effect=AssertionError("no cumulative scan")):
+            self.watcher.tick()
+        self.assertEqual(self.entry()["status"], "running")
+        self.assertEqual(self.invocations(), [])
+
+    def test_legacy_state_limit_is_ignored(self):
+        for old_limit in (1, 32 << 30, None):
+            config = dict(self.config, idle_seconds=60, poll_seconds=1, state_bytes=old_limit)
+            self.assertIs(watch.validate_config(config), config)
+
     def test_busy_remote_blocks_discovery_clone_and_execution(self):
         self.submit()
         self.scheduler.busy = True
@@ -781,6 +799,7 @@ class GitControllerTests(unittest.TestCase):
         self.assertTrue((root / "ledger.json").is_file())
         self.assertEqual(watch.read_json(root / "ledger.json")["cursor"], self.baseline)
         self.assertTrue(config_path.is_file())
+        self.assertNotIn("state_bytes", watch.read_json(config_path))
         self.assertFalse((root / "requests").exists())
 
 
