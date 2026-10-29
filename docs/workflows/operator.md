@@ -1,7 +1,7 @@
 # Operate the validation watcher
 
 The watcher reads a trusted Git branch, freezes each requested revision in a
-separate clone, and runs individual appliance actions serially. Its configuration,
+separate detached worktree, and runs individual appliance actions serially. Its configuration,
 ledger, captures and result archives live outside the controller checkout.
 Read [result collection](collection.md) for the laptop side and
 [development](development.md) for adding validation code and requests.
@@ -149,6 +149,51 @@ New work stops at 16 MiB of ledger metadata or 1,024 request records. The 32 MiB
 ledger read/write bound reserves room for active-request recovery. If admission
 stops at that bound, preserve the state and reconcile pending requests before
 selecting a baseline for a new state directory.
+
+## Compact completed storage
+
+New requests share the Git objects in `STATE_DIR/source.git`. Each request has
+an independent detached working tree and a permanent `refs/requests/ID` source
+pin. Once execution and packaging finish, the watcher removes a clean `src/`.
+It retains changed, untracked or ignored files and records the reason separately
+from the execution result. Legacy independent clones are checked in the same
+way. The pinned source can be restored from `source.git` at its recorded SHA.
+This does not change frozen validation code or the source revision of a request.
+
+For existing results, stop the watcher at an idle boundary, update the controller
+with `git pull --ff-only`, and use the same configuration and ledger. Do not run
+`watch init` again. Compaction holds the operator lock and never queries the
+scheduler, discovers requests or starts a validation:
+
+```bash
+uv --directory "$HOME/cerebras-csl-validation" run --locked -m csl_validation \
+  watch compact --config "$HOME/csl-operator.json"
+uv --directory "$HOME/cerebras-csl-validation" run --locked -m csl_validation \
+  watch compact --config "$HOME/csl-operator.json" --apply
+```
+
+The first command reports candidates. `--apply` removes only clean, packaged,
+terminal sources and hardlinks byte-identical files in completed `output/`
+trees. It keeps every output pathname, ZIP export, checksum, receipt and log;
+active, pending, blocked and unpackaged requests are excluded. File size,
+permissions, owner, filesystem, SHA-256 and a fresh byte comparison must match.
+An output tree containing a symlink or an incomplete inventory is skipped.
+Inodes with existing hardlinks outside the selected completed outputs are also
+skipped; they could still have a writer outside this maintenance operation.
+Completed outputs are immutable after sharing: make a separate copy before
+editing them. Runtime source files are never linked to output files.
+
+The report distinguishes logical duplicate bytes from allocated blocks released
+by replacement. Already shared inodes are skipped. `du` measures the remaining
+allocated storage; JSON `output_bytes` and ZIP members retain their original
+logical sizes. ZIP files are neither rewritten nor deduplicated with raw trees.
+A compaction timeout leaves completed output replacements valid and can be retried.
+Interrupted source deletion is reported as `incomplete`; the retained source pin
+can restore that tree, and the execution record is not replayed.
+Use `--request ID` to work on one request or `--seconds N` to adjust the default
+300-second maintenance budget. These are bounds for this maintenance command,
+not admission limits on accumulated results. Cleanup errors do not block the
+next request. Dirty sources are retained for inspection rather than force-cleaned.
 
 ## Packaging failures
 

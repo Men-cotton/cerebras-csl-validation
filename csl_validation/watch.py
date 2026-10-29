@@ -336,13 +336,16 @@ class Watcher:
     def prepare(self, entry):
         require(encoded_size(self.ledger) <= ADMISSION_LIMIT, "metadata admission limit; retain state and inspect pending requests before rotating controller")
         require(shutil.disk_usage(self.root).free >= (1 << 30), "less than 1 GiB free; collect/clean completed artifacts")
-        root = self.root / "requests" / entry["id"]
+        from .storage import pin_source, source_tree
+        root = contained(self.root, "requests/" + entry["id"])
         root.mkdir(parents=True, exist_ok=True)
-        src = root / "src"
-        # Preparation interrupted before launch is safe to resume only if its clone is valid.
+        src = contained(root, "src")
+        pin_source(self.cache, entry)
+        # Share Git objects while retaining an independent detached working tree.
+        # Existing legacy clones and interrupted preparation remain usable.
         if not src.exists():
-            git(["clone", "--no-hardlinks", "--no-checkout", str(self.cache), str(src)])
-        git(["checkout", "--detach", entry["sha"]], src)
+            git(["--git-dir", str(self.cache), "worktree", "add", "--detach", str(src), entry["sha"]])
+        source_tree(self.cache, src, entry["sha"])
         require(git(["status", "--porcelain"], src) == "", "request clone is dirty")
         source_manifest = contained(src, entry["manifest_path"])
         require(read_json(source_manifest) == entry["manifest"], "manifest changed during clone")
@@ -492,6 +495,13 @@ class Watcher:
             self.record(entry)
             print("PACKAGING FAILED", entry["id"], entry["packaging_error"], flush=True)
 
+    def cleanup_source(self, entry):
+        from .storage import clean_source
+        if entry.get("packaged") and "source_cleanup" not in entry:
+            # Independent of execution and packaging success; never retry every tick.
+            entry["source_cleanup"] = clean_source(self, entry, apply=True)
+            self.record(entry)
+
     def publish(self, entry):
         if entry.get("notified") or not entry.get("packaged") or not self.config["publish_status"]:
             return
@@ -527,6 +537,7 @@ class Watcher:
             if entry["status"] in {"passed", "failed", "interrupted"}:
                 if not entry.get("packaged"):
                     self.package(entry)
+                self.cleanup_source(entry)
                 try:
                     self.publish(entry)
                 except (ValueError, OSError) as error:
@@ -676,13 +687,17 @@ def main(argv=None):
     init.add_argument("--baseline", required=True)
     init.add_argument("--namespace", default="job-operator")
     init.add_argument("--publish-status", action="store_true")
-    for name in ("run", "once", "status", "resolve", "package", "discover", "skip"):
+    for name in ("run", "once", "status", "resolve", "package", "discover", "skip", "compact"):
         sub = commands.add_parser(name)
         sub.add_argument("--config", required=True, type=Path)
         if name in {"resolve", "package", "skip"}:
             sub.add_argument("--request", required=True)
         if name in {"resolve", "skip"}:
             sub.add_argument("--reason", required=True)
+        if name == "compact":
+            sub.add_argument("--request", help="restrict maintenance to one request")
+            sub.add_argument("--apply", action="store_true", help="remove clean terminal sources and hardlink identical completed output")
+            sub.add_argument("--seconds", type=int, default=300, help="maintenance time budget (default 300)")
     args = parser.parse_args(argv)
     os.umask(0o077)
     try:
@@ -696,6 +711,11 @@ def main(argv=None):
             return 0
         with operator_lock(config) as fd:
             watcher = Watcher(config, lock_fd=fd)
+            if args.action == "compact":
+                from .storage import compact
+                report = compact(watcher, apply=args.apply, request=args.request, seconds=args.seconds)
+                print(json.dumps(report, indent=2))
+                return 2 if report["errors"] else 0
             watcher.save()  # Repair a crash between the ledger and public-status writes.
             if args.action == "discover":
                 watcher.discover()  # Git/ledger only, even while another entry is blocked.

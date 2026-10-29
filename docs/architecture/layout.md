@@ -24,7 +24,7 @@ docs/workflows/                   operation, collection and development procedur
 docs/architecture/               design decisions and compatibility boundaries
 ```
 
-Operator configuration, ledgers, source clones and generated results live in an
+Operator configuration, ledgers, source worktrees and generated results live in an
 external state directory. The SDK virtual environment is external too. Neither
 belongs in the source inventory or inside every request clone.
 
@@ -52,8 +52,8 @@ sync cannot target a shared environment. uv documents that reusing an absolute
 project environment path across projects can overwrite that environment.
 [Project environment path](https://docs.astral.sh/uv/concepts/projects/config/#project-environment-path)
 
-Source pinning and environment recording remain separate. A clone at a fixed
-SHA identifies the code and request, while the captured environment metadata
+Source pinning and environment recording remain separate. A detached worktree
+at a fixed SHA identifies the code and request, while the captured environment metadata
 identifies the interpreter and installed packages used for that run. The operator
 must keep a shared SDK environment unchanged while requests are active.
 
