@@ -1,0 +1,126 @@
+{
+  "admission": {
+    "admitted": true,
+    "limit_bytes": 45056,
+    "named_bytes": 510,
+    "scope": "declared arrays and state only; generated ELF allocation checked before launch; stack high-water unmeasured"
+  },
+  "capture_contract": "last slots upload witness plus complete outputs; no replicated weight/input D2H audit",
+  "dataset_scope": "synthetic-semantic",
+  "family": "graphsage-cora",
+  "features": 5,
+  "files": {
+    "expected.npz": "24634a09692368039305c376757af38231ca3573338edd029878a758977c935a",
+    "input_model.npz": "baeb74ffe347796408ced1747f26e1c638100dbc0df394cc9418c9fcb03c4ce5",
+    "inputs.npz": "9e928781a7db436ae96825502724595b93b3b152aea6c9e9502e422ce386c99c",
+    "node_ids.npy": "ea9db0891f6e9cb2e149be955065455c62b0ca428b550160977456d23f61c546",
+    "node_ids.npz": "b27f472409f48dddbf33dcc95ef80940fc7f4ec8b7d9219b1010d919682e671e",
+    "prepared-case.json": "b85c3bbab87727b840f118df548298840ba6028b5c0219bc37f9a2939932395b",
+    "provenance.json": "39a2646c46236d6e84cff7b824e1a9eeab6b7c4e57026d8046f9340b719b5e31",
+    "source/layout.csl": "16ce492654686c1115deabfe9131dcc338d9add5bf8e5ecc6805c335e35c6a1d",
+    "source/pe.csl": "5bf077e322ec14251084527f7a15dddeda48186bd0687346eedb41ca20adee40"
+  },
+  "inputs": {
+    "b0": [
+      4,
+      "float32"
+    ],
+    "b1": [
+      3,
+      "float32"
+    ],
+    "g_ptr": [
+      3,
+      "uint16"
+    ],
+    "g_src": [
+      3,
+      "uint16"
+    ],
+    "g_val": [
+      3,
+      "float32"
+    ],
+    "slots": [
+      1,
+      "uint16"
+    ],
+    "wn0": [
+      12,
+      "float32"
+    ],
+    "wn1": [
+      12,
+      "float32"
+    ],
+    "ws0": [
+      12,
+      "float32"
+    ],
+    "ws1": [
+      12,
+      "float32"
+    ],
+    "x_col": [
+      4,
+      "uint16"
+    ],
+    "x_ptr": [
+      3,
+      "uint16"
+    ],
+    "x_val": [
+      4,
+      "float32"
+    ]
+  },
+  "kind": "tiny",
+  "launch": {
+    "arguments": [],
+    "symbol": "f_run"
+  },
+  "model_contract": "mean GraphSAGE classifier; hidden ReLU/L2; final raw logits; no implicit self loops",
+  "nodes": 3,
+  "original_checkpoint_sha256": "baeb74ffe347796408ced1747f26e1c638100dbc0df394cc9418c9fcb03c4ce5",
+  "original_nodes": 3,
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "hidden": [
+      4,
+      "float32"
+    ],
+    "logits": [
+      3,
+      "float32"
+    ],
+    "pre": [
+      4,
+      "float32"
+    ],
+    "stats": [
+      10,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 2,
+    "FW": 3,
+    "H": 4,
+    "K": 2,
+    "L": 1,
+    "MG": 3,
+    "MX": 4,
+    "O": 3,
+    "R": 2,
+    "T": 4
+  },
+  "schema": 1,
+  "scope": "complete frozen GraphSAGE inference; custom native splits only for full Cora; PE-local clocks; no device training or global makespan",
+  "tolerance": {
+    "atol": 2e-05,
+    "rtol": 0.0002
+  }
+}

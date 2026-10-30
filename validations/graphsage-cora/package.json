@@ -1,0 +1,22 @@
+{
+  "cases": {
+    "full-c16r16": "b578d9186c8d67e3689a417035b7a949646b1bea3c03820012b5ee69299cf330",
+    "full-c16r32": "c16980c07763457a790dcfd90fb8754f65f32f1b3d1d439aa36658d4543e3afd",
+    "full-c16r64": "88a44e14821cfaa392b19b9428d950585b6f0782983b7aee60af59ac17043240",
+    "native64": "c3ba0b0abd551d2e0ca7ce2823442d4d0678a83c660653a5ec550fadc4a8a57b",
+    "tiny": "53e1af237c461e47753021610c80c5363c242cc76c973db263339b0ca385336c"
+  },
+  "compile_workers": 1,
+  "evidence": "package preparation only; no remote execution claim",
+  "exporter_sha256": "7aaaa71253d849065940d0773fc9c3430afa818bd6131bad9bc160de394cd547",
+  "family": "graphsage-cora",
+  "host_sha256": {
+    "appliance.py": "5ac2b8e58b3d7606b6b918f829b123f182d3f0044df827586c1807886b42e6cd",
+    "appliance_worker.py": "b5e849a160445865a5d931e2e71e1f21c523cb8f8592806b0154323ca48eeeef",
+    "portable.py": "72f487280c44bfdd4786d1c54f4d20d6319519642f4ff924d7350b203a32d930",
+    "saved_audit.py": "9c804ee7ad3e8912b69e6f89c105e282f86570fb5fe722f13568f0db05a1f26a",
+    "sdk_runner.py": "dc0baf3408da61975536ef417c8854394e388a2e0d5cc00fee10a5c56e75eebd"
+  },
+  "schema": 1,
+  "scope": "resident full-neighbor GraphSAGE; native1433 features; hidden ReLU/L2 and raw logits; original-occurrence FP64 audit"
+}

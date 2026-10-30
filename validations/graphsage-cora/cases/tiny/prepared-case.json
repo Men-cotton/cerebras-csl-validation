@@ -1,0 +1,77 @@
+{
+  "capture_contract": "last slots upload witness plus complete outputs; no replicated weight/input D2H audit",
+  "dataset_scope": "synthetic-semantic",
+  "files": {
+    "arrays.npz": "9e928781a7db436ae96825502724595b93b3b152aea6c9e9502e422ce386c99c",
+    "input_model.npz": "baeb74ffe347796408ced1747f26e1c638100dbc0df394cc9418c9fcb03c4ce5",
+    "node_ids.npy": "ea9db0891f6e9cb2e149be955065455c62b0ca428b550160977456d23f61c546"
+  },
+  "input_kind": "synthetic",
+  "metadata": {
+    "capture_numeric_bytes": 384,
+    "classes": 3,
+    "column_broadcast_calls_per_pe": 4,
+    "declared_bytes_per_pe": 510,
+    "declared_scope": "input/output/scratch arrays and five u16 state scalars; excludes code, libraries, alignment, stack",
+    "edges": 6,
+    "features": 5,
+    "hidden": 4,
+    "max_to_mean_fmas": 1.5053763440860215,
+    "modeled_collective_payload_hop_words": 192,
+    "nodes": 3,
+    "owner_rule": "original_node_id modulo C*R",
+    "per_pe_edges": [
+      2,
+      1,
+      3,
+      0
+    ],
+    "per_pe_nodes": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "per_pe_projection_and_graph_fmas": [
+      70,
+      47,
+      53,
+      16
+    ],
+    "per_pe_x_nnz": [
+      4,
+      2,
+      1,
+      2
+    ],
+    "row_broadcast_calls_per_pe": 4,
+    "row_reduce_calls_per_pe": 4,
+    "traffic_scope": "analytic chain-collective payload including padded panels; excludes protocol/control; not measured",
+    "upload_payload_bytes": 1104
+  },
+  "model_contract": "mean GraphSAGE classifier; hidden ReLU/L2; final raw logits; no implicit self loops",
+  "original_checkpoint_sha256": "baeb74ffe347796408ced1747f26e1c638100dbc0df394cc9418c9fcb03c4ce5",
+  "original_nodes": 3,
+  "params": {
+    "C": 2,
+    "FW": 3,
+    "H": 4,
+    "K": 2,
+    "L": 1,
+    "MG": 3,
+    "MX": 4,
+    "O": 3,
+    "R": 2,
+    "T": 4
+  },
+  "selected_nodes": 3,
+  "source_sha256": {
+    "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+    "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+    "models/graphsage/cora_device/driver.py": "63f17a765bd5f8a61720a2f473a91656a90938f639818a154c92e934137717f6",
+    "models/graphsage/cora_device/layout.csl": "16ce492654686c1115deabfe9131dcc338d9add5bf8e5ecc6805c335e35c6a1d",
+    "models/graphsage/cora_device/model.py": "750d5869fd6ccc170aeef989768d271d1ca1f194741c5f8edbf3b914779fa102",
+    "models/graphsage/cora_device/pe.csl": "5bf077e322ec14251084527f7a15dddeda48186bd0687346eedb41ca20adee40",
+    "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598"
+  }
+}

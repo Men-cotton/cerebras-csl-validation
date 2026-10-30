@@ -1,0 +1,227 @@
+// SPDX-License-Identifier: Apache-2.0
+// Separate self and mean-neighbor projections. Only hidden uses ReLU/L2.
+param memcpy_params;
+param c2d_params;
+param C: u16;
+param R: u16;
+param K: u16;
+param L: u16;
+param FW: u16;
+param H: u16;
+param O: u16;
+param T: u16;
+param MX: u16;
+param MG: u16;
+const sys = @import_module("<memcpy/memcpy>",memcpy_params);
+const math = @import_module("<math>");
+const timestamp = @import_module("<time>");
+const mx = @import_module("<collectives_2d/pe>",.{.dim_params=c2d_params.x,
+  .queues=[2]u16{2,4},.dest_dsr_ids=[1]u16{1},.src0_dsr_ids=[1]u16{1},.src1_dsr_ids=[1]u16{1}});
+const my = @import_module("<collectives_2d/pe>",.{.dim_params=c2d_params.y,
+  .queues=[2]u16{3,5},.dest_dsr_ids=[1]u16{2},.src0_dsr_ids=[1]u16{2},.src1_dsr_ids=[1]u16{2}});
+const COMPUTE = @get_local_task_id(12);
+const REDUCED = @get_local_task_id(13);
+const SHARED = @get_local_task_id(14);
+const RECEIVED = @get_local_task_id(15);
+var x_ptr = @zeros([K+1]u16);
+var x_col = @zeros([MX]u16);
+var x_val = @zeros([MX]f32);
+var ws0 = @zeros([FW*H]f32);
+var wn0 = @zeros([FW*H]f32);
+var ws1 = @zeros([H*O]f32);
+var wn1 = @zeros([H*O]f32);
+var b0 = @zeros([H]f32);
+var b1 = @zeros([O]f32);
+var g_ptr = @zeros([R*L+1]u16);
+var g_src = @zeros([MG]u16);
+var g_val = @zeros([MG]f32);
+var slots = @zeros([L]u16);
+var pre = @zeros([L*H]f32);
+var hidden = @zeros([L*H]f32);
+var logits = @zeros([L*O]f32);
+var panel_local = @zeros([K*T]f32);
+var panel_sum = @zeros([K*T]f32);
+var panel_rx = @zeros([K*T]f32);
+var self_tile = @zeros([L*T]f32);
+var accum = @zeros([L*T]f32);
+// completion, row reductions, row broadcasts, column broadcasts,
+// input projection FMAs, graph FMAs, hidden projection FMAs, output tiles,
+// valid local vertices, nonzero hidden norms
+var stats = @zeros([10]u32);
+var clocks = @zeros([6]u16);
+const lane_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{T}->panel_local[i]});
+const local_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{K*T}->panel_local[i]});
+const sum_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{K*T}->panel_sum[i]});
+const rx_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{K*T}->panel_rx[i]});
+const accum_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{L*T}->accum[i]});
+var phase: u16 = 0;
+var branch: u16 = 0;
+var lane: u16 = 0;
+var source_group: u16 = 0;
+var py: u16 = 0;
+
+fn f_run() void {
+  mx.init(); my.init(); py = my.pe_id;
+  phase = 0; branch = 0; lane = 0;
+  for (@range(u16,10)) |i| { stats[i] = 0; }
+  for (@range(u16,L*H)) |i| { pre[i] = 0.0; hidden[i] = 0.0; }
+  for (@range(u16,L*O)) |i| { logits[i] = 0.0; }
+  for (@range(u16,L)) |v| { if (slots[v] != 65535) { stats[8] += 1; } }
+  timestamp.enable_tsc();
+  timestamp.get_timestamp(@ptrcast(*[3]u16,&clocks[0]));
+  @activate(COMPUTE);
+}
+
+task compute_tile() void {
+  const width = if (phase == 0) H else O;
+  const active = if (lane+T <= width) T else width-lane;
+  const dsd = @set_dsd_length(lane_dsd,active);
+  @fmovs(local_dsd,0.0); @fmovs(sum_dsd,0.0);
+  if (branch == 0) { @fmovs(accum_dsd,0.0); }
+  if (phase == 0) {
+    for (@range(u16,K)) |v| {
+      const output = @set_dsd_base_addr(dsd,@ptrcast([*]f32,&panel_local[v*T]));
+      var e = x_ptr[v];
+      while (e < x_ptr[v+1]) : (e += 1) {
+        const weights = if (branch == 0) &ws0 else &wn0;
+        const input = @set_dsd_base_addr(dsd,@ptrcast([*]f32,&weights.*[x_col[e]*H+lane]));
+        @fmacs(output,output,input,x_val[e]);
+        stats[4] += @as(u32,active);
+      }
+    }
+  } else {
+    for (@range(u16,L)) |v| {
+      if (slots[v] != 65535) {
+        const output = @set_dsd_base_addr(dsd,@ptrcast([*]f32,&panel_local[slots[v]*T]));
+        for (@range(u16,H)) |h| {
+          const weights = if (branch == 0) &ws1 else &wn1;
+          const input = @set_dsd_base_addr(dsd,@ptrcast([*]f32,&weights.*[h*O+lane]));
+          @fmacs(output,output,input,hidden[v*H+h]);
+          stats[6] += @as(u32,active);
+        }
+      }
+    }
+  }
+  mx.reduce_fadds(0,&panel_local,&panel_sum,K*T,REDUCED);
+}
+
+task reduced() void {
+  stats[1] += 1;
+  mx.broadcast(0,@ptrcast([*]u32,&panel_sum),K*T,SHARED);
+}
+fn broadcast_source() void {
+  const buffer = if (py == source_group) &panel_sum else &panel_rx;
+  my.broadcast(source_group,@ptrcast([*]u32,buffer),K*T,RECEIVED);
+}
+task shared() void {
+  stats[2] += 1;
+  if (branch == 0) {
+    for (@range(u16,L)) |v| {
+      for (@range(u16,T)) |t| {
+        self_tile[v*T+t] = if (slots[v] != 65535) panel_sum[slots[v]*T+t] else @as(f32,0.0);
+      }
+    }
+    branch = 1;
+    @activate(COMPUTE);
+  } else {
+    @fmovs(rx_dsd,0.0);
+    source_group = 0;
+    broadcast_source();
+  }
+}
+task received() void {
+  stats[3] += 1;
+  const width = if (phase == 0) H else O;
+  const active = if (lane+T <= width) T else width-lane;
+  const dsd = @set_dsd_length(lane_dsd,active);
+  const buffer = if (py == source_group) &panel_sum else &panel_rx;
+  const input_base = @set_dsd_base_addr(dsd,buffer);
+  for (@range(u16,L)) |v| {
+    const output = @set_dsd_base_addr(dsd,@ptrcast([*]f32,&accum[v*T]));
+    const row = source_group*L+v;
+    var e = g_ptr[row];
+    while (e < g_ptr[row+1]) : (e += 1) {
+      const input = @increment_dsd_offset(input_base,@as(i16,g_src[e]*T),f32);
+      @fmacs(output,output,input,g_val[e]);
+      stats[5] += @as(u32,active);
+    }
+  }
+  source_group += 1;
+  if (source_group < R) { broadcast_source(); }
+  else {
+    for (@range(u16,L)) |v| {
+      if (slots[v] != 65535) {
+        for (@range(u16,T)) |t| {
+          if (lane+t < width) {
+            const bias = if (phase == 0) b0[lane+t] else b1[lane+t];
+            const value = self_tile[v*T+t]+accum[v*T+t]+bias;
+            if (phase == 0) { pre[v*H+lane+t] = value; }
+            else { logits[v*O+lane+t] = value; }
+          }
+        }
+      }
+    }
+    stats[7] += 1;
+    lane += T;
+    branch = 0;
+    if (lane < width) { @activate(COMPUTE); }
+    else if (phase == 0) {
+      for (@range(u16,L)) |v| {
+        if (slots[v] != 65535) {
+          // Scaled L2 norm avoids overflow from squaring finite activations.
+          var scale: f32 = 0.0;
+          for (@range(u16,H)) |h| {
+            const positive = if (pre[v*H+h] > 0.0) pre[v*H+h] else @as(f32,0.0);
+            hidden[v*H+h] = positive;
+            if (positive > scale) { scale = positive; }
+          }
+          if (scale > 0.0) {
+            var squares: f32 = 0.0;
+            for (@range(u16,H)) |h| {
+              hidden[v*H+h] /= scale;
+              squares += hidden[v*H+h]*hidden[v*H+h];
+            }
+            const norm = math.sqrt_f32(squares);
+            for (@range(u16,H)) |h| { hidden[v*H+h] /= norm; }
+            stats[9] += 1;
+          }
+        }
+      }
+      phase = 1; lane = 0;
+      @activate(COMPUTE);
+    } else {
+      timestamp.get_timestamp(@ptrcast(*[3]u16,&clocks[3]));
+      timestamp.disable_tsc(); stats[0] = 0x600D; sys.unblock_cmd_stream();
+    }
+  }
+}
+var pxp: [*]u16 = &x_ptr;
+var pxc: [*]u16 = &x_col;
+var pxv: [*]f32 = &x_val;
+var pws0: [*]f32 = &ws0;
+var pwn0: [*]f32 = &wn0;
+var pws1: [*]f32 = &ws1;
+var pwn1: [*]f32 = &wn1;
+var pb0: [*]f32 = &b0;
+var pb1: [*]f32 = &b1;
+var pgp: [*]u16 = &g_ptr;
+var pgs: [*]u16 = &g_src;
+var pgv: [*]f32 = &g_val;
+var ps: [*]u16 = &slots;
+var pp: [*]f32 = &pre;
+var ph: [*]f32 = &hidden;
+var pl: [*]f32 = &logits;
+var pst: [*]u32 = &stats;
+var pcl: [*]u16 = &clocks;
+comptime {
+  @bind_local_task(compute_tile,COMPUTE); @bind_local_task(reduced,REDUCED);
+  @bind_local_task(shared,SHARED); @bind_local_task(received,RECEIVED);
+  @export_symbol(pxp,"x_ptr"); @export_symbol(pxc,"x_col"); @export_symbol(pxv,"x_val");
+  @export_symbol(pws0,"ws0"); @export_symbol(pwn0,"wn0");
+  @export_symbol(pws1,"ws1"); @export_symbol(pwn1,"wn1");
+  @export_symbol(pb0,"b0"); @export_symbol(pb1,"b1");
+  @export_symbol(pgp,"g_ptr"); @export_symbol(pgs,"g_src"); @export_symbol(pgv,"g_val");
+  @export_symbol(ps,"slots"); @export_symbol(pp,"pre"); @export_symbol(ph,"hidden");
+  @export_symbol(pl,"logits"); @export_symbol(pst,"stats"); @export_symbol(pcl,"clocks");
+  @export_symbol(f_run);
+}

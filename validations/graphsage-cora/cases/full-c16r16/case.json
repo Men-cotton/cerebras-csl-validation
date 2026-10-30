@@ -1,0 +1,128 @@
+{
+  "admission": {
+    "admitted": true,
+    "limit_bytes": 45056,
+    "named_bytes": 26990,
+    "scope": "declared arrays and state only; generated ELF allocation checked before launch; stack high-water unmeasured"
+  },
+  "capture_contract": "last slots upload witness plus complete outputs; no replicated weight/input D2H audit",
+  "dataset_scope": "full-checkpoint",
+  "family": "graphsage-cora",
+  "features": 1433,
+  "files": {
+    "expected.npz": "b16dfda2d9d9f6e8b65143b695a18b4a6c4ec000a6f7d6513573f38c98c094ca",
+    "input_model.npz": "04b95b83ef86ad5f58402767310495aeb729f86587919d114260f408c432d3bd",
+    "inputs.npz": "0dd863799e96be0ed1f29a7554b3ff2ffcf46d1c356f0f2cf6d082e108bcf08e",
+    "node_ids.npy": "493b7172e69082f8b491a6143e58fc983621d0ce0bd460099340056b313358d5",
+    "node_ids.npz": "03751098bdf785e0722d714c9fbe1bb8a419e8a3baf572703fd04c82315e81f8",
+    "prepared-case.json": "c9b4c8372d7c27772acaff06bc3d312aac983a67a5cb437df1579e179c0ae034",
+    "provenance.json": "3301bfd174fdea24e2fa369e2441a79205a2fd7f46d463108c3af5925b18d04d",
+    "source/layout.csl": "16ce492654686c1115deabfe9131dcc338d9add5bf8e5ecc6805c335e35c6a1d",
+    "source/pe.csl": "5bf077e322ec14251084527f7a15dddeda48186bd0687346eedb41ca20adee40",
+    "training.json": "73d9d0b46d5046c52f635ae6622162203126d79c2a762d0577279051e637b411",
+    "weights.npz": "3227580e1bda59d2e2c4326f6f066cbd44bdefeb761f44d325892c8f61fb75aa"
+  },
+  "inputs": {
+    "b0": [
+      16,
+      "float32"
+    ],
+    "b1": [
+      7,
+      "float32"
+    ],
+    "g_ptr": [
+      177,
+      "uint16"
+    ],
+    "g_src": [
+      201,
+      "uint16"
+    ],
+    "g_val": [
+      201,
+      "float32"
+    ],
+    "slots": [
+      11,
+      "uint16"
+    ],
+    "wn0": [
+      1440,
+      "float32"
+    ],
+    "wn1": [
+      112,
+      "float32"
+    ],
+    "ws0": [
+      1440,
+      "float32"
+    ],
+    "ws1": [
+      112,
+      "float32"
+    ],
+    "x_col": [
+      328,
+      "uint16"
+    ],
+    "x_ptr": [
+      177,
+      "uint16"
+    ],
+    "x_val": [
+      328,
+      "float32"
+    ]
+  },
+  "kind": "cora",
+  "launch": {
+    "arguments": [],
+    "symbol": "f_run"
+  },
+  "model_contract": "mean GraphSAGE classifier; hidden ReLU/L2; final raw logits; no implicit self loops",
+  "nodes": 2708,
+  "original_checkpoint_sha256": "04b95b83ef86ad5f58402767310495aeb729f86587919d114260f408c432d3bd",
+  "original_nodes": 2708,
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "hidden": [
+      176,
+      "float32"
+    ],
+    "logits": [
+      77,
+      "float32"
+    ],
+    "pre": [
+      176,
+      "float32"
+    ],
+    "stats": [
+      10,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 16,
+    "FW": 90,
+    "H": 16,
+    "K": 176,
+    "L": 11,
+    "MG": 201,
+    "MX": 328,
+    "O": 7,
+    "R": 16,
+    "T": 4
+  },
+  "schema": 1,
+  "scope": "complete frozen GraphSAGE inference; custom native splits only for full Cora; PE-local clocks; no device training or global makespan",
+  "tolerance": {
+    "atol": 2e-05,
+    "rtol": 0.0002
+  }
+}

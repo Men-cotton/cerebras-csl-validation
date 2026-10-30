@@ -1,0 +1,12 @@
+{
+  "description": "Resident GraphSAGE classifier with native Cora features and complete independent portable inference audit.",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py"
+  ],
+  "id": "graphsage-cora",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

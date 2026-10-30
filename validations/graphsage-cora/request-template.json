@@ -1,0 +1,252 @@
+{
+  "description": "Compile, capture and audit each GraphSAGE case before advancing; prefix cases report no classification accuracy.",
+  "id": "tank31-graphsage-cora-20261030-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "tiny",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-tiny"
+      ],
+      "kind": "appliance",
+      "name": "compile-tiny",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "tiny",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-tiny/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-tiny"
+      ],
+      "kind": "appliance",
+      "name": "run-tiny",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-tiny/capture-data",
+        "--out",
+        "{output}/numerical-tiny.json"
+      ],
+      "kind": "host",
+      "name": "audit-tiny",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "native64",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-native64"
+      ],
+      "kind": "appliance",
+      "name": "compile-native64",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "native64",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-native64/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-native64"
+      ],
+      "kind": "appliance",
+      "name": "run-native64",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-native64/capture-data",
+        "--out",
+        "{output}/numerical-native64.json"
+      ],
+      "kind": "host",
+      "name": "audit-native64",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-c16r16",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-c16r16"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-c16r16",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r16",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r16/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-full-c16r16"
+      ],
+      "kind": "appliance",
+      "name": "run-full-c16r16",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-full-c16r16/capture-data",
+        "--out",
+        "{output}/numerical-full-c16r16.json"
+      ],
+      "kind": "host",
+      "name": "audit-full-c16r16",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-c16r32",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-c16r32"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-c16r32",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r32",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r32/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-full-c16r32"
+      ],
+      "kind": "appliance",
+      "name": "run-full-c16r32",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-full-c16r32/capture-data",
+        "--out",
+        "{output}/numerical-full-c16r32.json"
+      ],
+      "kind": "host",
+      "name": "audit-full-c16r32",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-c16r64",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-c16r64"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-c16r64",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r64",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r64/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-full-c16r64"
+      ],
+      "kind": "appliance",
+      "name": "run-full-c16r64",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-full-c16r64/capture-data",
+        "--out",
+        "{output}/numerical-full-c16r64.json"
+      ],
+      "kind": "host",
+      "name": "audit-full-c16r64",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}
