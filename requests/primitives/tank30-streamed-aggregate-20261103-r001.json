@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "id": "tank30-streamed-aggregate-20261103-r001",
+  "description": "E222/T1411: streamed aggregate capture128x128,256x256,384x384, all three launches17:0,32:1,32:0,4MiB direct D2H chunks. Payload13959168/55836672/125632512B; final exceeds old92MiB aggregate boundary. Fresh compile/run/immediate complete numerical audit per shape. Exact12/18/36chunks,192MiB archive and384MiB run inventory caps; controller2GiB output warning threshold (not a hard cap). Estimate compile180s/run240s from E203 512-square compile180.660s and E210 66-transfer hardware pilot; client1200/worker600/audit300s bounds. This advances capture volume, not beyond E205 geometry; chunk bytes do not establish process RSS or speedup.",
+  "steps": [
+    {
+      "name": "compile-128",
+      "script": "validations/primitives/stream_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--package",
+        "validations/primitives/halo_stream_scale_128",
+        "--case",
+        "halo-stream-128x128-c4194304",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-128"
+      ]
+    },
+    {
+      "name": "run-128",
+      "script": "validations/primitives/stream_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--package",
+        "validations/primitives/halo_stream_scale_128",
+        "--case",
+        "halo-stream-128x128-c4194304",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-128/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-128"
+      ]
+    },
+    {
+      "name": "audit-128",
+      "script": "validations/primitives/stream_appliance.py",
+      "kind": "host",
+      "timeout_seconds": 300,
+      "args": [
+        "audit",
+        "--package",
+        "validations/primitives/halo_stream_scale_128",
+        "--case",
+        "halo-stream-128x128-c4194304",
+        "--capture",
+        "{output}/run-128",
+        "--out",
+        "{output}/audit-128.json"
+      ]
+    },
+    {
+      "name": "compile-256",
+      "script": "validations/primitives/stream_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--package",
+        "validations/primitives/halo_stream_scale_256",
+        "--case",
+        "halo-stream-256x256-c4194304",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-256"
+      ]
+    },
+    {
+      "name": "run-256",
+      "script": "validations/primitives/stream_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--package",
+        "validations/primitives/halo_stream_scale_256",
+        "--case",
+        "halo-stream-256x256-c4194304",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-256/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-256"
+      ]
+    },
+    {
+      "name": "audit-256",
+      "script": "validations/primitives/stream_appliance.py",
+      "kind": "host",
+      "timeout_seconds": 300,
+      "args": [
+        "audit",
+        "--package",
+        "validations/primitives/halo_stream_scale_256",
+        "--case",
+        "halo-stream-256x256-c4194304",
+        "--capture",
+        "{output}/run-256",
+        "--out",
+        "{output}/audit-256.json"
+      ]
+    },
+    {
+      "name": "compile-384",
+      "script": "validations/primitives/stream_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "compile",
+        "--package",
+        "validations/primitives/halo_stream_scale_384",
+        "--case",
+        "halo-stream-384x384-c4194304",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--out",
+        "{output}/compile-384"
+      ]
+    },
+    {
+      "name": "run-384",
+      "script": "validations/primitives/stream_appliance.py",
+      "kind": "appliance",
+      "timeout_seconds": 1200,
+      "args": [
+        "run",
+        "--package",
+        "validations/primitives/halo_stream_scale_384",
+        "--case",
+        "halo-stream-384x384-c4194304",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-384/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-384"
+      ]
+    },
+    {
+      "name": "audit-384",
+      "script": "validations/primitives/stream_appliance.py",
+      "kind": "host",
+      "timeout_seconds": 300,
+      "args": [
+        "audit",
+        "--package",
+        "validations/primitives/halo_stream_scale_384",
+        "--case",
+        "halo-stream-384x384-c4194304",
+        "--capture",
+        "{output}/run-384",
+        "--out",
+        "{output}/audit-384.json"
+      ]
+    }
+  ]
+}
