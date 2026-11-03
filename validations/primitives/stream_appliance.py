@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Registered compile/run/audit adapter for the bounded E210 stream pilot."""
+"""Registered compile/run/audit adapter for the bounded E210 stream campaigns."""
 import argparse
 from contextlib import contextmanager
 import json
@@ -21,7 +21,8 @@ else:
     import stream_worker as worker
 
 require = contract.require
-ARCHIVE_LIMIT = 64 << 20
+# Includes the 384x384 payload and bounded metadata; buffers remain streamed.
+ARCHIVE_LIMIT = 192 << 20
 METADATA_FILES = {"case.json", "request.json", "build.json", "out.json", "out_rpc.json", "plan.json", "execution.json"}
 
 
@@ -119,9 +120,10 @@ def compile_program(args, compiler_type=None):
     package, folder, case, pin = contract.package_identity(args.package, args.case)
     backend = args.backend
     require(backend in ("local-sim", "hardware", "appliance-sim"), "compile backend")
-    dims = (762, 1172) if backend == "hardware" else (10, 5)
+    width, height = case["grid"]
+    dims = (762, 1172) if backend == "hardware" else (width + 7, height + 2)
     flags = (f"--arch=wse3 --fabric-dims={dims[0]},{dims[1]} --fabric-offsets=4,1 "
-             "--memcpy --channels=1 --max-parallelism=1 --params=height:3,width:3 -o out")
+             f"--memcpy --channels=1 --max-parallelism=1 --params=height:{height},width:{width} -o out")
     sources = contract.source_identity(contract.APP_FILES)
     record = dict(schema=2, compile_id=str(uuid.uuid4()), backend=backend, params=case["params"],
                   source_sha256=sources, worker_sha256=contract.worker_digest(), compiler_args=flags,
@@ -239,7 +241,7 @@ def unpack_capture(archive_path, destination, plan):
     for descriptor in chunks.iter_plan(plan):
         expected["chunks/"+descriptor["file"]] = (descriptor["offset"]+descriptor["bytes"], True)
     expanded_limit = admission["payload_bytes"]+len(METADATA_FILES | {"chunks/capture.json"})*contract.JSON_LIMIT
-    require(expanded_limit <= ARCHIVE_LIMIT, "pilot expanded archive bound")
+    require(expanded_limit <= ARCHIVE_LIMIT, "expanded archive bound")
     destination = contract.new_directory(destination)
     (destination/"chunks").mkdir()
     seen, total, entries, peak = set(), 0, 0, 0

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Freeze the E210 input-free pilot without materializing an expected array."""
+"""Freeze a registered input-free halo rung without expected-value arrays."""
 import argparse
 from pathlib import Path
 import re
@@ -13,7 +13,9 @@ else:
     import stream_contract as contract
 
 
-def export(source_root, destination, source_revision):
+def export(source_root, destination, source_revision, *, shape=3, chunk_bytes=None):
+    case_name = contract.case_name(shape)
+    capture = contract.capture_bounds(shape, chunk_bytes)
     contract.require(isinstance(source_revision, str) and re.fullmatch(r"[0-9a-f]{40}", source_revision),
                      "pass the full committed source revision")
     root = Path(source_root).resolve()
@@ -40,29 +42,29 @@ def export(source_root, destination, source_revision):
     for index, pair in enumerate(contract.PILOT_SEQUENCE):
         operations.append(dict(op="launch", symbol="apply_epochs", args=pair))
         for symbol in halo.SYMBOLS:
-            operation = dict(op="d2h", symbol=symbol, array=f"s{index}_{symbol}", rect=[0, 0, 3, 3])
+            operation = dict(op="d2h", symbol=symbol, array=f"s{index}_{symbol}", rect=[0, 0, shape, shape])
             if symbol == "clocks":
                 operation["clock"] = True
             operations.append(operation)
-    case = dict(schema=2, kind="halo", grid=[3, 3], params=dict(width=3, height=3),
+    case = dict(schema=2, kind="halo", grid=[shape, shape], params=dict(width=shape, height=shape),
                 symbols=halo.SYMBOLS, functions=halo.FUNCTIONS, operations=operations, validations=dict(restore=[]),
                 census=dict(epochs_per_launch=64, max_n=32, block_size=16, sequence=contract.PILOT_SEQUENCE),
-                capture=dict(chunk_bytes=128, total_bytes=7668, max_chunks=66),
+                capture=capture,
                 oracle=dict(name=contract.ORACLE, source_sha256=halo.file_hash(contract.ROOT/"halo.py"),
                             reference_sha256=chunks.digest(payloads["oracle.py"])),
                 source_files={name: chunks.digest(payloads["source/"+name]) for name in sources})
-    contract.pilot(case)
+    contract.admit(case, case_name)
     payloads["case.json"] = chunks.encoded(case)
     destination = contract.new_directory(destination)
-    folder = destination/"cases"/contract.CASE_NAME
+    folder = destination/"cases"/case_name
     (folder/"source").mkdir(parents=True)
     for name, value in payloads.items():
         (folder/name).write_bytes(value)
     manifest = dict(schema=2, source_revision=source_revision,
-                    cases={contract.CASE_NAME: dict(case_sha256=chunks.digest(payloads["case.json"]), params=case["params"])},
-                    files={f"cases/{contract.CASE_NAME}/{name}": chunks.digest(value) for name, value in payloads.items()})
+                    cases={case_name: dict(case_sha256=chunks.digest(payloads["case.json"]), params=case["params"])},
+                    files={f"cases/{case_name}/{name}": chunks.digest(value) for name, value in payloads.items()})
     contract.write_json(destination/"manifest.json", manifest)
-    contract.package_identity(destination, contract.CASE_NAME)
+    contract.package_identity(destination, case_name)
     return manifest
 
 
@@ -71,8 +73,12 @@ def main(argv=None):
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--source-revision", required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--shape", type=int, choices=(3, *contract.SCALE_SHAPES), default=3,
+                        help="square rung; default preserves the E210 pilot")
+    parser.add_argument("--chunk-bytes", type=int,
+                        help="must match the rung: 128 for pilot, 4194304 for scale")
     args = parser.parse_args(argv)
-    export(args.source_root, args.out, args.source_revision)
+    export(args.source_root, args.out, args.source_revision, shape=args.shape, chunk_bytes=args.chunk_bytes)
     return 0
 
 

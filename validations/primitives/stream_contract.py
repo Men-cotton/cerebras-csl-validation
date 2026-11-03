@@ -1,7 +1,8 @@
 """Input-free halo schema 2 and immutable identities for streamed execution.
 
 The aggregate byte limit is independent of the per-D2H chunk limit. Appliance
-admission currently permits only the E210 3x3 pilot; this is not a scale result.
+admission permits the E210 3x3 pilot and three explicit square scale rungs.
+Host admission does not establish hardware execution.
 """
 import json
 import os
@@ -24,9 +25,17 @@ APP_FILES = WORKER_FILES + ("stream_appliance.py", "export_stream.py")
 ORACLE = "independent-halo-integer-window-v1"
 CASE_NAME = "halo-stream-3x3-c128"
 PILOT_SEQUENCE = [[17, 0], [32, 1], [32, 0]]
+SCALE_SHAPES = (128, 256, 384)
+SCALE_CHUNK_BYTES = 4 << 20
+# Each of three generations stores y[32], Q[32], count[1] and six
+# uint32 clock carriers per PE: 3 * (32 + 32 + 1 + 6) * 4 = 852 bytes.
+SCALE_CAPTURE_BYTES_PER_PE = 852
+SCALE_CHUNKS = {128: 12, 256: 18, 384: 36}
 SOURCE_NAMES = {"layout.csl", "pe.csl", "vendor_layout.csl", "vendor_pe.csl"}
 NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,79}\Z")
-TREE_LIMIT = 256 << 20
+# A retained compressed download can coexist with 384-square extracted payload
+# plus bounded metadata and logs. This disk inventory limit is not an RSS bound.
+TREE_LIMIT = 384 << 20
 JSON_LIMIT = chunks.METADATA_LIMIT
 LOG_LIMIT = 16 << 20
 
@@ -123,6 +132,38 @@ def pilot(case):
             "only the 3x3 / 128-byte E210 pilot is admitted; larger campaigns require a separate rung")
 
 
+def case_name(shape):
+    require(type(shape) is int and shape in (3, *SCALE_SHAPES), "unregistered stream shape")
+    return CASE_NAME if shape == 3 else f"halo-stream-{shape}x{shape}-c{SCALE_CHUNK_BYTES}"
+
+
+def capture_bounds(shape, chunk_bytes=None):
+    case_name(shape)
+    expected = 128 if shape == 3 else SCALE_CHUNK_BYTES
+    require(chunk_bytes is None or type(chunk_bytes) is int and chunk_bytes == expected,
+            "registered shape chunk bound")
+    return dict(chunk_bytes=expected, total_bytes=SCALE_CAPTURE_BYTES_PER_PE*shape*shape,
+                max_chunks=66 if shape == 3 else SCALE_CHUNKS[shape])
+
+
+def admit(case, name):
+    """Admit the unchanged pilot or one explicit three-generation scale rung."""
+    fields(case)
+    width, height = case["grid"]
+    require(width == height and name == case_name(width), "registered stream geometry/name")
+    if width == 3:
+        pilot(case)
+    else:
+        require(case["census"]["sequence"] == PILOT_SEQUENCE and
+                case["capture"] == capture_bounds(width), "registered scale sequence/capture bounds")
+    # Validate coverage and metadata before SDK construction, without arrays.
+    identity = dict(run_id="00000000-0000-0000-0000-000000000000", case_sha256="0"*64,
+                    artifact_sha256="0"*64, request_sha256="0"*64, worker_sha256="0"*64)
+    counts = chunks.validate_plan(make_plan(case, identity))
+    require(counts == dict(payload_bytes=case["capture"]["total_bytes"],
+                           chunks=case["capture"]["max_chunks"]), "exact scale capture census")
+
+
 def package_identity(package, name):
     root = chunks.regular_root(package)
     require(isinstance(name, str) and NAME.fullmatch(name), "case name")
@@ -131,11 +172,12 @@ def package_identity(package, name):
             "stream package schema")
     require(isinstance(manifest["source_revision"], str) and re.fullmatch(r"[0-9a-f]{40}", manifest["source_revision"]),
             "full source revision")
-    require(set(manifest["cases"]) == {CASE_NAME} and name == CASE_NAME, "pilot package case inventory")
+    require(set(manifest["cases"]) == {name} and name in {case_name(n) for n in (3, *SCALE_SHAPES)},
+            "registered package case inventory")
     folder = root/"cases"/name
     case_bytes = halo.bounded(folder/"case.json")
     case = json.loads(case_bytes, object_pairs_hook=chunks.unique_object)
-    pilot(case)
+    admit(case, name)
     expected = {f"cases/{name}/case.json", f"cases/{name}/oracle.py"} | {
         f"cases/{name}/source/{n}" for n in SOURCE_NAMES}
     require(set(manifest["files"]) == expected and set(inventory(root, 16 << 20)) == expected | {"manifest.json"},
@@ -188,13 +230,13 @@ def validate_request(value, case_bytes, backend):
             "stream request schema")
     require(str(uuid.UUID(value["run_id"])) == value["run_id"] and value["backend"] == backend
             and backend in ("local-sim", "hardware", "appliance-sim"), "request UUID/backend")
-    require(value["case_name"] == CASE_NAME, "request case name")
+    require(value["case_name"] in {case_name(n) for n in (3, *SCALE_SHAPES)}, "request case name")
     require(all(isinstance(value[k], str) and chunks.SHA.fullmatch(value[k]) for k in
                 ("case_sha256", "package_manifest_sha256", "artifact_sha256", "build_record_sha256", "worker_sha256")),
             "request digest schema")
     require(value["case_sha256"] == chunks.digest(case_bytes) and value["worker_sources"] == source_identity()
             and value["worker_sha256"] == worker_digest(), "request case/worker/helper/oracle binding")
-    pilot(json.loads(case_bytes))
+    admit(json.loads(case_bytes), value["case_name"])
 
 
 def plan_identity(request_bytes):
