@@ -1,0 +1,334 @@
+{
+  "schema": 1,
+  "id": "tank31-graphsage-balanced-repeat-20261103-r001",
+  "description": "E222/T1412: unchanged full Cora GraphSAGE, C16/R16,R32,R64; three fresh compiles then nine independent one-inference runtimes in ABC/BCA/CAB order, immediate frozen numerical audit after every run. Each placement has three samples; no warmup excluded. Same-PE intervals and launch-to-completion-read host windows are separate, neither application E2E. No selective delivery speedup claim. E219 compile41-63s/run62-171s motivates90s/240s estimates; client1200/worker600/audit120s bounds, existing per-case128MiB and capture256MiB caps, controller2GiB output warning threshold (not a hard cap).",
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-c16r16",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-c16r16"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-c16r16",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-c16r32",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-c16r32"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-c16r32",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-c16r64",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-c16r64"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-c16r64",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r16",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r16/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r1-full-c16r16"
+      ],
+      "kind": "appliance",
+      "name": "run-r1-full-c16r16",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r1-full-c16r16/capture-data",
+        "--out",
+        "{output}/numerical-r1-full-c16r16.json"
+      ],
+      "kind": "host",
+      "name": "audit-r1-full-c16r16",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r32",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r32/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r1-full-c16r32"
+      ],
+      "kind": "appliance",
+      "name": "run-r1-full-c16r32",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r1-full-c16r32/capture-data",
+        "--out",
+        "{output}/numerical-r1-full-c16r32.json"
+      ],
+      "kind": "host",
+      "name": "audit-r1-full-c16r32",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r64",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r64/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r1-full-c16r64"
+      ],
+      "kind": "appliance",
+      "name": "run-r1-full-c16r64",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r1-full-c16r64/capture-data",
+        "--out",
+        "{output}/numerical-r1-full-c16r64.json"
+      ],
+      "kind": "host",
+      "name": "audit-r1-full-c16r64",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r32",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r32/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r2-full-c16r32"
+      ],
+      "kind": "appliance",
+      "name": "run-r2-full-c16r32",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r2-full-c16r32/capture-data",
+        "--out",
+        "{output}/numerical-r2-full-c16r32.json"
+      ],
+      "kind": "host",
+      "name": "audit-r2-full-c16r32",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r64",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r64/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r2-full-c16r64"
+      ],
+      "kind": "appliance",
+      "name": "run-r2-full-c16r64",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r2-full-c16r64/capture-data",
+        "--out",
+        "{output}/numerical-r2-full-c16r64.json"
+      ],
+      "kind": "host",
+      "name": "audit-r2-full-c16r64",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r16",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r16/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r2-full-c16r16"
+      ],
+      "kind": "appliance",
+      "name": "run-r2-full-c16r16",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r2-full-c16r16/capture-data",
+        "--out",
+        "{output}/numerical-r2-full-c16r16.json"
+      ],
+      "kind": "host",
+      "name": "audit-r2-full-c16r16",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r64",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r64/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r3-full-c16r64"
+      ],
+      "kind": "appliance",
+      "name": "run-r3-full-c16r64",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r3-full-c16r64/capture-data",
+        "--out",
+        "{output}/numerical-r3-full-c16r64.json"
+      ],
+      "kind": "host",
+      "name": "audit-r3-full-c16r64",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r16",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r16/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r3-full-c16r16"
+      ],
+      "kind": "appliance",
+      "name": "run-r3-full-c16r16",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r3-full-c16r16/capture-data",
+        "--out",
+        "{output}/numerical-r3-full-c16r16.json"
+      ],
+      "kind": "host",
+      "name": "audit-r3-full-c16r16",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r32",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-c16r32/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r3-full-c16r32"
+      ],
+      "kind": "appliance",
+      "name": "run-r3-full-c16r32",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r3-full-c16r32/capture-data",
+        "--out",
+        "{output}/numerical-r3-full-c16r32.json"
+      ],
+      "kind": "host",
+      "name": "audit-r3-full-c16r32",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}
