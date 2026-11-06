@@ -35,6 +35,8 @@ def schema(params, output=False):
     dims = dict(x_ptr=params["K"]+1, x_col=params["MX"], x_val=params["MX"],
                 w0=params["FW"]*16, w1=16*7, g_ptr=params["R"]*params["L"]+1,
                 g_src=params["MG"], g_val=params["MG"], slots=params["L"])
+    if "COMPACT" in params:
+        dims.update(sender_slots=params["K"], source_lengths=params["R"])
     return {name: [count, "float32" if name in ("x_val", "w0", "w1", "g_val") else "uint16"]
             for name, count in dims.items()}
 
@@ -43,12 +45,17 @@ def named_bytes(params):
     c, r, k, l, fw, h, o, t, mx, mg = (params[name] for name in PARAMS)
     integers = k+1+mx+r*l+1+mg+l
     floats = mx+fw*h+h*o+mg+l*h+l*o+3*k*t+l*t
-    return 2*integers+4*floats+8*4+6*2+8
+    extra = 0 if "COMPACT" not in params else 2*(k+r)+4*(params["U"]-k)*t
+    return 2*integers+4*floats+8*4+6*2+8+extra
 
 
 def validate_params(params):
-    require(isinstance(params, dict) and set(params) == set(PARAMS)
-            and all(type(v) is int and 1 <= v <= 65535 for v in params.values()), "u16 parameter contract")
+    require(isinstance(params, dict) and set(params) in (set(PARAMS), set(PARAMS)|{"COMPACT", "U"})
+            and all(type(params[k]) is int and 1 <= params[k] <= 65535 for k in PARAMS), "u16 parameter contract")
+    if "COMPACT" in params:
+        require(type(params["COMPACT"]) is int and params["COMPACT"] in (0, 1)
+                and type(params["U"]) is int and 1 <= params["U"] <= params["K"]
+                and (params["COMPACT"] == 1 or params["U"] == params["K"]), "compact RX capacity contract")
     require(params["H"] == 16 and params["O"] == 7 and params["T"] in (4, 8, 16)
             and params["C"] >= 2 and params["R"] >= 2 and params["C"]*params["R"] <= 4096, "native H16/O7 rectangle")
     require(params["K"]*params["T"] <= 32767
@@ -122,6 +129,28 @@ def decode_uploads(params, arrays, nodes, original):
         owner[nodes[pe, nodes[pe] >= 0]] = pe
     groups = [np.flatnonzero(owner//c == row) for row in range(r)]
     require(max(map(len, groups)) == k, "source row capacity")
+    # Reconstruct column unions from original occurrences, independently of the
+    # preparation planner and the uploaded remapped g_src table.
+    demanded = [[set() for _ in range(r)] for _ in range(c)]
+    ordered = {}
+    for source, destination, value in zip(src, dst, coeff):
+        pe, group_id = int(owner[destination]), int(owner[source]//c)
+        local = int(np.flatnonzero(nodes[pe] == destination)[0])
+        slot = int(np.searchsorted(groups[group_id], source))
+        ordered.setdefault((pe, group_id*l+local), []).append((int(source), float(value)))
+        if pe//c != group_id:
+            demanded[pe % c][group_id].add(slot)
+    lists = [[sorted(slots) for slots in column] for column in demanded]
+    if "COMPACT" in params:
+        lengths = np.array([[len(slots) for slots in column] for column in lists], np.uint16)
+        senders = np.zeros((c*r, k), np.uint16)
+        for column in range(c):
+            for group_id in range(r):
+                senders[group_id*c+column, :len(lists[column][group_id])] = lists[column][group_id]
+        require(np.array_equal(arrays["source_lengths"], np.tile(lengths, (r, 1)))
+                and np.array_equal(arrays["sender_slots"], senders), "exact original-graph compact directories")
+        if params["COMPACT"]:
+            require(params["U"] == max(1, int(lengths.max())), "exact compact RX maximum")
     decoded = np.zeros_like(x)
     occurrences = Counter()
     for pe in range(c*r):
@@ -153,9 +182,18 @@ def decode_uploads(params, arrays, nodes, original):
                 else:
                     source_group, local = divmod(row, l)
                     require(nodes[pe, local] >= 0 or lo == hi, "graph padded destination")
+                    actual_order = []
                     for edge in range(lo, hi):
-                        require(index[edge] < len(groups[source_group]), "graph source slot")
-                        occurrences[(int(groups[source_group][index[edge]]), int(nodes[pe, local]), float(value[edge]))] += 1
+                        slot = int(index[edge])
+                        if params.get("COMPACT", 0) and pe//c != source_group:
+                            directory = lists[pe % c][source_group]
+                            require(slot < len(directory), "remote compact source slot")
+                            slot = directory[slot]
+                        require(slot < len(groups[source_group]), "graph source slot")
+                        source = int(groups[source_group][slot])
+                        occurrences[(source, int(nodes[pe, local]), float(value[edge]))] += 1
+                        actual_order.append((source, float(value[edge])))
+                    require(actual_order == ordered.get((pe, row), []), "original occurrence order within source group")
     require(np.array_equal(decoded.view(np.uint32), x.view(np.uint32)), "complete decoded native sparse features")
     require(occurrences == Counter((int(s), int(d), float(v)) for s, d, v in zip(src, dst, coeff)), "graph occurrence/coefficient identity")
     tiles = (16+params["T"]-1)//params["T"]+(7+params["T"]-1)//params["T"]

@@ -1,0 +1,124 @@
+{
+  "audit_count": 10,
+  "audit_timeout_seconds": 120,
+  "client_timeout_seconds": 1200,
+  "compile_count": 6,
+  "compile_workers": 1,
+  "forecasts": {
+    "aggregate_forecast_bytes": 1157410200,
+    "capture_forecast_bytes": 686285439,
+    "cases": {
+      "r128-compact": {
+        "capture_forecast_with_32MiB_headroom": 88199573,
+        "case_bytes": 19874197,
+        "raw_array_bytes": 34770944,
+        "runtime_count": 2
+      },
+      "r128-full": {
+        "capture_forecast_with_32MiB_headroom": 88201310,
+        "case_bytes": 19875934,
+        "raw_array_bytes": 34770944,
+        "runtime_count": 2
+      },
+      "r64-compact": {
+        "capture_forecast_with_32MiB_headroom": 66571687,
+        "case_bytes": 14331303,
+        "raw_array_bytes": 18685952,
+        "runtime_count": 2
+      },
+      "r64-full": {
+        "capture_forecast_with_32MiB_headroom": 66573100,
+        "case_bytes": 14332716,
+        "raw_array_bytes": 18685952,
+        "runtime_count": 2
+      },
+      "tiny-compact": {
+        "capture_forecast_with_32MiB_headroom": 33597049,
+        "case_bytes": 28713,
+        "raw_array_bytes": 13904,
+        "runtime_count": 1
+      },
+      "tiny-full": {
+        "capture_forecast_with_32MiB_headroom": 33597050,
+        "case_bytes": 28714,
+        "raw_array_bytes": 13904,
+        "runtime_count": 1
+      }
+    },
+    "compile_forecast_bytes": 402653184,
+    "forecast_limit_bytes": 2147483648,
+    "package_case_bytes": 68471577,
+    "per_compile_enforced_elf_inventory_limit": 1073741824,
+    "per_runtime_enforced_capture_limit": 268435456,
+    "scope": "uncompressed output forecast with explicit headroom, not measured bytes or a campaign-wide enforced limit"
+  },
+  "full_runtime_order": [
+    "r64-full",
+    "r64-compact",
+    "r128-compact",
+    "r128-full",
+    "r128-full",
+    "r128-compact",
+    "r64-compact",
+    "r64-full"
+  ],
+  "interpretation": "two full runtimes per shape/mode with balanced order; matched array identity and independent per-run oracle audits; no new comparator or global clock",
+  "local_narrow_rx_gate": "root separately runs default tiny compact with U=1<K=4; not inferred from these dense-pilot cases",
+  "package_case_sha256": {
+    "r128-compact": "6c49940403f7d2356226f5b7d001603ed0161568a963166495889533b135b1aa",
+    "r128-full": "801590ab9a823678b5491d47e53469335ccbf420904cb4dad02812872f6fac3f",
+    "r64-compact": "19d76ca5888a1088cfb64e31644e83117c40a226be9727236d8c7d4550349a57",
+    "r64-full": "f4a995291fe5844e7801f4194767b34fbf7d07df69b0febe6727de14989c5fc9",
+    "tiny-compact": "6125a2262d42dff72ec7410ac644d442cad7070fb49200431b46489d342aa80e",
+    "tiny-full": "de249c99c79bd61ae984081f72ce8b4f65ca4616a554333ff4142a95b04e647c"
+  },
+  "package_host_sha256": {
+    "appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
+    "appliance_worker.py": "88dd6a1a9140712eaad13cec6d05e409dbe7147e807a3f695137177ad12a2189",
+    "portable.py": "a8248f5919ad53951a2be087dfd811dc7fdb9c8af5af00fb00708540cc8edd79",
+    "saved_audit.py": "ea8f9dda1d9c45b631d44c1eb6ea91d1c75e89875710d483aa1ecdbe989ee82c",
+    "sdk_runner.py": "58c3e03ff9b2efb4281be327a3b110875e87c8752347f5fe4dfdb5e61b164a73"
+  },
+  "package_sha256": "f407795ed6fd2b794c4774ace621c4549bb1fcaa59292bfb79385f3d2a9a0684",
+  "pair_checks": {
+    "r128": {
+      "actual_pair_arrays": "PASS",
+      "case_sha256": {
+        "compact": "6c49940403f7d2356226f5b7d001603ed0161568a963166495889533b135b1aa",
+        "full": "801590ab9a823678b5491d47e53469335ccbf420904cb4dad02812872f6fac3f"
+      },
+      "independent_directory_and_occurrence_decode": "PASS",
+      "summary_sha256": "46281dd6ad85458b6418277451fbd3456c6cf6555033f772f5893b5da41d579e"
+    },
+    "r64": {
+      "actual_pair_arrays": "PASS",
+      "case_sha256": {
+        "compact": "19d76ca5888a1088cfb64e31644e83117c40a226be9727236d8c7d4550349a57",
+        "full": "f4a995291fe5844e7801f4194767b34fbf7d07df69b0febe6727de14989c5fc9"
+      },
+      "independent_directory_and_occurrence_decode": "PASS",
+      "summary_sha256": "46281dd6ad85458b6418277451fbd3456c6cf6555033f772f5893b5da41d579e"
+    },
+    "tiny": {
+      "actual_pair_arrays": "PASS",
+      "case_sha256": {
+        "compact": "6125a2262d42dff72ec7410ac644d442cad7070fb49200431b46489d342aa80e",
+        "full": "de249c99c79bd61ae984081f72ce8b4f65ca4616a554333ff4142a95b04e647c"
+      },
+      "independent_directory_and_occurrence_decode": "PASS",
+      "summary_sha256": "ef7da2a8619ff645f9388ccd0f4156f8bc8c4d6a58c36886fa000f8f74690581"
+    }
+  },
+  "request_id": "tank01-compact-cora-20261106-r001",
+  "request_sha256": "01547f3bcd7b88e2c6fdc782a230d4877b94043cd85d1d78b615cee107fd7863",
+  "runtime_count": 10,
+  "schema": 1,
+  "source_sha256": {
+    "exporter": "3ce36558807c811c378cfd7ef304ecd9275c1aa188bad534ec9b4945f6e778ad",
+    "preparation_generator": "fa94c9231f7ce95a649f8684a0761b79828b103489c683ab13b7ff405cf30ede",
+    "request_builder": "d42ae46b9372a3da522222a8a9a50e0e1602041364e66650abb42644636370f6"
+  },
+  "status": "PREPARED_NOT_SUBMITTED",
+  "worker_kill_grace_seconds": 15,
+  "worker_timeout_seconds": 600
+}

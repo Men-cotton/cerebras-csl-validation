@@ -1,0 +1,421 @@
+{
+  "description": "Demand-compacted native Cora: both directed tiny pilots audit before four full-model compiles; eight palindromic full runs reuse one artifact per case and audit immediately. Same model and directory ABI; no throughput claim from submission.",
+  "id": "tank01-compact-cora-20261106-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "tiny-full",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-tiny-full"
+      ],
+      "kind": "appliance",
+      "name": "compile-tiny-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "tiny-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-tiny-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-tiny-full"
+      ],
+      "kind": "appliance",
+      "name": "run-tiny-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-tiny-full/capture-data",
+        "--out",
+        "{output}/numerical-tiny-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-tiny-full",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "tiny-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-tiny-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-tiny-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "tiny-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-tiny-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-tiny-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-tiny-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-tiny-compact/capture-data",
+        "--out",
+        "{output}/numerical-tiny-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-tiny-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "r64-full",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-r64-full"
+      ],
+      "kind": "appliance",
+      "name": "compile-r64-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "r64-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-r64-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-r64-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "r128-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-r128-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-r128-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "r128-full",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-r128-full"
+      ],
+      "kind": "appliance",
+      "name": "compile-r128-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r64-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r64-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-01-r64-full"
+      ],
+      "kind": "appliance",
+      "name": "run-01-r64-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-01-r64-full/capture-data",
+        "--out",
+        "{output}/numerical-01-r64-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-01-r64-full",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r64-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r64-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-02-r64-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-02-r64-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-02-r64-compact/capture-data",
+        "--out",
+        "{output}/numerical-02-r64-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-02-r64-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r128-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r128-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-03-r128-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-03-r128-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-03-r128-compact/capture-data",
+        "--out",
+        "{output}/numerical-03-r128-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-03-r128-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r128-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r128-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-04-r128-full"
+      ],
+      "kind": "appliance",
+      "name": "run-04-r128-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-04-r128-full/capture-data",
+        "--out",
+        "{output}/numerical-04-r128-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-04-r128-full",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r128-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r128-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-05-r128-full"
+      ],
+      "kind": "appliance",
+      "name": "run-05-r128-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-05-r128-full/capture-data",
+        "--out",
+        "{output}/numerical-05-r128-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-05-r128-full",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r128-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r128-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-06-r128-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-06-r128-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-06-r128-compact/capture-data",
+        "--out",
+        "{output}/numerical-06-r128-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-06-r128-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r64-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r64-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-07-r64-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-07-r64-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-07-r64-compact/capture-data",
+        "--out",
+        "{output}/numerical-07-r64-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-07-r64-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r64-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r64-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-08-r64-full"
+      ],
+      "kind": "appliance",
+      "name": "run-08-r64-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-08-r64-full/capture-data",
+        "--out",
+        "{output}/numerical-08-r64-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-08-r64-full",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}
