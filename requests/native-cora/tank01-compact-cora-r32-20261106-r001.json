@@ -1,0 +1,165 @@
+{
+  "description": "Full native Cora at256PE: unchanged E224 source/model, matched C8/R32 full/compact ABBA. Reuse one artifact per mode, audit each run immediately. Compare modes within this cohort; R64/R128 comparisons retain separate-campaign timing scope.",
+  "id": "tank01-compact-cora-r32-20261106-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "r32-full",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-r32-full"
+      ],
+      "kind": "appliance",
+      "name": "compile-r32-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "r32-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-r32-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-r32-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r32-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r32-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-01-r32-full"
+      ],
+      "kind": "appliance",
+      "name": "run-01-r32-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-01-r32-full/capture-data",
+        "--out",
+        "{output}/numerical-01-r32-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-01-r32-full",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r32-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r32-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-02-r32-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-02-r32-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-02-r32-compact/capture-data",
+        "--out",
+        "{output}/numerical-02-r32-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-02-r32-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r32-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r32-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-03-r32-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-03-r32-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-03-r32-compact/capture-data",
+        "--out",
+        "{output}/numerical-03-r32-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-03-r32-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "r32-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-r32-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-04-r32-full"
+      ],
+      "kind": "appliance",
+      "name": "run-04-r32-full",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-04-r32-full/capture-data",
+        "--out",
+        "{output}/numerical-04-r32-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-04-r32-full",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}
