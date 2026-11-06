@@ -1,0 +1,767 @@
+{
+  "admission": {
+    "admitted": true,
+    "code_reserve_bytes": 18432,
+    "forecast_bytes": 37716,
+    "named_bytes": 19284
+  },
+  "atol": 2e-05,
+  "clock_scope": "same-PE first forward descriptor through final adjoint RELEASE/status; excludes initialization, output reset, export, host transfer and global makespan",
+  "family": "bounded-adjoint",
+  "files": {
+    "inputs.npz": "b765ce1791258fa62126d06ad327b913284aff7484a097551d1626cd7434c3df",
+    "original.npz": "a8b9b7b31a217fefc535f1f72fd51a80d4fbd5cbcbffc70afbef1f147203bfd8",
+    "reference.npz": "fc3ec0a9d13844577a6ad4aa46275afa2588e9c2e11b2093d883f2c0da662868",
+    "source-manifest.json": "5f87122d6413819340813b0760dd7d30ff0c27132b79d1d566e3da637858ed88",
+    "source/layout.csl": "362bb3927265184b72b4783bdec6c1a9507a191a7b7c9691aa5ee82d8080492f",
+    "source/pe.csl": "41cf5568d30f803647374c3a498fa6aa19ad0b3a66b0c0cda91af796de4d54f4"
+  },
+  "inputs": {
+    "counts": [
+      4,
+      "uint32"
+    ],
+    "derivative": [
+      688,
+      "float32"
+    ],
+    "edge_begin": [
+      366,
+      "uint16"
+    ],
+    "edge_dst": [
+      416,
+      "uint16"
+    ],
+    "edge_value": [
+      416,
+      "float32"
+    ],
+    "group_begin": [
+      9,
+      "uint16"
+    ],
+    "group_id": [
+      8,
+      "uint32"
+    ],
+    "group_length": [
+      1,
+      "uint32"
+    ],
+    "owner_id": [
+      43,
+      "uint32"
+    ],
+    "owner_slot": [
+      43,
+      "uint32"
+    ],
+    "source_id": [
+      365,
+      "uint32"
+    ],
+    "source_slot": [
+      365,
+      "uint32"
+    ],
+    "source_values": [
+      688,
+      "float32"
+    ]
+  },
+  "launches": [
+    {
+      "arguments": [],
+      "entrypoint": "run",
+      "update": null
+    },
+    {
+      "arguments": [],
+      "entrypoint": "run",
+      "update": "derivative"
+    }
+  ],
+  "metadata": {
+    "admission_scope": "conservative code/SDK reserve plus named arrays/scalars; compiled ELF decides actual SRAM",
+    "arithmetic": "E211 source/occurrence order; reverse local accumulation then column and row reductions",
+    "capacity_policy": "uniform maxima; same ownership in both modes",
+    "capture_limit_bytes": 67108864,
+    "changed_gradient_elements": 43171,
+    "clock_scope": "same-PE first forward descriptor through final adjoint RELEASE/status; excludes initialization, output reset, export, host transfer and global makespan",
+    "code_sdk_reserve_bytes": 18432,
+    "data_word_hops": 6074880,
+    "declared_admission": "ADMITTED",
+    "declared_array_bytes_per_pe": 19258,
+    "declared_limit_bytes": 45056,
+    "derivative_gradient_bytes_per_pe": 5504,
+    "descriptor_word_hops": 4032,
+    "device_scope": "AZ and A-transpose-D, two changed-D launches; no projection, loss or optimizer",
+    "exact_dyadic_witness": false,
+    "fixed_array_bytes_per_pe": 172,
+    "forecast_static_bytes": 37716,
+    "full_capture_bytes_two_launches": 4817408,
+    "graph_capacity": {
+      "E": 416,
+      "G": 8,
+      "L": 43,
+      "U": 365
+    },
+    "graph_fmas_max": 13312,
+    "graph_fmas_max_over_mean": 2.0072376357056694,
+    "graph_fmas_mean": 6632.0,
+    "graph_fmas_per_pe_per_launch": [
+      6912,
+      8992,
+      7008,
+      13024,
+      7328,
+      7008,
+      7456,
+      6656,
+      7936,
+      8960,
+      8288,
+      7328,
+      9184,
+      13312,
+      9760,
+      7104,
+      5952,
+      10336,
+      6848,
+      6176,
+      6176,
+      6240,
+      6368,
+      6944,
+      6432,
+      6368,
+      7392,
+      6304,
+      7360,
+      8032,
+      6976,
+      7104,
+      5408,
+      6240,
+      6688,
+      7840,
+      6912,
+      6176,
+      6272,
+      7104,
+      5024,
+      5568,
+      5248,
+      5472,
+      5856,
+      4896,
+      4736,
+      5344,
+      5152,
+      4672,
+      6592,
+      6080,
+      4960,
+      5408,
+      6176,
+      5280,
+      6592,
+      5120,
+      5664,
+      5440,
+      5376,
+      4736,
+      5152,
+      0
+    ],
+    "group_lengths": [
+      344,
+      344,
+      344,
+      344,
+      344,
+      344,
+      344,
+      300
+    ],
+    "launches": 2,
+    "numerical_tolerance": {
+      "atol": 2e-05,
+      "rtol": 0.0002
+    },
+    "owner_array_bytes_per_pe": 11352,
+    "panel_bytes_per_pe": 1536,
+    "panel_count": 339,
+    "per_pe_counts": [
+      [
+        43,
+        8,
+        178,
+        216
+      ],
+      [
+        43,
+        8,
+        253,
+        281
+      ],
+      [
+        43,
+        8,
+        177,
+        219
+      ],
+      [
+        43,
+        8,
+        365,
+        407
+      ],
+      [
+        43,
+        8,
+        186,
+        229
+      ],
+      [
+        43,
+        8,
+        199,
+        219
+      ],
+      [
+        43,
+        8,
+        210,
+        233
+      ],
+      [
+        43,
+        8,
+        172,
+        208
+      ],
+      [
+        43,
+        8,
+        209,
+        248
+      ],
+      [
+        43,
+        8,
+        251,
+        280
+      ],
+      [
+        43,
+        8,
+        232,
+        259
+      ],
+      [
+        43,
+        8,
+        195,
+        229
+      ],
+      [
+        43,
+        8,
+        245,
+        287
+      ],
+      [
+        43,
+        8,
+        332,
+        416
+      ],
+      [
+        43,
+        8,
+        250,
+        305
+      ],
+      [
+        43,
+        8,
+        200,
+        222
+      ],
+      [
+        43,
+        8,
+        165,
+        186
+      ],
+      [
+        43,
+        8,
+        268,
+        323
+      ],
+      [
+        43,
+        8,
+        181,
+        214
+      ],
+      [
+        43,
+        8,
+        164,
+        193
+      ],
+      [
+        43,
+        8,
+        170,
+        193
+      ],
+      [
+        43,
+        8,
+        176,
+        195
+      ],
+      [
+        43,
+        8,
+        158,
+        199
+      ],
+      [
+        43,
+        8,
+        184,
+        217
+      ],
+      [
+        43,
+        7,
+        171,
+        201
+      ],
+      [
+        43,
+        8,
+        160,
+        199
+      ],
+      [
+        43,
+        8,
+        202,
+        231
+      ],
+      [
+        43,
+        8,
+        176,
+        197
+      ],
+      [
+        43,
+        8,
+        174,
+        230
+      ],
+      [
+        43,
+        8,
+        212,
+        251
+      ],
+      [
+        43,
+        8,
+        198,
+        218
+      ],
+      [
+        43,
+        7,
+        189,
+        222
+      ],
+      [
+        43,
+        8,
+        147,
+        169
+      ],
+      [
+        43,
+        8,
+        170,
+        195
+      ],
+      [
+        43,
+        8,
+        173,
+        209
+      ],
+      [
+        43,
+        8,
+        202,
+        245
+      ],
+      [
+        43,
+        8,
+        182,
+        216
+      ],
+      [
+        43,
+        8,
+        179,
+        193
+      ],
+      [
+        43,
+        8,
+        183,
+        196
+      ],
+      [
+        43,
+        8,
+        184,
+        222
+      ],
+      [
+        43,
+        8,
+        142,
+        157
+      ],
+      [
+        43,
+        8,
+        134,
+        174
+      ],
+      [
+        43,
+        8,
+        139,
+        164
+      ],
+      [
+        43,
+        8,
+        135,
+        171
+      ],
+      [
+        43,
+        8,
+        161,
+        183
+      ],
+      [
+        43,
+        8,
+        142,
+        153
+      ],
+      [
+        43,
+        8,
+        121,
+        148
+      ],
+      [
+        43,
+        8,
+        150,
+        167
+      ],
+      [
+        43,
+        8,
+        151,
+        161
+      ],
+      [
+        43,
+        8,
+        134,
+        146
+      ],
+      [
+        43,
+        8,
+        172,
+        206
+      ],
+      [
+        43,
+        8,
+        168,
+        190
+      ],
+      [
+        43,
+        8,
+        113,
+        155
+      ],
+      [
+        43,
+        8,
+        140,
+        169
+      ],
+      [
+        43,
+        8,
+        175,
+        193
+      ],
+      [
+        43,
+        8,
+        141,
+        165
+      ],
+      [
+        43,
+        8,
+        184,
+        206
+      ],
+      [
+        43,
+        8,
+        149,
+        160
+      ],
+      [
+        43,
+        8,
+        151,
+        177
+      ],
+      [
+        43,
+        8,
+        161,
+        170
+      ],
+      [
+        43,
+        8,
+        147,
+        168
+      ],
+      [
+        43,
+        8,
+        132,
+        148
+      ],
+      [
+        42,
+        8,
+        141,
+        161
+      ],
+      [
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "provenance": {
+      "citation_lines": 5429,
+      "classes": [
+        "Case_Based",
+        "Genetic_Algorithms",
+        "Neural_Networks",
+        "Probabilistic_Methods",
+        "Reinforcement_Learning",
+        "Rule_Learning",
+        "Theory"
+      ],
+      "data_sha256": {
+        "models/gcn/data/cora/cora.cites": "ec1a372391b7f0f60a6aff0084e8abd8f19f0faa7e1f2441a41c492042d5945e",
+        "models/gcn/data/cora/cora.content": "b8ebed0fd45e53995abafd1b70cf6a9fcc8f86abc5826d69b97fe6ca46e9c8ee",
+        "research/experiments/data/E045/graphs.npz": "5b052397f80593f0396ab3ae2fc95be33a108d74c935943f847b043126d6cf29",
+        "research/experiments/data/E045/results.json": "1d56eb448b9b3a6f36cd8b059cf62971126b06f874e94214db3e618af098300a"
+      },
+      "dataset": "whole Cora original E045 normalized adjacency",
+      "evaluated_feature_prefixes": [
+        1,
+        16,
+        64
+      ],
+      "evaluated_features": 16,
+      "feature_scope": "first F original feature columns after full 1433-column row normalization; no projection or training",
+      "graph_scope": "raw unordered citation pairs coalesced during historical preprocessing; all 13264 reconstructed COO ordinals retained afterward",
+      "metadata_scope": "external paper IDs, labels and original custom masks move with a verified node bijection; no split change or accuracy evaluation",
+      "nodes": 2708,
+      "occurrences": 13264,
+      "original_features": 1433,
+      "ownership": "contiguous original node ordinal blocks",
+      "scope": "one A*Z with normalized original feature prefix; no projection, classifier or training",
+      "selected_nodes": 2708,
+      "selected_occurrences": 13264,
+      "selection": "whole graph",
+      "split_seed": 20260916,
+      "train_nodes": 140,
+      "undirected_nonself_edges": 5278,
+      "validation_nodes": 500
+    },
+    "release_word_hops": 85428,
+    "scalar_bytes_per_pe": 26,
+    "sparse_directory_bytes_per_pe": 6198,
+    "storage_scope": "named arrays and explicit scalars; compiled code/SDK/alignment/stack separate",
+    "traffic_scope": "modeled collective payload word-hops; SDK headers excluded",
+    "traversal_counters_per_operator": [
+      "owner_inspections",
+      "group_inspections",
+      "source_inspections",
+      "owners_visited",
+      "sources_visited"
+    ],
+    "traversal_mode": "scan",
+    "traversal_total_per_launch": [
+      116616,
+      173568,
+      485005,
+      2708,
+      11405,
+      116616,
+      173568,
+      485005,
+      2708,
+      11405
+    ],
+    "u32_counter_upper_bound": 424448,
+    "uniform_padding_bytes_total": 211386,
+    "useful_array_bytes_per_pe": [
+      16188,
+      17328,
+      16196,
+      19204,
+      16346,
+      16416,
+      16610,
+      16080,
+      16690,
+      17302,
+      16986,
+      16436,
+      17284,
+      18928,
+      17442,
+      16444,
+      15878,
+      17730,
+      16206,
+      15910,
+      15970,
+      16042,
+      15886,
+      16254,
+      16022,
+      15906,
+      16518,
+      16054,
+      16232,
+      16738,
+      16400,
+      16328,
+      15596,
+      15982,
+      16096,
+      16602,
+      16228,
+      16060,
+      16118,
+      16284,
+      15474,
+      15496,
+      15486,
+      15488,
+      15820,
+      15450,
+      15210,
+      15614,
+      15588,
+      15328,
+      16068,
+      15932,
+      15172,
+      15526,
+      16020,
+      15512,
+      16188,
+      15562,
+      15684,
+      15742,
+      15590,
+      15320,
+      15224,
+      1712
+    ]
+  },
+  "outputs": {
+    "clocks": [
+      6,
+      "uint32"
+    ],
+    "gradient": [
+      688,
+      "float32"
+    ],
+    "output": [
+      688,
+      "float32"
+    ],
+    "panel_home": [
+      128,
+      "float32"
+    ],
+    "panel_local": [
+      128,
+      "float32"
+    ],
+    "panel_receive": [
+      128,
+      "float32"
+    ],
+    "stats": [
+      12,
+      "uint32"
+    ],
+    "traversal": [
+      10,
+      "uint32"
+    ]
+  },
+  "params": {
+    "B": 8,
+    "C": 8,
+    "CURSOR": 0,
+    "E": 416,
+    "F": 16,
+    "G": 8,
+    "L": 43,
+    "R": 8,
+    "T": 16,
+    "U": 365
+  },
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "linear AZ and A-transpose-D, two resident launches with only D updated; no projection, loss or optimizer",
+  "source_case_sha256": "5f87122d6413819340813b0760dd7d30ff0c27132b79d1d566e3da637858ed88"
+}

@@ -1,0 +1,252 @@
+{
+  "description": "Unchanged bounded AZ/transpose-D source: signed minimum pilot audits first, then full2708/F16 scan/cursor at48/64PE. Each runtime has two launches and only a D update between them. One capture per case; initial numerical/scaling discriminator, not nonlinear training or robust timing distribution.",
+  "id": "tank30-bounded-adjoint-full-cora-20261106-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "min-cursor",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-min-cursor"
+      ],
+      "kind": "appliance",
+      "name": "compile-min-cursor",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "min-cursor",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-min-cursor/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-min-cursor"
+      ],
+      "kind": "appliance",
+      "name": "run-min-cursor",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-min-cursor/capture-data",
+        "--out",
+        "{output}/numerical-min-cursor.json"
+      ],
+      "kind": "host",
+      "name": "audit-min-cursor",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-r8-scan",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-r8-scan"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-r8-scan",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-r8-cursor",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-r8-cursor"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-r8-cursor",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-r6-cursor",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-r6-cursor"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-r6-cursor",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-r6-scan",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-r6-scan"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-r6-scan",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-r8-scan",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-r8-scan/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-full-r8-scan"
+      ],
+      "kind": "appliance",
+      "name": "run-full-r8-scan",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-full-r8-scan/capture-data",
+        "--out",
+        "{output}/numerical-full-r8-scan.json"
+      ],
+      "kind": "host",
+      "name": "audit-full-r8-scan",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-r8-cursor",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-r8-cursor/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-full-r8-cursor"
+      ],
+      "kind": "appliance",
+      "name": "run-full-r8-cursor",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-full-r8-cursor/capture-data",
+        "--out",
+        "{output}/numerical-full-r8-cursor.json"
+      ],
+      "kind": "host",
+      "name": "audit-full-r8-cursor",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-r6-cursor",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-r6-cursor/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-full-r6-cursor"
+      ],
+      "kind": "appliance",
+      "name": "run-full-r6-cursor",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-full-r6-cursor/capture-data",
+        "--out",
+        "{output}/numerical-full-r6-cursor.json"
+      ],
+      "kind": "host",
+      "name": "audit-full-r6-cursor",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-r6-scan",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-full-r6-scan/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-full-r6-scan"
+      ],
+      "kind": "appliance",
+      "name": "run-full-r6-scan",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-full-r6-scan/capture-data",
+        "--out",
+        "{output}/numerical-full-r6-scan.json"
+      ],
+      "kind": "host",
+      "name": "audit-full-r6-scan",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}

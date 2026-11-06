@@ -1,0 +1,355 @@
+// SPDX-License-Identifier: Apache-2.0
+// E214: E211 return protocol with same-PE combined-operator timestamps.
+param memcpy_params;
+param c2d_params;
+param C: u16;
+param R: u16;
+param B: u16;
+param T: u16;
+param F: u16;
+param L: u16;
+param G: u16;
+param U: u16;
+param E: u16;
+param CURSOR: u16;
+const timestamp = @import_module("<time>");
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const mpi_x = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.x, .queues=[2]u16{2,4},
+  .dest_dsr_ids=[1]u16{1}, .src0_dsr_ids=[1]u16{1}, .src1_dsr_ids=[1]u16{1}
+});
+const mpi_y = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.y, .queues=[2]u16{3,5},
+  .dest_dsr_ids=[1]u16{2}, .src0_dsr_ids=[1]u16{2}, .src1_dsr_ids=[1]u16{2}
+});
+const progress_id = @get_local_task_id(12);
+// Counts are owner, active groups, distinct sources, edge occurrences.
+var counts = @zeros([4]u32);
+var group_length = @zeros([1]u32);
+var owner_id = @zeros([L]u32);
+var owner_slot = @zeros([L]u32);
+var source_values = @zeros([L*T]f32);
+var derivative = @zeros([L*T]f32);
+var group_id = @zeros([G]u32);
+var group_begin = @zeros([G+1]u16);
+var source_slot = @zeros([U]u32);
+var source_id = @zeros([U]u32);
+var edge_begin = @zeros([U+1]u16);
+var edge_dst = @zeros([E]u16);
+var edge_value = @zeros([E]f32);
+var output = @zeros([L*T]f32);
+var gradient = @zeros([L*T]f32);
+var panel_local = @zeros([B*T]f32);
+var panel_home = @zeros([B*T]f32);
+var panel_receive = @zeros([B*T]f32);
+// Descriptor: length, source group, generation, capacity. No R-entry table.
+var descriptor = @zeros([4]u32);
+var done_local = @zeros([1]f32);
+var done_row = @zeros([1]f32);
+var release = @zeros([1]f32);
+// magic, panels, consumed edges, released panels, groups, useful FMAs,
+// final group, final chunk, error, generation, active feature width, reserved.
+var stats = @zeros([12]u32);
+// Per operator: owner/group/source inspections, visited owners/sources.
+var traversal = @zeros([10]u32);
+var clock_words = @zeros([6]u16);
+var clocks = @zeros([6]u32);
+var operation: u16 = 0;
+var generation: u32 = 0;
+var stage: u16 = 0;
+var source_group: u16 = 0;
+var chunk: u32 = 0;
+var px: u16 = 0;
+var py: u16 = 0;
+var owner_cursor: u16 = 0;
+var group_cursor: u16 = 0;
+var source_cursor: u16 = 0;
+var source_end: u16 = 0;
+const local_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{B*T}->panel_local[i]});
+const home_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{B*T}->panel_home[i]});
+const receive_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{B*T}->panel_receive[i]});
+const output_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*T}->output[i]});
+const gradient_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*T}->gradient[i]});
+const lane_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{F}->panel_local[i]});
+
+fn begin_group() void {
+  stage = 1;
+  if (py == source_group) {
+    if (px == 0) {
+      descriptor[0] = group_length[0];
+      descriptor[1] = @as(u32, source_group);
+      descriptor[2] = generation;
+      descriptor[3] = @as(u32, B);
+    }
+    mpi_x.broadcast(0, &descriptor, 4, progress_id);
+  } else { @activate(progress_id); }
+}
+
+fn reset_cursors() void {
+  owner_cursor = 0; group_cursor = 0; source_cursor = 0; source_end = 0;
+}
+
+fn next_group() void {
+  if (CURSOR == 1 and source_end > 0) {
+    @assert(source_cursor == source_end);
+    group_cursor += 1;
+  }
+  source_group += 1;
+  if (source_group < R) { begin_group(); }
+  else if (operation == 0) {
+    operation = 1; source_group = 0; chunk = 0; reset_cursors(); begin_group();
+  } else {
+    stats[11] = 1;
+    stats[0] = 0x600D;
+    stats[6] = @as(u32, source_group);
+    stats[7] = chunk;
+    timestamp.get_timestamp(@ptrcast(*[3]u16, &clock_words[3]));
+    timestamp.disable_tsc();
+    for (@range(u16, 6)) |i| { clocks[i] = @as(u32, clock_words[i]); }
+    sys.unblock_cmd_stream();
+  }
+}
+
+fn consume_source(s: u16, buffer: [*]f32) void {
+  @assert(@as(u32, s) < counts[2] and source_slot[s] >= chunk);
+  const slot = @as(u16, source_slot[s]-chunk);
+  @assert(slot < B);
+  const input_base = @set_dsd_base_addr(lane_dsd, buffer);
+  const panel_lane = @increment_dsd_offset(input_base, @as(i16, slot*T), f32);
+  var e = edge_begin[s];
+  if (operation == 0) {
+    while (e < edge_begin[s+1]) : (e += 1) {
+      @assert(@as(u32, e) < counts[3] and @as(u32, edge_dst[e]) < counts[0]);
+      const out = @set_dsd_base_addr(lane_dsd, @ptrcast([*]f32, &output[edge_dst[e]*T]));
+      @fmacs(out, out, panel_lane, edge_value[e]);
+      stats[2] += 1; stats[5] += @as(u32, F);
+    }
+  } else {
+    while (e < edge_begin[s+1]) : (e += 1) {
+      @assert(@as(u32, e) < counts[3] and @as(u32, edge_dst[e]) < counts[0]);
+      const input = @set_dsd_base_addr(lane_dsd, @ptrcast([*]f32, &derivative[edge_dst[e]*T]));
+      @fmacs(panel_lane, panel_lane, input, edge_value[e]);
+      stats[2] += 1; stats[5] += @as(u32, F);
+    }
+  }
+  traversal[operation*5+4] += 1;
+}
+
+fn consume_panel(buffer: [*]f32) void {
+  if (CURSOR == 1) {
+    while (source_cursor < source_end) {
+      traversal[operation*5+2] += 1;
+      @assert(source_slot[source_cursor] >= chunk);
+      if (source_slot[source_cursor]-chunk >= @as(u32, B)) { break; }
+      consume_source(source_cursor, buffer);
+      source_cursor += 1;
+    }
+  } else {
+    for (@range(u16, G)) |g| {
+      traversal[operation*5+1] += 1;
+      if (@as(u32, g) < counts[1] and group_id[g] == @as(u32, source_group)) {
+        var s = group_begin[g];
+        while (s < group_begin[g+1]) : (s += 1) {
+          traversal[operation*5+2] += 1;
+          @assert(@as(u32, s) < counts[2]);
+          if (source_slot[s] >= chunk and source_slot[s]-chunk < @as(u32, B)) {
+            consume_source(s, buffer);
+          }
+        }
+      }
+    }
+  }
+}
+
+fn move_owner(v: u16) void {
+  const slot = @as(u16, owner_slot[v]-chunk);
+  @assert(slot < B);
+  if (operation == 0) {
+    for (@range(u16, F)) |f| { panel_local[slot*T+f] = source_values[v*T+f]; }
+  } else {
+    for (@range(u16, F)) |f| { gradient[v*T+f] = panel_receive[slot*T+f]; }
+  }
+  traversal[operation*5+3] += 1;
+}
+
+fn move_owners() void {
+  if (CURSOR == 1) {
+    while (owner_cursor < @as(u16, counts[0])) {
+      traversal[operation*5] += 1;
+      @assert(owner_slot[owner_cursor] >= chunk);
+      if (owner_slot[owner_cursor]-chunk >= @as(u32, B)) { break; }
+      move_owner(owner_cursor);
+      owner_cursor += 1;
+    }
+  } else {
+    for (@range(u16, L)) |v| {
+      traversal[operation*5] += 1;
+      if (@as(u32, v) < counts[0] and owner_slot[v] >= chunk and owner_slot[v]-chunk < @as(u32, B)) {
+        move_owner(v);
+      }
+    }
+  }
+}
+
+fn begin_panel() void {
+  // Previous data consumers and all data callbacks completed before RELEASE.
+  @fmovs(local_dsd, 0.0);
+  @fmovs(home_dsd, 0.0);
+  @fmovs(receive_dsd, 0.0);
+  if (operation == 1) {
+    consume_panel(@ptrcast([*]f32, &panel_local));
+    stage = 10;
+    mpi_y.reduce_fadds(source_group, &panel_local, &panel_home, B*T, progress_id);
+    return;
+  }
+  if (py == source_group) {
+    move_owners();
+    stage = 3;
+    mpi_x.reduce_fadds(0, &panel_local, &panel_home, B*T, progress_id);
+  } else { stage = 4; @activate(progress_id); }
+}
+
+fn run() void {
+  if (generation == 0) {
+    mpi_x.init(); mpi_y.init();
+    px = mpi_x.pe_id; py = mpi_y.pe_id;
+  }
+  @assert(generation < 65535);
+  generation += 1;
+  operation = 0;
+  @assert(counts[0] <= @as(u32, L) and counts[1] <= @as(u32, G));
+  @assert(counts[2] <= @as(u32, U) and counts[3] <= @as(u32, E));
+  @fmovs(output_dsd, 0.0);
+  @fmovs(gradient_dsd, 0.0);
+  for (@range(u16, 12)) |i| { stats[i] = 0; }
+  for (@range(u16, 10)) |i| { traversal[i] = 0; }
+  reset_cursors();
+  stats[9] = generation; stats[10] = @as(u32, F);
+  source_group = 0; chunk = 0;
+  timestamp.enable_tsc();
+  timestamp.get_timestamp(@ptrcast(*[3]u16, &clock_words[0]));
+  begin_group();
+}
+
+fn finish_panel() void {
+  stats[1] += 1;
+  done_local[0] = 1.0; done_row[0] = 0.0; release[0] = 0.0;
+  stage = 6;
+  mpi_x.reduce_fadds(0, &done_local, &done_row, 1, progress_id);
+}
+
+task progress() void {
+  if (stage == 1) {
+    stage = 2;
+    mpi_y.broadcast(source_group, &descriptor, 4, progress_id);
+  } else if (stage == 2) {
+    @assert(descriptor[1] == @as(u32, source_group) and descriptor[2] == generation);
+    @assert(descriptor[3] == @as(u32, B));
+    stats[4] += 1; chunk = 0;
+    if (CURSOR == 1) {
+      source_cursor = 0; source_end = 0;
+      if (group_cursor < @as(u16, counts[1])) {
+        traversal[operation*5+1] += 1;
+        @assert(group_id[group_cursor] >= @as(u32, source_group));
+        if (group_id[group_cursor] == @as(u32, source_group)) {
+          source_cursor = group_begin[group_cursor];
+          source_end = group_begin[group_cursor+1];
+        }
+      }
+    }
+    if (descriptor[0] == 0) { next_group(); } else { begin_panel(); }
+  } else if (stage == 3) {
+    stage = 4;
+    mpi_x.broadcast(0, @ptrcast([*]u32, &panel_home), B*T, progress_id);
+  } else if (stage == 4) {
+    stage = 5;
+    const buffer = if (py == source_group) &panel_home else &panel_receive;
+    mpi_y.broadcast(source_group, @ptrcast([*]u32, buffer), B*T, progress_id);
+  } else if (stage == 5) {
+    const buffer = if (py == source_group) &panel_home else &panel_receive;
+    consume_panel(@ptrcast([*]f32, buffer));
+    finish_panel();
+  } else if (stage == 6) {
+    stage = 7;
+    if (px == 0) { mpi_y.reduce_fadds(0, &done_row, &release, 1, progress_id); }
+    else { @activate(progress_id); }
+  } else if (stage == 7) {
+    stage = 8;
+    if (px == 0) { mpi_y.broadcast(0, @ptrcast([*]u32, &release), 1, progress_id); }
+    else { @activate(progress_id); }
+  } else if (stage == 8) {
+    stage = 9;
+    mpi_x.broadcast(0, @ptrcast([*]u32, &release), 1, progress_id);
+  } else if (stage == 9) {
+    @assert(release[0] == @as(f32, C*R));
+    stats[3] += 1;
+    // Saturating advance avoids u32 wrap in the final partial panel.
+    if (descriptor[0]-chunk <= @as(u32, B)) { chunk = descriptor[0]; next_group(); }
+    else { chunk += @as(u32, B); begin_panel(); }
+  } else if (stage == 10) {
+    // Distinct reduction buffers survive both callbacks. Non-source rows
+    // join DONE only after their column reduction has consumed panel_local.
+    stage = 11;
+    if (py == source_group) {
+      mpi_x.reduce_fadds(0, &panel_home, &panel_receive, B*T, progress_id);
+    } else { @activate(progress_id); }
+  } else if (stage == 11) {
+    stage = 12;
+    if (py == source_group) {
+      mpi_x.broadcast(0, @ptrcast([*]u32, &panel_receive), B*T, progress_id);
+    } else { @activate(progress_id); }
+  } else if (stage == 12) {
+    if (py == source_group) {
+      move_owners();
+    }
+    // Owner stores precede the same global DONE/RELEASE used by forward.
+    finish_panel();
+  } else { stats[8] = 1; @assert(false); }
+}
+
+var p_counts: [*]u32 = &counts;
+var p_group_length: [*]u32 = &group_length;
+var p_owner_id: [*]u32 = &owner_id;
+var p_owner_slot: [*]u32 = &owner_slot;
+var p_source_values: [*]f32 = &source_values;
+var p_derivative: [*]f32 = &derivative;
+var p_group_id: [*]u32 = &group_id;
+var p_group_begin: [*]u16 = &group_begin;
+var p_source_slot: [*]u32 = &source_slot;
+var p_source_id: [*]u32 = &source_id;
+var p_edge_begin: [*]u16 = &edge_begin;
+var p_edge_dst: [*]u16 = &edge_dst;
+var p_edge_value: [*]f32 = &edge_value;
+var p_output: [*]f32 = &output;
+var p_gradient: [*]f32 = &gradient;
+var p_panel_local: [*]f32 = &panel_local;
+var p_panel_home: [*]f32 = &panel_home;
+var p_panel_receive: [*]f32 = &panel_receive;
+var p_stats: [*]u32 = &stats;
+var p_clocks: [*]u32 = &clocks;
+var p_traversal: [*]u32 = &traversal;
+comptime {
+  @bind_local_task(progress, progress_id);
+  @export_symbol(p_counts, "counts");
+  @export_symbol(p_group_length, "group_length");
+  @export_symbol(p_owner_id, "owner_id");
+  @export_symbol(p_owner_slot, "owner_slot");
+  @export_symbol(p_source_values, "source_values");
+  @export_symbol(p_derivative, "derivative");
+  @export_symbol(p_group_id, "group_id");
+  @export_symbol(p_group_begin, "group_begin");
+  @export_symbol(p_source_slot, "source_slot");
+  @export_symbol(p_source_id, "source_id");
+  @export_symbol(p_edge_begin, "edge_begin");
+  @export_symbol(p_edge_dst, "edge_dst");
+  @export_symbol(p_edge_value, "edge_value");
+  @export_symbol(p_output, "output");
+  @export_symbol(p_gradient, "gradient");
+  @export_symbol(p_panel_local, "panel_local");
+  @export_symbol(p_panel_home, "panel_home");
+  @export_symbol(p_panel_receive, "panel_receive");
+  @export_symbol(p_stats, "stats");
+  @export_symbol(p_clocks, "clocks");
+  @export_symbol(p_traversal, "traversal");
+  @export_symbol(run);
+}

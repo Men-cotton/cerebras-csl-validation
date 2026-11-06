@@ -1,0 +1,22 @@
+{
+  "cases": {
+    "full-r6-cursor": "d54feb133c274112129d5c9544e886ec698a9be5af1ec3da9113f46bf28b2251",
+    "full-r6-scan": "1f44354343c6828149090f7e2c0a83e638f4402b5b6da6a0f9a16a2b588f2764",
+    "full-r8-cursor": "3469eec8589ebba7c1a092266337bc76c492fb27c34db3bc18e10702adb3237f",
+    "full-r8-scan": "c567220e4805ff319258b410f8585a6f355adcc7cc0821f350b71a584f14f448",
+    "min-cursor": "9c7515cf915971a3465861b6dcd7f8594ed6807b272d7bf94c4c9d809f1793fb"
+  },
+  "compile_workers": 1,
+  "evidence": "package preparation only; no hardware execution claim",
+  "exporter_sha256": "769e90a7db98122bc9fb6fb7b84c798730d77b5380f47555051f12ca80fefa7f",
+  "family": "bounded-adjoint",
+  "host_sha256": {
+    "appliance.py": "4208bc21b8d68a091ec7c745610201a169fe7c3984b80765ae3696000a2d7adc",
+    "appliance_worker.py": "ad2a96c28abe2586ae8c83545bb72a77349c6498e278a051d76f6b81d253320f",
+    "portable.py": "6ff8f836af49499169f5d211cdf23dba6310f0a4023391267b015b0a9c60eebf",
+    "saved_audit.py": "89b245baa3245a7b88b6dbfa67919e3f4b6cb711002c99ee8071611253761af1",
+    "sdk_runner.py": "bae4f9213cea04790ce02b192aaf7c8fc934159478d981cfc58ab687dc945666"
+  },
+  "schema": 1,
+  "scope": "two resident forward/adjoint launches; independent original-occurrence audit"
+}

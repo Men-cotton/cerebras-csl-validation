@@ -1,0 +1,12 @@
+{
+  "description": "Bounded linear forward/adjoint with a D-only second resident launch and independent audit.",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py"
+  ],
+  "id": "bounded-adjoint",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

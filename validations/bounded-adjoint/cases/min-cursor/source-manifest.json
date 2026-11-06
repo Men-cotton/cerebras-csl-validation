@@ -1,0 +1,181 @@
+{
+  "experiment": "E214",
+  "files": {
+    "inputs.npz": "25bdcadec3a89c02dc03066bcc91e445138940333d259813e15db40a1172ccf6",
+    "original.npz": "e36de40d74b41566a4b2fefc5203ff7acb92ba7e712af5bf06fd999a3fec5a13",
+    "reference.npz": "d9930caee1d0bcbf0bd95c88a980bdf218e12c2f4b11d0e390f804017b1c2b47",
+    "source/layout.csl": "362bb3927265184b72b4783bdec6c1a9507a191a7b7c9691aa5ee82d8080492f",
+    "source/pe.csl": "41cf5568d30f803647374c3a498fa6aa19ad0b3a66b0c0cda91af796de4d54f4"
+  },
+  "metadata": {
+    "admission_scope": "conservative code/SDK reserve plus named arrays/scalars; compiled ELF decides actual SRAM",
+    "arithmetic": "E211 source/occurrence order; reverse local accumulation then column and row reductions",
+    "capacity_policy": "uniform maxima; same ownership in both modes",
+    "capture_limit_bytes": 67108864,
+    "changed_gradient_elements": 17,
+    "clock_scope": "same-PE first forward descriptor through final adjoint RELEASE/status; excludes initialization, output reset, export, host transfer and global makespan",
+    "code_sdk_reserve_bytes": 35840,
+    "data_word_hops": 320,
+    "declared_admission": "ADMITTED",
+    "declared_array_bytes_per_pe": 592,
+    "declared_limit_bytes": 45056,
+    "derivative_gradient_bytes_per_pe": 96,
+    "descriptor_word_hops": 48,
+    "device_scope": "AZ and A-transpose-D, two changed-D launches; no projection, loss or optimizer",
+    "exact_dyadic_witness": true,
+    "fixed_array_bytes_per_pe": 172,
+    "forecast_static_bytes": 36458,
+    "full_capture_bytes_two_launches": 7616,
+    "graph_capacity": {
+      "E": 7,
+      "G": 2,
+      "L": 3,
+      "U": 5
+    },
+    "graph_fmas_max": 42,
+    "graph_fmas_max_over_mean": 2.3333333333333335,
+    "graph_fmas_mean": 18.0,
+    "graph_fmas_per_pe_per_launch": [
+      42,
+      6,
+      18,
+      6
+    ],
+    "group_lengths": [
+      5,
+      3
+    ],
+    "launches": 2,
+    "numerical_tolerance": {
+      "atol": 2e-05,
+      "rtol": 0.0002
+    },
+    "owner_array_bytes_per_pe": 216,
+    "panel_bytes_per_pe": 96,
+    "panel_count": 5,
+    "per_pe_counts": [
+      [
+        2,
+        2,
+        5,
+        7
+      ],
+      [
+        3,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        3,
+        3
+      ],
+      [
+        1,
+        1,
+        1,
+        1
+      ]
+    ],
+    "provenance": {
+      "kind": "adversarial",
+      "source": "E211 signed two-axis reduction witness"
+    },
+    "release_word_hops": 60,
+    "scalar_bytes_per_pe": 26,
+    "sparse_directory_bytes_per_pe": 108,
+    "storage_scope": "named arrays and explicit scalars; compiled code/SDK/alignment/stack separate",
+    "traffic_scope": "modeled collective payload word-hops; SDK headers excluded",
+    "traversal_counters_per_operator": [
+      "owner_inspections",
+      "group_inspections",
+      "source_inspections",
+      "owners_visited",
+      "sources_visited"
+    ],
+    "traversal_mode": "cursor",
+    "traversal_total_per_launch": [
+      12,
+      6,
+      12,
+      8,
+      10,
+      12,
+      6,
+      12,
+      8,
+      10
+    ],
+    "u32_counter_upper_bound": 49178,
+    "uniform_padding_bytes_total": 496,
+    "useful_array_bytes_per_pe": [
+      520,
+      510,
+      476,
+      366
+    ]
+  },
+  "options": {
+    "b": 2,
+    "c": 2,
+    "code_reserve_bytes": 35840,
+    "cursor": 1,
+    "features": 3,
+    "nodes": 8,
+    "profile": "adversarial",
+    "r": 2,
+    "t": 4
+  },
+  "params": {
+    "B": 2,
+    "C": 2,
+    "CURSOR": 1,
+    "E": 7,
+    "F": 3,
+    "G": 2,
+    "L": 3,
+    "R": 2,
+    "T": 4,
+    "U": 5
+  },
+  "sdk_identity": {
+    "bytes": 3455725568,
+    "declared_sha256": "dd270d1867b4cd62eda64f4834a6f82cf4f94cbdd5e082ffb0ca87e8b40fda47",
+    "full_image_hash_recomputed": false,
+    "mtime_ns": 1792004800561785503,
+    "path": "sdk-2.10.2/sdk-cbcore-2.10.2-sdk-20260921-8faf87a26e.sif"
+  },
+  "sources": {
+    "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+    "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+    "kernels/sparse/resident-2d-spmm/edge_partition/model.py": "b0c52b543726dff148b00593265c3c3acfbfb6c87ece71d8389b9e7286467e02",
+    "kernels/sparse/resident-2d-spmm/edge_partition/oracle.py": "1e431e2b8cafd25cafc0ac2d34dce7376f12c35deb7cd6a6e2af211cd253b894",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint/artifact.py": "671b2e9bee0088483d0ce850f5e8ab2e2dbbb288a7ddb7e97c920c19e3c60a60",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint/driver.py": "8e6fffc7cf827b35f6c25444fa0f72f2658b167f9e9aa46e530a17bfc8a134ef",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint/fixture.py": "b04364fb78d09b1d44cc79498dc5dc3a22fd5fbdd7ba664779d4f3012a64c139",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint/forward_fixture.py": "550bfb0aed1074c5bcbf54191d8ab1c716a78e59720ad2c9591c6a7f4a3a7309",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint/sdk_runner.py": "03badbc8a5298cfc519857585fc62e311a5cd7c6b2154011d145104a5998da54",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint_capacity/driver.py": "ed1cd4c39d8382196e9d2ef6af72b7306a8efee098ffdacbdab99d9ea18944f0",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint_capacity/fixture.py": "7b56412c54ddd2f949ab9224dccdd3d4cbc508692383371a09418cd55eec55de",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint_capacity/layout.csl": "362bb3927265184b72b4783bdec6c1a9507a191a7b7c9691aa5ee82d8080492f",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint_capacity/modules.py": "9fc2ae221e37d70b195c2ea14c8d8d851fbad79743da144bf5ab52b495fc8430",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint_capacity/pe.csl": "41cf5568d30f803647374c3a498fa6aa19ad0b3a66b0c0cda91af796de4d54f4",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint_capacity/sdk_runner.py": "b7ab7d24a415a0473818739238e18eae5b248d38a10b261a0ee52e90d8f7db9f",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint_capacity/source-origin.json": "083eae0d4bc30275096c89daa06bdf952e87d5e8c427c75fe288db6fd71322f8",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/capacity/fixture.py": "77fa79611abf7d2ddebf3766fa276eff01eaa428e548713de8bae69d72e4b10d",
+    "models/hierarchical_gnn/grouped_csr/bounded_panels/fixture.py": "0b08cda5978ef93d5fe4008e1d7b0c2b04ce77ef11974ec03afcfe04350c862f",
+    "models/hierarchical_gnn/partition_frontier/run.py": "46b4b779c40b40f42b4b532021f6117b1fe681a0395c284dba7eb2730c109b97",
+    "sdk-2.10.2/cs_python": "62ae6c68371b453c45b0913bb68c820f8dd4662255c12d15d6d82237da5551c6",
+    "sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/gemm-collectives_2d/pe.csl": "80b1083835c363c6d4559d5e09a792f08480e29f3ceae77272bc79994b3f40e6",
+    "sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/gemv-collectives_2d/layout.csl": "0152009544a96470c26f7330e61b45e74950e0ab5ad3b2b38b596d9107a16ffe",
+    "sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/gemv-collectives_2d/pe.csl": "f5e3c81f33859adbf8c6b410786eba1588dbb6cd4fc504edb1bee8191d91f8f3",
+    "sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/spmv-hypersparse/src/kernel.csl": "a7c34c0b36f25a8e4dd1c009a234833e6f4f61eba5463d220ff555293e2a1fa1",
+    "sdk-2.10.2/cslc": "e49dca08a7a77f86269128a44fe7689cae223946c62dbd678e375037517610f3",
+    "sdk-2.10.2/sdk_debug_shell": "d6c4cf9ac6932855cd72d7ea22e343bc9e70eeca48646aaa43f5c7559e4ecfb9",
+    "sdk-2.10.2/sha256sum.txt": "ee53dc49d0552000dc2d65e52034e3e02120f72ae539e398af82a8318f7cf404",
+    "sdk_debug_shell": "0f397ee525aefc1a2661e3255bc36793a81e1c6c11c866fd33d3b4bce214a59a",
+    "sha256sum.txt": "b6f5661313f513126a1c68266498f444f3f3e8732373bcc0c133a2ce215cb5ad"
+  }
+}

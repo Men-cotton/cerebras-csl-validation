@@ -1,0 +1,54 @@
+// SPDX-License-Identifier: Apache-2.0
+param C: u16;
+param R: u16;
+param B: u16;
+param T: u16;
+param F: u16;
+param L: u16;
+param G: u16;
+param U: u16;
+param E: u16;
+param CURSOR: u16;
+const memcpy = @import_module("<memcpy/get_params>", .{.width=C, .height=R});
+const c2d = @import_module("<collectives_2d/params>");
+layout {
+  @set_rectangle(C, R);
+  @comptime_assert(CURSOR <= 1);
+  @comptime_assert(C >= 2 and R >= 2 and F >= 1 and F <= T and B*T <= 32767 and L*T <= 32767);
+  for (@range(u16, C)) |x| {
+    for (@range(u16, R)) |y| {
+      const cp = c2d.get_params(x, y, .{
+        .x_colors=.{@get_color(0), @get_color(1)},
+        .x_entrypoints=.{@get_local_task_id(8), @get_local_task_id(9)},
+        .y_colors=.{@get_color(4), @get_color(5)},
+        .y_entrypoints=.{@get_local_task_id(10), @get_local_task_id(11)}
+      });
+      @set_tile_code(x, y, "pe.csl", .{
+        .memcpy_params=memcpy.get_params(x), .c2d_params=cp,
+        .C=C,.R=R,.B=B,.T=T,.F=F,.L=L,.G=G,.U=U,.E=E,.CURSOR=CURSOR
+      });
+    }
+  }
+  @export_name("counts", [*]u32, true);
+  @export_name("group_length", [*]u32, true);
+  @export_name("owner_id", [*]u32, true);
+  @export_name("owner_slot", [*]u32, true);
+  @export_name("source_values", [*]f32, true);
+  @export_name("derivative", [*]f32, true);
+  @export_name("group_id", [*]u32, true);
+  @export_name("group_begin", [*]u16, true);
+  @export_name("source_slot", [*]u32, true);
+  @export_name("source_id", [*]u32, true);
+  @export_name("edge_begin", [*]u16, true);
+  @export_name("edge_dst", [*]u16, true);
+  @export_name("edge_value", [*]f32, true);
+  @export_name("output", [*]f32, true);
+  @export_name("gradient", [*]f32, true);
+  @export_name("panel_local", [*]f32, true);
+  @export_name("panel_home", [*]f32, true);
+  @export_name("panel_receive", [*]f32, true);
+  @export_name("stats", [*]u32, true);
+  @export_name("clocks", [*]u32, true);
+  @export_name("traversal", [*]u32, true);
+  @export_name("run", fn()void);
+}

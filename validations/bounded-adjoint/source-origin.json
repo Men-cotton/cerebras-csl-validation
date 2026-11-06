@@ -1,0 +1,38 @@
+{
+  "base_revision": "a6f8d152",
+  "description": "Shell derivation pins; the dedicated schema, oracle and two-launch runner are local additions. Existing model CSL is exported without modification.",
+  "files": {
+    "appliance.py": {
+      "path": "models/hierarchical_gnn/grouped_csr/native_cora_appliance/appliance.py",
+      "sha256": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab"
+    },
+    "appliance_worker.py": {
+      "path": "models/hierarchical_gnn/grouped_csr/native_cora_appliance/appliance_worker.py",
+      "sha256": "88dd6a1a9140712eaad13cec6d05e409dbe7147e807a3f695137177ad12a2189"
+    },
+    "directory-and-counter-model": {
+      "path": "models/hierarchical_gnn/grouped_csr/bounded_panels/capacity/fixture.py",
+      "sha256": "77fa79611abf7d2ddebf3766fa276eff01eaa428e548713de8bae69d72e4b10d"
+    },
+    "local-run-pattern": {
+      "path": "models/hierarchical_gnn/grouped_csr/native_cora_appliance/run.py",
+      "sha256": "ee845c690c38a8f48ef0c52e46de970f08166181112576433bb0f2e78c1f8b77"
+    },
+    "original-edge-audit": {
+      "path": "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint/fixture.py",
+      "sha256": "b04364fb78d09b1d44cc79498dc5dc3a22fd5fbdd7ba664779d4f3012a64c139"
+    },
+    "portable.py": {
+      "path": "models/hierarchical_gnn/grouped_csr/native_cora_appliance/portable.py",
+      "sha256": "a8248f5919ad53951a2be087dfd811dc7fdb9c8af5af00fb00708540cc8edd79"
+    },
+    "sdk_runner.py": {
+      "path": "models/hierarchical_gnn/grouped_csr/native_cora_appliance/sdk_runner.py",
+      "sha256": "58c3e03ff9b2efb4281be327a3b110875e87c8752347f5fe4dfdb5e61b164a73"
+    },
+    "two-launch-order": {
+      "path": "models/hierarchical_gnn/grouped_csr/bounded_panels/adjoint/sdk_runner.py",
+      "sha256": "03badbc8a5298cfc519857585fc62e311a5cd7c6b2154011d145104a5998da54"
+    }
+  }
+}
