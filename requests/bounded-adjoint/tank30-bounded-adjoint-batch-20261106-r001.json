@@ -1,0 +1,214 @@
+{
+  "description": "Fixed-owner full-Cora linear forward/adjoint cursor B8/B16 comparison. Signed 2x2 B16 pilot audits before two full compiles; ABBA full runs reuse one artifact per B and audit immediately. Each runtime contains two D-changing launches, not two timing replicates.",
+  "id": "tank30-bounded-adjoint-batch-20261106-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e226-pilot-b16",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e226-pilot-b16"
+      ],
+      "kind": "appliance",
+      "name": "compile-e226-pilot-b16",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e226-pilot-b16",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e226-pilot-b16/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-e226-pilot-b16"
+      ],
+      "kind": "appliance",
+      "name": "run-e226-pilot-b16",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e226-pilot-b16/capture-data",
+        "--out",
+        "{output}/numerical-e226-pilot-b16.json"
+      ],
+      "kind": "host",
+      "name": "audit-e226-pilot-b16",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e226-r8-b8",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e226-r8-b8"
+      ],
+      "kind": "appliance",
+      "name": "compile-e226-r8-b8",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e226-r8-b16",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e226-r8-b16"
+      ],
+      "kind": "appliance",
+      "name": "compile-e226-r8-b16",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e226-r8-b8",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e226-r8-b8/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-01-e226-r8-b8"
+      ],
+      "kind": "appliance",
+      "name": "run-01-e226-r8-b8",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-01-e226-r8-b8/capture-data",
+        "--out",
+        "{output}/numerical-01-e226-r8-b8.json"
+      ],
+      "kind": "host",
+      "name": "audit-01-e226-r8-b8",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e226-r8-b16",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e226-r8-b16/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-02-e226-r8-b16"
+      ],
+      "kind": "appliance",
+      "name": "run-02-e226-r8-b16",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-02-e226-r8-b16/capture-data",
+        "--out",
+        "{output}/numerical-02-e226-r8-b16.json"
+      ],
+      "kind": "host",
+      "name": "audit-02-e226-r8-b16",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e226-r8-b16",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e226-r8-b16/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-03-e226-r8-b16"
+      ],
+      "kind": "appliance",
+      "name": "run-03-e226-r8-b16",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-03-e226-r8-b16/capture-data",
+        "--out",
+        "{output}/numerical-03-e226-r8-b16.json"
+      ],
+      "kind": "host",
+      "name": "audit-03-e226-r8-b16",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e226-r8-b8",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e226-r8-b8/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-04-e226-r8-b8"
+      ],
+      "kind": "appliance",
+      "name": "run-04-e226-r8-b8",
+      "script": "validations/bounded-adjoint/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-04-e226-r8-b8/capture-data",
+        "--out",
+        "{output}/numerical-04-e226-r8-b8.json"
+      ],
+      "kind": "host",
+      "name": "audit-04-e226-r8-b8",
+      "script": "validations/bounded-adjoint/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "admission": {
+    "admitted": true,
+    "code_reserve_bytes": 35840,
+    "forecast_bytes": 37130,
+    "named_bytes": 1290
+  },
+  "atol": 2e-05,
+  "clock_scope": "same-PE first forward descriptor through final adjoint RELEASE/status; excludes initialization, output reset, export, host transfer and global makespan",
+  "family": "bounded-adjoint",
+  "files": {
+    "inputs.npz": "25bdcadec3a89c02dc03066bcc91e445138940333d259813e15db40a1172ccf6",
+    "original.npz": "e36de40d74b41566a4b2fefc5203ff7acb92ba7e712af5bf06fd999a3fec5a13",
+    "reference.npz": "fe577fc13a518e27c4c0f2318121a86be8704c1d1c35b7bef874e5cf9315fdc7",
+    "source-manifest.json": "f98eaef9924cdeb82f960b4cf2a106216f418130bd2cabca727ae2e42a539dfa",
+    "source/layout.csl": "362bb3927265184b72b4783bdec6c1a9507a191a7b7c9691aa5ee82d8080492f",
+    "source/pe.csl": "41cf5568d30f803647374c3a498fa6aa19ad0b3a66b0c0cda91af796de4d54f4"
+  },
+  "inputs": {
+    "counts": [
+      4,
+      "uint32"
+    ],
+    "derivative": [
+      12,
+      "float32"
+    ],
+    "edge_begin": [
+      6,
+      "uint16"
+    ],
+    "edge_dst": [
+      7,
+      "uint16"
+    ],
+    "edge_value": [
+      7,
+      "float32"
+    ],
+    "group_begin": [
+      3,
+      "uint16"
+    ],
+    "group_id": [
+      2,
+      "uint32"
+    ],
+    "group_length": [
+      1,
+      "uint32"
+    ],
+    "owner_id": [
+      3,
+      "uint32"
+    ],
+    "owner_slot": [
+      3,
+      "uint32"
+    ],
+    "source_id": [
+      5,
+      "uint32"
+    ],
+    "source_slot": [
+      5,
+      "uint32"
+    ],
+    "source_values": [
+      12,
+      "float32"
+    ]
+  },
+  "launches": [
+    {
+      "arguments": [],
+      "entrypoint": "run",
+      "update": null
+    },
+    {
+      "arguments": [],
+      "entrypoint": "run",
+      "update": "derivative"
+    }
+  ],
+  "metadata": {
+    "admission_scope": "conservative code/SDK reserve plus named arrays/scalars; compiled ELF decides actual SRAM",
+    "arithmetic": "E211 source/occurrence order; reverse local accumulation then column and row reductions",
+    "capacity_policy": "uniform maxima; same ownership in both modes",
+    "capture_limit_bytes": 67108864,
+    "changed_gradient_elements": 17,
+    "clock_scope": "same-PE first forward descriptor through final adjoint RELEASE/status; excludes initialization, output reset, export, host transfer and global makespan",
+    "code_sdk_reserve_bytes": 35840,
+    "data_word_hops": 1024,
+    "declared_admission": "ADMITTED",
+    "declared_array_bytes_per_pe": 1264,
+    "declared_limit_bytes": 45056,
+    "derivative_gradient_bytes_per_pe": 96,
+    "descriptor_word_hops": 48,
+    "device_scope": "AZ and A-transpose-D, two changed-D launches; no projection, loss or optimizer",
+    "exact_dyadic_witness": true,
+    "fixed_array_bytes_per_pe": 172,
+    "forecast_static_bytes": 37130,
+    "full_capture_bytes_two_launches": 12992,
+    "graph_capacity": {
+      "E": 7,
+      "G": 2,
+      "L": 3,
+      "U": 5
+    },
+    "graph_fmas_max": 42,
+    "graph_fmas_max_over_mean": 2.3333333333333335,
+    "graph_fmas_mean": 18.0,
+    "graph_fmas_per_pe_per_launch": [
+      42,
+      6,
+      18,
+      6
+    ],
+    "group_lengths": [
+      5,
+      3
+    ],
+    "launches": 2,
+    "numerical_tolerance": {
+      "atol": 2e-05,
+      "rtol": 0.0002
+    },
+    "owner_array_bytes_per_pe": 216,
+    "panel_bytes_per_pe": 768,
+    "panel_count": 2,
+    "per_pe_counts": [
+      [
+        2,
+        2,
+        5,
+        7
+      ],
+      [
+        3,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        3,
+        3
+      ],
+      [
+        1,
+        1,
+        1,
+        1
+      ]
+    ],
+    "provenance": {
+      "kind": "adversarial",
+      "source": "E211 signed two-axis reduction witness"
+    },
+    "release_word_hops": 24,
+    "scalar_bytes_per_pe": 26,
+    "sparse_directory_bytes_per_pe": 108,
+    "storage_scope": "named arrays and explicit scalars; compiled code/SDK/alignment/stack separate",
+    "traffic_scope": "modeled collective payload word-hops; SDK headers excluded",
+    "traversal_counters_per_operator": [
+      "owner_inspections",
+      "group_inspections",
+      "source_inspections",
+      "owners_visited",
+      "sources_visited"
+    ],
+    "traversal_mode": "cursor",
+    "traversal_total_per_launch": [
+      8,
+      6,
+      10,
+      8,
+      10,
+      8,
+      6,
+      10,
+      8,
+      10
+    ],
+    "u32_counter_upper_bound": 49178,
+    "uniform_padding_bytes_total": 496,
+    "useful_array_bytes_per_pe": [
+      1192,
+      1182,
+      1148,
+      1038
+    ]
+  },
+  "outputs": {
+    "clocks": [
+      6,
+      "uint32"
+    ],
+    "gradient": [
+      12,
+      "float32"
+    ],
+    "output": [
+      12,
+      "float32"
+    ],
+    "panel_home": [
+      64,
+      "float32"
+    ],
+    "panel_local": [
+      64,
+      "float32"
+    ],
+    "panel_receive": [
+      64,
+      "float32"
+    ],
+    "stats": [
+      12,
+      "uint32"
+    ],
+    "traversal": [
+      10,
+      "uint32"
+    ]
+  },
+  "params": {
+    "B": 16,
+    "C": 2,
+    "CURSOR": 1,
+    "E": 7,
+    "F": 3,
+    "G": 2,
+    "L": 3,
+    "R": 2,
+    "T": 4,
+    "U": 5
+  },
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "linear AZ and A-transpose-D, two resident launches with only D updated; no projection, loss or optimizer",
+  "source_case_sha256": "f98eaef9924cdeb82f960b4cf2a106216f418130bd2cabca727ae2e42a539dfa"
+}
