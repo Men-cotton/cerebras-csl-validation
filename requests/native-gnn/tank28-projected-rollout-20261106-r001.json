@@ -1,0 +1,543 @@
+{
+  "description": "E224: direct and projected S2 four-step whole/split numerical gates, then complete CylinderFlow H128/S15 200-step direct/projected balanced order at C64/R128 and C64/R96. Source-derived admission precedes fresh hardware compile; separate strict audits gate every continuation.",
+  "id": "tank28-projected-rollout-20261106-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e224-pilot-direct4",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e224-pilot-direct4"
+      ],
+      "kind": "appliance",
+      "name": "compile-e224-pilot-direct4",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-pilot-direct4",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-pilot-direct4/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-pilot-direct4"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-pilot-direct4",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-pilot-direct4/capture-data",
+        "--out",
+        "{output}/numerical-e224-pilot-direct4.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-pilot-direct4",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e224-pilot-direct22",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e224-pilot-direct22"
+      ],
+      "kind": "appliance",
+      "name": "compile-e224-pilot-direct22",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-pilot-direct22",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-pilot-direct22/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-pilot-direct22"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-pilot-direct22",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-pilot-direct22/capture-data",
+        "--out",
+        "{output}/numerical-e224-pilot-direct22.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-pilot-direct22",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "{output}/run-e224-pilot-direct4/capture-data",
+        "{output}/run-e224-pilot-direct22/capture-data",
+        "--out",
+        "{output}/compare-pilot-0.json"
+      ],
+      "kind": "host",
+      "name": "compare-pilot-0",
+      "script": "validations/native-gnn/compare_rollouts.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e224-pilot-projected4",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e224-pilot-projected4"
+      ],
+      "kind": "appliance",
+      "name": "compile-e224-pilot-projected4",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-pilot-projected4",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-pilot-projected4/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-pilot-projected4"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-pilot-projected4",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-pilot-projected4/capture-data",
+        "--out",
+        "{output}/numerical-e224-pilot-projected4.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-pilot-projected4",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e224-pilot-projected22",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e224-pilot-projected22"
+      ],
+      "kind": "appliance",
+      "name": "compile-e224-pilot-projected22",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-pilot-projected22",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-pilot-projected22/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-pilot-projected22"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-pilot-projected22",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-pilot-projected22/capture-data",
+        "--out",
+        "{output}/numerical-e224-pilot-projected22.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-pilot-projected22",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "{output}/run-e224-pilot-projected4/capture-data",
+        "{output}/run-e224-pilot-projected22/capture-data",
+        "--out",
+        "{output}/compare-pilot-1.json"
+      ],
+      "kind": "host",
+      "name": "compare-pilot-1",
+      "script": "validations/native-gnn/compare_rollouts.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e224-full-r128-direct200",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e224-full-r128-direct200"
+      ],
+      "kind": "appliance",
+      "name": "compile-e224-full-r128-direct200",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e224-full-r128-projected200",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e224-full-r128-projected200"
+      ],
+      "kind": "appliance",
+      "name": "compile-e224-full-r128-projected200",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e224-full-r96-direct200",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e224-full-r96-direct200"
+      ],
+      "kind": "appliance",
+      "name": "compile-e224-full-r96-direct200",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e224-full-r96-projected200",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e224-full-r96-projected200"
+      ],
+      "kind": "appliance",
+      "name": "compile-e224-full-r96-projected200",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-full-r128-direct200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-full-r128-direct200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-full-r128-direct200-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-full-r128-direct200-r1",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-full-r128-direct200-r1/capture-data",
+        "--out",
+        "{output}/numerical-e224-full-r128-direct200-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-full-r128-direct200-r1",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-full-r128-projected200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-full-r128-projected200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-full-r128-projected200-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-full-r128-projected200-r2",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-full-r128-projected200-r2/capture-data",
+        "--out",
+        "{output}/numerical-e224-full-r128-projected200-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-full-r128-projected200-r2",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-full-r96-projected200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-full-r96-projected200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-full-r96-projected200-r3"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-full-r96-projected200-r3",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-full-r96-projected200-r3/capture-data",
+        "--out",
+        "{output}/numerical-e224-full-r96-projected200-r3.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-full-r96-projected200-r3",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-full-r96-direct200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-full-r96-direct200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-full-r96-direct200-r4"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-full-r96-direct200-r4",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-full-r96-direct200-r4/capture-data",
+        "--out",
+        "{output}/numerical-e224-full-r96-direct200-r4.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-full-r96-direct200-r4",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-full-r96-direct200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-full-r96-direct200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-full-r96-direct200-r5"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-full-r96-direct200-r5",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-full-r96-direct200-r5/capture-data",
+        "--out",
+        "{output}/numerical-e224-full-r96-direct200-r5.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-full-r96-direct200-r5",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-full-r96-projected200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-full-r96-projected200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-full-r96-projected200-r6"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-full-r96-projected200-r6",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-full-r96-projected200-r6/capture-data",
+        "--out",
+        "{output}/numerical-e224-full-r96-projected200-r6.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-full-r96-projected200-r6",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-full-r128-projected200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-full-r128-projected200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-full-r128-projected200-r7"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-full-r128-projected200-r7",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-full-r128-projected200-r7/capture-data",
+        "--out",
+        "{output}/numerical-e224-full-r128-projected200-r7.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-full-r128-projected200-r7",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e224-full-r128-direct200",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e224-full-r128-direct200/native-build.json",
+        "--host-timeout",
+        "300",
+        "--out",
+        "{output}/run-e224-full-r128-direct200-r8"
+      ],
+      "kind": "appliance",
+      "name": "run-e224-full-r128-direct200-r8",
+      "script": "validations/native-gnn/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e224-full-r128-direct200-r8/capture-data",
+        "--out",
+        "{output}/numerical-e224-full-r128-direct200-r8.json"
+      ],
+      "kind": "host",
+      "name": "audit-e224-full-r128-direct200-r8",
+      "script": "validations/native-gnn/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}

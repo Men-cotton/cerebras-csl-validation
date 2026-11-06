@@ -1,0 +1,60 @@
+{
+  "endpoint_transform": "inverse direct lane packing, exact full roundtrip, new ownership packing and last-block sender projection",
+  "helper_sha256": "7914cc79fef6ae9300f6947290684879ebf57a2ee510a41fef09319a784a327e",
+  "numerical_source_checks": {
+    "models/meshgraphnet/native_full/model.py": {
+      "current_sha256": "f65b281ab62d6f8e4334e1604bf6137b1c3802614b944af433ff9c83cd64af37",
+      "equality": "function AST",
+      "function": "dense_oracle",
+      "parent_sha256": "05d092283ff2b5647902586822d25b0dc4d20b0ff9c80d14d795656962244df0"
+    },
+    "models/meshgraphnet/native_rollout/model.py": {
+      "current_sha256": "7099dbbdb7a7a88d1a6e6efd07347982b76b699754c33960d96e2572056eb2f8",
+      "equality": "function AST",
+      "function": "expectations",
+      "parent_sha256": "80cde0f01126bab155ca912221312744d66010849227837db493ec2caa096156"
+    },
+    "models/meshgraphnet/reference.py": {
+      "current_sha256": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f",
+      "equality": "whole file",
+      "function": null,
+      "parent_sha256": "f4663d8e42567ef862931c0e73bcedc79b36f7e7ae260194c191b2b0e44e5e5f"
+    }
+  },
+  "parent_case_sha256": "8b632f6e24053f2a2e1a98b038fabb080d6685e909c6d3d0c917900d2246ccb6",
+  "parent_files_sha256": {
+    "PUBLIC_MODEL_LICENSE": "769f7db97e1ca994ae879392c520acc9ae1d6e45df225ac38426c3e11c0d6267",
+    "exact_masks.npz": "158183855b6943c6127277b825d4b97e278ad91b3007471a8d230edcdb76350c",
+    "expected.npz": "36cca53193db4fd7bd24682abed6c8474e4535ff58fe945b90c2fa5307e2d154",
+    "inputs.npz": "195367358b24fba5c4eb2786418d78a150e5aaa8af5f6c0ab2aefd9ee3c9ef33",
+    "original.npz": "a859b09ad08ca8b008645dda90a58d7b03e77eab91f2608ecba74e0ac5b90999",
+    "public-model-import.json": "13eeffb997030e16d9042cb1549b4b1bc7758ccafe130112313c86888dc3be31",
+    "sdk_runner.py": "02551f1d753f0135a6e459247fe124b45f57850ddd1cef32aec0cdbc3eced0b5",
+    "source/layout.csl": "eb19f6cd3d197bbe920bfc1ebfb64e3d7d9bb146c6cbe6b6265393b7b10b87da",
+    "source/no_halo.csl": "1d96f6a27b0f174ac2905f53b975eee227f445676fad7e5d14cafda48eeed073",
+    "source/pe.csl": "c1eb231d7605def9cde0ba7258ae9b652ec6c16e98e936d58b65c120644cb6bc",
+    "source/sliced_halo.csl": "31d232ca76c9d9bcdaa96dede4ad8d92c42f220cd0db58eb7bb5cd02cd56b0b9",
+    "storage-admission.json": "42c9f8272640a08000f1e805fd91d462e8682cdc11e3f22a9334e787721aae87",
+    "zero_masks.npz": "a4da06dd617797999e36c8cc28940dd46b7cff9530de07ff5c709470a89e9bd4"
+  },
+  "parent_source_commit": "4fe5b24ba061c684d2163a340b180e3ca12d4441",
+  "preparer_sha256": "7626a24d1cd60181723d5f16bcba8d6add89bf1d22a2d7d37365d765d61c44e7",
+  "schema": 1,
+  "scope": "independent pinned CPU trajectory; no new model forward, device or performance result",
+  "source_commit": "3c7e0f7ad000771487c5003f79544c2e542f6aad",
+  "unchanged_physical_fields": [
+    "mesh_pos",
+    "velocity",
+    "node_type",
+    "senders",
+    "receivers",
+    "edge_features",
+    "flat",
+    "node_mean",
+    "node_std",
+    "edge_mean",
+    "edge_std",
+    "output_mean",
+    "output_std"
+  ]
+}

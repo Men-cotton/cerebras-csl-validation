@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: Apache-2.0
+// Streamed collective mode: no message-passing import, queues or task bindings.
+// Keep the frozen metadata ABI so matched cases differ only in transport.
+param C: u16;
+param R: u16;
+param F: u16;
+param L: u16;
+param E: u16;
+param T: u16;
+param K: u16;
+param done_task;
+var source_panel = @zeros([L*F]f32);
+var tx_begin = @zeros([R+1]u32);
+var tx_slots = @zeros([T]u32);
+var rx_count = @zeros([R]u32);
+var rx_slot = @zeros([E]u32);
+// Intentionally zero: this mode does not send sliced-halo packets.
+var comm_stats = @zeros([12]u32);
+var p_tx_begin: [*]u32 = &tx_begin;
+var p_tx_slots: [*]u32 = &tx_slots;
+var p_rx_count: [*]u32 = &rx_count;
+var p_rx_slot: [*]u32 = &rx_slot;
+var p_comm_stats: [*]u32 = &comm_stats;
