@@ -4,8 +4,10 @@ This independent reconstruction follows Shah, Di and Becchi,
 [arXiv:2604.27985v1](https://arxiv.org/abs/2604.27985v1), sections3.1.2–3.1.3.
 The four frozen execution files come from gnn-csl revision
 `927a5d87` under `kernels/sparse/shah-sellpack-spmm/optimized/`.
-[E231](https://github.com/Men-cotton/gnn-csl/blob/927a5d87/research/experiments/E231-shah-optimized-streaming.md)
-contains local simulator evidence and the exact source-to-paper distinctions.
+The local gnn-csl record `research/experiments/E231-shah-optimized-streaming.md`
+contains simulator evidence and the exact source-to-paper distinctions. The
+execution source is published in this family: [layout](source/layout.csl),
+[PE program](source/pe.csl), [driver](driver.py), and [oracle](oracle.py).
 The adapter is maintained here; SDK images and generated programs stay outside
 the source checkout.
 
