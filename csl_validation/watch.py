@@ -26,6 +26,7 @@ SHA = re.compile(r"[0-9a-f]{40}\Z")
 JOB = re.compile(r"\bJob id:\s*(wsjob-[A-Za-z0-9-]+)")
 TERMINAL = {"SUCCEEDED", "FAILED", "CANCELLED", "CANCELED"}
 ACTIVE = {"CREATED", "QUEUED", "QUEUEING", "PENDING", "SCHEDULED", "INITIALIZING", "RUNNING", "EXECUTING", "FINALIZING", "CANCELLING", "CANCELING"}
+QUEUED = {"CREATED", "QUEUED", "QUEUEING", "PENDING", "SCHEDULED"}
 DEFAULT_SCRIPTS = ["appliance.py", "tank_appliance.py", "mesh_appliance.py", "clock_appliance.py"]
 LEDGER_LIMIT = 32 << 20
 ADMISSION_LIMIT = 16 << 20
@@ -253,6 +254,31 @@ def job_ids(root, limit=None):
     return sorted(result)
 
 
+class ClientClock:
+    """Exclude intervals bracketed by two confirmed scheduler-wait samples."""
+    def __init__(self, started):
+        self.sampled = started
+        self.queued = False
+        self.charged = 0.0
+        self.excluded = 0.0
+
+    def sample(self, current, queued):
+        elapsed = current - self.sampled
+        if self.queued and queued:
+            self.excluded += elapsed
+        else:
+            # Discovery, transitions and unconfirmed intervals consume budget.
+            self.charged += elapsed
+        self.sampled, self.queued = current, queued
+
+    def elapsed(self, current):
+        return self.charged + (0 if self.queued else current - self.sampled)
+
+    def update_record(self, record, current):
+        record.update(client_budget_seconds=self.elapsed(current),
+                      confirmed_queue_seconds=self.excluded)
+
+
 @contextmanager
 def operator_lock(config):
     path = Path(config["lock_file"])
@@ -374,29 +400,47 @@ class Watcher:
         argv = sdk_argv(self.config, ["-B", str(contained(src, step["script"]))])
         argv += [arg.replace("{output}", str(output)) for arg in step["args"]]
         require(encoded_size(argv) <= 64 << 10, "expanded step argv exceeds 64 KiB")
-        record = dict(name=step["name"], status="running", argv=argv, started_at=now(), jobs=[])
+        record = dict(name=step["name"], status="running", argv=argv, started_at=now(), jobs=[],
+                      timeout_seconds=step["timeout_seconds"],
+                      timeout_policy="exclude-confirmed-queue" if step["kind"] == "appliance" else "wall-clock")
         entry["steps"].append(record)
         self.record(entry)  # Intent is durable BEFORE Popen.
         env = dict(sdk_environment(),
                    CSL_REQUEST_ID=entry["id"], CSL_SOURCE_SHA=entry["sha"], CSL_OUTPUT_DIR=str(output))
         log = root / "logs" / (step["name"] + ".log")
-        process = None
+        process, clock = None, None
         try:
             with log.open("xb") as stream:
                 process = subprocess.Popen(argv, cwd=src, env=env, stdout=stream, stderr=subprocess.STDOUT,
                                            process_group=0, pass_fds=(() if self.lock_fd is None else (self.lock_fd,)))
                 record["pid"] = process.pid
                 self.record(entry)
-                began, checked = time.monotonic(), 0
+                clock = ClientClock(time.monotonic())
+                checked = 0
+                # A stale QUEUED sample cannot postpone the next query forever.
+                poll_seconds = min(self.config["poll_seconds"], step["timeout_seconds"] / 4)
                 while process.poll() is None:
-                    require(time.monotonic() - began < step["timeout_seconds"], "client timeout; remote stop unconfirmed")
                     require(log.stat().st_size <= 64 << 20, "client log limit")
-                    if time.monotonic() - checked >= self.config["poll_seconds"]:
-                        observed = sorted((set(job_ids(output)) - set(before)) | set(JOB.findall(log.read_text(errors="replace"))))
+                    if time.monotonic() - checked >= poll_seconds:
+                        observed = sorted(set(record["jobs"]) | (set(job_ids(output)) - set(before))
+                                          | set(JOB.findall(log.read_text(errors="replace"))))
                         require(len(observed) <= 32 and all(len(name) <= 128 for name in observed), "single-action job ID limit")
+                        if observed != record["jobs"]:
+                            clock.queued = False  # New IDs have no prior phase sample.
                         record["jobs"] = observed
-                        self.record(entry)
+                        self.record(entry)  # Preserve IDs even if the phase query fails.
+                        queued = False
+                        if step["kind"] == "appliance" and observed:
+                            outcomes = [self.scheduler.job(name) for name in observed]
+                            record["remote"] = outcomes
+                            pending = [job for job in outcomes if job["phase"] not in TERMINAL]
+                            queued = bool(pending) and all(job["phase"] in QUEUED for job in pending)
                         checked = time.monotonic()
+                        clock.sample(checked, queued)
+                        clock.update_record(record, checked)
+                        self.record(entry)
+                    require(clock.elapsed(time.monotonic()) < step["timeout_seconds"],
+                            "client timeout outside confirmed queue wait; remote stop unconfirmed")
                     time.sleep(0.2)
                 record["exit_code"] = process.returncode
             # Background descendants violate the foreground single-action contract.
@@ -407,7 +451,8 @@ class Watcher:
             else:
                 raise ValueError("child descendants remain after foreground exit")
             require(log.stat().st_size <= 64 << 20, "client log limit")
-            observed = sorted((set(job_ids(output)) - set(before)) | set(JOB.findall(log.read_text(errors="replace"))))
+            observed = sorted(set(record["jobs"]) | (set(job_ids(output)) - set(before))
+                              | set(JOB.findall(log.read_text(errors="replace"))))
             require(len(observed) <= 32 and all(len(name) <= 128 for name in observed), "single-action job ID limit")
             record["jobs"] = observed
             require(step["kind"] != "appliance" or record["jobs"], "no job IDs captured; submission outcome unknown")
@@ -419,6 +464,11 @@ class Watcher:
             record.update(status="blocked", error=str(error) or "interrupted")
             entry.update(status="blocked", error=record["error"])
         finally:
+            if clock is not None:
+                # Exit/failure ends the provisional pause; no final queue sample
+                # exists to exempt the trailing interval.
+                clock.sample(time.monotonic(), False)
+                clock.update_record(record, time.monotonic())
             self.record(entry)
 
     def reconcile(self, entry):

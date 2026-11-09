@@ -34,9 +34,15 @@ See the [repository workflow](../README.md) for branch setup and submission.
 
 Set the namespace and time bounds for the target installation. The inherited
 templates use `job-operator`, matching the supplied ALCF job record, with a
-1200-second client bound and a separate 300-second run-worker bound. These are
-initial limits, not measured queue or service times. Client timeout does not
-prove that the remote job terminated.
+1200-second client budget and a separate 300-second run-worker bound. For host
+steps, `timeout_seconds` is a wall-clock limit. For appliance steps, it excludes
+intervals between two scheduler observations confirming that at least one of this step's
+identified jobs is unfinished and every unfinished job is waiting in CREATED, QUEUED, QUEUEING, PENDING or SCHEDULED.
+There is no separate deadline for confirmed queue waiting. Discovery, phase
+transitions, running jobs, finalization and result collection consume the client
+budget. These are initial budgets, not measured service times. The worker bound
+starts inside the allocated job and remains unchanged. Client timeout does not
+prove that the remote job terminated. See the [operator timeout policy](../docs/workflows/operator.md#queue-waiting-and-timeouts).
 
 Preserve each adapter's numerical checks and retain its capture. Archive
 integrity, remote terminal status, and numerical correctness are separate
