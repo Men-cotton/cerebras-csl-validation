@@ -1,5 +1,12 @@
 {
   "cases": {
+    "e229-r128-t16-compact": "65d9167d9e51997e03b162baf63457e393a81107640a07697d5f6c79d35c8572",
+    "e229-r128-t16-selective": "2ead0e5012fd120fd50a45b629f23de3442332b9e503993f3ed7698b7b1aa53d",
+    "e229-r256-t16-compact": "69fe4db6a244c2baab8c072caaaf5a0c4c0d5fa642a55b606bb00351b54aaec3",
+    "e229-r256-t16-selective": "6c6264b9cd194d7f148a4d4fa2ba5c0543dee1d96ecf5a53912b91d450b459a0",
+    "e229-r64-t16-compact": "c791e082ec81a19ccf0b88462e990201e6b243cdd18f7e2701479fa31f910cc7",
+    "e229-r64-t16-selective": "3ae084c7fec7bdff8bfe19ac7feec2923fa18bfa870234e13f1242888ed6c08d",
+    "e229-tiny-selective-t16": "6f85b2040fdeb5ac674936c124ccb684cada0ee77861110fa0558e3795e2a018",
     "full-c8r128-t8": "14511476427c648e6122fe07be2b22fed5161a9eff4706624a8ed90eb43a245d",
     "full-c8r64-t8": "796f97aa67c9c360334e0d82b4674829085bc7e73e5873292b8dc18f58d67160",
     "native64": "b3abe95875454afd6788129b8d76339ca868c299cdd7ecd822c47453bcbd1c8c",
@@ -17,14 +24,14 @@
     "tiny-t16": "16c0307625847ed54808e6417dff634c8314020b359816ac75cbbf3e72a873ef"
   },
   "compile_workers": 1,
-  "evidence": "package preparation only; no remote execution claim",
-  "exporter_sha256": "3ce36558807c811c378cfd7ef304ecd9275c1aa188bad534ec9b4945f6e778ad",
+  "evidence": "Package preparation; E229 finite selective transport passes tiny local SIM and512PE local compile; hardware results unobserved.",
+  "exporter_sha256": "404d49d11e129e943c6126025bec9a9d7d67e2ccf88b0ff9b1aba1ce56ac968b",
   "family": "native-cora",
   "host_sha256": {
     "appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
     "appliance_worker.py": "88dd6a1a9140712eaad13cec6d05e409dbe7147e807a3f695137177ad12a2189",
     "portable.py": "a8248f5919ad53951a2be087dfd811dc7fdb9c8af5af00fb00708540cc8edd79",
-    "saved_audit.py": "ea8f9dda1d9c45b631d44c1eb6ea91d1c75e89875710d483aa1ecdbe989ee82c",
+    "saved_audit.py": "c2d1b70cdb950ec74aab33edfda90c6c18b1b06ef594e116a3cf04405a02a2db",
     "sdk_runner.py": "58c3e03ff9b2efb4281be327a3b110875e87c8752347f5fe4dfdb5e61b164a73"
   },
   "schema": 1,

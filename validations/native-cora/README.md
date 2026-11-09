@@ -17,6 +17,25 @@ both immutable SDK versions of `benchmarks/gemv-collectives_2d/pe.csl`; the
 current example uses untyped module parameters. Actual compile and execution
 results belong to the E217 experiment card.
 
+
+E229 adds `--transport selective` using a separate `selective/` CSL source.
+Each source group sends T-lane vectors only to recipient rows. Four header
+words identify epoch, phase/tile, source group and packet; a recipient ACK
+confirms its cache, then a column RELEASE permits the original CSR arithmetic.
+The input directory is immutable and independently reconstructed from the raw
+graph. Dedicated guarded packet buffers and exact DATA/ACK/RELEASE counters
+make protocol progress observable. The compact implementation remains the
+matched baseline at the same owners and T16. Headers, ACKs, RELEASE payload,
+directory bytes and actual ELF endpoints are charged separately from useful
+arithmetic. Reduced modeled traffic is not measured speedup.
+
+`repeat_probe.py` is a small local-only two-launch diagnostic. It changes X in
+one loaded runtime and independently checks both complete models and epochs;
+its receipt is deliberately separate from the one-launch portable family.
+Partial-result aggregation remains a candidate evaluated by whole-model
+quality and measured latency. Bit differences alone do not decide adoption.
+The source research record is gnn-csl: research/experiments/E229-finite-column-delivery.md.
+
 The minimum directed fixture has23 input features, signed duplicate edges,
 an empty owner and a partial7-class output tile. Features17 and22 are nonzero;
 preparation requires its logits to differ from a first16-feature fallback.
@@ -131,3 +150,12 @@ tail lanes. Its dense pair keeps `U=K`: it checks branch behavior, not storage
 savings. Full native R64/R128 cases retain E217's original graph and weights.
 Package the chosen matched pairs with `export_appliance.py`; preparation and
 package creation alone do not establish remote execution or performance.
+
+E224/E225 now retain independent hardware audits at 256/512/1024 PE. Compact
+panels reduce the matched PE intervals, while host timing does not establish
+improvement. R32 trades half the R64 PE count for about 5.21% longer intervals
+across separate campaigns. E226 holds compact C8/R64 ownership fixed and
+compares T8/T16 in returned hardware captures. T16 preserves full-model outputs
+and shortens the median maximum PE interval by23.48%, with larger panel storage
+and modeled traffic. Host E2E improvement remains unestablished; see E226 for
+the exact timing scope.

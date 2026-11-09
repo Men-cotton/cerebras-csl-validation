@@ -22,6 +22,8 @@ def export(cases, output, request_id, *, compile_workers=1, host_timeout=600):
         shutil.copyfile(HERE/name, output/name)
     (output/"tests").mkdir()
     shutil.copyfile(HERE/"test_appliance.py", output/"tests/test_appliance.py")
+    if any(common.load(path)["params"].get("UNICAST") == 1 for path in cases.values()):
+        shutil.copyfile(HERE/"test_selective_package.py", output/"tests/test_selective_package.py")
     package = dict(schema=1, family="native-cora", cases={}, compile_workers=workers,
                    host_sha256={name: common.sha(output/name) for name in common.HOST_FILES},
                    exporter_sha256=common.sha(output/"export_appliance.py"),

@@ -1,0 +1,530 @@
+{
+  "description": "T16 directed selective pilot, then fixed-owner compact/selective/selective/compact full-Cora inference at C8/R64,R128,R256 (512/1024/2048PE). Same raw graph, original checkpoint, all1433 features, two layers and validation labels. Compile once per arm; audit every runtime immediately. Charge protocol headers/ACK/release, SRAM and complete host intervals; no speed claim before returned evidence.",
+  "id": "tank01-selective-cora-scale-20261109-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e229-tiny-selective-t16",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e229-tiny-selective-t16"
+      ],
+      "kind": "appliance",
+      "name": "compile-e229-tiny-selective-t16",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-tiny-selective-t16",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-tiny-selective-t16/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-e229-tiny-selective-t16"
+      ],
+      "kind": "appliance",
+      "name": "run-e229-tiny-selective-t16",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-e229-tiny-selective-t16/capture-data",
+        "--out",
+        "{output}/numerical-e229-tiny-selective-t16.json"
+      ],
+      "kind": "host",
+      "name": "audit-e229-tiny-selective-t16",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e229-r64-t16-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e229-r64-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-e229-r64-t16-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e229-r64-t16-selective",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e229-r64-t16-selective"
+      ],
+      "kind": "appliance",
+      "name": "compile-e229-r64-t16-selective",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r64-t16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r64-t16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r64-01-e229-r64-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-r64-01-e229-r64-t16-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r64-01-e229-r64-t16-compact/capture-data",
+        "--out",
+        "{output}/numerical-r64-01-e229-r64-t16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-r64-01-e229-r64-t16-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r64-t16-selective",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r64-t16-selective/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r64-02-e229-r64-t16-selective"
+      ],
+      "kind": "appliance",
+      "name": "run-r64-02-e229-r64-t16-selective",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r64-02-e229-r64-t16-selective/capture-data",
+        "--out",
+        "{output}/numerical-r64-02-e229-r64-t16-selective.json"
+      ],
+      "kind": "host",
+      "name": "audit-r64-02-e229-r64-t16-selective",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r64-t16-selective",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r64-t16-selective/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r64-03-e229-r64-t16-selective"
+      ],
+      "kind": "appliance",
+      "name": "run-r64-03-e229-r64-t16-selective",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r64-03-e229-r64-t16-selective/capture-data",
+        "--out",
+        "{output}/numerical-r64-03-e229-r64-t16-selective.json"
+      ],
+      "kind": "host",
+      "name": "audit-r64-03-e229-r64-t16-selective",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r64-t16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r64-t16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r64-04-e229-r64-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-r64-04-e229-r64-t16-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r64-04-e229-r64-t16-compact/capture-data",
+        "--out",
+        "{output}/numerical-r64-04-e229-r64-t16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-r64-04-e229-r64-t16-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e229-r128-t16-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e229-r128-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-e229-r128-t16-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e229-r128-t16-selective",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e229-r128-t16-selective"
+      ],
+      "kind": "appliance",
+      "name": "compile-e229-r128-t16-selective",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r128-t16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r128-t16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r128-01-e229-r128-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-r128-01-e229-r128-t16-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r128-01-e229-r128-t16-compact/capture-data",
+        "--out",
+        "{output}/numerical-r128-01-e229-r128-t16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-r128-01-e229-r128-t16-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r128-t16-selective",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r128-t16-selective/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r128-02-e229-r128-t16-selective"
+      ],
+      "kind": "appliance",
+      "name": "run-r128-02-e229-r128-t16-selective",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r128-02-e229-r128-t16-selective/capture-data",
+        "--out",
+        "{output}/numerical-r128-02-e229-r128-t16-selective.json"
+      ],
+      "kind": "host",
+      "name": "audit-r128-02-e229-r128-t16-selective",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r128-t16-selective",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r128-t16-selective/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r128-03-e229-r128-t16-selective"
+      ],
+      "kind": "appliance",
+      "name": "run-r128-03-e229-r128-t16-selective",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r128-03-e229-r128-t16-selective/capture-data",
+        "--out",
+        "{output}/numerical-r128-03-e229-r128-t16-selective.json"
+      ],
+      "kind": "host",
+      "name": "audit-r128-03-e229-r128-t16-selective",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r128-t16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r128-t16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r128-04-e229-r128-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-r128-04-e229-r128-t16-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r128-04-e229-r128-t16-compact/capture-data",
+        "--out",
+        "{output}/numerical-r128-04-e229-r128-t16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-r128-04-e229-r128-t16-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e229-r256-t16-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e229-r256-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-e229-r256-t16-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e229-r256-t16-selective",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e229-r256-t16-selective"
+      ],
+      "kind": "appliance",
+      "name": "compile-e229-r256-t16-selective",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r256-t16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r256-t16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r256-01-e229-r256-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-r256-01-e229-r256-t16-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r256-01-e229-r256-t16-compact/capture-data",
+        "--out",
+        "{output}/numerical-r256-01-e229-r256-t16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-r256-01-e229-r256-t16-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r256-t16-selective",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r256-t16-selective/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r256-02-e229-r256-t16-selective"
+      ],
+      "kind": "appliance",
+      "name": "run-r256-02-e229-r256-t16-selective",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r256-02-e229-r256-t16-selective/capture-data",
+        "--out",
+        "{output}/numerical-r256-02-e229-r256-t16-selective.json"
+      ],
+      "kind": "host",
+      "name": "audit-r256-02-e229-r256-t16-selective",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r256-t16-selective",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r256-t16-selective/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r256-03-e229-r256-t16-selective"
+      ],
+      "kind": "appliance",
+      "name": "run-r256-03-e229-r256-t16-selective",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r256-03-e229-r256-t16-selective/capture-data",
+        "--out",
+        "{output}/numerical-r256-03-e229-r256-t16-selective.json"
+      ],
+      "kind": "host",
+      "name": "audit-r256-03-e229-r256-t16-selective",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r256-t16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r256-t16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-r256-04-e229-r256-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-r256-04-e229-r256-t16-compact",
+      "script": "validations/native-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-r256-04-e229-r256-t16-compact/capture-data",
+        "--out",
+        "{output}/numerical-r256-04-e229-r256-t16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-r256-04-e229-r256-t16-compact",
+      "script": "validations/native-cora/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}

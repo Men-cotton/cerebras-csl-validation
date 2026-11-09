@@ -30,13 +30,18 @@ def array_sha(value):
 
 def schema(params, output=False):
     if output:
-        return dict(pre=[params["L"]*16, "float32"], logits=[params["L"]*7, "float32"],
-                    panel_sum=[params["K"]*params["T"], "float32"], stats=[8, "uint32"], clocks=[6, "uint16"])
+        result = dict(pre=[params["L"]*16, "float32"], logits=[params["L"]*7, "float32"],
+                      panel_sum=[params["K"]*params["T"], "float32"], stats=[8, "uint32"], clocks=[6, "uint16"])
+        if "UNICAST" in params:
+            result["transport_stats"] = [6, "uint32"]
+        return result
     dims = dict(x_ptr=params["K"]+1, x_col=params["MX"], x_val=params["MX"],
                 w0=params["FW"]*16, w1=16*7, g_ptr=params["R"]*params["L"]+1,
                 g_src=params["MG"], g_val=params["MG"], slots=params["L"])
     if "COMPACT" in params:
         dims.update(sender_slots=params["K"], source_lengths=params["R"])
+    if "UNICAST" in params:
+        dims.update(send_ptr=params["R"]+1, send_slots=params["MS"], recv_lengths=params["R"])
     return {name: [count, "float32" if name in ("x_val", "w0", "w1", "g_val") else "uint16"]
             for name, count in dims.items()}
 
@@ -46,16 +51,25 @@ def named_bytes(params):
     integers = k+1+mx+r*l+1+mg+l
     floats = mx+fw*h+h*o+mg+l*h+l*o+3*k*t+l*t
     extra = 0 if "COMPACT" not in params else 2*(k+r)+4*(params["U"]-k)*t
+    if "UNICAST" in params:
+        # Two guarded 31-word packet buffers, output counters, init fence/token
+        # words, and conservative scalar state; existing compact ABI retained.
+        extra += 2*(r+1+params["MS"]+r)+4*(66+6+3)+64
     return 2*integers+4*floats+8*4+6*2+8+extra
 
 
 def validate_params(params):
-    require(isinstance(params, dict) and set(params) in (set(PARAMS), set(PARAMS)|{"COMPACT", "U"})
+    require(isinstance(params, dict) and set(params) in
+            (set(PARAMS), set(PARAMS)|{"COMPACT", "U"}, set(PARAMS)|{"COMPACT", "U", "UNICAST", "MS"})
             and all(type(params[k]) is int and 1 <= params[k] <= 65535 for k in PARAMS), "u16 parameter contract")
     if "COMPACT" in params:
         require(type(params["COMPACT"]) is int and params["COMPACT"] in (0, 1)
                 and type(params["U"]) is int and 1 <= params["U"] <= params["K"]
                 and (params["COMPACT"] == 1 or params["U"] == params["K"]), "compact RX capacity contract")
+    if "UNICAST" in params:
+        require(type(params["UNICAST"]) is int and params["UNICAST"] == 1
+                and params["COMPACT"] == 1 and type(params["MS"]) is int
+                and 1 <= params["MS"] <= 65535, "selective transport parameter contract")
     require(params["H"] == 16 and params["O"] == 7 and params["T"] in (4, 8, 16)
             and params["C"] >= 2 and params["R"] >= 2 and params["C"]*params["R"] <= 4096, "native H16/O7 rectangle")
     require(params["K"]*params["T"] <= 32767
@@ -132,6 +146,7 @@ def decode_uploads(params, arrays, nodes, original):
     # Reconstruct column unions from original occurrences, independently of the
     # preparation planner and the uploaded remapped g_src table.
     demanded = [[set() for _ in range(r)] for _ in range(c)]
+    recipient_demand = [[set() for _ in range(r)] for _ in range(c*r)]
     ordered = {}
     for source, destination, value in zip(src, dst, coeff):
         pe, group_id = int(owner[destination]), int(owner[source]//c)
@@ -140,6 +155,7 @@ def decode_uploads(params, arrays, nodes, original):
         ordered.setdefault((pe, group_id*l+local), []).append((int(source), float(value)))
         if pe//c != group_id:
             demanded[pe % c][group_id].add(slot)
+            recipient_demand[pe][group_id].add(slot)
     lists = [[sorted(slots) for slots in column] for column in demanded]
     if "COMPACT" in params:
         lengths = np.array([[len(slots) for slots in column] for column in lists], np.uint16)
@@ -151,6 +167,25 @@ def decode_uploads(params, arrays, nodes, original):
                 and np.array_equal(arrays["sender_slots"], senders), "exact original-graph compact directories")
         if params["COMPACT"]:
             require(params["U"] == max(1, int(lengths.max())), "exact compact RX maximum")
+    recipient_lists = [[sorted(slots) for slots in groups] for groups in recipient_demand]
+    if "UNICAST" in params:
+        # Reconstruct each recipient independently from the original COO, never
+        # from send_ptr, planner output or the uploaded remapped g_src indexes.
+        send_ptr = np.zeros((c*r, r+1), np.uint16)
+        send_slots = np.zeros((c*r, params["MS"]), np.uint16)
+        recv_lengths = np.array([[len(slots) for slots in row] for row in recipient_lists], np.uint16)
+        for sender in range(c*r):
+            group_id, column = divmod(sender, c)
+            offset = 0
+            for target_row in range(r):
+                wanted = recipient_lists[target_row*c+column][group_id]
+                end = offset+len(wanted)
+                require(end <= params["MS"], "selective sender slot capacity")
+                send_slots[sender, offset:end] = wanted
+                send_ptr[sender, target_row+1] = end
+                offset = end
+        for name, wanted in (("send_ptr", send_ptr), ("send_slots", send_slots), ("recv_lengths", recv_lengths)):
+            require(np.array_equal(arrays[name], wanted), "exact original-graph selective directory: "+name)
     decoded = np.zeros_like(x)
     occurrences = Counter()
     for pe in range(c*r):
@@ -186,7 +221,8 @@ def decode_uploads(params, arrays, nodes, original):
                     for edge in range(lo, hi):
                         slot = int(index[edge])
                         if params.get("COMPACT", 0) and pe//c != source_group:
-                            directory = lists[pe % c][source_group]
+                            directory = (recipient_lists[pe][source_group] if "UNICAST" in params
+                                         else lists[pe % c][source_group])
                             require(slot < len(directory), "remote compact source slot")
                             slot = directory[slot]
                         require(slot < len(groups[source_group]), "graph source slot")
@@ -205,6 +241,18 @@ def decode_uploads(params, arrays, nodes, original):
     return groups, stats
 
 
+def transport_expected(params, arrays):
+    """Exact counters after decode_uploads has verified every directory."""
+    tiles = (16+params["T"]-1)//params["T"]+(7+params["T"]-1)//params["T"]
+    counts = np.zeros((params["C"]*params["R"], 6), np.uint32)
+    counts[:, 0] = tiles*arrays["send_ptr"][:, -1].astype(np.uint32)
+    counts[:, 1] = tiles*arrays["recv_lengths"].sum(axis=1, dtype=np.uint32)
+    counts[:, 2] = tiles*np.count_nonzero(arrays["recv_lengths"], axis=1)
+    counts[:, 3] = tiles*np.count_nonzero(np.diff(arrays["send_ptr"].astype(np.int64), axis=1), axis=1)
+    counts[:, 4], counts[:, 5] = tiles*params["R"], 1
+    return counts
+
+
 def independent_expected(case, manifest, arrays=None):
     params = manifest["params"]
     arrays = load_npz(Path(case)/"inputs.npz") if arrays is None else arrays
@@ -221,6 +269,8 @@ def independent_expected(case, manifest, arrays=None):
     np.add.at(logits, dst, coeff[:, None]*projected[src])
     active = nodes >= 0
     expected = dict(stats=stats)
+    if "UNICAST" in params:
+        expected["transport_stats"] = transport_expected(params, arrays)
     for name, tensor in (("pre", pre), ("logits", logits)):
         packed = np.zeros((*nodes.shape, tensor.shape[1]), np.float64)
         packed[active] = tensor[nodes[active]]
@@ -354,7 +404,10 @@ def audit(case, output):
     expected, context = independent_expected(case, manifest, arrays)
     frozen = load_npz(Path(case)/"expected.npz")
     for name, wanted in expected.items():
-        require(np.allclose(frozen[name], wanted, atol=2e-12, rtol=2e-12), "independent frozen reference: "+name)
+        if wanted.dtype.kind in "ui":
+            require(np.array_equal(frozen[name], wanted), "exact frozen counters: "+name)
+        else:
+            require(np.allclose(frozen[name], wanted, atol=2e-12, rtol=2e-12), "independent frozen reference: "+name)
     for name, (_, dtype) in raw_schema(manifest).items():
         require(np.isfinite(raw[name]).all(), "finite raw: "+name)
         if dtype == "uint16":
@@ -366,8 +419,8 @@ def audit(case, output):
     require(np.all(raw["initial_stats"] == 0), "prelaunch zero statistics")
     errors = {}
     for name, wanted in expected.items():
-        if name == "stats":
-            require(np.array_equal(raw[name], wanted), "exact counters/completion")
+        if wanted.dtype.kind in "ui":
+            require(np.array_equal(raw[name], wanted), "exact counters/completion: "+name)
         else:
             delta = np.abs(raw[name].astype(np.float64)-wanted)
             require(np.all(delta <= ATOL+RTOL*np.abs(wanted)), "independent FP64 output: "+name)

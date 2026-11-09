@@ -1,0 +1,319 @@
+{
+  "admission": {
+    "admitted": true,
+    "code_reserve_bytes": 18432,
+    "forecast_bytes": 21528,
+    "named_bytes": 3096,
+    "scope": "uniform arrays plus eight scalar bytes and explicit code/SDK reserve; actual ELF gate required, stack unmeasured"
+  },
+  "atol": 2e-05,
+  "collective_model": {
+    "column_calls_per_column": [
+      4,
+      2
+    ],
+    "payload_word_hops": 704,
+    "received_callbacks_per_pe": 4,
+    "row_calls_per_pe": 4,
+    "scope": "compact reference model; selected transport census is demand_model.selective_protocol",
+    "tiles": 2
+  },
+  "demand_model": {
+    "baseline_column_broadcasts_per_pe": 4,
+    "baseline_column_payload_word_hops": 512,
+    "baseline_max_column_link_words": 256,
+    "baseline_named_bytes_per_pe": 2702,
+    "baseline_payload_word_hops": 1024,
+    "baseline_received_callbacks_per_pe": 4,
+    "baseline_rx_bytes_per_pe": 256,
+    "column_link_scope": "sum of both directions on each physical column link; not a directed-link peak; assumes full-column chain broadcast",
+    "compact_column_broadcasts_per_column": [
+      4,
+      2
+    ],
+    "compact_column_payload_word_hops": 192,
+    "compact_max_column_link_words": 160,
+    "compact_named_bytes_per_pe": 2714,
+    "compact_payload_word_hops": 704,
+    "compact_received_callbacks_per_pe": 4,
+    "compact_uniform_rx_bytes_per_pe": 256,
+    "decision": "retain full panels for dense pairs; choose device comparison only where partial demand pays for indexing/packing",
+    "dense_source_column_pairs": 1,
+    "edge_occurrences": 9,
+    "empty_source_column_pairs": 1,
+    "forecast_array_byte_delta_per_pe": 12,
+    "full_panel_slots": 4,
+    "full_source_slots": 16,
+    "length_directory_bytes_per_pe": 4,
+    "limitation": "column-wide traversal and callback count remain; headers, dispatch, pack latency, code, SDK state, stack and contention excluded",
+    "max_compact_slots": 4,
+    "nodes": 7,
+    "packing_copy_words_total": 64,
+    "packing_rule": "full-demand pairs use the original panel without copying; partial pairs copy from completed row replicas",
+    "params": {
+      "C": 2,
+      "FW": 12,
+      "H": 16,
+      "K": 4,
+      "L": 3,
+      "MG": 5,
+      "MX": 23,
+      "O": 7,
+      "R": 2,
+      "T": 16
+    },
+    "partial_source_column_pairs": 2,
+    "per_column_source_slots": [
+      5,
+      1
+    ],
+    "remote_source_slots": 6,
+    "replacement_g_src_additional_bytes": 0,
+    "saved_payload_fraction": 0.3125,
+    "scope": "host analytic payload/storage only; no SDK calls, cycles or speedup",
+    "selective_protocol": {
+      "acknowledgement_word_hops": 30,
+      "acknowledgements": 6,
+      "data_packet_word_hops": 252,
+      "data_packets": 12,
+      "initialization_payload_word_hops": 4,
+      "maximum_sender_vectors": 4,
+      "release_payload_word_hops": 8,
+      "scope": "DATA and ACK include SDK route words; RELEASE/init count collective payload only; control latency and physical contention unmeasured"
+    },
+    "sender_slot_directory_bytes_per_pe": 8,
+    "unchanged_projection_panel_bytes_per_pe": 512,
+    "unchanged_row_collective_calls_per_pe": 4,
+    "unchanged_row_payload_word_hops": 512,
+    "work_per_pe_max": 645,
+    "work_per_pe_mean": 523.75
+  },
+  "family": "native-cora",
+  "features": 23,
+  "files": {
+    "expected.npz": "c73595dcead688cc3978abf8ea9b0ca412cf04175362c7ddea81b5cebe123995",
+    "inputs.npz": "66c63b345c8cc902771d99a18cdb668d0b15e396cb9d1875a36218e9fcacd6eb",
+    "node_ids.npz": "e69649bb44b03c19367fc6542d83f25c9d4bb0ec54ba66ac3503ccabc4d74240",
+    "original.npz": "9182414a6fb87be0216b5d886be179a1d86b3ca8e6d3b004e94ed812244cc372",
+    "provenance.json": "a385455dcf6050e32378c222c812fe84816e0058ccd0539dd86262b40d895e80",
+    "source/layout.csl": "3ea3626d1b8cae54cbfa73268b21e17822d41948c201db169673acc942c0bb52",
+    "source/pe.csl": "8aa9abfdb6cbab845c0526216a45e67846a16e65a938301c86cb339fd6393ff8"
+  },
+  "immutable_inputs": [
+    "g_ptr",
+    "g_src",
+    "g_val",
+    "recv_lengths",
+    "send_ptr",
+    "send_slots",
+    "sender_slots",
+    "slots",
+    "source_lengths",
+    "w0",
+    "w1",
+    "x_col",
+    "x_ptr",
+    "x_val"
+  ],
+  "inputs": {
+    "g_ptr": [
+      7,
+      "uint16"
+    ],
+    "g_src": [
+      5,
+      "uint16"
+    ],
+    "g_val": [
+      5,
+      "float32"
+    ],
+    "recv_lengths": [
+      2,
+      "uint16"
+    ],
+    "send_ptr": [
+      3,
+      "uint16"
+    ],
+    "send_slots": [
+      4,
+      "uint16"
+    ],
+    "sender_slots": [
+      4,
+      "uint16"
+    ],
+    "slots": [
+      3,
+      "uint16"
+    ],
+    "source_lengths": [
+      2,
+      "uint16"
+    ],
+    "w0": [
+      192,
+      "float32"
+    ],
+    "w1": [
+      112,
+      "float32"
+    ],
+    "x_col": [
+      23,
+      "uint16"
+    ],
+    "x_ptr": [
+      5,
+      "uint16"
+    ],
+    "x_val": [
+      23,
+      "float32"
+    ]
+  },
+  "kind": "tiny",
+  "launch": {
+    "arguments": [],
+    "entrypoint": "f_run"
+  },
+  "metadata": {
+    "collective_calls_per_pe": 8,
+    "collective_tiles": 2,
+    "column_broadcast_calls_per_pe": 4,
+    "communication_scope": "analytic chain-collective payload, including padded lanes/vertices; independent of pruning at fixed owner map, not measured cycles",
+    "declared_bytes_excludes": "code, collective library state, alignment, stack; not SRAM admission",
+    "declared_float_words_per_pe": 641,
+    "declared_u16_words_per_pe": 43,
+    "delivery_count_scope": "selective descriptor model only; excludes local fanout and ingress, not executed by full-panel kernel",
+    "dense_x_full_bytes": 644,
+    "dense_x_sharded_uniform_bytes_per_pe": 192,
+    "directed_edge_occurrences": 9,
+    "graph_nnz": {
+      "maximum": 5,
+      "maximum_over_mean": 2.2222222222222223,
+      "mean": 2.25,
+      "total": 9
+    },
+    "group_node_work": {
+      "maximum": 4,
+      "maximum_over_mean": 1.1428571428571428,
+      "mean": 3.5,
+      "total": 7
+    },
+    "input_contract": "finite FP32 X, coefficients and weights; FP64 scatter reference",
+    "input_features": 23,
+    "logical_fma_work": {
+      "maximum": 645,
+      "maximum_over_mean": 1.2315035799522673,
+      "mean": 523.75,
+      "total": 2095
+    },
+    "logical_fmas": {
+      "graph_aggregation": 207,
+      "hidden_projection": 784,
+      "sparse_x_projection": 1104
+    },
+    "modeled_full_panel_hop_words": 1024,
+    "node_work": {
+      "maximum": 3,
+      "maximum_over_mean": 1.7142857142857142,
+      "mean": 1.75,
+      "total": 7
+    },
+    "nodes": 7,
+    "per_group_nodes": [
+      3,
+      4
+    ],
+    "per_pe_graph_nnz": [
+      5,
+      0,
+      3,
+      1
+    ],
+    "per_pe_logical_fmas": [
+      595,
+      240,
+      645,
+      615
+    ],
+    "per_pe_nodes": [
+      3,
+      0,
+      2,
+      2
+    ],
+    "per_pe_x_nnz": [
+      9,
+      15,
+      22,
+      23
+    ],
+    "row_broadcast_calls_per_pe": 2,
+    "row_reduce_calls_per_pe": 2,
+    "sparse_x_uniform_bytes_per_pe": 148,
+    "sparse_x_unpadded_bytes_total": 454,
+    "uniform_declared_array_bytes_per_pe": 2694,
+    "uniform_declared_array_bytes_total": 10776,
+    "unique_remote_pe_deliveries": 6,
+    "unique_remote_row_group_deliveries": 6,
+    "upload_bytes_per_pe": 1414,
+    "x_nnz": {
+      "maximum": 23,
+      "maximum_over_mean": 1.3333333333333333,
+      "mean": 17.25,
+      "total": 69
+    }
+  },
+  "nodes": 7,
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "logits": [
+      21,
+      "float32"
+    ],
+    "panel_sum": [
+      64,
+      "float32"
+    ],
+    "pre": [
+      48,
+      "float32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ],
+    "transport_stats": [
+      6,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 2,
+    "COMPACT": 1,
+    "FW": 12,
+    "H": 16,
+    "K": 4,
+    "L": 3,
+    "MG": 5,
+    "MS": 4,
+    "MX": 23,
+    "O": 7,
+    "R": 2,
+    "T": 16,
+    "U": 4,
+    "UNICAST": 1
+  },
+  "profile": "adversarial",
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "One complete sparse-input GCN forward pass: Ahat ReLU(Ahat X W0) W1, H16/O7. Cora uses every native1433 feature and the retained unpruned seed11 final200epoch checkpoint. Full2708 cases report custom500-node validation; induced subsets report no accuracy. Inference with host-trained weights; no resident training or global makespan claim.",
+  "tiny_demand": true,
+  "transport": "selective"
+}
