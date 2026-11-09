@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "id": "shah-optimized",
+  "description": "Independent Shah streaming SpMM reconstruction: input channels and buffered accumulator rows.",
+  "entrypoints": ["appliance.py"],
+  "tests": ["tests"]
+}

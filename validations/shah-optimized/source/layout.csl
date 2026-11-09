@@ -1,0 +1,40 @@
+// Paper sections 3.1.2-3.1.3: independent row routers and buffered output rows.
+param R: i16; param F: i16; param V: i16; param Q: i16; param B: i16;
+param MEMCPYH2D_DATA_1_ID: i16;
+param MEMCPYD2H_DATA_1_ID: i16;
+const memcpy = @import_module("<memcpy/get_params>", .{
+  .width = F+1, .height = R+B, .MEMCPYH2D_1 = MEMCPYH2D_DATA_1_ID, .MEMCPYD2H_1 = MEMCPYD2H_DATA_1_ID
+});
+const ai = @get_color(4); const av = @get_color(5);
+layout {
+  @set_rectangle(F+1, R+B);
+  @comptime_assert(R > 0 and F > 0 and V > 0 and Q > 0 and B > 0);
+  for (@range(i16, R+B)) |y| {
+    for (@range(i16, F+1)) |x| {
+      @set_tile_code(x, y, "pe.csl", .{.memcpy_params=memcpy.get_params(x),
+        .R=R, .F=F, .V=V, .Q=Q, .B=B, .X=x, .Y=y});
+      if (y < R) {
+        if (x == 0) {
+          @set_color_config(x,y,ai,.{.routes=.{.rx=.{RAMP},.tx=.{EAST}}});
+          @set_color_config(x,y,av,.{.routes=.{.rx=.{RAMP},.tx=.{EAST}}});
+        } else if (x < F) {
+          @set_color_config(x,y,ai,.{.routes=.{.rx=.{WEST},.tx=.{RAMP,EAST}}});
+          @set_color_config(x,y,av,.{.routes=.{.rx=.{WEST},.tx=.{RAMP,EAST}}});
+        } else {
+          @set_color_config(x,y,ai,.{.routes=.{.rx=.{WEST},.tx=.{RAMP}}});
+          @set_color_config(x,y,av,.{.routes=.{.rx=.{WEST},.tx=.{RAMP}}});
+        }
+      }
+      if (x > 0) {
+        if (y > 0) {
+          @set_color_config(x,y,@get_color(6+(y-1)%2),.{.routes=.{.rx=.{NORTH},.tx=.{RAMP}}});
+        }
+        if (y < R+B-1) {
+          @set_color_config(x,y,@get_color(6+y%2),.{.routes=.{.rx=.{RAMP},.tx=.{SOUTH}}});
+        }
+      }
+    }
+  }
+  @export_name("h", [*]f32, true);
+  @export_name("stats", [*]u32, true);
+}
