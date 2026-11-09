@@ -1,0 +1,22 @@
+{
+  "dataset_provenance": "native training.json retains raw corpus hashes and splits; raw corpus bytes are not bundled",
+  "exact_preserved_files": {
+    "arrays.npz": "inputs.npz",
+    "input_model.npz": "input_model.npz",
+    "node_ids.npy": "node_ids.npy"
+  },
+  "model_audit": "independent FP64 mean over original input_model.npz occurrences before projection",
+  "origin": "models/graphsage/cora_device prepared case",
+  "prepared_case_sha256": "aaaf23bed0ec7961d29ee86945dc587024c6c611c0f782b819f5a48351ae7a32",
+  "schema": 1,
+  "source_sha256": {
+    "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+    "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+    "models/graphsage/cora_device/driver.py": "0d5cac302b7b67ab534e4f478b0aea81be989b53ddebec539045b275c226d0f1",
+    "models/graphsage/cora_device/layout.csl": "592a5bb8a1949c7129e5fa1a4f4863113c0ca3ab840a6c60a8356ebb67dec2ad",
+    "models/graphsage/cora_device/model.py": "d7570635fee0872161cfcc8998d6776daed38118215c27e7675abd0dc734a6e0",
+    "models/graphsage/cora_device/pe.csl": "e23285d18a22a40555effeffb5b948f0c4cc3530ca18c4fba1f07db54c2da8b7",
+    "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598"
+  },
+  "transport_origin": "models/hierarchical_gnn/grouped_csr/native_cora_appliance (E217)"
+}

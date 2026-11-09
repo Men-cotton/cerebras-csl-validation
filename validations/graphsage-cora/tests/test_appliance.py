@@ -104,13 +104,13 @@ def fixture():
         b1=np.array([.5, -.5, 0], np.float32))
 
 
-def local_prepared(path):
+def local_prepared(path, variant="full"):
     device = HERE.parent/"cora_device"
     spec = importlib.util.spec_from_file_location("_graphsage_cora_test_packer", device/"model.py")
     model = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(model)
     data = fixture()
-    packed = model.pack(data, 2, 4)
+    packed = model.pack(data, 2, 4, variant=variant)
     path.mkdir()
     np.savez(path/"input_model.npz", **data)
     np.savez(path/"arrays.npz", **packed["arrays"])
@@ -131,7 +131,11 @@ class GraphSageApplianceTests(unittest.TestCase):
         cls.root = Path(cls.temporary.name)
         if (HERE/"cases").exists():
             candidates = sorted((HERE/"cases").iterdir())
-            cls.case = next((case for case in candidates if common.read_json(case/"case.json")["kind"] == "tiny"), candidates[0])
+            tiny = [case for case in candidates if common.read_json(case/"case.json")["kind"] == "tiny"]
+            # Keep the common mock/legacy checks on an unremapped fixture;
+            # the separate compact test exercises every compact package case.
+            cls.case = next((case for case in tiny if not common.read_json(case/"case.json")["params"].get("COMPACT", 0)),
+                            tiny[0] if tiny else candidates[0])
             cls.prepared = None
         else:
             cls.prepared = cls.root/"prepared"
@@ -216,6 +220,69 @@ class GraphSageApplianceTests(unittest.TestCase):
             altered["src"], altered["dst"] = np.delete(altered["src"], duplicate), np.delete(altered["dst"], duplicate)
             with self.assertRaises(ValueError):
                 common.decode_uploads(self.manifest["params"], pristine, nodes, altered)
+
+    def test_compact_directory_and_index_are_independently_decoded(self):
+        if self.prepared is None:
+            cases = [case for case in (HERE/"cases").iterdir()
+                     if common.read_json(case/"case.json")["params"].get("COMPACT") == 1]
+            if not cases:
+                self.skipTest("export has no compact variant")
+        else:
+            prepared, case = self.root/"compact-prepared", self.root/"compact-portable"
+            device = local_prepared(prepared, "compact")
+            exporter.prepare_case(prepared, case, device)
+            cases = [case]
+        for case in cases:
+            manifest = common.load(case)
+            original = common.checkpoint(case, manifest)
+            arrays = common.load_npz(case/"inputs.npz")
+            nodes = common.load_npz(case/"node_ids.npz")["nodes"]
+            common.independent_expected(case, manifest, arrays)
+            for name in ("sender_slots", "source_lengths"):
+                changed = {n: a.copy() for n, a in arrays.items()}
+                changed[name][0, 0] ^= np.uint16(1)
+                with self.subTest(case=case.name, field=name):
+                    with self.assertRaises(ValueError):
+                        common.decode_uploads(manifest["params"], changed, nodes, original)
+            p = manifest["params"]
+            mutated_remote = False
+            for pe in range(p["C"]*p["R"]):
+                for group in range(p["R"]):
+                    lo, hi = arrays["g_ptr"][pe, [group*p["L"], (group+1)*p["L"]]]
+                    if group != pe//p["C"] and lo < hi:
+                        changed = {n: a.copy() for n, a in arrays.items()}
+                        changed["g_src"][pe, lo] = p["K"]
+                        with self.assertRaises(ValueError):
+                            common.decode_uploads(p, changed, nodes, original)
+                        mutated_remote = True
+                        break
+                if mutated_remote:
+                    break
+            sdk, instances = fake_sdk(case)
+            build = self.root/("compact-build-"+case.name)
+            fake_build(build, manifest)
+            output = self.root/("compact-runtime-"+case.name)
+            runner.main(case, build, output, "simulator", sdk=sdk)
+            self.assertEqual(common.audit(case, output)["status"], "PASS")
+            self.assertEqual(list(instances[0].uploads)[-1], "slots")
+
+    def test_legacy_schema1_full_uploads_remain_admitted(self):
+        if self.manifest["params"].get("COMPACT", 0):
+            self.skipTest("legacy check needs an unremapped full fixture")
+        params = {n: self.manifest["params"][n] for n in common.PARAMS}
+        common.validate_params(params)
+        arrays = common.load_npz(self.case/"inputs.npz")
+        arrays = {name: arrays[name] for name in common.schema(params)}
+        self.assertNotIn("source_lengths", common.schema(params))
+        self.assertEqual(list(common.schema(params))[-1], "slots")
+        original = common.checkpoint(self.case, self.manifest)
+        nodes = common.load_npz(self.case/"node_ids.npz")["nodes"]
+        common.decode_uploads(params, arrays, nodes, original)
+        manifest = dict(self.manifest, params=params)
+        old, _ = common.independent_expected(self.case, manifest, arrays)
+        new, _ = common.independent_expected(self.case, self.manifest, common.load_npz(self.case/"inputs.npz"))
+        for name in old:
+            np.testing.assert_array_equal(old[name], new[name])
 
     def test_zero_neighborhood_and_zero_norm_keep_raw_logits(self):
         data = fixture()

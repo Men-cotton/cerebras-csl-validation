@@ -1,0 +1,421 @@
+{
+  "description": "GraphSAGE neighbor-demand compaction: two local-SIM pilots, then full Cora C16/R16 and C16/R32 matched full/compact ABBA. Preserve self branch, weights, owners, occurrence order, both layers and upload ABI; reuse one artifact per arm and audit each capture before proceeding.",
+  "id": "tank31-graphsage-demand-20261109-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "demand-minimum-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-demand-minimum-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-demand-minimum-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-minimum-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-minimum-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-demand-minimum-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-demand-minimum-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-demand-minimum-compact/capture-data",
+        "--out",
+        "{output}/numerical-demand-minimum-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-demand-minimum-compact",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "demand-partial-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-demand-partial-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-demand-partial-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-partial-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-partial-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-demand-partial-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-demand-partial-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-demand-partial-compact/capture-data",
+        "--out",
+        "{output}/numerical-demand-partial-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-demand-partial-compact",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "demand-c16r16-full",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-demand-c16r16-full"
+      ],
+      "kind": "appliance",
+      "name": "compile-demand-c16r16-full",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "demand-c16r16-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-demand-c16r16-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-demand-c16r16-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-c16r16-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-c16r16-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-01-demand-c16r16-full"
+      ],
+      "kind": "appliance",
+      "name": "run-01-demand-c16r16-full",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-01-demand-c16r16-full/capture-data",
+        "--out",
+        "{output}/numerical-01-demand-c16r16-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-01-demand-c16r16-full",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-c16r16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-c16r16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-02-demand-c16r16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-02-demand-c16r16-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-02-demand-c16r16-compact/capture-data",
+        "--out",
+        "{output}/numerical-02-demand-c16r16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-02-demand-c16r16-compact",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-c16r16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-c16r16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-03-demand-c16r16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-03-demand-c16r16-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-03-demand-c16r16-compact/capture-data",
+        "--out",
+        "{output}/numerical-03-demand-c16r16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-03-demand-c16r16-compact",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-c16r16-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-c16r16-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-04-demand-c16r16-full"
+      ],
+      "kind": "appliance",
+      "name": "run-04-demand-c16r16-full",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-04-demand-c16r16-full/capture-data",
+        "--out",
+        "{output}/numerical-04-demand-c16r16-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-04-demand-c16r16-full",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "demand-c16r32-full",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-demand-c16r32-full"
+      ],
+      "kind": "appliance",
+      "name": "compile-demand-c16r32-full",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "demand-c16r32-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-demand-c16r32-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-demand-c16r32-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-c16r32-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-c16r32-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-01-demand-c16r32-full"
+      ],
+      "kind": "appliance",
+      "name": "run-01-demand-c16r32-full",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-01-demand-c16r32-full/capture-data",
+        "--out",
+        "{output}/numerical-01-demand-c16r32-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-01-demand-c16r32-full",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-c16r32-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-c16r32-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-02-demand-c16r32-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-02-demand-c16r32-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-02-demand-c16r32-compact/capture-data",
+        "--out",
+        "{output}/numerical-02-demand-c16r32-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-02-demand-c16r32-compact",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-c16r32-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-c16r32-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-03-demand-c16r32-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-03-demand-c16r32-compact",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-03-demand-c16r32-compact/capture-data",
+        "--out",
+        "{output}/numerical-03-demand-c16r32-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-03-demand-c16r32-compact",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "demand-c16r32-full",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-demand-c16r32-full/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-04-demand-c16r32-full"
+      ],
+      "kind": "appliance",
+      "name": "run-04-demand-c16r32-full",
+      "script": "validations/graphsage-cora/appliance.py",
+      "timeout_seconds": 1200
+    },
+    {
+      "args": [
+        "{output}/run-04-demand-c16r32-full/capture-data",
+        "--out",
+        "{output}/numerical-04-demand-c16r32-full.json"
+      ],
+      "kind": "host",
+      "name": "audit-04-demand-c16r32-full",
+      "script": "validations/graphsage-cora/saved_audit.py",
+      "timeout_seconds": 120
+    }
+  ]
+}

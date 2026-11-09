@@ -30,6 +30,20 @@ logits を照合する。別のデコーダーが特徴量の列分割、両重�
 padding は正のゼロのビット列、完了・演算・collective カウンターは完全一致を
 要求する。ゼロ近傍とゼロノルムも同じ契約に含む。
 
+新しい `full` / `compact` ケースは同じ directory symbol を持つ。`COMPACT=1`
+では neighbor panel のうち各物理列の remote consumer が必要とする source
+slot だけを送る。self branch と home panel は保持する。監査は元の `src/dst`
+から列別の必要 source 集合を独立に作り、`sender_slots`、全行の
+`source_lengths`、最小 `RX`、remote index を戻した辺出現列を照合する。
+余分な需要、欠落、directory padding の変更、辺の並替えも拒否する。
+`stats[3]` は source-group callback 数であり、需要ゼロで省略した broadcast
+も含む。算術 counter と出力の契約は full/compact で共通である。
+
+schema1 の旧ケースは `COMPACT/RX` parameter と directory symbol を持たない。
+その入力 schema、従来の受信領域計上、元 source index の監査を引き続き受け付ける。
+新しい full 対照には compact と同じ directory の記憶費があるため、過去の ELF と
+同一とは扱わない。両 variant の metadata と生成 ELF をそれぞれ凍結する。
+
 転送量を抑えるため、読み戻す入力は最後にアップロードした `slots` だけで
 ある。その witness と初期カウンター、完了後のカウンター・時計・全出力を
 回収する。重みや特徴量全体は読み戻さないため、保存入力の同一性と `slots`
@@ -75,6 +89,12 @@ python3 -B models/graphsage/cora_appliance/export_appliance.py \
 compile → run → audit である。compile は最大 1200 秒、worker は既定 600 秒、
 host audit は最大 120 秒である。これらは要求の上限であり測定値ではない。
 ケースを増やす際は先行ケースの receipt から予測し直す。
+
+需要圧縮の paired request でも既存の compile → run → audit entrypoint を使う。
+先に各形状の full/compact を同じ入力、重み、owner、tile幅で準備し、元の
+`input_model.npz` と node map の一致を確認する。export は新しい source と
+runtime/auditor をまとめて固定するが、登録 repository への反映と要求の公開は
+root が行う。モデル定義や誤差許容値は変更しない。
 
 回収済み `capture-data` だけから再監査できる。
 

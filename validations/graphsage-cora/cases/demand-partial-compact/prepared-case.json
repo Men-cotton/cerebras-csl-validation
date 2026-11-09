@@ -1,0 +1,85 @@
+{
+  "capture_contract": "last slots upload witness plus complete outputs; no replicated weight/input D2H audit",
+  "dataset_scope": "synthetic-semantic",
+  "files": {
+    "arrays.npz": "04122e0b313e4d7146b9e97156d950b7cd223db4bf7c55d95029342d0095bc36",
+    "input_model.npz": "bd1c75e6fcf937f1fe67ca656d19e9beb6067592375962857562a0326b528949",
+    "node_ids.npy": "ea9db0891f6e9cb2e149be955065455c62b0ca428b550160977456d23f61c546"
+  },
+  "input_kind": "synthetic",
+  "metadata": {
+    "capture_numeric_bytes": 384,
+    "classes": 3,
+    "column_broadcast_calls_per_pe": [
+      4,
+      0,
+      4,
+      0
+    ],
+    "declared_bytes_per_pe": 496,
+    "declared_scope": "input/output/scratch arrays and five u16 state scalars; excludes code, libraries, alignment, stack",
+    "edges": 3,
+    "features": 5,
+    "hidden": 4,
+    "max_to_mean_fmas": 1.5272727272727273,
+    "modeled_collective_payload_hop_words": 144,
+    "nodes": 3,
+    "owner_rule": "original_node_id modulo C*R",
+    "per_pe_edges": [
+      1,
+      0,
+      2,
+      0
+    ],
+    "per_pe_nodes": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "per_pe_projection_and_graph_fmas": [
+      63,
+      40,
+      46,
+      16
+    ],
+    "per_pe_x_nnz": [
+      4,
+      2,
+      1,
+      2
+    ],
+    "row_broadcast_calls_per_pe": 4,
+    "row_reduce_calls_per_pe": 4,
+    "traffic_scope": "analytic chain-collective payload including padded panels; excludes protocol/control; not measured",
+    "transport_variant": "compact",
+    "upload_payload_bytes": 1112
+  },
+  "model_contract": "mean GraphSAGE classifier; hidden ReLU/L2; final raw logits; no implicit self loops",
+  "original_checkpoint_sha256": "bd1c75e6fcf937f1fe67ca656d19e9beb6067592375962857562a0326b528949",
+  "original_nodes": 3,
+  "params": {
+    "C": 2,
+    "COMPACT": 1,
+    "FW": 3,
+    "H": 4,
+    "K": 2,
+    "L": 1,
+    "MG": 2,
+    "MX": 4,
+    "O": 3,
+    "R": 2,
+    "RX": 1,
+    "T": 4
+  },
+  "selected_nodes": 3,
+  "source_sha256": {
+    "cs_python": "ae1a97b6329e70582f664e1f2ee0073f9cac651d32404513491e403540405dcc",
+    "cslc": "1ba64bf6ca8695da74c78bc292a1645cd302670453dd71f0d59cc176c0d14eac",
+    "models/graphsage/cora_device/driver.py": "0d5cac302b7b67ab534e4f478b0aea81be989b53ddebec539045b275c226d0f1",
+    "models/graphsage/cora_device/layout.csl": "592a5bb8a1949c7129e5fa1a4f4863113c0ca3ab840a6c60a8356ebb67dec2ad",
+    "models/graphsage/cora_device/model.py": "d7570635fee0872161cfcc8998d6776daed38118215c27e7675abd0dc734a6e0",
+    "models/graphsage/cora_device/pe.csl": "e23285d18a22a40555effeffb5b948f0c4cc3530ca18c4fba1f07db54c2da8b7",
+    "models/hierarchical_gnn/grouped_csr/driver.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598"
+  }
+}

@@ -20,6 +20,7 @@ for _name in ("JSON_LIMIT", "INVENTORY_JSON_LIMIT", "ELF_TOTAL_LIMIT", "CASE_LIM
               "unpack_archive", "compiled_inventory", "admit_compiled_inventory"):
     globals()[_name] = getattr(p, _name)
 PARAMS = ("C", "R", "K", "L", "FW", "H", "O", "T", "MX", "MG")
+TRANSPORT_PARAMS = ("COMPACT", "RX")
 WEIGHTS = ("ws0", "wn0", "b0", "ws1", "wn1", "b1")
 INTEGERS = ("src", "dst", "labels", "train_idx", "val_idx", "test_idx")
 MODEL_KEYS = {"x", *WEIGHTS, *INTEGERS}
@@ -40,22 +41,30 @@ def schema(params, output=False):
                     hidden=[l*h, "float32"], logits=[l*o, "float32"])
     # This order is the upload ABI: slots is the final upload, even after JSON
     # serialization sorts dictionary keys.
-    return dict(x_ptr=[params["K"]+1, "uint16"], x_col=[params["MX"], "uint16"],
+    result = dict(x_ptr=[params["K"]+1, "uint16"], x_col=[params["MX"], "uint16"],
                 x_val=[params["MX"], "float32"], ws0=[params["FW"]*h, "float32"],
                 wn0=[params["FW"]*h, "float32"], ws1=[h*o, "float32"], wn1=[h*o, "float32"],
                 b0=[h, "float32"], b1=[o, "float32"], g_ptr=[params["R"]*l+1, "uint16"],
-                g_src=[params["MG"], "uint16"], g_val=[params["MG"], "float32"], slots=[l, "uint16"])
+                g_src=[params["MG"], "uint16"], g_val=[params["MG"], "float32"])
+    if "COMPACT" in params:
+        result.update(sender_slots=[params["K"], "uint16"], source_lengths=[params["R"], "uint16"])
+    result["slots"] = [l, "uint16"]
+    return result
 
 
 def named_bytes(params):
     arrays = sum(size*np.dtype(dtype).itemsize for size, dtype in
                  dict(schema(params), **schema(params, True)).values())
-    return arrays+4*(3*params["K"]*params["T"]+2*params["L"]*params["T"])+10
+    return arrays+4*((2*params["K"]+params.get("RX", params["K"]))*params["T"]+2*params["L"]*params["T"])+10
 
 
 def validate_params(params):
-    require(isinstance(params, dict) and set(params) == set(PARAMS)
-            and all(type(v) is int and 1 <= v <= 65535 for v in params.values()), "u16 parameter contract")
+    require(isinstance(params, dict) and set(params) in (set(PARAMS), set(PARAMS+TRANSPORT_PARAMS))
+            and all(type(params[n]) is int and 1 <= params[n] <= 65535 for n in PARAMS), "u16 parameter contract")
+    if "COMPACT" in params:
+        require(type(params["COMPACT"]) is int and params["COMPACT"] in (0, 1) and
+                type(params["RX"]) is int and 1 <= params["RX"] <= params["K"], "transport parameter contract")
+        require(params["COMPACT"] == 1 or params["RX"] == params["K"], "full receive capacity")
     require(params["T"] in (4, 8, 16) and params["C"] >= 2 and params["R"] >= 2
             and params["C"]*params["R"] <= 4096, "bounded collective rectangle")
     require(params["K"]*params["T"] <= 32767 and all(count <= 65535 for count, _ in
@@ -154,6 +163,25 @@ def decode_uploads(params, arrays, nodes, original):
     occurrences = defaultdict(list)
     for source, dest in zip(src, dst):
         occurrences[(int(dest), int(owner[source]//c))].append(int(source))
+    # Derive transport demand directly from original endpoints, independently of
+    # the packer's source-slot scans. This checks both new full and compact ABIs.
+    remote = [[set() for _ in range(r)] for _ in range(c)]
+    for source, dest in zip(src, dst):
+        source_row, dest_row = int(owner[source]//c), int(owner[dest]//c)
+        if source_row != dest_row:
+            remote[int(owner[dest] % c)][source_row].add(int(source))
+    directories = [[np.array(sorted(sources), np.int64) for sources in column] for column in remote]
+    if "COMPACT" in params:
+        expected_lengths = np.tile(np.array([[len(s) for s in column] for column in directories], np.uint16), (r, 1))
+        expected_senders = np.zeros((c*r, k), np.uint16)
+        for column in range(c):
+            for source_row in range(r):
+                sources = directories[column][source_row]
+                expected_senders[source_row*c+column, :len(sources)] = np.searchsorted(groups[source_row], sources)
+        require(exact(arrays["source_lengths"], expected_lengths), "exact original remote demand lengths")
+        require(exact(arrays["sender_slots"], expected_senders), "exact original sender slot directory")
+        wanted_rx = max(1, int(expected_lengths.max())) if params["COMPACT"] else k
+        require(params["RX"] == wanted_rx, "canonical receive capacity")
     decoded = np.zeros_like(x)
     seen = np.zeros(x.shape, np.uint8)
     for pe in range(c*r):
@@ -191,8 +219,10 @@ def decode_uploads(params, arrays, nodes, original):
                     if dest < 0:
                         require(lo == hi, "empty destination padding")
                         continue
-                    require(np.all(index[lo:hi] < len(groups[source_row])), "bounded source-group index")
-                    sources = groups[source_row][index[lo:hi]].tolist()
+                    source_space = (directories[pe % c][source_row]
+                                    if params.get("COMPACT", 0) and source_row != pe//c else groups[source_row])
+                    require(np.all(index[lo:hi] < len(source_space)), "bounded source-group index")
+                    sources = source_space[index[lo:hi]].tolist()
                     require(sources == occurrences[(dest, source_row)], "ordered original edge occurrences including duplicates")
                     expected_value = np.full(hi-lo, np.float32(1.0/max(1, degree[dest])), np.float32)
                     require(exact(value[lo:hi], expected_value), "destination mean coefficient")
