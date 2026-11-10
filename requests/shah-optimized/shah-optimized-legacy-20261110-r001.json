@@ -1,0 +1,451 @@
+{
+  "schema": 1,
+  "id": "shah-optimized-legacy-20261110-r001",
+  "description": "E231 predeclared legacy sweep, three fresh runtimes per arm, fixed compile/input; buffered with selected per-chunk controls. Host stream windows, not PE or GCN latency. No automatic retry; failure and actual I/O mapping retained.",
+  "steps": [
+    {
+      "name": "r8-c1-compile",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "compile",
+        "--R",
+        "8",
+        "--F",
+        "8",
+        "--V",
+        "16",
+        "--Q",
+        "8",
+        "--B",
+        "8",
+        "--channels",
+        "1",
+        "--workload",
+        "random",
+        "--degree",
+        "8",
+        "--seed",
+        "7",
+        "--out",
+        "{output}/r8-c1/compile"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c4-compile",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "compile",
+        "--R",
+        "8",
+        "--F",
+        "8",
+        "--V",
+        "16",
+        "--Q",
+        "8",
+        "--B",
+        "8",
+        "--channels",
+        "4",
+        "--workload",
+        "random",
+        "--degree",
+        "8",
+        "--seed",
+        "7",
+        "--out",
+        "{output}/r8-c4/compile"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r16-c4-compile",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "compile",
+        "--R",
+        "16",
+        "--F",
+        "16",
+        "--V",
+        "32",
+        "--Q",
+        "16",
+        "--B",
+        "16",
+        "--channels",
+        "4",
+        "--workload",
+        "random",
+        "--degree",
+        "8",
+        "--seed",
+        "7",
+        "--out",
+        "{output}/r16-c4/compile"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c1-buffered-r1",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r8-c1/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r8-c1/buffered-r1"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c1-buffered-r1-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r8-c1/compile/build.json",
+        "--capture",
+        "{output}/r8-c1/buffered-r1",
+        "--out",
+        "{output}/r8-c1/buffered-r1-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r8-c4-buffered-r1",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r8-c4/buffered-r1"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c4-buffered-r1-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--capture",
+        "{output}/r8-c4/buffered-r1",
+        "--out",
+        "{output}/r8-c4/buffered-r1-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r8-c4-per-chunk-r1",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--output-mode",
+        "per-chunk",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r8-c4/per-chunk-r1"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c4-per-chunk-r1-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--capture",
+        "{output}/r8-c4/per-chunk-r1",
+        "--out",
+        "{output}/r8-c4/per-chunk-r1-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r16-c4-buffered-r1",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r16-c4/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r16-c4/buffered-r1"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r16-c4-buffered-r1-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r16-c4/compile/build.json",
+        "--capture",
+        "{output}/r16-c4/buffered-r1",
+        "--out",
+        "{output}/r16-c4/buffered-r1-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r16-c4-buffered-r2",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r16-c4/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r16-c4/buffered-r2"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r16-c4-buffered-r2-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r16-c4/compile/build.json",
+        "--capture",
+        "{output}/r16-c4/buffered-r2",
+        "--out",
+        "{output}/r16-c4/buffered-r2-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r8-c4-per-chunk-r2",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--output-mode",
+        "per-chunk",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r8-c4/per-chunk-r2"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c4-per-chunk-r2-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--capture",
+        "{output}/r8-c4/per-chunk-r2",
+        "--out",
+        "{output}/r8-c4/per-chunk-r2-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r8-c4-buffered-r2",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r8-c4/buffered-r2"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c4-buffered-r2-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--capture",
+        "{output}/r8-c4/buffered-r2",
+        "--out",
+        "{output}/r8-c4/buffered-r2-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r8-c1-buffered-r2",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r8-c1/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r8-c1/buffered-r2"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c1-buffered-r2-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r8-c1/compile/build.json",
+        "--capture",
+        "{output}/r8-c1/buffered-r2",
+        "--out",
+        "{output}/r8-c1/buffered-r2-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r8-c1-buffered-r3",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r8-c1/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r8-c1/buffered-r3"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c1-buffered-r3-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r8-c1/compile/build.json",
+        "--capture",
+        "{output}/r8-c1/buffered-r3",
+        "--out",
+        "{output}/r8-c1/buffered-r3-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r8-c4-buffered-r3",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r8-c4/buffered-r3"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c4-buffered-r3-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--capture",
+        "{output}/r8-c4/buffered-r3",
+        "--out",
+        "{output}/r8-c4/buffered-r3-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r8-c4-per-chunk-r3",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--output-mode",
+        "per-chunk",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r8-c4/per-chunk-r3"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r8-c4-per-chunk-r3-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r8-c4/compile/build.json",
+        "--capture",
+        "{output}/r8-c4/per-chunk-r3",
+        "--out",
+        "{output}/r8-c4/per-chunk-r3-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r16-c4-buffered-r3",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/r16-c4/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r16-c4/buffered-r3"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r16-c4-buffered-r3-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/r16-c4/compile/build.json",
+        "--capture",
+        "{output}/r16-c4/buffered-r3",
+        "--out",
+        "{output}/r16-c4/buffered-r3-audit.json"
+      ],
+      "kind": "host"
+    }
+  ]
+}
