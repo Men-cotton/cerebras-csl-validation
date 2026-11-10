@@ -1,0 +1,361 @@
+{
+  "schema": 1,
+  "id": "shah-optimized-frontier-20261110-r001",
+  "description": "E231 predeclared frontier sweep, three fresh runtimes per arm, fixed compile/input; buffered with selected per-chunk controls. Host stream windows, not PE or GCN latency. No automatic retry; failure and actual I/O mapping retained.",
+  "steps": [
+    {
+      "name": "c1-balanced-compile",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "compile",
+        "--R",
+        "4",
+        "--F",
+        "256",
+        "--V",
+        "512",
+        "--Q",
+        "1024",
+        "--B",
+        "2",
+        "--channels",
+        "1",
+        "--workload",
+        "balanced",
+        "--degree",
+        "2",
+        "--seed",
+        "7",
+        "--out",
+        "{output}/c1-balanced/compile"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c4-balanced-compile",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "compile",
+        "--R",
+        "4",
+        "--F",
+        "256",
+        "--V",
+        "512",
+        "--Q",
+        "1024",
+        "--B",
+        "2",
+        "--channels",
+        "4",
+        "--workload",
+        "balanced",
+        "--degree",
+        "2",
+        "--seed",
+        "7",
+        "--out",
+        "{output}/c4-balanced/compile"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c4-paired-skew-compile",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "compile",
+        "--R",
+        "4",
+        "--F",
+        "256",
+        "--V",
+        "512",
+        "--Q",
+        "1024",
+        "--B",
+        "2",
+        "--channels",
+        "4",
+        "--workload",
+        "paired-skew",
+        "--degree",
+        "2",
+        "--seed",
+        "7",
+        "--out",
+        "{output}/c4-paired-skew/compile"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c1-balanced-buffered-r1",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/c1-balanced/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/c1-balanced/buffered-r1"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c1-balanced-buffered-r1-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/c1-balanced/compile/build.json",
+        "--capture",
+        "{output}/c1-balanced/buffered-r1",
+        "--out",
+        "{output}/c1-balanced/buffered-r1-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "c4-balanced-buffered-r1",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/c4-balanced/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/c4-balanced/buffered-r1"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c4-balanced-buffered-r1-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/c4-balanced/compile/build.json",
+        "--capture",
+        "{output}/c4-balanced/buffered-r1",
+        "--out",
+        "{output}/c4-balanced/buffered-r1-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "c4-paired-skew-buffered-r1",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/c4-paired-skew/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/c4-paired-skew/buffered-r1"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c4-paired-skew-buffered-r1-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/c4-paired-skew/compile/build.json",
+        "--capture",
+        "{output}/c4-paired-skew/buffered-r1",
+        "--out",
+        "{output}/c4-paired-skew/buffered-r1-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "c4-paired-skew-buffered-r2",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/c4-paired-skew/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/c4-paired-skew/buffered-r2"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c4-paired-skew-buffered-r2-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/c4-paired-skew/compile/build.json",
+        "--capture",
+        "{output}/c4-paired-skew/buffered-r2",
+        "--out",
+        "{output}/c4-paired-skew/buffered-r2-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "c4-balanced-buffered-r2",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/c4-balanced/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/c4-balanced/buffered-r2"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c4-balanced-buffered-r2-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/c4-balanced/compile/build.json",
+        "--capture",
+        "{output}/c4-balanced/buffered-r2",
+        "--out",
+        "{output}/c4-balanced/buffered-r2-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "c1-balanced-buffered-r2",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/c1-balanced/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/c1-balanced/buffered-r2"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c1-balanced-buffered-r2-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/c1-balanced/compile/build.json",
+        "--capture",
+        "{output}/c1-balanced/buffered-r2",
+        "--out",
+        "{output}/c1-balanced/buffered-r2-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "c1-balanced-buffered-r3",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/c1-balanced/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/c1-balanced/buffered-r3"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c1-balanced-buffered-r3-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/c1-balanced/compile/build.json",
+        "--capture",
+        "{output}/c1-balanced/buffered-r3",
+        "--out",
+        "{output}/c1-balanced/buffered-r3-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "c4-balanced-buffered-r3",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/c4-balanced/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/c4-balanced/buffered-r3"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c4-balanced-buffered-r3-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/c4-balanced/compile/build.json",
+        "--capture",
+        "{output}/c4-balanced/buffered-r3",
+        "--out",
+        "{output}/c4-balanced/buffered-r3-audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "c4-paired-skew-buffered-r3",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/c4-paired-skew/compile/build.json",
+        "--output-mode",
+        "buffered",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/c4-paired-skew/buffered-r3"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "c4-paired-skew-buffered-r3-audit",
+      "script": "validations/shah-optimized/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/c4-paired-skew/compile/build.json",
+        "--capture",
+        "{output}/c4-paired-skew/buffered-r3",
+        "--out",
+        "{output}/c4-paired-skew/buffered-r3-audit.json"
+      ],
+      "kind": "host"
+    }
+  ]
+}
