@@ -29,7 +29,6 @@
         "--out",
         "{output}/r8-c1/compile"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -46,7 +45,6 @@
         "--out",
         "{output}/r8-c1/buffered"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -61,7 +59,6 @@
         "--out",
         "{output}/r8-c1/buffered-audit.json"
       ],
-      "timeout_seconds": 60,
       "kind": "host"
     },
     {
@@ -78,7 +75,6 @@
         "--out",
         "{output}/r8-c1/per-chunk"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -93,7 +89,6 @@
         "--out",
         "{output}/r8-c1/per-chunk-audit.json"
       ],
-      "timeout_seconds": 60,
       "kind": "host"
     },
     {
@@ -122,7 +117,6 @@
         "--out",
         "{output}/r8-c4/compile"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -139,7 +133,6 @@
         "--out",
         "{output}/r8-c4/buffered"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -154,7 +147,6 @@
         "--out",
         "{output}/r8-c4/buffered-audit.json"
       ],
-      "timeout_seconds": 60,
       "kind": "host"
     },
     {
@@ -171,7 +163,6 @@
         "--out",
         "{output}/r8-c4/per-chunk"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -186,7 +177,6 @@
         "--out",
         "{output}/r8-c4/per-chunk-audit.json"
       ],
-      "timeout_seconds": 60,
       "kind": "host"
     },
     {
@@ -215,7 +205,6 @@
         "--out",
         "{output}/r16-c4/compile"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -232,7 +221,6 @@
         "--out",
         "{output}/r16-c4/buffered"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -247,7 +235,6 @@
         "--out",
         "{output}/r16-c4/buffered-audit.json"
       ],
-      "timeout_seconds": 60,
       "kind": "host"
     },
     {
@@ -264,7 +251,6 @@
         "--out",
         "{output}/r16-c4/per-chunk"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -279,7 +265,6 @@
         "--out",
         "{output}/r16-c4/per-chunk-audit.json"
       ],
-      "timeout_seconds": 60,
       "kind": "host"
     }
   ]

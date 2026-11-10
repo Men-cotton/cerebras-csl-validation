@@ -15,8 +15,7 @@
         "job-operator",
         "--out",
         "{output}/build"
-      ],
-      "timeout_seconds": 1200
+      ]
     },
     {
       "name": "off-first",
@@ -34,8 +33,7 @@
         "300",
         "--out",
         "{output}/off-first"
-      ],
-      "timeout_seconds": 1200
+      ]
     },
     {
       "name": "on-first",
@@ -53,8 +51,7 @@
         "300",
         "--out",
         "{output}/on-first"
-      ],
-      "timeout_seconds": 1200
+      ]
     },
     {
       "name": "on-second",
@@ -72,8 +69,7 @@
         "300",
         "--out",
         "{output}/on-second"
-      ],
-      "timeout_seconds": 1200
+      ]
     },
     {
       "name": "off-second",
@@ -91,8 +87,7 @@
         "300",
         "--out",
         "{output}/off-second"
-      ],
-      "timeout_seconds": 1200
+      ]
     },
     {
       "name": "compare",
@@ -106,8 +101,7 @@
         "{output}/off-second/capture-data",
         "--out",
         "{output}/comparison.json"
-      ],
-      "timeout_seconds": 60
+      ]
     }
   ]
 }

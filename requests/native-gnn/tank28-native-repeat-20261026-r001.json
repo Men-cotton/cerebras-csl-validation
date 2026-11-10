@@ -7,7 +7,6 @@
       "name": "compile-trained-c64-streamed",
       "script": "validations/native-gnn/appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "compile",
         "--case",
@@ -26,7 +25,6 @@
       "name": "compile-trained-c64-colored",
       "script": "validations/native-gnn/appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "compile",
         "--case",
@@ -45,7 +43,6 @@
       "name": "run-0-streamed",
       "script": "validations/native-gnn/appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--case",
@@ -64,7 +61,6 @@
       "name": "audit-0-streamed",
       "script": "validations/native-gnn/saved_audit.py",
       "kind": "host",
-      "timeout_seconds": 120,
       "args": [
         "{output}/run-0-streamed/capture-data",
         "--out",
@@ -75,7 +71,6 @@
       "name": "run-1-colored",
       "script": "validations/native-gnn/appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--case",
@@ -94,7 +89,6 @@
       "name": "audit-1-colored",
       "script": "validations/native-gnn/saved_audit.py",
       "kind": "host",
-      "timeout_seconds": 120,
       "args": [
         "{output}/run-1-colored/capture-data",
         "--out",
@@ -105,7 +99,6 @@
       "name": "run-2-colored",
       "script": "validations/native-gnn/appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--case",
@@ -124,7 +117,6 @@
       "name": "audit-2-colored",
       "script": "validations/native-gnn/saved_audit.py",
       "kind": "host",
-      "timeout_seconds": 120,
       "args": [
         "{output}/run-2-colored/capture-data",
         "--out",
@@ -135,7 +127,6 @@
       "name": "run-3-streamed",
       "script": "validations/native-gnn/appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--case",
@@ -154,7 +145,6 @@
       "name": "audit-3-streamed",
       "script": "validations/native-gnn/saved_audit.py",
       "kind": "host",
-      "timeout_seconds": 120,
       "args": [
         "{output}/run-3-streamed/capture-data",
         "--out",
@@ -165,7 +155,6 @@
       "name": "run-4-streamed",
       "script": "validations/native-gnn/appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--case",
@@ -184,7 +173,6 @@
       "name": "audit-4-streamed",
       "script": "validations/native-gnn/saved_audit.py",
       "kind": "host",
-      "timeout_seconds": 120,
       "args": [
         "{output}/run-4-streamed/capture-data",
         "--out",
@@ -195,7 +183,6 @@
       "name": "run-5-colored",
       "script": "validations/native-gnn/appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--case",
@@ -214,7 +201,6 @@
       "name": "audit-5-colored",
       "script": "validations/native-gnn/saved_audit.py",
       "kind": "host",
-      "timeout_seconds": 120,
       "args": [
         "{output}/run-5-colored/capture-data",
         "--out",

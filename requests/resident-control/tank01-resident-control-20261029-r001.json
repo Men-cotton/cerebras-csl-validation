@@ -19,8 +19,7 @@
       ],
       "kind": "appliance",
       "name": "compile-mean",
-      "script": "validations/resident-control/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/resident-control/appliance.py"
     },
     {
       "args": [
@@ -40,8 +39,7 @@
       ],
       "kind": "appliance",
       "name": "run-mean-resident",
-      "script": "validations/resident-control/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/resident-control/appliance.py"
     },
     {
       "args": [
@@ -51,8 +49,7 @@
       ],
       "kind": "host",
       "name": "audit-mean-resident",
-      "script": "validations/resident-control/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/resident-control/saved_audit.py"
     },
     {
       "args": [
@@ -72,8 +69,7 @@
       ],
       "kind": "appliance",
       "name": "run-mean-staged",
-      "script": "validations/resident-control/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/resident-control/appliance.py"
     },
     {
       "args": [
@@ -83,8 +79,7 @@
       ],
       "kind": "host",
       "name": "audit-mean-staged",
-      "script": "validations/resident-control/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/resident-control/saved_audit.py"
     },
     {
       "args": [
@@ -104,8 +99,7 @@
       ],
       "kind": "appliance",
       "name": "run-mean-download",
-      "script": "validations/resident-control/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/resident-control/appliance.py"
     },
     {
       "args": [
@@ -115,8 +109,7 @@
       ],
       "kind": "host",
       "name": "audit-mean-download",
-      "script": "validations/resident-control/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/resident-control/saved_audit.py"
     },
     {
       "args": [
@@ -129,8 +122,7 @@
       ],
       "kind": "host",
       "name": "compare-mean",
-      "script": "validations/resident-control/compare_arms.py",
-      "timeout_seconds": 120
+      "script": "validations/resident-control/compare_arms.py"
     },
     {
       "args": [
@@ -148,8 +140,7 @@
       ],
       "kind": "appliance",
       "name": "compile-adversarial",
-      "script": "validations/resident-control/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/resident-control/appliance.py"
     },
     {
       "args": [
@@ -169,8 +160,7 @@
       ],
       "kind": "appliance",
       "name": "run-adversarial-resident",
-      "script": "validations/resident-control/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/resident-control/appliance.py"
     },
     {
       "args": [
@@ -180,8 +170,7 @@
       ],
       "kind": "host",
       "name": "audit-adversarial-resident",
-      "script": "validations/resident-control/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/resident-control/saved_audit.py"
     },
     {
       "args": [
@@ -201,8 +190,7 @@
       ],
       "kind": "appliance",
       "name": "run-adversarial-staged",
-      "script": "validations/resident-control/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/resident-control/appliance.py"
     },
     {
       "args": [
@@ -212,8 +200,7 @@
       ],
       "kind": "host",
       "name": "audit-adversarial-staged",
-      "script": "validations/resident-control/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/resident-control/saved_audit.py"
     },
     {
       "args": [
@@ -233,8 +220,7 @@
       ],
       "kind": "appliance",
       "name": "run-adversarial-download",
-      "script": "validations/resident-control/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/resident-control/appliance.py"
     },
     {
       "args": [
@@ -244,8 +230,7 @@
       ],
       "kind": "host",
       "name": "audit-adversarial-download",
-      "script": "validations/resident-control/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/resident-control/saved_audit.py"
     },
     {
       "args": [
@@ -258,8 +243,7 @@
       ],
       "kind": "host",
       "name": "compare-adversarial",
-      "script": "validations/resident-control/compare_arms.py",
-      "timeout_seconds": 120
+      "script": "validations/resident-control/compare_arms.py"
     }
   ]
 }

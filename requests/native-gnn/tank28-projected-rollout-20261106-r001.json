@@ -19,8 +19,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e224-pilot-direct4",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -38,8 +37,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-pilot-direct4",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -49,8 +47,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-pilot-direct4",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -68,8 +65,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e224-pilot-direct22",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -87,8 +83,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-pilot-direct22",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -98,8 +93,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-pilot-direct22",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -110,8 +104,7 @@
       ],
       "kind": "host",
       "name": "compare-pilot-0",
-      "script": "validations/native-gnn/compare_rollouts.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/compare_rollouts.py"
     },
     {
       "args": [
@@ -129,8 +122,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e224-pilot-projected4",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -148,8 +140,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-pilot-projected4",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -159,8 +150,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-pilot-projected4",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -178,8 +168,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e224-pilot-projected22",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -197,8 +186,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-pilot-projected22",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -208,8 +196,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-pilot-projected22",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -220,8 +207,7 @@
       ],
       "kind": "host",
       "name": "compare-pilot-1",
-      "script": "validations/native-gnn/compare_rollouts.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/compare_rollouts.py"
     },
     {
       "args": [
@@ -239,8 +225,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e224-full-r128-direct200",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -258,8 +243,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e224-full-r128-projected200",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -277,8 +261,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e224-full-r96-direct200",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -296,8 +279,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e224-full-r96-projected200",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -315,8 +297,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-full-r128-direct200-r1",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -326,8 +307,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-full-r128-direct200-r1",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -345,8 +325,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-full-r128-projected200-r2",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -356,8 +335,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-full-r128-projected200-r2",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -375,8 +353,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-full-r96-projected200-r3",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -386,8 +363,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-full-r96-projected200-r3",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -405,8 +381,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-full-r96-direct200-r4",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -416,8 +391,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-full-r96-direct200-r4",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -435,8 +409,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-full-r96-direct200-r5",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -446,8 +419,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-full-r96-direct200-r5",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -465,8 +437,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-full-r96-projected200-r6",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -476,8 +447,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-full-r96-projected200-r6",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -495,8 +465,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-full-r128-projected200-r7",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -506,8 +475,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-full-r128-projected200-r7",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     },
     {
       "args": [
@@ -525,8 +493,7 @@
       ],
       "kind": "appliance",
       "name": "run-e224-full-r128-direct200-r8",
-      "script": "validations/native-gnn/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-gnn/appliance.py"
     },
     {
       "args": [
@@ -536,8 +503,7 @@
       ],
       "kind": "host",
       "name": "audit-e224-full-r128-direct200-r8",
-      "script": "validations/native-gnn/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-gnn/saved_audit.py"
     }
   ]
 }

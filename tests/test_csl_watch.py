@@ -60,7 +60,7 @@ def request(ident="example", modes=("ok",)):
     return {"schema": 1, "id": ident, "description": "Offline fake SDK actions",
             "steps": [{"name": "step-" + str(i), "script": "fake_appliance.py",
                        "args": [mode, "{output}", "wsjob-step" + str(i)],
-                       "kind": "appliance", "timeout_seconds": 1 if mode == "slow" else 10}
+                       "kind": "appliance"}
                       for i, mode in enumerate(modes)]}
 
 
@@ -116,7 +116,7 @@ class SchemaTests(unittest.TestCase):
         original = request()
         self.assertIs(watch.manifest(original, ["fake_appliance.py"]), original)
         invalid = []
-        for key, value in (("timeout_seconds", True), ("timeout_seconds", 0),
+        for key, value in (("timeout_seconds", 1), ("unexpected", "ignored?"),
                            ("args", "shell text"), ("args", ["bad\0arg"]),
                            ("kind", "unknown"), ("script", "outside.py")):
             candidate = copy.deepcopy(original)
@@ -132,6 +132,18 @@ class SchemaTests(unittest.TestCase):
         candidate["steps"][0]["script"] = "tank_campaign.py"
         with self.assertRaisesRegex(ValueError, "nested legacy"):
             watch.manifest(candidate, ["tank_campaign.py"])
+
+    def test_large_manifest_without_step_deadlines(self):
+        value = request(modes=("ok",) * 255)
+        # Exceed both old gates while staying below the byte-based bound.
+        value["description"] = "x" * (64 << 10)
+        self.assertGreater(watch.encoded_size(value), 64 << 10)
+        self.assertLess(watch.encoded_size(value), watch.MANIFEST_LIMIT)
+        self.assertIs(watch.manifest(value, ["fake_appliance.py"]), value)
+        self.assertNotIn("timeout_seconds", value["steps"][-1])
+        value["steps"] = []
+        with self.assertRaisesRegex(ValueError, "nonempty list"):
+            watch.manifest(value, ["fake_appliance.py"])
 
     def test_output_inventory_rejects_root_and_nested_symlinks(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -189,8 +201,8 @@ class SchemaTests(unittest.TestCase):
 
     def test_oversized_manifest_is_rejected_before_request_execution(self):
         value = request()
-        value["description"] = "x" * (64 << 10)
-        with self.assertRaisesRegex(ValueError, "64 KiB"):
+        value["description"] = "x" * watch.MANIFEST_LIMIT
+        with self.assertRaisesRegex(ValueError, "manifest exceeds"):
             watch.manifest(value, ["fake_appliance.py"])
 
 
@@ -203,7 +215,7 @@ with (root / "invocations.txt").open("a") as stream:
 if mode not in ("no-id", "slow-no-id", "slow-host"):
     print("Job id: " + job, flush=True)
 if mode in ("slow", "slow-no-id", "slow-host"):
-    time.sleep(10)
+    time.sleep(1.6)
 if mode == "mixed-queued":
     print("Job id: wsjob-prior", flush=True)
 if mode in ("queued", "mixed-queued"):
@@ -225,19 +237,6 @@ class FakeScheduler:
     def job(self, name):
         self.lookups.append(name)
         return {"name": name, "namespace": "job-operator", "phase": self.phases.get(name, "SUCCEEDED")}
-
-
-class ClientClockTests(unittest.TestCase):
-    def test_only_bracketed_wait_is_exempt_and_transitions_are_charged(self):
-        clock = watch.ClientClock(0)
-        clock.sample(2, True)  # Discovery is not retroactively exempt.
-        clock.sample(5002, True)
-        self.assertEqual(clock.elapsed(5003), 2)
-        self.assertEqual(clock.excluded, 5000)
-        clock.sample(5004, False)  # RUNNING, terminal, or unavailable observation.
-        self.assertEqual(clock.elapsed(5007), 7)
-        clock.sample(5008, True)
-        self.assertEqual(clock.elapsed(5008), 8)
 
 
 class GitControllerTests(unittest.TestCase):
@@ -318,6 +317,23 @@ class GitControllerTests(unittest.TestCase):
         restarted.tick()
         self.assertEqual(self.invocations(), ["wsjob-step0", "wsjob-step1"])
 
+    def test_large_request_discovery_and_preparation_preserve_all_steps(self):
+        value = request(modes=("ok",) * 255)
+        value["description"] = "x" * (64 << 10)
+        sha = self.submit(value)
+        self.watcher.tick()
+        entry = self.entry()
+        self.assertEqual(entry["sha"], sha)
+        self.assertEqual(entry["status"], "running")
+        self.assertEqual(entry["manifest"], value)
+        self.assertEqual(len(entry["manifest"]["steps"]), 255)
+        self.assertEqual(entry["steps"], [])
+        self.assertEqual(self.invocations(), [])
+        restarted = watch.Watcher(self.config, self.scheduler)
+        restarted.tick()
+        self.assertEqual(self.invocations(), ["wsjob-step0"])
+        self.assertEqual(len(restarted.ledger["requests"]["example"]["manifest"]["steps"]), 255)
+
     def test_accumulated_state_does_not_block_pending_preparation(self):
         self.submit()
         exports = self.state / "exports"
@@ -391,40 +407,43 @@ class GitControllerTests(unittest.TestCase):
         self.assertIn("host step submitted remote jobs", entry["error"])
         self.assertEqual(self.invocations(), ["wsjob-step0"])
 
-    def test_timeout_retains_uncertainty_and_does_not_launch_next_step(self):
-        self.submit(request(modes=("slow", "ok")))
-        entry = self.complete()
-        self.assertEqual(entry["status"], "blocked")
-        self.assertIn("timeout", entry["error"])
-        self.assertEqual(self.invocations(), ["wsjob-step0"])
-        self.watcher.tick()
-        self.assertEqual(self.invocations(), ["wsjob-step0"])
-
-    def test_confirmed_queue_wait_can_exceed_client_budget_without_replay(self):
-        value = request(modes=("queued", "ok"))
-        value["steps"][0]["timeout_seconds"] = 1
-        self.scheduler.phases["wsjob-step0"] = "QUEUED"
+    def test_running_job_waits_for_terminal_and_advances_only_once(self):
+        value = request(modes=("slow", "ok"))
+        self.scheduler.phases["wsjob-step0"] = "RUNNING"
         self.submit(value)
-        self.watcher.tick()  # Prepare; preserve the request's original timeout.
-        self.watcher.tick()  # SDK client waits longer than the one-second budget.
+        self.watcher.tick()
+        self.watcher.tick()
         step = self.entry()["steps"][0]
         self.assertEqual(step["status"], "awaiting")
-        self.assertGreater(step["confirmed_queue_seconds"], 1)
-        self.assertLess(step["client_budget_seconds"], 1)
-        self.assertEqual(step["timeout_policy"], "exclude-confirmed-queue")
-        self.assertEqual(self.entry()["manifest"]["steps"][0]["timeout_seconds"], 1)
-        self.watcher.tick()  # Local success while remote is queued is not completion.
+        self.assertGreater(step["client_elapsed_seconds"], 1)
+        self.watcher.tick()
+        self.assertEqual(self.invocations(), ["wsjob-step0"])
+        self.scheduler.phases["wsjob-step0"] = "SUCCEEDED"
+        self.assertEqual(self.complete()["status"], "passed")
+        restarted = watch.Watcher(self.config, self.scheduler)
+        restarted.tick()
+        self.assertEqual(self.invocations(), ["wsjob-step0", "wsjob-step1"])
+
+    def test_queued_job_waits_for_terminal_without_replay(self):
+        value = request(modes=("queued", "ok"))
+        self.scheduler.phases["wsjob-step0"] = "QUEUED"
+        self.submit(value)
+        self.watcher.tick()
+        self.watcher.tick()
+        step = self.entry()["steps"][0]
+        self.assertEqual(step["status"], "awaiting")
+        self.assertGreater(step["client_elapsed_seconds"], 1)
+        self.watcher.tick()
         self.assertEqual(self.invocations(), ["wsjob-step0"])
         self.scheduler.phases["wsjob-step0"] = "SUCCEEDED"
         self.assertEqual(self.complete()["status"], "passed")
         self.assertEqual(self.invocations(), ["wsjob-step0", "wsjob-step1"])
 
-    def test_finished_and_running_jobs_with_a_queued_job(self):
-        for phase, expected in (("SUCCEEDED", "awaiting"), ("RUNNING", "blocked")):
+    def test_finished_and_running_jobs_with_a_queued_job_have_no_client_deadline(self):
+        for phase in ("SUCCEEDED", "RUNNING"):
             with self.subTest(other_job=phase):
                 value = request(modes=("mixed-queued",))
-                value["id"] = "mixed-"+phase.lower()
-                value["steps"][0]["timeout_seconds"] = 1
+                value["id"] = "mixed-" + phase.lower()
                 self.submit(value)
                 self.watcher.discover()
                 entry = self.watcher.ledger["requests"][value["id"]]
@@ -432,47 +451,72 @@ class GitControllerTests(unittest.TestCase):
                 self.scheduler.phases.update({"wsjob-step0": "QUEUED", "wsjob-prior": phase})
                 self.watcher.start_step(entry, value["steps"][0])
                 step = entry["steps"][0]
-                self.assertEqual(step["status"], expected)
+                self.assertEqual(step["status"], "awaiting")
                 self.assertEqual(step["jobs"], ["wsjob-prior", "wsjob-step0"])
-                if phase == "SUCCEEDED":
-                    self.assertGreater(step["confirmed_queue_seconds"], 1)
-                    self.assertLess(step["client_budget_seconds"], 1)
-                else:
-                    self.assertEqual(step["confirmed_queue_seconds"], 0)
-                    self.assertIn("timeout", entry["error"])
+                self.assertGreater(step["client_elapsed_seconds"], 1)
+                self.assertFalse(self.watcher.reconcile(entry))
 
-    def test_queue_to_running_resumes_budget_and_stops_stuck_client(self):
-        self.submit(request(modes=("slow", "ok")))
+    def test_queue_to_running_does_not_reintroduce_client_deadline(self):
+        value = request(modes=("slow", "ok"))
+        self.submit(value)
         self.watcher.tick()
         began = time.monotonic()
+        phases = []
         def job(name):
-            return dict(name=name, namespace="job-operator",
-                        phase="QUEUED" if time.monotonic()-began < 1.5 else "RUNNING")
+            phase = "QUEUED" if time.monotonic() - began < 0.6 else "RUNNING"
+            phases.append(phase)
+            return dict(name=name, namespace="job-operator", phase=phase)
         self.scheduler.job = job
         self.watcher.tick()
         step = self.entry()["steps"][0]
-        self.assertEqual(self.entry()["status"], "blocked")
-        self.assertGreater(step["confirmed_queue_seconds"], 0.8)
-        self.assertGreaterEqual(step["client_budget_seconds"], 1)
+        self.assertEqual(step["status"], "awaiting")
+        self.assertGreater(step["client_elapsed_seconds"], 1)
+        self.assertIn("QUEUED", phases)
+        self.assertIn("RUNNING", phases)
         self.assertEqual(step["remote"][0]["phase"], "RUNNING")
+        self.watcher.tick()
         self.assertEqual(self.invocations(), ["wsjob-step0"])
 
-    def test_unidentified_client_and_host_step_still_have_wall_limits(self):
-        for mode, kind in (("slow-no-id", "appliance"), ("slow-host", "host")):
+    def test_unidentified_client_and_host_wait_for_exit_without_step_timeout(self):
+        for mode, kind, expected in (("slow-no-id", "appliance", "blocked"),
+                                     ("slow-host", "host", "awaiting")):
             with self.subTest(kind=kind):
-                # A separate request record is enough; no previous blocked step is replayed.
                 value = request(modes=(mode,))
-                value["id"] = "example-"+kind
-                value["steps"][0].update(kind=kind, timeout_seconds=1)
+                value["id"] = "example-" + kind
+                value["steps"][0].update(kind=kind)
                 self.submit(value)
                 self.watcher.discover()
                 entry = self.watcher.ledger["requests"][value["id"]]
                 self.watcher.prepare(entry)
                 self.watcher.start_step(entry, value["steps"][0])
-                self.assertEqual(entry["status"], "blocked")
-                self.assertEqual(entry["steps"][0]["jobs"], [])
-                self.assertEqual(entry["steps"][0]["confirmed_queue_seconds"], 0)
-                self.assertIn("timeout", entry["error"])
+                step = entry["steps"][0]
+                self.assertEqual(step["status"], expected)
+                self.assertEqual(step["jobs"], [])
+                self.assertGreater(step["client_elapsed_seconds"], 1)
+                if kind == "appliance":
+                    self.assertIn("no job IDs", entry["error"])
+                else:
+                    self.assertTrue(self.watcher.reconcile(entry))
+                    self.assertEqual(step["status"], "passed")
+
+    def test_interruption_keeps_known_job_and_never_replays(self):
+        self.submit(request(modes=("slow", "ok")))
+        self.watcher.tick()
+        calls = []
+        def job(name):
+            calls.append(name)
+            if len(calls) > 1:
+                raise KeyboardInterrupt("operator stopped watcher")
+            return dict(name=name, namespace="job-operator", phase="RUNNING")
+        self.scheduler.job = job
+        self.watcher.tick()
+        step = self.entry()["steps"][0]
+        self.assertEqual(self.entry()["status"], "blocked")
+        self.assertEqual(step["jobs"], ["wsjob-step0"])
+        self.assertIn("operator stopped", step["error"])
+        restarted = watch.Watcher(self.config, self.scheduler)
+        restarted.tick()
+        self.assertEqual(self.invocations(), ["wsjob-step0"])
 
     def test_scheduler_failure_after_queue_sample_keeps_job_id_and_blocks(self):
         self.submit(request(modes=("slow", "ok")))

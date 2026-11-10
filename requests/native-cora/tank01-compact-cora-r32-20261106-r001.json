@@ -19,8 +19,7 @@
       ],
       "kind": "appliance",
       "name": "compile-r32-full",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -38,8 +37,7 @@
       ],
       "kind": "appliance",
       "name": "compile-r32-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -57,8 +55,7 @@
       ],
       "kind": "appliance",
       "name": "run-01-r32-full",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -68,8 +65,7 @@
       ],
       "kind": "host",
       "name": "audit-01-r32-full",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -87,8 +83,7 @@
       ],
       "kind": "appliance",
       "name": "run-02-r32-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -98,8 +93,7 @@
       ],
       "kind": "host",
       "name": "audit-02-r32-compact",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -117,8 +111,7 @@
       ],
       "kind": "appliance",
       "name": "run-03-r32-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -128,8 +121,7 @@
       ],
       "kind": "host",
       "name": "audit-03-r32-compact",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -147,8 +139,7 @@
       ],
       "kind": "appliance",
       "name": "run-04-r32-full",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -158,8 +149,7 @@
       ],
       "kind": "host",
       "name": "audit-04-r32-full",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     }
   ]
 }

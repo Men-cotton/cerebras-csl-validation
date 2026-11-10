@@ -7,7 +7,9 @@ maintaining a second job list in documentation. Files committed without request
 trailers are templates and do not submit jobs.
 
 Each schema-1 manifest contains `id`, `description`, and foreground `steps`.
-Each step records `name`, `script`, `args`, `timeout_seconds`, and `kind`.
+Each step contains exactly `name`, `script`, `args`, and `kind`. A request may contain
+any nonzero number of steps within the 1 MiB encoded manifest bound; there is
+no separate step-count ceiling. Per-step argument and source checks still apply.
 Script paths are relative to the repository root, for example
 `validations/native16/appliance.py`. Appliance steps select an entrypoint
 listed in the corresponding family's `validation.json`; each such step submits
@@ -32,17 +34,13 @@ The trailer ID must match the manifest ID. Use a new ID for each intended
 execution, including reruns; changing a template alone does not request one.
 See the [repository workflow](../README.md) for branch setup and submission.
 
-Set the namespace and time bounds for the target installation. The inherited
-templates use `job-operator`, matching the supplied ALCF job record, with a
-1200-second client budget and a separate 300-second run-worker bound. For host
-steps, `timeout_seconds` is a wall-clock limit. For appliance steps, it excludes
-intervals between two scheduler observations confirming that at least one of this step's
-identified jobs is unfinished and every unfinished job is waiting in CREATED, QUEUED, QUEUEING, PENDING or SCHEDULED.
-There is no separate deadline for confirmed queue waiting. Discovery, phase
-transitions, running jobs, finalization and result collection consume the client
-budget. These are initial budgets, not measured service times. The worker bound
-starts inside the allocated job and remains unchanged. Client timeout does not
-prove that the remote job terminated. See the [operator timeout policy](../docs/workflows/operator.md#queue-waiting-and-timeouts).
+Set the namespace for the target installation. Job lifetime belongs to the
+ALCF job manager and the validation family's submission configuration. Use the
+requested 24-hour maximum at that layer; the controller has no per-step deadline.
+There is no `timeout_seconds` field or compatibility path. Old commits remain
+historical evidence and must not be resubmitted. Check the family's worker and
+SDK configuration when preparing a new long-running request.
+See [job lifetime and supervision](../docs/workflows/operator.md#job-lifetime-and-controller-supervision).
 
 Preserve each adapter's numerical checks and retain its capture. Archive
 integrity, remote terminal status, and numerical correctness are separate

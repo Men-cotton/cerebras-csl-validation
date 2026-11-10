@@ -19,8 +19,7 @@
       ],
       "kind": "appliance",
       "name": "compile-min-cursor",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -38,8 +37,7 @@
       ],
       "kind": "appliance",
       "name": "run-min-cursor",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -49,8 +47,7 @@
       ],
       "kind": "host",
       "name": "audit-min-cursor",
-      "script": "validations/bounded-adjoint/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/bounded-adjoint/saved_audit.py"
     },
     {
       "args": [
@@ -68,8 +65,7 @@
       ],
       "kind": "appliance",
       "name": "compile-full-r8-scan",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -87,8 +83,7 @@
       ],
       "kind": "appliance",
       "name": "compile-full-r8-cursor",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -106,8 +101,7 @@
       ],
       "kind": "appliance",
       "name": "compile-full-r6-cursor",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -125,8 +119,7 @@
       ],
       "kind": "appliance",
       "name": "compile-full-r6-scan",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -144,8 +137,7 @@
       ],
       "kind": "appliance",
       "name": "run-full-r8-scan",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -155,8 +147,7 @@
       ],
       "kind": "host",
       "name": "audit-full-r8-scan",
-      "script": "validations/bounded-adjoint/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/bounded-adjoint/saved_audit.py"
     },
     {
       "args": [
@@ -174,8 +165,7 @@
       ],
       "kind": "appliance",
       "name": "run-full-r8-cursor",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -185,8 +175,7 @@
       ],
       "kind": "host",
       "name": "audit-full-r8-cursor",
-      "script": "validations/bounded-adjoint/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/bounded-adjoint/saved_audit.py"
     },
     {
       "args": [
@@ -204,8 +193,7 @@
       ],
       "kind": "appliance",
       "name": "run-full-r6-cursor",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -215,8 +203,7 @@
       ],
       "kind": "host",
       "name": "audit-full-r6-cursor",
-      "script": "validations/bounded-adjoint/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/bounded-adjoint/saved_audit.py"
     },
     {
       "args": [
@@ -234,8 +221,7 @@
       ],
       "kind": "appliance",
       "name": "run-full-r6-scan",
-      "script": "validations/bounded-adjoint/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/bounded-adjoint/appliance.py"
     },
     {
       "args": [
@@ -245,8 +231,7 @@
       ],
       "kind": "host",
       "name": "audit-full-r6-scan",
-      "script": "validations/bounded-adjoint/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/bounded-adjoint/saved_audit.py"
     }
   ]
 }

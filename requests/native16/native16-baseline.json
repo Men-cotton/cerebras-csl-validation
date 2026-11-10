@@ -16,7 +16,6 @@
         "--out",
         "{output}/build"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     },
     {
@@ -36,7 +35,6 @@
         "--out",
         "{output}/run-control"
       ],
-      "timeout_seconds": 1200,
       "kind": "appliance"
     }
   ]

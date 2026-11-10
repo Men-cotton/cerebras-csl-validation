@@ -22,7 +22,7 @@ def descriptor(family="new-family"):
 def request(ident="new-case", script="validations/new-family/adapter.py"):
     return {"schema": 1, "id": ident, "description": "Offline admission only",
             "steps": [{"name": "compile", "script": script, "args": [],
-                       "timeout_seconds": 10, "kind": "appliance"}]}
+                       "kind": "appliance"}]}
 
 
 def write_json(path, value):

@@ -43,7 +43,10 @@ launch tmux or wrap a legacy multiple-job campaign inside a request step.
 
 Place a JSON manifest under `requests/<family>/`. It contains a unique request
 ID, a description, and ordered steps naming the owning entrypoint, arguments,
-kind (`appliance` or `host`) and timeout. The watcher substitutes `{output}` with
+kind (`appliance` or `host`). The manifest is bounded by 1 MiB, without a
+step-count ceiling or controller-enforced step timeout. Job lifetime is owned
+by the manager/submission layer. Step fields are exact; obsolete timeout fields
+are rejected. The watcher substitutes `{output}` with
 an absolute request-specific directory. Use the previous compile step's exact
 artifact record for a run step.
 

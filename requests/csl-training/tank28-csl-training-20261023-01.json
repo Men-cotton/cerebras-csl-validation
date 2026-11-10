@@ -17,8 +17,7 @@
       ],
       "kind": "appliance",
       "name": "compile-minimum",
-      "script": "validations/csl-training/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/csl-training/appliance.py"
     },
     {
       "args": [
@@ -36,8 +35,7 @@
       ],
       "kind": "appliance",
       "name": "run-minimum",
-      "script": "validations/csl-training/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/csl-training/appliance.py"
     },
     {
       "args": [
@@ -53,8 +51,7 @@
       ],
       "kind": "appliance",
       "name": "compile-full-training",
-      "script": "validations/csl-training/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/csl-training/appliance.py"
     },
     {
       "args": [
@@ -72,8 +69,7 @@
       ],
       "kind": "appliance",
       "name": "run-full-training",
-      "script": "validations/csl-training/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/csl-training/appliance.py"
     }
   ]
 }

@@ -7,7 +7,6 @@
       "name": "compile-128",
       "script": "validations/primitives/stream_appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "compile",
         "--package",
@@ -26,7 +25,6 @@
       "name": "run-128",
       "script": "validations/primitives/stream_appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--package",
@@ -47,7 +45,6 @@
       "name": "audit-128",
       "script": "validations/primitives/stream_appliance.py",
       "kind": "host",
-      "timeout_seconds": 300,
       "args": [
         "audit",
         "--package",
@@ -64,7 +61,6 @@
       "name": "compile-256",
       "script": "validations/primitives/stream_appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "compile",
         "--package",
@@ -83,7 +79,6 @@
       "name": "run-256",
       "script": "validations/primitives/stream_appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--package",
@@ -104,7 +99,6 @@
       "name": "audit-256",
       "script": "validations/primitives/stream_appliance.py",
       "kind": "host",
-      "timeout_seconds": 300,
       "args": [
         "audit",
         "--package",
@@ -121,7 +115,6 @@
       "name": "compile-384",
       "script": "validations/primitives/stream_appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "compile",
         "--package",
@@ -140,7 +133,6 @@
       "name": "run-384",
       "script": "validations/primitives/stream_appliance.py",
       "kind": "appliance",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--package",
@@ -161,7 +153,6 @@
       "name": "audit-384",
       "script": "validations/primitives/stream_appliance.py",
       "kind": "host",
-      "timeout_seconds": 300,
       "args": [
         "audit",
         "--package",

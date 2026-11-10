@@ -19,8 +19,7 @@
       ],
       "kind": "appliance",
       "name": "compile-tiny",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -38,8 +37,7 @@
       ],
       "kind": "appliance",
       "name": "run-tiny",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -49,8 +47,7 @@
       ],
       "kind": "host",
       "name": "audit-tiny",
-      "script": "validations/graphsage-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/graphsage-cora/saved_audit.py"
     },
     {
       "args": [
@@ -68,8 +65,7 @@
       ],
       "kind": "appliance",
       "name": "compile-native64",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -87,8 +83,7 @@
       ],
       "kind": "appliance",
       "name": "run-native64",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -98,8 +93,7 @@
       ],
       "kind": "host",
       "name": "audit-native64",
-      "script": "validations/graphsage-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/graphsage-cora/saved_audit.py"
     },
     {
       "args": [
@@ -117,8 +111,7 @@
       ],
       "kind": "appliance",
       "name": "compile-full-c16r16",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -136,8 +129,7 @@
       ],
       "kind": "appliance",
       "name": "run-full-c16r16",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -147,8 +139,7 @@
       ],
       "kind": "host",
       "name": "audit-full-c16r16",
-      "script": "validations/graphsage-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/graphsage-cora/saved_audit.py"
     },
     {
       "args": [
@@ -166,8 +157,7 @@
       ],
       "kind": "appliance",
       "name": "compile-full-c16r32",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -185,8 +175,7 @@
       ],
       "kind": "appliance",
       "name": "run-full-c16r32",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -196,8 +185,7 @@
       ],
       "kind": "host",
       "name": "audit-full-c16r32",
-      "script": "validations/graphsage-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/graphsage-cora/saved_audit.py"
     },
     {
       "args": [
@@ -215,8 +203,7 @@
       ],
       "kind": "appliance",
       "name": "compile-full-c16r64",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -234,8 +221,7 @@
       ],
       "kind": "appliance",
       "name": "run-full-c16r64",
-      "script": "validations/graphsage-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/graphsage-cora/appliance.py"
     },
     {
       "args": [
@@ -245,8 +231,7 @@
       ],
       "kind": "host",
       "name": "audit-full-c16r64",
-      "script": "validations/graphsage-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/graphsage-cora/saved_audit.py"
     }
   ]
 }

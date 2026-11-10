@@ -7,7 +7,6 @@
       "name": "compile-restart-step1",
       "kind": "appliance",
       "script": "validations/csl-training/appliance.py",
-      "timeout_seconds": 1200,
       "args": [
         "compile",
         "--case",
@@ -24,7 +23,6 @@
       "name": "run-first",
       "kind": "appliance",
       "script": "validations/csl-training/appliance.py",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--case",
@@ -43,7 +41,6 @@
       "name": "run-second",
       "kind": "appliance",
       "script": "validations/csl-training/appliance.py",
-      "timeout_seconds": 1200,
       "args": [
         "run",
         "--case",

@@ -103,45 +103,48 @@ freeze a mutable virtual environment. Keep the SDK environment unchanged while
 requests run. Stop the watcher at an idle boundary before updating its own
 checkout; then restart it with the same state.
 
-## Queue waiting and timeouts
+## Job lifetime and controller supervision
 
-ALCF owns admission and ordering in its [Cerebras job queue](https://docs.alcf.anl.gov/ai-testbed/cerebras/job-queuing-and-submission/).
-The controller no longer charges confirmed scheduler waiting against an appliance
-step's `timeout_seconds`. A queued compile or run may therefore wait beyond the
-inherited 1200-second client budget without losing its client or blocking later
-requests through a spurious timeout.
+The controller does not impose a per-step deadline. Queueing, initialization,
+running, finalization and collection are supervised through job-manager state.
+Host audit steps also have no controller wall-clock deadline. Polling uses
+`poll_seconds`. Receipts record total `client_elapsed_seconds` for observation.
+Step definitions contain exactly `name`, `script`, `args` and `kind`; a
+`timeout_seconds` field is rejected rather than silently ignored. The current
+request files use this format; past commits and completed receipts remain
+historical evidence and are not resubmitted or migrated.
 
-The exemption requires the step's captured job IDs and successful individual
-scheduler queries. At least one identified job must be unfinished, and every unfinished job must
-be in CREATED, QUEUED, QUEUEING, PENDING or SCHEDULED at both ends of an interval.
-Finished jobs do not charge another job's queue wait; all-terminal steps still
-consume budget while collecting results. Initial discovery and intervals
-containing an observed transition consume budget. Polling is at most the configured
-`poll_seconds` or one quarter of the step budget, whichever is shorter; a stale
-QUEUED sample does not grant an indefinite exemption. This is conservative client
-watchdog accounting from sampled phases, not a measurement of device runtime.
-The receipt records `timeout_policy`, `timeout_seconds`, `client_budget_seconds`
-and `confirmed_queue_seconds` alongside the last remote observations.
+ALCF owns admission, scheduling and the job's terminal state. The requested
+operating policy is a maximum of 24 hours per allocated job, configured at the
+job/SDK submission layer. This is not 24 hours from local client start and does
+not include time queued. ALCF's [runtime guidance](https://docs.alcf.anl.gov/ai-testbed/cerebras/running-a-model-or-program/#timelimit-and-usage-guidelines)
+describes 24 hours as a usage guideline and asks submitters to set `job_time_sec`;
+it does not promise an automatically enforced site limit. Removing the local
+watchdog neither configures that setting nor changes SDK-internal defaults.
+Validation families own their worker/submission limits. Frozen historical
+scripts may still contain shorter worker timeouts; updating the controller
+cannot rewrite them. New requests must use a family consistent with the
+intended job lifetime.
 
-No-ID submission, RUNNING/EXECUTING, INITIALIZING, finalization and downloads
-remain bounded. Host steps keep their wall-clock limit. Each Git/csctl call and
-the allocated worker keep their own bounds. In particular, ALCF's
-[runtime guidance](https://docs.alcf.anl.gov/ai-testbed/cerebras/running-a-model-or-program/#timelimit-and-usage-guidelines)
-asks users to bound execution; it does not promise a strict site scheduling limit
-that could replace the worker's timeout. SDK-internal timeout defaults are not
-changed or assumed absent.
-
-An unknown job, failed query, log-limit violation or client timeout retains the
-recorded IDs and blocks the attempt for inspection. Stopping the local client
+Short Git and csctl command timeouts bound individual control-plane calls,
+not job lifetime. Log, JSON, source identity and output integrity bounds remain.
+An unknown job or failed query retains recorded IDs and blocks the attempt for
+inspection. A nonterminating SDK client or host script requires operator
+inspection/interruption, even when its remote job is already terminal. The
+controller does not guess completion from elapsed time. Stopping a local client
 never proves remote termination. Successful local exit still requires scheduler
-terminal-state reconciliation, and interrupted submissions are never replayed.
+terminal-state reconciliation; interrupted submissions are never replayed.
 
-Deploy this controller change at an idle boundary: stop the watcher, run
+Deploy after the old-format queue has drained, including discovered pending
+requests and request commits not yet discovered. An idle appliance alone is
+not enough: SHA-pinned old-format manifests fail the current schema. If an
+already-discovered pending request is intentionally abandoned, use the existing
+`watch skip` procedure; do not rewrite the ledger or replay its ID. Then stop
+the watcher, run
 `git pull --ff-only` in its controller checkout, and restart the same `watch run`
 command with the existing configuration and ledger. Do not reinitialize state.
-The policy applies to steps started by the updated controller, including pending
-requests pinned to older source SHAs; their manifest bytes, scripts and worker
-limits stay frozen. Already blocked attempts keep their explicit recovery state.
+Use new requests in the current format after deployment. Do not replay old
+requests. Already blocked attempts keep their explicit recovery state.
 A maintenance commit without request trailers does not itself submit or restart
 any appliance work.
 

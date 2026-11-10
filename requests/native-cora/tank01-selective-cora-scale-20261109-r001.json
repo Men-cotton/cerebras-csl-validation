@@ -19,8 +19,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e229-tiny-selective-t16",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -38,8 +37,7 @@
       ],
       "kind": "appliance",
       "name": "run-e229-tiny-selective-t16",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -49,8 +47,7 @@
       ],
       "kind": "host",
       "name": "audit-e229-tiny-selective-t16",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -68,8 +65,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e229-r64-t16-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -87,8 +83,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e229-r64-t16-selective",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -106,8 +101,7 @@
       ],
       "kind": "appliance",
       "name": "run-r64-01-e229-r64-t16-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -117,8 +111,7 @@
       ],
       "kind": "host",
       "name": "audit-r64-01-e229-r64-t16-compact",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -136,8 +129,7 @@
       ],
       "kind": "appliance",
       "name": "run-r64-02-e229-r64-t16-selective",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -147,8 +139,7 @@
       ],
       "kind": "host",
       "name": "audit-r64-02-e229-r64-t16-selective",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -166,8 +157,7 @@
       ],
       "kind": "appliance",
       "name": "run-r64-03-e229-r64-t16-selective",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -177,8 +167,7 @@
       ],
       "kind": "host",
       "name": "audit-r64-03-e229-r64-t16-selective",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -196,8 +185,7 @@
       ],
       "kind": "appliance",
       "name": "run-r64-04-e229-r64-t16-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -207,8 +195,7 @@
       ],
       "kind": "host",
       "name": "audit-r64-04-e229-r64-t16-compact",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -226,8 +213,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e229-r128-t16-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -245,8 +231,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e229-r128-t16-selective",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -264,8 +249,7 @@
       ],
       "kind": "appliance",
       "name": "run-r128-01-e229-r128-t16-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -275,8 +259,7 @@
       ],
       "kind": "host",
       "name": "audit-r128-01-e229-r128-t16-compact",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -294,8 +277,7 @@
       ],
       "kind": "appliance",
       "name": "run-r128-02-e229-r128-t16-selective",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -305,8 +287,7 @@
       ],
       "kind": "host",
       "name": "audit-r128-02-e229-r128-t16-selective",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -324,8 +305,7 @@
       ],
       "kind": "appliance",
       "name": "run-r128-03-e229-r128-t16-selective",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -335,8 +315,7 @@
       ],
       "kind": "host",
       "name": "audit-r128-03-e229-r128-t16-selective",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -354,8 +333,7 @@
       ],
       "kind": "appliance",
       "name": "run-r128-04-e229-r128-t16-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -365,8 +343,7 @@
       ],
       "kind": "host",
       "name": "audit-r128-04-e229-r128-t16-compact",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -384,8 +361,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e229-r256-t16-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -403,8 +379,7 @@
       ],
       "kind": "appliance",
       "name": "compile-e229-r256-t16-selective",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -422,8 +397,7 @@
       ],
       "kind": "appliance",
       "name": "run-r256-01-e229-r256-t16-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -433,8 +407,7 @@
       ],
       "kind": "host",
       "name": "audit-r256-01-e229-r256-t16-compact",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -452,8 +425,7 @@
       ],
       "kind": "appliance",
       "name": "run-r256-02-e229-r256-t16-selective",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -463,8 +435,7 @@
       ],
       "kind": "host",
       "name": "audit-r256-02-e229-r256-t16-selective",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -482,8 +453,7 @@
       ],
       "kind": "appliance",
       "name": "run-r256-03-e229-r256-t16-selective",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -493,8 +463,7 @@
       ],
       "kind": "host",
       "name": "audit-r256-03-e229-r256-t16-selective",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     },
     {
       "args": [
@@ -512,8 +481,7 @@
       ],
       "kind": "appliance",
       "name": "run-r256-04-e229-r256-t16-compact",
-      "script": "validations/native-cora/appliance.py",
-      "timeout_seconds": 1200
+      "script": "validations/native-cora/appliance.py"
     },
     {
       "args": [
@@ -523,8 +491,7 @@
       ],
       "kind": "host",
       "name": "audit-r256-04-e229-r256-t16-compact",
-      "script": "validations/native-cora/saved_audit.py",
-      "timeout_seconds": 120
+      "script": "validations/native-cora/saved_audit.py"
     }
   ]
 }
