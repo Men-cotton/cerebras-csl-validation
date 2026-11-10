@@ -92,7 +92,10 @@ def verify_capture_binding(request, collection, status, inventory, io_layout):
 def verify_numerics(record, mode, report, raw, oracle):
     params = record["params"]
     R, F, V, Q, B = [params[k] for k in ("R", "F", "V", "Q", "B")]
-    if record["workload"] == "random":
+    if record["workload"] in ("balanced", "paired-skew"):
+        case = oracle.controlled_fixture(**params, seed=record["seed"], degree=record["degree"],
+                                         skew=record["workload"] == "paired-skew")
+    elif record["workload"] == "random":
         case = oracle.random_fixture(**params, seed=record["seed"], degree=record["degree"])
     else:
         case = oracle.fixture(**params, empty=record["empty"])

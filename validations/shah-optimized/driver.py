@@ -25,7 +25,7 @@ def main():
     for k, v in [('R',2),('F',2),('V',3),('Q',2),('B',3),('channels',2)]:
         p.add_argument('--'+k, type=int, default=v)
     p.add_argument('--empty', action='store_true')
-    p.add_argument('--workload', choices=['adversary','random'], default='adversary')
+    p.add_argument('--workload', choices=['adversary','random','balanced','paired-skew'], default='adversary')
     p.add_argument('--degree', type=int, default=8)
     p.add_argument('--seed', type=int, default=7)
     p.add_argument('--output-mode', choices=['buffered','per-chunk'], default='buffered')
@@ -63,6 +63,9 @@ def main():
     run_case(record,out/'build',a.result_out or out,output_mode=a.output_mode)
 
 def make_case(record):
+    if record.get('workload') in ('balanced', 'paired-skew'):
+        return oracle.controlled_fixture(**record['params'], seed=record.get('seed',7),
+            degree=record.get('degree',2), skew=record['workload']=='paired-skew')
     if record.get('workload','adversary') == 'random':
         return oracle.random_fixture(**record['params'],seed=record.get('seed',7),degree=record.get('degree',8))
     return oracle.fixture(**record['params'],empty=record.get('empty',False))

@@ -249,3 +249,55 @@ def random_fixture(R, F, V, Q, B, seed=7, degree=8):
     return dict(params=params, edges=edges, h=h, streams=streams,
                 reference=sparse_reference(params, edges, h),
                 metrics=metrics(params, edges, streams))
+
+
+def controlled_fixture(R, F, V, Q, B, seed=7, degree=2, skew=False):
+    """Generate matched balanced and paired-shard-skew inputs.
+
+    Degree is the occurrence count per output row per original source shard.
+    Balanced work is exactly N*degree FMACs per worker. With skew, odd source
+    shards move to their preceding even shard, preserving each occurrence's
+    destination, local source index and value, and preserving H. The resulting
+    matrix and output can differ, while total work and max/mean imbalance are
+    fixed at N*R*degree occurrences and two, respectively. Changing Q/B at fixed
+    N does not change the edges or H. At fixed K, changing F preserves the
+    edges and shared feature columns of H. This synthetic weak-scaling
+    workload increases logical degree when R increases; it is not a fixed graph.
+    """
+    dimensions = dict(R=R, F=F, V=V, Q=Q, B=B)
+    for name, value in dimensions.items():
+        if isinstance(value, bool) or not isinstance(value, (int, np.integer)) or value < 1:
+            raise ValueError(f"{name} must be a positive integer")
+    # Convert before products so NumPy scalar arithmetic cannot wrap the bounds.
+    R, F, V, Q, B = (int(dimensions[name]) for name in ("R", "F", "V", "Q", "B"))
+    params = dict(R=R, F=F, V=V, Q=Q, B=B, N=B * Q, K=R * V)
+    _validate_params(params)
+    if isinstance(degree, bool) or not isinstance(degree, (int, np.integer)) or degree < 1:
+        raise ValueError("degree must be a positive occurrence count")
+    if isinstance(seed, bool) or not isinstance(seed, (int, np.integer)) or seed < 0:
+        raise ValueError("seed must be a nonnegative integer")
+    if not isinstance(skew, bool) or (skew and R % 2):
+        raise ValueError("skew must be boolean and paired skew requires even R")
+    degree, seed = int(degree), int(seed)
+    edge_count = params["N"] * R * degree
+    stream_words = 2 * params["N"] * R * ((2 if skew else 1) * degree + 1)
+    if (edge_count > 1_000_000 or params["K"] * F > 8_000_000 or
+            params["N"] * F > 8_000_000 or stream_words > 8_000_000):
+        raise ValueError("controlled fixture exceeds host allocation bounds")
+    h_seed, edge_seed = np.random.SeedSequence(seed).spawn(2)
+    h_rng, edge_rng = np.random.default_rng(h_seed), np.random.default_rng(edge_seed)
+    # Separate streams keep A fixed when F changes; feature-major generation
+    # also preserves H's shared columns without depending on the final width.
+    h = h_rng.uniform(-1.0, 1.0, (F, params["K"])).astype(np.float32).T.copy()
+    edges = []
+    for row in range(params["N"]):
+        for shard in range(R):
+            local_sources = edge_rng.integers(0, V, degree)
+            values = edge_rng.uniform(-1.0, 1.0, degree).astype(np.float32)
+            owner = shard - shard % 2 if skew else shard
+            edges.extend((row, owner * V + int(local), float(value))
+                         for local, value in zip(local_sources, values))
+    streams = pack(params, edges)
+    return dict(params=params, edges=edges, h=h, streams=streams,
+                reference=sparse_reference(params, edges, h),
+                metrics=metrics(params, edges, streams))

@@ -164,6 +164,11 @@ class AdapterTests(unittest.TestCase):
             saved_audit.verify_io_layout(record, layout)
 
     def test_numerical_audit_rejects_counter_and_schedule_corruption(self):
+        for workload in ("adversary", "balanced", "paired-skew"):
+            with self.subTest(workload=workload):
+                self._check_numerical_audit(workload)
+
+    def _check_numerical_audit(self, workload):
         import numpy as np
         oracle_path = ROOT / "oracle.py"
         if not oracle_path.exists():
@@ -172,8 +177,12 @@ class AdapterTests(unittest.TestCase):
         oracle = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(oracle)
         params = dict(R=2, F=2, V=3, Q=2, B=3)
-        record = dict(params=params, workload="adversary", empty=False, seed=7, degree=8)
-        case = oracle.fixture(**params)
+        record = dict(params=params, workload=workload, empty=False, seed=7, degree=8)
+        if workload in ("balanced", "paired-skew"):
+            case = oracle.controlled_fixture(**params, seed=record["seed"], degree=record["degree"],
+                                             skew=workload == "paired-skew")
+        else:
+            case = oracle.fixture(**params)
         R, F, V, Q, B = [params[k] for k in ("R", "F", "V", "Q", "B")]
         stats = np.zeros((R + B, F + 1, 4), np.uint32)
         for r in range(R):
@@ -190,8 +199,16 @@ class AdapterTests(unittest.TestCase):
         sequence += [("memcpy_d2h", True, False), ("memcpy_d2h", False, False)]
         calls = [dict(api=api, streaming=streaming, nonblock=nonblock, seconds=0.1)
                  for api, streaming, nonblock in sequence]
-        report = dict(calls=calls, host_stream_completion_seconds=1.0, max_abs_error=0.0, metrics=case["metrics"])
+        error = float(np.max(np.abs(raw["actual"] - raw["reference"])))
+        report = dict(calls=calls, host_stream_completion_seconds=1.0,
+                      max_abs_error=error, metrics=case["metrics"])
         saved_audit.verify_numerics(record, "buffered", report, raw, oracle)
+        # A numerically plausible result must still bind to the exact inputs.
+        for array, index in (("h", (0, 0)), ("edges", (0, 2))):
+            corrupted = copy.deepcopy(raw)
+            corrupted[array][index] += 0.5
+            with self.subTest(corruption=array), self.assertRaises(AssertionError):
+                saved_audit.verify_numerics(record, "buffered", report, corrupted, oracle)
         raw["stats"][0, 0, 0] += 1
         with self.assertRaises(AssertionError):
             saved_audit.verify_numerics(record, "buffered", report, raw, oracle)

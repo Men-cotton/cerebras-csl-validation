@@ -70,13 +70,21 @@ def admitted_config(args):
     # Keep this initial mechanism campaign's host captures and input generation bounded.
     require(R * V * F <= 1 << 20 and B * Q * F <= 1 << 20 and R * B * Q <= 1 << 20,
             "case exceeds initial host/capture budget")
-    require(args.workload in ("adversary", "random"), "unknown workload")
+    require(args.workload in ("adversary", "random", "balanced", "paired-skew"), "unknown workload")
     require(isinstance(args.seed, int) and args.seed >= 0 and isinstance(args.degree, int) and args.degree > 0,
             "invalid seed or degree")
-    require((B * Q + 4) * args.degree <= 1_000_000 and
-            2 * R * ((B * Q + 4) * args.degree + B * Q) <= 8_000_000,
-            "random fixture stream bound exceeded")
-    require(not (args.workload == "random" and args.empty), "random and empty are mutually exclusive")
+    if args.workload in ("balanced", "paired-skew"):
+        require(not args.empty, "controlled and empty are mutually exclusive")
+        require(args.workload != "paired-skew" or R % 2 == 0, "paired-skew needs even R")
+        factor = 2 if args.workload == "paired-skew" else 1
+        require(B * Q * R * args.degree <= 1_000_000 and
+                2 * B * Q * R * (factor * args.degree + 1) <= 8_000_000,
+                "controlled fixture stream bound exceeded")
+    else:
+        require((B * Q + 4) * args.degree <= 1_000_000 and
+                2 * R * ((B * Q + 4) * args.degree + B * Q) <= 8_000_000,
+                "random fixture stream bound exceeded")
+        require(not (args.workload == "random" and args.empty), "random and empty are mutually exclusive")
     return dict(params=params, channels=args.channels, empty=bool(args.empty),
                 workload=args.workload, seed=args.seed, degree=args.degree)
 
@@ -152,7 +160,7 @@ def load_record(path, backend, root=ROOT):
 
 
 def host_command(backend, seconds):
-    require(isinstance(seconds, int) and 1 <= seconds <= 1800, "worker timeout must be 1..1800s")
+    require(isinstance(seconds, int) and 1 <= seconds <= 86400, "worker timeout must be 1..86400s")
     words = ["cs_python", "worker.py", "--record", "case.json", "--name", "out", "--out", "capture"]
     if backend == "hardware":
         words += ["--cmaddr", "%CMADDR%"]
@@ -241,12 +249,12 @@ def parser():
                 c.add_argument("--" + name, type=int, default=default)
             c.add_argument("--channels", type=int, choices=(1, 2, 4), default=4)
             c.add_argument("--empty", action="store_true")
-            c.add_argument("--workload", choices=("adversary", "random"), default="adversary")
+            c.add_argument("--workload", choices=("adversary", "random", "balanced", "paired-skew"), default="adversary")
             c.add_argument("--seed", type=int, default=7)
             c.add_argument("--degree", type=int, default=8)
         else:
             c.add_argument("--artifact-record", type=Path, required=True)
-            c.add_argument("--host-timeout", type=int, default=300)
+            c.add_argument("--host-timeout", type=int, default=86400)
             c.add_argument("--output-mode", choices=("buffered", "per-chunk"), default="buffered")
     c = sub.add_parser("audit")
     c.add_argument("--capture", type=Path, required=True, help="run output directory")
