@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "shah-csr-cora",
+  "description": "Matched source-input grouped-CSR AH baseline for resident Shah Cora comparison.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "id": "shah-resident-cora",
+  "description": "Resident two-layer Cora GCN using the Shah source-shard router/worker reduction path, with fixed-input AH controls and reset checks.",
+  "entrypoints": ["appliance.py"],
+  "tests": ["tests"]
+}

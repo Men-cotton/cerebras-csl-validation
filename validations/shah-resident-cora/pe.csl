@@ -1,0 +1,330 @@
+// E231 router/worker/south-accumulator path, with resident graph replay.
+// Official collectives_2d callbacks add device-only layer redistribution.
+param memcpy_params;
+param c2d_params;
+param R: u16; param V: u16; param FIN: u16;
+param F: u16; param O: u16; param MX: u16; param GP: u16;
+param X: u16; param Y: u16;
+const router = X == 0 and Y < R;
+const worker = X > 0 and Y < R;
+const accumulator = X > 0 and Y >= R;
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const timestamp = @import_module("<time>");
+// Memcpy owns queues0/1; graph2 and south reduction3 never overlap a collective.
+const mpi_x = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.x, .queues=[2]u16{4,5},
+  .dest_dsr_ids=[1]u16{1}, .src0_dsr_ids=[1]u16{1}, .src1_dsr_ids=[1]u16{1}
+});
+const mpi_y = @import_module("<collectives_2d/pe>", .{
+  .dim_params=c2d_params.y, .queues=[2]u16{6,7},
+  .dest_dsr_ids=[1]u16{2}, .src0_dsr_ids=[1]u16{2}, .src1_dsr_ids=[1]u16{2}
+});
+const graph_q = @get_input_queue(2);
+const north_q = @get_input_queue(3);
+const graph_out = @get_output_queue(2);
+const south_out = @get_output_queue(3);
+const graph_task = @get_data_task_id(graph_q);
+const north_task = @get_data_task_id(north_q);
+const graph_begin_id = @get_local_task_id(12);
+const router_done_id = @get_local_task_id(13);
+const worker_reset_id = @get_local_task_id(14);
+const row_reduced_id = @get_local_task_id(15);
+const row_shared_id = @get_local_task_id(16);
+const column_reduced_id = @get_local_task_id(17);
+const column_shared_id = @get_local_task_id(18);
+const projection_begin_id = @get_local_task_id(19);
+const projection_received_id = @get_local_task_id(20);
+const redistribution_begin_id = @get_local_task_id(24);
+const redistribution_received_id = @get_local_task_id(25);
+const barrier_begin_id = @get_local_task_id(26);
+
+// Host uploads only the relevant role rectangles; other roles allocate one slot.
+var graph_words = @zeros([if (router) GP else 1]u32);
+var graph_len = @zeros([1]u32);
+var x_ptr = @zeros([if (worker) V+1 else 1]u16);
+var x_col = @zeros([if (worker) MX else 1]u16);
+var x_val = @zeros([if (worker) MX else 1]f32);
+var w0 = @zeros([if (worker) FIN else 1]f32);
+var w1 = @zeros([if (accumulator) F else 1]f32);
+var h = @zeros([if (worker) V else 1]f32);
+var pre = @zeros([if (accumulator) V else 1]f32);
+var projected = @zeros([if (accumulator) V else 1]f32);
+var logits = @zeros([if (accumulator) V else 1]f32);
+var partial = @zeros([if (worker) V else 1]f32);
+// All roles participate in stage barriers and broadcasts.
+var transfer = @zeros([V]f32);
+var barrier_in = @zeros([1]f32);
+var barrier_out = @zeros([1]f32);
+// status, graph MACs/router pairs, worker rows, chunks, received, forwarded,
+// projection FMAs, persistent completed/started invocation epoch.
+var stats = @zeros([8]u32);
+var clocks = @zeros([6]u16);
+const partial_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{if (worker) V else 1}->partial[i]});
+var partial_one = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->partial[i]});
+const graph_memory = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{if (router) GP else 1}->graph_words[i]});
+const graph_send = @get_dsd(fabout_dsd,.{.extent=GP,.output_queue=graph_out});
+const north_recv = @get_dsd(fabin_dsd,.{.extent=V,.input_queue=north_q});
+const south_send = @get_dsd(fabout_dsd,.{.extent=V,.output_queue=south_out});
+const south_one = @get_dsd(fabout_dsd,.{.extent=1,.output_queue=south_out});
+const local_one = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->transfer[i]});
+
+var full_gcn: bool = false;
+var phase: u16 = 0;
+var barrier_action: u16 = 0;
+var have_index: bool = false;
+var index: u32 = 0;
+var row: u16 = 0;
+var chunks: u16 = 0;
+var received: u32 = 0;
+var feature: u16 = 0;
+var source_owner: u16 = 0;
+
+fn initialize(full: bool) void {
+  mpi_x.init();
+  mpi_y.init();
+  full_gcn = full;
+  phase = 0;
+  feature = 0;
+  source_owner = 0;
+  for (@range(u16, 7)) |i| { stats[i] = 0; }
+  stats[7] += 1;
+  for (@range(u16, V)) |v| {
+    transfer[v] = 0.0;
+    if (accumulator) { pre[v] = 0.0; projected[v] = 0.0; logits[v] = 0.0; }
+    if (worker and full) { h[v] = 0.0; }
+  }
+  timestamp.enable_tsc();
+  timestamp.get_timestamp(@ptrcast(*[3]u16, &clocks[0]));
+  if (worker and full) {
+    for (@range(u16, V)) |v| {
+      const dest = @set_dsd_base_addr(local_one, @ptrcast([*]f32, &h[v]));
+      var e = x_ptr[v];
+      while (e < x_ptr[v+1]) : (e += 1) {
+        const weight = @set_dsd_base_addr(local_one, @ptrcast([*]f32, &w0[x_col[e]]));
+        @fmacs(dest, dest, weight, x_val[e]);
+        stats[6] += 1;
+      }
+    }
+  }
+  barrier_action = 0;
+  @activate(barrier_begin_id);
+}
+fn f_run() void { initialize(true); }
+fn f_ah() void { initialize(false); }
+
+// A complete row reduction/broadcast and column reduction/broadcast fence all
+// roles. Entry after graph processing waits for every async send/reset callback.
+task barrier_begin() void {
+  barrier_in[0] = 1.0;
+  barrier_out[0] = 0.0;
+  mpi_x.reduce_fadds(0, &barrier_in, &barrier_out, 1, row_reduced_id);
+}
+task row_reduced() void {
+  mpi_x.broadcast(0, @ptrcast([*]u32, &barrier_out), 1, row_shared_id);
+}
+task row_shared() void {
+  barrier_in[0] = barrier_out[0];
+  mpi_y.reduce_fadds(0, &barrier_in, &barrier_out, 1, column_reduced_id);
+}
+task column_reduced() void {
+  mpi_y.broadcast(0, @ptrcast([*]u32, &barrier_out), 1, column_shared_id);
+}
+task column_shared() void {
+  if (barrier_action == 0) {
+    @activate(graph_begin_id);
+  } else if (full_gcn and phase == 0) {
+    feature = 0;
+    @activate(projection_begin_id);
+  } else {
+    timestamp.get_timestamp(@ptrcast(*[3]u16, &clocks[3]));
+    timestamp.disable_tsc();
+    stats[0] = 0x600d;
+    sys.unblock_cmd_stream();
+  }
+}
+
+task graph_begin() void {
+  have_index = false;
+  index = 0;
+  row = 0;
+  chunks = 0;
+  received = 0;
+  barrier_action = 1;
+  if (worker) {
+    @fmovs(partial_dsd, 0.0);
+    partial_one = @set_dsd_base_addr(partial_one, &partial);
+    @unblock(graph_task);
+  } else if (router) {
+    stats[1] += graph_len[0]/2;
+    const length = @as(u16, graph_len[0]);
+    const src = @set_dsd_length(graph_memory, length);
+    const dst = @set_dsd_length(graph_send, length);
+    @mov32(dst, src, .{.async=true,.ut_id=@get_ut_id(3),.activate=router_done_id});
+  } else if (accumulator) {
+    @unblock(north_task);
+  } else {
+    @activate(barrier_begin_id);
+  }
+}
+
+task router_done() void { @activate(barrier_begin_id); }
+
+task recv_graph(word: u32) void {
+  if (!have_index) { index = word; have_index = true; return; }
+  have_index = false;
+  if (index == 0xffffffff) { return; }
+  if (index != 0xfffffffe) {
+    const local_index = @as(u16, index-(@as(u32,Y)*@as(u32,V)));
+    const value = @bitcast(f32, word);
+    const input = @set_dsd_base_addr(local_one, @ptrcast([*]f32, &h[local_index]));
+    @fmacs(partial_one, partial_one, input, value);
+    stats[1] += 1;
+    return;
+  }
+  // The host codec closes each chunk separately, so a run cannot cross V.
+  var n: u32 = 0;
+  while (n < word) : (n += 1) {
+    row += 1;
+    stats[2] += 1;
+    if (row == V) {
+      @block(graph_task);
+      chunks += 1;
+      stats[3] += 1;
+      if (Y == 0) {
+        @fmovs(south_send, partial_dsd,
+          .{.async=true,.ut_id=@get_ut_id(3),.activate=worker_reset_id});
+      } else {
+        @fadds(south_send, partial_dsd, north_recv,
+          .{.async=true,.ut_id=@get_ut_id(3),.activate=worker_reset_id});
+      }
+    } else { partial_one = @increment_dsd_offset(partial_one, 1, f32); }
+  }
+}
+
+task worker_reset() void {
+  // This callback owns the completed south async operation; clear only now.
+  @fmovs(partial_dsd, 0.0);
+  partial_one = @set_dsd_base_addr(partial_one, &partial);
+  row = 0;
+  if (chunks == R) { @activate(barrier_begin_id); }
+  else { @unblock(graph_task); }
+}
+
+task recv_sum(word: u32) void {
+  const value = @bitcast(f32, word);
+  stats[4] += 1;
+  if (received < @as(u32,V)) {
+    if (phase == 0) { pre[@as(u16,received)] = value; }
+    else { logits[@as(u16,received)] = value; }
+  } else if (Y < 2*R-1) {
+    @mov32(south_one, word);
+    stats[5] += 1;
+  }
+  received += 1;
+  if (received == @as(u32,2*R-Y)*@as(u32,V)) {
+    @block(north_task);
+    @activate(barrier_begin_id);
+  }
+}
+
+// Source lane j broadcasts its resident pre vector inside each accumulator row.
+// Every output lane accumulates ReLU(pre_j)*W1[j,lane] in fixed feature order.
+// Worker/router rows participate with zeros to retain one collective schedule.
+task projection_begin() void {
+  for (@range(u16, V)) |v| {
+    transfer[v] = if (accumulator and X == feature+1) pre[v] else @as(f32,0.0);
+  }
+  mpi_x.broadcast(feature+1, @ptrcast([*]u32, &transfer), V, projection_received_id);
+}
+task projection_received() void {
+  if (accumulator and X <= O) {
+    const weight = @set_dsd_base_addr(local_one, @ptrcast([*]f32, &w1[feature]));
+    for (@range(u16, V)) |v| {
+      const value = if (transfer[v] > 0.0) transfer[v] else @as(f32,0.0);
+      const dest = @set_dsd_base_addr(local_one, @ptrcast([*]f32, &projected[v]));
+      @fmacs(dest, dest, weight, value);
+      stats[6] += 1;
+    }
+  }
+  feature += 1;
+  if (feature < F) { @activate(projection_begin_id); }
+  else { source_owner = 0; @activate(redistribution_begin_id); }
+}
+
+// Each accumulator owner broadcasts its projected vector up its feature column.
+// Workers retain only their source shard; no host copy occurs between layers.
+task redistribution_begin() void {
+  for (@range(u16, V)) |v| {
+    transfer[v] = if (accumulator and Y == R+source_owner) projected[v] else @as(f32,0.0);
+  }
+  mpi_y.broadcast(R+source_owner, @ptrcast([*]u32, &transfer), V, redistribution_received_id);
+}
+task redistribution_received() void {
+  if (worker and Y == source_owner) {
+    for (@range(u16, V)) |v| { h[v] = transfer[v]; }
+  }
+  source_owner += 1;
+  if (source_owner < R) { @activate(redistribution_begin_id); }
+  else {
+    phase = 1;
+    barrier_action = 0;
+    @activate(barrier_begin_id);
+  }
+}
+
+var graph_words_ptr: [*]u32 = &graph_words;
+var graph_len_ptr: [*]u32 = &graph_len;
+var x_ptr_ptr: [*]u16 = &x_ptr;
+var x_col_ptr: [*]u16 = &x_col;
+var x_val_ptr: [*]f32 = &x_val;
+var w0_ptr: [*]f32 = &w0;
+var w1_ptr: [*]f32 = &w1;
+var h_ptr: [*]f32 = &h;
+var pre_ptr: [*]f32 = &pre;
+var projected_ptr: [*]f32 = &projected;
+var logits_ptr: [*]f32 = &logits;
+var stats_ptr: [*]u32 = &stats;
+var clocks_ptr: [*]u16 = &clocks;
+comptime {
+  @bind_local_task(graph_begin, graph_begin_id);
+  @bind_local_task(router_done, router_done_id);
+  @bind_local_task(worker_reset, worker_reset_id);
+  @bind_local_task(row_reduced, row_reduced_id);
+  @bind_local_task(row_shared, row_shared_id);
+  @bind_local_task(column_reduced, column_reduced_id);
+  @bind_local_task(column_shared, column_shared_id);
+  @bind_local_task(projection_begin, projection_begin_id);
+  @bind_local_task(projection_received, projection_received_id);
+  @bind_local_task(redistribution_begin, redistribution_begin_id);
+  @bind_local_task(redistribution_received, redistribution_received_id);
+  @bind_local_task(barrier_begin, barrier_begin_id);
+  if (router) { @initialize_queue(graph_out,.{.color=@get_color(4)}); }
+  if (worker) {
+    @initialize_queue(graph_q,.{.color=@get_color(4)});
+    @initialize_queue(south_out,.{.color=@get_color(6+Y%2)});
+    if (Y > 0) { @initialize_queue(north_q,.{.color=@get_color(6+(Y-1)%2)}); }
+    @bind_data_task(recv_graph,graph_task);
+    @block(graph_task);
+  }
+  if (accumulator) {
+    @initialize_queue(north_q,.{.color=@get_color(6+(Y-1)%2)});
+    if (Y < 2*R-1) { @initialize_queue(south_out,.{.color=@get_color(6+Y%2)}); }
+    @bind_data_task(recv_sum,north_task);
+    @block(north_task);
+  }
+  @export_symbol(graph_words_ptr,"graph_words");
+  @export_symbol(graph_len_ptr,"graph_len");
+  @export_symbol(x_ptr_ptr,"x_ptr");
+  @export_symbol(x_col_ptr,"x_col");
+  @export_symbol(x_val_ptr,"x_val");
+  @export_symbol(w0_ptr,"w0");
+  @export_symbol(w1_ptr,"w1");
+  @export_symbol(h_ptr,"h");
+  @export_symbol(pre_ptr,"pre");
+  @export_symbol(projected_ptr,"projected");
+  @export_symbol(logits_ptr,"logits");
+  @export_symbol(stats_ptr,"stats");
+  @export_symbol(clocks_ptr,"clocks");
+  @export_symbol(f_run);
+  @export_symbol(f_ah);
+}

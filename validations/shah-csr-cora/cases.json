@@ -1,0 +1,93 @@
+{
+  "cases": {
+    "cora-16": {
+      "bundle": "cases/cora-16.tar.gz",
+      "case_sha256": "18182524903047edf8fccb2e29789cb4af21050183a9b557eb7bd380f1b86876",
+      "kind": "cora",
+      "nodes": 2708,
+      "params": {
+        "AH_WIDTH": 16,
+        "C": 8,
+        "COMPACT": 1,
+        "FW": 180,
+        "H": 16,
+        "K": 45,
+        "L": 6,
+        "MG": 201,
+        "MX": 181,
+        "O": 7,
+        "R": 64,
+        "T": 16,
+        "U": 21
+      },
+      "sha256": "43b6cd24526f3964487fa414b153b6dee6dc16f2b368560228b4249af1487ee8"
+    },
+    "cora-7": {
+      "bundle": "cases/cora-7.tar.gz",
+      "case_sha256": "973f614ef3e20e475a9df0483fadfb22156b78f53ee38e66154bdd2960e7f7f9",
+      "kind": "cora",
+      "nodes": 2708,
+      "params": {
+        "AH_WIDTH": 7,
+        "C": 8,
+        "COMPACT": 1,
+        "FW": 180,
+        "H": 16,
+        "K": 45,
+        "L": 6,
+        "MG": 201,
+        "MX": 181,
+        "O": 7,
+        "R": 64,
+        "T": 16,
+        "U": 21
+      },
+      "sha256": "a7666e3a03f491b77b74a176e9ee5e0b5cd994da2fac9276eda9f295aaea499b"
+    },
+    "tiny-16": {
+      "bundle": "cases/tiny-16.tar.gz",
+      "case_sha256": "8a04a7dfa7c4a685ff018e114361a5289df1e491c0171e1cdeca365fb287803b",
+      "kind": "tiny",
+      "nodes": 7,
+      "params": {
+        "AH_WIDTH": 16,
+        "C": 2,
+        "COMPACT": 1,
+        "FW": 12,
+        "H": 16,
+        "K": 4,
+        "L": 2,
+        "MG": 6,
+        "MX": 25,
+        "O": 7,
+        "R": 2,
+        "T": 16,
+        "U": 1
+      },
+      "sha256": "83d42303d3874f0ba2aa2624d6d4d3d3d941608de38b5fb7558a4b24fe68015d"
+    },
+    "tiny-7": {
+      "bundle": "cases/tiny-7.tar.gz",
+      "case_sha256": "10ed836ba806428b4494445354e87879898208ac5ac4c8dc0acf20dd91f110ed",
+      "kind": "tiny",
+      "nodes": 7,
+      "params": {
+        "AH_WIDTH": 7,
+        "C": 2,
+        "COMPACT": 1,
+        "FW": 12,
+        "H": 16,
+        "K": 4,
+        "L": 2,
+        "MG": 6,
+        "MX": 25,
+        "O": 7,
+        "R": 2,
+        "T": 16,
+        "U": 1
+      },
+      "sha256": "e4484a83f6f4345a05d18bb6fde9b1439991de3897ff67daea9540defb0f220d"
+    }
+  },
+  "schema": 1
+}

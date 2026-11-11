@@ -1,0 +1,62 @@
+// Resident composition of E231's source-shard routers and south reduction.
+param R: u16;
+param V: u16;
+param FIN: u16;
+param F: u16;
+param O: u16;
+param MX: u16;
+param GP: u16;
+const memcpy = @import_module("<memcpy/get_params>", .{.width=F+1, .height=2*R});
+const c2d = @import_module("<collectives_2d/params>");
+const graph_color = @get_color(4);
+layout {
+  @set_rectangle(F+1, 2*R);
+  @comptime_assert(R >= 1 and V >= 1 and F >= 1 and O >= 1 and O <= F);
+  @comptime_assert(FIN >= 1 and MX >= 1 and GP >= 2 and GP < 32768);
+  for (@range(u16, 2*R)) |y| {
+    for (@range(u16, F+1)) |x| {
+      const cp = c2d.get_params(x, y, .{
+        .x_colors=.{@get_color(8), @get_color(9)},
+        .x_entrypoints=.{@get_local_task_id(8), @get_local_task_id(9)},
+        .y_colors=.{@get_color(10), @get_color(11)},
+        .y_entrypoints=.{@get_local_task_id(10), @get_local_task_id(11)}
+      });
+      @set_tile_code(x, y, "pe.csl", .{
+        .memcpy_params=memcpy.get_params(x), .c2d_params=cp,
+        .R=R,.V=V,.FIN=FIN,.F=F,.O=O,.MX=MX,.GP=GP,.X=x,.Y=y
+      });
+      if (y < R) {
+        if (x == 0) {
+          @set_color_config(x,y,graph_color,.{.routes=.{.rx=.{RAMP},.tx=.{EAST}}});
+        } else if (x < F) {
+          @set_color_config(x,y,graph_color,.{.routes=.{.rx=.{WEST},.tx=.{RAMP,EAST}}});
+        } else {
+          @set_color_config(x,y,graph_color,.{.routes=.{.rx=.{WEST},.tx=.{RAMP}}});
+        }
+      }
+      if (x > 0) {
+        if (y > 0) {
+          @set_color_config(x,y,@get_color(6+(y-1)%2),.{.routes=.{.rx=.{NORTH},.tx=.{RAMP}}});
+        }
+        if (y < 2*R-1) {
+          @set_color_config(x,y,@get_color(6+y%2),.{.routes=.{.rx=.{RAMP},.tx=.{SOUTH}}});
+        }
+      }
+    }
+  }
+  @export_name("graph_words", [*]u32, true);
+  @export_name("graph_len", [*]u32, true);
+  @export_name("x_ptr", [*]u16, true);
+  @export_name("x_col", [*]u16, true);
+  @export_name("x_val", [*]f32, true);
+  @export_name("w0", [*]f32, true);
+  @export_name("w1", [*]f32, true);
+  @export_name("h", [*]f32, true);
+  @export_name("pre", [*]f32, true);
+  @export_name("projected", [*]f32, true);
+  @export_name("logits", [*]f32, true);
+  @export_name("stats", [*]u32, true);
+  @export_name("clocks", [*]u16, true);
+  @export_name("f_run", fn()void);
+  @export_name("f_ah", fn()void);
+}
