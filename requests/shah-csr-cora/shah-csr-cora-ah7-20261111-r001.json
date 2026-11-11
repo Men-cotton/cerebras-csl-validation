@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "id": "shah-csr-cora-ah7-20261111-r001",
+  "description": "E232 independent ah7 arm, exact case cora-7, mode ah7. Own compile and 3 fresh runtime(s); every run has immediate independent audit. A terminal failure blocks only this request; no dependency on sibling smoke or comparison arms. Full Cora local SDK completion is not required: minimum SIM and canonical host gates passed. Actual ELF/IO identity and <44KiB gate precede execution. Changed-X/H second invocation tests reset, not timing repetition. Resident R32=1088PE versus CSR512PE; AH7 resident executes16 lanes. Same-PE cycles/host API windows only, no GPU/E2E claim. No automatic retry.",
+  "steps": [
+    {
+      "name": "compile",
+      "script": "validations/shah-csr-cora/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "cora-7",
+        "--out",
+        "{output}/compile"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r1-run",
+      "script": "validations/shah-csr-cora/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--mode",
+        "ah7",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r1/run"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r1-audit",
+      "script": "validations/shah-csr-cora/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--capture",
+        "{output}/r1/run",
+        "--out",
+        "{output}/r1/audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r2-run",
+      "script": "validations/shah-csr-cora/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--mode",
+        "ah7",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r2/run"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r2-audit",
+      "script": "validations/shah-csr-cora/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--capture",
+        "{output}/r2/run",
+        "--out",
+        "{output}/r2/audit.json"
+      ],
+      "kind": "host"
+    },
+    {
+      "name": "r3-run",
+      "script": "validations/shah-csr-cora/appliance.py",
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--mode",
+        "ah7",
+        "--host-timeout",
+        "86400",
+        "--out",
+        "{output}/r3/run"
+      ],
+      "kind": "appliance"
+    },
+    {
+      "name": "r3-audit",
+      "script": "validations/shah-csr-cora/appliance.py",
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--capture",
+        "{output}/r3/run",
+        "--out",
+        "{output}/r3/audit.json"
+      ],
+      "kind": "host"
+    }
+  ]
+}
