@@ -212,7 +212,7 @@ root = pathlib.Path(out)
 root.mkdir(parents=True, exist_ok=True)
 with (root / "invocations.txt").open("a") as stream:
     stream.write(job + "\\n")
-if mode not in ("no-id", "slow-no-id", "slow-host"):
+if mode not in ("no-id", "slow-no-id", "slow-host", "host-fail"):
     print("Job id: " + job, flush=True)
 if mode in ("slow", "slow-no-id", "slow-host"):
     time.sleep(1.6)
@@ -221,7 +221,7 @@ if mode == "mixed-queued":
 if mode in ("queued", "mixed-queued"):
     time.sleep(1.6)
 (root / (job + ".json")).write_text('{"status":"PASS"}')
-raise SystemExit(2 if mode == "fail" else 0)
+raise SystemExit(2 if mode in ("fail", "host-fail") else 0)
 '''
 
 
@@ -388,6 +388,87 @@ class GitControllerTests(unittest.TestCase):
         self.submit(request(modes=("ok", "ok")))
         self.scheduler.phases["wsjob-step0"] = "FAILED"
         self.assertEqual(self.complete()["status"], "failed")
+        self.assertEqual(self.invocations(), ["wsjob-step0"])
+
+    def test_terminal_failure_allows_independent_request_without_replay(self):
+        cases = (("client", "fail", "appliance", "SUCCEEDED", 2),
+                 ("remote", "ok", "appliance", "FAILED", 0),
+                 ("audit", "host-fail", "host", None, 2))
+        for label, mode, kind, phase, exit_code in cases:
+            with self.subTest(failure=label):
+                failed_id, next_id = label + "-failure", label + "-independent"
+                failed = request(ident=failed_id, modes=(mode, "ok"))
+                independent = request(ident=next_id, modes=("ok", "ok"))
+                failed["steps"][0]["kind"] = kind
+                for value in (failed, independent):
+                    for index, step in enumerate(value["steps"]):
+                        step["args"][-1] = "wsjob-" + value["id"] + "-step" + str(index)
+                first_job = failed["steps"][0]["args"][-1]
+                if phase is not None:
+                    self.scheduler.phases[first_job] = phase
+                self.submit(failed)
+                self.submit(independent)
+                self.watcher.discover()
+                self.assertEqual(self.watcher.ledger["order"][-2:], [failed_id, next_id])
+
+                for _ in range(16):
+                    self.watcher.tick()
+                    if self.watcher.ledger["requests"][next_id].get("packaged"):
+                        break
+                else:
+                    self.fail("independent request did not finish within bounded offline ticks")
+
+                first = self.watcher.ledger["requests"][failed_id]
+                second = self.watcher.ledger["requests"][next_id]
+                self.assertEqual(first["status"], "failed")
+                self.assertEqual(len(first["steps"]), 1)
+                self.assertEqual(first["steps"][0]["status"], "failed")
+                self.assertEqual(first["steps"][0]["exit_code"], exit_code)
+                self.assertEqual(first["steps"][0]["jobs"], [] if kind == "host" else [first_job])
+                self.assertEqual([job["phase"] for job in first["steps"][0]["remote"]],
+                                 [] if kind == "host" else [phase])
+                self.assertEqual(second["status"], "passed")
+                self.assertEqual([step["status"] for step in second["steps"]], ["passed", "passed"])
+                expected = {failed_id: [first_job],
+                            next_id: [step["args"][-1] for step in independent["steps"]]}
+                for ident, calls in expected.items():
+                    log = self.state / "requests" / ident / "output/invocations.txt"
+                    self.assertEqual(log.read_text().splitlines(), calls)
+
+                self.watcher = watch.Watcher(self.config, self.scheduler)
+                for _ in range(3):
+                    self.watcher.tick()
+                self.assertEqual(self.watcher.ledger["requests"][failed_id]["status"], "failed")
+                self.assertEqual(self.watcher.ledger["requests"][next_id]["status"], "passed")
+                for ident, calls in expected.items():
+                    log = self.state / "requests" / ident / "output/invocations.txt"
+                    self.assertEqual(log.read_text().splitlines(), calls)
+
+    def test_ambiguous_request_blocks_independent_request_after_restart(self):
+        self.submit(request(modes=("no-id", "ok")))
+        independent = request(ident="independent", modes=("ok", "ok"))
+        for index, step in enumerate(independent["steps"]):
+            step["args"][-1] = "wsjob-independent-step" + str(index)
+        self.submit(independent)
+        self.watcher.discover()
+        self.assertEqual(self.watcher.ledger["order"], ["example", "independent"])
+        first = self.complete()
+        self.assertEqual(first["status"], "blocked")
+        self.assertIn("no job IDs", first["error"])
+        self.assertEqual(first["steps"][0]["jobs"], [])
+        self.assertTrue(self.scheduler.idle())
+        self.assertEqual(self.watcher.ledger["requests"]["independent"]["status"], "pending")
+        self.assertEqual(self.invocations(), ["wsjob-step0"])
+
+        restarted = watch.Watcher(self.config, self.scheduler)
+        with patch.object(restarted, "prepare", side_effect=AssertionError("must not prepare another request")), \
+             patch.object(restarted, "start_step", side_effect=AssertionError("must not execute another step")):
+            for _ in range(3):
+                restarted.tick()
+        self.assertEqual(restarted.ledger["requests"]["example"]["status"], "blocked")
+        self.assertEqual(restarted.ledger["requests"]["independent"]["status"], "pending")
+        self.assertEqual(restarted.ledger["requests"]["independent"]["steps"], [])
+        self.assertFalse((self.state / "requests/independent").exists())
         self.assertEqual(self.invocations(), ["wsjob-step0"])
 
     def test_missing_job_id_blocks_without_guessing_completion(self):
