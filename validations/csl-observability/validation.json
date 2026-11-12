@@ -1,0 +1,11 @@
+{
+  "description": "Bounded endpoint queue and owned-arena observation with complete raw replay.",
+  "entrypoints": [
+    "csl_observability_appliance.py"
+  ],
+  "id": "csl-observability",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

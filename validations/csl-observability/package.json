@@ -1,0 +1,29 @@
+{
+  "cases": {
+    "arena-cap64": "f503a7ca24c7e5850afcba8954dfbb8a229d54be613d7808d62a22d8ab9908d9",
+    "queue-n32": "5268c49cead84c6cc0002be38227a3a45a3a8db76eae5e6a3e7c4f925dc2aeeb"
+  },
+  "family": "csl-observability",
+  "files": {
+    "cases/arena-cap64/case.json": "f503a7ca24c7e5850afcba8954dfbb8a229d54be613d7808d62a22d8ab9908d9",
+    "cases/arena-cap64/source/driver.py": "1c39794691c83aa299e0c4be5ed4e48497452ac091a2cd0639d807de36894930",
+    "cases/arena-cap64/source/layout.csl": "c95fcb158fc0527ae0702867bbb5a421d94c4b3a1b62c1b0a67490a15a4b9f06",
+    "cases/arena-cap64/source/oracle.py": "6a147a20c489665323b1cf310cc17347f2cb36550cce48efd1a37f93e4b9ebe9",
+    "cases/arena-cap64/source/pe.csl": "548228cd186934453846bbd9c55a99d0ff044ebc3a4e1668b382f4e6c26e4e31",
+    "cases/queue-n32/case.json": "5268c49cead84c6cc0002be38227a3a45a3a8db76eae5e6a3e7c4f925dc2aeeb",
+    "cases/queue-n32/elf_reader.py": "f3d85595a4f3f9f27e731a14501f10aaa139d4123f934e75af5e9ca5f516c598",
+    "cases/queue-n32/oracle.py": "f31779723b8988e37dff4cc58da60b404fc4a2a47bc5156625b2b90222c5a323",
+    "cases/queue-n32/run.py": "cd17a1762611381611ccd2cc8d6698df640f128649970dbe81a9df5215b2e8c3",
+    "cases/queue-n32/source/layout.csl": "a49da1f18e953569deb3e57a37de3716f860c59baabd62e19e65f7c226d44f5d",
+    "cases/queue-n32/source/pe.csl": "59e92a86d90dc559ed9e01cf0499cf7e6ea44a8a1d7207d6f4fc55aa54e14c1a",
+    "cases/queue-n32/transport_oracle.py": "123fea8bf548da4c25dda90193578fb007137eba358d9c9ca4c5d5037ae813fa",
+    "csl_observability_appliance.py": "e957ea7c4cac1956c03248121bea2dd82521133585361e429f40064d21bcf1a9",
+    "support/appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
+    "support/hardware_entry.py": "f3712142291ae484c49a2adf8d9b92d78d17a918c026d0cdd6dcb0ad3b89e17d",
+    "support/portable.py": "a8248f5919ad53951a2be087dfd811dc7fdb9c8af5af00fb00708540cc8edd79",
+    "support/saved_audit.py": "c2d1b70cdb950ec74aab33edfda90c6c18b1b06ef594e116a3cf04405a02a2db",
+    "tests/test_csl_observability_appliance.py": "3683745e676a3eef84274713bb91982a968be1f37b5b39488518c40eca27c901"
+  },
+  "schema": 1,
+  "scope": "endpoint queue snapshots/drain latency and owned arena occupancy; no total SRAM or physical-link congestion claim"
+}

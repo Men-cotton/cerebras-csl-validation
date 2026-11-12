@@ -1,0 +1,144 @@
+// SPDX-License-Identifier: Apache-2.0
+// One owned u16 arena. No arbitrary SRAM/stack access or register reads.
+param memcpy_params;
+param CAP: u16;
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const arena = @import_module("<malloc>", .{.buffer_num_words=CAP});
+const tsc = @import_module("<time>");
+var control = @zeros([2]u16);
+var rows = @zeros([55]u16);
+var values = @zeros([CAP+52]u16);
+var status = @zeros([6]u16);
+var clocks = @zeros([6]u16);
+var completion = @zeros([1]u32);
+var row_index: u16 = 0;
+var peak: u16 = 0;
+var control_ptr: [*]u16 = &control;
+var rows_ptr: [*]u16 = &rows;
+var values_ptr: [*]u16 = &values;
+var status_ptr: [*]u16 = &status;
+var clocks_ptr: [*]u16 = &clocks;
+var completion_ptr: [*]u32 = &completion;
+
+// Query the allocator's actual remaining capacity, without allocating or freeing.
+// Only u16 allocations are used, so there is no double-word alignment ambiguity.
+fn remaining() u16 {
+  var lo: u16 = 0;
+  var hi: u16 = CAP+1;
+  while (hi-lo > 1) {
+    const mid = lo+(hi-lo)/2;
+    if (arena.has_enough_words(mid)) { lo = mid; } else { hi = mid; }
+  }
+  return lo;
+}
+
+fn observe(op: u16, amount: u16, query: u16) void {
+  const offset = 5*row_index;
+  rows[offset] = op;
+  rows[offset+1] = amount;
+  rows[offset+2] = 65535;
+  rows[offset+3] = 65535;
+  rows[offset+4] = query;
+  if (control[0] == 1) {
+    const left = remaining();
+    const used = CAP-left;
+    if (used > peak) { peak = used; }
+    rows[offset+2] = left;
+    rows[offset+3] = peak;
+    status[4] = peak;
+    status[5] = left;
+  }
+  row_index += 1;
+}
+
+fn fill(ptr: [*]u16, size: u16, tag: u16) void {
+  ptr[0] = 0xA000+tag;
+  for (@range(u16, 1, size-1, 1)) |i| { ptr[i] = control[1]+tag*101+i*7; }
+  ptr[size-1] = 0xB000+tag;
+  status[1] += 1;
+  observe(1, size, 65535);
+}
+
+fn copy_all(ptr: [*]u16, size: u16, offset: u16) void {
+  for (@range(u16, size)) |i| { values[offset+i] = ptr[i]; }
+}
+
+fn check_failure(amount: u16) void {
+  const fits: u16 = if (arena.has_enough_words(amount)) 1 else 0;
+  status[2] += 1;
+  if (fits != 0) { status[0] = 2; }
+  observe(2, amount, fits);
+}
+
+fn release() void {
+  arena.free();
+  status[3] += 1;
+  observe(3, 0, 65535);
+}
+
+fn finish() void {
+  tsc.get_timestamp(@ptrcast(*[3]u16, &clocks[3]));
+  completion[0] += 1;
+  sys.unblock_cmd_stream();
+}
+
+fn f_run() void {
+  for (@range(u16, 6)) |i| { status[i] = 0; }
+  for (@range(u16, 55)) |i| { rows[i] = 65535; }
+  for (@range(u16, CAP+52)) |i| { values[i] = 65535; }
+  row_index = 0;
+  peak = 0;
+  status[4] = 65535;
+  status[5] = 65535;
+  arena.free();
+  status[3] = 1;
+  tsc.enable_tsc();
+  tsc.get_timestamp(@ptrcast(*[3]u16, &clocks[0]));
+  if (control[0] > 1 or (control[1] != 17 and control[1] != 29)) {
+    status[0] = 1;
+    finish();
+    return;
+  }
+  // Capacity guards are explicit: CSL @assert does not abort on hardware.
+  if (!arena.has_enough_words(8)) { status[0] = 3; finish(); return; }
+  const a = arena.malloc_u16(8);
+  fill(a, 8, 1);
+  if (!arena.has_enough_words(16)) { status[0] = 3; finish(); return; }
+  const b = arena.malloc_u16(16);
+  fill(b, 16, 2);
+  if (!arena.has_enough_words(24)) { status[0] = 3; finish(); return; }
+  const c = arena.malloc_u16(24);
+  fill(c, 24, 3);
+  check_failure(CAP-47);
+  // Copy after all adjacent allocations and rejected query; detects overlap.
+  copy_all(a, 8, 0);
+  copy_all(b, 16, 8);
+  copy_all(c, 24, 24);
+  release();
+  if (!arena.has_enough_words(CAP/2)) { status[0] = 3; finish(); return; }
+  const d = arena.malloc_u16(CAP/2);
+  fill(d, CAP/2, 4);
+  if (!arena.has_enough_words(CAP/2)) { status[0] = 3; finish(); return; }
+  const e = arena.malloc_u16(CAP/2);
+  fill(e, CAP/2, 5);
+  check_failure(1);
+  copy_all(d, CAP/2, 48);
+  copy_all(e, CAP/2, 48+CAP/2);
+  release();
+  if (!arena.has_enough_words(4)) { status[0] = 3; finish(); return; }
+  const f = arena.malloc_u16(4);
+  fill(f, 4, 6);
+  copy_all(f, 4, 48+CAP);
+  release();
+  finish();
+}
+
+comptime {
+  @export_symbol(control_ptr, "control");
+  @export_symbol(rows_ptr, "rows");
+  @export_symbol(values_ptr, "values");
+  @export_symbol(status_ptr, "status");
+  @export_symbol(clocks_ptr, "clocks");
+  @export_symbol(completion_ptr, "completion");
+  @export_symbol(f_run);
+}

@@ -1,0 +1,33 @@
+{
+  "capacity": 64,
+  "family": "arena-observe",
+  "params": {
+    "CAP": 64
+  },
+  "run_plan": [
+    [
+      0,
+      17
+    ],
+    [
+      1,
+      17
+    ],
+    [
+      1,
+      29
+    ],
+    [
+      0,
+      17
+    ]
+  ],
+  "schema": 1,
+  "scope": "one PE, one owned u16 arena; no total SRAM or stack peak claim",
+  "sources": {
+    "driver.py": "1c39794691c83aa299e0c4be5ed4e48497452ac091a2cd0639d807de36894930",
+    "layout.csl": "c95fcb158fc0527ae0702867bbb5a421d94c4b3a1b62c1b0a67490a15a4b9f06",
+    "oracle.py": "6a147a20c489665323b1cf310cc17347f2cb36550cce48efd1a37f93e4b9ebe9",
+    "pe.csl": "548228cd186934453846bbd9c55a99d0ff044ebc3a4e1668b382f4e6c26e4e31"
+  }
+}

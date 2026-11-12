@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: Apache-2.0
+param CAP: u16;
+const memcpy = @import_module("<memcpy/get_params>", .{.width=1, .height=1});
+layout {
+  @comptime_assert(CAP == 64 or CAP == 128);
+  @set_rectangle(1, 1);
+  @set_tile_code(0, 0, "pe.csl", .{.memcpy_params=memcpy.get_params(0), .CAP=CAP});
+  @export_name("control", [*]u16, true);
+  @export_name("rows", [*]u16, true);
+  @export_name("values", [*]u16, true);
+  @export_name("status", [*]u16, true);
+  @export_name("clocks", [*]u16, true);
+  @export_name("completion", [*]u32, true);
+  @export_name("f_run", fn()void);
+}
