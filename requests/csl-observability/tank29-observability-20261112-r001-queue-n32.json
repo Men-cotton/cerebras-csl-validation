@@ -1,0 +1,133 @@
+{
+  "description": "One bounded observation case; independent raw replay after each fresh runtime.",
+  "id": "tank29-observability-20261112-r001-queue-n32",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "queue-n32",
+        "--out",
+        "{output}/compile"
+      ],
+      "kind": "appliance",
+      "name": "compile",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "queue-n32",
+        "--profile",
+        "1",
+        "--delay",
+        "0",
+        "--build-record",
+        "{output}/compile/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-p1-d0"
+      ],
+      "kind": "appliance",
+      "name": "run-p1-d0",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "queue-n32",
+        "--profile",
+        "1",
+        "--delay",
+        "0",
+        "--capture",
+        "{output}/run-p1-d0/capture-data",
+        "--out",
+        "{output}/audit-p1-d0.json"
+      ],
+      "kind": "host",
+      "name": "audit-p1-d0",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "queue-n32",
+        "--profile",
+        "1",
+        "--delay",
+        "256",
+        "--build-record",
+        "{output}/compile/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-p1-d256"
+      ],
+      "kind": "appliance",
+      "name": "run-p1-d256",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "queue-n32",
+        "--profile",
+        "1",
+        "--delay",
+        "256",
+        "--capture",
+        "{output}/run-p1-d256/capture-data",
+        "--out",
+        "{output}/audit-p1-d256.json"
+      ],
+      "kind": "host",
+      "name": "audit-p1-d256",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "queue-n32",
+        "--profile",
+        "0",
+        "--delay",
+        "256",
+        "--build-record",
+        "{output}/compile/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-p0-d256"
+      ],
+      "kind": "appliance",
+      "name": "run-p0-d256",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "queue-n32",
+        "--profile",
+        "0",
+        "--delay",
+        "256",
+        "--capture",
+        "{output}/run-p0-d256/capture-data",
+        "--out",
+        "{output}/audit-p0-d256.json"
+      ],
+      "kind": "host",
+      "name": "audit-p0-d256",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    }
+  ]
+}
