@@ -1,0 +1,53 @@
+{
+  "description": "One independent observation arm; exact same graph/model/input, complete epoch and numerical checks.",
+  "id": "cora-observation-20261112-r001-tiny-p0",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "tiny",
+        "--profile",
+        "0",
+        "--out",
+        "{output}/compile"
+      ],
+      "kind": "appliance",
+      "name": "compile",
+      "script": "validations/native-cora-observation/hardware_entry.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "tiny",
+        "--profile",
+        "0",
+        "--build-record",
+        "{output}/compile/build.json",
+        "--out",
+        "{output}/run-01"
+      ],
+      "kind": "appliance",
+      "name": "run-01",
+      "script": "validations/native-cora-observation/hardware_entry.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "tiny",
+        "--profile",
+        "0",
+        "--capture",
+        "{output}/run-01/capture-data",
+        "--out",
+        "{output}/audit-01.json"
+      ],
+      "kind": "host",
+      "name": "audit-01",
+      "script": "validations/native-cora-observation/hardware_entry.py"
+    }
+  ]
+}
