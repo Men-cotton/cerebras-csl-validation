@@ -2,6 +2,7 @@
 import copy
 import json
 import os
+import re
 from pathlib import Path
 import socket
 import subprocess
@@ -207,12 +208,17 @@ class SchemaTests(unittest.TestCase):
 
 
 FAKE_SCRIPT = '''import pathlib, sys, time
-mode, out, job = sys.argv[1:]
+if sys.argv[1] == "--out":
+    out, mode, job = sys.argv[2:]
+else:
+    mode, out, job = sys.argv[1:]
 root = pathlib.Path(out)
 root.mkdir(parents=True, exist_ok=True)
 with (root / "invocations.txt").open("a") as stream:
     stream.write(job + "\\n")
-if mode not in ("no-id", "slow-no-id", "slow-host", "host-fail"):
+if mode == "event-only":
+    (root / "client.log").write_text("WARNING:cerebras.cluster.client:Event reason=InconsistentVersion wsjob=" + job + " message=version-warning\\n")
+if mode not in ("no-id", "slow-no-id", "slow-host", "host-fail", "event-only"):
     print("Job id: " + job, flush=True)
 if mode in ("slow", "slow-no-id", "slow-host"):
     time.sleep(1.6)
@@ -478,6 +484,93 @@ class GitControllerTests(unittest.TestCase):
         self.assertIn("no job IDs", entry["error"])
         self.watcher.tick()
         self.assertEqual(self.invocations(), ["wsjob-step0"])
+
+    def missed_event_job(self):
+        value = request(modes=("event-only", "ok"))
+        value["steps"][0]["args"] = ["--out", "{output}/compile", "event-only", "wsjob-step0"]
+        self.submit(value)
+        # Reproduce a saved attempt made by the previous controller parser.
+        with patch.object(watch, "JOB", re.compile(r"\bJob id:\s*(wsjob-[A-Za-z0-9-]+)")):
+            self.assertEqual(self.complete()["status"], "blocked")
+        return self.state / "requests/example/output/compile/client.log"
+
+    def test_event_job_field_is_captured_without_standard_info_line(self):
+        value = request(modes=("event-only",))
+        value["steps"][0]["args"] = ["--out", "{output}/compile", "event-only", "wsjob-step0"]
+        self.submit(value)
+        self.assertEqual(self.complete()["status"], "passed")
+        self.assertEqual(self.entry()["steps"][0]["jobs"], ["wsjob-step0"])
+
+    def test_recover_job_preserves_compile_and_next_step_executes_once(self):
+        log = self.missed_event_job()
+        before = copy.deepcopy(self.entry())
+        with patch.object(watch, "load_config", return_value=self.config), \
+             patch.object(watch, "Scheduler", return_value=self.scheduler):
+            self.assertEqual(watch.main(["recover-job", "--config", "unused", "--request", "example",
+                                         "--job", "wsjob-step0", "--reason", "Verified original compile"]), 0)
+        self.watcher = watch.Watcher(self.config, self.scheduler)
+        record = self.entry()["steps"][0]
+        self.assertEqual(self.entry()["status"], "running")
+        self.assertEqual(record["status"], "awaiting")
+        self.assertEqual(record["recovery"]["prior_error"], before["error"])
+        self.assertEqual(record["recovery"]["logs_sha256"]["output/compile/client.log"], watch.digest(log))
+        self.assertEqual(self.invocations(), [])  # Recovery did not start the next step.
+        self.assertEqual(self.complete()["status"], "passed")
+        self.assertEqual(self.invocations(), ["wsjob-step1"])
+        self.assertEqual((log.parent/"invocations.txt").read_text().splitlines(), ["wsjob-step0"])
+        self.watcher = watch.Watcher(self.config, self.scheduler)
+        self.watcher.tick()
+        self.assertEqual(self.invocations(), ["wsjob-step1"])
+
+    def test_recover_job_refuses_ineligible_or_ambiguous_evidence(self):
+        log = self.missed_event_job()
+        original = copy.deepcopy(self.entry())
+        content = log.read_text()
+        def attempt():
+            with self.assertRaises((ValueError, KeyError)):
+                self.watcher.recover_job("example", "wsjob-step0", "Checked")
+        for field, value in (("exit_code", None), ("exit_code", 1), ("exit_code", False),
+                             ("error", "different failure"), ("jobs", ["wsjob-step0"]),
+                             ("name", "another-step"), ("pid", None)):
+            with self.subTest(field=field, value=value):
+                self.watcher.ledger["requests"]["example"] = copy.deepcopy(original)
+                self.entry()["steps"][-1][field] = value
+                attempt()
+                self.assertEqual(self.entry()["status"], "blocked")
+        self.watcher.ledger["requests"]["example"] = copy.deepcopy(original)
+        for text in ("", content.replace("wsjob-step0", "wsjob-other"), content+"Job id: wsjob-other\n"):
+            with self.subTest(log=text):
+                log.write_text(text)
+                attempt()
+        log.write_text(content)
+        for phase in ("RUNNING", "FAILED", "CANCELLED"):
+            self.scheduler.phases["wsjob-step0"] = phase
+            attempt()
+        self.scheduler.phases["wsjob-step0"] = "SUCCEEDED"
+        self.scheduler.busy = True
+        attempt()
+        self.scheduler.busy = False
+        for name in ("kill", "killpg"):
+            with patch.object(watch.os, name, return_value=None):
+                attempt()
+        with patch.object(self.scheduler, "job", side_effect=ValueError("query failed")):
+            attempt()
+        # A symlinked client log is not provenance, even if its bytes match.
+        moved = log.with_suffix('.saved')
+        log.rename(moved)
+        log.symlink_to(moved)
+        attempt()
+        log.unlink()
+        moved.rename(log)
+        self.assertEqual(self.entry(), original)
+        self.assertEqual(self.invocations(), [])
+
+    def test_job_parser_rejects_partial_names_and_deduplicates_event_ids(self):
+        self.assertEqual(watch.JOB.findall("Job id: wsjob-good\nWARNING:cerebras.cluster.client:Event reason=Test wsjob=wsjob-good message='ok'"),
+                         ["wsjob-good", "wsjob-good"])
+        for text in ("wsjob=wsjob-bad_suffix", "Job id: wsjob-bad/suffix", "otherwsjob=wsjob-other", "diagnostic previous wsjob=wsjob-other",
+                     "cerebras.cluster.client:Event reason=Test\nwsjob=wsjob-other"):
+            self.assertEqual(watch.JOB.findall(text), [], text)
 
     def test_host_step_logging_remote_job_ids_is_blocked(self):
         value = request(modes=("ok", "ok"))

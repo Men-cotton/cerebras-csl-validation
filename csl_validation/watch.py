@@ -18,12 +18,13 @@ import tempfile
 import time
 import zipfile
 from .catalog import declared_scripts
-from .sdk import resolve_uv, sdk_argv, sdk_environment
+from .sdk import resolve_uv, sdk_argv, sdk_environment, sdk_step_argv
 
 SCHEMA = 1
 NAME = re.compile(r"[a-z0-9][a-z0-9_-]{0,79}\Z")
 SHA = re.compile(r"[0-9a-f]{40}\Z")
-JOB = re.compile(r"\bJob id:\s*(wsjob-[A-Za-z0-9-]+)")
+JOB = re.compile(r"(?:\bJob id:\s*|\bcerebras\.cluster\.client:Event[ \t][^\r\n]*?\bwsjob=)(wsjob-[A-Za-z0-9-]+)(?=$|[\s,;\'\"])")
+MISSING_JOB_IDS = "no job IDs captured; submission outcome unknown"
 TERMINAL = {"SUCCEEDED", "FAILED", "CANCELLED", "CANCELED"}
 ACTIVE = {"CREATED", "QUEUED", "QUEUEING", "PENDING", "SCHEDULED", "INITIALIZING", "RUNNING", "EXECUTING", "FINALIZING", "CANCELLING", "CANCELING"}
 DEFAULT_SCRIPTS = ["appliance.py", "tank_appliance.py", "mesh_appliance.py", "clock_appliance.py"]
@@ -372,8 +373,8 @@ class Watcher:
         require(git(["diff", "--name-only", "HEAD"], src) == "", "tracked source modified")
         require(shutil.disk_usage(self.root).free >= 1 << 30, "less than 1 GiB free; defer next step")
         before = job_ids(output)
-        argv = sdk_argv(self.config, ["-B", str(contained(src, step["script"]))])
-        argv += [arg.replace("{output}", str(output)) for arg in step["args"]]
+        expanded = [arg.replace("{output}", str(output)) for arg in step["args"]]
+        argv = sdk_step_argv(self.config, contained(src, step["script"]), expanded, step["kind"])
         require(encoded_size(argv) <= 64 << 10, "expanded step argv exceeds 64 KiB")
         record = dict(name=step["name"], status="running", argv=argv, started_at=now(), jobs=[])
         entry["steps"].append(record)
@@ -419,7 +420,7 @@ class Watcher:
                               | set(JOB.findall(log.read_text(errors="replace"))))
             require(len(observed) <= 32 and all(len(name) <= 128 for name in observed), "single-action job ID limit")
             record["jobs"] = observed
-            require(step["kind"] != "appliance" or record["jobs"], "no job IDs captured; submission outcome unknown")
+            require(step["kind"] != "appliance" or record["jobs"], MISSING_JOB_IDS)
             require(step["kind"] != "host" or not record["jobs"], "host step submitted remote jobs")
             record.update(status="awaiting", client_finished_at=now())
         except (Exception, KeyboardInterrupt) as error:
@@ -604,6 +605,81 @@ class Watcher:
         atomic_json(directory / "request.json", entry["manifest"])
         atomic_json(directory / "receipt.json", entry)
 
+    def recover_job(self, ident, job, reason):
+        """Recover one missed ID after proven success; never run an SDK action."""
+        require(ident in self.ledger["requests"], "unknown request")
+        require(isinstance(reason, str) and 0 < len(reason.strip()) <= 4096,
+                "bounded recovery reason required")
+        require(isinstance(job, str) and len(job) <= 128 and
+                re.fullmatch(r"wsjob-[A-Za-z0-9-]+", job), "job ID required")
+        entry = self.ledger["requests"][ident]
+        steps = entry.get("steps", [])
+        manifest_steps = entry["manifest"]["steps"]
+        require(entry["status"] == "blocked" and entry.get("error") == MISSING_JOB_IDS,
+                "only missing-job-ID blocks can be recovered")
+        require(0 < len(steps) <= len(manifest_steps) and
+                all(row["status"] == "passed" for row in steps[:-1]), "ordered completed prior steps")
+        record, step = steps[-1], manifest_steps[len(steps)-1]
+        require(record["name"] == step["name"] and step["kind"] == "appliance" and
+                record["status"] == "blocked" and record.get("error") == MISSING_JOB_IDS and
+                record.get("jobs") == [] and type(record.get("exit_code")) is int and record["exit_code"] == 0,
+                "successful appliance exit and exact missing-ID state required")
+        pid = record.get("pid")
+        require(type(pid) is int and pid > 0, "recorded client PID required")
+        for probe in (os.kill, os.killpg):
+            try:
+                probe(pid, 0)
+            except ProcessLookupError:
+                pass
+            else:
+                raise ValueError("recorded client PID or process group still exists")
+        root = self.root / "requests" / ident
+        src, output = root / "src", root / "output"
+        require(git(["rev-parse", "HEAD"], src).strip() == entry["sha"] and
+                git(["diff", "--name-only", "HEAD"], src) == "", "frozen source changed")
+        require(read_json(contained(src, entry["manifest_path"])) == entry["manifest"],
+                "frozen manifest changed")
+        expanded = [arg.replace("{output}", str(output)) for arg in step["args"]]
+        require(record["argv"][-(len(expanded)+1):] == [str(contained(src, step["script"])), *expanded],
+                "recorded command differs from frozen step")
+        # The console log and the declared output's client.log belong to this
+        # exact step. Never scan previous captures or arbitrary operator paths.
+        paths = [root / "logs" / (step["name"] + ".log")]
+        if "--out" in expanded:
+            require(expanded.count("--out") == 1 and expanded.index("--out")+1 < len(expanded),
+                    "unambiguous step output")
+            folder = Path(expanded[expanded.index("--out")+1])
+            require(folder.is_absolute() and folder.resolve() == folder and
+                    folder.is_relative_to(output), "step output escapes request")
+            client_log = folder / "client.log"
+            if client_log.exists() or client_log.is_symlink():
+                paths.append(client_log)
+        logs, candidates = {}, set()
+        for path in paths:
+            require(path.is_file() and not path.is_symlink() and path.resolve() == path and
+                    path.stat().st_size <= 64 << 20, "bounded regular step log")
+            with path.open("rb") as stream:
+                data = stream.read((64 << 20) + 1)
+            require(len(data) <= 64 << 20, "step log grew beyond bound")
+            candidates.update(JOB.findall(data.decode(errors="replace")))
+            logs[str(path.relative_to(root))] = hashlib.sha256(data).hexdigest()
+        require(candidates == {job} and
+                all(job not in row.get("jobs", []) for row in steps[:-1]),
+                "saved step logs must identify exactly the supplied new job")
+        outcome = self.scheduler.job(job)  # Validates configured owner/namespace.
+        require(outcome["name"] == job and outcome["namespace"] == self.config["namespace"] and
+                outcome["phase"] == "SUCCEEDED", "recovered job is not successful")
+        require(self.scheduler.idle(), "own remote jobs remain active")
+        require(all(digest(root / name) == pin for name, pin in logs.items()), "step logs changed during recovery")
+        recovery = dict(reason=reason.strip(), recovered_at=now(), job=job, logs_sha256=logs,
+                        prior_status=entry["status"], prior_error=entry["error"],
+                        prior_step_status=record["status"], prior_step_error=record["error"], remote=outcome)
+        record.update(status="awaiting", jobs=[job], remote=[outcome], recovery=recovery)
+        record.pop("error")
+        entry.update(status="running")
+        entry.pop("error")
+        self.record(entry)
+
     def resolve(self, ident, reason):
         require(ident in self.ledger["requests"] and reason.strip(), "request and reason required")
         entry = self.ledger["requests"][ident]
@@ -698,13 +774,15 @@ def main(argv=None):
     init.add_argument("--baseline", required=True)
     init.add_argument("--namespace", default="job-operator")
     init.add_argument("--publish-status", action="store_true")
-    for name in ("run", "once", "status", "resolve", "package", "discover", "skip", "compact"):
+    for name in ("run", "once", "status", "resolve", "package", "discover", "skip", "compact", "recover-job"):
         sub = commands.add_parser(name)
         sub.add_argument("--config", required=True, type=Path)
-        if name in {"resolve", "package", "skip"}:
+        if name in {"resolve", "package", "skip", "recover-job"}:
             sub.add_argument("--request", required=True)
-        if name in {"resolve", "skip"}:
+        if name in {"resolve", "skip", "recover-job"}:
             sub.add_argument("--reason", required=True)
+        if name == "recover-job":
+            sub.add_argument("--job", required=True)
         if name == "compact":
             sub.add_argument("--request", help="restrict maintenance to one request")
             sub.add_argument("--apply", action="store_true", help="remove clean terminal sources and hardlink identical completed output")
@@ -741,6 +819,10 @@ def main(argv=None):
                 entry = watcher.ledger["requests"][args.request]
                 watcher.package(entry, retry=True)
                 return 0 if entry.get("packaged") else 2
+            if args.action == "recover-job":
+                watcher.recover_job(args.request, args.job, args.reason)
+                print("Recovered job ID; no validation steps executed", args.request, flush=True)
+                return 0
             if args.action == "resolve":
                 watcher.resolve(args.request, args.reason)
                 return 0

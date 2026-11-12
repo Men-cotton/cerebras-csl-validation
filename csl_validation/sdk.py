@@ -32,6 +32,19 @@ def sdk_argv(config, args):
             python, "--", python, *args]
 
 
+def sdk_step_argv(config, script, args, kind):
+    """Expose SDK job INFO records without changing the frozen request script."""
+    if kind == "host":
+        return sdk_argv(config, ["-B", str(script), *args])
+    bootstrap = (
+        "import logging,runpy,sys; from pathlib import Path; "
+        "logging.basicConfig(level=logging.INFO); "
+        "sys.argv=sys.argv[1:]; sys.path[0]=str(Path(sys.argv[0]).parent); "
+        "runpy.run_path(sys.argv[0],run_name='__main__')"
+    )
+    return sdk_argv(config, ["-B", "-c", bootstrap, str(script), *args])
+
+
 def sdk_environment(base=None):
     """Remove controller Python selection while retaining site connection data."""
     result = dict(os.environ if base is None else base)

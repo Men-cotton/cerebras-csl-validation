@@ -173,6 +173,46 @@ Resolution checks the recorded processes/jobs, marks the request `interrupted`,
 and packages its evidence. It neither cancels a remote job nor retries the
 calculation. A retry is a new request with a new ID.
 
+## Recover a missed job ID after successful client exit
+
+A request can be blocked with `no job IDs captured; submission outcome unknown`
+while its compile client exited0 and returned an artifact. `status.json` omits
+the error detail; inspect the request's ledger entry, `logs/STEP.log` and its
+own output `client.log`. SDK job IDs can appear in INFO `Job id:` records or in
+`cerebras.cluster.client:Event ... wsjob=...` warnings. The controller enables
+INFO logging before each frozen appliance script and recognizes both formats.
+Host audit logging is unchanged. The script bytes, arguments, adjacent imports,
+SDK environment and exit code retain their existing meaning.
+
+For an already blocked attempt, updating the controller does not automatically
+resume it. Stop `watch run` on the same user node, update the controller with
+`git pull --ff-only`, and inspect the individually identified job with
+`csctl get job JOB_ID -o json`. If the original client exited0 and that exact job
+succeeded, use the explicit recovery command:
+
+```bash
+uv --directory "$HOME/cerebras-csl-validation" run --locked -m csl_validation \
+  watch recover-job --config "$HOME/csl-operator.json" \
+  --request REQUEST_ID --job JOB_ID \
+  --reason 'Verified the original successful job whose SDK event ID was missed'
+```
+
+Recovery accepts only the exact missing-ID block at the last started appliance
+step, with all earlier steps passed, a durable zero exit and no recorded IDs.
+It checks the frozen source/manifest and recorded arguments, the original PID
+and process group, and a single matching ID in the step console log or its
+explicit `--out` directory's `client.log`. It does not scan older captures.
+The individual scheduler query must confirm the configured owner/namespace and
+`SUCCEEDED`; this user's other jobs must also be idle. Missing, conflicting or
+changed evidence leaves the request blocked.
+
+The receipt retains the former error, reason, checked log hashes and scheduler
+result. Recovery changes the last step to `awaiting` and the request to `running`;
+it performs no SDK action. Restart the existing watcher to reconcile that step
+again and execute the next unstarted step. The successful compile is not replayed.
+Other interruptions still use `resolve`; it closes them as `interrupted` and does
+not resume them. Neither command requires manual ledger edits or reinitialization.
+
 ## Retain and clean results
 
 Results are stored below `STATE_DIR/requests/REQUEST_ID/output`; finalized
