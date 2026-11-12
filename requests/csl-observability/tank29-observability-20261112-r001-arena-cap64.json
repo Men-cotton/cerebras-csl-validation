@@ -1,0 +1,57 @@
+{
+  "description": "One bounded observation case; independent raw replay after each fresh runtime.",
+  "id": "tank29-observability-20261112-r001-arena-cap64",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "arena-cap64",
+        "--out",
+        "{output}/compile"
+      ],
+      "kind": "appliance",
+      "name": "compile",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "arena-cap64",
+        "--profile",
+        "0",
+        "--delay",
+        "0",
+        "--build-record",
+        "{output}/compile/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-p0-d0"
+      ],
+      "kind": "appliance",
+      "name": "run-p0-d0",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "arena-cap64",
+        "--profile",
+        "0",
+        "--delay",
+        "0",
+        "--capture",
+        "{output}/run-p0-d0/capture-data",
+        "--out",
+        "{output}/audit-p0-d0.json"
+      ],
+      "kind": "host",
+      "name": "audit-p0-d0",
+      "script": "validations/csl-observability/csl_observability_appliance.py"
+    }
+  ]
+}
