@@ -1,0 +1,11 @@
+{
+  "description": "Repeated complete compact Cora GCN with fresh all-PE completion and per-PE stages.",
+  "entrypoints": [
+    "hardware_entry.py"
+  ],
+  "id": "native-cora-observation",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "adapter_source_sha256": {
+    "appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
+    "appliance_worker.py": "88dd6a1a9140712eaad13cec6d05e409dbe7147e807a3f695137177ad12a2189",
+    "portable.py": "a8248f5919ad53951a2be087dfd811dc7fdb9c8af5af00fb00708540cc8edd79",
+    "saved_audit.py": "c2d1b70cdb950ec74aab33edfda90c6c18b1b06ef594e116a3cf04405a02a2db",
+    "sdk_runner.py": "58c3e03ff9b2efb4281be327a3b110875e87c8752347f5fe4dfdb5e61b164a73"
+  },
+  "beyond16_feature_logit_difference": null,
+  "host_max_abs_error": {
+    "logits": 1.713185602270073e-06,
+    "pre": 6.97094501234119e-07
+  },
+  "origin": "E087",
+  "preparer_sha256": "d27dd0605e95a78651ec6b1e94d4538f5bc88eadec4ca593d7cf07b60b445fe8",
+  "source_change": "matched full/compact column panels; unchanged source-group/occurrence arithmetic; immutable demand directories in both arms",
+  "source_sha256": {
+    "csl-extras-202505230211-4-d9070058/examples/benchmarks/gemv-collectives_2d/pe.csl": "9baa047b8804ab3d5bc7ff470d233f4a131727dc5f18c36237a8eeec18e2994a",
+    "models/hierarchical_gnn/grouped_csr/column_demand.py": "a25e7bbab63b5d17df008d41bba523c7dc3889f97edcfb9db094d65756f5510e",
+    "models/hierarchical_gnn/grouped_csr/layout.csl": "de711680bc0f7f47cd9bf0caa6108e0720e6dac756d0fa8f73e25c540bc05518",
+    "models/hierarchical_gnn/grouped_csr/native_cora_appliance/demand.py": "a3fef9e25dd18a21b43b9c1af417e48ef07b62e554c585ddb05ad034fe8e0c86",
+    "models/hierarchical_gnn/grouped_csr/native_cora_appliance/unicast.py": "fde40cf089af88ae2293e713291c8061b824984078d1f499cd4db7b4637a55bf",
+    "models/hierarchical_gnn/grouped_csr/oracle.py": "fcce8e9c8aa92c0e7d6e49174dec13b562612a8554d2f30b2c28a1d236cdcd9e",
+    "models/hierarchical_gnn/grouped_csr/pe.csl": "a0739e39fe677aacc7723980be5ca3b933c4c2b68a8c4eb0f961875b0f05eddc",
+    "models/hierarchical_gnn/partition.py": "93d4b179e43a6b0ca5916e1ee5ca686f9eda1e43db3d1c34e1b803a74dc2eaee",
+    "sdk-2.10.2/csl-extras-202604101435-6-d2f7d96e/examples/benchmarks/gemv-collectives_2d/pe.csl": "f5e3c81f33859adbf8c6b410786eba1588dbb6cd4fc504edb1bee8191d91f8f3"
+  }
+}
