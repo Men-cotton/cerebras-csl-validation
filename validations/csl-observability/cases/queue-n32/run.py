@@ -215,13 +215,27 @@ def finalize(folder, build, elf, pinned):
         raise
 
 
+def hardware_workdir(folder, sdk_workdir):
+    need(sdk_workdir is not None, 'hardware requires an explicit SDK work directory')
+    path = Path(sdk_workdir)
+    need(path.is_absolute() and path == path.resolve() and path.is_dir()
+         and not path.is_relative_to(folder) and not folder.is_relative_to(path)
+         and not any(path.iterdir()), 'empty SDK work directory outside capture')
+    return path
+
+
 def capture(case_dir, folder, profile, delay, build=None, backend='simulator', cmaddr=None,
-            registered_worker=False, trace=False, sdk=None):
+            registered_worker=False, trace=False, sdk=None, sdk_workdir=None):
     """Hardware callers are registered workers; this module never submits jobs."""
     need(backend in ('simulator', 'hardware') and (backend == 'hardware') == bool(cmaddr), 'explicit backend/address')
     need(backend != 'hardware' or registered_worker, 'hardware capture requires registered worker')
     need(not trace or backend == 'simulator', 'fabric trace is simulator-only')
     case_dir, folder = Path(case_dir).resolve(), Path(folder).resolve()
+    if backend == 'hardware':
+        runtime_directory = hardware_workdir(folder, sdk_workdir)
+    else:
+        need(sdk_workdir is None, 'simulator work directory follows the existing capture layout')
+        runtime_directory = folder
     build = Path(build).resolve() if build is not None else case_dir/'build'
     case, oracle = read_case(case_dir)
     oracle.fixture(case['n'], 0, profile, delay)
@@ -267,7 +281,7 @@ def capture(case_dir, folder, profile, delay, build=None, backend='simulator', c
         return owned
 
     try:
-        os.chdir(folder)
+        os.chdir(runtime_directory)
         call('construct', construct)
         ids = {name:call('id:'+name, owned.get_id, name) for name in case['symbols']}
         need(ids == {name:row['id'] for name, row in symbols.items()}, 'runtime IDs match compiled ABI')

@@ -218,10 +218,25 @@ def audit(folder):
                 checks=checks, scope=case['scope'])
 
 
-def capture(case_folder, build, folder, backend, cmaddr=None):
+def hardware_workdir(folder, sdk_workdir):
+    need(sdk_workdir is not None, 'hardware requires an explicit SDK work directory')
+    path = Path(sdk_workdir)
+    need(path.is_absolute() and path == path.resolve() and path.is_dir()
+         and not path.is_relative_to(folder) and not folder.is_relative_to(path)
+         and not any(path.iterdir()), 'empty SDK work directory outside capture')
+    return path
+
+
+def capture(case_folder, build, folder, backend, cmaddr=None, *, sdk_workdir=None):
     import numpy as np
     need(backend in ('simulator', 'hardware') and (backend == 'hardware') == bool(cmaddr), 'explicit backend/worker endpoint')
     case_folder, build = Path(case_folder).resolve(), Path(build).resolve()
+    folder = Path(folder).absolute()
+    if backend == 'hardware':
+        runtime_directory = hardware_workdir(folder, sdk_workdir)
+    else:
+        need(sdk_workdir is None, 'simulator work directory follows the existing capture layout')
+        runtime_directory = folder/'runtime-work'
     case, oracle = read_case(case_folder)
     inventory = program(build, case)
     folder = fresh(folder)
@@ -234,8 +249,8 @@ def capture(case_folder, build, folder, backend, cmaddr=None):
                   program=inventory, program_sha256=digest(folder/'program.json'), iterations=[],
                   timing_scope='same-PE allocation/query/write/copy interval; host launch through fresh epoch read includes command and D2H',
                   memory_scope=case['scope'])
-    runtime_directory = folder/'runtime-work'
-    runtime_directory.mkdir()
+    if backend == 'simulator':
+        runtime_directory.mkdir()
     original_cwd = Path.cwd()
     schema = fields(case['capacity'])
     def options(dtype):
@@ -317,11 +332,13 @@ def main():
     p.add_argument('--out', type=Path, required=True)
     p.add_argument('--backend', choices=('simulator', 'hardware'), required=True)
     p.add_argument('--cmaddr')
+    p.add_argument('--sdk-workdir', type=Path, help='hardware only: existing empty directory outside capture; caller owns cleanup')
     p = actions.add_parser('audit')
     p.add_argument('--capture', type=Path, required=True)
     args = parser.parse_args()
     if args.action == 'prepare': result = prepare(args.out, args.capacity)
-    elif args.action == 'capture': result = capture(args.case, args.build, args.out, args.backend, args.cmaddr)
+    elif args.action == 'capture': result = capture(args.case, args.build, args.out, args.backend, args.cmaddr,
+                                                   sdk_workdir=args.sdk_workdir)
     else: result = audit(args.capture)
     print(json.dumps(result, sort_keys=True, indent=2))
 

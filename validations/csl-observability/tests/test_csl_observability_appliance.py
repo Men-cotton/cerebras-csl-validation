@@ -3,6 +3,7 @@ import hashlib
 import importlib.util
 import io
 import json
+import os
 from pathlib import Path
 import shutil
 import struct
@@ -10,6 +11,7 @@ import tarfile
 import tempfile
 from types import SimpleNamespace
 import unittest
+import uuid
 from unittest.mock import patch
 
 HERE = Path(__file__).resolve().parent
@@ -202,6 +204,104 @@ class ObservabilityApplianceTests(unittest.TestCase):
 
     def test_worker_failure_keeps_partial_capture(self):
         self.run_launcher('worker')
+
+    def test_worker_separates_large_sdk_scratch_with_real_outer_audit(self):
+        # Family numerical code is covered by the family SDK-fake suites. This
+        # fixture exercises worker ownership, actual ELF/metadata joins, the
+        # real outer audit and its 32 MiB bound, without an SDK job.
+        for case in app.CASES:
+            for failure in (False, True):
+                with self.subTest(case=case, failure=failure), tempfile.TemporaryDirectory() as temporary:
+                    base = Path(temporary)
+                    root = make_package(base/'family')
+                    compiled, _ = compile_fixture(root, base/'compile', case)
+                    staged = base/'staged'
+                    staged.mkdir()
+                    for source, name in ((root/app.ENTRY, app.ENTRY), (root/'support/hardware_entry.py', 'hardware_entry.py'),
+                                         (root/'package.tar.gz', 'package.tar.gz'), (base/'compile/build.json', 'build.json')):
+                        shutil.copyfile(source, staged/name)
+                    helper = app.support(root)[2]
+                    helper.unpack(base/'compile'/compiled['artifact_path'], staged/'unpacked', app.ARTIFACT_LIMIT)
+                    build = staged/'unpacked/artifact/out'
+                    run_id = str(uuid.uuid4())
+                    profile, delay = (1, 0) if case == 'queue-n32' else (0, 0)
+                    write(staged/'run-request.json', dict(run_id=run_id, case=case, profile=profile, delay=delay,
+                                                       build_record_sha256=app.sha(staged/'build.json')))
+                    original_driver = app.driver
+                    observed_cwds = []
+                    def fake_driver(frozen_root, label):
+                        folder, implementation = original_driver(frozen_root, label)
+                        def capture(*args, sdk_workdir, **kwargs):
+                            runtime = Path(args[2] if label == 'arena-cap64' else args[1])
+                            runtime.mkdir()
+                            write(runtime/'partial.json', {'attempted':True})
+                            previous = Path.cwd()
+                            try:
+                                os.chdir(sdk_workdir)
+                                observed_cwds.append(Path.cwd())
+                                with Path('sdk-config.conf').open('xb') as stream: stream.truncate(50 << 20)
+                                if failure: raise RuntimeError('fake runtime failed after stop attempt')
+                            finally:
+                                os.chdir(previous)
+                            program = compiled['program_inventory']
+                            expected = {name: row['sha256'] for name, row in program['elf']['files'].items()}
+                            if label == 'arena-cap64':
+                                expected.update(program['metadata_sha256'])
+                                write(runtime/'program.json', {name:{'sha256':digest} for name,digest in expected.items()})
+                                saved_case = runtime/'case/case.json'
+                            else:
+                                expected.update({name:program['metadata_sha256'][name]
+                                                 for name in ('out.json', 'bin/out_rpc.json')})
+                                write(runtime/'build.json', {'files':expected})
+                                saved_case = runtime/'sources/case.json'
+                            saved_case.parent.mkdir(parents=True)
+                            shutil.copyfile(folder/'case.json', saved_case)
+                        implementation.capture = capture
+                        implementation.audit = lambda runtime: dict(status='PASS', backend='hardware', profile=profile, delay=delay)
+                        return folder, implementation
+                    args = SimpleNamespace(cmaddr='fixture', package=staged/'package.tar.gz', build_record=staged/'build.json',
+                                           request=staged/'run-request.json', build=build, out=staged/'capture')
+                    previous = Path.cwd()
+                    with patch.object(app, '__file__', str(staged/app.ENTRY)), patch.object(app, 'driver', side_effect=fake_driver):
+                        if failure:
+                            with self.assertRaisesRegex(RuntimeError, 'fake runtime failed'):
+                                app.worker(args)
+                        else:
+                            self.assertEqual(app.worker(args)['status'], 'PASS')
+                            frozen_root = staged/('frozen-observation-'+run_id)
+                            self.assertEqual(app.audit_capture(frozen_root, case, profile, delay, args.out)['status'], 'PASS')
+                            with (args.out/'unexpected-sdk-file').open('xb') as stream: stream.truncate(50 << 20)
+                            with self.assertRaisesRegex(ValueError, 'tree byte bound'):
+                                app.audit_capture(frozen_root, case, profile, delay, args.out)
+                    self.assertEqual(Path.cwd(), previous)
+                    scratch = staged/('sdk-work-'+run_id)
+                    self.assertEqual(observed_cwds, [scratch])
+                    self.assertFalse(scratch.exists())
+                    record = app.read(args.out/'worker.json')
+                    self.assertEqual(record['status'], 'FAILED' if failure else 'PASS')
+                    self.assertEqual(record['sdk_workdir']['bytes'], 50 << 20)
+                    self.assertEqual(record['sdk_workdir']['entries'], 1)
+                    self.assertTrue(record['sdk_workdir']['removed'])
+                    self.assertTrue((args.out/'runtime/partial.json').is_file())
+
+    def test_sdk_scratch_rejects_alias_existing_path_and_accounts_limit(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            run_id = str(uuid.uuid4())
+            capture = base/'capture'
+            capture.mkdir()
+            work = app.fresh_sdk_workdir(capture, run_id)
+            with self.assertRaises(FileExistsError): app.fresh_sdk_workdir(capture, run_id)
+            with self.assertRaises(ValueError): app.fresh_sdk_workdir(work, run_id)
+            with (work/'overflow').open('xb') as stream: stream.truncate(app.SDK_WORK_LIMIT+1)
+            result = app.remove_sdk_workdir(work)
+            self.assertFalse(result['removed'])
+            self.assertIn('tree byte bound', result['error'])
+            self.assertTrue(work.exists())
+            (work/'overflow').unlink()
+            work.rmdir()
+            work.symlink_to(capture, target_is_directory=True)
+            with self.assertRaises(ValueError): app.fresh_sdk_workdir(capture, run_id)
 
 
 if __name__ == '__main__':

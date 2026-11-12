@@ -15,7 +15,10 @@ recorded in E234; publication alone does not establish hardware execution.
 Use the repository's compile/run/audit request workflow. Each appliance step
 performs one SDK action. Frozen source, compiler archive, actual generated ELF,
 run UUID and returned capture are bound before independent numerical replay.
-The 600-second worker command limit does not configure scheduler queue lifetime.
+The registered worker places SDK working files outside the capture tree, bounds
+that scratch separately, and removes it after runtime stop. The 32 MiB capture
+limit covers retained evidence. The 600-second worker command limit does not
+configure scheduler queue lifetime.
 No scheduler, SSH connection or endpoint discovery is added.
 
 Run offline checks with `uv run --locked --group dev -m csl_validation check

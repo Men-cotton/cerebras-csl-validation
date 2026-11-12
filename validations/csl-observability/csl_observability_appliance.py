@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parent
 FAMILY = 'csl-observability'
 ENTRY = 'csl_observability_appliance.py'
 PACKAGE_LIMIT, ARTIFACT_LIMIT, CAPTURE_LIMIT = 8 << 20, 64 << 20, 32 << 20
+SDK_WORK_LIMIT = 128 << 20
 SUPPORT = ('hardware_entry.py', 'appliance.py', 'saved_audit.py', 'portable.py')
 CASES = {'queue-n32': {'N': 32}, 'arena-cap64': {'CAP': 64}}
 
@@ -79,6 +80,29 @@ def bounded_tree(folder, limit):
                     total += info.st_size
                     need(total <= limit, 'tree byte bound')
     return dict(entries=count, bytes=total)
+
+
+def fresh_sdk_workdir(capture, run_id):
+    capture = Path(capture).absolute()
+    need(capture == capture.resolve() and str(uuid.UUID(run_id)) == run_id, 'SDK work directory owner')
+    path = capture.parent/('sdk-work-'+run_id)
+    need(path == path.resolve() and not path.is_relative_to(capture)
+         and not capture.is_relative_to(path), 'SDK work directory outside whole capture')
+    path.mkdir(exist_ok=False)
+    return path
+
+
+def remove_sdk_workdir(path):
+    """Remove only a successfully accounted directory created by this worker."""
+    result = dict(directory=path.name, limit_bytes=SDK_WORK_LIMIT, removed=False)
+    try:
+        need(path == path.resolve() and path.is_dir() and not path.is_symlink(), 'owned SDK work directory')
+        result.update(bounded_tree(path, SDK_WORK_LIMIT), accounting='complete')
+        shutil.rmtree(path)
+        result['removed'] = True
+    except Exception as error:
+        result.update(error=repr(error))
+    return result
 
 
 def driver(root, case):
@@ -214,6 +238,12 @@ def audit_capture(root, case, profile, delay, capture):
     need(sha(capture/'build.json') == sha(capture.parent/'build.json')
          and sha(capture/'run-request.json') == sha(capture.parent/'run-request.json'), 'returned metadata matches staged run')
     need(record['status'] == 'PASS' and record['backend'] == 'hardware', 'completed worker')
+    scratch = record['sdk_workdir']
+    need(scratch['directory'] == 'sdk-work-'+request['run_id']
+         and scratch['accounting'] == 'complete' and scratch['removed'] is True
+         and scratch['limit_bytes'] == SDK_WORK_LIMIT and type(scratch['bytes']) is int
+         and 0 <= scratch['bytes'] <= SDK_WORK_LIMIT and type(scratch['entries']) is int
+         and 0 <= scratch['entries'] <= 4000, 'bounded SDK scratch removed after capture exit')
     need(request['case'] == case and all(request[key] == value for key, value in control.items()), 'requested runtime arm')
     need(record['build_record_sha256'] == request['build_record_sha256'] == sha(capture/'build.json')
          and record['request_sha256'] == sha(capture/'run-request.json')
@@ -256,12 +286,20 @@ def worker(args):
         actual = actual_program(root, Path(args.build).resolve(), build['program_inventory'])
         helper.write(output/'actual-build-inventory.json', actual)
         folder, implementation = driver(root, request['case'])
-        if request['case'] == 'arena-cap64':
-            implementation.capture(folder, Path(args.build).resolve(), output/'runtime', 'hardware', args.cmaddr)
-        else:
-            implementation.capture(folder, output/'runtime', request['profile'], request['delay'],
-                                   build=Path(args.build).resolve(), backend='hardware', cmaddr=args.cmaddr,
-                                   registered_worker=True, trace=False)
+        sdk_workdir = fresh_sdk_workdir(output, request['run_id'])
+        try:
+            if request['case'] == 'arena-cap64':
+                implementation.capture(folder, Path(args.build).resolve(), output/'runtime', 'hardware', args.cmaddr,
+                                       sdk_workdir=sdk_workdir)
+            else:
+                implementation.capture(folder, output/'runtime', request['profile'], request['delay'],
+                                       build=Path(args.build).resolve(), backend='hardware', cmaddr=args.cmaddr,
+                                       registered_worker=True, trace=False, sdk_workdir=sdk_workdir)
+        finally:
+            # Both drivers restore cwd and attempt runtime.stop() before exit.
+            # Failed numerical/runtime work keeps its original exception and raw evidence.
+            record['sdk_workdir'] = remove_sdk_workdir(sdk_workdir)
+        need(record['sdk_workdir']['removed'], 'SDK scratch accounting or cleanup failed')
         record.update(status='PASS', actual_inventory_sha256=sha(output/'actual-build-inventory.json'))
         helper.write(output/'worker.json', record)
         audit_capture(root, request['case'], request['profile'], request['delay'], output)
