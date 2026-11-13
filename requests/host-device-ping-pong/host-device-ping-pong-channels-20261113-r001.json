@@ -1,0 +1,577 @@
+{
+  "description": "4096 PEs fixed, channels 1/2/4/8/16, zero and 1 byte through 64 MiB payloads; three fresh worker runtimes per arm; completed echo RTT with control/padding separate.",
+  "id": "host-device-ping-pong-channels-20261113-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "powers-p4096",
+        "--out",
+        "{output}/compile-c1"
+      ],
+      "kind": "appliance",
+      "name": "compile-c1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c1/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c1-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c1-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c1-r0/capture-data",
+        "--out",
+        "{output}/audit-c1-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c1-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c1/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c1-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c1-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c1-r1/capture-data",
+        "--out",
+        "{output}/audit-c1-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c1-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c1/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c1-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c1-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c1-r2/capture-data",
+        "--out",
+        "{output}/audit-c1-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c1-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "powers-p4096-c2",
+        "--out",
+        "{output}/compile-c2"
+      ],
+      "kind": "appliance",
+      "name": "compile-c2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c2",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c2/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c2-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c2-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c2",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c2-r0/capture-data",
+        "--out",
+        "{output}/audit-c2-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c2-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c2",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c2/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c2-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c2-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c2",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c2-r1/capture-data",
+        "--out",
+        "{output}/audit-c2-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c2-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c2",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c2/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c2-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c2-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c2",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c2-r2/capture-data",
+        "--out",
+        "{output}/audit-c2-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c2-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "powers-p4096-c4",
+        "--out",
+        "{output}/compile-c4"
+      ],
+      "kind": "appliance",
+      "name": "compile-c4",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c4",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c4/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c4-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c4-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c4",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c4-r0/capture-data",
+        "--out",
+        "{output}/audit-c4-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c4-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c4",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c4/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c4-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c4-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c4",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c4-r1/capture-data",
+        "--out",
+        "{output}/audit-c4-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c4-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c4",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c4/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c4-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c4-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c4",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c4-r2/capture-data",
+        "--out",
+        "{output}/audit-c4-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c4-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "powers-p4096-c8",
+        "--out",
+        "{output}/compile-c8"
+      ],
+      "kind": "appliance",
+      "name": "compile-c8",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c8",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c8/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c8-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c8-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c8",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c8-r0/capture-data",
+        "--out",
+        "{output}/audit-c8-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c8-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c8",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c8/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c8-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c8-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c8",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c8-r1/capture-data",
+        "--out",
+        "{output}/audit-c8-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c8-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c8",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c8/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c8-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c8-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c8",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c8-r2/capture-data",
+        "--out",
+        "{output}/audit-c8-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c8-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "powers-p4096-c16",
+        "--out",
+        "{output}/compile-c16"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c16-r0/capture-data",
+        "--out",
+        "{output}/audit-c16-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r0",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c16-r1/capture-data",
+        "--out",
+        "{output}/audit-c16-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r1",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "powers-p4096-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "powers-p4096-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c16-r2/capture-data",
+        "--out",
+        "{output}/audit-c16-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r2",
+      "script": "validations/host-device-ping-pong/host_device_ping_pong_appliance.py"
+    }
+  ]
+}
