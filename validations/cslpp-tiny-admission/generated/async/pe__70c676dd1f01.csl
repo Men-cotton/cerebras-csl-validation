@@ -1,0 +1,2500 @@
+const __struct_0 = struct { rx: .{ direction }, tx: .{ direction } };
+const __struct_1 = struct { counter: bool };
+const __struct_2 = struct { count_data: bool, kind: __struct_1, init_counter: comptime_int, max_counter: comptime_int, limit1: comptime_int };
+const __struct_3 = struct { routes: __struct_0, filter: __struct_2, teardown: bool };
+const __struct_4 = struct { color: color };
+const __struct_5 = struct { routes: __struct_0, teardown: bool };
+const __struct_6 = struct { rx: direction };
+const __struct_7 = struct { always_pop: bool };
+const __struct_8 = struct { pos1: __struct_6, ring_mode: bool, pop_mode: __struct_7 };
+const __struct_9 = struct { routes: __struct_0, switches: __struct_8, teardown: bool };
+const __struct_10 = struct { kind: __struct_1, count_data: bool, count_control: bool, init_counter: comptime_int, max_counter: comptime_int, limit1: i16 };
+const __struct_11 = struct { routes: __struct_0, filter: __struct_10, teardown: bool };
+const __struct_12 = struct { routes: __struct_0 };
+const __enum_0 = enum(u16) { CONFIG0, CONFIG1 = 2, DROP_COUNT = 4, DROP_COUNT_HI = 6, MAX_PASS = 8, MAX_PASS_HI = 10, COUNTER = 12, STATE = 14 };
+const __enum_1 = enum(u16) { X = 2, Y = 0 };
+const __struct_13 = struct { async: bool };
+const __struct_14 = struct { async: bool, unblock: local_task_id };
+const __struct_15 = struct { async: bool, activate: fn() void };
+const __struct_16 = struct { async: bool, unblock: data_task_id };
+const __enum_2 = enum(u16) { broadcast, scatter, gather, reduce_fadds };
+const __struct_17 = struct { root: u16, count: u16, type: __enum_2 };
+const __enum_3 = enum(u16) { Configure_network, Transfer_Data, Callback };
+const __struct_18 = struct { send_buf: [*]u32, recv_buf: [*]u32, state: __enum_3, callback: local_task_id, counter: u16 };
+const __struct_19 = struct { async: bool, activate: local_task_id };
+
+var sys__sys_mod__is_h2d_cmd: bool = false;
+var sys__sys_mod__memcpyH2D_c: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyH2D_px: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyH2D_py: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyH2D_w: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyH2D_h: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyH2D_addr: u16 = @as(u16, 0);
+var sys__sys_mod__memcpyH2D_pe_length: u16 = @as(u16, 0);
+var sys__sys_mod__memcpyH2D_is_half: u16 = @as(u16, 0);
+var sys__sys_mod__memcpyH2D_memcpy_optype: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyH2D_row_stride: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyH2D_col_stride: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyH2D_one_over_row_stride: f32 = @as(f32, 0.0);
+var sys__sys_mod__memcpyH2D_one_over_col_stride: f32 = @as(f32, 0.0);
+var sys__sys_mod__memcpyD2H_c: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyD2H_px: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyD2H_py: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyD2H_w: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyD2H_h: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyD2H_addr: u16 = @as(u16, 0);
+var sys__sys_mod__memcpyD2H_pe_length: u16 = @as(u16, 0);
+var sys__sys_mod__memcpyD2H_is_half: u16 = @as(u16, 0);
+var sys__sys_mod__sys_mod__stack_u32: [32]u32 = [32]u32{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+var sys__sys_mod__sys_mod__stack_last: i16 = @as(i16, 0);
+fn sys__sys_mod__sys_mod__stack_push(param0: u16) void {
+    @assert(sys__sys_mod__sys_mod__stack_last < @as(i16, 32));
+    const stack: [*]u16 = @ptrcast([*]u16, &sys__sys_mod__sys_mod__stack_u32);
+    const __csl_tmp0 = sys__sys_mod__sys_mod__stack_last;
+    const __csl_tmp1 = stack;
+    __csl_tmp1[__csl_tmp0] = param0;
+    sys__sys_mod__sys_mod__stack_last += @as(i16, 1);
+    return;
+}
+task sys__sys_mod__sys_mod__f_push(param0: u16, param1: i16) void {
+    sys__sys_mod__sys_mod__stack_push(param0);
+    return;
+}
+fn sys__sys_mod__sys_mod__block_cmd_stream() void {
+    @block(@get_data_task_id(@get_input_queue(1)));
+    return;
+}
+fn sys__sys_mod__sys_mod__unblock_cmd_stream() void {
+    @unblock(@get_data_task_id(@get_input_queue(1)));
+    return;
+}
+task sys__sys_mod__sys_mod__f_sys_exit() void {
+    sys__sys_mod__sys_mod__unblock_cmd_stream();
+    sys__sys_nop();
+    return;
+}
+task sys__sys_mod__sys_mod__f_sys_check_and_ignore(param0: u32) void {
+    return;
+}
+const sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__filters: [6]u16 = [6]u16{63104, 63120, 63136, 63152, 63168, 63184};
+fn sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__set_config(param0: u16, param1: __enum_0, param2: u16) void {
+    @set_config(((sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__filters)[param0] + @as(u16, param1)) / @as(u16, 2), param2, .{ 31552, 31599 });
+    return;
+}
+fn sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__get_config(param0: u16, param1: __enum_0) u16 {
+    return @get_config(((sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__filters)[param0] + @as(u16, param1)) / @as(u16, 2), .{ 31552, 31599 });
+}
+fn sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__set_active_limit(param0: u16, param1: u16) void {
+    @assert(param1 < @as(u16, 32768));
+    const double_limit: u16 = param1 * @as(u16, 2);
+    const pass_count: u16 = sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__get_config(param0, __enum_0.MAX_PASS) - @as(u16, 1);
+    const drop_count: u16 = if (double_limit < pass_count) @as(u16, 0) else double_limit - pass_count;
+    sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__set_config(param0, __enum_0.DROP_COUNT, drop_count);
+    return;
+}
+fn sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__set_max_counter(param0: u16, param1: u16) void {
+    @assert(param1 < @as(u16, 32768));
+    sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__set_config(param0, __enum_0.MAX_PASS, param1 * @as(u16, 2) + @as(u16, 1));
+    return;
+}
+fn sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__set_counter(param0: u16, param1: u16) void {
+    @assert(param1 < @as(u16, 32768));
+    const pass_count: u16 = sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__get_config(param0, __enum_0.MAX_PASS);
+    const double_counter: u16 = param1 * @as(u16, 2);
+    const state_is_drop: bool = double_counter > pass_count;
+    sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__set_config(param0, __enum_0.STATE, @as(u16, state_is_drop) << @as(u16, 6));
+    const counter_value: u16 = if (state_is_drop) double_counter - pass_count + @as(u16, 1) else double_counter;
+    sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__common__set_config(param0, __enum_0.COUNTER, counter_value);
+    return;
+}
+fn sys__sys_mod__memcpyh2d_mod_1__tile_config__teardown__exit(param0: color) void {
+    const __csl_tmp2 = .{ 31744, 31767 };
+    const id: u16 = @get_int(param0);
+    const addr: u16 = @as(u16, 31744) + id;
+    var state: u16 = @get_config(addr, __csl_tmp2);
+    @set_config(addr, state & @as(u16, 32767), __csl_tmp2);
+    return;
+}
+fn sys__sys_mod__memcpyh2d_mod_1__tile_config__color_config__set_io_direction(param0: u16) void {
+    const __csl_tmp3 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp3);
+    r_state |= @as(u16, 16);
+    @set_config(addr, r_state, __csl_tmp3);
+    return;
+}
+fn sys__sys_mod__memcpyh2d_mod_1__tile_config__color_config__clear_io_direction(param0: u16) void {
+    const __csl_tmp4 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp4);
+    r_state &= @as(u16, 65519);
+    @set_config(addr, r_state, __csl_tmp4);
+    return;
+}
+fn sys__sys_mod__memcpyh2d_mod_1__fabric__tile_config__get_fabric_coord(param0: __enum_1) u16 {
+    const reg_val: u16 = @get_config(@as(u16, 31813) + @as(u16, param0) / @as(u16, 2), .{ 31813, 31814 });
+    return reg_val & @as(u16, 2047);
+}
+fn sys__sys_mod__memcpyh2d_mod_1__fabric__get_x_coord() u16 {
+    return sys__sys_mod__memcpyh2d_mod_1__fabric__tile_config__get_fabric_coord(__enum_1.X) - @as(u16, 4);
+}
+fn sys__sys_mod__memcpyh2d_mod_1__fabric__get_y_coord() u16 {
+    return sys__sys_mod__memcpyh2d_mod_1__fabric__tile_config__get_fabric_coord(__enum_1.Y) - @as(u16, 1);
+}
+fn sys__sys_mod__memcpyh2d_mod_1__get_x_coord() u16 {
+    return sys__sys_mod__memcpyh2d_mod_1__fabric__get_x_coord();
+}
+fn sys__sys_mod__memcpyh2d_mod_1__get_y_coord() u16 {
+    return sys__sys_mod__memcpyh2d_mod_1__fabric__get_y_coord();
+}
+fn sys__sys_mod__memcpyh2d_mod_1__is_streaming_eval(param0: u16) i16 {
+    if (param0 < @as(u16, 24)) {
+        return @as(i16, 1);
+    } else {
+        @assert(@as(u16, 31) == param0);
+        return @as(i16, 0);
+    }
+    // unreachable
+}
+var sys__sys_mod__memcpyh2d_mod_1__num_receivers: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyh2d_mod_1__receiver_idx: i16 = @as(i16, -1);
+const sys__sys_mod__memcpyh2d_mod_1__dummy: [1]i16 = [1]i16{0};
+var sys__sys_mod__memcpyh2d_mod_1__fab_recv_wdsd: fabin_dsd = @get_dsd(fabin_dsd, .{ .extent = 1, .input_queue = @get_input_queue(0), .simd_mode = .{ .simd_off = true } });
+var sys__sys_mod__memcpyh2d_mod_1__fab_trans_wdsd: fabout_dsd = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(0), .simd_mode = .{ .simd_off = true } });
+fn sys__sys_mod__memcpyh2d_mod_1__memcpyh2d_start(param0: u16, param1: u16, param2: u16) void {
+    const __csl_tmp5 = .{ .async = true };
+    const __csl_tmp6 = @get_dsr(dsr_src1, 0);
+    const __csl_tmp7 = @get_dsr(dsr_dest, 0);
+    sys__sys_mod__memcpyh2d_mod_1__fab_recv_wdsd = @set_dsd_length(sys__sys_mod__memcpyh2d_mod_1__fab_recv_wdsd, param1);
+    var mem_x_buf_dsd: mem1d_dsd = @set_dsd_base_addr(@get_dsd(mem1d_dsd, .{ .base_address = &sys__sys_mod__memcpyh2d_mod_1__dummy, .offset = 0, .stride = 1, .extent = 42 }), @get_tensor_ptr(param0));
+    mem_x_buf_dsd = @set_dsd_length(mem_x_buf_dsd, param1);
+    @load_to_dsr(__csl_tmp7, mem_x_buf_dsd);
+    @load_to_dsr(__csl_tmp6, sys__sys_mod__memcpyh2d_mod_1__fab_recv_wdsd, .{ .async = true, .unblock = @get_local_task_id(27) });
+    if (@as(u16, 0) < param2) {
+        const __csl_tmp8 = @mov16(__csl_tmp7, __csl_tmp6, __csl_tmp5);
+    } else {
+        const __csl_tmp9 = @mov32(__csl_tmp7, __csl_tmp6, __csl_tmp5);
+    }
+    return;
+}
+fn sys__sys_mod__memcpyh2d_mod_1__unblock_cmd_stream() void {
+    @unblock(@get_data_task_id(@get_input_queue(1)));
+    return;
+}
+fn sys__sys_mod__memcpyh2d_mod_1__h2d_configure(param0: i16, param1: i16, param2: i16, param3: i16, param4: i16, param5: u16, param6: u16, param7: u16, param8: i16, param9: i16, param10: i16, param11: f32, param12: f32) void {
+    const __csl_tmp10 = .{ .async = true, .unblock = @get_local_task_id(27) };
+    const __csl_tmp11 = @get_dsr(dsr_dest, 0);
+    const __csl_tmp12 = .{ .async = true };
+    const __csl_tmp13 = @get_dsr(dsr_src1, 0);
+    const __csl_tmp14 = @get_color(23);
+    const __csl_tmp15 = @get_local_task_id(27);
+    const _px: i16 = @as(i16, sys__sys_mod__memcpyh2d_mod_1__get_x_coord());
+    const _py: i16 = @as(i16, sys__sys_mod__memcpyh2d_mod_1__get_y_coord());
+    const rel_x: i16 = _px - param1;
+    sys__sys_mod__memcpyh2d_mod_1__receiver_idx = rel_x;
+    if (@as(i16, 3) == param8) {
+        const p: i16 = @as(i16, @as(f32, rel_x) * param11);
+        const q: i16 = rel_x - p * param9;
+        if (@as(i16, 0) != q) {
+            sys__sys_mod__memcpyh2d_mod_1__receiver_idx = @as(i16, -1);
+        } else {
+            sys__sys_mod__memcpyh2d_mod_1__receiver_idx = p;
+        }
+    }
+    if (rel_x < @as(i16, 0)) {
+        sys__sys_mod__memcpyh2d_mod_1__receiver_idx = @as(i16, -1);
+    }
+    if (rel_x >= param3) {
+        sys__sys_mod__memcpyh2d_mod_1__receiver_idx = @as(i16, -1);
+    }
+    var inactive_row: bool = false;
+    if (@as(i16, 3) == param8) {
+        const p: i16 = @as(i16, @as(f32, _py - param2) * param12);
+        const q: i16 = _py - param2 - p * param10;
+        if (@as(i16, 0) != q) {
+            inactive_row = true;
+        }
+    }
+    if (_py < param2) {
+        inactive_row = true;
+    }
+    if (_py >= param2 + param4) {
+        inactive_row = true;
+    }
+    if (inactive_row) {
+        sys__sys_mod__memcpyh2d_mod_1__unblock_cmd_stream();
+        @unblock(__csl_tmp15);
+    } else {
+        if (@as(i16, -1) == sys__sys_mod__memcpyh2d_mod_1__receiver_idx) {
+            sys__sys_mod__memcpyh2d_mod_1__tile_config__color_config__clear_io_direction(@as(u16, 31767));
+            sys__sys_mod__memcpyh2d_mod_1__tile_config__teardown__exit(__csl_tmp14);
+            @unblock(__csl_tmp15);
+        } else {
+            const filter_id: u16 = @get_filter_id(__csl_tmp14);
+            sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__set_max_counter(filter_id, @as(u16, 0));
+            sys__sys_mod__memcpyh2d_mod_1__num_receivers = param3;
+            if (@as(i16, 3) == param8) {
+                const xi: i16 = @as(i16, 1) + @as(i16, @as(f32, param3 - @as(i16, 1)) * param11);
+                sys__sys_mod__memcpyh2d_mod_1__num_receivers = xi;
+            } else {
+                if (@as(i16, 1) == param8) {
+                    sys__sys_mod__memcpyh2d_mod_1__num_receivers = @as(i16, 1);
+                }
+            }
+            sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__set_active_limit(filter_id, @bitcast(u16, sys__sys_mod__memcpyh2d_mod_1__num_receivers - @as(i16, 1)));
+            var r_tmp: i16 = sys__sys_mod__memcpyh2d_mod_1__num_receivers;
+            var r_state: i16 = sys__sys_mod__memcpyh2d_mod_1__receiver_idx;
+            r_tmp -= r_state;
+            if (@as(i16, 0) == r_state) {
+                r_tmp = @as(i16, 0);
+            }
+            if (@as(i16, 1) == param8) {
+                r_tmp = @as(i16, 0);
+            }
+            sys__sys_mod__memcpyh2d_mod_1__tile_config__filters__set_counter(filter_id, @bitcast(u16, r_tmp));
+            sys__sys_mod__memcpyh2d_mod_1__tile_config__color_config__set_io_direction(@as(u16, 31767));
+            sys__sys_mod__memcpyh2d_mod_1__tile_config__teardown__exit(__csl_tmp14);
+            if (@as(i16, 0) == sys__sys_mod__memcpyh2d_mod_1__is_streaming_eval(@as(u16, param0))) {
+                sys__sys_mod__memcpyh2d_mod_1__memcpyh2d_start(param5, param6, param7);
+            } else {
+                sys__sys_mod__memcpyh2d_mod_1__fab_recv_wdsd = @set_dsd_length(sys__sys_mod__memcpyh2d_mod_1__fab_recv_wdsd, param6);
+                @load_to_dsr(__csl_tmp13, sys__sys_mod__memcpyh2d_mod_1__fab_recv_wdsd, __csl_tmp12);
+                sys__sys_mod__memcpyh2d_mod_1__fab_trans_wdsd = @set_dsd_length(sys__sys_mod__memcpyh2d_mod_1__fab_trans_wdsd, param6);
+                @load_to_dsr(__csl_tmp11, sys__sys_mod__memcpyh2d_mod_1__fab_trans_wdsd, __csl_tmp10);
+                const __csl_tmp16 = @mov32(__csl_tmp11, __csl_tmp13, __csl_tmp12);
+            }
+        }
+    }
+    return;
+}
+fn sys__sys_mod__memcpyd2h_mod__tile_config__teardown__exit(param0: color) void {
+    const __csl_tmp17 = .{ 31744, 31767 };
+    const id: u16 = @get_int(param0);
+    const addr: u16 = @as(u16, 31744) + id;
+    var state: u16 = @get_config(addr, __csl_tmp17);
+    @set_config(addr, state & @as(u16, 32767), __csl_tmp17);
+    return;
+}
+fn sys__sys_mod__memcpyd2h_mod__tile_config__color_config__encode_rx_routes_inst67(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 0);
+    return config;
+}
+fn sys__sys_mod__memcpyd2h_mod__tile_config__color_config__encode_rx_routes_inst64(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 128);
+    return config;
+}
+fn sys__sys_mod__memcpyd2h_mod__tile_config__color_config__encode_tx_routes(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 2);
+    return config;
+}
+fn sys__sys_mod__memcpyd2h_mod__tile_config__color_config__reset_routes_inst66(param0: u16) void {
+    const __csl_tmp18 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp18);
+    r_state &= @as(u16, 65280);
+    r_state |= sys__sys_mod__memcpyd2h_mod__tile_config__color_config__encode_rx_routes_inst67(r_state);
+    r_state |= sys__sys_mod__memcpyd2h_mod__tile_config__color_config__encode_tx_routes(r_state);
+    @set_config(addr, r_state, __csl_tmp18);
+    return;
+}
+fn sys__sys_mod__memcpyd2h_mod__tile_config__color_config__reset_routes_inst63(param0: u16) void {
+    const __csl_tmp19 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp19);
+    r_state &= @as(u16, 65280);
+    r_state |= sys__sys_mod__memcpyd2h_mod__tile_config__color_config__encode_rx_routes_inst64(r_state);
+    r_state |= sys__sys_mod__memcpyd2h_mod__tile_config__color_config__encode_tx_routes(r_state);
+    @set_config(addr, r_state, __csl_tmp19);
+    return;
+}
+fn sys__sys_mod__memcpyd2h_mod__tile_config__switch_config__clear_current_position(param0: u16) void {
+    const __csl_tmp20 = .{ 31872, 31967 };
+    const addr: u16 = param0;
+    var r_switch_state: u16 = @get_config(addr, __csl_tmp20);
+    r_switch_state &= @as(u16, 65520);
+    @set_config(addr, r_switch_state, __csl_tmp20);
+    return;
+}
+fn sys__sys_mod__memcpyd2h_mod__fabric__tile_config__get_fabric_coord(param0: __enum_1) u16 {
+    const reg_val: u16 = @get_config(@as(u16, 31813) + @as(u16, param0) / @as(u16, 2), .{ 31813, 31814 });
+    return reg_val & @as(u16, 2047);
+}
+fn sys__sys_mod__memcpyd2h_mod__fabric__get_x_coord() u16 {
+    return sys__sys_mod__memcpyd2h_mod__fabric__tile_config__get_fabric_coord(__enum_1.X) - @as(u16, 4);
+}
+fn sys__sys_mod__memcpyd2h_mod__fabric__get_y_coord() u16 {
+    return sys__sys_mod__memcpyd2h_mod__fabric__tile_config__get_fabric_coord(__enum_1.Y) - @as(u16, 1);
+}
+fn sys__sys_mod__memcpyd2h_mod__get_x_coord() u16 {
+    return sys__sys_mod__memcpyd2h_mod__fabric__get_x_coord();
+}
+fn sys__sys_mod__memcpyd2h_mod__get_y_coord() u16 {
+    return sys__sys_mod__memcpyd2h_mod__fabric__get_y_coord();
+}
+fn sys__sys_mod__memcpyd2h_mod__is_streaming_eval(param0: u16) i16 {
+    if (param0 < @as(u16, 24)) {
+        return @as(i16, 1);
+    } else {
+        @assert(@as(u16, 31) == param0);
+        return @as(i16, 0);
+    }
+    // unreachable
+}
+var sys__sys_mod__memcpyd2h_mod__data_buf: [1]u32 = [1]u32{0};
+var sys__sys_mod__memcpyd2h_mod__j: u16 = @as(u16, 0);
+var sys__sys_mod__memcpyd2h_mod__pe_length: u16 = @as(u16, 0);
+var sys__sys_mod__memcpyd2h_mod__x_first: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyd2h_mod__x_last: i16 = @as(i16, 0);
+var sys__sys_mod__memcpyd2h_mod__is_active: bool = false;
+var sys__sys_mod__memcpyd2h_mod__routing_active: bool = false;
+var sys__sys_mod__memcpyd2h_mod__memcpyD2H_c: u16 = @as(u16, 0);
+var sys__sys_mod__memcpyd2h_mod__memcpyD2H_is_half: u16 = @as(u16, 0);
+var sys__sys_mod__memcpyd2h_mod__is_streaming: i16 = @as(i16, 1);
+const sys__sys_mod__memcpyd2h_mod__dummy: [1]i16 = [1]i16{0};
+var sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd: mem1d_dsd = @get_dsd(mem1d_dsd, .{ .base_address = &sys__sys_mod__memcpyd2h_mod__dummy, .offset = 0, .stride = 1, .extent = 1 });
+var sys__sys_mod__memcpyd2h_mod__ctrl_11: [1]u32 = [1]u32{190812745};
+var sys__sys_mod__memcpyd2h_mod__ctrl_1: [1]u32 = [1]u32{157258313};
+var sys__sys_mod__memcpyd2h_mod__mem_ctrl_buf_dsd: mem1d_dsd = @get_dsd(mem1d_dsd, .{ .base_address = &sys__sys_mod__memcpyd2h_mod__ctrl_11, .offset = 0, .stride = 1, .extent = 1 });
+var sys__sys_mod__memcpyd2h_mod__sw_td: [2]u32 = [2]u32{0, 0};
+const sys__sys_mod__memcpyd2h_mod__teardown_buf: [1]u32 = [1]u32{165646921};
+fn sys__sys_mod__memcpyd2h_mod__memcpyd2h_start(param0: u16, param1: u16, param2: i16, param3: i16, param4: i16, param5: i16, param6: i16, param7: u16) void {
+    const __csl_tmp21 = @get_data_task_id(@get_input_queue(0));
+    const __csl_tmp22 = @get_local_task_id(21);
+    const _px: i16 = @as(i16, sys__sys_mod__memcpyd2h_mod__get_x_coord());
+    sys__sys_mod__memcpyd2h_mod__memcpyD2H_c = @as(u16, param6);
+    sys__sys_mod__memcpyd2h_mod__memcpyD2H_is_half = param7;
+    sys__sys_mod__memcpyd2h_mod__is_streaming = sys__sys_mod__memcpyd2h_mod__is_streaming_eval(sys__sys_mod__memcpyd2h_mod__memcpyD2H_c);
+    sys__sys_mod__memcpyd2h_mod__j = @as(u16, 0);
+    sys__sys_mod__memcpyd2h_mod__pe_length = param1;
+    sys__sys_mod__memcpyd2h_mod__x_first = param2;
+    sys__sys_mod__memcpyd2h_mod__x_last = param2 + param4 - @as(i16, 1);
+    if (_px == sys__sys_mod__memcpyd2h_mod__x_last) {
+        sys__sys_mod__memcpyd2h_mod__mem_ctrl_buf_dsd = @set_dsd_base_addr(sys__sys_mod__memcpyd2h_mod__mem_ctrl_buf_dsd, sys__sys_mod__memcpyd2h_mod__ctrl_1);
+        (sys__sys_mod__memcpyd2h_mod__sw_td)[@as(u16, 0)] = (sys__sys_mod__memcpyd2h_mod__ctrl_1)[@as(u16, 0)];
+    } else {
+        sys__sys_mod__memcpyd2h_mod__mem_ctrl_buf_dsd = @set_dsd_base_addr(sys__sys_mod__memcpyd2h_mod__mem_ctrl_buf_dsd, sys__sys_mod__memcpyd2h_mod__ctrl_11);
+        (sys__sys_mod__memcpyd2h_mod__sw_td)[@as(u16, 0)] = (sys__sys_mod__memcpyd2h_mod__ctrl_11)[@as(u16, 0)];
+    }
+    (sys__sys_mod__memcpyd2h_mod__sw_td)[@as(u16, 1)] = @as(u32, 165646921);
+    if (@as(i16, 0) == sys__sys_mod__memcpyd2h_mod__is_streaming) {
+        sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd = @set_dsd_base_addr(sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd, @get_tensor_ptr(param0));
+        sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd = @set_dsd_length(sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd, @as(u16, 1));
+        @activate(__csl_tmp22);
+    } else {
+        sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd = @set_dsd_base_addr(sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd, sys__sys_mod__memcpyd2h_mod__data_buf);
+        sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd = @set_dsd_length(sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd, @as(u16, 1));
+        @unblock(__csl_tmp21);
+    }
+    return;
+}
+task sys__sys_mod__memcpyd2h_mod__f_user_memcpyd2h_data_x(param0: u32) void {
+    const __csl_tmp23 = @get_dsr(dsr_src1, 0);
+    const __csl_tmp24 = @get_dsr(dsr_dest, 0);
+    @block(@get_data_task_id(@get_input_queue(0)));
+    (sys__sys_mod__memcpyd2h_mod__data_buf)[@as(u16, 0)] = param0;
+    @load_to_dsr(__csl_tmp24, @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(0), .simd_mode = .{ .simd_off = true } }), .{ .async = true, .activate = sys__sys_mod__memcpyd2h_mod__f_send_ctrl });
+    @load_to_dsr(__csl_tmp23, sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd);
+    const __csl_tmp25 = @mov32(__csl_tmp24, __csl_tmp23, .{ .async = true });
+    sys__sys_mod__memcpyd2h_mod__j += @as(u16, 1);
+    return;
+}
+task sys__sys_mod__memcpyd2h_mod__f_send_data() void {
+    const __csl_tmp26 = @get_dsd(mem1d_dsd, .{ .base_address = &sys__sys_mod__memcpyd2h_mod__teardown_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp27 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(0), .control = true, .simd_mode = .{ .simd_off = true } });
+    const __csl_tmp28 = .{ .async = true };
+    const __csl_tmp29 = @get_dsr(dsr_src1, 0);
+    const __csl_tmp30 = .{ .async = true, .activate = sys__sys_mod__memcpyd2h_mod__f_send_ctrl };
+    const __csl_tmp31 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(0), .simd_mode = .{ .simd_off = true } });
+    const __csl_tmp32 = @get_dsr(dsr_dest, 0);
+    if (sys__sys_mod__memcpyd2h_mod__j < sys__sys_mod__memcpyd2h_mod__pe_length) {
+        @load_to_dsr(__csl_tmp32, __csl_tmp31, __csl_tmp30);
+        @load_to_dsr(__csl_tmp29, sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd);
+        if (@as(u16, 0) < sys__sys_mod__memcpyd2h_mod__memcpyD2H_is_half) {
+            const __csl_tmp33 = @mov16(__csl_tmp32, __csl_tmp29, __csl_tmp28);
+            sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd = @increment_dsd_offset(sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd, @as(i16, 1), f16);
+        } else {
+            const __csl_tmp34 = @mov32(__csl_tmp32, __csl_tmp29, __csl_tmp28);
+            sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd = @increment_dsd_offset(sys__sys_mod__memcpyd2h_mod__mem_x_buf_dsd, @as(i16, 1), f32);
+        }
+        sys__sys_mod__memcpyd2h_mod__j += @as(u16, 1);
+    } else {
+        const _px: i16 = @as(i16, sys__sys_mod__memcpyd2h_mod__get_x_coord());
+        if (sys__sys_mod__memcpyd2h_mod__x_first == _px) {
+            @load_to_dsr(__csl_tmp32, __csl_tmp27, __csl_tmp28);
+            @load_to_dsr(__csl_tmp29, __csl_tmp26);
+            const __csl_tmp35 = @mov32(__csl_tmp32, __csl_tmp29, __csl_tmp28);
+        }
+    }
+    return;
+}
+task sys__sys_mod__memcpyd2h_mod__f_send_ctrl() void {
+    const __csl_tmp36 = @get_dsd(mem1d_dsd, .{ .base_address = &sys__sys_mod__memcpyd2h_mod__sw_td, .offset = 0, .stride = 1, .extent = 2 });
+    const __csl_tmp37 = @get_dsd(fabout_dsd, .{ .extent = 2, .output_queue = @get_output_queue(0), .control = true, .simd_mode = .{ .simd_off = true } });
+    const __csl_tmp38 = .{ .async = true, .unblock = @get_data_task_id(@get_input_queue(0)) };
+    const __csl_tmp39 = .{ .async = true };
+    const __csl_tmp40 = @get_dsr(dsr_src1, 0);
+    const __csl_tmp41 = .{ .async = true, .activate = sys__sys_mod__memcpyd2h_mod__f_send_data };
+    const __csl_tmp42 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(0), .control = true, .simd_mode = .{ .simd_off = true } });
+    const __csl_tmp43 = @get_dsr(dsr_dest, 0);
+    if (@as(i16, 0) == sys__sys_mod__memcpyd2h_mod__is_streaming) {
+        @load_to_dsr(__csl_tmp43, __csl_tmp42, __csl_tmp41);
+        @load_to_dsr(__csl_tmp40, sys__sys_mod__memcpyd2h_mod__mem_ctrl_buf_dsd);
+        const __csl_tmp44 = @mov32(__csl_tmp43, __csl_tmp40, __csl_tmp39);
+    } else {
+        if (sys__sys_mod__memcpyd2h_mod__j < sys__sys_mod__memcpyd2h_mod__pe_length) {
+            @load_to_dsr(__csl_tmp43, __csl_tmp42, __csl_tmp38);
+            @load_to_dsr(__csl_tmp40, sys__sys_mod__memcpyd2h_mod__mem_ctrl_buf_dsd);
+            const __csl_tmp45 = @mov32(__csl_tmp43, __csl_tmp40, __csl_tmp39);
+        } else {
+            const _px: i16 = @as(i16, sys__sys_mod__memcpyd2h_mod__get_x_coord());
+            if (sys__sys_mod__memcpyd2h_mod__x_first == _px) {
+                @load_to_dsr(__csl_tmp43, __csl_tmp37, __csl_tmp39);
+                @load_to_dsr(__csl_tmp40, __csl_tmp36);
+                const __csl_tmp46 = @mov32(__csl_tmp43, __csl_tmp40, __csl_tmp39);
+            } else {
+                @load_to_dsr(__csl_tmp43, __csl_tmp42, __csl_tmp39);
+                @load_to_dsr(__csl_tmp40, sys__sys_mod__memcpyd2h_mod__mem_ctrl_buf_dsd);
+                const __csl_tmp47 = @mov32(__csl_tmp43, __csl_tmp40, __csl_tmp39);
+            }
+        }
+    }
+    return;
+}
+fn sys__sys_mod__memcpyd2h_mod__d2h_configure(param0: i16, param1: i16, param2: i16, param3: i16, param4: i16, param5: u16, param6: u16, param7: u16) void {
+    const __csl_tmp48 = @get_local_task_id(28);
+    const __csl_tmp49 = @get_color(21);
+    const _px: i16 = @as(i16, sys__sys_mod__memcpyd2h_mod__get_x_coord());
+    const _py: i16 = @as(i16, sys__sys_mod__memcpyd2h_mod__get_y_coord());
+    var x_first: i16 = param1;
+    var x_last: i16 = param1 + param3 - @as(i16, 1);
+    var y_first: i16 = param2;
+    var y_last: i16 = param2 + param4 - @as(i16, 1);
+    sys__sys_mod__memcpyd2h_mod__routing_active = false;
+    if (_px >= x_first and _py <= y_last and _py >= y_first) {
+        sys__sys_mod__memcpyd2h_mod__routing_active = true;
+    }
+    sys__sys_mod__memcpyd2h_mod__is_active = false;
+    if (_px <= x_last and sys__sys_mod__memcpyd2h_mod__routing_active) {
+        sys__sys_mod__memcpyd2h_mod__is_active = true;
+    }
+    if (sys__sys_mod__memcpyd2h_mod__routing_active) {
+        sys__sys_mod__memcpyd2h_mod__tile_config__switch_config__clear_current_position(@as(u16, 31959));
+        if (x_first == _px) {
+            sys__sys_mod__memcpyd2h_mod__tile_config__color_config__reset_routes_inst63(@as(u16, 31765));
+        } else {
+            sys__sys_mod__memcpyd2h_mod__tile_config__color_config__reset_routes_inst66(@as(u16, 31765));
+        }
+        sys__sys_mod__memcpyd2h_mod__tile_config__teardown__exit(__csl_tmp49);
+        if (sys__sys_mod__memcpyd2h_mod__is_active) {
+            sys__sys_mod__memcpyd2h_mod__memcpyd2h_start(param5, param6, param1, param2, param3, param4, param0, param7);
+        }
+    } else {
+        @activate(__csl_tmp48);
+    }
+    return;
+}
+fn sys__sys_mod__unblock_cmd_stream() void {
+    sys__sys_mod__sys_mod__unblock_cmd_stream();
+    return;
+}
+fn sys__sys_mod__tile_config__queue_flush__exit() void {
+    @set_config(@as(u16, 31634), @as(u16, 1));
+    return;
+}
+fn sys__sys_mod__tile_config__input_queue_config__get_input_queue_config_addr(param0: u16) u16 {
+    return @as(u16, 31680) + @as(u16, 2) * @get_int(param0);
+}
+fn sys__sys_mod__tile_config__input_queue_config__encode_input_queue(param0: u16, param1: i16, param2: bool) void {
+    const __csl_tmp50 = .{ 31680, 31695 };
+    const addr: u16 = sys__sys_mod__tile_config__input_queue_config__get_input_queue_config_addr(param0);
+    var val: u16 = @get_config(addr, __csl_tmp50);
+    if (param2) {
+        val |= @as(u16, 2048);
+    } else {
+        val &= @as(u16, 63487);
+    }
+    val &= @as(u16, 65504);
+    val += @as(u16, param1);
+    @set_config(addr, val, __csl_tmp50);
+    return;
+}
+fn sys__sys_mod__tile_config__output_queue_config__get_output_queue_config_addr(param0: u16) u16 {
+    return @as(u16, 31616) + @as(u16, 1) * @get_int(param0);
+}
+fn sys__sys_mod__tile_config__output_queue_config__encode_output_queue(param0: u16, param1: i16) void {
+    const __csl_tmp51 = .{ 31616, 31623 };
+    const addr: u16 = sys__sys_mod__tile_config__output_queue_config__get_output_queue_config_addr(param0);
+    var val: u16 = @get_config(addr, __csl_tmp51);
+    val &= @as(u16, 65039);
+    val = val + @as(u16, param1) << @as(u16, 4);
+    @set_config(addr, val, __csl_tmp51);
+    return;
+}
+fn sys__sys_mod__teardown_h2d() void {
+    @activate(@get_local_task_id(27));
+    return;
+}
+task sys__sys_mod__f_ublk_c22() void {
+    sys__sys_mod__unblock_cmd_stream();
+    return;
+}
+fn sys__sys_mod__teardown_d2h() void {
+    @block(@get_data_task_id(@get_input_queue(0)));
+    @activate(@get_local_task_id(28));
+    return;
+}
+task sys__sys_mod__f_memcpyh2d() void {
+    @assert(sys__sys_mod__sys_mod__stack_last == @as(i16, 15));
+    const stack: [*]u16 = @ptrcast([*]u16, &sys__sys_mod__sys_mod__stack_u32);
+    const __csl_tmp52 = stack;
+    var c: i16 = @bitcast(i16, __csl_tmp52[@as(u16, 0)]);
+    const __csl_tmp53 = stack;
+    var px: i16 = @bitcast(i16, __csl_tmp53[@as(u16, 1)]);
+    const __csl_tmp54 = stack;
+    var py: i16 = @bitcast(i16, __csl_tmp54[@as(u16, 2)]);
+    const __csl_tmp55 = stack;
+    var w: i16 = @bitcast(i16, __csl_tmp55[@as(u16, 3)]);
+    const __csl_tmp56 = stack;
+    var h: i16 = @bitcast(i16, __csl_tmp56[@as(u16, 4)]);
+    const __csl_tmp57 = stack;
+    var d_A: u16 = @bitcast(u16, __csl_tmp57[@as(u16, 5)]);
+    const __csl_tmp58 = stack;
+    var pe_length: u16 = @bitcast(u16, __csl_tmp58[@as(u16, 6)]);
+    const __csl_tmp59 = stack;
+    var is_half: u16 = @bitcast(u16, __csl_tmp59[@as(u16, 7)]);
+    const __csl_tmp60 = stack;
+    var memcpy_optype: i16 = @bitcast(i16, __csl_tmp60[@as(u16, 8)]);
+    const __csl_tmp61 = stack;
+    var row_stride: i16 = @bitcast(i16, __csl_tmp61[@as(u16, 9)]);
+    const __csl_tmp62 = stack;
+    var col_stride: i16 = @bitcast(i16, __csl_tmp62[@as(u16, 10)]);
+    const __csl_tmp63 = stack;
+    var one_over_row_stride: f32 = @bitcast(f32, @as(u32, __csl_tmp63[@as(u16, 12)]) << @as(u32, 16) + @as(u32, __csl_tmp63[@as(u16, 11)]));
+    const __csl_tmp64 = stack;
+    var one_over_col_stride: f32 = @bitcast(f32, @as(u32, __csl_tmp64[@as(u16, 14)]) << @as(u32, 16) + @as(u32, __csl_tmp64[@as(u16, 13)]));
+    sys__sys_mod__sys_mod__stack_last = @as(i16, 0);
+    sys__sys_mod__memcpyH2D_c = c;
+    sys__sys_mod__memcpyH2D_px = px;
+    sys__sys_mod__memcpyH2D_py = py;
+    sys__sys_mod__memcpyH2D_w = w;
+    sys__sys_mod__memcpyH2D_h = h;
+    sys__sys_mod__memcpyH2D_addr = d_A;
+    sys__sys_mod__memcpyH2D_pe_length = pe_length;
+    sys__sys_mod__memcpyH2D_is_half = is_half;
+    sys__sys_mod__memcpyH2D_memcpy_optype = memcpy_optype;
+    sys__sys_mod__memcpyH2D_row_stride = row_stride;
+    sys__sys_mod__memcpyH2D_col_stride = col_stride;
+    sys__sys_mod__memcpyH2D_one_over_row_stride = one_over_row_stride;
+    sys__sys_mod__memcpyH2D_one_over_col_stride = one_over_col_stride;
+    sys__sys_mod__sys_mod__block_cmd_stream();
+    sys__sys_mod__tile_config__input_queue_config__encode_input_queue(@as(u16, 0), @as(i16, 23), true);
+    @block(@get_local_task_id(27));
+    @queue_flush(@get_output_queue(0));
+    sys__sys_mod__is_h2d_cmd = true;
+    @block(@get_data_task_id(@get_input_queue(0)));
+    return;
+}
+task sys__sys_mod__f_memcpyd2h() void {
+    @assert(sys__sys_mod__sys_mod__stack_last == @as(i16, 8));
+    const stack: [*]u16 = @ptrcast([*]u16, &sys__sys_mod__sys_mod__stack_u32);
+    const __csl_tmp65 = stack;
+    var c: i16 = @bitcast(i16, __csl_tmp65[@as(u16, 0)]);
+    const __csl_tmp66 = stack;
+    var px: i16 = @bitcast(i16, __csl_tmp66[@as(u16, 1)]);
+    const __csl_tmp67 = stack;
+    var py: i16 = @bitcast(i16, __csl_tmp67[@as(u16, 2)]);
+    const __csl_tmp68 = stack;
+    var w: i16 = @bitcast(i16, __csl_tmp68[@as(u16, 3)]);
+    const __csl_tmp69 = stack;
+    var h: i16 = @bitcast(i16, __csl_tmp69[@as(u16, 4)]);
+    const __csl_tmp70 = stack;
+    var d_A: u16 = @bitcast(u16, __csl_tmp70[@as(u16, 5)]);
+    const __csl_tmp71 = stack;
+    var pe_length: u16 = @bitcast(u16, __csl_tmp71[@as(u16, 6)]);
+    const __csl_tmp72 = stack;
+    var is_half: u16 = @bitcast(u16, __csl_tmp72[@as(u16, 7)]);
+    sys__sys_mod__sys_mod__stack_last = @as(i16, 0);
+    sys__sys_mod__memcpyD2H_c = c;
+    sys__sys_mod__memcpyD2H_px = px;
+    sys__sys_mod__memcpyD2H_py = py;
+    sys__sys_mod__memcpyD2H_w = w;
+    sys__sys_mod__memcpyD2H_h = h;
+    sys__sys_mod__memcpyD2H_addr = d_A;
+    sys__sys_mod__memcpyD2H_pe_length = pe_length;
+    sys__sys_mod__memcpyD2H_is_half = is_half;
+    sys__sys_mod__sys_mod__block_cmd_stream();
+    sys__sys_mod__tile_config__input_queue_config__encode_input_queue(@as(u16, 0), sys__sys_mod__memcpyD2H_c, false);
+    @queue_flush(@get_output_queue(0));
+    sys__sys_mod__is_h2d_cmd = false;
+    return;
+}
+fn sys__sys_mod__oq0_teardow_handler() void {
+    if (sys__sys_mod__is_h2d_cmd) {
+        sys__sys_mod__tile_config__output_queue_config__encode_output_queue(@as(u16, 0), sys__sys_mod__memcpyH2D_c);
+        sys__sys_mod__memcpyh2d_mod_1__h2d_configure(sys__sys_mod__memcpyH2D_c, sys__sys_mod__memcpyH2D_px, sys__sys_mod__memcpyH2D_py, sys__sys_mod__memcpyH2D_w, sys__sys_mod__memcpyH2D_h, sys__sys_mod__memcpyH2D_addr, sys__sys_mod__memcpyH2D_pe_length, sys__sys_mod__memcpyH2D_is_half, sys__sys_mod__memcpyH2D_memcpy_optype, sys__sys_mod__memcpyH2D_row_stride, sys__sys_mod__memcpyH2D_col_stride, sys__sys_mod__memcpyH2D_one_over_row_stride, sys__sys_mod__memcpyH2D_one_over_col_stride);
+    } else {
+        sys__sys_mod__tile_config__output_queue_config__encode_output_queue(@as(u16, 0), @as(i16, 21));
+        sys__sys_mod__memcpyd2h_mod__d2h_configure(sys__sys_mod__memcpyD2H_c, sys__sys_mod__memcpyD2H_px, sys__sys_mod__memcpyD2H_py, sys__sys_mod__memcpyD2H_w, sys__sys_mod__memcpyD2H_h, sys__sys_mod__memcpyD2H_addr, sys__sys_mod__memcpyD2H_pe_length, sys__sys_mod__memcpyD2H_is_half);
+    }
+    sys__sys_mod__tile_config__queue_flush__exit();
+    return;
+}
+extern fn sys__sys_mod__rpc_server(param0: [*]const u32) linkname("rpc_server") void;
+task sys__sys_mod__f_rpc(param0: i16) void {
+    sys__sys_mod__sys_mod__block_cmd_stream();
+    @assert(sys__sys_mod__sys_mod__stack_last >= @as(i16, 4));
+    sys__sys_mod__rpc_server(&sys__sys_mod__sys_mod__stack_u32);
+    sys__sys_mod__sys_mod__stack_last = @as(i16, 0);
+    return;
+}
+fn sys__sys_nop() void {
+    return;
+}
+fn sys__unblock_cmd_stream() void {
+    sys__sys_mod__unblock_cmd_stream();
+    return;
+}
+fn timestamp__ts__set_tsc_ctrl_reg(param0: u16) void {
+    @set_config(@as(u16, 31540), param0);
+    return;
+}
+fn timestamp__ts__get_value(param0: *[3]u16, param1: u16) void {
+    (param0.*)[@as(u16, 0)] = @get_config(param1 + @as(u16, 0));
+    (param0.*)[@as(u16, 1)] = @get_config(param1 + @as(u16, 1));
+    (param0.*)[@as(u16, 2)] = @get_config(param1 + @as(u16, 2));
+    return;
+}
+fn timestamp__ts__enable_tsc() void {
+    timestamp__ts__set_tsc_ctrl_reg(@as(u16, 7));
+    timestamp__ts__reset_tsc_counter();
+    return;
+}
+fn timestamp__ts__disable_tsc() void {
+    timestamp__ts__set_tsc_ctrl_reg(@as(u16, 0));
+    return;
+}
+fn timestamp__ts__get_timestamp(param0: *[3]u16) void {
+    timestamp__ts__get_value(param0, @as(u16, 31536));
+    return;
+}
+fn timestamp__ts__reset_tsc_counter() void {
+    @set_config(@as(u16, 31536), @as(u16, 0));
+    @set_config(@as(u16, 31537), @as(u16, 0));
+    @set_config(@as(u16, 31538), @as(u16, 0));
+    return;
+}
+fn timestamp__enable_tsc() void {
+    timestamp__ts__enable_tsc();
+    return;
+}
+fn timestamp__disable_tsc() void {
+    timestamp__ts__disable_tsc();
+    return;
+}
+fn timestamp__get_timestamp(param0: *[3]u16) void {
+    timestamp__ts__get_timestamp(param0);
+    return;
+}
+fn mpi_x__layout_module__tile_config__get_fabric_coord(param0: __enum_1) u16 {
+    const reg_val: u16 = @get_config(@as(u16, 31813) + @as(u16, param0) / @as(u16, 2), .{ 31813, 31814 });
+    return reg_val & @as(u16, 2047);
+}
+fn mpi_x__layout_module__get_x_coord() u16 {
+    return mpi_x__layout_module__tile_config__get_fabric_coord(__enum_1.X) - @as(u16, 4);
+}
+fn mpi_x__layout_module__get_y_coord() u16 {
+    return mpi_x__layout_module__tile_config__get_fabric_coord(__enum_1.Y) - @as(u16, 1);
+}
+fn mpi_x__tile_config__target__get_switch_setting_word_offset_inst139() u16 {
+    return @as(u16, 0);
+}
+fn mpi_x__tile_config__target__get_switch_setting_word_offset_inst136() u16 {
+    return @as(u16, 3);
+}
+fn mpi_x__tile_config__target__set_invalid_for_all_switch_positions(param0: u16) void {
+    const __csl_tmp73 = .{ 31872, 31967 };
+    const addr_reg1: u16 = param0 + @as(u16, 1);
+    var r_switch_state: u16 = @get_config(param0, __csl_tmp73);
+    r_switch_state &= @as(u16, 65280);
+    r_switch_state |= @as(u16, 160);
+    @set_config(param0, r_switch_state, __csl_tmp73);
+    r_switch_state = @as(u16, 41120);
+    @set_config(addr_reg1, r_switch_state, __csl_tmp73);
+    return;
+}
+const mpi_x__tile_config__filters__common__filters: [6]u16 = [6]u16{63104, 63120, 63136, 63152, 63168, 63184};
+fn mpi_x__tile_config__filters__common__set_config(param0: u16, param1: __enum_0, param2: u16) void {
+    @set_config(((mpi_x__tile_config__filters__common__filters)[param0] + @as(u16, param1)) / @as(u16, 2), param2, .{ 31552, 31599 });
+    return;
+}
+fn mpi_x__tile_config__filters__common__get_config(param0: u16, param1: __enum_0) u16 {
+    return @get_config(((mpi_x__tile_config__filters__common__filters)[param0] + @as(u16, param1)) / @as(u16, 2), .{ 31552, 31599 });
+}
+fn mpi_x__tile_config__filters__set_active_limit(param0: u16, param1: u16) void {
+    @assert(param1 < @as(u16, 32768));
+    const double_limit: u16 = param1 * @as(u16, 2);
+    const pass_count: u16 = mpi_x__tile_config__filters__common__get_config(param0, __enum_0.MAX_PASS) - @as(u16, 1);
+    const drop_count: u16 = if (double_limit < pass_count) @as(u16, 0) else double_limit - pass_count;
+    mpi_x__tile_config__filters__common__set_config(param0, __enum_0.DROP_COUNT, drop_count);
+    return;
+}
+fn mpi_x__tile_config__filters__set_max_counter(param0: u16, param1: u16) void {
+    @assert(param1 < @as(u16, 32768));
+    mpi_x__tile_config__filters__common__set_config(param0, __enum_0.MAX_PASS, param1 * @as(u16, 2) + @as(u16, 1));
+    return;
+}
+fn mpi_x__tile_config__filters__set_counter(param0: u16, param1: u16) void {
+    @assert(param1 < @as(u16, 32768));
+    const pass_count: u16 = mpi_x__tile_config__filters__common__get_config(param0, __enum_0.MAX_PASS);
+    const double_counter: u16 = param1 * @as(u16, 2);
+    const state_is_drop: bool = double_counter > pass_count;
+    mpi_x__tile_config__filters__common__set_config(param0, __enum_0.STATE, @as(u16, state_is_drop) << @as(u16, 6));
+    const counter_value: u16 = if (state_is_drop) double_counter - pass_count + @as(u16, 1) else double_counter;
+    mpi_x__tile_config__filters__common__set_config(param0, __enum_0.COUNTER, counter_value);
+    return;
+}
+fn mpi_x__tile_config__teardown__exit(param0: color) void {
+    const __csl_tmp74 = .{ 31744, 31767 };
+    const id: u16 = @get_int(param0);
+    const addr: u16 = @as(u16, 31744) + id;
+    var state: u16 = @get_config(addr, __csl_tmp74);
+    @set_config(addr, state & @as(u16, 32767), __csl_tmp74);
+    return;
+}
+fn mpi_x__tile_config__color_config__get_color_config_addr(param0: color) u16 {
+    return @as(u16, 31744) + @get_int(param0);
+}
+fn mpi_x__tile_config__color_config__encode_rx_routes_inst154(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 32);
+    return config;
+}
+fn mpi_x__tile_config__color_config__encode_rx_routes_inst148(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 0);
+    return config;
+}
+fn mpi_x__tile_config__color_config__encode_rx_routes_inst145(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 128);
+    return config;
+}
+fn mpi_x__tile_config__color_config__encode_tx_routes_inst152(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 2);
+    return config;
+}
+fn mpi_x__tile_config__color_config__encode_tx_routes_inst150(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 1);
+    return config;
+}
+fn mpi_x__tile_config__color_config__encode_tx_routes_inst146(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 16);
+    return config;
+}
+fn mpi_x__tile_config__color_config__reset_routes_inst161(param0: u16) void {
+    const __csl_tmp75 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp75);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_x__tile_config__color_config__encode_rx_routes_inst148(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst146(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst152(r_state);
+    @set_config(addr, r_state, __csl_tmp75);
+    return;
+}
+fn mpi_x__tile_config__color_config__reset_routes_inst160(param0: u16) void {
+    const __csl_tmp76 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp76);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_x__tile_config__color_config__encode_rx_routes_inst154(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst146(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst150(r_state);
+    @set_config(addr, r_state, __csl_tmp76);
+    return;
+}
+fn mpi_x__tile_config__color_config__reset_routes_inst159(param0: u16) void {
+    const __csl_tmp77 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp77);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_x__tile_config__color_config__encode_rx_routes_inst145(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst152(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst150(r_state);
+    @set_config(addr, r_state, __csl_tmp77);
+    return;
+}
+fn mpi_x__tile_config__color_config__reset_routes_inst153(param0: u16) void {
+    const __csl_tmp78 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp78);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_x__tile_config__color_config__encode_rx_routes_inst154(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst146(r_state);
+    @set_config(addr, r_state, __csl_tmp78);
+    return;
+}
+fn mpi_x__tile_config__color_config__reset_routes_inst151(param0: u16) void {
+    const __csl_tmp79 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp79);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_x__tile_config__color_config__encode_rx_routes_inst145(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst152(r_state);
+    @set_config(addr, r_state, __csl_tmp79);
+    return;
+}
+fn mpi_x__tile_config__color_config__reset_routes_inst149(param0: u16) void {
+    const __csl_tmp80 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp80);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_x__tile_config__color_config__encode_rx_routes_inst145(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst150(r_state);
+    @set_config(addr, r_state, __csl_tmp80);
+    return;
+}
+fn mpi_x__tile_config__color_config__reset_routes_inst147(param0: u16) void {
+    const __csl_tmp81 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp81);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_x__tile_config__color_config__encode_rx_routes_inst148(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst146(r_state);
+    @set_config(addr, r_state, __csl_tmp81);
+    return;
+}
+fn mpi_x__tile_config__color_config__reset_routes_inst144(param0: u16) void {
+    const __csl_tmp82 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp82);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_x__tile_config__color_config__encode_rx_routes_inst145(r_state);
+    r_state |= mpi_x__tile_config__color_config__encode_tx_routes_inst146(r_state);
+    @set_config(addr, r_state, __csl_tmp82);
+    return;
+}
+fn mpi_x__tile_config__switch_config__get_switch_config_addr_inst138(param0: color) u16 {
+    return @as(u16, 31872) + @as(u16, 4) * @get_int(param0) + mpi_x__tile_config__target__get_switch_setting_word_offset_inst139();
+}
+fn mpi_x__tile_config__switch_config__get_switch_config_addr_inst135(param0: color) u16 {
+    return @as(u16, 31872) + @as(u16, 4) * @get_int(param0) + mpi_x__tile_config__target__get_switch_setting_word_offset_inst136();
+}
+fn mpi_x__tile_config__switch_config__clear_current_position(param0: color) void {
+    const __csl_tmp83 = .{ 31872, 31967 };
+    const addr: u16 = mpi_x__tile_config__switch_config__get_switch_config_addr_inst135(param0);
+    var r_switch_state: u16 = @get_config(addr, __csl_tmp83);
+    r_switch_state &= @as(u16, 65520);
+    @set_config(addr, r_switch_state, __csl_tmp83);
+    return;
+}
+fn mpi_x__tile_config__switch_config__set_pop_mode(param0: color) void {
+    const __csl_tmp84 = .{ 31872, 31967 };
+    const base_addr: u16 = mpi_x__tile_config__switch_config__get_switch_config_addr_inst138(param0);
+    var r_switch_state: u16 = @get_config(base_addr, __csl_tmp84);
+    r_switch_state &= @as(u16, 40959);
+    r_switch_state |= @as(u16, 0);
+    @set_config(base_addr, r_switch_state, __csl_tmp84);
+    return;
+}
+fn mpi_x__tile_config__switch_config__set_invalid_for_all_switch_positions(param0: color) void {
+    const addr: u16 = mpi_x__tile_config__switch_config__get_switch_config_addr_inst138(param0);
+    mpi_x__tile_config__target__set_invalid_for_all_switch_positions(addr);
+    return;
+}
+var mpi_x__pe_id: u16;
+var mpi_x__reduce_color_neg: color;
+var mpi_x__reduce_color_pos: color;
+var mpi_x__reduce_neg_fabin: fabin_dsd;
+var mpi_x__reduce_pos_fabin: fabin_dsd;
+var mpi_x__reduce_neg_fabout: fabout_dsd;
+var mpi_x__reduce_pos_fabout: fabout_dsd;
+const mpi_x__reduce_fabins: [2]fabin_dsd = [2]fabin_dsd{@get_dsd(fabin_dsd, .{ .extent = 1, .input_queue = @get_input_queue(2) }), @get_dsd(fabin_dsd, .{ .extent = 1, .input_queue = @get_input_queue(4) })};
+const mpi_x__reduce_fabouts: [2]fabout_dsd = [2]fabout_dsd{@get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(2) }), @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(4) })};
+var mpi_x__invalid_u32: [1]u32 = [1]u32{0};
+var mpi_x__cur_network_cfg: __struct_17 = __struct_17 { .root = 0, .count = 0, .type = __enum_2.broadcast };
+var mpi_x__fsm_state: __struct_18 = __struct_18 { .send_buf = &mpi_x__invalid_u32, .recv_buf = &mpi_x__invalid_u32, .state = __enum_3.Configure_network, .callback = @get_local_task_id(8), .counter = 0 };
+var mpi_x__ctrl_buf: [1]u32 = [1]u32{0};
+var mpi_x__lib_initialized: bool = false;
+fn mpi_x__init() void {
+    var coords: [2]u16 = [2]u16{ mpi_x__layout_module__get_x_coord(), mpi_x__layout_module__get_y_coord() };
+    mpi_x__pe_id = (coords)[@as(u16, 0)];
+    mpi_x__reduce_color_neg = ([2]color{@get_color(0), @get_color(1)})[mpi_x__pe_id % @as(u16, 2)];
+    mpi_x__reduce_color_pos = ([2]color{@get_color(0), @get_color(1)})[(mpi_x__pe_id + @as(u16, 1)) % @as(u16, 2)];
+    mpi_x__reduce_neg_fabin = (mpi_x__reduce_fabins)[mpi_x__pe_id % @as(u16, 2)];
+    mpi_x__reduce_pos_fabin = (mpi_x__reduce_fabins)[(mpi_x__pe_id + @as(u16, 1)) % @as(u16, 2)];
+    mpi_x__reduce_neg_fabout = (mpi_x__reduce_fabouts)[mpi_x__pe_id % @as(u16, 2)];
+    mpi_x__reduce_pos_fabout = (mpi_x__reduce_fabouts)[(mpi_x__pe_id + @as(u16, 1)) % @as(u16, 2)];
+    mpi_x__lib_initialized = true;
+    return;
+}
+fn mpi_x__start_data_transfer() void {
+    mpi_x__fsm_state.counter = @as(u16, 0);
+    mpi_x__fsm_state.state = __enum_3.Transfer_Data;
+    @activate(@get_local_task_id(8));
+    return;
+}
+fn mpi_x__broadcast(param0: u16, param1: [*]u32, param2: u16, param3: local_task_id) void {
+    @block(@get_local_task_id(9));
+    @assert(mpi_x__lib_initialized);
+    mpi_x__cur_network_cfg = __struct_17 { .root = param0, .count = param2, .type = __enum_2.broadcast };
+    mpi_x__fsm_state = __struct_18 { .send_buf = param1, .recv_buf = param1, .state = __enum_3.Configure_network, .callback = param3, .counter = @as(u16, 0) };
+    mpi_x__clear_filter_and_switch();
+    mpi_x__configure_broadcast_network();
+    mpi_x__start_data_transfer();
+    return;
+}
+fn mpi_x__reduce_fadds(param0: u16, param1: [*]f32, param2: [*]f32, param3: u16, param4: local_task_id) void {
+    @block(@get_local_task_id(9));
+    @assert(mpi_x__lib_initialized);
+    mpi_x__cur_network_cfg = __struct_17 { .root = param0, .count = param3, .type = __enum_2.reduce_fadds };
+    mpi_x__fsm_state = __struct_18 { .send_buf = @ptrcast([*]u32, param1), .recv_buf = @ptrcast([*]u32, param2), .state = __enum_3.Configure_network, .callback = param4, .counter = @as(u16, 0) };
+    mpi_x__clear_filter_and_switch();
+    mpi_x__configure_reduce_network(@get_color(0));
+    mpi_x__configure_reduce_network(@get_color(1));
+    mpi_x__start_data_transfer();
+    return;
+}
+fn mpi_x__initiate_teardowns() void {
+    switch (mpi_x__cur_network_cfg.type) {
+        __enum_2.broadcast => {
+            mpi_x__teardown_broadcast_network();
+        },
+        __enum_2.scatter => {
+            mpi_x__teardown_scatter_network();
+        },
+        __enum_2.gather => {
+            mpi_x__teardown_gather_network();
+        },
+        __enum_2.reduce_fadds => {
+            mpi_x__teardown_reduce_network();
+        }
+    }
+    return;
+}
+fn mpi_x__teardown_broadcast_network() void {
+    const __csl_tmp85 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_x__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp86 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(2), .control = true });
+    if (mpi_x__pe_id == mpi_x__cur_network_cfg.root) {
+        (mpi_x__ctrl_buf)[@as(u16, 0)] = @as(u32, 29360128);
+        mpi_x__mem_to_fabout_no_activate(__csl_tmp86, __csl_tmp85);
+    }
+    return;
+}
+fn mpi_x__teardown_scatter_network() void {
+    const __csl_tmp87 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_x__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp88 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(2), .control = true });
+    if (mpi_x__pe_id == mpi_x__cur_network_cfg.root) {
+        (mpi_x__ctrl_buf)[@as(u16, 0)] = @as(u32, 29360128);
+        mpi_x__mem_to_fabout_no_activate(__csl_tmp88, __csl_tmp87);
+    }
+    return;
+}
+fn mpi_x__teardown_gather_network() void {
+    const __csl_tmp89 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_x__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp90 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(2), .control = true });
+    const cur_root: u16 = mpi_x__cur_network_cfg.root;
+    if (mpi_x__pe_id == @as(u16, 0)) {
+        if (cur_root == @as(u16, 0)) {
+            return;
+        }
+        (mpi_x__ctrl_buf)[@as(u16, 0)] = @as(u32, 29360128);
+        mpi_x__mem_to_fabout_no_activate(__csl_tmp90, __csl_tmp89);
+    } else {
+        if (mpi_x__pe_id == @as(u16, 1)) {
+            if (cur_root == @as(u16, 1)) {
+                return;
+            }
+            if (cur_root != @as(u16, 0)) {
+                (mpi_x__ctrl_buf)[@as(u16, 0)] = @as(u32, 230686720);
+            } else {
+                (mpi_x__ctrl_buf)[@as(u16, 0)] = @as(u32, 264241152);
+            }
+            mpi_x__mem_to_fabout_no_activate(__csl_tmp90, __csl_tmp89);
+        }
+    }
+    return;
+}
+var mpi_x__td_reduce_state: u16 = @as(u16, 0);
+fn mpi_x__teardown_reduce_network() void {
+    const __csl_tmp91 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(4), .control = true });
+    const __csl_tmp92 = @get_color(0);
+    const __csl_tmp93 = @get_local_task_id(8);
+    const __csl_tmp94 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_x__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp95 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(2), .control = true });
+    const cur_root: u16 = mpi_x__cur_network_cfg.root;
+    (mpi_x__ctrl_buf)[@as(u16, 0)] = @as(u32, 29360128);
+    if (@as(u16, 0) == mpi_x__td_reduce_state) {
+        if (mpi_x__pe_id == @as(u16, 0)) {
+            mpi_x__mem_to_fabout(__csl_tmp95, __csl_tmp94);
+        } else {
+            if (mpi_x__pe_id == @as(u16, 1)) {
+                mpi_x__mem_to_fabout(__csl_tmp95, __csl_tmp94);
+            } else {
+                @activate(__csl_tmp93);
+            }
+        }
+        mpi_x__td_reduce_state += @as(u16, 1);
+    } else {
+        if (@as(u16, 0) <= mpi_x__pe_id and mpi_x__pe_id < cur_root) {
+            if (mpi_x__reduce_color_pos == __csl_tmp92) {
+                mpi_x__mem_to_fabout_no_activate(__csl_tmp95, __csl_tmp94);
+            } else {
+                mpi_x__mem_to_fabout_no_activate(__csl_tmp91, __csl_tmp94);
+            }
+        }
+        if (cur_root < mpi_x__pe_id and mpi_x__pe_id < @as(u16, 2)) {
+            if (mpi_x__reduce_color_neg == __csl_tmp92) {
+                mpi_x__mem_to_fabout_no_activate(__csl_tmp95, __csl_tmp94);
+            } else {
+                mpi_x__mem_to_fabout_no_activate(__csl_tmp91, __csl_tmp94);
+            }
+        }
+        mpi_x__td_reduce_state = @as(u16, 0);
+    }
+    return;
+}
+fn mpi_x__configure_broadcast_network() void {
+    const __csl_tmp96 = @get_color(0);
+    const addr: u16 = mpi_x__tile_config__color_config__get_color_config_addr(__csl_tmp96);
+    const root: u16 = mpi_x__cur_network_cfg.root;
+    if (mpi_x__pe_id == root) {
+        if (mpi_x__pe_id == @as(u16, 0)) {
+            mpi_x__tile_config__color_config__reset_routes_inst151(addr);
+        } else {
+            if (mpi_x__pe_id == @as(u16, 1)) {
+                mpi_x__tile_config__color_config__reset_routes_inst149(addr);
+            } else {
+                mpi_x__tile_config__color_config__reset_routes_inst159(addr);
+            }
+        }
+    } else {
+        if (mpi_x__pe_id == @as(u16, 0)) {
+            mpi_x__tile_config__color_config__reset_routes_inst153(addr);
+        } else {
+            if (mpi_x__pe_id == @as(u16, 1)) {
+                mpi_x__tile_config__color_config__reset_routes_inst147(addr);
+            } else {
+                if (mpi_x__pe_id < root) {
+                    mpi_x__tile_config__color_config__reset_routes_inst160(addr);
+                } else {
+                    mpi_x__tile_config__color_config__reset_routes_inst161(addr);
+                }
+            }
+        }
+    }
+    mpi_x__tile_config__teardown__exit(__csl_tmp96);
+    return;
+}
+fn mpi_x__clear_filter_and_switch() void {
+    const __csl_tmp97 = @get_color(0);
+    const filter_id: u16 = @get_filter_id(__csl_tmp97);
+    mpi_x__tile_config__filters__set_max_counter(filter_id, @as(u16, 0));
+    mpi_x__tile_config__filters__set_active_limit(filter_id, @as(u16, 0));
+    mpi_x__tile_config__filters__set_counter(filter_id, @as(u16, 0));
+    mpi_x__tile_config__switch_config__clear_current_position(__csl_tmp97);
+    mpi_x__tile_config__switch_config__set_invalid_for_all_switch_positions(__csl_tmp97);
+    mpi_x__tile_config__switch_config__set_pop_mode(__csl_tmp97);
+    return;
+}
+fn mpi_x__configure_reduce_network(param0: color) void {
+    const root: u16 = mpi_x__cur_network_cfg.root;
+    const addr: u16 = mpi_x__tile_config__color_config__get_color_config_addr(param0);
+    if (param0 == mpi_x__reduce_color_neg) {
+        if (mpi_x__pe_id == @as(u16, 0)) {
+            mpi_x__tile_config__color_config__reset_routes_inst144(addr);
+        } else {
+            if (mpi_x__pe_id <= root) {
+                mpi_x__tile_config__color_config__reset_routes_inst147(addr);
+            } else {
+                mpi_x__tile_config__color_config__reset_routes_inst149(addr);
+            }
+        }
+    } else {
+        if (param0 == mpi_x__reduce_color_pos) {
+            if (mpi_x__pe_id == @as(u16, 1)) {
+                mpi_x__tile_config__color_config__reset_routes_inst144(addr);
+            } else {
+                if (mpi_x__pe_id < root) {
+                    mpi_x__tile_config__color_config__reset_routes_inst151(addr);
+                } else {
+                    mpi_x__tile_config__color_config__reset_routes_inst153(addr);
+                }
+            }
+        }
+    }
+    mpi_x__tile_config__teardown__exit(param0);
+    return;
+}
+task mpi_x__fsm() void {
+    const __csl_tmp98 = @get_local_task_id(9);
+    switch (mpi_x__fsm_state.state) {
+        __enum_3.Transfer_Data => {
+            mpi_x__transfer_data();
+        },
+        __enum_3.Callback => {
+            mpi_x__initiate_teardowns();
+            @unblock(__csl_tmp98);
+        },
+        else => {
+            @assert(false);
+        }
+    }
+    return;
+}
+var mpi_x__mem: mem1d_dsd = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_x__invalid_u32, .offset = 0, .stride = 1, .extent = 1 });
+var mpi_x__fabout: fabout_dsd = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(2) });
+var mpi_x__fabin: fabin_dsd = @get_dsd(fabin_dsd, .{ .extent = 1, .input_queue = @get_input_queue(2) });
+var mpi_x__fabout_adv: fabout_dsd = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(2), .advance_switch = true });
+fn mpi_x__transfer_data_broadcast() void {
+    if (mpi_x__cur_network_cfg.root == mpi_x__pe_id) {
+        mpi_x__fabout = @set_dsd_length(mpi_x__fabout, mpi_x__cur_network_cfg.count);
+        mpi_x__mem = @set_dsd_length(mpi_x__mem, mpi_x__cur_network_cfg.count);
+        mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.send_buf);
+        mpi_x__mem_to_fabout(mpi_x__fabout, mpi_x__mem);
+    } else {
+        mpi_x__fabin = @set_dsd_length(mpi_x__fabin, mpi_x__cur_network_cfg.count);
+        mpi_x__mem = @set_dsd_length(mpi_x__mem, mpi_x__cur_network_cfg.count);
+        mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.recv_buf);
+        mpi_x__fabin_to_mem(mpi_x__mem, mpi_x__fabin);
+    }
+    mpi_x__fsm_state.state = __enum_3.Callback;
+    return;
+}
+fn mpi_x__transfer_data_scatter() void {
+    const __csl_tmp99 = @get_dsr(dsr_src1, 1);
+    const __csl_tmp100 = @get_dsr(dsr_dest, 1);
+    if (mpi_x__cur_network_cfg.root == mpi_x__pe_id) {
+        var dst: mem1d_dsd = @set_dsd_length(mpi_x__mem, mpi_x__cur_network_cfg.count);
+        dst = @set_dsd_base_addr(dst, mpi_x__fsm_state.recv_buf);
+        var src: mem1d_dsd = @set_dsd_length(mpi_x__mem, mpi_x__cur_network_cfg.count);
+        src = @set_dsd_base_addr(src, mpi_x__fsm_state.send_buf);
+        src = @increment_dsd_offset(src, @as(i16, mpi_x__pe_id * mpi_x__cur_network_cfg.count), u32);
+        @load_to_dsr(__csl_tmp100, dst);
+        @load_to_dsr(__csl_tmp99, src);
+        const __csl_tmp101 = @mov32(__csl_tmp100, __csl_tmp99);
+        mpi_x__fabout = @set_dsd_length(mpi_x__fabout, mpi_x__cur_network_cfg.count * @as(u16, 2));
+        mpi_x__mem = @set_dsd_length(mpi_x__mem, mpi_x__cur_network_cfg.count * @as(u16, 2));
+        mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.send_buf);
+        mpi_x__mem_to_fabout(mpi_x__fabout, mpi_x__mem);
+    } else {
+        mpi_x__fabin = @set_dsd_length(mpi_x__fabin, mpi_x__cur_network_cfg.count);
+        mpi_x__mem = @set_dsd_length(mpi_x__mem, mpi_x__cur_network_cfg.count);
+        mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.recv_buf);
+        mpi_x__fabin_to_mem(mpi_x__mem, mpi_x__fabin);
+    }
+    mpi_x__fsm_state.state = __enum_3.Callback;
+    return;
+}
+fn mpi_x__transfer_data_gather_root(param0: u16, param1: u16) void {
+    const __csl_tmp102 = @get_local_task_id(8);
+    const __csl_tmp103 = __enum_3.Callback;
+    const __csl_tmp104 = @get_dsr(dsr_src1, 1);
+    const __csl_tmp105 = @get_dsr(dsr_dest, 1);
+    if (mpi_x__fsm_state.counter == param0) {
+        mpi_x__mem = @set_dsd_length(mpi_x__mem, param1);
+        const src: mem1d_dsd = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.send_buf);
+        mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.recv_buf);
+        mpi_x__mem = @increment_dsd_offset(mpi_x__mem, @as(i16, param0 * param1), u32);
+        @load_to_dsr(__csl_tmp105, mpi_x__mem);
+        @load_to_dsr(__csl_tmp104, src);
+        const __csl_tmp106 = @mov32(__csl_tmp105, __csl_tmp104);
+        mpi_x__fsm_state.counter += @as(u16, 1);
+        if (param0 == @as(u16, 1)) {
+            mpi_x__fsm_state.state = __csl_tmp103;
+        }
+        @activate(__csl_tmp102);
+    } else {
+        if (mpi_x__fsm_state.counter == @as(u16, 0)) {
+            const neg_dir_size: u16 = param1 * param0;
+            mpi_x__fabin = @set_dsd_length(mpi_x__fabin, neg_dir_size);
+            mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.recv_buf);
+            mpi_x__mem = @set_dsd_length(mpi_x__mem, neg_dir_size);
+            mpi_x__mem = @increment_dsd_offset(mpi_x__mem, @as(i16, neg_dir_size) - @as(i16, 1), u32);
+            const rev: mem1d_dsd = @set_dsd_stride(mpi_x__mem, @as(i8, -1));
+            mpi_x__fabin_to_mem(rev, mpi_x__fabin);
+            mpi_x__fsm_state.counter = param0;
+        } else {
+            @assert(mpi_x__fsm_state.counter == param0 + @as(u16, 1));
+            const offset: u16 = (param0 + @as(u16, 1)) * param1;
+            const pos_dir_size: u16 = (@as(u16, 2) - param0 - @as(u16, 1)) * param1;
+            mpi_x__fabin = @set_dsd_length(mpi_x__fabin, pos_dir_size);
+            mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.recv_buf);
+            mpi_x__mem = @set_dsd_length(mpi_x__mem, pos_dir_size);
+            mpi_x__mem = @increment_dsd_offset(mpi_x__mem, @as(i16, offset), u32);
+            mpi_x__fabin_to_mem(mpi_x__mem, mpi_x__fabin);
+            mpi_x__fsm_state.state = __csl_tmp103;
+        }
+    }
+    return;
+}
+fn mpi_x__fabin_to_mem(param0: mem1d_dsd, param1: fabin_dsd) void {
+    const __csl_tmp107 = @get_dsr(dsr_src1, 1);
+    const __csl_tmp108 = @get_dsr(dsr_dest, 1);
+    @load_to_dsr(__csl_tmp108, param0);
+    @load_to_dsr(__csl_tmp107, param1, .{ .async = true, .activate = @get_local_task_id(8) });
+    const __csl_tmp109 = @mov32(__csl_tmp108, __csl_tmp107, .{ .async = true });
+    return;
+}
+fn mpi_x__mem_to_fabout(param0: fabout_dsd, param1: mem1d_dsd) void {
+    const __csl_tmp110 = @get_dsr(dsr_src1, 1);
+    const __csl_tmp111 = @get_dsr(dsr_dest, 1);
+    @load_to_dsr(__csl_tmp111, param0, .{ .async = true, .activate = @get_local_task_id(8) });
+    @load_to_dsr(__csl_tmp110, param1);
+    const __csl_tmp112 = @mov32(__csl_tmp111, __csl_tmp110, .{ .async = true });
+    return;
+}
+fn mpi_x__fadds_fabout_fabin_mem(param0: fabout_dsd, param1: fabin_dsd, param2: mem1d_dsd) void {
+    const __csl_tmp113 = @get_dsr(dsr_src1, 1);
+    const __csl_tmp114 = .{ .async = true };
+    const __csl_tmp115 = @get_dsr(dsr_src0, 1);
+    const __csl_tmp116 = @get_dsr(dsr_dest, 1);
+    @load_to_dsr(__csl_tmp116, param0, .{ .async = true, .activate = @get_local_task_id(8) });
+    @load_to_dsr(__csl_tmp115, param1, __csl_tmp114);
+    @load_to_dsr(__csl_tmp113, param2);
+    const __csl_tmp117 = @fadds(__csl_tmp116, __csl_tmp115, __csl_tmp113, __csl_tmp114);
+    return;
+}
+fn mpi_x__fadds_mem_fabin_mem(param0: mem1d_dsd, param1: fabin_dsd, param2: mem1d_dsd) void {
+    const __csl_tmp118 = @get_dsr(dsr_src1, 1);
+    const __csl_tmp119 = @get_dsr(dsr_src0, 1);
+    const __csl_tmp120 = @get_dsr(dsr_dest, 1);
+    @load_to_dsr(__csl_tmp120, param0);
+    @load_to_dsr(__csl_tmp119, param1, .{ .async = true, .activate = @get_local_task_id(8) });
+    @load_to_dsr(__csl_tmp118, param2);
+    const __csl_tmp121 = @fadds(__csl_tmp120, __csl_tmp119, __csl_tmp118, .{ .async = true });
+    return;
+}
+fn mpi_x__mem_to_fabout_no_activate(param0: fabout_dsd, param1: mem1d_dsd) void {
+    const __csl_tmp122 = @get_dsr(dsr_src1, 1);
+    const __csl_tmp123 = .{ .async = true };
+    const __csl_tmp124 = @get_dsr(dsr_dest, 1);
+    @load_to_dsr(__csl_tmp124, param0, __csl_tmp123);
+    @load_to_dsr(__csl_tmp122, param1);
+    const __csl_tmp125 = @mov32(__csl_tmp124, __csl_tmp122, __csl_tmp123);
+    return;
+}
+fn mpi_x__transfer_data_gather() void {
+    const __csl_tmp126 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_x__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp127 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(2), .control = true });
+    const __csl_tmp128 = __enum_3.Callback;
+    const root: u16 = mpi_x__cur_network_cfg.root;
+    const count: u16 = mpi_x__cur_network_cfg.count;
+    if (root == mpi_x__pe_id) {
+        mpi_x__transfer_data_gather_root(root, count);
+    } else {
+        if (mpi_x__fsm_state.counter == @as(u16, 0)) {
+            mpi_x__fabout_adv = @set_dsd_length(mpi_x__fabout_adv, count);
+            mpi_x__mem = @set_dsd_length(mpi_x__mem, count);
+            mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.send_buf);
+            var tmp: mem1d_dsd = mpi_x__mem;
+            if (mpi_x__pe_id < root) {
+                tmp = @increment_dsd_offset(tmp, @as(i16, count) - @as(i16, 1), u32);
+                tmp = @set_dsd_stride(tmp, @as(i8, -1));
+            }
+            const send_ctrl_wavelet: bool = mpi_x__pe_id == @as(u16, 0) and root != @as(u16, 1);
+            if (!send_ctrl_wavelet) {
+                mpi_x__fsm_state.state = __csl_tmp128;
+            }
+            mpi_x__mem_to_fabout(mpi_x__fabout_adv, tmp);
+            mpi_x__fsm_state.counter += @as(u16, 1);
+        } else {
+            @assert(mpi_x__pe_id == @as(u16, 0));
+            @assert(root != @as(u16, 1));
+            (mpi_x__ctrl_buf)[@as(u16, 0)] = @as(u32, 20971520);
+            mpi_x__mem_to_fabout(__csl_tmp127, __csl_tmp126);
+            mpi_x__fsm_state.state = __csl_tmp128;
+        }
+    }
+    return;
+}
+fn mpi_x__transfer_data_reduce() void {
+    const __csl_tmp129 = __enum_3.Callback;
+    const __csl_tmp130 = @get_dsr(dsr_src1, 1);
+    const __csl_tmp131 = @get_dsr(dsr_src0, 1);
+    const __csl_tmp132 = @get_dsr(dsr_dest, 1);
+    const __csl_tmp133 = @get_local_task_id(8);
+    const count: u16 = mpi_x__cur_network_cfg.count;
+    const root: u16 = mpi_x__cur_network_cfg.root;
+    mpi_x__reduce_pos_fabin = @set_dsd_length(mpi_x__reduce_pos_fabin, count);
+    mpi_x__reduce_neg_fabin = @set_dsd_length(mpi_x__reduce_neg_fabin, count);
+    mpi_x__reduce_pos_fabout = @set_dsd_length(mpi_x__reduce_pos_fabout, count);
+    mpi_x__reduce_neg_fabout = @set_dsd_length(mpi_x__reduce_neg_fabout, count);
+    mpi_x__mem = @set_dsd_length(mpi_x__mem, count);
+    if (mpi_x__pe_id == root and mpi_x__fsm_state.counter == @as(u16, 0)) {
+        mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.recv_buf);
+        switch (mpi_x__pe_id) {
+            @as(u16, 0) => {
+                mpi_x__fabin_to_mem(mpi_x__mem, mpi_x__reduce_pos_fabin);
+            },
+            @as(u16, 1) => {
+                mpi_x__fabin_to_mem(mpi_x__mem, mpi_x__reduce_neg_fabin);
+            },
+            else => {
+                mpi_x__fabin_to_mem(mpi_x__mem, mpi_x__reduce_pos_fabin);
+            }
+        }
+        mpi_x__fsm_state.counter += @as(u16, 1);
+    } else {
+        if (mpi_x__pe_id == root and mpi_x__fsm_state.counter == @as(u16, 1)) {
+            mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.recv_buf);
+            switch (mpi_x__pe_id) {
+                @as(u16, 0) => {
+                    @activate(__csl_tmp133);
+                },
+                @as(u16, 1) => {
+                    @activate(__csl_tmp133);
+                },
+                else => {
+                    mpi_x__fadds_mem_fabin_mem(mpi_x__mem, mpi_x__reduce_neg_fabin, mpi_x__mem);
+                }
+            }
+            mpi_x__fsm_state.counter += @as(u16, 1);
+        } else {
+            if (mpi_x__pe_id == root) {
+                mpi_x__mem = @set_dsd_length(mpi_x__mem, count);
+                const src: mem1d_dsd = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.send_buf);
+                const dst: mem1d_dsd = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.recv_buf);
+                @load_to_dsr(__csl_tmp132, dst);
+                @load_to_dsr(__csl_tmp131, dst);
+                @load_to_dsr(__csl_tmp130, src);
+                const __csl_tmp134 = @fadds(__csl_tmp132, __csl_tmp131, __csl_tmp130);
+                mpi_x__fsm_state.state = __csl_tmp129;
+                @activate(__csl_tmp133);
+            } else {
+                mpi_x__mem = @set_dsd_base_addr(mpi_x__mem, mpi_x__fsm_state.send_buf);
+                if (mpi_x__pe_id == @as(u16, 0)) {
+                    mpi_x__mem_to_fabout(mpi_x__reduce_pos_fabout, mpi_x__mem);
+                } else {
+                    if (mpi_x__pe_id == @as(u16, 1)) {
+                        mpi_x__mem_to_fabout(mpi_x__reduce_neg_fabout, mpi_x__mem);
+                    } else {
+                        if (mpi_x__pe_id < root) {
+                            mpi_x__fadds_fabout_fabin_mem(mpi_x__reduce_pos_fabout, mpi_x__reduce_neg_fabin, mpi_x__mem);
+                        } else {
+                            mpi_x__fadds_fabout_fabin_mem(mpi_x__reduce_neg_fabout, mpi_x__reduce_pos_fabin, mpi_x__mem);
+                        }
+                    }
+                }
+                mpi_x__fsm_state.state = __csl_tmp129;
+            }
+        }
+    }
+    return;
+}
+fn mpi_x__transfer_data() void {
+    switch (mpi_x__cur_network_cfg.type) {
+        __enum_2.broadcast => {
+            mpi_x__transfer_data_broadcast();
+        },
+        __enum_2.scatter => {
+            mpi_x__transfer_data_scatter();
+        },
+        __enum_2.gather => {
+            mpi_x__transfer_data_gather();
+        },
+        else => {
+            mpi_x__transfer_data_reduce();
+        }
+    }
+    return;
+}
+var mpi_x__num_tds: u16 = @as(u16, 0);
+fn mpi_x__teardown_handler_0() void {
+    const __csl_tmp135 = @get_local_task_id(9);
+    if (mpi_x__cur_network_cfg.type == __enum_2.reduce_fadds) {
+        mpi_x__num_tds += @as(u16, 1);
+        if (mpi_x__num_tds == @as(u16, 2)) {
+            mpi_x__num_tds = @as(u16, 0);
+            @activate(__csl_tmp135);
+        }
+    } else {
+        @activate(__csl_tmp135);
+    }
+    return;
+}
+fn mpi_x__teardown_handler_1() void {
+    const __csl_tmp136 = @get_local_task_id(9);
+    @assert(mpi_x__cur_network_cfg.type == __enum_2.reduce_fadds);
+    mpi_x__num_tds += @as(u16, 1);
+    if (mpi_x__num_tds == @as(u16, 2)) {
+        mpi_x__num_tds = @as(u16, 0);
+        @activate(__csl_tmp136);
+    }
+    return;
+}
+task mpi_x__f_lock() void {
+    @activate(mpi_x__fsm_state.callback);
+    return;
+}
+fn mpi_y__layout_module__tile_config__get_fabric_coord(param0: __enum_1) u16 {
+    const reg_val: u16 = @get_config(@as(u16, 31813) + @as(u16, param0) / @as(u16, 2), .{ 31813, 31814 });
+    return reg_val & @as(u16, 2047);
+}
+fn mpi_y__layout_module__get_x_coord() u16 {
+    return mpi_y__layout_module__tile_config__get_fabric_coord(__enum_1.X) - @as(u16, 4);
+}
+fn mpi_y__layout_module__get_y_coord() u16 {
+    return mpi_y__layout_module__tile_config__get_fabric_coord(__enum_1.Y) - @as(u16, 1);
+}
+fn mpi_y__tile_config__target__get_switch_setting_word_offset_inst175() u16 {
+    return @as(u16, 0);
+}
+fn mpi_y__tile_config__target__get_switch_setting_word_offset_inst172() u16 {
+    return @as(u16, 3);
+}
+fn mpi_y__tile_config__target__set_invalid_for_all_switch_positions(param0: u16) void {
+    const __csl_tmp137 = .{ 31872, 31967 };
+    const addr_reg1: u16 = param0 + @as(u16, 1);
+    var r_switch_state: u16 = @get_config(param0, __csl_tmp137);
+    r_switch_state &= @as(u16, 65280);
+    r_switch_state |= @as(u16, 160);
+    @set_config(param0, r_switch_state, __csl_tmp137);
+    r_switch_state = @as(u16, 41120);
+    @set_config(addr_reg1, r_switch_state, __csl_tmp137);
+    return;
+}
+const mpi_y__tile_config__filters__common__filters: [6]u16 = [6]u16{63104, 63120, 63136, 63152, 63168, 63184};
+fn mpi_y__tile_config__filters__common__set_config(param0: u16, param1: __enum_0, param2: u16) void {
+    @set_config(((mpi_y__tile_config__filters__common__filters)[param0] + @as(u16, param1)) / @as(u16, 2), param2, .{ 31552, 31599 });
+    return;
+}
+fn mpi_y__tile_config__filters__common__get_config(param0: u16, param1: __enum_0) u16 {
+    return @get_config(((mpi_y__tile_config__filters__common__filters)[param0] + @as(u16, param1)) / @as(u16, 2), .{ 31552, 31599 });
+}
+fn mpi_y__tile_config__filters__set_active_limit(param0: u16, param1: u16) void {
+    @assert(param1 < @as(u16, 32768));
+    const double_limit: u16 = param1 * @as(u16, 2);
+    const pass_count: u16 = mpi_y__tile_config__filters__common__get_config(param0, __enum_0.MAX_PASS) - @as(u16, 1);
+    const drop_count: u16 = if (double_limit < pass_count) @as(u16, 0) else double_limit - pass_count;
+    mpi_y__tile_config__filters__common__set_config(param0, __enum_0.DROP_COUNT, drop_count);
+    return;
+}
+fn mpi_y__tile_config__filters__set_max_counter(param0: u16, param1: u16) void {
+    @assert(param1 < @as(u16, 32768));
+    mpi_y__tile_config__filters__common__set_config(param0, __enum_0.MAX_PASS, param1 * @as(u16, 2) + @as(u16, 1));
+    return;
+}
+fn mpi_y__tile_config__filters__set_counter(param0: u16, param1: u16) void {
+    @assert(param1 < @as(u16, 32768));
+    const pass_count: u16 = mpi_y__tile_config__filters__common__get_config(param0, __enum_0.MAX_PASS);
+    const double_counter: u16 = param1 * @as(u16, 2);
+    const state_is_drop: bool = double_counter > pass_count;
+    mpi_y__tile_config__filters__common__set_config(param0, __enum_0.STATE, @as(u16, state_is_drop) << @as(u16, 6));
+    const counter_value: u16 = if (state_is_drop) double_counter - pass_count + @as(u16, 1) else double_counter;
+    mpi_y__tile_config__filters__common__set_config(param0, __enum_0.COUNTER, counter_value);
+    return;
+}
+fn mpi_y__tile_config__teardown__exit(param0: color) void {
+    const __csl_tmp138 = .{ 31744, 31767 };
+    const id: u16 = @get_int(param0);
+    const addr: u16 = @as(u16, 31744) + id;
+    var state: u16 = @get_config(addr, __csl_tmp138);
+    @set_config(addr, state & @as(u16, 32767), __csl_tmp138);
+    return;
+}
+fn mpi_y__tile_config__color_config__get_color_config_addr(param0: color) u16 {
+    return @as(u16, 31744) + @get_int(param0);
+}
+fn mpi_y__tile_config__color_config__encode_rx_routes_inst190(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 96);
+    return config;
+}
+fn mpi_y__tile_config__color_config__encode_rx_routes_inst187(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 64);
+    return config;
+}
+fn mpi_y__tile_config__color_config__encode_rx_routes_inst181(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 128);
+    return config;
+}
+fn mpi_y__tile_config__color_config__encode_tx_routes_inst188(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 16);
+    return config;
+}
+fn mpi_y__tile_config__color_config__encode_tx_routes_inst184(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 8);
+    return config;
+}
+fn mpi_y__tile_config__color_config__encode_tx_routes_inst182(param0: u16) u16 {
+    var config: u16 = param0;
+    config |= @as(u16, 4);
+    return config;
+}
+fn mpi_y__tile_config__color_config__reset_routes_inst192(param0: u16) void {
+    const __csl_tmp139 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp139);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_y__tile_config__color_config__encode_rx_routes_inst190(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst188(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst182(r_state);
+    @set_config(addr, r_state, __csl_tmp139);
+    return;
+}
+fn mpi_y__tile_config__color_config__reset_routes_inst191(param0: u16) void {
+    const __csl_tmp140 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp140);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_y__tile_config__color_config__encode_rx_routes_inst187(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst188(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst184(r_state);
+    @set_config(addr, r_state, __csl_tmp140);
+    return;
+}
+fn mpi_y__tile_config__color_config__reset_routes_inst189(param0: u16) void {
+    const __csl_tmp141 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp141);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_y__tile_config__color_config__encode_rx_routes_inst190(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst188(r_state);
+    @set_config(addr, r_state, __csl_tmp141);
+    return;
+}
+fn mpi_y__tile_config__color_config__reset_routes_inst186(param0: u16) void {
+    const __csl_tmp142 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp142);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_y__tile_config__color_config__encode_rx_routes_inst187(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst188(r_state);
+    @set_config(addr, r_state, __csl_tmp142);
+    return;
+}
+fn mpi_y__tile_config__color_config__reset_routes_inst185(param0: u16) void {
+    const __csl_tmp143 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp143);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_y__tile_config__color_config__encode_rx_routes_inst181(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst182(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst184(r_state);
+    @set_config(addr, r_state, __csl_tmp143);
+    return;
+}
+fn mpi_y__tile_config__color_config__reset_routes_inst183(param0: u16) void {
+    const __csl_tmp144 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp144);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_y__tile_config__color_config__encode_rx_routes_inst181(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst184(r_state);
+    @set_config(addr, r_state, __csl_tmp144);
+    return;
+}
+fn mpi_y__tile_config__color_config__reset_routes_inst180(param0: u16) void {
+    const __csl_tmp145 = .{ 31744, 31767 };
+    const addr: u16 = param0;
+    var r_state: u16 = @get_config(addr, __csl_tmp145);
+    r_state &= @as(u16, 65280);
+    r_state |= mpi_y__tile_config__color_config__encode_rx_routes_inst181(r_state);
+    r_state |= mpi_y__tile_config__color_config__encode_tx_routes_inst182(r_state);
+    @set_config(addr, r_state, __csl_tmp145);
+    return;
+}
+fn mpi_y__tile_config__switch_config__get_switch_config_addr_inst174(param0: color) u16 {
+    return @as(u16, 31872) + @as(u16, 4) * @get_int(param0) + mpi_y__tile_config__target__get_switch_setting_word_offset_inst175();
+}
+fn mpi_y__tile_config__switch_config__get_switch_config_addr_inst171(param0: color) u16 {
+    return @as(u16, 31872) + @as(u16, 4) * @get_int(param0) + mpi_y__tile_config__target__get_switch_setting_word_offset_inst172();
+}
+fn mpi_y__tile_config__switch_config__clear_current_position(param0: color) void {
+    const __csl_tmp146 = .{ 31872, 31967 };
+    const addr: u16 = mpi_y__tile_config__switch_config__get_switch_config_addr_inst171(param0);
+    var r_switch_state: u16 = @get_config(addr, __csl_tmp146);
+    r_switch_state &= @as(u16, 65520);
+    @set_config(addr, r_switch_state, __csl_tmp146);
+    return;
+}
+fn mpi_y__tile_config__switch_config__set_pop_mode(param0: color) void {
+    const __csl_tmp147 = .{ 31872, 31967 };
+    const base_addr: u16 = mpi_y__tile_config__switch_config__get_switch_config_addr_inst174(param0);
+    var r_switch_state: u16 = @get_config(base_addr, __csl_tmp147);
+    r_switch_state &= @as(u16, 40959);
+    r_switch_state |= @as(u16, 0);
+    @set_config(base_addr, r_switch_state, __csl_tmp147);
+    return;
+}
+fn mpi_y__tile_config__switch_config__set_invalid_for_all_switch_positions(param0: color) void {
+    const addr: u16 = mpi_y__tile_config__switch_config__get_switch_config_addr_inst174(param0);
+    mpi_y__tile_config__target__set_invalid_for_all_switch_positions(addr);
+    return;
+}
+var mpi_y__pe_id: u16;
+var mpi_y__reduce_color_neg: color;
+var mpi_y__reduce_color_pos: color;
+var mpi_y__reduce_neg_fabin: fabin_dsd;
+var mpi_y__reduce_pos_fabin: fabin_dsd;
+var mpi_y__reduce_neg_fabout: fabout_dsd;
+var mpi_y__reduce_pos_fabout: fabout_dsd;
+const mpi_y__reduce_fabins: [2]fabin_dsd = [2]fabin_dsd{@get_dsd(fabin_dsd, .{ .extent = 1, .input_queue = @get_input_queue(3) }), @get_dsd(fabin_dsd, .{ .extent = 1, .input_queue = @get_input_queue(5) })};
+const mpi_y__reduce_fabouts: [2]fabout_dsd = [2]fabout_dsd{@get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(3) }), @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(5) })};
+var mpi_y__invalid_u32: [1]u32 = [1]u32{0};
+var mpi_y__cur_network_cfg: __struct_17 = __struct_17 { .root = 0, .count = 0, .type = __enum_2.broadcast };
+var mpi_y__fsm_state: __struct_18 = __struct_18 { .send_buf = &mpi_y__invalid_u32, .recv_buf = &mpi_y__invalid_u32, .state = __enum_3.Configure_network, .callback = @get_local_task_id(8), .counter = 0 };
+var mpi_y__ctrl_buf: [1]u32 = [1]u32{0};
+var mpi_y__lib_initialized: bool = false;
+fn mpi_y__init() void {
+    var coords: [2]u16 = [2]u16{ mpi_y__layout_module__get_x_coord(), mpi_y__layout_module__get_y_coord() };
+    mpi_y__pe_id = (coords)[@as(u16, 1)];
+    mpi_y__reduce_color_neg = ([2]color{@get_color(4), @get_color(5)})[mpi_y__pe_id % @as(u16, 2)];
+    mpi_y__reduce_color_pos = ([2]color{@get_color(4), @get_color(5)})[(mpi_y__pe_id + @as(u16, 1)) % @as(u16, 2)];
+    mpi_y__reduce_neg_fabin = (mpi_y__reduce_fabins)[mpi_y__pe_id % @as(u16, 2)];
+    mpi_y__reduce_pos_fabin = (mpi_y__reduce_fabins)[(mpi_y__pe_id + @as(u16, 1)) % @as(u16, 2)];
+    mpi_y__reduce_neg_fabout = (mpi_y__reduce_fabouts)[mpi_y__pe_id % @as(u16, 2)];
+    mpi_y__reduce_pos_fabout = (mpi_y__reduce_fabouts)[(mpi_y__pe_id + @as(u16, 1)) % @as(u16, 2)];
+    mpi_y__lib_initialized = true;
+    return;
+}
+fn mpi_y__start_data_transfer() void {
+    mpi_y__fsm_state.counter = @as(u16, 0);
+    mpi_y__fsm_state.state = __enum_3.Transfer_Data;
+    @activate(@get_local_task_id(10));
+    return;
+}
+fn mpi_y__broadcast(param0: u16, param1: [*]u32, param2: u16, param3: local_task_id) void {
+    @block(@get_local_task_id(11));
+    @assert(mpi_y__lib_initialized);
+    mpi_y__cur_network_cfg = __struct_17 { .root = param0, .count = param2, .type = __enum_2.broadcast };
+    mpi_y__fsm_state = __struct_18 { .send_buf = param1, .recv_buf = param1, .state = __enum_3.Configure_network, .callback = param3, .counter = @as(u16, 0) };
+    mpi_y__clear_filter_and_switch();
+    mpi_y__configure_broadcast_network();
+    mpi_y__start_data_transfer();
+    return;
+}
+fn mpi_y__initiate_teardowns() void {
+    switch (mpi_y__cur_network_cfg.type) {
+        __enum_2.broadcast => {
+            mpi_y__teardown_broadcast_network();
+        },
+        __enum_2.scatter => {
+            mpi_y__teardown_scatter_network();
+        },
+        __enum_2.gather => {
+            mpi_y__teardown_gather_network();
+        },
+        __enum_2.reduce_fadds => {
+            mpi_y__teardown_reduce_network();
+        }
+    }
+    return;
+}
+fn mpi_y__teardown_broadcast_network() void {
+    const __csl_tmp148 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_y__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp149 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(3), .control = true });
+    if (mpi_y__pe_id == mpi_y__cur_network_cfg.root) {
+        (mpi_y__ctrl_buf)[@as(u16, 0)] = @as(u32, 29360128);
+        mpi_y__mem_to_fabout_no_activate(__csl_tmp149, __csl_tmp148);
+    }
+    return;
+}
+fn mpi_y__teardown_scatter_network() void {
+    const __csl_tmp150 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_y__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp151 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(3), .control = true });
+    if (mpi_y__pe_id == mpi_y__cur_network_cfg.root) {
+        (mpi_y__ctrl_buf)[@as(u16, 0)] = @as(u32, 29360128);
+        mpi_y__mem_to_fabout_no_activate(__csl_tmp151, __csl_tmp150);
+    }
+    return;
+}
+fn mpi_y__teardown_gather_network() void {
+    const __csl_tmp152 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_y__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp153 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(3), .control = true });
+    const cur_root: u16 = mpi_y__cur_network_cfg.root;
+    if (mpi_y__pe_id == @as(u16, 0)) {
+        if (cur_root == @as(u16, 0)) {
+            return;
+        }
+        (mpi_y__ctrl_buf)[@as(u16, 0)] = @as(u32, 29360128);
+        mpi_y__mem_to_fabout_no_activate(__csl_tmp153, __csl_tmp152);
+    } else {
+        if (mpi_y__pe_id == @as(u16, 1)) {
+            if (cur_root == @as(u16, 1)) {
+                return;
+            }
+            if (cur_root != @as(u16, 0)) {
+                (mpi_y__ctrl_buf)[@as(u16, 0)] = @as(u32, 230686720);
+            } else {
+                (mpi_y__ctrl_buf)[@as(u16, 0)] = @as(u32, 264241152);
+            }
+            mpi_y__mem_to_fabout_no_activate(__csl_tmp153, __csl_tmp152);
+        }
+    }
+    return;
+}
+var mpi_y__td_reduce_state: u16 = @as(u16, 0);
+fn mpi_y__teardown_reduce_network() void {
+    const __csl_tmp154 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(5), .control = true });
+    const __csl_tmp155 = @get_color(4);
+    const __csl_tmp156 = @get_local_task_id(10);
+    const __csl_tmp157 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_y__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp158 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(3), .control = true });
+    const cur_root: u16 = mpi_y__cur_network_cfg.root;
+    (mpi_y__ctrl_buf)[@as(u16, 0)] = @as(u32, 29360128);
+    if (@as(u16, 0) == mpi_y__td_reduce_state) {
+        if (mpi_y__pe_id == @as(u16, 0)) {
+            mpi_y__mem_to_fabout(__csl_tmp158, __csl_tmp157);
+        } else {
+            if (mpi_y__pe_id == @as(u16, 1)) {
+                mpi_y__mem_to_fabout(__csl_tmp158, __csl_tmp157);
+            } else {
+                @activate(__csl_tmp156);
+            }
+        }
+        mpi_y__td_reduce_state += @as(u16, 1);
+    } else {
+        if (@as(u16, 0) <= mpi_y__pe_id and mpi_y__pe_id < cur_root) {
+            if (mpi_y__reduce_color_pos == __csl_tmp155) {
+                mpi_y__mem_to_fabout_no_activate(__csl_tmp158, __csl_tmp157);
+            } else {
+                mpi_y__mem_to_fabout_no_activate(__csl_tmp154, __csl_tmp157);
+            }
+        }
+        if (cur_root < mpi_y__pe_id and mpi_y__pe_id < @as(u16, 2)) {
+            if (mpi_y__reduce_color_neg == __csl_tmp155) {
+                mpi_y__mem_to_fabout_no_activate(__csl_tmp158, __csl_tmp157);
+            } else {
+                mpi_y__mem_to_fabout_no_activate(__csl_tmp154, __csl_tmp157);
+            }
+        }
+        mpi_y__td_reduce_state = @as(u16, 0);
+    }
+    return;
+}
+fn mpi_y__configure_broadcast_network() void {
+    const __csl_tmp159 = @get_color(4);
+    const addr: u16 = mpi_y__tile_config__color_config__get_color_config_addr(__csl_tmp159);
+    const root: u16 = mpi_y__cur_network_cfg.root;
+    if (mpi_y__pe_id == root) {
+        if (mpi_y__pe_id == @as(u16, 0)) {
+            mpi_y__tile_config__color_config__reset_routes_inst180(addr);
+        } else {
+            if (mpi_y__pe_id == @as(u16, 1)) {
+                mpi_y__tile_config__color_config__reset_routes_inst183(addr);
+            } else {
+                mpi_y__tile_config__color_config__reset_routes_inst185(addr);
+            }
+        }
+    } else {
+        if (mpi_y__pe_id == @as(u16, 0)) {
+            mpi_y__tile_config__color_config__reset_routes_inst186(addr);
+        } else {
+            if (mpi_y__pe_id == @as(u16, 1)) {
+                mpi_y__tile_config__color_config__reset_routes_inst189(addr);
+            } else {
+                if (mpi_y__pe_id < root) {
+                    mpi_y__tile_config__color_config__reset_routes_inst191(addr);
+                } else {
+                    mpi_y__tile_config__color_config__reset_routes_inst192(addr);
+                }
+            }
+        }
+    }
+    mpi_y__tile_config__teardown__exit(__csl_tmp159);
+    return;
+}
+fn mpi_y__clear_filter_and_switch() void {
+    const __csl_tmp160 = @get_color(4);
+    const filter_id: u16 = @get_filter_id(__csl_tmp160);
+    mpi_y__tile_config__filters__set_max_counter(filter_id, @as(u16, 0));
+    mpi_y__tile_config__filters__set_active_limit(filter_id, @as(u16, 0));
+    mpi_y__tile_config__filters__set_counter(filter_id, @as(u16, 0));
+    mpi_y__tile_config__switch_config__clear_current_position(__csl_tmp160);
+    mpi_y__tile_config__switch_config__set_invalid_for_all_switch_positions(__csl_tmp160);
+    mpi_y__tile_config__switch_config__set_pop_mode(__csl_tmp160);
+    return;
+}
+task mpi_y__fsm() void {
+    const __csl_tmp161 = @get_local_task_id(11);
+    switch (mpi_y__fsm_state.state) {
+        __enum_3.Transfer_Data => {
+            mpi_y__transfer_data();
+        },
+        __enum_3.Callback => {
+            mpi_y__initiate_teardowns();
+            @unblock(__csl_tmp161);
+        },
+        else => {
+            @assert(false);
+        }
+    }
+    return;
+}
+var mpi_y__mem: mem1d_dsd = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_y__invalid_u32, .offset = 0, .stride = 1, .extent = 1 });
+var mpi_y__fabout: fabout_dsd = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(3) });
+var mpi_y__fabin: fabin_dsd = @get_dsd(fabin_dsd, .{ .extent = 1, .input_queue = @get_input_queue(3) });
+var mpi_y__fabout_adv: fabout_dsd = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(3), .advance_switch = true });
+fn mpi_y__transfer_data_broadcast() void {
+    if (mpi_y__cur_network_cfg.root == mpi_y__pe_id) {
+        mpi_y__fabout = @set_dsd_length(mpi_y__fabout, mpi_y__cur_network_cfg.count);
+        mpi_y__mem = @set_dsd_length(mpi_y__mem, mpi_y__cur_network_cfg.count);
+        mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.send_buf);
+        mpi_y__mem_to_fabout(mpi_y__fabout, mpi_y__mem);
+    } else {
+        mpi_y__fabin = @set_dsd_length(mpi_y__fabin, mpi_y__cur_network_cfg.count);
+        mpi_y__mem = @set_dsd_length(mpi_y__mem, mpi_y__cur_network_cfg.count);
+        mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.recv_buf);
+        mpi_y__fabin_to_mem(mpi_y__mem, mpi_y__fabin);
+    }
+    mpi_y__fsm_state.state = __enum_3.Callback;
+    return;
+}
+fn mpi_y__transfer_data_scatter() void {
+    const __csl_tmp162 = @get_dsr(dsr_src1, 2);
+    const __csl_tmp163 = @get_dsr(dsr_dest, 2);
+    if (mpi_y__cur_network_cfg.root == mpi_y__pe_id) {
+        var dst: mem1d_dsd = @set_dsd_length(mpi_y__mem, mpi_y__cur_network_cfg.count);
+        dst = @set_dsd_base_addr(dst, mpi_y__fsm_state.recv_buf);
+        var src: mem1d_dsd = @set_dsd_length(mpi_y__mem, mpi_y__cur_network_cfg.count);
+        src = @set_dsd_base_addr(src, mpi_y__fsm_state.send_buf);
+        src = @increment_dsd_offset(src, @as(i16, mpi_y__pe_id * mpi_y__cur_network_cfg.count), u32);
+        @load_to_dsr(__csl_tmp163, dst);
+        @load_to_dsr(__csl_tmp162, src);
+        const __csl_tmp164 = @mov32(__csl_tmp163, __csl_tmp162);
+        mpi_y__fabout = @set_dsd_length(mpi_y__fabout, mpi_y__cur_network_cfg.count * @as(u16, 2));
+        mpi_y__mem = @set_dsd_length(mpi_y__mem, mpi_y__cur_network_cfg.count * @as(u16, 2));
+        mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.send_buf);
+        mpi_y__mem_to_fabout(mpi_y__fabout, mpi_y__mem);
+    } else {
+        mpi_y__fabin = @set_dsd_length(mpi_y__fabin, mpi_y__cur_network_cfg.count);
+        mpi_y__mem = @set_dsd_length(mpi_y__mem, mpi_y__cur_network_cfg.count);
+        mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.recv_buf);
+        mpi_y__fabin_to_mem(mpi_y__mem, mpi_y__fabin);
+    }
+    mpi_y__fsm_state.state = __enum_3.Callback;
+    return;
+}
+fn mpi_y__transfer_data_gather_root(param0: u16, param1: u16) void {
+    const __csl_tmp165 = @get_local_task_id(10);
+    const __csl_tmp166 = __enum_3.Callback;
+    const __csl_tmp167 = @get_dsr(dsr_src1, 2);
+    const __csl_tmp168 = @get_dsr(dsr_dest, 2);
+    if (mpi_y__fsm_state.counter == param0) {
+        mpi_y__mem = @set_dsd_length(mpi_y__mem, param1);
+        const src: mem1d_dsd = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.send_buf);
+        mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.recv_buf);
+        mpi_y__mem = @increment_dsd_offset(mpi_y__mem, @as(i16, param0 * param1), u32);
+        @load_to_dsr(__csl_tmp168, mpi_y__mem);
+        @load_to_dsr(__csl_tmp167, src);
+        const __csl_tmp169 = @mov32(__csl_tmp168, __csl_tmp167);
+        mpi_y__fsm_state.counter += @as(u16, 1);
+        if (param0 == @as(u16, 1)) {
+            mpi_y__fsm_state.state = __csl_tmp166;
+        }
+        @activate(__csl_tmp165);
+    } else {
+        if (mpi_y__fsm_state.counter == @as(u16, 0)) {
+            const neg_dir_size: u16 = param1 * param0;
+            mpi_y__fabin = @set_dsd_length(mpi_y__fabin, neg_dir_size);
+            mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.recv_buf);
+            mpi_y__mem = @set_dsd_length(mpi_y__mem, neg_dir_size);
+            mpi_y__mem = @increment_dsd_offset(mpi_y__mem, @as(i16, neg_dir_size) - @as(i16, 1), u32);
+            const rev: mem1d_dsd = @set_dsd_stride(mpi_y__mem, @as(i8, -1));
+            mpi_y__fabin_to_mem(rev, mpi_y__fabin);
+            mpi_y__fsm_state.counter = param0;
+        } else {
+            @assert(mpi_y__fsm_state.counter == param0 + @as(u16, 1));
+            const offset: u16 = (param0 + @as(u16, 1)) * param1;
+            const pos_dir_size: u16 = (@as(u16, 2) - param0 - @as(u16, 1)) * param1;
+            mpi_y__fabin = @set_dsd_length(mpi_y__fabin, pos_dir_size);
+            mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.recv_buf);
+            mpi_y__mem = @set_dsd_length(mpi_y__mem, pos_dir_size);
+            mpi_y__mem = @increment_dsd_offset(mpi_y__mem, @as(i16, offset), u32);
+            mpi_y__fabin_to_mem(mpi_y__mem, mpi_y__fabin);
+            mpi_y__fsm_state.state = __csl_tmp166;
+        }
+    }
+    return;
+}
+fn mpi_y__fabin_to_mem(param0: mem1d_dsd, param1: fabin_dsd) void {
+    const __csl_tmp170 = @get_dsr(dsr_src1, 2);
+    const __csl_tmp171 = @get_dsr(dsr_dest, 2);
+    @load_to_dsr(__csl_tmp171, param0);
+    @load_to_dsr(__csl_tmp170, param1, .{ .async = true, .activate = @get_local_task_id(10) });
+    const __csl_tmp172 = @mov32(__csl_tmp171, __csl_tmp170, .{ .async = true });
+    return;
+}
+fn mpi_y__mem_to_fabout(param0: fabout_dsd, param1: mem1d_dsd) void {
+    const __csl_tmp173 = @get_dsr(dsr_src1, 2);
+    const __csl_tmp174 = @get_dsr(dsr_dest, 2);
+    @load_to_dsr(__csl_tmp174, param0, .{ .async = true, .activate = @get_local_task_id(10) });
+    @load_to_dsr(__csl_tmp173, param1);
+    const __csl_tmp175 = @mov32(__csl_tmp174, __csl_tmp173, .{ .async = true });
+    return;
+}
+fn mpi_y__fadds_fabout_fabin_mem(param0: fabout_dsd, param1: fabin_dsd, param2: mem1d_dsd) void {
+    const __csl_tmp176 = @get_dsr(dsr_src1, 2);
+    const __csl_tmp177 = .{ .async = true };
+    const __csl_tmp178 = @get_dsr(dsr_src0, 2);
+    const __csl_tmp179 = @get_dsr(dsr_dest, 2);
+    @load_to_dsr(__csl_tmp179, param0, .{ .async = true, .activate = @get_local_task_id(10) });
+    @load_to_dsr(__csl_tmp178, param1, __csl_tmp177);
+    @load_to_dsr(__csl_tmp176, param2);
+    const __csl_tmp180 = @fadds(__csl_tmp179, __csl_tmp178, __csl_tmp176, __csl_tmp177);
+    return;
+}
+fn mpi_y__fadds_mem_fabin_mem(param0: mem1d_dsd, param1: fabin_dsd, param2: mem1d_dsd) void {
+    const __csl_tmp181 = @get_dsr(dsr_src1, 2);
+    const __csl_tmp182 = @get_dsr(dsr_src0, 2);
+    const __csl_tmp183 = @get_dsr(dsr_dest, 2);
+    @load_to_dsr(__csl_tmp183, param0);
+    @load_to_dsr(__csl_tmp182, param1, .{ .async = true, .activate = @get_local_task_id(10) });
+    @load_to_dsr(__csl_tmp181, param2);
+    const __csl_tmp184 = @fadds(__csl_tmp183, __csl_tmp182, __csl_tmp181, .{ .async = true });
+    return;
+}
+fn mpi_y__mem_to_fabout_no_activate(param0: fabout_dsd, param1: mem1d_dsd) void {
+    const __csl_tmp185 = @get_dsr(dsr_src1, 2);
+    const __csl_tmp186 = .{ .async = true };
+    const __csl_tmp187 = @get_dsr(dsr_dest, 2);
+    @load_to_dsr(__csl_tmp187, param0, __csl_tmp186);
+    @load_to_dsr(__csl_tmp185, param1);
+    const __csl_tmp188 = @mov32(__csl_tmp187, __csl_tmp185, __csl_tmp186);
+    return;
+}
+fn mpi_y__transfer_data_gather() void {
+    const __csl_tmp189 = @get_dsd(mem1d_dsd, .{ .base_address = &mpi_y__ctrl_buf, .offset = 0, .stride = 1, .extent = 1 });
+    const __csl_tmp190 = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = @get_output_queue(3), .control = true });
+    const __csl_tmp191 = __enum_3.Callback;
+    const root: u16 = mpi_y__cur_network_cfg.root;
+    const count: u16 = mpi_y__cur_network_cfg.count;
+    if (root == mpi_y__pe_id) {
+        mpi_y__transfer_data_gather_root(root, count);
+    } else {
+        if (mpi_y__fsm_state.counter == @as(u16, 0)) {
+            mpi_y__fabout_adv = @set_dsd_length(mpi_y__fabout_adv, count);
+            mpi_y__mem = @set_dsd_length(mpi_y__mem, count);
+            mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.send_buf);
+            var tmp: mem1d_dsd = mpi_y__mem;
+            if (mpi_y__pe_id < root) {
+                tmp = @increment_dsd_offset(tmp, @as(i16, count) - @as(i16, 1), u32);
+                tmp = @set_dsd_stride(tmp, @as(i8, -1));
+            }
+            const send_ctrl_wavelet: bool = mpi_y__pe_id == @as(u16, 0) and root != @as(u16, 1);
+            if (!send_ctrl_wavelet) {
+                mpi_y__fsm_state.state = __csl_tmp191;
+            }
+            mpi_y__mem_to_fabout(mpi_y__fabout_adv, tmp);
+            mpi_y__fsm_state.counter += @as(u16, 1);
+        } else {
+            @assert(mpi_y__pe_id == @as(u16, 0));
+            @assert(root != @as(u16, 1));
+            (mpi_y__ctrl_buf)[@as(u16, 0)] = @as(u32, 20971520);
+            mpi_y__mem_to_fabout(__csl_tmp190, __csl_tmp189);
+            mpi_y__fsm_state.state = __csl_tmp191;
+        }
+    }
+    return;
+}
+fn mpi_y__transfer_data_reduce() void {
+    const __csl_tmp192 = __enum_3.Callback;
+    const __csl_tmp193 = @get_dsr(dsr_src1, 2);
+    const __csl_tmp194 = @get_dsr(dsr_src0, 2);
+    const __csl_tmp195 = @get_dsr(dsr_dest, 2);
+    const __csl_tmp196 = @get_local_task_id(10);
+    const count: u16 = mpi_y__cur_network_cfg.count;
+    const root: u16 = mpi_y__cur_network_cfg.root;
+    mpi_y__reduce_pos_fabin = @set_dsd_length(mpi_y__reduce_pos_fabin, count);
+    mpi_y__reduce_neg_fabin = @set_dsd_length(mpi_y__reduce_neg_fabin, count);
+    mpi_y__reduce_pos_fabout = @set_dsd_length(mpi_y__reduce_pos_fabout, count);
+    mpi_y__reduce_neg_fabout = @set_dsd_length(mpi_y__reduce_neg_fabout, count);
+    mpi_y__mem = @set_dsd_length(mpi_y__mem, count);
+    if (mpi_y__pe_id == root and mpi_y__fsm_state.counter == @as(u16, 0)) {
+        mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.recv_buf);
+        switch (mpi_y__pe_id) {
+            @as(u16, 0) => {
+                mpi_y__fabin_to_mem(mpi_y__mem, mpi_y__reduce_pos_fabin);
+            },
+            @as(u16, 1) => {
+                mpi_y__fabin_to_mem(mpi_y__mem, mpi_y__reduce_neg_fabin);
+            },
+            else => {
+                mpi_y__fabin_to_mem(mpi_y__mem, mpi_y__reduce_pos_fabin);
+            }
+        }
+        mpi_y__fsm_state.counter += @as(u16, 1);
+    } else {
+        if (mpi_y__pe_id == root and mpi_y__fsm_state.counter == @as(u16, 1)) {
+            mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.recv_buf);
+            switch (mpi_y__pe_id) {
+                @as(u16, 0) => {
+                    @activate(__csl_tmp196);
+                },
+                @as(u16, 1) => {
+                    @activate(__csl_tmp196);
+                },
+                else => {
+                    mpi_y__fadds_mem_fabin_mem(mpi_y__mem, mpi_y__reduce_neg_fabin, mpi_y__mem);
+                }
+            }
+            mpi_y__fsm_state.counter += @as(u16, 1);
+        } else {
+            if (mpi_y__pe_id == root) {
+                mpi_y__mem = @set_dsd_length(mpi_y__mem, count);
+                const src: mem1d_dsd = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.send_buf);
+                const dst: mem1d_dsd = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.recv_buf);
+                @load_to_dsr(__csl_tmp195, dst);
+                @load_to_dsr(__csl_tmp194, dst);
+                @load_to_dsr(__csl_tmp193, src);
+                const __csl_tmp197 = @fadds(__csl_tmp195, __csl_tmp194, __csl_tmp193);
+                mpi_y__fsm_state.state = __csl_tmp192;
+                @activate(__csl_tmp196);
+            } else {
+                mpi_y__mem = @set_dsd_base_addr(mpi_y__mem, mpi_y__fsm_state.send_buf);
+                if (mpi_y__pe_id == @as(u16, 0)) {
+                    mpi_y__mem_to_fabout(mpi_y__reduce_pos_fabout, mpi_y__mem);
+                } else {
+                    if (mpi_y__pe_id == @as(u16, 1)) {
+                        mpi_y__mem_to_fabout(mpi_y__reduce_neg_fabout, mpi_y__mem);
+                    } else {
+                        if (mpi_y__pe_id < root) {
+                            mpi_y__fadds_fabout_fabin_mem(mpi_y__reduce_pos_fabout, mpi_y__reduce_neg_fabin, mpi_y__mem);
+                        } else {
+                            mpi_y__fadds_fabout_fabin_mem(mpi_y__reduce_neg_fabout, mpi_y__reduce_pos_fabin, mpi_y__mem);
+                        }
+                    }
+                }
+                mpi_y__fsm_state.state = __csl_tmp192;
+            }
+        }
+    }
+    return;
+}
+fn mpi_y__transfer_data() void {
+    switch (mpi_y__cur_network_cfg.type) {
+        __enum_2.broadcast => {
+            mpi_y__transfer_data_broadcast();
+        },
+        __enum_2.scatter => {
+            mpi_y__transfer_data_scatter();
+        },
+        __enum_2.gather => {
+            mpi_y__transfer_data_gather();
+        },
+        else => {
+            mpi_y__transfer_data_reduce();
+        }
+    }
+    return;
+}
+var mpi_y__num_tds: u16 = @as(u16, 0);
+fn mpi_y__teardown_handler_0() void {
+    const __csl_tmp198 = @get_local_task_id(11);
+    if (mpi_y__cur_network_cfg.type == __enum_2.reduce_fadds) {
+        mpi_y__num_tds += @as(u16, 1);
+        if (mpi_y__num_tds == @as(u16, 2)) {
+            mpi_y__num_tds = @as(u16, 0);
+            @activate(__csl_tmp198);
+        }
+    } else {
+        @activate(__csl_tmp198);
+    }
+    return;
+}
+fn mpi_y__teardown_handler_1() void {
+    const __csl_tmp199 = @get_local_task_id(11);
+    @assert(mpi_y__cur_network_cfg.type == __enum_2.reduce_fadds);
+    mpi_y__num_tds += @as(u16, 1);
+    if (mpi_y__num_tds == @as(u16, 2)) {
+        mpi_y__num_tds = @as(u16, 0);
+        @activate(__csl_tmp199);
+    }
+    return;
+}
+task mpi_y__f_lock() void {
+    @activate(mpi_y__fsm_state.callback);
+    return;
+}
+var x_ptr: [5]u16 = [5]u16{0, 0, 0, 0, 0};
+var x_col: [23]u16 = [23]u16{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+var x_val: [23]f32 = [23]f32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+var w0: [192]f32 = [192]f32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+var w1: [112]f32 = [112]f32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+var g_ptr: [7]u16 = [7]u16{0, 0, 0, 0, 0, 0, 0};
+var g_src: [5]u16 = [5]u16{0, 0, 0, 0, 0};
+var g_val: [5]f32 = [5]f32{0.0, 0.0, 0.0, 0.0, 0.0};
+var slots: [3]u16 = [3]u16{0, 0, 0};
+var sender_slots: [4]u16 = [4]u16{0, 0, 0, 0};
+var source_lengths: [2]u16 = [2]u16{0, 0};
+var pre: [48]f32 = [48]f32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+var logits: [21]f32 = [21]f32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+var panel_local: [64]f32 = [64]f32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+var panel_sum: [64]f32 = [64]f32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+var panel_rx: [64]f32 = [64]f32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+var accum: [48]f32 = [48]f32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+var stats: [8]u32 = [8]u32{0, 0, 0, 0, 0, 0, 0, 0};
+var clocks: [6]u16 = [6]u16{0, 0, 0, 0, 0, 0};
+var stage_cycles: [14]u32 = [14]u32{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+var stage_calls: [14]u32 = [14]u32{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+var stage_invalid: [1]u32 = [1]u32{0};
+var completion: [1]u32 = [1]u32{0};
+fn observe(param0: u16) void {
+    return;
+}
+var phase: u16 = @as(u16, 0);
+var lane: u16 = @as(u16, 0);
+var source_group: u16 = @as(u16, 0);
+var py: u16 = @as(u16, 0);
+var coroutine_initialized: bool = false;
+fn f_run() void {
+    if (!coroutine_initialized) {
+        __fiber_runtime__init();
+        coroutine_initialized = true;
+    }
+    mpi_x__init();
+    mpi_y__init();
+    py = mpi_y__pe_id;
+    phase = @as(u16, 0);
+    lane = @as(u16, 0);
+    for (@range(u16, 0, 8, 1)) |i| {
+        (stats)[i] = @as(u32, 0);
+    }
+    const __csl_tmp200 = @fmovs(@get_dsd(mem1d_dsd, .{ .base_address = &pre, .offset = 0, .stride = 1, .extent = 48 }), @as(f32, 0.0));
+    const __csl_tmp201 = @fmovs(@get_dsd(mem1d_dsd, .{ .base_address = &logits, .offset = 0, .stride = 1, .extent = 21 }), @as(f32, 0.0));
+    for (@range(u16, 0, 14, 1)) |i| {
+        (stage_cycles)[i] = @as(u32, 0);
+        (stage_calls)[i] = @as(u32, 0);
+    }
+    (stage_invalid)[@as(u16, 0)] = @as(u32, 0);
+    timestamp__enable_tsc();
+    timestamp__get_timestamp(@ptrcast(*[3]u16, &(clocks)[@as(u16, 0)]));
+    @activate(@get_local_task_id(12));
+    return;
+}
+fn project_tile() void {
+    const __csl_tmp202 = @range(u16, 0, 16, 1);
+    const __csl_tmp203 = @range(u16, 0, 3, 1);
+    const __csl_tmp204 = @range(u16, 0, 4, 1);
+    observe(@as(u16, 6));
+    const width: u16 = if (phase == @as(u16, 0)) @as(u16, 16) else @as(u16, 7);
+    const active: u16 = if (lane + @as(u16, 16) <= width) @as(u16, 16) else width - lane;
+    const active_dsd: mem1d_dsd = @set_dsd_length(@get_dsd(mem1d_dsd, .{ .base_address = &panel_local, .offset = 0, .stride = 1, .extent = 16 }), active);
+    const __csl_tmp205 = @fmovs(@get_dsd(mem1d_dsd, .{ .base_address = &panel_local, .offset = 0, .stride = 1, .extent = 64 }), @as(f32, 0.0));
+    const __csl_tmp206 = @fmovs(@get_dsd(mem1d_dsd, .{ .base_address = &panel_sum, .offset = 0, .stride = 1, .extent = 64 }), @as(f32, 0.0));
+    const __csl_tmp207 = @fmovs(@get_dsd(mem1d_dsd, .{ .base_address = &panel_rx, .offset = 0, .stride = 1, .extent = 64 }), @as(f32, 0.0));
+    const __csl_tmp208 = @fmovs(@get_dsd(mem1d_dsd, .{ .base_address = &accum, .offset = 0, .stride = 1, .extent = 48 }), @as(f32, 0.0));
+    observe(@as(u16, 6));
+    if (phase == @as(u16, 0)) {
+        for (__csl_tmp204) |v| {
+            const output: mem1d_dsd = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &(panel_local)[v * @as(u16, 16)]));
+            var e: u16 = (x_ptr)[v];
+            while (e < (x_ptr)[v + @as(u16, 1)]) : ({e += @as(u16, 1); }) {
+                const input: mem1d_dsd = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &(w0)[(x_col)[e] * @as(u16, 16) + lane]));
+                const __csl_tmp209 = @fmacs(output, output, input, (x_val)[e]);
+                (stats)[@as(u16, 4)] += @as(u32, active);
+            }
+        }
+    } else {
+        for (__csl_tmp203) |v| {
+            if ((slots)[v] != @as(u16, 65535)) {
+                const output: mem1d_dsd = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &(panel_local)[(slots)[v] * @as(u16, 16)]));
+                for (__csl_tmp202) |h| {
+                    const value: f32 = if ((pre)[v * @as(u16, 16) + h] > @as(f32, 0.0)) (pre)[v * @as(u16, 16) + h] else @as(f32, 0.0);
+                    const input: mem1d_dsd = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &(w1)[h * @as(u16, 7) + lane]));
+                    const __csl_tmp210 = @fmacs(output, output, input, value);
+                    (stats)[@as(u16, 6)] += @as(u32, active);
+                }
+            }
+        }
+    }
+    observe(@as(u16, 0));
+    return;
+}
+fn row_collectives() void {
+    mpi_x__reduce_fadds(@as(u16, 0), &panel_local, &panel_sum, @as(u16, 64), @get_local_task_id(__fiber_runtime__get_current_task_id()));
+    const __csl_tmp211 = @get_int(@get_local_task_id(__fiber_runtime__get_current_task_id()));
+    __fiber_runtime__suspend(&(__fiber_runtime__pool_sp)[__csl_tmp211], &(__fiber_runtime__pool_pc)[__csl_tmp211]);
+    observe(@as(u16, 1));
+    (stats)[@as(u16, 1)] += @as(u32, 1);
+    mpi_x__broadcast(@as(u16, 0), @ptrcast([*]u32, &panel_sum), @as(u16, 64), @get_local_task_id(__fiber_runtime__get_current_task_id()));
+    const __csl_tmp212 = @get_int(@get_local_task_id(__fiber_runtime__get_current_task_id()));
+    __fiber_runtime__suspend(&(__fiber_runtime__pool_sp)[__csl_tmp212], &(__fiber_runtime__pool_pc)[__csl_tmp212]);
+    observe(@as(u16, 2));
+    (stats)[@as(u16, 2)] += @as(u32, 1);
+    return;
+}
+fn broadcast_source() void {
+    const __csl_tmp213 = @get_dsd(mem1d_dsd, .{ .base_address = &panel_local, .offset = 0, .stride = 1, .extent = 16 });
+    observe(@as(u16, 6));
+    const count: u16 = (source_lengths)[source_group];
+    if (count == @as(u16, 0)) {
+        observe(@as(u16, 3));
+        @activate(@get_local_task_id(__fiber_runtime__get_current_task_id()));
+        const __csl_tmp214 = @get_int(@get_local_task_id(__fiber_runtime__get_current_task_id()));
+        __fiber_runtime__suspend(&(__fiber_runtime__pool_sp)[__csl_tmp214], &(__fiber_runtime__pool_pc)[__csl_tmp214]);
+        return;
+    }
+    var buffer: [*]f32 = &panel_rx;
+    if (py == source_group) {
+        if (count == @as(u16, 4)) {
+            buffer = &panel_sum;
+        } else {
+            for (@range(u16, count)) |i| {
+                const input: mem1d_dsd = @set_dsd_base_addr(__csl_tmp213, @ptrcast([*]f32, &(panel_sum)[(sender_slots)[i] * @as(u16, 16)]));
+                const output: mem1d_dsd = @set_dsd_base_addr(__csl_tmp213, @ptrcast([*]f32, &(panel_rx)[i * @as(u16, 16)]));
+                const __csl_tmp215 = @fmovs(output, input);
+            }
+        }
+    }
+    observe(@as(u16, 3));
+    mpi_y__broadcast(source_group, @ptrcast([*]u32, buffer), count * @as(u16, 16), @get_local_task_id(__fiber_runtime__get_current_task_id()));
+    const __csl_tmp216 = @get_int(@get_local_task_id(__fiber_runtime__get_current_task_id()));
+    __fiber_runtime__suspend(&(__fiber_runtime__pool_sp)[__csl_tmp216], &(__fiber_runtime__pool_pc)[__csl_tmp216]);
+    return;
+}
+fn aggregate_source() void {
+    observe(@as(u16, 4));
+    (stats)[@as(u16, 3)] += @as(u32, 1);
+    const buffer: [*]f32 = if (py == source_group) &panel_sum else &panel_rx;
+    const width: u16 = if (phase == @as(u16, 0)) @as(u16, 16) else @as(u16, 7);
+    const active: u16 = if (lane + @as(u16, 16) <= width) @as(u16, 16) else width - lane;
+    const active_dsd: mem1d_dsd = @set_dsd_length(@get_dsd(mem1d_dsd, .{ .base_address = &panel_local, .offset = 0, .stride = 1, .extent = 16 }), active);
+    const input_base: mem1d_dsd = @set_dsd_base_addr(active_dsd, buffer);
+    for (@range(u16, 0, 3, 1)) |v| {
+        const output: mem1d_dsd = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &(accum)[v * @as(u16, 16)]));
+        const row: u16 = source_group * @as(u16, 3) + v;
+        var e: u16 = (g_ptr)[row];
+        while (e < (g_ptr)[row + @as(u16, 1)]) : ({e += @as(u16, 1); }) {
+            const input: mem1d_dsd = @increment_dsd_offset(input_base, @as(i16, (g_src)[e] * @as(u16, 16)), f32);
+            const __csl_tmp217 = @fmacs(output, output, input, (g_val)[e]);
+            (stats)[@as(u16, 5)] += @as(u32, active);
+        }
+    }
+    observe(@as(u16, 5));
+    return;
+}
+fn store_tile() void {
+    const __csl_tmp218 = @range(u16, 0, 16, 1);
+    const width: u16 = if (phase == @as(u16, 0)) @as(u16, 16) else @as(u16, 7);
+    for (@range(u16, 0, 3, 1)) |v| {
+        for (__csl_tmp218) |t| {
+            if (lane + t < width) {
+                if (phase == @as(u16, 0)) {
+                    const __csl_tmp219 = v * @as(u16, 16);
+                    (pre)[__csl_tmp219 + lane + t] = (accum)[__csl_tmp219 + t];
+                } else {
+                    (logits)[v * @as(u16, 7) + lane + t] = (accum)[v * @as(u16, 16) + t];
+                }
+            }
+        }
+    }
+    (stats)[@as(u16, 7)] += @as(u32, 1);
+    return;
+}
+fn compute_tiles() void {
+    while (true) {
+        const width: u16 = if (phase == @as(u16, 0)) @as(u16, 16) else @as(u16, 7);
+        while (lane < width) {
+            project_tile();
+            row_collectives();
+            source_group = @as(u16, 0);
+            while (source_group < @as(u16, 2)) {
+                broadcast_source();
+                aggregate_source();
+                source_group += @as(u16, 1);
+            }
+            store_tile();
+            lane += @as(u16, 16);
+        }
+        observe(@as(u16, 6));
+        if (phase == @as(u16, 0)) {
+            phase = @as(u16, 1);
+            lane = @as(u16, 0);
+        } else {
+            break;
+        }
+    }
+    timestamp__get_timestamp(@ptrcast(*[3]u16, &(clocks)[@as(u16, 3)]));
+    timestamp__disable_tsc();
+    (stats)[@as(u16, 0)] = @as(u32, 24589);
+    (completion)[@as(u16, 0)] += @as(u32, 1);
+    sys__unblock_cmd_stream();
+    return;
+}
+var ptr_x_ptr: [*]u16 = &x_ptr;
+var ptr_x_col: [*]u16 = &x_col;
+var ptr_x_val: [*]f32 = &x_val;
+var ptr_w0: [*]f32 = &w0;
+var ptr_w1: [*]f32 = &w1;
+var ptr_g_ptr: [*]u16 = &g_ptr;
+var ptr_g_src: [*]u16 = &g_src;
+var ptr_g_val: [*]f32 = &g_val;
+var ptr_slots: [*]u16 = &slots;
+var ptr_sender_slots: [*]u16 = &sender_slots;
+var ptr_source_lengths: [*]u16 = &source_lengths;
+var ptr_pre: [*]f32 = &pre;
+var ptr_logits: [*]f32 = &logits;
+var ptr_panel_sum: [*]f32 = &panel_sum;
+var ptr_stats: [*]u32 = &stats;
+var ptr_clocks: [*]u16 = &clocks;
+var ptr_stage_cycles: [*]u32 = &stage_cycles;
+var ptr_stage_calls: [*]u32 = &stage_calls;
+var ptr_stage_invalid: [*]u32 = &stage_invalid;
+var ptr_completion: [*]u32 = &completion;
+var __fiber_runtime__pool_sp: [29]u16;
+var __fiber_runtime__pool_pc: [29]u16;
+var __fiber_runtime__pool_caller_wid: [29]u16;
+var __fiber_runtime__pool_stack_bottom: [29]u16;
+fn __fiber_runtime__get_current_task_id() u16 {
+    const value: u16 = @get_config_unchecked(@as(u16, 32281)) & @as(u16, 31);
+    return value;
+}
+fn __fiber_runtime__set_sp_and_jmp(param0: u16, param1: u16) void {
+    asm volatile ("mov16 sp = %[target] \nnop \n nop \n nop \nld32 d2 = sp[0] \nld32 d4 = sp[2] \nld16 r15 = sp[4] \njmp %[pc]"
+        : 
+        : [target] "r" (param0), [pc] "r" (param1)
+        : "r2", "r3", "r4", "r5", "r15"
+    );
+    return;
+}
+fn __fiber_runtime__suspend(param0: *u16, param1: *u16) void {
+    asm volatile ("movri r3 = 1f \n slr16.nf r3 = r3, 1 \n slr16.nf r6 = %[addr], 1 \n imov16.nf [r6] = r3"
+        : 
+        : [addr] "{r6}" (param1)
+        : "r3", "memory"
+    );
+    asm volatile ("slr16.nf r7 = %[sp_addr], 1 \n imov16.nf [r7] = sp \n nop.term \n 1:"
+        : 
+        : [sp_addr] "{r7}" (param0)
+        : "r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "cflag", "memory"
+    );
+    return;
+}
+task __fiber_runtime__worker_entry() void {
+    const my_id: u16 = @get_int(@get_local_task_id(__fiber_runtime__get_current_task_id()));
+    __fiber_runtime__set_sp_and_jmp((__fiber_runtime__pool_sp)[my_id], (__fiber_runtime__pool_pc)[my_id]);
+    return;
+}
+fn __fiber_runtime__init() void {
+    const __csl_tmp220 = @ptrcast([*]u16, &__fiber_stack_compute_tiles);
+    var __asm_scratch_52: u16;
+    asm ("fmov16.nf %[out] = %[inp]"
+        : [out] "=r" (__asm_scratch_52)
+        : [inp] "r" (&__fiber_reset_compute_tiles)
+    );
+    __csl_tmp220[@as(u16, 36)] = __asm_scratch_52 >> @as(u16, 1);
+    var __asm_scratch_53: u16;
+    asm ("fmov16.nf %[out] = %[inp]"
+        : [out] "=r" (__asm_scratch_53)
+        : [inp] "r" (&__csl_tmp220[@as(u16, 32)])
+    );
+    (__fiber_runtime__pool_sp)[@as(u16, 12)] = __asm_scratch_53 >> @as(u16, 1);
+    var __asm_scratch_54: u16;
+    asm ("fmov16.nf %[out] = %[inp]"
+        : [out] "=r" (__asm_scratch_54)
+        : [inp] "r" (&compute_tiles)
+    );
+    (__fiber_runtime__pool_pc)[@as(u16, 12)] = __asm_scratch_54 >> @as(u16, 1);
+    (__fiber_runtime__pool_caller_wid)[@as(u16, 12)] = @as(u16, 12);
+    var __asm_scratch_55: u16;
+    asm ("fmov16.nf %[out] = %[inp]"
+        : [out] "=r" (__asm_scratch_55)
+        : [inp] "r" (__csl_tmp220)
+    );
+    (__fiber_runtime__pool_stack_bottom)[@as(u16, 12)] = __asm_scratch_55 >> @as(u16, 1);
+    return;
+}
+comptime {
+    @bind_control_task(sys__sys_mod__sys_mod__f_push, @get_control_task_id(33));
+    @bind_local_task(sys__sys_mod__sys_mod__f_sys_exit, @get_local_task_id(28));
+    @bind_control_task(sys__sys_mod__sys_mod__f_sys_check_and_ignore, @get_control_task_id(37));
+    @unblock(@get_data_task_id(@get_input_queue(1)));
+    @set_local_color_config(@get_color(22), .{ .routes = .{ .rx = .{ WEST }, .tx = .{ RAMP } } });
+    @block(@get_data_task_id(@get_input_queue(0)));
+    @set_local_color_config(@get_color(23), .{ .routes = .{ .rx = .{ WEST }, .tx = .{ RAMP } }, .filter = .{ .kind = .{ .counter = true }, .count_data = true, .count_control = false, .init_counter = 0, .max_counter = 0, .limit1 = 1 }, .teardown = true });
+    @initialize_queue(@get_input_queue(0), .{ .color = @get_color(23) });
+    @bind_local_task(sys__sys_mod__memcpyd2h_mod__f_send_ctrl, @get_local_task_id(30));
+    @bind_local_task(sys__sys_mod__memcpyd2h_mod__f_send_data, @get_local_task_id(21));
+    @bind_data_task(sys__sys_mod__memcpyd2h_mod__f_user_memcpyd2h_data_x, @get_data_task_id(@get_input_queue(0)));
+    @set_local_color_config(@get_color(21), .{ .routes = .{ .rx = .{ WEST }, .tx = .{ EAST } }, .switches = .{ .pos1 = .{ .rx = RAMP }, .ring_mode = true, .pop_mode = .{ .always_pop = true } }, .teardown = true });
+    @initialize_queue(@get_output_queue(0), .{ .color = @get_color(21) });
+    @set_empty_queue_handler(sys__sys_mod__oq0_teardow_handler, @get_output_queue(0));
+    @__internal_rpc(sys__sys_mod__rpc_server);
+    @unblock(@get_local_task_id(29));
+    @bind_control_task(sys__sys_mod__f_memcpyh2d, @get_control_task_id(34));
+    @bind_control_task(sys__sys_mod__f_memcpyd2h, @get_control_task_id(35));
+    @bind_control_task(sys__sys_mod__f_rpc, @get_control_task_id(36));
+    @bind_local_task(sys__sys_mod__f_ublk_c22, @get_local_task_id(27));
+    @set_teardown_handler(sys__sys_mod__teardown_h2d, @get_color(23));
+    @set_teardown_handler(sys__sys_mod__teardown_d2h, @get_color(21));
+    @initialize_queue(@get_input_queue(1), .{ .color = @get_color(22) });
+    @initialize_queue(@get_input_queue(2), .{ .color = @get_color(0) });
+    @initialize_queue(@get_input_queue(4), .{ .color = @get_color(1) });
+    @bind_local_task(mpi_x__fsm, @get_local_task_id(8));
+    @set_local_color_config(@get_color(0), .{ .routes = .{ .rx = .{ WEST }, .tx = .{ RAMP } }, .filter = .{ .count_data = true, .kind = .{ .counter = true }, .init_counter = 0, .max_counter = 0, .limit1 = 0 }, .teardown = true });
+    @set_local_color_config(@get_color(1), .{ .routes = .{ .rx = .{ RAMP }, .tx = .{ RAMP } }, .teardown = true });
+    @initialize_queue(@get_output_queue(2), .{ .color = @get_color(0) });
+    @initialize_queue(@get_output_queue(4), .{ .color = @get_color(1) });
+    @set_teardown_handler(mpi_x__teardown_handler_0, @get_color(0));
+    @set_teardown_handler(mpi_x__teardown_handler_1, @get_color(1));
+    @bind_local_task(mpi_x__f_lock, @get_local_task_id(9));
+    @initialize_queue(@get_input_queue(3), .{ .color = @get_color(4) });
+    @initialize_queue(@get_input_queue(5), .{ .color = @get_color(5) });
+    @bind_local_task(mpi_y__fsm, @get_local_task_id(10));
+    @set_local_color_config(@get_color(4), .{ .routes = .{ .rx = .{ NORTH }, .tx = .{ RAMP } }, .filter = .{ .count_data = true, .kind = .{ .counter = true }, .init_counter = 0, .max_counter = 0, .limit1 = 0 }, .teardown = true });
+    @set_local_color_config(@get_color(5), .{ .routes = .{ .rx = .{ RAMP }, .tx = .{ RAMP } }, .teardown = true });
+    @initialize_queue(@get_output_queue(3), .{ .color = @get_color(4) });
+    @initialize_queue(@get_output_queue(5), .{ .color = @get_color(5) });
+    @set_teardown_handler(mpi_y__teardown_handler_0, @get_color(4));
+    @set_teardown_handler(mpi_y__teardown_handler_1, @get_color(5));
+    @bind_local_task(mpi_y__f_lock, @get_local_task_id(11));
+    @export_symbol(ptr_stage_cycles, "stage_cycles");
+    @export_symbol(ptr_stage_calls, "stage_calls");
+    @export_symbol(ptr_stage_invalid, "stage_invalid");
+    @export_symbol(ptr_completion, "completion");
+    @bind_local_task(__fiber_runtime__worker_entry, @get_local_task_id(12));
+    @export_symbol(ptr_x_ptr, "x_ptr");
+    @export_symbol(ptr_x_col, "x_col");
+    @export_symbol(ptr_x_val, "x_val");
+    @export_symbol(ptr_w0, "w0");
+    @export_symbol(ptr_w1, "w1");
+    @export_symbol(ptr_g_ptr, "g_ptr");
+    @export_symbol(ptr_g_src, "g_src");
+    @export_symbol(ptr_g_val, "g_val");
+    @export_symbol(ptr_slots, "slots");
+    @export_symbol(ptr_sender_slots, "sender_slots");
+    @export_symbol(ptr_source_lengths, "source_lengths");
+    @export_symbol(ptr_pre, "pre");
+    @export_symbol(ptr_logits, "logits");
+    @export_symbol(ptr_panel_sum, "panel_sum");
+    @export_symbol(ptr_stats, "stats");
+    @export_symbol(ptr_clocks, "clocks");
+    @export_symbol(f_run);
+}
+export var __fiber_stack_compute_tiles: [19]u32;
+fn __fiber_reset_compute_tiles() void {
+    const __csl_tmp221 = @ptrcast([*]u16, &__fiber_stack_compute_tiles);
+    var __asm_scratch_49: u16;
+    asm ("fmov16.nf %[out] = %[inp]"
+        : [out] "=r" (__asm_scratch_49)
+        : [inp] "r" (&__fiber_reset_compute_tiles)
+    );
+    __csl_tmp221[@as(u16, 36)] = __asm_scratch_49 >> @as(u16, 1);
+    var __asm_scratch_50: u16;
+    asm ("fmov16.nf %[out] = %[inp]"
+        : [out] "=r" (__asm_scratch_50)
+        : [inp] "r" (&__csl_tmp221[@as(u16, 32)])
+    );
+    (__fiber_runtime__pool_sp)[@as(u16, 12)] = __asm_scratch_50 >> @as(u16, 1);
+    var __asm_scratch_51: u16;
+    asm ("fmov16.nf %[out] = %[inp]"
+        : [out] "=r" (__asm_scratch_51)
+        : [inp] "r" (&compute_tiles)
+    );
+    (__fiber_runtime__pool_pc)[@as(u16, 12)] = __asm_scratch_51 >> @as(u16, 1);
+    asm volatile ("nop.term");
+    // unreachable
+}

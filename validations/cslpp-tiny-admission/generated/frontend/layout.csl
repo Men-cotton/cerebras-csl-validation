@@ -1,0 +1,49 @@
+// Set with --params; csl-pp has substituted their values.
+param C;
+param COMPACT;
+param FW;
+param H;
+param K;
+param L;
+param MG;
+param MX;
+param O;
+param PROFILE;
+param R;
+param T;
+param U;
+
+const __struct_0 = struct { first_pe: bool, last_pe: bool, MEMCPYH2D_1: i16, MEMCPYH2D_2: i16, MEMCPYH2D_3: i16, MEMCPYH2D_4: i16, MEMCPYD2H_1: i16, MEMCPYD2H_2: i16, MEMCPYD2H_3: i16, MEMCPYD2H_4: i16, LAUNCH: i16 };
+const __struct_1 = struct { DATA_COLOR_0: color, DATA_COLOR_1: color, ACTIVATE_FSM_TASK_ID: local_task_id, C_LOCK: local_task_id, present: bool };
+const __struct_2 = struct { ids: __struct_1, POS_DIR: direction, NEG_DIR: direction, pe_min: bool, pe_max: bool, NUM_PES: u16, DIM_ID: comptime_int };
+const __struct_3 = struct { x: __struct_2, y: __struct_2 };
+const __struct_4 = struct { PROFILE: u16, memcpy_params: __struct_0, c2d_params: __struct_3, C: u16, R: u16, K: u16, L: u16, FW: u16, H: u16, O: u16, T: u16, MX: u16, MG: u16, COMPACT: u16, U: u16 };
+
+layout {
+    @set_rectangle(2, 2);
+    @set_tile_code(1, 0, "pe__29a6ee9cb90f.csl", .{});
+    @set_tile_code(0, 1, "pe__4ef025544643.csl", .{});
+    @set_tile_code(1, 1, "pe__70c676dd1f01.csl", .{});
+    @set_tile_code(0, 0, "pe__8debf3fed2b3.csl", .{});
+    @export_name("x_ptr", [*]u16, true);
+    @export_name("x_col", [*]u16, true);
+    @export_name("x_val", [*]f32, true);
+    @export_name("w0", [*]f32, true);
+    @export_name("w1", [*]f32, true);
+    @export_name("g_ptr", [*]u16, true);
+    @export_name("g_src", [*]u16, true);
+    @export_name("g_val", [*]f32, true);
+    @export_name("slots", [*]u16, true);
+    @export_name("sender_slots", [*]u16, true);
+    @export_name("source_lengths", [*]u16, true);
+    @export_name("pre", [*]f32, true);
+    @export_name("logits", [*]f32, true);
+    @export_name("panel_sum", [*]f32, true);
+    @export_name("stats", [*]u32, true);
+    @export_name("clocks", [*]u16, true);
+    @export_name("stage_cycles", [*]u32, true);
+    @export_name("stage_calls", [*]u32, true);
+    @export_name("stage_invalid", [*]u32, true);
+    @export_name("completion", [*]u32, true);
+    @export_name("f_run", fn() void);
+}

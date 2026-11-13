@@ -1,0 +1,11 @@
+{
+  "description": "Tiny generated-CSL source, target code/reservation evidence and static SRAM checks; async capacity remains HOLD.",
+  "entrypoints": [
+    "hardware_entry.py"
+  ],
+  "id": "cslpp-tiny-admission",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}
