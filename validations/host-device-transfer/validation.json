@@ -1,0 +1,12 @@
+{
+  "description": "Completed transfer controls: geometry, buffers, fixed-total splitting and matched broadcast delivery.",
+  "entrypoints": [
+    "host_device_transfer_appliance.py"
+  ],
+  "id": "host-device-transfer",
+  "schema": 1,
+  "tests": [
+    "tests",
+    "source"
+  ]
+}

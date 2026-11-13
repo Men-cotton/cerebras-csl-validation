@@ -1,0 +1,317 @@
+{
+  "cases": {
+    "broadcast-col-bcast": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 1,
+      "WIDTH": 64
+    },
+    "broadcast-col-unicast": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 1,
+      "WIDTH": 64
+    },
+    "broadcast-row-bcast": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 1,
+      "WIDTH": 64
+    },
+    "broadcast-row-unicast": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 1,
+      "WIDTH": 64
+    },
+    "buffers-w0-e0": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "buffers-w0-e1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "buffers-w0-e16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "buffers-w0-e4": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "buffers-w1-e0": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "buffers-w1-e1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "buffers-w16-e0": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "buffers-w16-e16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "buffers-w4-e0": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "buffers-w4-e4": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "geometry-w128-h32-c1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 32,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 128
+    },
+    "geometry-w128-h32-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 32,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 128
+    },
+    "geometry-w16-h256-c1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 256,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 16
+    },
+    "geometry-w16-h256-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 256,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 16
+    },
+    "geometry-w184-h23-c1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 23,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 184
+    },
+    "geometry-w184-h23-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 23,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 184
+    },
+    "geometry-w23-h184-c1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 184,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 23
+    },
+    "geometry-w23-h184-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 184,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 23
+    },
+    "geometry-w256-h16-c1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 16,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 256
+    },
+    "geometry-w256-h16-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 16,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 256
+    },
+    "geometry-w32-h128-c1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 128,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 32
+    },
+    "geometry-w32-h128-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 128,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 32
+    },
+    "geometry-w46-h92-c1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 92,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 46
+    },
+    "geometry-w46-h92-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 92,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 46
+    },
+    "geometry-w64-h64-c1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "geometry-w64-h64-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "geometry-w92-h46-c1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 46,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 92
+    },
+    "geometry-w92-h46-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 46,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 92
+    },
+    "split-k1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "split-k16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "split-k2": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "split-k4": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    },
+    "split-k8": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "REPLY_ACK": 0,
+      "WIDTH": 64
+    }
+  },
+  "family": "host-device-transfer",
+  "files": {
+    "host_device_transfer_appliance.py": "a21f499654aaa4a0ebb4a90961c8f488649fa0988380bb36559b044c6b140ce9",
+    "source/driver.py": "bcecdd1833695b2372d4cee20c45b3431b19ad54b3f477eb36ba195e1da225fd",
+    "source/layout.csl": "78d246e567b93679a3b057561eb6fd701aa3494a8e29d2429f0824ad7c085535",
+    "source/oracle.py": "cce4fcf5e51f326662d5accb7d6f60161e3867a136ee447ed32886f724fea352",
+    "source/pe.csl": "58f83f6518666efda6917adf402f74cf66b48819cdaf16c0c69d73f62cf1f676",
+    "source/test_driver.py": "d30452fa535fc42d3a33b08bf85f6ab586b6f85f00b2ec3302b75b0a7977dc17",
+    "source/test_oracle.py": "42de7af55624c164e21e2ba9d2f46f77f0c9646640c0336c6e963ea8d9dc7348",
+    "support/appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
+    "support/hardware_entry.py": "f3712142291ae484c49a2adf8d9b92d78d17a918c026d0cdd6dcb0ad3b89e17d",
+    "support/portable.py": "a8248f5919ad53951a2be087dfd811dc7fdb9c8af5af00fb00708540cc8edd79",
+    "support/saved_audit.py": "c2d1b70cdb950ec74aab33edfda90c6c18b1b06ef594e116a3cf04405a02a2db",
+    "tests/test_host_device_transfer_appliance.py": "a327f04a8558df8ed85cf955418ac2a18cc683e025b6089e9f248dcb844d5364"
+  },
+  "schema": 1,
+  "source_revision_scope": "gnn-csl E237; frozen file hashes are authoritative"
+}

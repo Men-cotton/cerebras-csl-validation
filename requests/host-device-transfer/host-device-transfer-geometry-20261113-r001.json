@@ -1,0 +1,2059 @@
+{
+  "description": "geometry: 18 controlled cases; three fresh worker runtimes each; full response audit.",
+  "id": "host-device-transfer-geometry-20261113-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w64-h64-c1",
+        "--out",
+        "{output}/compile-c00"
+      ],
+      "kind": "appliance",
+      "name": "compile-c00",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w64-h64-c1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c00/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c00-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c00-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w64-h64-c1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c00-r0/capture-data",
+        "--out",
+        "{output}/audit-c00-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c00-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w64-h64-c1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c00/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c00-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c00-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w64-h64-c1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c00-r1/capture-data",
+        "--out",
+        "{output}/audit-c00-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c00-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w64-h64-c1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c00/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c00-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c00-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w64-h64-c1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c00-r2/capture-data",
+        "--out",
+        "{output}/audit-c00-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c00-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w64-h64-c16",
+        "--out",
+        "{output}/compile-c01"
+      ],
+      "kind": "appliance",
+      "name": "compile-c01",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w64-h64-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c01/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c01-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c01-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w64-h64-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c01-r0/capture-data",
+        "--out",
+        "{output}/audit-c01-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c01-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w64-h64-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c01/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c01-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c01-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w64-h64-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c01-r1/capture-data",
+        "--out",
+        "{output}/audit-c01-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c01-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w64-h64-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c01/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c01-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c01-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w64-h64-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c01-r2/capture-data",
+        "--out",
+        "{output}/audit-c01-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c01-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w46-h92-c1",
+        "--out",
+        "{output}/compile-c02"
+      ],
+      "kind": "appliance",
+      "name": "compile-c02",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w46-h92-c1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c02/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c02-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c02-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w46-h92-c1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c02-r0/capture-data",
+        "--out",
+        "{output}/audit-c02-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c02-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w46-h92-c1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c02/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c02-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c02-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w46-h92-c1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c02-r1/capture-data",
+        "--out",
+        "{output}/audit-c02-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c02-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w46-h92-c1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c02/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c02-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c02-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w46-h92-c1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c02-r2/capture-data",
+        "--out",
+        "{output}/audit-c02-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c02-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w46-h92-c16",
+        "--out",
+        "{output}/compile-c03"
+      ],
+      "kind": "appliance",
+      "name": "compile-c03",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w46-h92-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c03/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c03-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c03-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w46-h92-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c03-r0/capture-data",
+        "--out",
+        "{output}/audit-c03-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c03-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w46-h92-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c03/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c03-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c03-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w46-h92-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c03-r1/capture-data",
+        "--out",
+        "{output}/audit-c03-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c03-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w46-h92-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c03/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c03-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c03-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w46-h92-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c03-r2/capture-data",
+        "--out",
+        "{output}/audit-c03-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c03-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w92-h46-c1",
+        "--out",
+        "{output}/compile-c04"
+      ],
+      "kind": "appliance",
+      "name": "compile-c04",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w92-h46-c1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c04/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c04-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c04-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w92-h46-c1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c04-r0/capture-data",
+        "--out",
+        "{output}/audit-c04-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c04-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w92-h46-c1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c04/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c04-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c04-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w92-h46-c1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c04-r1/capture-data",
+        "--out",
+        "{output}/audit-c04-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c04-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w92-h46-c1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c04/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c04-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c04-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w92-h46-c1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c04-r2/capture-data",
+        "--out",
+        "{output}/audit-c04-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c04-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w92-h46-c16",
+        "--out",
+        "{output}/compile-c05"
+      ],
+      "kind": "appliance",
+      "name": "compile-c05",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w92-h46-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c05/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c05-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c05-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w92-h46-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c05-r0/capture-data",
+        "--out",
+        "{output}/audit-c05-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c05-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w92-h46-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c05/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c05-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c05-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w92-h46-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c05-r1/capture-data",
+        "--out",
+        "{output}/audit-c05-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c05-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w92-h46-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c05/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c05-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c05-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w92-h46-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c05-r2/capture-data",
+        "--out",
+        "{output}/audit-c05-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c05-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w32-h128-c1",
+        "--out",
+        "{output}/compile-c06"
+      ],
+      "kind": "appliance",
+      "name": "compile-c06",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w32-h128-c1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c06/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c06-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c06-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w32-h128-c1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c06-r0/capture-data",
+        "--out",
+        "{output}/audit-c06-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c06-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w32-h128-c1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c06/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c06-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c06-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w32-h128-c1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c06-r1/capture-data",
+        "--out",
+        "{output}/audit-c06-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c06-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w32-h128-c1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c06/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c06-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c06-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w32-h128-c1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c06-r2/capture-data",
+        "--out",
+        "{output}/audit-c06-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c06-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w32-h128-c16",
+        "--out",
+        "{output}/compile-c07"
+      ],
+      "kind": "appliance",
+      "name": "compile-c07",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w32-h128-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c07/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c07-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c07-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w32-h128-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c07-r0/capture-data",
+        "--out",
+        "{output}/audit-c07-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c07-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w32-h128-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c07/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c07-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c07-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w32-h128-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c07-r1/capture-data",
+        "--out",
+        "{output}/audit-c07-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c07-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w32-h128-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c07/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c07-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c07-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w32-h128-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c07-r2/capture-data",
+        "--out",
+        "{output}/audit-c07-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c07-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w128-h32-c1",
+        "--out",
+        "{output}/compile-c08"
+      ],
+      "kind": "appliance",
+      "name": "compile-c08",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w128-h32-c1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c08/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c08-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c08-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w128-h32-c1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c08-r0/capture-data",
+        "--out",
+        "{output}/audit-c08-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c08-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w128-h32-c1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c08/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c08-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c08-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w128-h32-c1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c08-r1/capture-data",
+        "--out",
+        "{output}/audit-c08-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c08-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w128-h32-c1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c08/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c08-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c08-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w128-h32-c1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c08-r2/capture-data",
+        "--out",
+        "{output}/audit-c08-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c08-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w128-h32-c16",
+        "--out",
+        "{output}/compile-c09"
+      ],
+      "kind": "appliance",
+      "name": "compile-c09",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w128-h32-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c09/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c09-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c09-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w128-h32-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c09-r0/capture-data",
+        "--out",
+        "{output}/audit-c09-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c09-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w128-h32-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c09/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c09-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c09-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w128-h32-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c09-r1/capture-data",
+        "--out",
+        "{output}/audit-c09-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c09-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w128-h32-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c09/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c09-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c09-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w128-h32-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c09-r2/capture-data",
+        "--out",
+        "{output}/audit-c09-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c09-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w23-h184-c1",
+        "--out",
+        "{output}/compile-c10"
+      ],
+      "kind": "appliance",
+      "name": "compile-c10",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w23-h184-c1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c10/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c10-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c10-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w23-h184-c1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c10-r0/capture-data",
+        "--out",
+        "{output}/audit-c10-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c10-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w23-h184-c1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c10/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c10-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c10-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w23-h184-c1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c10-r1/capture-data",
+        "--out",
+        "{output}/audit-c10-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c10-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w23-h184-c1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c10/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c10-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c10-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w23-h184-c1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c10-r2/capture-data",
+        "--out",
+        "{output}/audit-c10-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c10-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w23-h184-c16",
+        "--out",
+        "{output}/compile-c11"
+      ],
+      "kind": "appliance",
+      "name": "compile-c11",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w23-h184-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c11/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c11-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c11-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w23-h184-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c11-r0/capture-data",
+        "--out",
+        "{output}/audit-c11-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c11-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w23-h184-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c11/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c11-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c11-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w23-h184-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c11-r1/capture-data",
+        "--out",
+        "{output}/audit-c11-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c11-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w23-h184-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c11/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c11-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c11-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w23-h184-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c11-r2/capture-data",
+        "--out",
+        "{output}/audit-c11-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c11-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w184-h23-c1",
+        "--out",
+        "{output}/compile-c12"
+      ],
+      "kind": "appliance",
+      "name": "compile-c12",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w184-h23-c1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c12/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c12-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c12-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w184-h23-c1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c12-r0/capture-data",
+        "--out",
+        "{output}/audit-c12-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c12-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w184-h23-c1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c12/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c12-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c12-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w184-h23-c1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c12-r1/capture-data",
+        "--out",
+        "{output}/audit-c12-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c12-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w184-h23-c1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c12/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c12-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c12-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w184-h23-c1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c12-r2/capture-data",
+        "--out",
+        "{output}/audit-c12-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c12-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w184-h23-c16",
+        "--out",
+        "{output}/compile-c13"
+      ],
+      "kind": "appliance",
+      "name": "compile-c13",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w184-h23-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c13/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c13-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c13-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w184-h23-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c13-r0/capture-data",
+        "--out",
+        "{output}/audit-c13-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c13-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w184-h23-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c13/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c13-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c13-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w184-h23-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c13-r1/capture-data",
+        "--out",
+        "{output}/audit-c13-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c13-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w184-h23-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c13/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c13-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c13-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w184-h23-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c13-r2/capture-data",
+        "--out",
+        "{output}/audit-c13-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c13-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w16-h256-c1",
+        "--out",
+        "{output}/compile-c14"
+      ],
+      "kind": "appliance",
+      "name": "compile-c14",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w16-h256-c1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c14/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c14-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c14-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w16-h256-c1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c14-r0/capture-data",
+        "--out",
+        "{output}/audit-c14-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c14-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w16-h256-c1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c14/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c14-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c14-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w16-h256-c1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c14-r1/capture-data",
+        "--out",
+        "{output}/audit-c14-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c14-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w16-h256-c1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c14/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c14-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c14-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w16-h256-c1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c14-r2/capture-data",
+        "--out",
+        "{output}/audit-c14-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c14-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w16-h256-c16",
+        "--out",
+        "{output}/compile-c15"
+      ],
+      "kind": "appliance",
+      "name": "compile-c15",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w16-h256-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c15/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c15-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c15-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w16-h256-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c15-r0/capture-data",
+        "--out",
+        "{output}/audit-c15-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c15-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w16-h256-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c15/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c15-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c15-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w16-h256-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c15-r1/capture-data",
+        "--out",
+        "{output}/audit-c15-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c15-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w16-h256-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c15/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c15-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c15-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w16-h256-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c15-r2/capture-data",
+        "--out",
+        "{output}/audit-c15-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c15-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w256-h16-c1",
+        "--out",
+        "{output}/compile-c16"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w256-h16-c1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w256-h16-c1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c16-r0/capture-data",
+        "--out",
+        "{output}/audit-c16-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w256-h16-c1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w256-h16-c1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c16-r1/capture-data",
+        "--out",
+        "{output}/audit-c16-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w256-h16-c1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c16/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w256-h16-c1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c16-r2/capture-data",
+        "--out",
+        "{output}/audit-c16-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "geometry-w256-h16-c16",
+        "--out",
+        "{output}/compile-c17"
+      ],
+      "kind": "appliance",
+      "name": "compile-c17",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w256-h16-c16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c17/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c17-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c17-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w256-h16-c16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c17-r0/capture-data",
+        "--out",
+        "{output}/audit-c17-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c17-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w256-h16-c16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c17/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c17-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c17-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w256-h16-c16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c17-r1/capture-data",
+        "--out",
+        "{output}/audit-c17-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c17-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "geometry-w256-h16-c16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c17/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c17-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c17-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "geometry-w256-h16-c16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c17-r2/capture-data",
+        "--out",
+        "{output}/audit-c17-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c17-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    }
+  ]
+}
