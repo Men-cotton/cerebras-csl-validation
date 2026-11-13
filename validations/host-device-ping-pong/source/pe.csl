@@ -1,0 +1,138 @@
+// SPDX-License-Identifier: Apache-2.0
+// One generation word, followed by a complete buffered payload, then an echo.
+// The memcpy directions are serialized: retain the full frame before sending.
+param memcpy_params;
+param CAPACITY: u16;
+
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const rx_queue = @get_input_queue(2);
+const tx_queue = @get_output_queue(3);
+const HEADER = @get_data_task_id(rx_queue);
+const RECEIVED = @get_local_task_id(8);
+const SENT = @get_local_task_id(9);
+
+var frame = @zeros([CAPACITY]u32);
+var config_words = @zeros([1]u32);
+var ready = @zeros([1]u32);
+var frames = @zeros([1]u32);
+var status = @zeros([1]u32);
+var config_words_ptr: [*]u32 = &config_words;
+var ready_ptr: [*]u32 = &ready;
+var frames_ptr: [*]u32 = &frames;
+var status_ptr: [*]u32 = &status;
+
+var active: bool = false;
+var config_pending: bool = false;
+var requested_words: u32 = 0;
+var payload_words: u16 = 0;
+
+// Templates have positive extents even for a control-only frame. The receive
+// operation is skipped when payload_words is zero.
+var payload_mem = @get_dsd(mem1d_dsd, .{
+  .tensor_access = |i|{1} -> frame[i + 1]
+});
+var payload_in = @get_dsd(fabin_dsd, .{
+  .extent = 1,
+  .input_queue = rx_queue
+});
+var echo_mem = @get_dsd(mem1d_dsd, .{
+  .tensor_access = |i|{1} -> frame[i]
+});
+var echo_out = @get_dsd(fabout_dsd, .{
+  .extent = 1,
+  .output_queue = tx_queue
+});
+
+fn apply_configuration() void {
+  payload_words = @as(u16, requested_words);
+  config_words[0] = requested_words;
+  if (payload_words > 0) {
+    payload_mem = @set_dsd_length(payload_mem, payload_words);
+    payload_in = @set_dsd_length(payload_in, payload_words);
+  }
+  echo_mem = @set_dsd_length(echo_mem, payload_words + 1);
+  echo_out = @set_dsd_length(echo_out, payload_words + 1);
+  config_pending = false;
+  ready[0] = 1;
+  @unblock(HEADER);
+  sys.unblock_cmd_stream();
+}
+
+fn configure(n_payload_words: u32) void {
+  @block(HEADER);
+  ready[0] = 0;
+  if (n_payload_words >= @as(u32, CAPACITY)) {
+    config_pending = false;
+    status[0] = 1;
+    sys.unblock_cmd_stream();
+    return;
+  }
+  status[0] = 0;
+  requested_words = n_payload_words;
+  config_pending = true;
+  // D2H can finish before SENT is scheduled. Preserve the in-flight frame
+  // and DSDs until its callback releases their ownership.
+  if (!active) {
+    apply_configuration();
+  }
+}
+
+fn send_echo() void {
+  @mov32(echo_out, echo_mem, .{
+    .async = true,
+    .ut_id = @get_ut_id(5),
+    .activate = SENT
+  });
+}
+
+task receive_header(generation: u32) void {
+  @block(HEADER);
+  active = true;
+  ready[0] = 0;
+  frame[0] = generation;
+  if (payload_words == 0) {
+    send_echo();
+  } else {
+    // HEADER stays blocked while the microthread consumes subsequent words
+    // from the same input queue, so payload cannot trigger a second header.
+    @mov32(payload_mem, payload_in, .{
+      .async = true,
+      .ut_id = @get_ut_id(4),
+      .activate = RECEIVED
+    });
+  }
+}
+
+task received_payload() void {
+  send_echo();
+}
+
+task sent_echo() void {
+  active = false;
+  frames[0] += 1;
+  if (config_pending) {
+    apply_configuration();
+  } else if (status[0] == 0) {
+    ready[0] = 1;
+    @unblock(HEADER);
+  }
+}
+
+comptime {
+  @comptime_assert(@is_arch("wse3"));
+  @initialize_queue(rx_queue, .{
+    .color = @get_color(@bitcast(u16, sys.MEMCPYH2D_1))
+  });
+  @initialize_queue(tx_queue, .{
+    .color = @get_color(@bitcast(u16, sys.MEMCPYD2H_1))
+  });
+  @bind_data_task(receive_header, HEADER);
+  @bind_local_task(received_payload, RECEIVED);
+  @bind_local_task(sent_echo, SENT);
+  @block(HEADER);
+  @export_symbol(configure);
+  @export_symbol(config_words_ptr, "config_words");
+  @export_symbol(ready_ptr, "ready");
+  @export_symbol(frames_ptr, "frames");
+  @export_symbol(status_ptr, "status");
+}

@@ -1,0 +1,36 @@
+// SPDX-License-Identifier: Apache-2.0
+param WIDTH: u16;
+param HEIGHT: u16;
+param CAPACITY: u16;
+param MEMCPYH2D_DATA_1_ID: i16;
+param MEMCPYD2H_DATA_1_ID: i16;
+
+const memcpy = @import_module("<memcpy/get_params>", .{
+  .width = WIDTH,
+  .height = HEIGHT,
+  .MEMCPYH2D_1 = MEMCPYH2D_DATA_1_ID,
+  .MEMCPYD2H_1 = MEMCPYD2H_DATA_1_ID
+});
+
+layout {
+  @comptime_assert(WIDTH == HEIGHT);
+  @comptime_assert(HEIGHT == 1 or HEIGHT == 2 or HEIGHT == 4 or
+                   HEIGHT == 8 or HEIGHT == 16 or HEIGHT == 32 or HEIGHT == 64);
+  @comptime_assert(CAPACITY == 4097);
+  @comptime_assert(MEMCPYH2D_DATA_1_ID == 0);
+  @comptime_assert(MEMCPYD2H_DATA_1_ID == 1);
+  @set_rectangle(WIDTH, HEIGHT);
+  for (@range(u16, HEIGHT)) |y| {
+    for (@range(u16, WIDTH)) |x| {
+      @set_tile_code(x, y, "pe.csl", .{
+        .memcpy_params = memcpy.get_params(x),
+        .CAPACITY = CAPACITY
+      });
+    }
+  }
+  @export_name("configure", fn(u32)void);
+  @export_name("config_words", [*]u32, true);
+  @export_name("ready", [*]u32, true);
+  @export_name("frames", [*]u32, true);
+  @export_name("status", [*]u32, true);
+}

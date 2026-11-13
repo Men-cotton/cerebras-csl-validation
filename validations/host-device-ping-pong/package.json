@@ -1,0 +1,147 @@
+{
+  "cases": {
+    "powers-p1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 1,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 1
+    },
+    "powers-p1024": {
+      "CAPACITY": 4097,
+      "HEIGHT": 32,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 32
+    },
+    "powers-p16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 4,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 4
+    },
+    "powers-p256": {
+      "CAPACITY": 4097,
+      "HEIGHT": 16,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 16
+    },
+    "powers-p4": {
+      "CAPACITY": 4097,
+      "HEIGHT": 2,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 2
+    },
+    "powers-p4096": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 64
+    },
+    "powers-p4096-c16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 64
+    },
+    "powers-p4096-c2": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 64
+    },
+    "powers-p4096-c4": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 64
+    },
+    "powers-p4096-c8": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 64
+    },
+    "powers-p64": {
+      "CAPACITY": 4097,
+      "HEIGHT": 8,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 8
+    },
+    "zero-p1": {
+      "CAPACITY": 4097,
+      "HEIGHT": 1,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 1
+    },
+    "zero-p1024": {
+      "CAPACITY": 4097,
+      "HEIGHT": 32,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 32
+    },
+    "zero-p16": {
+      "CAPACITY": 4097,
+      "HEIGHT": 4,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 4
+    },
+    "zero-p256": {
+      "CAPACITY": 4097,
+      "HEIGHT": 16,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 16
+    },
+    "zero-p4": {
+      "CAPACITY": 4097,
+      "HEIGHT": 2,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 2
+    },
+    "zero-p4096": {
+      "CAPACITY": 4097,
+      "HEIGHT": 64,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 64
+    },
+    "zero-p64": {
+      "CAPACITY": 4097,
+      "HEIGHT": 8,
+      "MEMCPYD2H_DATA_1_ID": 1,
+      "MEMCPYH2D_DATA_1_ID": 0,
+      "WIDTH": 8
+    }
+  },
+  "family": "host-device-ping-pong",
+  "files": {
+    "host_device_ping_pong_appliance.py": "4a3ac51e0cb4c8af5447398552af0ca05f6f26b2ae81bf1af4f1d2190f623e2c",
+    "source/driver.py": "a4eadfeda45ea9a1461166776509449e61e3ed08b1e409ea6b6573f6ed7cf3a7",
+    "source/layout.csl": "772240192d1d1e14fa78afea699e7d21881cb698a26f7e086fe9776b462a9891",
+    "source/oracle.py": "d80f299bba7324476f2725550c2a1936274f751d4beafdd20b2819eb7c58f3fc",
+    "source/pe.csl": "e8ba16cdb07a78fea8f1a81c7b0a8a5cabfe9face98622d0e541a26b5c93c9f2",
+    "source/test_driver.py": "ec8baf3d99414c3e71861ad05f37e16554d3e15886a6956b6eb64502cee58c43",
+    "source/test_oracle.py": "3c1711a1ab52eefa64cc2ea7cd9cda17b44ad321b9d90f86bb78d217103681b2",
+    "support/appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
+    "support/hardware_entry.py": "f3712142291ae484c49a2adf8d9b92d78d17a918c026d0cdd6dcb0ad3b89e17d",
+    "support/portable.py": "a8248f5919ad53951a2be087dfd811dc7fdb9c8af5af00fb00708540cc8edd79",
+    "support/saved_audit.py": "c2d1b70cdb950ec74aab33edfda90c6c18b1b06ef594e116a3cf04405a02a2db",
+    "tests/test_host_device_ping_pong_appliance.py": "9cecf87c7439cb7682df26836289922b4dd7e8fcaddfd5b8315809472b427094"
+  },
+  "schema": 1,
+  "source_revision_scope": "gnn-csl E235; frozen file hashes are authoritative"
+}

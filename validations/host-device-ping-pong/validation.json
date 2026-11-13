@@ -1,0 +1,12 @@
+{
+  "description": "Worker-side completed echo RTT at seven fixed PE counts from 1 to 4096, zero payload and powers of two; separate 4096-PE channel sweep.",
+  "entrypoints": [
+    "host_device_ping_pong_appliance.py"
+  ],
+  "id": "host-device-ping-pong",
+  "schema": 1,
+  "tests": [
+    "tests",
+    "source"
+  ]
+}
