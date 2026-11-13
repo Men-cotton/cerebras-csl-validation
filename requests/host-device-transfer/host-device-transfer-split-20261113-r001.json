@@ -1,0 +1,577 @@
+{
+  "description": "split: 5 controlled cases; three fresh worker runtimes each; full response audit.",
+  "id": "host-device-transfer-split-20261113-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "split-k1",
+        "--out",
+        "{output}/compile-c00"
+      ],
+      "kind": "appliance",
+      "name": "compile-c00",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k1",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c00/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c00-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c00-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k1",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c00-r0/capture-data",
+        "--out",
+        "{output}/audit-c00-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c00-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k1",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c00/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c00-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c00-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k1",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c00-r1/capture-data",
+        "--out",
+        "{output}/audit-c00-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c00-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k1",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c00/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c00-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c00-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k1",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c00-r2/capture-data",
+        "--out",
+        "{output}/audit-c00-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c00-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "split-k2",
+        "--out",
+        "{output}/compile-c01"
+      ],
+      "kind": "appliance",
+      "name": "compile-c01",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k2",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c01/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c01-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c01-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k2",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c01-r0/capture-data",
+        "--out",
+        "{output}/audit-c01-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c01-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k2",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c01/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c01-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c01-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k2",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c01-r1/capture-data",
+        "--out",
+        "{output}/audit-c01-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c01-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k2",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c01/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c01-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c01-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k2",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c01-r2/capture-data",
+        "--out",
+        "{output}/audit-c01-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c01-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "split-k4",
+        "--out",
+        "{output}/compile-c02"
+      ],
+      "kind": "appliance",
+      "name": "compile-c02",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k4",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c02/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c02-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c02-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k4",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c02-r0/capture-data",
+        "--out",
+        "{output}/audit-c02-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c02-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k4",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c02/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c02-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c02-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k4",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c02-r1/capture-data",
+        "--out",
+        "{output}/audit-c02-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c02-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k4",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c02/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c02-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c02-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k4",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c02-r2/capture-data",
+        "--out",
+        "{output}/audit-c02-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c02-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "split-k8",
+        "--out",
+        "{output}/compile-c03"
+      ],
+      "kind": "appliance",
+      "name": "compile-c03",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k8",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c03/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c03-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c03-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k8",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c03-r0/capture-data",
+        "--out",
+        "{output}/audit-c03-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c03-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k8",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c03/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c03-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c03-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k8",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c03-r1/capture-data",
+        "--out",
+        "{output}/audit-c03-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c03-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k8",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c03/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c03-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c03-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k8",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c03-r2/capture-data",
+        "--out",
+        "{output}/audit-c03-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c03-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "split-k16",
+        "--out",
+        "{output}/compile-c04"
+      ],
+      "kind": "appliance",
+      "name": "compile-c04",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k16",
+        "--order",
+        "0",
+        "--build-record",
+        "{output}/compile-c04/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c04-r0"
+      ],
+      "kind": "appliance",
+      "name": "run-c04-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k16",
+        "--order",
+        "0",
+        "--capture",
+        "{output}/run-c04-r0/capture-data",
+        "--out",
+        "{output}/audit-c04-r0.json"
+      ],
+      "kind": "host",
+      "name": "audit-c04-r0",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k16",
+        "--order",
+        "1",
+        "--build-record",
+        "{output}/compile-c04/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c04-r1"
+      ],
+      "kind": "appliance",
+      "name": "run-c04-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k16",
+        "--order",
+        "1",
+        "--capture",
+        "{output}/run-c04-r1/capture-data",
+        "--out",
+        "{output}/audit-c04-r1.json"
+      ],
+      "kind": "host",
+      "name": "audit-c04-r1",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "split-k16",
+        "--order",
+        "2",
+        "--build-record",
+        "{output}/compile-c04/build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c04-r2"
+      ],
+      "kind": "appliance",
+      "name": "run-c04-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--case",
+        "split-k16",
+        "--order",
+        "2",
+        "--capture",
+        "{output}/run-c04-r2/capture-data",
+        "--out",
+        "{output}/audit-c04-r2.json"
+      ],
+      "kind": "host",
+      "name": "audit-c04-r2",
+      "script": "validations/host-device-transfer/host_device_transfer_appliance.py"
+    }
+  ]
+}
