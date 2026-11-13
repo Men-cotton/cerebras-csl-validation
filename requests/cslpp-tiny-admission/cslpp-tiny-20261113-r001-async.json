@@ -1,0 +1,33 @@
+{
+  "description": "Tiny 2x2 async compiler admission only; no full Cora or runtime. Exact generated sources, code/reservation evidence and static SRAM checks; async capacity remains HOLD.",
+  "id": "cslpp-tiny-20261113-r001-async",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--arm",
+        "async",
+        "--out",
+        "{output}/compile"
+      ],
+      "kind": "appliance",
+      "name": "compile",
+      "script": "validations/cslpp-tiny-admission/hardware_entry.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--arm",
+        "async",
+        "--build-record",
+        "{output}/compile/build.json",
+        "--out",
+        "{output}/audit.json"
+      ],
+      "kind": "host",
+      "name": "audit",
+      "script": "validations/cslpp-tiny-admission/hardware_entry.py"
+    }
+  ]
+}
