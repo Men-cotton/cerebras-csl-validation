@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "e149-lanes-matched-c4-r001",
+  "description": "Eight-PE resident source-sharded E149 FP32 sparse aggregation with matched features and dynamic A/B/A inputs.",
+  "steps": [
+    {
+      "name": "compile-csl",
+      "kind": "appliance",
+      "script": "validations/e149-feature-lanes/appliance.py",
+      "args": [
+        "compile-csl",
+        "--out",
+        "{output}/compile-csl"
+      ]
+    },
+    {
+      "name": "run-csl",
+      "kind": "appliance",
+      "script": "validations/e149-feature-lanes/appliance.py",
+      "args": [
+        "run-csl",
+        "--out",
+        "{output}/run-csl",
+        "--build",
+        "{output}/compile-csl/build.json"
+      ]
+    },
+    {
+      "name": "run-tungsten",
+      "kind": "appliance",
+      "script": "validations/e149-feature-lanes/appliance.py",
+      "args": [
+        "run-tungsten",
+        "--out",
+        "{output}/run-tungsten"
+      ]
+    }
+  ]
+}

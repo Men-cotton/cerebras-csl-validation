@@ -1,0 +1,23 @@
+// E149 measured 64x64 F8 graph, 4 source shards and 2 feature owners.
+const memcpy = @import_module("<memcpy/get_params>", .{.width=2, .height=4});
+layout {
+  @set_rectangle(2,4);
+  for (@range(u16, 2)) |x| {
+    for (@range(u16, 4)) |y| {
+      const send = @get_color(4 + y%2);
+      const receive = @get_color(5 - y%2);
+      @set_tile_code(x,y,"pe.csl",.{.Y=y,.send_color=send,.receive_color=receive,
+                                      .memcpy_params=memcpy.get_params(x)});
+      if (y<3) { @set_color_config(x,y,send,.{.routes=.{.rx=.{RAMP},.tx=.{SOUTH}}}); }
+      if (y>0) { @set_color_config(x,y,receive,.{.routes=.{.rx=.{NORTH},.tx=.{RAMP}}}); }
+    }
+  }
+  @export_name("sources",[*]u32,true);
+  @export_name("destinations",[*]u16,true);
+  @export_name("weights",[*]f32,true);
+  @export_name("features",[*]f32,true);
+  @export_name("owner",[*]f32,true);
+  @export_name("clocks",[*]u16,true);
+  @export_name("completed",[*]u32,true);
+  @export_name("spmm",fn()void);
+}

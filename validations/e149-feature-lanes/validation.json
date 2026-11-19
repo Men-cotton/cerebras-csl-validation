@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "e149-feature-lanes",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "description": "Eight-PE resident source-sharded E149 FP32 sparse aggregation with matched features and dynamic A/B/A inputs."
+}

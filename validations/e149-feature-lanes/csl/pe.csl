@@ -1,0 +1,70 @@
+param Y: u16;
+param send_color: color;
+param receive_color: color;
+param memcpy_params;
+const system = @import_module("<memcpy/memcpy>", memcpy_params);
+const timestamp = @import_module("<time>");
+const done = @get_local_task_id(12);
+const north = @get_input_queue(3);
+const south = @get_output_queue(3);
+var sources: [64]u32;
+var destinations: [64]u16;
+var weights: [64]f32;
+var features: [64]f32;
+var partial: [256]f32;
+var owner: [256]f32;
+var clocks: [6]u16;
+var completed = @zeros([1]u32);
+const dst = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{4}->partial[i]});
+const src = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{4}->features[i]});
+const partials = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{256}->partial[i]});
+const owners = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{256}->owner[i]});
+const incoming = @get_dsd(fabin_dsd,.{.input_queue=north,.extent=256});
+const outgoing = @get_dsd(fabout_dsd,.{.output_queue=south,.extent=256});
+
+fn spmm() void {
+  timestamp.enable_tsc();
+  timestamp.get_timestamp(@ptrcast(*[3]u16,&clocks[0]));
+  @fmovs(partials,0.0);
+  @fmovs(owners,0.0);
+  for (@range(u16,64)) |i| {
+    const out = @increment_dsd_offset(dst,@as(i16,destinations[i]),f32);
+    const in = @increment_dsd_offset(src,@as(i16,sources[i]),f32);
+    @fmacs(out,out,in,weights[i]);
+  }
+  if (Y == 0) {
+    @fmovs(outgoing,partials,.{.async=true,.activate=done});
+  } else if (Y < 3) {
+    @fadds(outgoing,partials,incoming,.{.async=true,.activate=done});
+  } else {
+    @fadds(owners,partials,incoming,.{.async=true,.activate=done});
+  }
+}
+
+task complete() void {
+  timestamp.get_timestamp(@ptrcast(*[3]u16,&clocks[3]));
+  timestamp.disable_tsc();
+  completed[0] += 1;
+  system.unblock_cmd_stream();
+}
+
+var source_ptr: [*]u32 = &sources;
+var dest_ptr: [*]u16 = &destinations;
+var weight_ptr: [*]f32 = &weights;
+var feature_ptr: [*]f32 = &features;
+var owner_ptr: [*]f32 = &owner;
+var clock_ptr: [*]u16 = &clocks;
+var completed_ptr: [*]u32 = &completed;
+comptime {
+  if (Y<3) { @initialize_queue(south,.{.color=send_color}); }
+  if (Y>0) { @initialize_queue(north,.{.color=receive_color}); }
+  @bind_local_task(complete,done);
+  @export_symbol(source_ptr,"sources");
+  @export_symbol(dest_ptr,"destinations");
+  @export_symbol(weight_ptr,"weights");
+  @export_symbol(feature_ptr,"features");
+  @export_symbol(owner_ptr,"owner");
+  @export_symbol(clock_ptr,"clocks");
+  @export_symbol(completed_ptr,"completed");
+  @export_symbol(spmm);
+}
