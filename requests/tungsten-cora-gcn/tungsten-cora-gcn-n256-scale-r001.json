@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn-n256-scale-r001",
+  "description": "Three resident frames of a trained two-layer Cora GCN with full PE record collection on physical CS-3.",
+  "steps": [
+    {
+      "name": "run-n256-c4r8-bulk",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn/cases/n256-c4r8-bulk",
+        "--build-sha256",
+        "99556538660cd083e6af23529c4e3b327aa5d4755a7cc79593a9a4a004fa70e0",
+        "--out",
+        "{output}/gcn-n256-c4r8-bulk"
+      ]
+    },
+    {
+      "name": "run-n256-c4r16-bulk",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn/cases/n256-c4r16-bulk",
+        "--build-sha256",
+        "0a1907440160414e7c29f92eb9d08ab79b9bf1dedf8cbca6e13263e211fdd416",
+        "--out",
+        "{output}/gcn-n256-c4r16-bulk"
+      ]
+    }
+  ]
+}

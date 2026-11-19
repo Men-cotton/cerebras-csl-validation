@@ -1,0 +1,223 @@
+{
+  "case": "g00-wg00-s11-c4r16-t8-group-n256",
+  "params": {
+    "C": 4,
+    "R": 16,
+    "K": 16,
+    "L": 4,
+    "FW": 359,
+    "H": 16,
+    "O": 7,
+    "T": 8,
+    "MX": 97,
+    "MG": 22,
+    "U": 6,
+    "COMPACT": 1
+  },
+  "roles": {
+    "simulator": {
+      "elf_sha256": "6d402d38f8e538edd30909d27a442c39a0bab143eaeb51b96d5ecdc6fe4ab31c",
+      "fabric": [
+        4,
+        16
+      ]
+    },
+    "hardware": {
+      "elf_sha256": "28ace1123d4bba93e665611f7aba4498cfc5bf3dc07d1432e46d3d792cce3dd7",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "machine_image": "6fa2edf7e9a485afaa2cfe38b11b6440d99048c654a43655e78185bde7346acd",
+  "source": {
+    "bench.paint": "ade2962c90e5342b81ae59559e170c2b305f739a2f766a2c468b9abf807f5d19",
+    "gcn.w": "1cd71776aee5623269bd3bd9f15ee95f7008e71be17049e447bd77749e7006dd"
+  },
+  "commands": [
+    [
+      "paint",
+      "source=src/bench.paint",
+      "lib=src",
+      "arch=sdr",
+      "annotate",
+      "image=gcn.obj",
+      "map=gcn.map",
+      "regiondump=regions.json",
+      "set=X0=0",
+      "set=Y0=0",
+      "set=C=4",
+      "set=R=16",
+      "set=K=16",
+      "set=L=4",
+      "set=FW=359",
+      "set=H=16",
+      "set=O=7",
+      "set=T=8",
+      "set=MX=97",
+      "set=MG=22",
+      "set=NRX=11",
+      "set=NSEND=8",
+      "set=NPLAN=6",
+      "set=ENV=76",
+      "set=TRIM=1",
+      "set=ITER=1"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.x_ptr",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.x_col",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.x_val",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.w0",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.w1",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.slots",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.edge_ptr",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.edge_src",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.edge_weight",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.send_slot",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.packet_header",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.packet_tag",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.packet_offset",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.packet_count",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.counts",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "mielf",
+      "image=gcn.img",
+      "elf=/home/mencotton/research/tungsten/experiments/gcn-direct-link/bundles/n256-c4r16-bulk/simulator/out/program.elf",
+      "w=4",
+      "h=16"
+    ],
+    [
+      "mielf",
+      "image=gcn.img",
+      "elf=/home/mencotton/research/tungsten/experiments/gcn-direct-link/bundles/n256-c4r16-bulk/hardware/out/program.elf",
+      "w=762",
+      "h=1172"
+    ]
+  ],
+  "input_sha256": "093265d593771d5519e8c35dc47ebf2fa2c60e25716eebf6c9d5a21a8cc499e3",
+  "checkpoint_sha256": "836c82b82871c76bb1822ace2014c9552690459a952de1b23d4399d5ecce4542",
+  "ports_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "comparison_reference_sha256": "90240dc2205cd89aa1edefd8b1e7b51bfd13e6f873785ef005e79acb5ab295b1",
+  "canonical_sha256": "59454c986d5931443d6f3a78194df31f6fbaf8eb9c6cf5191f09c44e39ece2bd",
+  "ordered_loads": 65
+}
