@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn-full-c16r16-r001",
+  "description": "Three resident frames of a trained two-layer Cora GCN with full PE record collection on physical CS-3.",
+  "steps": [
+    {
+      "name": "run-c16r16",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn/cases/c16r16",
+        "--build-sha256",
+        "1f872f6b99d39d654771cce53862c6ad691c88bfca82aca7cf44c6d99f97ca04",
+        "--out",
+        "{output}/gcn-c16r16"
+      ]
+    }
+  ]
+}
