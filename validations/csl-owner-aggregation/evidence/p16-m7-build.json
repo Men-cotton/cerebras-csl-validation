@@ -1,0 +1,38 @@
+{
+  "owners": 16,
+  "mode": 7,
+  "local": true,
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=23,3",
+    "--fabric-offsets=4,1",
+    "--params=P:16,MODE:7",
+    "--memcpy",
+    "--channels=1",
+    "--max-parallelism=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "-o",
+    "out"
+  ],
+  "source_sha256": {
+    "layout.csl": "0e76fd0f0eaf854ff7fb6ae077c532da4f8e44cf3a06f84fbe496a5070f57299",
+    "pe.csl": "0a74e6824d28580b86260c03b4d22cbe2f49fb77bbcc1838c9abfcab461a9558",
+    "worker.py": "d4ceb2bf7894c944ada5aee5871e82bb10426cf77130382e64d11fa35ca7e23c"
+  },
+  "files": {
+    "bin/out_0_0.elf": "88b29d5ac0d19bef06bb0a06d4690cfbb5b4da5e11c4675c1ee49b2048d54ca9",
+    "bin/out_1_0.elf": "faec0f28086b56c0beffa3faa4d4ffa9c743d035215c0c82c45526f84616d6a0",
+    "bin/out_2_0.elf": "5b451867d2abd698b2922f105e05354cd09ba0452471dc21f0de53bc8770db89",
+    "bin/out_rpc.json": "88b8287b6fe78e9d788dda204a89bca7c7fec08d34ea5683f81d7ef831058b4d",
+    "east/bin/out_0_0.elf": "8c374ddbdb9903c0046cc8766deabc9f518d86b10db7341c238e0ca144bb1835",
+    "east/bin/out_1_0.elf": "fce17180989bb9c1cd36b4e94183a506252f66c421b005fe24b7223e60ddbd97",
+    "east/out.json": "46ea180801c589023f5daf7351fb473475b50f302d72cf40f86e4ce5f7d320b7",
+    "out.json": "d410969a1b39c46d73891f48920754c03dc8b565cccb24efab7a0b3553c46db2",
+    "west/bin/out_0_0.elf": "d6bbf1d813523bc2c184705bbc89d8a0cee0368a02bd1d3c1c12ed78c69447d3",
+    "west/bin/out_1_0.elf": "60c39011ee121fd57e780065e744e72c5de9e59a09b69cfc37d223fb13b7056f",
+    "west/bin/out_2_0.elf": "69f666e0e1955850126229a001d02b868ef272aef228c93da2c93ca2ee084b37",
+    "west/out.json": "248ecbf17b2090e46e426ee7b905c25f2b9770e8f6a382868cd2e07ab91e7a3a"
+  },
+  "artifact": "out"
+}

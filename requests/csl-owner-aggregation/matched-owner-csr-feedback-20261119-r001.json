@@ -1,0 +1,297 @@
+{
+  "schema": 1,
+  "id": "matched-owner-csr-feedback-20261119-r001",
+  "description": "Compare a fixed-weight CSR kernel over 1/2/4/8/16 owners. Run the tuned CSL and Tungsten variants on real Direct Link or SDK memcpy and separate host transfer from the owner-local compute interval.",
+  "steps": [
+    {
+      "name": "compile-p1-m1",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "1",
+        "--mode",
+        "1",
+        "--out",
+        "{output}/compile-p1-m1"
+      ]
+    },
+    {
+      "name": "run-p1-m1",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "1",
+        "--mode",
+        "1",
+        "--build",
+        "{output}/compile-p1-m1/build.json",
+        "--out",
+        "{output}/run-p1-m1"
+      ]
+    },
+    {
+      "name": "compile-p1-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "1",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-p1-m7"
+      ]
+    },
+    {
+      "name": "run-p1-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "1",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-p1-m7/build.json",
+        "--out",
+        "{output}/run-p1-m7"
+      ]
+    },
+    {
+      "name": "compile-p2-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "2",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-p2-m7"
+      ]
+    },
+    {
+      "name": "run-p2-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "2",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-p2-m7/build.json",
+        "--out",
+        "{output}/run-p2-m7"
+      ]
+    },
+    {
+      "name": "compile-p4-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "4",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-p4-m7"
+      ]
+    },
+    {
+      "name": "run-p4-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "4",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-p4-m7/build.json",
+        "--out",
+        "{output}/run-p4-m7"
+      ]
+    },
+    {
+      "name": "compile-p8-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "8",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-p8-m7"
+      ]
+    },
+    {
+      "name": "run-p8-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "8",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-p8-m7/build.json",
+        "--out",
+        "{output}/run-p8-m7"
+      ]
+    },
+    {
+      "name": "compile-p16-m1",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "16",
+        "--mode",
+        "1",
+        "--out",
+        "{output}/compile-p16-m1"
+      ]
+    },
+    {
+      "name": "run-p16-m1",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "16",
+        "--mode",
+        "1",
+        "--build",
+        "{output}/compile-p16-m1/build.json",
+        "--out",
+        "{output}/run-p16-m1"
+      ]
+    },
+    {
+      "name": "compile-p16-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "16",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-p16-m7"
+      ]
+    },
+    {
+      "name": "run-p16-m7",
+      "kind": "appliance",
+      "script": "validations/csl-owner-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "16",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-p16-m7/build.json",
+        "--out",
+        "{output}/run-p16-m7"
+      ]
+    },
+    {
+      "name": "tungsten-degree4-p1",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "1",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/degree4-p1",
+        "--build-sha256",
+        "f7a9f32d4b24d7a7390cc3a97fb81535f0d845be6081cb3d16a921b471be7537",
+        "--out",
+        "{output}/degree4-p1"
+      ]
+    },
+    {
+      "name": "tungsten-degree4-p2",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "2",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/degree4-p2",
+        "--build-sha256",
+        "bc5c2707eb0292750788314a08a844f877adfee26d35ab65e5f69fb443381fc8",
+        "--out",
+        "{output}/degree4-p2"
+      ]
+    },
+    {
+      "name": "tungsten-degree4-p4",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "4",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/degree4-p4",
+        "--build-sha256",
+        "2cd4285ed8d11862675da0ce8b466c8ddcb0ecd32ab67b84df84528451957050",
+        "--out",
+        "{output}/degree4-p4"
+      ]
+    },
+    {
+      "name": "tungsten-degree4-p8",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "8",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/degree4-p8",
+        "--build-sha256",
+        "c870e42b06be5386ba2c18d7e752e385b872b180519bc60f63d75277e940e991",
+        "--out",
+        "{output}/degree4-p8"
+      ]
+    },
+    {
+      "name": "tungsten-degree4-p16",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "16",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/degree4-p16",
+        "--build-sha256",
+        "1ddf3a9379d23cfc5349b8e3c01cf76f947b7fc09335ce89f98fc82616b9161d",
+        "--out",
+        "{output}/degree4-p16"
+      ]
+    }
+  ]
+}

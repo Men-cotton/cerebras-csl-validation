@@ -1,0 +1,113 @@
+// SPDX-License-Identifier: Apache-2.0
+param memcpy_params;
+param ROWS: u16;
+param MODE: u16;
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const ts = @import_module("<time>");
+const F: u16 = 4;
+var features = @zeros([16*F]f32);
+var ptr = @zeros([ROWS+1]u16);
+var src = @zeros([ROWS*4]u16);
+var weight = @zeros([ROWS*4]f32);
+var out = @zeros([ROWS*F]f32);
+var clocks = @zeros([6]u16);
+const all_out = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{ROWS*F}->out[i]});
+const vector = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{F}->features[i]});
+
+// Keep the four-lane descriptor length resident. Only the input base changes
+// per edge, and both accumulator bases stay fixed for the entire CSR row.
+const output_reg = @get_dsr(dsr_dest, 1);
+const accum_reg = @get_dsr(dsr_src0, 1);
+const input_reg = @get_dsr(dsr_src1, 1);
+
+// Resolve feature-vector addresses once when the graph is staged. Feature
+// values can still change on every trial without rebuilding this directory.
+const Address = [*]f32;
+var feature_addr: [ROWS*4]Address;
+fn prepare() void {
+  if (MODE >= 5) {
+    ts.enable_tsc();
+    ts.get_timestamp(@ptrcast(*[3]u16, &clocks[0]));
+    for (@range(u16, ROWS*4)) |e| {
+      feature_addr[e] = @ptrcast([*]f32, &features[src[e]*F]);
+    }
+    ts.get_timestamp(@ptrcast(*[3]u16, &clocks[3]));
+    ts.disable_tsc();
+  }
+  sys.unblock_cmd_stream();
+}
+
+fn mac_edge(e: u16) void {
+  const addr = if (MODE >= 5) feature_addr[e]
+               else @ptrcast([*]f32, &features[src[e]*F]);
+  @set_dsr_base_addr(input_reg, addr);
+  @fmacs(output_reg, accum_reg, input_reg, weight[e]);
+}
+
+fn aggregate() void {
+  ts.enable_tsc();
+  ts.get_timestamp(@ptrcast(*[3]u16, &clocks[0]));
+  @fmovs(all_out, 0.0);
+  if (MODE >= 3) {
+    @load_to_dsr(output_reg, vector);
+    @load_to_dsr(accum_reg, vector);
+    @load_to_dsr(input_reg, vector);
+  }
+  for (@range(u16, ROWS)) |row| {
+    const dst = @set_dsd_base_addr(vector, @ptrcast([*]f32, &out[row*F]));
+    var e = ptr[row];
+    const end = ptr[row+1];
+    if (MODE >= 3) {
+      const dest = @ptrcast([*]f32, &out[row*F]);
+      @set_dsr_base_addr(output_reg, dest);
+      @set_dsr_base_addr(accum_reg, dest);
+      if (MODE == 7 and end == e+4) {
+        mac_edge(e);
+        mac_edge(e+1);
+        mac_edge(e+2);
+        mac_edge(e+3);
+        continue;
+      }
+      if (MODE == 4 or MODE == 6) {
+        while (end-e >= 4) : (e += 4) {
+          mac_edge(e);
+          mac_edge(e+1);
+          mac_edge(e+2);
+          mac_edge(e+3);
+        }
+      }
+    }
+    while (e < end) : (e += 1) {
+      const base = if (MODE == 2) src[e] else src[e]*F;
+      if (MODE == 0) {
+        for (@range(u16, F)) |f| {
+          out[row*F+f] += weight[e]*features[base+f];
+        }
+      } else if (MODE >= 3) {
+        mac_edge(e);
+      } else {
+        const input = @set_dsd_base_addr(vector, @ptrcast([*]f32, &features[base]));
+        @fmacs(dst, dst, input, weight[e]);
+      }
+    }
+  }
+  ts.get_timestamp(@ptrcast(*[3]u16, &clocks[3]));
+  ts.disable_tsc();
+  sys.unblock_cmd_stream();
+}
+var features_p: [*]f32 = &features;
+var ptr_p: [*]u16 = &ptr;
+var src_p: [*]u16 = &src;
+var weight_p: [*]f32 = &weight;
+var out_p: [*]f32 = &out;
+var clocks_p: [*]u16 = &clocks;
+comptime {
+  @export_symbol(features_p, "features");
+  @export_symbol(ptr_p, "ptr");
+  @export_symbol(src_p, "src");
+  @export_symbol(weight_p, "weight");
+  @export_symbol(out_p, "out");
+  @export_symbol(clocks_p, "clocks");
+  @export_symbol(aggregate);
+  @export_symbol(prepare);
+}

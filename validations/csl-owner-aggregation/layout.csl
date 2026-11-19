@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: Apache-2.0
+param P: u16;
+param MODE: u16;
+const memcpy = @import_module("<memcpy/get_params>", .{.width=P, .height=1});
+layout {
+  @comptime_assert(P > 0 and P <= 16 and 64 % P == 0 and MODE <= 7);
+  @set_rectangle(P, 1);
+  for (@range(u16, P)) |x| {
+    @set_tile_code(x, 0, "pe.csl", .{
+      .memcpy_params=memcpy.get_params(x), .ROWS=64/P, .MODE=MODE
+    });
+  }
+  @export_name("features", [*]f32, true);
+  @export_name("ptr", [*]u16, true);
+  @export_name("src", [*]u16, true);
+  @export_name("weight", [*]f32, true);
+  @export_name("out", [*]f32, true);
+  @export_name("clocks", [*]u16, true);
+  @export_name("prepare", fn()void);
+  @export_name("aggregate", fn()void);
+}

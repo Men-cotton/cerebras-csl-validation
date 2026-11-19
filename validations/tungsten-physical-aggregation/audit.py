@@ -62,8 +62,12 @@ def load_verified(root, width):
     for name in ('owner.w', 'collect.w', 'program.paint'):
         if sha(root/'source'/name) != build['source'][name]:
             raise ValueError('input sources changed')
-        if name != 'program.paint' and sha(HERE/name) != build['source'][name]:
-            raise ValueError('kernel source changed since compilation')
+        if name == 'collect.w' and sha(HERE/name) != build['source'][name]:
+            raise ValueError('collector changed since compilation')
+        if name == 'owner.w':
+            sources = [HERE/'owner.w', HERE/'owner-degree4.w']
+            if not any(path.is_file() and sha(path) == build['source'][name] for path in sources):
+                raise ValueError('owner compute source changed since compilation')
     capture = json.loads((root/'verification/result.json').read_text())
     check_capture(build, capture, 'simulator')
     return build

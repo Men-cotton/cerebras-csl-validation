@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "csl-owner-aggregation",
+  "description": "Matched owner-local weighted CSR with device descriptor registers and a degree-four fast path.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}
