@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn-row-readout-full-scale-r001",
+  "description": "Return every node and PE timestamp, certify each row replica by bitwise comparison, and measure full Cora GCN on CS-3.",
+  "steps": [
+    {
+      "name": "run-c16r16",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn-row-readout/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn-row-readout/cases/c16r16",
+        "--build-sha256",
+        "f40ce53ff9e3e467b3524d77f7c2637cb8584ba29c19d2d6b7489543ef2eec72",
+        "--out",
+        "{output}/gcn-c16r16"
+      ]
+    },
+    {
+      "name": "run-c16r32",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn-row-readout/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn-row-readout/cases/c16r32",
+        "--build-sha256",
+        "3a7caa4dea47c87dabf8b850b66574e9ab15c6354be9caafa505afc1f5c8cb4e",
+        "--out",
+        "{output}/gcn-c16r32"
+      ]
+    },
+    {
+      "name": "run-c16r64",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn-row-readout/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn-row-readout/cases/c16r64",
+        "--build-sha256",
+        "f0bee544f13870a51212446291cc95d923918bdec42b6c95b7b3fd8ebf552ec9",
+        "--out",
+        "{output}/gcn-c16r64"
+      ]
+    }
+  ]
+}

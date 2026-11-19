@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn-row-readout",
+  "description": "Return every node and PE timestamp, certify each row replica by bitwise comparison, and measure full Cora GCN on CS-3.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}
