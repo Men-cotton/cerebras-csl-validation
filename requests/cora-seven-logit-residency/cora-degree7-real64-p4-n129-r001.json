@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "cora-degree7-real64-p4-n129-r001",
+  "description": "129 resident panels on Cora destinations 0\u201363, all seven trained logits, 320 edges, 267 original sources, four owners. CSL uses seven active lanes at stride eight. Tungsten uses native stride seven. Return all words, preparation clocks and independent compute clocks for every owner and frame.",
+  "steps": [
+    {
+      "name": "compile-csl",
+      "kind": "appliance",
+      "script": "validations/cora-seven-logit-residency/appliance.py",
+      "args": [
+        "compile-csl",
+        "--out",
+        "{output}/compile-csl"
+      ]
+    },
+    {
+      "name": "run-csl-planned",
+      "kind": "appliance",
+      "script": "validations/cora-seven-logit-residency/appliance.py",
+      "args": [
+        "run-csl-planned",
+        "--out",
+        "{output}/run-csl-planned",
+        "--build",
+        "{output}/compile-csl/build.json"
+      ]
+    },
+    {
+      "name": "run-tungsten-unrolled",
+      "kind": "appliance",
+      "script": "validations/cora-seven-logit-residency/appliance.py",
+      "args": [
+        "run-tungsten-unrolled",
+        "--out",
+        "{output}/run-tungsten-unrolled"
+      ]
+    }
+  ]
+}

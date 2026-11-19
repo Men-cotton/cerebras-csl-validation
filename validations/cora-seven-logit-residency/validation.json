@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "cora-seven-logit-residency",
+  "description": "129 resident panels on Cora destinations 0\u201363, all seven trained logits, 320 edges, 267 original sources, four owners. CSL uses seven active lanes at stride eight. Tungsten uses native stride seven. Return all words, preparation clocks and independent compute clocks for every owner and frame.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

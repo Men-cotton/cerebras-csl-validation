@@ -1,0 +1,89 @@
+{
+  "input_sha256": "59d4fb7a03c94d40764149ed61daa87692840fe9a333e381f4242448b288bf08",
+  "host": {
+    "worker.py": "e6776de1d22d98bbbf08e459985b5c8ce3152b8cd5b055f9222a17928a09607b",
+    "contract.py": "bc941bb47e27e24610082096a52a1f7a5d0eccc8c89c9cf0044c80cf2032c285"
+  },
+  "csl": {
+    "layout.csl": "0e76fd0f0eaf854ff7fb6ae077c532da4f8e44cf3a06f84fbe496a5070f57299",
+    "pe.csl": "73637d5bbfe0dd39d0a61dd1ff544c3693f30f43265023ee6c8a88322ea8c3f9"
+  },
+  "simulator_csl_elf_sha256": {
+    "out_0_0.elf": "b56bbbeea42bed769c2287755c58002f831ef42917c98c05580b7116f7b308aa",
+    "out_1_0.elf": "60c2c3198264b1beba46e44fc26f09563b0f613f4d83acb21802c384d7b1e6a0",
+    "out_2_0.elf": "aa6326671b9dfc227d814aad412c65f1cf78363f12b2df5b46a380672249431f"
+  },
+  "local_csl_flags": [
+    "/tmp/tungsten-csl-bin/cslc",
+    "--arch=wse3",
+    "layout.csl",
+    "--fabric-dims=11,3",
+    "--fabric-offsets=4,1",
+    "--params=P:4,MODE:7",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "build"
+  ],
+  "direct": {
+    "tungsten-planned": {
+      "simulator": {
+        "fabric": [
+          4,
+          2
+        ],
+        "elf_sha256": "1d14574520fc987aad5f28e6a51ab6790fff60e6cb365c1c72b9e991e0374bdb"
+      },
+      "hardware": {
+        "fabric": [
+          762,
+          1172
+        ],
+        "elf_sha256": "2a98eb5be5528efbbc6e13c1d693aaed00ad10777ce7017324f5dd59e2333291"
+      },
+      "machine_image_sha256": "455a9baf2b8ddcc70ce8d7034749e4c0cbae02f43f2a5af3f75943c2510d27b0",
+      "source": {
+        "owner.w": "b4180ba598dad9b49c4ccab65edf4f925341fb5f83a80ff30fbcac06fbd0903b",
+        "collect.w": "b3560589e7774e4b6ac35c643a516e7db295ef20621bc491305141e9cfca50c7",
+        "program.paint": "00d3f278876d1c61693f4c7a38e1f1c6dd57b78cb68d5c34e54f4fb2c8df9ecb"
+      },
+      "build_sha256": "f8b082fb5247da095e4d0f9140964690d2875a5fd88663a559257375cb8307cc"
+    },
+    "tungsten-unrolled": {
+      "simulator": {
+        "fabric": [
+          4,
+          2
+        ],
+        "elf_sha256": "a90fc9bd85764c7ad60bfc76fb92d36962e583bba28a7511a418f2dc86af5f9e"
+      },
+      "hardware": {
+        "fabric": [
+          762,
+          1172
+        ],
+        "elf_sha256": "b4e94eabbec1f8190e5b59413ef0b6f404f10d30bbeec09e0c9b5be0af62cc9f"
+      },
+      "machine_image_sha256": "628f8e0d2fcffd21e05977a94b835ec6cd1d0002384c53dfada12c80edf04610",
+      "source": {
+        "owner.w": "3948b9683c76384e1ac67f29ed953c9d824a18fc9edbba1764dca6f74f9efaac",
+        "collect.w": "b3560589e7774e4b6ac35c643a516e7db295ef20621bc491305141e9cfca50c7",
+        "program.paint": "00d3f278876d1c61693f4c7a38e1f1c6dd57b78cb68d5c34e54f4fb2c8df9ecb"
+      },
+      "build_sha256": "0a1e18c99248977337672d373d10e606f7e29fb74a975c4c421bb4a87d362b39"
+    }
+  },
+  "original_projection": {
+    "input_slice_sha256": "3cf0641dc5f796cbc1462d639c032ee10c7d96f79b999c24571e9e9359564df9",
+    "original_logits_archive_sha256": "40e32d52b9bcfe4e4b7100110955181b78bf07da9a1a335d4c70e1ca178a66be"
+  },
+  "frames": 129,
+  "feature_width": 7,
+  "csl_input_stride": 8,
+  "csl_output_stride": 8,
+  "tungsten_stride": 7,
+  "port_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e"
+}
