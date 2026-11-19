@@ -1,0 +1,53 @@
+{
+  "description": "Run resident paired GraphSAGE on physical CS-3 and verify every output against original-input FP64.",
+  "id": "graphsage-fanout-full-256-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-c16r16-t8",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-c16r16-t8"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-c16r16-t8",
+      "script": "validations/graphsage-resident-fanout/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r16-t8",
+        "--backend",
+        "hardware",
+        "--host-timeout",
+        "600",
+        "--artifact-record",
+        "{output}/compile-full-c16r16-t8/native-build.json",
+        "--out",
+        "{output}/run-full-c16r16-t8"
+      ],
+      "kind": "appliance",
+      "name": "run-full-c16r16-t8",
+      "script": "validations/graphsage-resident-fanout/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-full-c16r16-t8/capture-data",
+        "--out",
+        "{output}/numerical-full-c16r16-t8.json"
+      ],
+      "kind": "host",
+      "name": "audit-full-c16r16-t8",
+      "script": "validations/graphsage-resident-fanout/saved_audit.py"
+    }
+  ]
+}

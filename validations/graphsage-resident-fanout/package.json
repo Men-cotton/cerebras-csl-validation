@@ -1,0 +1,15 @@
+{
+  "cases": {
+    "full-c16r16-t8": "4a2bef078159217984f9d1b23f2a5b65cb10bce9bbbd67933973097a550c55be"
+  },
+  "compile_workers": 1,
+  "family": "graphsage-resident-fanout",
+  "host_sha256": {
+    "appliance.py": "f1183f9604e66acf87dd055b9e7540754160c3bec14dc7f228f1a7e65d8de53c",
+    "appliance_worker.py": "b5e849a160445865a5d931e2e71e1f21c523cb8f8592806b0154323ca48eeeef",
+    "portable.py": "72f487280c44bfdd4786d1c54f4d20d6319519642f4ff924d7350b203a32d930",
+    "saved_audit.py": "7ddab758dc5217682fc7240c8524e9c5002153cac90cfd9e91dbb8a33445a18b",
+    "sdk_runner.py": "de61a55a946683b2884e9b2662b8dbe39317a90447a73428895a35e674ce1d78"
+  },
+  "schema": 1
+}
