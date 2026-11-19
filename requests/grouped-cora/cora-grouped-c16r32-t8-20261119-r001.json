@@ -1,0 +1,53 @@
+{
+  "description": "Execute and audit the registered full-Cora C16/R32/T8 grouped case on 512 PEs",
+  "id": "cora-grouped-c16r32-t8-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r32-t8-group",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r32-t8-group"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r32-t8-group",
+      "script": "validations/grouped-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r32-t8-group",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r32-t8-group/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r32-t8-group"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r32-t8-group",
+      "script": "validations/grouped-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r32-t8-group/capture-data",
+        "--out",
+        "{output}/numerical-c16-r32-t8-group.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r32-t8-group",
+      "script": "validations/grouped-cora/saved_audit.py"
+    }
+  ]
+}
