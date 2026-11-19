@@ -1,0 +1,12 @@
+{
+  "baseline_manifest_sha256": "c791e082ec81a19ccf0b88462e990201e6b243cdd18f7e2701479fa31f910cc7",
+  "comparison_sha256": "9473752a784b5dea15a857abdf52bc9a8101d5184fac47667af037716a3bbc5a",
+  "input_sha256": "4be7ec87f91c8f94e2cac573134ee2cba38b864ac659358dd0bbdda66d0af0ff",
+  "local_linked_static_bytes": 43072,
+  "local_max_pe_cycles": 151865,
+  "local_numeric_status": "PASS",
+  "local_raw_sha256": "19beadfded7137a1dd5f35404c40640cc5d2eb1a921eb751b7d6aa194e802d78",
+  "peak_stack_bytes": null,
+  "simulator_source_sha256": "9d7a2fada8103f63fc47538675de4c12caadb5cbb796c090d5958b8de6a926d5",
+  "source_case": "g00-wg00-s11-c16r16-t8-group"
+}

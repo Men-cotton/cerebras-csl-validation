@@ -1,0 +1,12 @@
+{
+  "description": "Fixed full-Cora H16/O7 grouped endpoint CSL inference",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py"
+  ],
+  "id": "grouped-cora",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

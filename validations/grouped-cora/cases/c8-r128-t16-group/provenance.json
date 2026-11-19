@@ -1,0 +1,9 @@
+{
+  "baseline_manifest_sha256": "c791e082ec81a19ccf0b88462e990201e6b243cdd18f7e2701479fa31f910cc7",
+  "input_sha256": "25e795bdee8940bfeab812f4b38b76e22c66f0adf3e8876d6b544ee956ccc94b",
+  "local_linked_static_bytes": 44528,
+  "local_numeric_status": "requires independent raw capture",
+  "peak_stack_bytes": null,
+  "simulator_source_sha256": "9d7a2fada8103f63fc47538675de4c12caadb5cbb796c090d5958b8de6a926d5",
+  "source_case": "g00-wg00-s11-c8r128-t16-group"
+}

@@ -1,0 +1,157 @@
+{
+  "admission": {
+    "admitted": true,
+    "code_reserve_bytes": 14968,
+    "forecast_bytes": 43072,
+    "named_bytes": 28104,
+    "scope": "local simulator link including SDK; physical compile undergoes the same native-cora inventory gate"
+  },
+  "atol": 2e-05,
+  "family": "native-cora",
+  "features": 1433,
+  "files": {
+    "checkpoint.json": "3d41050782a2e96f4d9f6b3410c155cd59577bc6a61c521057a9c9bd9a5e0995",
+    "checkpoint.npz": "836c82b82871c76bb1822ace2014c9552690459a952de1b23d4399d5ecce4542",
+    "dataset/cora.cites": "ec1a372391b7f0f60a6aff0084e8abd8f19f0faa7e1f2441a41c492042d5945e",
+    "dataset/cora.content": "b8ebed0fd45e53995abafd1b70cf6a9fcc8f86abc5826d69b97fe6ca46e9c8ee",
+    "expected.npz": "b5afe13738974c0f467ce6ddd4e21bde7b42a5d3ee6d5f0877284c18e8e39513",
+    "inputs.npz": "4be7ec87f91c8f94e2cac573134ee2cba38b864ac659358dd0bbdda66d0af0ff",
+    "node_ids.npz": "606d664abeda45b60d26495afca569d045cccff2155a53fd005af6047e06b2fe",
+    "provenance.json": "f1acba126bcb2ce0739641cf86a316989bc0ef379c91fb98c51459a7a3cc4784",
+    "source/layout.csl": "e94f294de8dc5ff786e156b929e831f63575437fdcdba4fa601c682bf47fee9c",
+    "source/pe.csl": "9d7a2fada8103f63fc47538675de4c12caadb5cbb796c090d5958b8de6a926d5"
+  },
+  "immutable_inputs": [
+    "counts",
+    "edge_ptr",
+    "edge_src",
+    "edge_weight",
+    "packet_count",
+    "packet_header",
+    "packet_offset",
+    "packet_tag",
+    "send_slot",
+    "slots",
+    "w0",
+    "w1",
+    "x_col",
+    "x_ptr",
+    "x_val"
+  ],
+  "inputs": {
+    "counts": [
+      6,
+      "uint16"
+    ],
+    "edge_ptr": [
+      12,
+      "uint16"
+    ],
+    "edge_src": [
+      220,
+      "uint16"
+    ],
+    "edge_weight": [
+      220,
+      "float32"
+    ],
+    "packet_count": [
+      42,
+      "uint16"
+    ],
+    "packet_header": [
+      42,
+      "uint32"
+    ],
+    "packet_offset": [
+      42,
+      "uint16"
+    ],
+    "packet_tag": [
+      42,
+      "uint32"
+    ],
+    "send_slot": [
+      48,
+      "uint16"
+    ],
+    "slots": [
+      11,
+      "uint16"
+    ],
+    "w0": [
+      1440,
+      "float32"
+    ],
+    "w1": [
+      112,
+      "float32"
+    ],
+    "x_col": [
+      352,
+      "uint16"
+    ],
+    "x_ptr": [
+      175,
+      "uint16"
+    ],
+    "x_val": [
+      352,
+      "float32"
+    ]
+  },
+  "kind": "cora",
+  "launch": {
+    "arguments": [],
+    "entrypoint": "f_run"
+  },
+  "nodes": 2708,
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "logits": [
+      77,
+      "float32"
+    ],
+    "panel_sum": [
+      1392,
+      "float32"
+    ],
+    "pre": [
+      176,
+      "float32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ],
+    "traffic": [
+      4,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 16,
+    "COMPACT": 1,
+    "FW": 90,
+    "H": 16,
+    "K": 174,
+    "L": 11,
+    "MG": 220,
+    "MX": 352,
+    "NPLAN": 21,
+    "NRX": 148,
+    "NSEND": 48,
+    "O": 7,
+    "R": 16,
+    "T": 8,
+    "U": 37
+  },
+  "profile": "original",
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "Full unpruned 2708-node Cora, frozen 1433-16-7 checkpoint, grouped endpoint packets",
+  "transport": "grouped endpoints"
+}
