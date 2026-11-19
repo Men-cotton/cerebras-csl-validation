@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "e149-feature-lanes-unrolled64",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "description": "Fully unrolled 64-edge CSL source-sharded E149 kernel, 4 lanes per PE on 8 PEs. Compare with run-tungsten of e149-lanes-matched-c4-r001 at 77843f32e4de8926b145c6d5fbed9e2e8d327d14."
+}
