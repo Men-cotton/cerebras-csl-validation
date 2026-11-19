@@ -1,0 +1,11 @@
+{
+  "description": "Fixed-ELF complete trained Cora aggregation on cyclically assigned source nodes.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "id": "cora-resident-cyclic-scaling",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

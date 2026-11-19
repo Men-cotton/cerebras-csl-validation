@@ -1,0 +1,15 @@
+{
+  "device_change": "unchanged CSL source and flags, unchanged Tungsten ELFs",
+  "original_requests": {
+    "16": {
+      "commit": "c94191dd24535ce37c75779c97fe4c4d8696a8fd",
+      "id": "cora-all2708-r16x4-aba-r001"
+    },
+    "4": {
+      "commit": "4ec87761c377ea50fb7529a3df05cf3e010a32db",
+      "id": "cora-all2708-r4x4-aba-r001"
+    }
+  },
+  "parent_family": "cora-resident-full-scaling",
+  "parent_release_sha256": "32fc9e8e11e6413c38173da3ac3cd26e48bb48ac528bc66b28a1dcecbcea14a6"
+}

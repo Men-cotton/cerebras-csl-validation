@@ -1,0 +1,25 @@
+{
+  "elf": {
+    "out_0_0.elf": "bddc70342424d6ab2b33d002f20ec265c9284622d27bb339aac2300fe5fd26e7",
+    "out_10_0.elf": "295328d57d39ea0032f9dfd3495e214656883a0e903a0e6bdd148f077465c491",
+    "out_11_0.elf": "0fcde3798d629b92f58bcbb250c37f5e9351d69525763e0d41926dd23a18c450",
+    "out_12_0.elf": "e230d9d4042ba06fa7897139b915cd7d92e76d01fe56fe1115259275174bb990",
+    "out_13_0.elf": "aa03c9f527402247920fcebfa085533bbce964ee88a51ca96eca7f2e3bdc0713",
+    "out_14_0.elf": "43c1bcbc5d60423fbcff4078f6121f62be89db8fe04d6437f17eb856ce792534",
+    "out_15_0.elf": "3a8d697a8408c042404abed1586f367706b425b30a7ce3dc654658b709db0d5e",
+    "out_1_0.elf": "1b5c99e86a826031e1b9a8b1a7acff505bb1af67a68a1755219f351aa76cd04e",
+    "out_2_0.elf": "42a433366e49faf41d7a039be1782fde689fcc11c07a5b44e1de2643668134b0",
+    "out_3_0.elf": "73b3b0f31c5aef0fcfb1ac42a482e5cfb22b0ad6b6bfbb00467f9223b594d8fa",
+    "out_4_0.elf": "f0a7315321e3a692c45478f5b497ab208aece7efaa6151c6fd7abb68e1bcfba3",
+    "out_5_0.elf": "f7c5ffa65912fd6967d46984944153b8009a438e97768ac1bb11004bc51d095c",
+    "out_6_0.elf": "bc7f9de2adf85073da5de503b2a5d1e72c66ab408c7a338a640f7e61064a5d0a",
+    "out_7_0.elf": "65463e600b32b69fbe05fc948e0e81b7acbcc414aaea139ba459aeb149b8aaf9",
+    "out_8_0.elf": "2c1de5cd1fd0cd9c64f1775002342545d7b00ea670762ad6481a1a3f473630b6",
+    "out_9_0.elf": "65d9ea0beb437f4a4abfcb04be8854ef6c4f9e89917265d83f33545d27e30e35"
+  },
+  "flags": "--arch=wse3 --fabric-dims=11,6 --fabric-offsets=4,1 --params=R:4,F:1354,E:957 --memcpy --channels=1 --width-west-buf=0 --width-east-buf=0 --max-parallelism=1 -o out",
+  "source": {
+    "layout.csl": "b2aca4cde13f7366ad6c9f780d3fe5f1df1222e517e94023e64a648c75821756",
+    "pe.csl": "0baf11c3b4d502e9502bd6d0bb3ee30e2b9f36c6537ba7fc0dad6799bc2b8f9c"
+  }
+}

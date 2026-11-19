@@ -1,0 +1,805 @@
+{
+  "cases": {
+    "16": {
+      "cross_placement": [
+        {
+          "changed_active_words": 4962,
+          "max_abs": 9.5367431640625e-07
+        },
+        {
+          "changed_active_words": 4962,
+          "max_abs": 9.5367431640625e-07
+        },
+        {
+          "changed_active_words": 4962,
+          "max_abs": 9.5367431640625e-07
+        }
+      ],
+      "cyclic": {
+        "bits": [
+          "f1a50137555e0e1f622eded7a5e1da820de7ff54924a0cabc6ae14d80c8b27b2",
+          "5a05ba402420272fe599a0d49411f6fe14f13e182508077ce6d42bd47e92dc3f",
+          "f1a50137555e0e1f622eded7a5e1da820de7ff54924a0cabc6ae14d80c8b27b2"
+        ],
+        "fp64_errors": [
+          {
+            "max_abs": 1.2776429034744297e-06,
+            "relative_l2": 4.197836695996711e-08,
+            "trained_class_mismatches": 0
+          },
+          {
+            "max_abs": 1.2776429034744297e-06,
+            "relative_l2": 4.197836695996711e-08,
+            "trained_class_mismatches": 0
+          },
+          {
+            "max_abs": 1.2776429034744297e-06,
+            "relative_l2": 4.197836695996711e-08,
+            "trained_class_mismatches": 0
+          }
+        ]
+      },
+      "range": {
+        "bits": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "fp64_errors": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08,
+            "trained_class_mismatches": 0
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08,
+            "trained_class_mismatches": 0
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08,
+            "trained_class_mismatches": 0
+          }
+        ]
+      },
+      "windows": [
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            95,
+            87,
+            85,
+            111,
+            79,
+            104,
+            100,
+            110,
+            108,
+            93,
+            108,
+            122,
+            105,
+            66,
+            101,
+            85
+          ],
+          "edges": 1559,
+          "index": 0,
+          "range_shard_edges": [
+            343,
+            237,
+            163,
+            169,
+            142,
+            59,
+            44,
+            48,
+            36,
+            59,
+            50,
+            40,
+            36,
+            48,
+            46,
+            39
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            90,
+            76,
+            80,
+            104,
+            75,
+            96,
+            104,
+            90,
+            93,
+            84,
+            92,
+            107,
+            96,
+            77,
+            120,
+            71
+          ],
+          "edges": 1455,
+          "index": 1,
+          "range_shard_edges": [
+            149,
+            254,
+            329,
+            206,
+            85,
+            29,
+            30,
+            58,
+            30,
+            50,
+            32,
+            39,
+            36,
+            45,
+            49,
+            34
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            103,
+            91,
+            118,
+            120,
+            88,
+            121,
+            98,
+            76,
+            126,
+            95,
+            100,
+            147,
+            117,
+            100,
+            115,
+            106
+          ],
+          "edges": 1721,
+          "index": 2,
+          "range_shard_edges": [
+            188,
+            178,
+            191,
+            404,
+            221,
+            46,
+            56,
+            51,
+            61,
+            56,
+            48,
+            53,
+            34,
+            40,
+            50,
+            44
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            76,
+            75,
+            63,
+            79,
+            75,
+            74,
+            81,
+            84,
+            86,
+            75,
+            80,
+            80,
+            72,
+            64,
+            75,
+            61
+          ],
+          "edges": 1200,
+          "index": 3,
+          "range_shard_edges": [
+            69,
+            27,
+            31,
+            50,
+            162,
+            316,
+            103,
+            129,
+            115,
+            90,
+            33,
+            13,
+            20,
+            13,
+            13,
+            16
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            84,
+            73,
+            83,
+            108,
+            82,
+            67,
+            75,
+            69,
+            75,
+            93,
+            98,
+            82,
+            76,
+            68,
+            83,
+            68
+          ],
+          "edges": 1284,
+          "index": 4,
+          "range_shard_edges": [
+            62,
+            23,
+            43,
+            71,
+            91,
+            97,
+            306,
+            257,
+            111,
+            108,
+            29,
+            11,
+            16,
+            24,
+            17,
+            18
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            87,
+            79,
+            81,
+            93,
+            79,
+            84,
+            74,
+            100,
+            80,
+            72,
+            71,
+            69,
+            82,
+            78,
+            70,
+            74
+          ],
+          "edges": 1273,
+          "index": 5,
+          "range_shard_edges": [
+            44,
+            33,
+            46,
+            67,
+            77,
+            111,
+            146,
+            225,
+            318,
+            97,
+            27,
+            6,
+            22,
+            19,
+            21,
+            14
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            73,
+            78,
+            60,
+            103,
+            78,
+            73,
+            53,
+            82,
+            58,
+            68,
+            93,
+            64,
+            70,
+            55,
+            75,
+            63
+          ],
+          "edges": 1146,
+          "index": 6,
+          "range_shard_edges": [
+            73,
+            25,
+            53,
+            51,
+            67,
+            68,
+            86,
+            80,
+            63,
+            288,
+            150,
+            32,
+            28,
+            27,
+            24,
+            31
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            63,
+            61,
+            64,
+            73,
+            59,
+            53,
+            52,
+            62,
+            57,
+            68,
+            60,
+            76,
+            61,
+            51,
+            80,
+            52
+          ],
+          "edges": 992,
+          "index": 7,
+          "range_shard_edges": [
+            51,
+            24,
+            42,
+            51,
+            33,
+            17,
+            12,
+            8,
+            8,
+            18,
+            170,
+            263,
+            94,
+            67,
+            77,
+            57
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            44,
+            65,
+            54,
+            91,
+            53,
+            63,
+            60,
+            63,
+            59,
+            61,
+            64,
+            65,
+            61,
+            60,
+            75,
+            78
+          ],
+          "edges": 1016,
+          "index": 8,
+          "range_shard_edges": [
+            57,
+            21,
+            37,
+            37,
+            19,
+            15,
+            14,
+            25,
+            18,
+            13,
+            59,
+            85,
+            279,
+            208,
+            70,
+            59
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            59,
+            63,
+            65,
+            83,
+            66,
+            63,
+            77,
+            67,
+            51,
+            67,
+            68,
+            68,
+            62,
+            54,
+            74,
+            71
+          ],
+          "edges": 1058,
+          "index": 9,
+          "range_shard_edges": [
+            54,
+            31,
+            61,
+            60,
+            22,
+            18,
+            19,
+            21,
+            21,
+            19,
+            55,
+            77,
+            68,
+            163,
+            281,
+            88
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 404,
+          "cyclic_shard_edges": [
+            32,
+            34,
+            30,
+            37,
+            37,
+            33,
+            45,
+            38,
+            39,
+            27,
+            27,
+            40,
+            40,
+            32,
+            30,
+            39
+          ],
+          "edges": 560,
+          "index": 10,
+          "range_shard_edges": [
+            27,
+            13,
+            27,
+            30,
+            14,
+            10,
+            8,
+            13,
+            11,
+            14,
+            37,
+            29,
+            41,
+            44,
+            49,
+            193
+          ],
+          "rows": 148
+        }
+      ]
+    },
+    "4": {
+      "cross_placement": [
+        {
+          "changed_active_words": 4908,
+          "max_abs": 9.5367431640625e-07
+        },
+        {
+          "changed_active_words": 4908,
+          "max_abs": 9.5367431640625e-07
+        },
+        {
+          "changed_active_words": 4908,
+          "max_abs": 9.5367431640625e-07
+        }
+      ],
+      "cyclic": {
+        "bits": [
+          "cec283211d3d7f60d2f823eea7960ddcdfdfeba8fd616335b3af0ae68768f03b",
+          "7bf07749109df36f818bc454b749ba22b57440be021700787e3b91a029bcb645",
+          "cec283211d3d7f60d2f823eea7960ddcdfdfeba8fd616335b3af0ae68768f03b"
+        ],
+        "fp64_errors": [
+          {
+            "max_abs": 6.297057293380703e-07,
+            "relative_l2": 3.737238579118068e-08,
+            "trained_class_mismatches": 0
+          },
+          {
+            "max_abs": 6.297057293380703e-07,
+            "relative_l2": 3.737238579118068e-08,
+            "trained_class_mismatches": 0
+          },
+          {
+            "max_abs": 6.297057293380703e-07,
+            "relative_l2": 3.737238579118068e-08,
+            "trained_class_mismatches": 0
+          }
+        ]
+      },
+      "range": {
+        "bits": [
+          "be9bbaeb4af99a07aeed1b249f3ba88b18a4d2061077621e146812f87c4a8525",
+          "93254d5d2f5b6f0b1cb30caf5064fedaa26c1acd4f1de91520b5216a10731ca3",
+          "be9bbaeb4af99a07aeed1b249f3ba88b18a4d2061077621e146812f87c4a8525"
+        ],
+        "fp64_errors": [
+          {
+            "max_abs": 7.953960583506614e-07,
+            "relative_l2": 3.820159510024188e-08,
+            "trained_class_mismatches": 0
+          },
+          {
+            "max_abs": 7.953960583506614e-07,
+            "relative_l2": 3.820159510024188e-08,
+            "trained_class_mismatches": 0
+          },
+          {
+            "max_abs": 7.953960583506614e-07,
+            "relative_l2": 3.820159510024188e-08,
+            "trained_class_mismatches": 0
+          }
+        ]
+      },
+      "windows": [
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            387,
+            350,
+            394,
+            428
+          ],
+          "edges": 1559,
+          "index": 0,
+          "range_shard_edges": [
+            909,
+            295,
+            185,
+            170
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            354,
+            333,
+            396,
+            372
+          ],
+          "edges": 1455,
+          "index": 1,
+          "range_shard_edges": [
+            938,
+            199,
+            150,
+            168
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            434,
+            407,
+            431,
+            449
+          ],
+          "edges": 1721,
+          "index": 2,
+          "range_shard_edges": [
+            957,
+            376,
+            218,
+            170
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            309,
+            288,
+            299,
+            304
+          ],
+          "edges": 1200,
+          "index": 3,
+          "range_shard_edges": [
+            177,
+            705,
+            254,
+            64
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            317,
+            301,
+            339,
+            327
+          ],
+          "edges": 1284,
+          "index": 4,
+          "range_shard_edges": [
+            199,
+            741,
+            267,
+            77
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            328,
+            313,
+            296,
+            336
+          ],
+          "edges": 1273,
+          "index": 5,
+          "range_shard_edges": [
+            190,
+            545,
+            462,
+            76
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            279,
+            274,
+            281,
+            312
+          ],
+          "edges": 1146,
+          "index": 6,
+          "range_shard_edges": [
+            202,
+            294,
+            539,
+            111
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            240,
+            233,
+            256,
+            263
+          ],
+          "edges": 992,
+          "index": 7,
+          "range_shard_edges": [
+            168,
+            70,
+            448,
+            306
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            217,
+            249,
+            253,
+            297
+          ],
+          "edges": 1016,
+          "index": 8,
+          "range_shard_edges": [
+            152,
+            73,
+            170,
+            621
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            238,
+            247,
+            284,
+            289
+          ],
+          "edges": 1058,
+          "index": 9,
+          "range_shard_edges": [
+            206,
+            80,
+            171,
+            601
+          ],
+          "rows": 256
+        },
+        {
+          "capacity": 957,
+          "cyclic_shard_edges": [
+            148,
+            126,
+            132,
+            154
+          ],
+          "edges": 560,
+          "index": 10,
+          "range_shard_edges": [
+            97,
+            45,
+            88,
+            330
+          ],
+          "rows": 148
+        }
+      ]
+    }
+  },
+  "expected_sha256": "b351fdbbd46ca20bded0b073db3c6285d08c5f8192b798b520bcc85264712736",
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "oracle": "original-COO per-shard libm.fmaf; FP32 north-to-south addition",
+  "release_sha256": "a2d366c6757141c952da48f0301b99cccff4063cdc0c8b8348e7dfd8048d53a4",
+  "scales": [
+    1,
+    -1,
+    1
+  ]
+}

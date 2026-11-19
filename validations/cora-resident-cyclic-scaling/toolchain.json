@@ -1,0 +1,28 @@
+{
+  "labs_sdk_tools_sha256": {
+    "carbide": "96df1ef50e24c0c5104b4a3d75463322d7f6ede1e8a1daf6a855a91c2a5e6c11",
+    "mielf": "642137ca9a40dce1f12fcfd25189251000710a76d6f14fb34ca8b0bcb537785e",
+    "milink": "423331759b50ab9d653a5a783622d520a2806c6b1939e57964d9f7c112cbb4a9",
+    "paint": "17ac14324575a2162f7854b11d5ebdadcd8ac0cd169349b55f39390f1f664558",
+    "weight": "7fb3b2775b333fc8112889305a7d7103d5d77f949cb623d9402e69e3fa246390"
+  },
+  "program_memory": {
+    "16": {
+      "maximum_csl_static_end_bytes": 18576,
+      "sdk_application_elf_count": 64,
+      "tungsten_load_records": 1515
+    },
+    "4": {
+      "maximum_csl_static_end_bytes": 37376,
+      "sdk_application_elf_count": 16,
+      "tungsten_load_records": 411
+    }
+  },
+  "sdk_runtime_build": {
+    "buildid": "leightonw-8faf87a26e",
+    "cluster_semantic_version": "1.14.0",
+    "githash": "8faf87a26e",
+    "version": "0.0.0"
+  },
+  "sdk_runtime_build_file_sha256": "f1c5b1c328bf2e3f0888a2fd4b70724413193ebc860e9a2bd90323754d88e961"
+}
