@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "id": "cora-degree4-real64-p4-f4-r001",
+  "description": "Cora destinations 0\u201363, all 320 incoming edges, 267 sources, four fitted features and four row owners. Compare CSL degree-four slots with two Tungsten CSR variants over twelve resident inputs, with separate preparation clocks.",
+  "steps": [
+    {
+      "name": "compile-csl",
+      "kind": "appliance",
+      "script": "validations/cora-owner-degree-plan/appliance.py",
+      "args": [
+        "compile-csl",
+        "--out",
+        "{output}/compile-csl"
+      ]
+    },
+    {
+      "name": "run-csl-planned",
+      "kind": "appliance",
+      "script": "validations/cora-owner-degree-plan/appliance.py",
+      "args": [
+        "run-csl-planned",
+        "--out",
+        "{output}/run-csl-planned",
+        "--build",
+        "{output}/compile-csl/build.json"
+      ]
+    },
+    {
+      "name": "run-tungsten-planned",
+      "kind": "appliance",
+      "script": "validations/cora-owner-degree-plan/appliance.py",
+      "args": [
+        "run-tungsten-planned",
+        "--out",
+        "{output}/run-tungsten-planned"
+      ]
+    },
+    {
+      "name": "run-tungsten-unrolled",
+      "kind": "appliance",
+      "script": "validations/cora-owner-degree-plan/appliance.py",
+      "args": [
+        "run-tungsten-unrolled",
+        "--out",
+        "{output}/run-tungsten-unrolled"
+      ]
+    }
+  ]
+}

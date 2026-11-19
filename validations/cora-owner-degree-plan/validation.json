@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "cora-owner-degree-plan",
+  "description": "Cora destinations 0\u201363, all 320 incoming edges, 267 sources, four fitted features and four row owners. Compare CSL degree-four slots with two Tungsten CSR variants over twelve resident inputs, with separate preparation clocks.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

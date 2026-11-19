@@ -1,0 +1,39 @@
+{
+  "source_slice_sha256": "3cf0641dc5f796cbc1462d639c032ee10c7d96f79b999c24571e9e9359564df9",
+  "sha256": "09860e644f7a4b06477438922ce9c143ff3f1aa65a43db221ec6aec1a81504fe",
+  "destination_start": 0,
+  "destination_end": 64,
+  "selected_features": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "source_count": 267,
+  "edge_count": 320,
+  "degree_histogram": {
+    "2": 10,
+    "3": 11,
+    "4": 8,
+    "5": 14,
+    "6": 13,
+    "7": 1,
+    "8": 3,
+    "10": 1,
+    "11": 1,
+    "15": 1,
+    "20": 1
+  },
+  "per_owner_edges": [
+    85,
+    74,
+    76,
+    85
+  ],
+  "degree_four_rows_by_owner": [
+    2,
+    2,
+    2,
+    2
+  ]
+}
