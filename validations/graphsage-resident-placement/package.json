@@ -1,6 +1,7 @@
 {
   "cases": {
-    "cluster-c16r16-t8": "5fad25dddab656c19c4f0f9ae4da60411034462b1c9481b514c8783f6a792c42"
+    "cluster-c16r16-t8": "5fad25dddab656c19c4f0f9ae4da60411034462b1c9481b514c8783f6a792c42",
+    "cluster-c16r16-t8-factored": "f01b184ec714eb2b78cbb752d44a7f575219cfdfee3ecc45baff36033e16735f"
   },
   "compile_workers": 1,
   "family": "graphsage-resident-placement",
