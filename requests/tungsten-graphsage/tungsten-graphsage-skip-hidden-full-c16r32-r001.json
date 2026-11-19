@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-skip-hidden-full-c16r32-r001",
+  "description": "Run a frozen two-layer mean GraphSAGE classifier on physical CS-3. Return every owned preactivation, normalized hidden channel, logit and PE clock.",
+  "steps": [
+    {
+      "name": "run-full-c16r32-t8",
+      "kind": "appliance",
+      "script": "validations/tungsten-graphsage/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-graphsage/cases/full-c16r32-t8",
+        "--build-sha256",
+        "245374d6fe73bc1b66ce07f0039dae73bd42534baf60d02e53dd826639b813ed",
+        "--out",
+        "{output}/sage-full-c16r32-t8"
+      ]
+    }
+  ]
+}
