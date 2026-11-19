@@ -1,0 +1,15 @@
+{
+  "cases": {
+    "native64-guarded": "9aa92da0f6b67508aa7bc36aaaff1a772f80bdf6f9db4fc120c17892d7d27cee"
+  },
+  "compile_workers": 1,
+  "family": "graphsage-resident",
+  "host_sha256": {
+    "appliance.py": "30f089bedf4bdf2b1ce22a451bb6e0f4695596956cd0b29450f23beef43bf609",
+    "appliance_worker.py": "b5e849a160445865a5d931e2e71e1f21c523cb8f8592806b0154323ca48eeeef",
+    "portable.py": "72f487280c44bfdd4786d1c54f4d20d6319519642f4ff924d7350b203a32d930",
+    "saved_audit.py": "c0ebe94ee283d72d7c13ad77adea0941cc15b57547eb57ed517a38e64fad3a9a",
+    "sdk_runner.py": "de61a55a946683b2884e9b2662b8dbe39317a90447a73428895a35e674ce1d78"
+  },
+  "schema": 1
+}

@@ -1,0 +1,39 @@
+{
+  "native64-guarded": {
+    "all_elf_static_end": 35952,
+    "base_case_sha256": "c3ba0b0abd551d2e0ca7ce2823442d4d0678a83c660653a5ec550fadc4a8a57b",
+    "case_sha256": "9aa92da0f6b67508aa7bc36aaaff1a772f80bdf6f9db4fc120c17892d7d27cee",
+    "compiled_application_elf_sha256": {
+      "out_0_0.elf": "a2478665707778bbc5a9a09e2b30afececb673430192cbd692f32762e3e76170",
+      "out_1_0.elf": "ad9c5a9f772c4450ed2302280e80d3521d311170beaef436dbe5755684a66e02",
+      "out_2_0.elf": "14ae178bd3dd4c95c9e37e43c95cabde5921a510952f37c6d0f53a10cc44c4ef",
+      "out_3_0.elf": "4e77fc78062d812cae55628383ec517d7dc9d4a99e8a91e46995c3d8e8189c63",
+      "out_4_0.elf": "1d898fc8ef9df264c469126ddbee2c6df5aabed4fba2f54800534f0ac92d2963",
+      "out_5_0.elf": "dd19bc2510894bf40b7250c142d04c900efb338b028e6de49ab0963dbe2d21e1",
+      "out_6_0.elf": "12d01b32df372e2a20acaedf7e90a593b364f0e08fe929c3c7bb287b1207afe9",
+      "out_7_0.elf": "f616ddcc66eebcce7e9087c2243e270b003cacbefa30b5368eafc2d1989af8e0"
+    },
+    "resident": {
+      "device_max_cycles": [
+        10814,
+        10666,
+        10814
+      ],
+      "feature_scales": [
+        1.0,
+        0.5,
+        1.0
+      ],
+      "raw_sha256": "ca1fd4698a76c87f6d5b78a7b32456f5feee0e42bc8cf2396763f297376277d6",
+      "rejected_changes": {
+        "half_features": "device feature readback: half_",
+        "half_logits": "independent FP64 output: logits",
+        "omitted_launch": "exact resident SDK sequence",
+        "repeat_stats": "exact counters/completion"
+      },
+      "replay_sha256": "9be3146adddf202f22c9fcab547a258c88933edb2a3cd54f0ef5c88d46b94a09"
+    },
+    "simulation_cycles": 10814,
+    "simulation_raw_sha256": "5c3d89f134ca1d5f6a56bdfec85d711933426fd46f350ffddad37c15555f827a"
+  }
+}

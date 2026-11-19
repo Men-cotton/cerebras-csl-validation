@@ -1,0 +1,53 @@
+{
+  "description": "Run resident paired GraphSAGE on physical CS-3 and verify every output against original-input FP64.",
+  "id": "graphsage-resident-32pe-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "native64-guarded",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-native64-guarded"
+      ],
+      "kind": "appliance",
+      "name": "compile-native64-guarded",
+      "script": "validations/graphsage-resident/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "native64-guarded",
+        "--backend",
+        "hardware",
+        "--host-timeout",
+        "600",
+        "--artifact-record",
+        "{output}/compile-native64-guarded/native-build.json",
+        "--out",
+        "{output}/run-native64-guarded"
+      ],
+      "kind": "appliance",
+      "name": "run-native64-guarded",
+      "script": "validations/graphsage-resident/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-native64-guarded/capture-data",
+        "--out",
+        "{output}/numerical-native64-guarded.json"
+      ],
+      "kind": "host",
+      "name": "audit-native64-guarded",
+      "script": "validations/graphsage-resident/saved_audit.py"
+    }
+  ]
+}
