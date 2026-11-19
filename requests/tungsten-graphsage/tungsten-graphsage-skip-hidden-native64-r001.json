@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-skip-hidden-native64-r001",
+  "description": "Run a frozen two-layer mean GraphSAGE classifier on physical CS-3. Return every owned preactivation, normalized hidden channel, logit and PE clock.",
+  "steps": [
+    {
+      "name": "run-native64-t16",
+      "kind": "appliance",
+      "script": "validations/tungsten-graphsage/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-graphsage/cases/native64-t16",
+        "--build-sha256",
+        "90d12fb24a980525c87d95832dd7caf0e1ecf5b7e3d750bc8ceadd0d0cb2fe2f",
+        "--out",
+        "{output}/sage-native64-t16"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage",
+  "description": "Run a frozen two-layer mean GraphSAGE classifier on physical CS-3. Return every owned preactivation, normalized hidden channel, logit and PE clock.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

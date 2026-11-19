@@ -1,0 +1,223 @@
+{
+  "backend": "simulator",
+  "case": "scatter-skip-hidden-native64-retile-t16",
+  "build_sha256": "90d12fb24a980525c87d95832dd7caf0e1ecf5b7e3d750bc8ceadd0d0cb2fe2f",
+  "worker_sha256": "93622da2e437f2fecb263b3a8fa8064d1e107f6248056815036cbf56c3c3de27",
+  "trials": [
+    {
+      "trial": 1,
+      "per_pe_cycles": [
+        11672,
+        11417,
+        11530,
+        11531,
+        11417,
+        11417,
+        11417,
+        11533,
+        11644,
+        11531,
+        11417,
+        11417,
+        11417,
+        11417,
+        11719,
+        11417,
+        11417,
+        11417,
+        11417,
+        11417,
+        11562,
+        11417,
+        11417,
+        11549,
+        11561,
+        11552,
+        11417,
+        11417,
+        11417,
+        11417,
+        11417,
+        11585
+      ],
+      "max_pe_cycles": 11719,
+      "reply_words": 2816,
+      "reply_sha256": "edabe94451da826029415d8b83d5dd81a245d9cf032df0e409f3d2aa4b13ad6b",
+      "numerical_words_sha256": "5d20f29ba8e7caeff52704ae2f28d5b4a4704dac808c309af7a1e6da3f20cc43",
+      "errors": {
+        "pre": {
+          "max_abs": 2.7836752382326413e-09,
+          "relative_l2": 5.2418408717381714e-08
+        },
+        "hidden": {
+          "max_abs": 1.7687511988384585e-07,
+          "relative_l2": 9.147048390265092e-08
+        },
+        "logits": {
+          "max_abs": 5.110794392138018e-07,
+          "relative_l2": 9.16026413566935e-08
+        }
+      },
+      "all_node_argmax_disagreements": 0,
+      "accuracy": {
+        "train_idx": [
+          3,
+          4
+        ],
+        "val_idx": [
+          4,
+          10
+        ],
+        "test_idx": [
+          0,
+          0
+        ]
+      },
+      "host_frame_ns": 9808463272
+    },
+    {
+      "trial": 2,
+      "per_pe_cycles": [
+        11512,
+        11257,
+        11370,
+        11371,
+        11257,
+        11257,
+        11257,
+        11373,
+        11484,
+        11371,
+        11257,
+        11257,
+        11257,
+        11257,
+        11559,
+        11257,
+        11257,
+        11257,
+        11257,
+        11257,
+        11402,
+        11257,
+        11257,
+        11389,
+        11401,
+        11392,
+        11257,
+        11257,
+        11257,
+        11257,
+        11257,
+        11425
+      ],
+      "max_pe_cycles": 11559,
+      "reply_words": 2816,
+      "reply_sha256": "874cb1981240ad9058f2e7d35e98ef1d2e4ff0867609c777640408bf4dcd5d75",
+      "numerical_words_sha256": "bf79c04669b6960b2c101087c6407fba7c09aee259cde33b0770361fdbfe85a8",
+      "errors": {
+        "pre": {
+          "max_abs": 1.8574989046893364e-09,
+          "relative_l2": 4.5077129928585894e-08
+        },
+        "hidden": {
+          "max_abs": 1.6338647296221254e-07,
+          "relative_l2": 8.765811009989416e-08
+        },
+        "logits": {
+          "max_abs": 4.667841233541026e-07,
+          "relative_l2": 9.554908631424942e-08
+        }
+      },
+      "all_node_argmax_disagreements": 0,
+      "accuracy": {
+        "train_idx": [
+          3,
+          4
+        ],
+        "val_idx": [
+          4,
+          10
+        ],
+        "test_idx": [
+          0,
+          0
+        ]
+      },
+      "host_frame_ns": 14259525093
+    },
+    {
+      "trial": 3,
+      "per_pe_cycles": [
+        11672,
+        11417,
+        11530,
+        11531,
+        11417,
+        11417,
+        11417,
+        11533,
+        11644,
+        11531,
+        11417,
+        11417,
+        11417,
+        11417,
+        11719,
+        11417,
+        11417,
+        11417,
+        11417,
+        11417,
+        11562,
+        11417,
+        11417,
+        11549,
+        11561,
+        11552,
+        11417,
+        11417,
+        11417,
+        11417,
+        11417,
+        11585
+      ],
+      "max_pe_cycles": 11719,
+      "reply_words": 2816,
+      "reply_sha256": "0951fcddc9ed59730c3cd1e548ce1a10cbaf69cf67a656859a84f7ec4e9fbc1a",
+      "numerical_words_sha256": "5d20f29ba8e7caeff52704ae2f28d5b4a4704dac808c309af7a1e6da3f20cc43",
+      "errors": {
+        "pre": {
+          "max_abs": 2.7836752382326413e-09,
+          "relative_l2": 5.2418408717381714e-08
+        },
+        "hidden": {
+          "max_abs": 1.7687511988384585e-07,
+          "relative_l2": 9.147048390265092e-08
+        },
+        "logits": {
+          "max_abs": 5.110794392138018e-07,
+          "relative_l2": 9.16026413566935e-08
+        }
+      },
+      "all_node_argmax_disagreements": 0,
+      "accuracy": {
+        "train_idx": [
+          3,
+          4
+        ],
+        "val_idx": [
+          4,
+          10
+        ],
+        "test_idx": [
+          0,
+          0
+        ]
+      },
+      "host_frame_ns": 13975179546
+    }
+  ],
+  "stop_success": true,
+  "stage": "complete"
+}
