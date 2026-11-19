@@ -1,0 +1,11 @@
+{
+  "description": "All 2,708 trained Cora final aggregation rows on resident source-sharded CSL and Direct Link Tungsten.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "id": "cora-resident-full-scaling",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

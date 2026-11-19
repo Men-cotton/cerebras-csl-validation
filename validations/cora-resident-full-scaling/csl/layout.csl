@@ -1,0 +1,27 @@
+param R: u16;
+param F: u16;
+param E: u16;
+const memcpy = @import_module("<memcpy/get_params>", .{.width=4, .height=R});
+layout {
+  @set_rectangle(4,R);
+  for (@range(u16,4)) |x| {
+    for (@range(u16,R)) |y| {
+      const send = @get_color(4 + y%2);
+      const receive = @get_color(5 - y%2);
+      const ready_out = @get_color(8 + y%2);
+      const ready_in = @get_color(9 - y%2);
+      @set_tile_code(x,y,"pe.csl",.{.X=x,.Y=y,.R=R,.F=F,.E=E,.send_color=send,.receive_color=receive,.ready_out=ready_out,.ready_in=ready_in,.memcpy_params=memcpy.get_params(x)});
+      if (y<R-1) { @set_color_config(x,y,send,.{.routes=.{.rx=.{RAMP},.tx=.{SOUTH}}}); }
+      if (y<R-1) { @set_color_config(x,y,ready_in,.{.routes=.{.rx=.{SOUTH},.tx=.{RAMP}}}); }
+      if (y>0) { @set_color_config(x,y,ready_out,.{.routes=.{.rx=.{RAMP},.tx=.{NORTH}}}); }
+      if (y>0) { @set_color_config(x,y,receive,.{.routes=.{.rx=.{NORTH},.tx=.{RAMP}}}); }
+    }
+  }
+  @export_name("banks",[*]f32,true);
+  @export_name("graph",[*]u32,true);
+  @export_name("owner",[*]f32,true);
+  @export_name("header",[*]u32,true);
+  @export_name("verify_banks",fn()void);
+  @export_name("prepare",fn()void);
+  @export_name("compute",fn(u16)void);
+}

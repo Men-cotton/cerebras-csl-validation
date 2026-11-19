@@ -1,0 +1,907 @@
+{
+  "cases": {
+    "16": {
+      "old_csl_cycles": [
+        185709,
+        185709,
+        185709
+      ],
+      "old_csl_with_address_plan": [
+        132578,
+        132578,
+        132578
+      ],
+      "old_tungsten_cycles": [
+        86689,
+        86689,
+        86689
+      ],
+      "unchanged_owner_words": [
+        18956,
+        18956,
+        18956
+      ],
+      "uniform_csl_cycles": [
+        132021,
+        132021,
+        132021
+      ],
+      "uniform_tungsten_cycles": [
+        75365,
+        75365,
+        75365
+      ],
+      "windows": [
+        {
+          "fixture": "cora-0000-0256",
+          "old_csl": [
+            19131,
+            19131,
+            19131
+          ],
+          "old_csl_with_address_plan": [
+            13642,
+            13642,
+            13642
+          ],
+          "old_tungsten": [
+            8846,
+            8846,
+            8846
+          ],
+          "uniform_csl": [
+            13518,
+            13518,
+            13518
+          ],
+          "uniform_tungsten": [
+            7675,
+            7675,
+            7675
+          ]
+        },
+        {
+          "fixture": "cora-0256-0512",
+          "old_csl": [
+            18382,
+            18382,
+            18382
+          ],
+          "old_csl_with_address_plan": [
+            13117,
+            13117,
+            13117
+          ],
+          "old_tungsten": [
+            8530,
+            8530,
+            8530
+          ],
+          "uniform_csl": [
+            13001,
+            13001,
+            13001
+          ],
+          "uniform_tungsten": [
+            7387,
+            7387,
+            7387
+          ]
+        },
+        {
+          "fixture": "cora-0512-0768",
+          "old_csl": [
+            22256,
+            22256,
+            22256
+          ],
+          "old_csl_with_address_plan": [
+            15791,
+            15791,
+            15791
+          ],
+          "old_tungsten": [
+            10240,
+            10240,
+            10240
+          ],
+          "uniform_csl": [
+            15761,
+            15761,
+            15761
+          ],
+          "uniform_tungsten": [
+            8872,
+            8872,
+            8872
+          ]
+        },
+        {
+          "fixture": "cora-0768-1024",
+          "old_csl": [
+            17678,
+            17678,
+            17678
+          ],
+          "old_csl_with_address_plan": [
+            12621,
+            12621,
+            12621
+          ],
+          "old_tungsten": [
+            8236,
+            8236,
+            8236
+          ],
+          "uniform_csl": [
+            12525,
+            12525,
+            12525
+          ],
+          "uniform_tungsten": [
+            7132,
+            7132,
+            7132
+          ]
+        },
+        {
+          "fixture": "cora-1024-1280",
+          "old_csl": [
+            17153,
+            17153,
+            17153
+          ],
+          "old_csl_with_address_plan": [
+            12256,
+            12256,
+            12256
+          ],
+          "old_tungsten": [
+            8012,
+            8012,
+            8012
+          ],
+          "uniform_csl": [
+            12161,
+            12161,
+            12161
+          ],
+          "uniform_tungsten": [
+            6938,
+            6938,
+            6938
+          ]
+        },
+        {
+          "fixture": "cora-1280-1536",
+          "old_csl": [
+            17757,
+            17757,
+            17757
+          ],
+          "old_csl_with_address_plan": [
+            12668,
+            12668,
+            12668
+          ],
+          "old_tungsten": [
+            8290,
+            8290,
+            8290
+          ],
+          "uniform_csl": [
+            12607,
+            12607,
+            12607
+          ],
+          "uniform_tungsten": [
+            7180,
+            7180,
+            7180
+          ]
+        },
+        {
+          "fixture": "cora-1536-1792",
+          "old_csl": [
+            16198,
+            16198,
+            16198
+          ],
+          "old_csl_with_address_plan": [
+            11589,
+            11589,
+            11589
+          ],
+          "old_tungsten": [
+            7612,
+            7612,
+            7612
+          ],
+          "uniform_csl": [
+            11509,
+            11509,
+            11509
+          ],
+          "uniform_tungsten": [
+            6592,
+            6592,
+            6592
+          ]
+        },
+        {
+          "fixture": "cora-1792-2048",
+          "old_csl": [
+            14871,
+            14871,
+            14871
+          ],
+          "old_csl_with_address_plan": [
+            10662,
+            10662,
+            10662
+          ],
+          "old_tungsten": [
+            7032,
+            7032,
+            7032
+          ],
+          "uniform_csl": [
+            10579,
+            10579,
+            10579
+          ],
+          "uniform_tungsten": [
+            6087,
+            6087,
+            6087
+          ]
+        },
+        {
+          "fixture": "cora-2048-2304",
+          "old_csl": [
+            15682,
+            15682,
+            15682
+          ],
+          "old_csl_with_address_plan": [
+            11217,
+            11217,
+            11217
+          ],
+          "old_tungsten": [
+            7390,
+            7390,
+            7390
+          ],
+          "uniform_csl": [
+            11161,
+            11161,
+            11161
+          ],
+          "uniform_tungsten": [
+            6399,
+            6399,
+            6399
+          ]
+        },
+        {
+          "fixture": "cora-2304-2560",
+          "old_csl": [
+            15770,
+            15770,
+            15770
+          ],
+          "old_csl_with_address_plan": [
+            11273,
+            11273,
+            11273
+          ],
+          "old_tungsten": [
+            7442,
+            7442,
+            7442
+          ],
+          "uniform_csl": [
+            11241,
+            11241,
+            11241
+          ],
+          "uniform_tungsten": [
+            6449,
+            6449,
+            6449
+          ]
+        },
+        {
+          "fixture": "cora-2560-2708",
+          "old_csl": [
+            10831,
+            10831,
+            10831
+          ],
+          "old_csl_with_address_plan": [
+            7742,
+            7742,
+            7742
+          ],
+          "old_tungsten": [
+            5059,
+            5059,
+            5059
+          ],
+          "uniform_csl": [
+            7958,
+            7958,
+            7958
+          ],
+          "uniform_tungsten": [
+            4654,
+            4654,
+            4654
+          ]
+        }
+      ]
+    },
+    "4": {
+      "old_csl_cycles": [
+        392016,
+        392016,
+        392016
+      ],
+      "old_csl_with_address_plan": null,
+      "old_tungsten_cycles": [
+        191917,
+        191917,
+        191917
+      ],
+      "unchanged_owner_words": [
+        18956,
+        18956,
+        18956
+      ],
+      "uniform_csl_cycles": [
+        278814,
+        278814,
+        278814
+      ],
+      "uniform_tungsten_cycles": [
+        153923,
+        153923,
+        153923
+      ],
+      "windows": [
+        {
+          "fixture": "cora-0000-0256",
+          "old_csl": [
+            48077,
+            48077,
+            48077
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            23328,
+            23328,
+            23328
+          ],
+          "uniform_csl": [
+            34106,
+            34106,
+            34106
+          ],
+          "uniform_tungsten": [
+            18641,
+            18641,
+            18641
+          ]
+        },
+        {
+          "fixture": "cora-0256-0512",
+          "old_csl": [
+            49586,
+            49586,
+            49586
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            24054,
+            24054,
+            24054
+          ],
+          "uniform_csl": [
+            35180,
+            35180,
+            35180
+          ],
+          "uniform_tungsten": [
+            19222,
+            19222,
+            19222
+          ]
+        },
+        {
+          "fixture": "cora-0512-0768",
+          "old_csl": [
+            50631,
+            50631,
+            50631
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            24586,
+            24586,
+            24586
+          ],
+          "uniform_csl": [
+            35940,
+            35940,
+            35940
+          ],
+          "uniform_tungsten": [
+            19659,
+            19659,
+            19659
+          ]
+        },
+        {
+          "fixture": "cora-0768-1024",
+          "old_csl": [
+            37847,
+            37847,
+            37847
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            18621,
+            18621,
+            18621
+          ],
+          "uniform_csl": [
+            26947,
+            26947,
+            26947
+          ],
+          "uniform_tungsten": [
+            14941,
+            14941,
+            14941
+          ]
+        },
+        {
+          "fixture": "cora-1024-1280",
+          "old_csl": [
+            39753,
+            39753,
+            39753
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            19555,
+            19555,
+            19555
+          ],
+          "uniform_csl": [
+            28313,
+            28313,
+            28313
+          ],
+          "uniform_tungsten": [
+            15695,
+            15695,
+            15695
+          ]
+        },
+        {
+          "fixture": "cora-1280-1536",
+          "old_csl": [
+            29389,
+            29389,
+            29389
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            14483,
+            14483,
+            14483
+          ],
+          "uniform_csl": [
+            20889,
+            20889,
+            20889
+          ],
+          "uniform_tungsten": [
+            11603,
+            11603,
+            11603
+          ]
+        },
+        {
+          "fixture": "cora-1536-1792",
+          "old_csl": [
+            28756,
+            28756,
+            28756
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            14023,
+            14023,
+            14023
+          ],
+          "uniform_csl": [
+            20357,
+            20357,
+            20357
+          ],
+          "uniform_tungsten": [
+            11173,
+            11173,
+            11173
+          ]
+        },
+        {
+          "fixture": "cora-1792-2048",
+          "old_csl": [
+            24067,
+            24067,
+            24067
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            11791,
+            11791,
+            11791
+          ],
+          "uniform_csl": [
+            17033,
+            17033,
+            17033
+          ],
+          "uniform_tungsten": [
+            9396,
+            9396,
+            9396
+          ]
+        },
+        {
+          "fixture": "cora-2048-2304",
+          "old_csl": [
+            33520,
+            33520,
+            33520
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            16576,
+            16576,
+            16576
+          ],
+          "uniform_csl": [
+            23903,
+            23903,
+            23903
+          ],
+          "uniform_tungsten": [
+            13322,
+            13322,
+            13322
+          ]
+        },
+        {
+          "fixture": "cora-2304-2560",
+          "old_csl": [
+            32448,
+            32448,
+            32448
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            16044,
+            16044,
+            16044
+          ],
+          "uniform_csl": [
+            23131,
+            23131,
+            23131
+          ],
+          "uniform_tungsten": [
+            12890,
+            12890,
+            12890
+          ]
+        },
+        {
+          "fixture": "cora-2560-2708",
+          "old_csl": [
+            17942,
+            17942,
+            17942
+          ],
+          "old_csl_with_address_plan": null,
+          "old_tungsten": [
+            8856,
+            8856,
+            8856
+          ],
+          "uniform_csl": [
+            13015,
+            13015,
+            13015
+          ],
+          "uniform_tungsten": [
+            7381,
+            7381,
+            7381
+          ]
+        }
+      ]
+    }
+  },
+  "compensation": [
+    1,
+    2,
+    1
+  ],
+  "fixed_shape_ready_go_controls": {
+    "csl-r4": {
+      "after_ready_go": [
+        278814,
+        278814,
+        278814
+      ],
+      "before_ready_go": [
+        684928,
+        279001,
+        279001
+      ],
+      "per_window_after": [
+        [
+          34106,
+          34106,
+          34106
+        ],
+        [
+          35180,
+          35180,
+          35180
+        ],
+        [
+          35940,
+          35940,
+          35940
+        ],
+        [
+          26947,
+          26947,
+          26947
+        ],
+        [
+          28313,
+          28313,
+          28313
+        ],
+        [
+          20889,
+          20889,
+          20889
+        ],
+        [
+          20357,
+          20357,
+          20357
+        ],
+        [
+          17033,
+          17033,
+          17033
+        ],
+        [
+          23903,
+          23903,
+          23903
+        ],
+        [
+          23131,
+          23131,
+          23131
+        ],
+        [
+          13015,
+          13015,
+          13015
+        ]
+      ],
+      "per_window_before": [
+        [
+          82160,
+          34140,
+          34140
+        ],
+        [
+          86413,
+          35214,
+          35214
+        ],
+        [
+          87114,
+          35974,
+          35974
+        ],
+        [
+          68624,
+          26969,
+          26969
+        ],
+        [
+          71485,
+          28335,
+          28335
+        ],
+        [
+          51386,
+          20911,
+          20911
+        ],
+        [
+          48183,
+          20368,
+          20368
+        ],
+        [
+          41588,
+          17044,
+          17044
+        ],
+        [
+          59495,
+          23902,
+          23902
+        ],
+        [
+          56968,
+          23130,
+          23130
+        ],
+        [
+          31512,
+          13014,
+          13014
+        ]
+      ],
+      "raw_sha256": "f3972915c8124b8bfec05f17861038e7bfa80fc26a8363ac5b296e0c680b4e46",
+      "retained_capture": "sim/csl-r4"
+    },
+    "tungsten-r4": {
+      "after_ready_go": [
+        153923,
+        153923,
+        153923
+      ],
+      "before_ready_go": [
+        386133,
+        154042,
+        154042
+      ],
+      "per_window_after": [
+        [
+          18641,
+          18641,
+          18641
+        ],
+        [
+          19222,
+          19222,
+          19222
+        ],
+        [
+          19659,
+          19659,
+          19659
+        ],
+        [
+          14941,
+          14941,
+          14941
+        ],
+        [
+          15695,
+          15695,
+          15695
+        ],
+        [
+          11603,
+          11603,
+          11603
+        ],
+        [
+          11173,
+          11173,
+          11173
+        ],
+        [
+          9396,
+          9396,
+          9396
+        ],
+        [
+          13322,
+          13322,
+          13322
+        ],
+        [
+          12890,
+          12890,
+          12890
+        ],
+        [
+          7381,
+          7381,
+          7381
+        ]
+      ],
+      "per_window_before": [
+        [
+          46000,
+          18657,
+          18657
+        ],
+        [
+          48511,
+          19238,
+          19238
+        ],
+        [
+          48806,
+          19675,
+          19675
+        ],
+        [
+          38687,
+          14958,
+          14958
+        ],
+        [
+          40297,
+          15712,
+          15712
+        ],
+        [
+          28942,
+          11620,
+          11620
+        ],
+        [
+          27012,
+          11183,
+          11183
+        ],
+        [
+          23494,
+          9406,
+          9406
+        ],
+        [
+          33853,
+          13322,
+          13322
+        ],
+        [
+          32416,
+          12890,
+          12890
+        ],
+        [
+          18115,
+          7381,
+          7381
+        ]
+      ],
+      "raw_sha256": "55f5866737ee22a07d1fcd33c8966021a548deb34f8088b85ac30bb6232906e7",
+      "retained_capture": "clean-tungsten-r4"
+    }
+  },
+  "new_middle_scale": -1,
+  "old_middle_scale": -0.5,
+  "source_manifest_sha256": "efd7bbc5293ba0e41f6ddc69f71069d95a6b6fcce51e08f35aec1e7b523f2010",
+  "timing_scope": "Distinct executable, input/control path, preparation and synchronization; observed differences include all changes."
+}
