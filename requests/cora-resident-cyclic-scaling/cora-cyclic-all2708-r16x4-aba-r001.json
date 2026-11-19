@@ -1,0 +1,45 @@
+{
+  "description": "Cyclic source placement, 64 compute PEs, complete Cora final aggregation, resident A/-A/A.",
+  "id": "cora-cyclic-all2708-r16x4-aba-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile-csl",
+        "--shards",
+        "16",
+        "--out",
+        "{output}/compile-csl"
+      ],
+      "kind": "appliance",
+      "name": "compile-csl",
+      "script": "validations/cora-resident-cyclic-scaling/appliance.py"
+    },
+    {
+      "args": [
+        "run-csl",
+        "--shards",
+        "16",
+        "--out",
+        "{output}/run-csl",
+        "--build",
+        "{output}/compile-csl/build.json"
+      ],
+      "kind": "appliance",
+      "name": "run-csl",
+      "script": "validations/cora-resident-cyclic-scaling/appliance.py"
+    },
+    {
+      "args": [
+        "run-tungsten",
+        "--shards",
+        "16",
+        "--out",
+        "{output}/run-tungsten"
+      ],
+      "kind": "appliance",
+      "name": "run-tungsten",
+      "script": "validations/cora-resident-cyclic-scaling/appliance.py"
+    }
+  ]
+}
