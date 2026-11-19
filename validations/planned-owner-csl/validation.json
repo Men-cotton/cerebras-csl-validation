@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "planned-owner-csl",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "description": "Degree-four specialization of runtime CSR data, measured over twelve resident feature panels with separate setup clocks."
+}

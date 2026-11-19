@@ -1,0 +1,237 @@
+{
+  "schema": 1,
+  "id": "planned-owner-csr-12frame-20261119-r001",
+  "description": "Compare timed device graph setup and twelve resident A/B/A feature panels at five owner widths for tuned CSL and Tungsten.",
+  "steps": [
+    {
+      "name": "compile-csl-p1",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "1",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-csl-p1"
+      ]
+    },
+    {
+      "name": "run-csl-p1",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "1",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-csl-p1/build.json",
+        "--out",
+        "{output}/run-csl-p1"
+      ]
+    },
+    {
+      "name": "run-tungsten-p1",
+      "kind": "appliance",
+      "script": "validations/planned-owner-tungsten/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "1",
+        "--build",
+        "validations/planned-owner-tungsten/cases/p1",
+        "--build-sha256",
+        "beb8eb5e6d5ad68d0cffdd9ab671be17ba1f42e56e0c345eb469943b13b0c06f",
+        "--out",
+        "{output}/run-tungsten-p1"
+      ]
+    },
+    {
+      "name": "compile-csl-p2",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "2",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-csl-p2"
+      ]
+    },
+    {
+      "name": "run-csl-p2",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "2",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-csl-p2/build.json",
+        "--out",
+        "{output}/run-csl-p2"
+      ]
+    },
+    {
+      "name": "run-tungsten-p2",
+      "kind": "appliance",
+      "script": "validations/planned-owner-tungsten/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "2",
+        "--build",
+        "validations/planned-owner-tungsten/cases/p2",
+        "--build-sha256",
+        "15eb4f082b49583faee3ed1007b17494c1b2bbbe7af0b8476e2a9d48f028d3cf",
+        "--out",
+        "{output}/run-tungsten-p2"
+      ]
+    },
+    {
+      "name": "compile-csl-p4",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "4",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-csl-p4"
+      ]
+    },
+    {
+      "name": "run-csl-p4",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "4",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-csl-p4/build.json",
+        "--out",
+        "{output}/run-csl-p4"
+      ]
+    },
+    {
+      "name": "run-tungsten-p4",
+      "kind": "appliance",
+      "script": "validations/planned-owner-tungsten/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "4",
+        "--build",
+        "validations/planned-owner-tungsten/cases/p4",
+        "--build-sha256",
+        "942649a673ebba8151732c79a7ad50bd2338761a7acbd9c7698d045f90564009",
+        "--out",
+        "{output}/run-tungsten-p4"
+      ]
+    },
+    {
+      "name": "compile-csl-p8",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "8",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-csl-p8"
+      ]
+    },
+    {
+      "name": "run-csl-p8",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "8",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-csl-p8/build.json",
+        "--out",
+        "{output}/run-csl-p8"
+      ]
+    },
+    {
+      "name": "run-tungsten-p8",
+      "kind": "appliance",
+      "script": "validations/planned-owner-tungsten/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "8",
+        "--build",
+        "validations/planned-owner-tungsten/cases/p8",
+        "--build-sha256",
+        "9f9f0d306bb850314ca09d933eebfa3abe5d29ad5193dd63c3a05336486260f4",
+        "--out",
+        "{output}/run-tungsten-p8"
+      ]
+    },
+    {
+      "name": "compile-csl-p16",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "compile",
+        "--owners",
+        "16",
+        "--mode",
+        "7",
+        "--out",
+        "{output}/compile-csl-p16"
+      ]
+    },
+    {
+      "name": "run-csl-p16",
+      "kind": "appliance",
+      "script": "validations/planned-owner-csl/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "16",
+        "--mode",
+        "7",
+        "--build",
+        "{output}/compile-csl-p16/build.json",
+        "--out",
+        "{output}/run-csl-p16"
+      ]
+    },
+    {
+      "name": "run-tungsten-p16",
+      "kind": "appliance",
+      "script": "validations/planned-owner-tungsten/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "16",
+        "--build",
+        "validations/planned-owner-tungsten/cases/p16",
+        "--build-sha256",
+        "376761566e49d8407ac3178274216f60bd41eef021ce39b298926f5244528322",
+        "--out",
+        "{output}/run-tungsten-p16"
+      ]
+    }
+  ]
+}

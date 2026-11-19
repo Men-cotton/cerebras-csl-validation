@@ -1,0 +1,36 @@
+{
+  "owners": 1,
+  "mode": 7,
+  "local": true,
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=8,3",
+    "--fabric-offsets=4,1",
+    "--params=P:1,MODE:7",
+    "--memcpy",
+    "--channels=1",
+    "--max-parallelism=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "-o",
+    "out"
+  ],
+  "source_sha256": {
+    "layout.csl": "0e76fd0f0eaf854ff7fb6ae077c532da4f8e44cf3a06f84fbe496a5070f57299",
+    "pe.csl": "ec6a02ed70f7038d447880b38988f2dc982c2d4fa5dfb0e2467857f2e52ee136",
+    "worker.py": "3185fe8ad602d6dbc0372f364b0448e8e067a5fb0077d05fbe647bf476c10011"
+  },
+  "files": {
+    "bin/out_0_0.elf": "3000f95a789c33352f27905baa7723d5af0fcf0d285339df1a18663e43aff3e7",
+    "bin/out_rpc.json": "88b8287b6fe78e9d788dda204a89bca7c7fec08d34ea5683f81d7ef831058b4d",
+    "east/bin/out_0_0.elf": "ec94c9f4e167207218e8f35390be01a3350d0325c88df1ca6e2556118533a5c6",
+    "east/bin/out_1_0.elf": "2be412a079fb0debf4b134f39c8b19b2c035264b2a642c84cfe262462f6bdd3f",
+    "east/out.json": "46ea180801c589023f5daf7351fb473475b50f302d72cf40f86e4ce5f7d320b7",
+    "out.json": "cfe305ddec7c0a1fe11a06745a1ebc4dddb65b2a8a3927436feae2933a485883",
+    "west/bin/out_0_0.elf": "ff1ef6f5bde465d02d3bf459de9d6f30c4a0174055c2c0a47d5fc6863624ed3c",
+    "west/bin/out_1_0.elf": "a75439c8567267ef0a777443498ac6ec4dd84792a0da6ee646fc125bb4d50704",
+    "west/bin/out_2_0.elf": "7e5b959ef5b94f99e12b4e8051fce97739971cedb3e5a7c8c9b8f51ed63ca5d1",
+    "west/out.json": "248ecbf17b2090e46e426ee7b905c25f2b9770e8f6a382868cd2e07ab91e7a3a"
+  },
+  "artifact": "out"
+}
