@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn-full-hub163-split-r001",
+  "description": "Three resident frames of a trained two-layer Cora GCN with full PE record collection on physical CS-3.",
+  "steps": [
+    {
+      "name": "run-cora-c16r16-t8-hub163-split",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn/cases/cora-c16r16-t8-hub163-split",
+        "--build-sha256",
+        "3e20f1585e8ad475f4fd92defaae3830a61c177352382872638c8c6c399b936b",
+        "--out",
+        "{output}/gcn-cora-c16r16-t8-hub163-split"
+      ]
+    }
+  ]
+}

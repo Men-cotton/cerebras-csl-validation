@@ -1,0 +1,239 @@
+{
+  "case": "cora-c16r16-t8-hub163-split",
+  "original_source": {
+    "gcn.w": "276e9c7ea77a05f5b3465fca782c6bdffbe7382750e92dbaa56a5f8896fc9d7b",
+    "bench.paint": "8e5011f1e160c369e581ddf35c9648c28c7d120fab4c1c48d1488563c58946d3"
+  },
+  "original_elf_sha256": "76f35082647f2b45239b25e87516306a3d8296853ad62d256a347471f606fe6d",
+  "original_raw_sha256": "ba46427d40eae6e040d0fa42b4ba04c6c682d9204925f0665730f7972c3d63b5",
+  "original_object_sha256": "53278d2fce90b8e196e42b8f237e0c4e8aec7dbcedda78184293b966f4359fc3",
+  "params": {
+    "C": 16,
+    "R": 16,
+    "K": 174,
+    "L": 11,
+    "FW": 90,
+    "H": 16,
+    "O": 7,
+    "T": 8,
+    "MX": 352,
+    "MG": 220,
+    "U": 37,
+    "COMPACT": 1
+  },
+  "roles": {
+    "simulator": {
+      "elf_sha256": "e96eebbfdca861504182ee76638998e71c3fc1fc19f7807eccb67ea405d3b0c0",
+      "fabric": [
+        16,
+        16
+      ]
+    },
+    "hardware": {
+      "elf_sha256": "354c562d1f3b1a13701883c1bdbe3ae90033bcdd49ef910dadb892a16755bc83",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "machine_image": "8a44f4e046872e0810aa9cf1bf031fbe43268762f2596eb01cff3c4e52b99597",
+  "source": {
+    "bench.paint": "ade2962c90e5342b81ae59559e170c2b305f739a2f766a2c468b9abf807f5d19",
+    "gcn.w": "7c7d3d6f0d66e58d0c6996765b07e9cea90354b40b1f38f1b6aa1244c73cdf5d"
+  },
+  "commands": [
+    [
+      "paint",
+      "source=src/bench.paint",
+      "lib=src",
+      "arch=sdr",
+      "annotate",
+      "image=gcn.obj",
+      "map=gcn.map",
+      "regiondump=regions.json",
+      "set=X0=0",
+      "set=Y0=0",
+      "set=C=16",
+      "set=R=16",
+      "set=K=174",
+      "set=L=11",
+      "set=FW=90",
+      "set=H=16",
+      "set=O=7",
+      "set=T=8",
+      "set=MX=352",
+      "set=MG=220",
+      "set=NRX=148",
+      "set=NSEND=48",
+      "set=NPLAN=21",
+      "set=ENV=426",
+      "set=TRIM=1",
+      "set=ITER=1"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.x_ptr",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.x_col",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.x_val",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.w0",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.w1",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.slots",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.edge_ptr",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.edge_src",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.edge_weight",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.send_slot",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.packet_header",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.packet_tag",
+      "order=y x n _word",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.packet_offset",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.packet_count",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.counts",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "miset",
+      "image=gcn.img",
+      "out=gcn.img",
+      "map=gcn.map",
+      "symbol=grid.split_control",
+      "order=y x n",
+      "data=init.bin"
+    ],
+    [
+      "mielf",
+      "image=gcn.img",
+      "elf=/home/mencotton/research/tungsten/experiments/gcn-direct-link/bundles/cora-c16r16-t8-hub163-split/simulator/out/program.elf",
+      "w=16",
+      "h=16"
+    ],
+    [
+      "mielf",
+      "image=gcn.img",
+      "elf=/home/mencotton/research/tungsten/experiments/gcn-direct-link/bundles/cora-c16r16-t8-hub163-split/hardware/out/program.elf",
+      "w=762",
+      "h=1172"
+    ]
+  ],
+  "input_sha256": "1fc3d077eaef1dd277527c40b3d338096a9c3d71dadc8ce7f6b8cacc8e67f08c",
+  "checkpoint_sha256": "836c82b82871c76bb1822ace2014c9552690459a952de1b23d4399d5ecce4542",
+  "ports_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "comparison_reference_sha256": "5db60fe4da0032900da456190249d7d6fe87c2ff3fc46b94ab5ee311ea9c92cc",
+  "canonical_sha256": "d8987393bfc72c6f43aceff6dc8b8ae5860d56a43c8e53e4ff555149465d9b5f",
+  "ordered_loads": 66
+}
