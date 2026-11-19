@@ -1,0 +1,74 @@
+{
+  "capture_contract": "last slots upload witness plus complete outputs; no replicated weight/input D2H audit",
+  "dataset_scope": "synthetic-semantic",
+  "files": {
+    "arrays.npz": "a70b03332a456e5a70960b1a8d53d791fbe4076ed76f40b94e063b2ed0d1c488",
+    "input_model.npz": "baeb74ffe347796408ced1747f26e1c638100dbc0df394cc9418c9fcb03c4ce5",
+    "node_ids.npy": "ea9db0891f6e9cb2e149be955065455c62b0ca428b550160977456d23f61c546"
+  },
+  "input_kind": "synthetic",
+  "metadata": {
+    "classes": 3,
+    "column_broadcast_calls_per_pe": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "declared_bytes_per_pe": 678,
+    "edges": 6,
+    "features": 5,
+    "hidden": 4,
+    "nodes": 3,
+    "original_input_transport": "compact",
+    "owner_rule": "original_node_id modulo C*R",
+    "per_pe_edges": [
+      2,
+      1,
+      3,
+      0
+    ],
+    "per_pe_nodes": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "per_pe_x_nnz": [
+      4,
+      2,
+      1,
+      2
+    ],
+    "row_broadcast_calls_per_pe": 0,
+    "row_gather_calls_per_pe": 0,
+    "row_reduce_calls_per_pe": 0,
+    "row_reduce_scatter_calls_per_pe": 1,
+    "sent_packets": 10,
+    "transport_variant": "direct-owner-scatter"
+  },
+  "model_contract": "mean GraphSAGE classifier; hidden ReLU/L2; final raw logits; no implicit self loops",
+  "original_checkpoint_sha256": "baeb74ffe347796408ced1747f26e1c638100dbc0df394cc9418c9fcb03c4ce5",
+  "original_nodes": 3,
+  "params": {
+    "C": 2,
+    "COMPACT": 1,
+    "FW": 3,
+    "H": 4,
+    "K": 2,
+    "L": 1,
+    "MG": 3,
+    "MX": 4,
+    "NRX": 2,
+    "NTX": 2,
+    "O": 3,
+    "R": 2,
+    "RX": 2,
+    "T": 4
+  },
+  "selected_nodes": 3,
+  "source_sha256": {
+    "models/graphsage/cora_device/layout.csl": "4d409bf5451db26cb1ec4fad5c12f67d94ec9239a3c095348ec1a9fc9fc41835",
+    "models/graphsage/cora_device/pe.csl": "a188a61aa34182daedaef587ace702f477ebaa532ec06c2e7f33ac1d15ff6af8"
+  }
+}

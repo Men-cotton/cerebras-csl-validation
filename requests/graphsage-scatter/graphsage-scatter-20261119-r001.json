@@ -1,0 +1,99 @@
+{
+  "description": "Run resident paired GraphSAGE on physical CS-3 and verify every output against original-input FP64.",
+  "id": "graphsage-scatter-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "minimum-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-minimum-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-minimum-compact",
+      "script": "validations/graphsage-scatter/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "minimum-compact",
+        "--backend",
+        "hardware",
+        "--host-timeout",
+        "600",
+        "--artifact-record",
+        "{output}/compile-minimum-compact/native-build.json",
+        "--out",
+        "{output}/run-minimum-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-minimum-compact",
+      "script": "validations/graphsage-scatter/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-minimum-compact/capture-data",
+        "--out",
+        "{output}/numerical-minimum-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-minimum-compact",
+      "script": "validations/graphsage-scatter/saved_audit.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "native64-t16",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-native64-t16"
+      ],
+      "kind": "appliance",
+      "name": "compile-native64-t16",
+      "script": "validations/graphsage-scatter/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "native64-t16",
+        "--backend",
+        "hardware",
+        "--host-timeout",
+        "600",
+        "--artifact-record",
+        "{output}/compile-native64-t16/native-build.json",
+        "--out",
+        "{output}/run-native64-t16"
+      ],
+      "kind": "appliance",
+      "name": "run-native64-t16",
+      "script": "validations/graphsage-scatter/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-native64-t16/capture-data",
+        "--out",
+        "{output}/numerical-native64-t16.json"
+      ],
+      "kind": "host",
+      "name": "audit-native64-t16",
+      "script": "validations/graphsage-scatter/saved_audit.py"
+    }
+  ]
+}

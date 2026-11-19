@@ -1,0 +1,16 @@
+{
+  "cases": {
+    "minimum-compact": "01ebddd5b8cbae47dfdc57e8cc762ee20fd2ed632fdca542c03bf5aa15dd066d",
+    "native64-t16": "fa1d3c3d0833e3e51011f12d26de6636b0a645e33c6d5f8d0a6161ef88820dd9"
+  },
+  "compile_workers": 1,
+  "family": "graphsage-scatter",
+  "host_sha256": {
+    "appliance.py": "228b9f84703a4159b49a8d6b97f9b82fbb5f2713140f15b2d3c2518d6506f11a",
+    "appliance_worker.py": "b5e849a160445865a5d931e2e71e1f21c523cb8f8592806b0154323ca48eeeef",
+    "portable.py": "72f487280c44bfdd4786d1c54f4d20d6319519642f4ff924d7350b203a32d930",
+    "saved_audit.py": "35cdc4789ba7ab28ded8d054261ebb2393426d8ab508634c6b8c8540a44806bd",
+    "sdk_runner.py": "dc0baf3408da61975536ef417c8854394e388a2e0d5cc00fee10a5c56e75eebd"
+  },
+  "schema": 1
+}
