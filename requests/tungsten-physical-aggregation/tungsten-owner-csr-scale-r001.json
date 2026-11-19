@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "id": "tungsten-owner-csr-scale-r001",
+  "description": "Fixed-work resident weighted CSR aggregation over 1 to 16 Tungsten owners on physical CS-3.",
+  "steps": [
+    {
+      "name": "run-p1",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "1",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/p1",
+        "--build-sha256",
+        "532fefce2d76649de3255350c513c8bc15a52ed7091c54b7a6b6cdfb2d024950",
+        "--out",
+        "{output}/tungsten-p1"
+      ]
+    },
+    {
+      "name": "run-p2",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "2",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/p2",
+        "--build-sha256",
+        "5c5828199f136da4f6382fcfcc58dc13c88161c81d64bfa3b9b155a510c66a03",
+        "--out",
+        "{output}/tungsten-p2"
+      ]
+    },
+    {
+      "name": "run-p4",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "4",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/p4",
+        "--build-sha256",
+        "b53b8965583f91dc4fdd2c6b6f03e27e3ddc4566895b3f98ce8d1381afe2c40b",
+        "--out",
+        "{output}/tungsten-p4"
+      ]
+    },
+    {
+      "name": "run-p8",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "8",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/p8",
+        "--build-sha256",
+        "de34a928266565349ac965c9bd254b497ffa48f0cdad7a6577a07c0696e31149",
+        "--out",
+        "{output}/tungsten-p8"
+      ]
+    },
+    {
+      "name": "run-p16",
+      "kind": "appliance",
+      "script": "validations/tungsten-physical-aggregation/appliance.py",
+      "args": [
+        "run",
+        "--owners",
+        "16",
+        "--build",
+        "validations/tungsten-physical-aggregation/cases/p16",
+        "--build-sha256",
+        "bdd9ff04e5a7f4333822334b64e676bd2c931ea44341b3d6fbabf8af329a75bd",
+        "--out",
+        "{output}/tungsten-p16"
+      ]
+    }
+  ]
+}

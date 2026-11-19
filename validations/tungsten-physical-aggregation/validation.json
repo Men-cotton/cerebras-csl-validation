@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-physical-aggregation",
+  "description": "Fixed-work resident weighted CSR aggregation over 1 to 16 Tungsten owners on physical CS-3.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}
