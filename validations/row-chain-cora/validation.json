@@ -1,0 +1,12 @@
+{
+  "description": "Cora H16/O7 inference with a static row FADD chain and grouped endpoints",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py"
+  ],
+  "id": "row-chain-cora",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

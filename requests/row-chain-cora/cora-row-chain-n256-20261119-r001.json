@@ -1,0 +1,53 @@
+{
+  "description": "Compile, execute and audit native grouped GCN for the 256-node Cora prefix on 16 PEs",
+  "id": "cora-row-chain-n256-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "n256-c4-r4-t8-chain",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-n256-c4-r4-t8-chain"
+      ],
+      "kind": "appliance",
+      "name": "compile-n256-c4-r4-t8-chain",
+      "script": "validations/row-chain-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "n256-c4-r4-t8-chain",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-n256-c4-r4-t8-chain/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-n256-c4-r4-t8-chain"
+      ],
+      "kind": "appliance",
+      "name": "run-n256-c4-r4-t8-chain",
+      "script": "validations/row-chain-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-n256-c4-r4-t8-chain/capture-data",
+        "--out",
+        "{output}/numerical-n256-c4-r4-t8-chain.json"
+      ],
+      "kind": "host",
+      "name": "audit-n256-c4-r4-t8-chain",
+      "script": "validations/row-chain-cora/saved_audit.py"
+    }
+  ]
+}

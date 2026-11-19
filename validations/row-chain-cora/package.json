@@ -1,0 +1,15 @@
+{
+  "cases": {
+    "n256-c4-r4-t8-chain": "9a03a7cf184b8346cdfa316196fe3bb5f8821deebe94d493d383f893bd837026"
+  },
+  "family": "native-cora",
+  "host_sha256": {
+    "appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
+    "appliance_worker.py": "88dd6a1a9140712eaad13cec6d05e409dbe7147e807a3f695137177ad12a2189",
+    "grouped_contract.py": "4af89f3d022e3b1999557fa7af4f5012d07c577a8dd56498b55e3d2ed672be39",
+    "portable.py": "b201740167b9d8afff4feea6f36296037fa0f1b1a345f620e2c6f71acdab577e",
+    "saved_audit.py": "a3fe45e44e154e4a0e8ec3d2042202733df099b925cff82819dd675e05c3b36c",
+    "sdk_runner.py": "58c3e03ff9b2efb4281be327a3b110875e87c8752347f5fe4dfdb5e61b164a73"
+  },
+  "schema": 1
+}
