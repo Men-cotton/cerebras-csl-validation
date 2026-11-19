@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn-n256-row-swap-r001",
+  "description": "Three resident frames of a trained two-layer Cora GCN with full PE record collection on physical CS-3.",
+  "steps": [
+    {
+      "name": "run-n256-c4r8-rowswap-bulk",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn/cases/n256-c4r8-rowswap-bulk",
+        "--build-sha256",
+        "a40a4408182f3090554f1196832d458f4379c732efe06fe8c11716146382a88e",
+        "--out",
+        "{output}/gcn-n256-c4r8-rowswap-bulk"
+      ]
+    }
+  ]
+}
