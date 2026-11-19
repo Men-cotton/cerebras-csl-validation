@@ -1,0 +1,29 @@
+{
+  "base_case_sha256": "a79ae1454a5cf8c86ba5a7e369ca5ca8d058de8dcce7655c059f60c491787e40",
+  "base_inputs_sha256": "e1dc1111c0292fe3998b52d35e7671125f85b718b07696caf8b1a0e4b0ec4620",
+  "base_prepared_case_sha256": "ca48730c4535e0c8bb72616ad0713168d8f0c2b54e51e5c97b5631dbe38d6f30",
+  "blocking_receive": true,
+  "concurrent_rows": true,
+  "dma_counts": true,
+  "early_first_exchange": true,
+  "guarded_norm": true,
+  "multicast_barrier": true,
+  "newton_rsqrt": true,
+  "prepared_case_sha256": "2296dad0b29e9d2c19cd8521d20fb584b6df87b5cf1d37fcc672f3c9fa0d405b",
+  "reciprocal_normalization": true,
+  "register_descriptors": true,
+  "reuse_completed_row_buffer": false,
+  "reuse_send_buffer": true,
+  "schema": 1,
+  "simulator_case_sha256": "e4cf13c7f6675992599f6adf1ad33a37cb66a933980948776b65869b40ff16af",
+  "simulator_raw_sha256": "4aa1bd784dd4d4370c80e238406301f1691fd8c473323593c98556749ea2723f",
+  "skip_zero_hidden": true,
+  "source_sha256": {
+    "models/graphsage/cora_device/layout.csl": "4d409bf5451db26cb1ec4fad5c12f67d94ec9239a3c095348ec1a9fc9fc41835",
+    "models/graphsage/cora_device/pe.csl": "ee6a0ac9a4b91d27ae0ad6089b46795eea7e7ebf12a50b75b382ddb44b498ab5"
+  },
+  "transport": "direct bidirectional reduce-scatter to owners with endpoint-addressed neighbor messages",
+  "unrolled_norm": true,
+  "vector_output": true,
+  "weight_layout": "output tile, input feature, neighbor/self branch, output lane"
+}

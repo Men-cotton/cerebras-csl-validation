@@ -1,0 +1,15 @@
+{
+  "cases": {
+    "full-c16r16-t8": "65b40edf909e671c234bfcc87936911e2ae4b40c551ff0197f4e04a6747964b8"
+  },
+  "compile_workers": 1,
+  "family": "graphsage-resident-scale",
+  "host_sha256": {
+    "appliance.py": "fcc96eaa08c46a20e170e4bed46e6bb19c1ec5262a2972dfc50ba53146568516",
+    "appliance_worker.py": "b5e849a160445865a5d931e2e71e1f21c523cb8f8592806b0154323ca48eeeef",
+    "portable.py": "72f487280c44bfdd4786d1c54f4d20d6319519642f4ff924d7350b203a32d930",
+    "saved_audit.py": "e8e3c2bb30c0f9d7b1ee068ab660730e49c277bed827f84c17a10f0a3b4936ad",
+    "sdk_runner.py": "de61a55a946683b2884e9b2662b8dbe39317a90447a73428895a35e674ce1d78"
+  },
+  "schema": 1
+}
