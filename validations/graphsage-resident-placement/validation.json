@@ -1,0 +1,12 @@
+{
+  "description": "Resident GraphSAGE with direct row reduce-scatter and sparse owner messages.",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py"
+  ],
+  "id": "graphsage-resident-placement",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}
