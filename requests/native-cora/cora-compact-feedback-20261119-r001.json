@@ -1,0 +1,283 @@
+{
+  "description": "Full unpruned Cora, original/optimized/packed T16 compact GCN at C8/R64 and C8/R128. Same inputs and host audit.",
+  "id": "cora-compact-feedback-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e229-r64-t16-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e229-r64-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-e229-r64-t16-compact",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r64-t16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r64-t16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-e229-r64-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-e229-r64-t16-compact",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-e229-r64-t16-compact/capture-data",
+        "--out",
+        "{output}/numerical-e229-r64-t16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-e229-r64-t16-compact",
+      "script": "validations/native-cora/saved_audit.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "feedback-r64-t16-padded",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-feedback-r64-t16-padded"
+      ],
+      "kind": "appliance",
+      "name": "compile-feedback-r64-t16-padded",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "feedback-r64-t16-padded",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-feedback-r64-t16-padded/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-feedback-r64-t16-padded"
+      ],
+      "kind": "appliance",
+      "name": "run-feedback-r64-t16-padded",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-feedback-r64-t16-padded/capture-data",
+        "--out",
+        "{output}/numerical-feedback-r64-t16-padded.json"
+      ],
+      "kind": "host",
+      "name": "audit-feedback-r64-t16-padded",
+      "script": "validations/native-cora/saved_audit.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "feedback-r64-t16-packed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-feedback-r64-t16-packed"
+      ],
+      "kind": "appliance",
+      "name": "compile-feedback-r64-t16-packed",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "feedback-r64-t16-packed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-feedback-r64-t16-packed/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-feedback-r64-t16-packed"
+      ],
+      "kind": "appliance",
+      "name": "run-feedback-r64-t16-packed",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-feedback-r64-t16-packed/capture-data",
+        "--out",
+        "{output}/numerical-feedback-r64-t16-packed.json"
+      ],
+      "kind": "host",
+      "name": "audit-feedback-r64-t16-packed",
+      "script": "validations/native-cora/saved_audit.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "e229-r128-t16-compact",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-e229-r128-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "compile-e229-r128-t16-compact",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "e229-r128-t16-compact",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-e229-r128-t16-compact/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-e229-r128-t16-compact"
+      ],
+      "kind": "appliance",
+      "name": "run-e229-r128-t16-compact",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-e229-r128-t16-compact/capture-data",
+        "--out",
+        "{output}/numerical-e229-r128-t16-compact.json"
+      ],
+      "kind": "host",
+      "name": "audit-e229-r128-t16-compact",
+      "script": "validations/native-cora/saved_audit.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "feedback-r128-t16-padded",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-feedback-r128-t16-padded"
+      ],
+      "kind": "appliance",
+      "name": "compile-feedback-r128-t16-padded",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "feedback-r128-t16-padded",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-feedback-r128-t16-padded/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-feedback-r128-t16-padded"
+      ],
+      "kind": "appliance",
+      "name": "run-feedback-r128-t16-padded",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-feedback-r128-t16-padded/capture-data",
+        "--out",
+        "{output}/numerical-feedback-r128-t16-padded.json"
+      ],
+      "kind": "host",
+      "name": "audit-feedback-r128-t16-padded",
+      "script": "validations/native-cora/saved_audit.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "feedback-r128-t16-packed",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-feedback-r128-t16-packed"
+      ],
+      "kind": "appliance",
+      "name": "compile-feedback-r128-t16-packed",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "feedback-r128-t16-packed",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-feedback-r128-t16-packed/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-feedback-r128-t16-packed"
+      ],
+      "kind": "appliance",
+      "name": "run-feedback-r128-t16-packed",
+      "script": "validations/native-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-feedback-r128-t16-packed/capture-data",
+        "--out",
+        "{output}/numerical-feedback-r128-t16-packed.json"
+      ],
+      "kind": "host",
+      "name": "audit-feedback-r128-t16-packed",
+      "script": "validations/native-cora/saved_audit.py"
+    }
+  ]
+}
