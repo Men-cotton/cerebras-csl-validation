@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn-n256-r001",
+  "description": "Three resident frames of a trained two-layer Cora GCN with full PE record collection on physical CS-3.",
+  "steps": [
+    {
+      "name": "run-pilot-bulk",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn/cases/pilot-bulk",
+        "--build-sha256",
+        "9651ad15edad0c6b4ed22c2f2f3735f4c72529f11cf26b88ee77df4038d85c5a",
+        "--out",
+        "{output}/gcn-pilot-bulk"
+      ]
+    }
+  ]
+}

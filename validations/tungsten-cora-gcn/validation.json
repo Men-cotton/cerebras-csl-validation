@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn",
+  "description": "Three resident frames of a trained two-layer Cora GCN with full PE record collection on physical CS-3.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}
