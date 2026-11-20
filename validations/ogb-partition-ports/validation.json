@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "ogb-partition-ports",
+  "description": "Test fixed-PE row assignments for concurrent GraphSAGE feature transfers on CS-3.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}
