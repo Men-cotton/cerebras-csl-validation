@@ -1,0 +1,106 @@
+param memcpy_params;
+param X:u16;
+param R:u16;
+param F:u16;
+param Q:u16;
+param E:u16;
+param K:u16;
+param RELU:u16;
+const sys=@import_module("<memcpy/memcpy>",memcpy_params);
+const ts=@import_module("<time>");
+const H:u16=4+(K+2)*6;
+var weights:[(2*F+1)*Q]f32;
+var roots:[R*F]f32;
+var inverse:[R]f32;
+var features:[E*F]f32;
+var sums:[R*F]f32;
+var targets:[E]u32;
+var indices:[R]u32;
+var control:[3]u32;
+var reply:[H+R+R*Q]u32;
+var clocks:[3]u16;
+var part:u16;
+var total:u32;
+const fv=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{F}->sums[i]});
+const sums_all=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{R*F}->sums[i]});
+const qv=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{Q}->weights[i]});
+const reg_o=@get_dsr(dsr_dest,1);
+const reg_a=@get_dsr(dsr_src0,1);
+const reg_b=@get_dsr(dsr_src1,1);
+const Address=[*]f32;
+fn stamp(off:u16) void {
+  ts.get_timestamp(&clocks);
+  for (@range(u16,3)) |i| { reply[4+off+i]=@as(u32,clocks[i]); }
+}
+fn begin_frame() void {
+  ts.enable_tsc();
+  part=0;total=0;
+  stamp(0);@fmovs(sums_all,0.0);stamp(3);
+  sys.unblock_cmd_stream();
+}
+fn accumulate() void {
+  const n=@as(u16,control[2]);
+  total+=control[2];
+  stamp(6+6*part);
+  @load_to_dsr(reg_o,fv);@load_to_dsr(reg_a,fv);@load_to_dsr(reg_b,fv);
+  var e:u16=0;
+  for (@range(u16,@as(u16,control[1]))) |row| {
+    const end=@as(u16,targets[row]);
+    const a=@ptrcast(Address,&sums[row*F]);
+    @set_dsr_base_addr(reg_o,a);@set_dsr_base_addr(reg_a,a);
+    while (e<end) : (e+=1) {
+      @set_dsr_base_addr(reg_b,@ptrcast(Address,&features[e*F]));
+      @fadds(reg_o,reg_a,reg_b);
+    }
+  }
+  stamp(9+6*part);part+=1;
+  sys.unblock_cmd_stream();
+}
+fn finish() void {
+  const n=@as(u16,control[1]);
+  stamp(6+6*K);
+  const bias=@set_dsd_base_addr(qv,@ptrcast(Address,&weights[2*F*Q]));
+  @load_to_dsr(reg_o,qv);@load_to_dsr(reg_a,qv);@load_to_dsr(reg_b,qv);
+  for (@range(u16,n)) |row| {
+    const at=H+R+row*Q;
+    const address=@ptrcast(Address,&reply[at]);
+    const dst=@set_dsd_base_addr(qv,address);
+    @fmovs(dst,bias);
+    @set_dsr_base_addr(reg_o,address);@set_dsr_base_addr(reg_a,address);
+    for (@range(u16,F)) |ch| {
+      const own=roots[row*F+ch];
+      const mean=sums[row*F+ch]*inverse[row];
+      if (own!=0.0) {
+        @set_dsr_base_addr(reg_b,@ptrcast(Address,&weights[ch*Q]));
+        @fmacs(reg_o,reg_a,reg_b,own);
+      }
+      if (mean!=0.0) {
+        @set_dsr_base_addr(reg_b,@ptrcast(Address,&weights[F*Q+ch*Q]));
+        @fmacs(reg_o,reg_a,reg_b,mean);
+      }
+    }
+    if (RELU!=0) {
+      for (@range(u16,Q)) |i| {
+        if (@bitcast(f32,reply[at+i])<0.0) { reply[at+i]=0; }
+      }
+    }
+  }
+  stamp(9+6*K);ts.disable_tsc();
+  reply[0]=control[0];reply[1]=@as(u32,X);reply[2]=control[1];reply[3]=total;
+  for (@range(u16,R)) |i| { reply[H+i]=indices[i]; }
+  sys.unblock_cmd_stream();
+}
+var wp:[*]f32=&weights;
+var rp:[*]f32=&roots;
+var ip:[*]f32=&inverse;
+var fp:[*]f32=&features;
+var tp:[*]u32=&targets;
+var idp:[*]u32=&indices;
+var cp:[*]u32=&control;
+var op:[*]u32=&reply;
+comptime {
+  @export_symbol(wp,"weights"); @export_symbol(rp,"roots"); @export_symbol(ip,"inverse");
+  @export_symbol(fp,"features"); @export_symbol(tp,"targets"); @export_symbol(idp,"indices");
+  @export_symbol(cp,"control"); @export_symbol(op,"reply");
+  @export_symbol(begin_frame); @export_symbol(accumulate); @export_symbol(finish);
+}
