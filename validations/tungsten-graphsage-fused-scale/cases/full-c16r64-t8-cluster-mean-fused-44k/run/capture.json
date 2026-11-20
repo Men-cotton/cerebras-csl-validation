@@ -1,0 +1,9 @@
+{
+  "backend": "simulator",
+  "case": "scatter-mean-fused-cluster-c16r64-t8",
+  "build_sha256": "fb29e1548ae2893e892455b1ff19f9e4db6c8aa08d7cc4c564c6ca3dd43f1c78",
+  "worker_sha256": "93622da2e437f2fecb263b3a8fa8064d1e107f6248056815036cbf56c3c3de27",
+  "trials": [],
+  "stop_success": false,
+  "stage": "frame-1"
+}

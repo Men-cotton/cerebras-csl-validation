@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-fused-scale",
+  "description": "Run all three resident physical inputs on the full Cora fused GraphSAGE. Each target has a calibrated bare capture, bit-verified initialized device inputs, paired SDK/physical loads, and the complete equal-source 256-PE SDK sequence.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

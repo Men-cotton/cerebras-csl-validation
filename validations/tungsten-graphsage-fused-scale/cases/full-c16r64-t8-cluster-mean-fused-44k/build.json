@@ -1,0 +1,86 @@
+{
+  "case": "scatter-mean-fused-cluster-c16r64-t8",
+  "params": {
+    "C": 16,
+    "R": 64,
+    "K": 48,
+    "L": 3,
+    "FW": 90,
+    "H": 16,
+    "O": 7,
+    "T": 8,
+    "MX": 116,
+    "MG": 170,
+    "NTX": 126,
+    "NRX": 166,
+    "X0": 4,
+    "Y0": 1,
+    "COMPACT": 0,
+    "U": 48
+  },
+  "roles": {
+    "simulator": {
+      "elf_sha256": "eaca8df5b698bdb71cc88b5d6f08fbda7cb8f3d993ad4096c78f1474d3b80304",
+      "fabric": [
+        16,
+        64
+      ]
+    },
+    "hardware": {
+      "elf_sha256": "7e7ddaa919f0ef3bad2e202b6150827957982f9b245ef052f5c398486cd0115d",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "readout": "register",
+  "shared_row_scratch": true,
+  "stream_packets": false,
+  "original_source": {
+    "bench.paint": "a159f934210ad032bbc9828064d7cd24f13851f830f66be302cfb98d96fcdfa9",
+    "sage.w": "0214eb2338355b61015bc48db066ed8b85dcb7384f49208dcf6c754b1e5136f5"
+  },
+  "original_object_sha256": "1cfb1bad9abded097d7cb3cbe80d89018d9278b36e629396a77ac92c87564468",
+  "original_elf_sha256": "1491a0a29329899ae20f8ec17d54a4ee71e70f212632bf406c7d7e62537748ac",
+  "source": {
+    "sage.w": "3a5ab4ebed8596a8eb4ba1fa82111132e2f3a0f5ba6668c72b92e1bd7899cdff",
+    "bench.paint": "ea58b660ac0c3d8ecb9a8f6ecd5c1b0becd982ff834a78330e69fb7591534494"
+  },
+  "nodes": 2708,
+  "edges": 10556,
+  "input_buffers_sha256": {
+    "x_ptr": "0e041ff5f55be7129435ce43ac90b4b52d4488b0eda16c9f186677283eac64b8",
+    "x_col": "eb31f4e222bd09970a41a01384d5225306b0bd49ef55082d40ad411932094549",
+    "x_val": "9ba669dc78c26d0d507ecba0e2816a0eec0f1d10657592e6f4389cc3a71900f4",
+    "b0": "17878808eac967f6c56435ba43cabb14a79be2fb9156301852697d84689f53aa",
+    "b1": "fe71bcbf3fff285fc87888eb6adc54a7df2bbbe31429c896047c2a1e0f299eb6",
+    "slots": "e98861d609d5da3cf0b0f25415a0201269c3c7c42bdd727a7900dc1a69394e04",
+    "tx_hdr": "bcbab4f1c88c846ecd8ef42046f14e2184be7e2abd4e2a9b7a1721e5ec03b4a8",
+    "tx_tag": "15530e75202e0177d126d6699a1695cc632fe221258ce923e3b51308e906b2fb",
+    "tx_slot": "a3f2edab13f0f5f675b4c3a8751158d4d6ba633a2c551997803d745d63342882",
+    "counts": "0d0e9db620c1dc8569083b20ab1e9771bfcbf1d774e915dc6a4f177b2eb69405",
+    "edge_ptr": "42d84a2ef5a4cd987b65ac98533bc6b27adfb2349ffd2012d38d34eaef479b67",
+    "edge_src": "bc38d0274b4ce74de26148a92dd6a6f96c99a69f3dc4426f586a21ed0ddc9c6b",
+    "edge_weight": "e7e22baff2bd6ba9716acb18b854449cebebc2a98f060807d8c132368bea3aff",
+    "paired0": "bed148b96bec6be0e072f8bc6d2c8319d428990343c7182fe9d3b628bb8a5649",
+    "paired1": "2a5a6225836c48f34edf6bd2315435af7bb94c7bf10ca3ab1c1bd0bc139e9673"
+  },
+  "original_fixture_sha256": "9c21e99a29596d10334f9c8a0346c8b4fdc6e78aedf2394d039d7d1151a72c5e",
+  "original_checkpoint_sha256": "04b95b83ef86ad5f58402767310495aeb729f86587919d114260f408c432d3bd",
+  "node_ids_sha256": "7501e5b2a9480030f41c7bfb7e63158054f141a9427e65bdd70a425f3402239c",
+  "original_result_sha256": "4760e044897499cdfdbb41e7fb5a8258b6ad832edc705d2bba73458d9d1343e8",
+  "original_cycles": 56444,
+  "dataset_scope": "full-checkpoint",
+  "comparison_reference_sha256": "7cf14d55ce7a3e4d43765aafebee8160abac914c7f76765a1f7a55f032a70974",
+  "machine_image": "8d828c1469876cee9502f693e61d74b138de8861728e63a77a85d854c694958b",
+  "ports_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "canonical_sha256": "5aad50bbaacbc96df48e7d70286ae98b3436cf718ea4290c53cc39e41749edf6",
+  "ordered_loads": 64,
+  "row_weight_storage": {
+    "original_words_per_pe": 170,
+    "staged_words_per_pe": 3,
+    "verified_edges": 10556,
+    "staged_sha256": "2aa54227eedf88533ffa409b1857d0f4025eaca172bce39c8addeb5153ef62bd"
+  }
+}
