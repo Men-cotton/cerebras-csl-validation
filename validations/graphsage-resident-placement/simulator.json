@@ -74,6 +74,31 @@
     "simulation_cycles": 98583,
     "simulation_raw_sha256": "65b4dee169b9cfa022d24a1efe29784cb515d4f65610d9420fd06f98ed837ce3"
   },
+  "cluster-c16r32-t8-factored": {
+    "all_elf_static_end": 37328,
+    "base_case_sha256": "905248e0b1eb91b5d9814298949307307babe127d7f27479d71273ad156e6ca9",
+    "case_sha256": "683032bb0d28793b68df8b79b6869e8196e06085f418dff0f16178300ff1abc7",
+    "compiled_application_elf_sha256": {
+      "out_0_0.elf": "f9c1c2893218f8a8f5ec914964ffc5d2f637242151bbaa90f388f7e4efcf69f5",
+      "out_10_0.elf": "73f2cb9e19a04058db6d05da206ebba9f3c7887d2702da75bf34891104825e30",
+      "out_11_0.elf": "2b0705a3c5f694c950ba703ab70f0b71bf1956b6be8d8b4a85e371b652ce1c4a",
+      "out_12_0.elf": "d636c379853f5e9e50394437955e037a5457f1c6b194c7959ce04fc3ef5ef65b",
+      "out_13_0.elf": "943609e1eb926273b94bb72a4171dac03283f86fc30f8616141455baa84baccf",
+      "out_14_0.elf": "552ff8ecb4a5e9936aedb410e02e5b2f5a658f5d9a815b7f5c113b67ed417b87",
+      "out_15_0.elf": "5a4795d16fa7b1864be4154f4f352a5d45eaa5d7d4e02f3a6fdc362a3c071f46",
+      "out_1_0.elf": "608e46920b89caaac7b2fb4987c602bcd07838b7af1e803cf9aa25481edc8584",
+      "out_2_0.elf": "ab42c66a35df27283a6a606504bef94c0dd14c83efd90b7c562bb2af12b5b7a0",
+      "out_3_0.elf": "be55f9f4720ffbafa2c942ca70a8b6bf843087fee6465eab6f6f9c1eaffe88f0",
+      "out_4_0.elf": "4a50f0c00db1e84563e6776629631a1eedae64b769b0a1dcb3ab64a22da8a12c",
+      "out_5_0.elf": "72384b2eb991281d79c48a586619b6e59b0d8bfbc37666f33beb3a84a66ef15d",
+      "out_6_0.elf": "3bc851101ca2ef6c8f00dd55dc145a6669c7350b6ff707ff4194be9269201a1b",
+      "out_7_0.elf": "f29c92e05a74a1bd11801b70473b046f8cd5666c1c17b504c17a87d0fe749ee7",
+      "out_8_0.elf": "34bba8735cc6b78d1cee35c29259a1debb35c38d7dbf5279586dc9751af45a5d",
+      "out_9_0.elf": "d4cf16665e1b0a617508556c2adc5f0ab1af82a3737de0bbd4b3220eb4dbfce6"
+    },
+    "simulation_cycles": 73622,
+    "simulation_raw_sha256": "f6307ebf3a9cd8b5e90815f0461b689f4389ee524ed87ed385822e769eb2a082"
+  },
   "cluster-c16r64-t8-factored": {
     "all_elf_static_end": 38096,
     "base_case_sha256": "88a44e14821cfaa392b19b9428d950585b6f0782983b7aee60af59ac17043240",
