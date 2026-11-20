@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "ogb-products-first203-source-tiles-p16-20261120-r001",
+  "description": "Compare per-edge and per-source dictionary transfers in the complete original first layer for 203 products hidden vertices. Reconstruct all 3,248 ReLU values across six physical frames and compare the trained inputs with the native control.",
+  "steps": [
+    {
+      "name": "run-products-p16",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-source-tiles/cases/products-first203-source-tiles-p16-e24",
+        "--release-sha256",
+        "5990ba4db25776b00aed7a9717e368c347852e14f20b5fb45a8229bdd44f4ef8",
+        "--out",
+        "{output}/products-first203-source-tiles-p16-e24"
+      ]
+    }
+  ]
+}
