@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "ogb-twohop-twoports-products-p16-20261120-r001",
+  "description": "Run trained two-layer products with the original sixteen first-layer owners on two WEST input and two return ports, comparing sequential and concurrent ingress and on-chip or echoed hidden state on one physical 8 by 4 image.",
+  "steps": [
+    {
+      "name": "run-products",
+      "kind": "appliance",
+      "script": "validations/ogb-twohop-onchip/parallel/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "products-p16-e24",
+        "--release-sha256",
+        "ac967c1be426a11b19a51f54255af1e500b9ad9671db97785ff00a1c0eacc576",
+        "--out",
+        "{output}/run-products"
+      ]
+    }
+  ]
+}
