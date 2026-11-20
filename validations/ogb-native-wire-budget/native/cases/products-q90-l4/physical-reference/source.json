@@ -1,0 +1,44 @@
+{
+  "fixture_sha256": "72d3a49f3e89616f0d3ee56466b0d95358a753d3c77f904f714fba4ce796bf94",
+  "id": "ogb-native-products-dictionary-partition-q90-p16-l4-20261120-r001",
+  "original_jobs": [
+    "wsjob-6gmuvfvtdlw2hqtfjgxm4s",
+    "wsjob-btmccfdzttswrbhwqzlhlo"
+  ],
+  "reference": [
+    {
+      "combined_rectangle": true,
+      "common_clock_cycles": 2048566,
+      "frame": 1,
+      "h2d_words": 331232,
+      "mode": "dictionary",
+      "partition": "contiguous",
+      "peak_active_edge_cycles": 43992,
+      "peak_local_cycles": 2056383,
+      "raw_sha256": "9f768e21e1882dabbd90b4cee87122e19855303358befd5214e568abb22ea6de",
+      "scale": 1.0,
+      "synchronized_host_ns": 3573548,
+      "table_calls": 36,
+      "table_words": 289408,
+      "useful_table_words": 173872
+    },
+    {
+      "combined_rectangle": true,
+      "common_clock_cycles": 1310682,
+      "frame": 4,
+      "h2d_words": 206624,
+      "mode": "dictionary",
+      "partition": "dictionary",
+      "peak_active_edge_cycles": 41036,
+      "peak_local_cycles": 1329663,
+      "raw_sha256": "a2e817972e7202e169c4b233d23cc84fc20afd1f03f618741c06175fd0fbee54",
+      "scale": 0.5,
+      "synchronized_host_ns": 2288977,
+      "table_calls": 23,
+      "table_words": 180928,
+      "useful_table_words": 179616
+    }
+  ],
+  "revision": "2f6e073c705c64128bf3fad3b5701af0f165d894",
+  "source_sha256": "40f86c9e35773f0ffbaa41db0760763a3b7ddf248908714041de847152d1ecfa"
+}

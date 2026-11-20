@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "ogb-native-wire-budget",
+  "description": "Compare whole-rectangle source traffic for two assignments on one trained products GraphSAGE image.",
+  "entrypoints": [
+    "native/physical.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

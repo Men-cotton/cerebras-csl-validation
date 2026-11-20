@@ -1,0 +1,43 @@
+{
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=762,1172",
+    "--fabric-offsets=4,1",
+    "--params=P:4,R:12,F:16,Q:48,E:128,RELU:0,L:4,M:83",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "local_762x1172_inventory": {
+    "bin/out_0_0.elf": "ede1a429a58760753aef7e53077f02eb9a6a487be15833b12ac026d260cf65fc",
+    "bin/out_1_0.elf": "683a3121e78d9e25616df549e8285e1c77bba19ef423d30e830c56019e1a4f5f",
+    "bin/out_2_0.elf": "96df0cd0217aeca750f7bf033705829f348d676bf9edb374dbfda5b5e8db7d33",
+    "bin/out_3_0.elf": "03b0ed4f4251365ae0bbe606e62934328802d2013b502ede4ad705707a809cc8",
+    "bin/out_rpc.json": "7471fb70ccaa6c6e078761a524f814128d33d0f00c2ade2e341e20ff29264ca7",
+    "east/bin/out_0_0.elf": "2f142bbce98a690f2ac9f4efe248cb1ca4c1e828626ebb2d64f6a579ed927ddd",
+    "east/bin/out_1_0.elf": "0571da29856ffe2db59496ae6a13ca34257b0018a68de658d062abf615a53db6",
+    "east/bin/out_2_0.elf": "56cb77a5d3abfe06dadb5b71aeaf97037f953a93e77dac859a4672238b96910c",
+    "east/bin/out_3_0.elf": "e5dd8903bcf7241e63b5ff66c3538739d1ae4a1431ad9c9bd4d56febea59decb",
+    "east/bin/out_4_0.elf": "4dacc16f5ee2858cae95285607dd1754d491f34528f43059e9d4b720a7f3903e",
+    "east/bin/out_5_0.elf": "7929d566f2e4c1c287529911cbdc93abb46208acdb69edd7a32766499b973ede",
+    "east/out.json": "bedd77317ea0c25d1399eb330ed42fe0c42eadbd212c4608dee55f2b56be6746",
+    "out.json": "0fb396ede3898c966a19f00870f5a0f88c6c81bb8da150f7988ed136547d529c",
+    "west/bin/out_0_0.elf": "7340dfb2a2ce370f597c56ae288ff9d45170a847808c92699d45bc65f15b28dd",
+    "west/bin/out_1_0.elf": "80f6096941bb9e63ca96b0256dd65241715da11e89e8754b554492b770ee1d87",
+    "west/bin/out_2_0.elf": "53dc7c688f3bc9b9214d3949f25ae8b569c273c661d50a61c3b89c1057066877",
+    "west/bin/out_3_0.elf": "944e435ef4afdb30b07bf0089e9c9c1cf6164eb184ac2bd6903a8816d0384ae2",
+    "west/bin/out_4_0.elf": "c19b1634c98dfdcb96355aa7aa2cffccdd5eca74a6c1a3a67c330d851f7c0a84",
+    "west/bin/out_5_0.elf": "66586f0691182a92807e34ea310903b803febc625c3166067a25b5ac406f4373",
+    "west/bin/out_6_0.elf": "71c23a200f61090ecc909c0e2d66249ee283ee081ed7e870fa8efb0563a41a4d",
+    "west/bin/out_7_0.elf": "e46062396da9b27ec80680810f919b98ac6fda25e451926ea82a2c18fbe26fda",
+    "west/out.json": "24a34ade73b37899cc92774fcbad1a2e5e924201a3b99896dc0597621ce32dd8"
+  },
+  "source_sha256": {
+    "layout.csl": "dbfe860738f071573b3c1f2d90edf28cc5d3599daaab0943eab70e07634ceadb",
+    "pe.csl": "912df45c0a8d3a3372698f27ac09ccc4c2a8f928a6490341d5be6806f88d25ee"
+  }
+}

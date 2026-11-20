@@ -1,0 +1,41 @@
+{
+  "case": "products-q90-l4",
+  "files": {
+    "build.json": "f230867502ddd64020393b9995abd2052813e904984fa6a320bafbde7b21ca7d",
+    "fixture.npz": "72d3a49f3e89616f0d3ee56466b0d95358a753d3c77f904f714fba4ce796bf94",
+    "out/bin/out_0_0.elf": "12ff62f00601526d8a13ee10b36d2fc1a4165ece6a8fb0e578e7e6f541354bac",
+    "out/bin/out_1_0.elf": "4cdea80b69ab02e6e6f15e722e32940c63bc946fd31be0886ab8db485b7e2e3e",
+    "out/bin/out_2_0.elf": "bb7f4d96c1a3dff8222742514a110b51f3aa3244a51bdfe031fea876200410f6",
+    "out/bin/out_3_0.elf": "2240aaa0ae7f638f0a54d96e70905958574ffd03eef60df423e5cc4d01a23799",
+    "partition-build.json": "418f02331c4b166c1dc3f03f491c8973b2a0a35632a8a4a43e4a77fbb0fb37b1",
+    "physical-reference/frame-1.npz": "9f768e21e1882dabbd90b4cee87122e19855303358befd5214e568abb22ea6de",
+    "physical-reference/frame-4.npz": "a2e817972e7202e169c4b233d23cc84fc20afd1f03f618741c06175fd0fbee54",
+    "physical-reference/source.json": "083bf1156d07c15a5cbf1107ecb507276b47057c1e5adb8c251560597503c12d",
+    "preflight.json": "e9e26f2fab4ea646b07d6a460bc03526d29a274b461161aab4ac00a9994571de",
+    "sdk/frame-1.npz": "047386026bca652d8623a0137a066efdce98142cfdefa00dc511325a405abefe",
+    "sdk/frame-2.npz": "3c7e929c5700459cbbc5386d40281dc727cf0f90ef92d68681e4c3dd43dd083d",
+    "sdk/frame-3.npz": "dcc9edfe6fdf5e17da32919f6870b236689120b301806e84e1255be254526506",
+    "sdk/frame-4.npz": "1de3e0efb9070ce44c7c66a66056dc485919bb8a06b41594b5b276712c26a926",
+    "sdk/frame-5.npz": "aba32f76ffcdfb26ab6985d5aa7a0337a34ca62f560aac97ff85cbbd66f8d7cc",
+    "sdk/frame-6.npz": "ba04746afab32574f0ba8484fa581e2b5f1faa074599f585145caa65540d27cf",
+    "sdk/result.json": "3947d8f9d4119185e4a2b50f1b5ae707a6f82f310f89ee9dceb74c2928fe8a23",
+    "src/layout.csl": "dbfe860738f071573b3c1f2d90edf28cc5d3599daaab0943eab70e07634ceadb",
+    "src/pe.csl": "912df45c0a8d3a3372698f27ac09ccc4c2a8f928a6490341d5be6806f88d25ee"
+  },
+  "host": {
+    "contract_lanes.py": "8c563b9ad7298589f1ae7b733cb2e7cf719ac6157b531f3334c55a3feb640d88",
+    "native/inventory.py": "37e0ff787ac8a66fbfd987a7f6920d7c649d21b226e83ea893c15b1803c16cd6",
+    "native/physical.py": "a70bf90371b6ac225f0435430670f6a2f0ec9e4627a574ecd711562db2d9bbec",
+    "native/report_rectangle.py": "f410345d6db93ec4ea3738b89024906a3c9f35c88bb62c1564eca8c7bc3726a4",
+    "native/verified_worker.py": "85ac5439a6333e2e246495ea200bfd9ef739ad4ca8cd1369732350aff62b928f",
+    "native/worker_rectangle.py": "a9eb121f6feb828ca679837fd189054e42b004e6a765bedf73f2c7a9e97bf816",
+    "ogb_contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "source_table.py": "1255f3c6b7fea04ffa5018db3c2149e3558f9aa7e38d9243b789ed19f8fdd1e1"
+  },
+  "original_count": 128,
+  "policies": [
+    "contiguous",
+    "wire_budget"
+  ],
+  "trained_source": "products"
+}

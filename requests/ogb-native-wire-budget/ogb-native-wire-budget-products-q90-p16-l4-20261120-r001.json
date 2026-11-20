@@ -1,0 +1,37 @@
+{
+  "description": "Compare six native CSL full-rectangle transactions on one system image across 128 original products Q90 nodes and sixteen compute PEs. Return all native clocks, wire words and trained scores in original order for contiguous and wire-budget ownership.",
+  "id": "ogb-native-wire-budget-products-q90-p16-l4-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "products-q90-l4",
+        "--release-sha256",
+        "29519d8529c9fb8da335e8c83dae58321159ecbe3a80db5568cb508a25d4c08e",
+        "--out",
+        "{output}/compile"
+      ],
+      "kind": "appliance",
+      "name": "compile",
+      "script": "validations/ogb-native-wire-budget/native/physical.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "products-q90-l4",
+        "--release-sha256",
+        "29519d8529c9fb8da335e8c83dae58321159ecbe3a80db5568cb508a25d4c08e",
+        "--out",
+        "{output}/run",
+        "--compiled",
+        "{output}/compile/compiled.json"
+      ],
+      "kind": "appliance",
+      "name": "run",
+      "script": "validations/ogb-native-wire-budget/native/physical.py"
+    }
+  ]
+}
