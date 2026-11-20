@@ -1,0 +1,84 @@
+{
+  "baseline_case_sha256": "f39c516abbef6d725c323d9aa13455ead837710b8d0b05f179d3a27f9fa93c68",
+  "direct_link_frame_sha256": [
+    "84cd72879ace162ea1d3eb8f07467b352aaf255ded6220a185695f294378b998",
+    "1d22b7efafd29f4dfb0f52084e347c09dc7d6cdc48aaad4621e091271f33a886",
+    "7e6c49ac544ae4d7f8bc96124eac75bbdb48612dd935d0b0dfea4c826f8570c6"
+  ],
+  "fixed_input_sha256": "1fc3d077eaef1dd277527c40b3d338096a9c3d71dadc8ce7f6b8cacc8e67f08c",
+  "fixed_source_sha256": {
+    "layout.csl": "2a1f6182b368b5b68b58f7211854b3b7ce1a99f83a61674759b5060c74cac29d",
+    "pe.csl": "44b0690717d75997a155ae8ffb660cc6babe69cbc3d2c60e92edca0dc12b6486"
+  },
+  "fp64": {
+    "logits": {
+      "max_abs": 1.5439759302182665e-06,
+      "max_relative_floor_1e_12": 0.00013183973156311016,
+      "relative_l2": 6.272524778577736e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.2052094220393883e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.85920214212301e-08
+    },
+    "pre": {
+      "max_abs": 2.1018271234574115e-07,
+      "max_relative_floor_1e_12": 0.003162167094478161,
+      "relative_l2": 5.682025087484996e-08
+    }
+  },
+  "initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "linked_sram": {
+    "all_linked_static_bytes": 44240,
+    "compute_elfs": 12,
+    "compute_pe_static_bytes": 44240,
+    "largest_image_files": [
+      "bin/out_0_0.elf",
+      "bin/out_1_0.elf",
+      "bin/out_2_0.elf",
+      "bin/out_3_0.elf",
+      "bin/out_4_0.elf",
+      "bin/out_5_0.elf",
+      "bin/out_6_0.elf",
+      "bin/out_7_0.elf",
+      "bin/out_8_0.elf"
+    ],
+    "linked_elfs": 26
+  },
+  "local_raw_sha256": "3487e6044b38b85d4103b449a8871efaa9c722e95c34e4b8f15c3f1cd4fdb7d1",
+  "max_pe_cycles": {
+    "csl_fixed_h16": 124762,
+    "csl_original_split_hardware_layout": 134830,
+    "tungsten_bare": 99019,
+    "tungsten_sdk_direct_link": 99057
+  },
+  "native_comparison_sha256": "ed68a7f8f1c6c207b75238516ebf4e0687fb7ccaf8c27ecba2780e976f366625",
+  "private_receive_capacity": {
+    "common_nrx": 148,
+    "edge_slots": 103,
+    "input_sha256": "1fc3d077eaef1dd277527c40b3d338096a9c3d71dadc8ce7f6b8cacc8e67f08c",
+    "required": 103,
+    "stage_slots": [
+      103,
+      103
+    ]
+  },
+  "standard_full_rectangle_host_carrier_sha256": {
+    "counts": "5df86e050f023bde12d0ed75e533982f8718711a06f234e85fd05484b7b300a9",
+    "edge_ptr": "83dbd4ebbd671f579461f9fcd4bbaad330ce5ab11b3f2605c595524cf1f07cfc",
+    "edge_src": "cb7c811eb50f1be44a1752fc13c5c68f237c7f5bfeda93345720cef23d5842e9",
+    "edge_weight": "a0305aad8c65711e069699c348c99f22daaac5b1f1cfdd666b795d93b1020e40",
+    "packet_count": "e25a0c39f61a67c5a991b158db8a556d0d5e006e9bc85a9ebe42210b90ad2380",
+    "packet_header": "df323468bf4c8283b194a6ab208a19650ac9820fcad84c4c046ce5c408578ae2",
+    "packet_offset": "c36957f8d945aa851d60f9897e559efbc33488aa49626dc99128e2783483a645",
+    "packet_tag": "459d063a444f7f0196398a981781ebd36f74e7f1298622424ba97ab2d9740ff5",
+    "send_slot": "18b95f5ca5166d4561cfe40a4a7c0606a1acda60f7155ac809a112889cba1352",
+    "slots": "baf1b0d328073fdb1ce104d29ab04a6b1d50918850e5e416294471dd2d689064",
+    "split_control": "88ec11b720cf36270083892da577910201a5cabb060e5f10de7d33af5c4bbfcb",
+    "w0": "757932fc2eacdfe463cba740cd05c452910f442d2cddc95ced4703b5211276ff",
+    "w1": "70cb42fb99aac360ac70bf21796d5b9595aca61a620fb89cf50a1a3834010fe2",
+    "x_col": "8f0f3c128c60e5fa69f8789f156b2f25205c340d3ba00aef6d607bf3b931ea3a",
+    "x_ptr": "0d08a36caa3886d2849e6c6b2eeba243824283999c2f3a966c5ded868b66ac04",
+    "x_val": "ef7e97e7500f93de5374ad28128bdbdd2e75cf13be359ef2584bc102eac274b3"
+  }
+}
