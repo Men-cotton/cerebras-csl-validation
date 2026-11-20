@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "ogb-twohop-onchip-arxiv-p16-20261120-r001",
+  "description": "Run both trained ogbn-arxiv GraphSAGE layers from raw features for four original outputs; compare retained on-chip hidden state and exact host echo on one physical image, retaining all five complete frames, all PE clocks and both full intermediate returns.",
+  "steps": [
+    {
+      "name": "run-arxiv",
+      "kind": "appliance",
+      "script": "validations/ogb-twohop-onchip/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "arxiv-p16-e24",
+        "--release-sha256",
+        "e6fa739343bdad2408c3dfe744f784f4fc978c53c59bf271d772d549202028f7",
+        "--out",
+        "{output}/run-arxiv"
+      ]
+    }
+  ]
+}

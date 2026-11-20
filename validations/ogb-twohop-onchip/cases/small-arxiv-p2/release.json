@@ -1,0 +1,52 @@
+{
+  "dataset": "arxiv",
+  "destinations": 2,
+  "files": {
+    "bound-sdk/frame-1.npz": "dcd4d90206c0c440648ad6ff3a833edf22c46d0de02d2916ca4f9604cef623b5",
+    "bound-sdk/frame-2.npz": "f40735cc5574cdb3df310762d25efeca2e21a5799cee58b9f5400885f698091e",
+    "bound-sdk/frame-3.npz": "44d734302fd257af412645fa85d187d2995d296782dbc7af3e433cb57c5235d3",
+    "bound-sdk/frame-4.npz": "4f7bcee4bf88bc231581ef379913db2e78c2595e8b8a34e7dccb0bfe2d246fc6",
+    "bound-sdk/frame-5.npz": "91f27116d098555bb8995914ba5c2fcb7f59fcf5b4d2069e110f3f2c3a74c135",
+    "bound-sdk/result.json": "6870e999759ea899b75b2644a0a3507d10f7bc0369dce501431f68654244c167",
+    "build.json": "63199b9b4e69647ae6893d08f0d3c368d66bbbd9e19077e5c57b01b4539c47b3",
+    "chain.map": "401359f9d97869e2778b03993a48d0557edd7a7131aaa85531a95e431edee17f",
+    "chain.obj": "b08138345ed0aa395e721225561b803d564dc4fa15b256918e2e999dfe02b090",
+    "first.npz": "c03dd974bda6f0a1f951d88ecfc89aa46cef7df5e4288abb7419a0bf110fb6c2",
+    "hardware/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "hardware/out/program.elf": "2251707255878635d71cca4b304928f3a23b64c8652b000128329569aa3dc114",
+    "hardware/ranges.txt": "02ca6f78dd9430d4cfb54b93e17b0714e138d7b0ac19d0fae63369ceca2b6ceb",
+    "last.npz": "260e56cca0b7e4920fe6a2cb09ce14400e88a0611557d587b18a418e7ad66ac1",
+    "model.json": "bfc3ca5990e56912125af54d921eb2638bb8b046db254c336627dc105551dfbf",
+    "original.json": "d78f114f78dafe7ff2ad020e7add1a6751bb0dacce3986c2bfb2a9b2c07f4f60",
+    "sdk/frame-1.npz": "dcd4d90206c0c440648ad6ff3a833edf22c46d0de02d2916ca4f9604cef623b5",
+    "sdk/frame-2.npz": "e8cb18a11c6419f3f437698602c925f69c12737fd122fdabb0be3b9fa8684f6c",
+    "sdk/frame-3.npz": "8843f6b6ad46afab803c82d27ae94b4b5da023b1ce7ae57a87168e2562831420",
+    "sdk/frame-4.npz": "b11bd4e9c874e458043101de929599a5c6368c93302c04deb7229c82fedd9ecc",
+    "sdk/frame-5.npz": "66ac0d6fcb2ac93cdf3bef1a88d5b6ad000c473c3642e6b6f628aba7f44c3d9e",
+    "sdk/result.json": "10e1129cc77b64aa69b95df9662fd1f057b4899e6ebeeb013d92cb7541c6a79d",
+    "simulator/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "simulator/out/program.elf": "133dcf202d13c5c4dda1e19f48c2ea52982337687e00b740ba4e7129f0be2b0e",
+    "simulator/ranges.txt": "22ef35e7a27b2c5c8d55d194f74a0488392f5d699d7f0ba72e1e4f7b40d2a436",
+    "src/collect.w": "1f0c0c70f38c9a4aac55eb44bd00d3183956ca87447c9153fef99614b4ea80b1",
+    "src/final.w": "05c48ad2f3c2aeb388c0da6e1d2efe82cb994e6a91d84fa285d6c2c227cbbe1b",
+    "src/owner.w": "5482c0f89bf78914fd80b12f7ff2f8dc7a9e0654ef3811695dc7f403533dc287",
+    "src/program.paint": "91e0c861e6b1eff22dff2308784500ad7ca625d6f8a8eb06fda66e1be938c219",
+    "weights.npz": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b"
+  },
+  "hidden_nodes": 4,
+  "host": {
+    "appliance.py": "6d671712786505f06b96fc7f4c466b97a377edb90e4f0c9a5545236773d1ac4f",
+    "chain.py": "42c6277008730f8aeb87edbdfeb44f50e90adbd7e2800ac97810593b956b2b53",
+    "image.py": "3c95441418d4183885adced40240ca8dd603e04924a1c2815cdfe2290c56a587",
+    "ogb_contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "originals.py": "aace3bdd5c4b3bf835e87e008a68f4b39db375c4a7acb86b4ad6d56ae664303f",
+    "report_chain.py": "7748653cbcded84a1b80db954c40be65c192540ea397953f9f6e7596596d8989",
+    "source_table.py": "1255f3c6b7fea04ffa5018db3c2149e3558f9aa7e38d9243b789ed19f8fdd1e1",
+    "worker_chain.py": "dbf8d7aac902f06153f9ae257e1ae2e0ca6d6aed219f79bf34bcb18846b9cff2"
+  },
+  "raw_nodes": 14,
+  "reference_sources_at_export": {
+    "build_chain.py": "46702a4d32a0fbe9b7f0243a13c0297aaa2e7b808aedf8b33cd94f9470d7d970",
+    "worker_chain.py": "fc691ee9a9b2401ee9e72c5889b7d99dd271dd29d2133149d9d94f6955bb0a34"
+  }
+}

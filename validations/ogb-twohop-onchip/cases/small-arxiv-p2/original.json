@@ -1,0 +1,38 @@
+{
+  "complete_gpu_hidden_sha256": "d43f9878506aa59537bc3c2af45117df3d5d26208384cff7b1f6e067aeeb62d0",
+  "complete_gpu_logits_sha256": "14491f54d59dab6b4a04c2b5cfdca66315decd2401db71d695e5048d3599cf15",
+  "complete_raw_input_case_sha256": "ae519614f7b2d0ec214fa15881a295e78709c231ea0304b2c351f7a0e52080c8",
+  "layers": [
+    {
+      "fp64_output_sha256": "0184f4e8fb930a63327cfcc1363d284d8a713a52992cfb5b0a349cab8da4c576",
+      "gpu_output_sha256": "220abe1c956e52a2d2801f76b323c0fa49cf7db4d0860c6f874447550ad090ef",
+      "input_feature_sha256": "62eab25fa324e1b237d5acb70cefa21a4d000b5a35ecce20ac798d037ebe18fa",
+      "original_arc_sources_sha256": "96c365c178afeb0ef275af8f7f99ea1d9a12cda1b3b7030238fccb624640bca5",
+      "row_pointers_sha256": "0a2c7eb183d49c49368f9fdb94389e97997eb539b43e57e3edb445b12696fd11",
+      "rows_sha256": "4b7a2c57d959c8c234f388dac5155bf5fb91293e16757b611c719bfa5025033b"
+    },
+    {
+      "fp64_output_sha256": "2a1ed457f0a9619a4051ba4aa7a99cf73084a1ede7ee09bce82df4ec9ce96db3",
+      "gpu_output_sha256": "819f185df60052da092c7b529deedfcbf45ba527fa9e0924fde01f258763c831",
+      "input_feature_sha256": "220abe1c956e52a2d2801f76b323c0fa49cf7db4d0860c6f874447550ad090ef",
+      "original_arc_sources_sha256": "c8a3730494f7858428c2af5eb0d2d6e8b5e89d354716edb1f4971cfbbb0370bc",
+      "row_pointers_sha256": "ad5dc1478de06a4c2728ea528bd9361a4b945e92a414bf4d180cedaaeaa5f4cc",
+      "rows_sha256": "5400986eac3dec413bfa2475796f21d4312b4e185016e82a8b7c8011c26a2a37"
+    }
+  ],
+  "normalized_csr": {
+    "index_sha256": "957986a8463b43a0abd8f51e0686ebe510bcdac7cde36eaadfab8b31544e393c",
+    "input_edges": 1166243,
+    "processed_sha256": "83c746379a528be58e0c07f782ab388fa157c7be505da53012fffabce0314dba",
+    "ptr_sha256": "15b6a4516229b383ffca391cb19c57d0a68a52bd2b054f591c0ef06fd12f6376",
+    "self_loops": 0,
+    "split_sha256": {
+      "test": "588fb66ce57bcaef51ac0235f0a49a056370ac31fc27c8ebf556d3f5cdd02545",
+      "train": "84983391900af45194e5db8d977ec9e01d4eda96e20328f3d7575fdd45c6797c",
+      "valid": "ebe6cdcd77c75eedbce2064a05a49bc28e2c4a631f49d66b9e9ff317eef993eb"
+    },
+    "undirected_unique_arcs": 2315598
+  },
+  "original_data_sha256": "83c746379a528be58e0c07f782ab388fa157c7be505da53012fffabce0314dba",
+  "weights_sha256": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b"
+}
