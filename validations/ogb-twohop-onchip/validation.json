@@ -2,6 +2,11 @@
   "schema": 1,
   "id": "ogb-twohop-onchip",
   "description": "Compute both trained OGB GraphSAGE layers on chip and compare a complete intermediate host echo in the same physical Tungsten image.",
-  "entrypoints": ["appliance.py"],
-  "tests": ["tests"]
+  "entrypoints": [
+    "appliance.py",
+    "parallel/appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
 }

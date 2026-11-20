@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "ogb-twohop-twoports-arxiv-p16-20261120-r001",
+  "description": "Run trained two-layer arxiv with the original sixteen first-layer owners on two WEST input and two return ports, comparing sequential and concurrent ingress and on-chip or echoed hidden state on one physical 8 by 4 image.",
+  "steps": [
+    {
+      "name": "run-arxiv",
+      "kind": "appliance",
+      "script": "validations/ogb-twohop-onchip/parallel/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "arxiv-p16-e24",
+        "--release-sha256",
+        "7d3f1e0bdc2ab01d03b263847b7d0a5ac66078e3b7692034112c174a97eeed94",
+        "--out",
+        "{output}/run-arxiv"
+      ]
+    }
+  ]
+}
