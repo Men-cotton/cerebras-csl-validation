@@ -1,0 +1,67 @@
+{
+  "description": "Hold 128 trained destination IDs and 16 native compute PEs fixed. Measure four and eight row groups on physical CS-3, verify the original and half inputs across 12 interleaved frames on each image, and compare with the matched Tungsten captures.",
+  "id": "ogb-native-row-scale-products-rcm128-p16-l4-l8-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "products-rcm128-p16-l4",
+        "--release-sha256",
+        "47df363d16ceb1593771158993b1bdddd2756bcbb66f06e159a5ce62f8c7cdce",
+        "--out",
+        "{output}/compile-l4"
+      ],
+      "kind": "appliance",
+      "name": "compile-l4",
+      "script": "validations/ogb-native-row-scale/physical.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "products-rcm128-p16-l4",
+        "--release-sha256",
+        "47df363d16ceb1593771158993b1bdddd2756bcbb66f06e159a5ce62f8c7cdce",
+        "--out",
+        "{output}/run-l4",
+        "--compiled",
+        "{output}/compile-l4/compiled.json"
+      ],
+      "kind": "appliance",
+      "name": "run-l4",
+      "script": "validations/ogb-native-row-scale/physical.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "products-rcm128-p16-l8",
+        "--release-sha256",
+        "918741a27849a713bc33edb662aa6d7fcaae266615ba1e8bd30a7312d272e3b3",
+        "--out",
+        "{output}/compile-l8"
+      ],
+      "kind": "appliance",
+      "name": "compile-l8",
+      "script": "validations/ogb-native-row-scale/physical.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "products-rcm128-p16-l8",
+        "--release-sha256",
+        "918741a27849a713bc33edb662aa6d7fcaae266615ba1e8bd30a7312d272e3b3",
+        "--out",
+        "{output}/run-l8",
+        "--compiled",
+        "{output}/compile-l8/compiled.json"
+      ],
+      "kind": "appliance",
+      "name": "run-l8",
+      "script": "validations/ogb-native-row-scale/physical.py"
+    }
+  ]
+}

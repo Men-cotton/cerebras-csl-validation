@@ -1,0 +1,35 @@
+{
+  "role": "simulator",
+  "params": {
+    "P": 2,
+    "R": 9,
+    "F": 16,
+    "Q": 48,
+    "E": 128,
+    "RELU": 0,
+    "L": 8,
+    "M": 211
+  },
+  "fixture_sha256": "50759c9bcdaacc703e1f02c378ead52593b87e72a3bba1bbac6292aa62e4e3a6",
+  "source_sha256": {
+    "layout.csl": "dbfe860738f071573b3c1f2d90edf28cc5d3599daaab0943eab70e07634ceadb",
+    "pe.csl": "912df45c0a8d3a3372698f27ac09ccc4c2a8f928a6490341d5be6806f88d25ee"
+  },
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=9,10",
+    "--fabric-offsets=4,1",
+    "--params=P:2,R:9,F:16,Q:48,E:128,RELU:0,L:8,M:211",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "elf_sha256": {
+    "out_0_0.elf": "aabf0b0ccd0570649147f7d92986fd26611dde760616c2ed11f28fdf64c54c50",
+    "out_1_0.elf": "c70d19911c6753b3d1a61d7b7b31fcf49ab0a0c2b322708109547f8c220d5974"
+  }
+}
