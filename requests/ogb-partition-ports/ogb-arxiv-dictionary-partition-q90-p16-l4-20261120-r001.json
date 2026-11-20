@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "ogb-arxiv-dictionary-partition-q90-p16-l4-20261120-r001",
+  "description": "Measure contiguous, edge-balanced and dictionary-aware row assignments on the same physical 16-compute-PE image with four West ports. Each assignment returns twelve frames, timed on one PE, and preserves every class score on the original trained arxiv window.",
+  "steps": [
+    {
+      "name": "run-contiguous",
+      "kind": "appliance",
+      "script": "validations/ogb-partition-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-partition-ports/cases/arxiv-splits-q90-l4",
+        "--release-sha256",
+        "1c25d3b698ae4d17e690da9a409ccdd95d3f67bbb7c6f250f82ed1b840a62856",
+        "--partition",
+        "contiguous",
+        "--out",
+        "{output}/contiguous"
+      ]
+    },
+    {
+      "name": "run-balanced",
+      "kind": "appliance",
+      "script": "validations/ogb-partition-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-partition-ports/cases/arxiv-splits-q90-l4",
+        "--release-sha256",
+        "1c25d3b698ae4d17e690da9a409ccdd95d3f67bbb7c6f250f82ed1b840a62856",
+        "--partition",
+        "balanced",
+        "--out",
+        "{output}/balanced"
+      ]
+    },
+    {
+      "name": "run-dictionary",
+      "kind": "appliance",
+      "script": "validations/ogb-partition-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-partition-ports/cases/arxiv-splits-q90-l4",
+        "--release-sha256",
+        "1c25d3b698ae4d17e690da9a409ccdd95d3f67bbb7c6f250f82ed1b840a62856",
+        "--partition",
+        "dictionary",
+        "--out",
+        "{output}/dictionary"
+      ]
+    }
+  ]
+}
