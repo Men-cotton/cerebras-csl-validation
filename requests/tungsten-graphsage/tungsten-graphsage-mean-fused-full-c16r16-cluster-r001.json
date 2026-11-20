@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-mean-fused-full-c16r16-cluster-r001",
+  "description": "Run a frozen two-layer mean GraphSAGE classifier on physical CS-3. Return every owned preactivation, normalized hidden channel, logit and PE clock.",
+  "steps": [
+    {
+      "name": "run-full-c16r16-t8-cluster-mean-fused",
+      "kind": "appliance",
+      "script": "validations/tungsten-graphsage/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-graphsage/cases/full-c16r16-t8-cluster-mean-fused",
+        "--build-sha256",
+        "840dca8bc5576494d235484f6403b5f1d179b19084d100b3fa22f2881f0be019",
+        "--out",
+        "{output}/sage-full-c16r16-t8-cluster-mean-fused"
+      ]
+    }
+  ]
+}
