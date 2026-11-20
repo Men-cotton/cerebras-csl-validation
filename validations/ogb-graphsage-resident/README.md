@@ -1,0 +1,3 @@
+# Resident two-layer GraphSAGE
+
+Each native or Direct Link image computes raw-feature projection, first-layer mean aggregation and ReLU, and final-layer aggregation and classification. One launch keeps all learned weights resident. The host returns the actual intermediate vectors to the same program in original CSR order. Every window has raw PE outputs and clocks. The full A pass and exact two-hop half-A/A controls are audited against original features, trained weights, whole-model GPU predictions and an independent FP64 reconstruction. Local SDK controls, real-hardware receipts, cross-language comparisons and their timing scopes are recorded separately.

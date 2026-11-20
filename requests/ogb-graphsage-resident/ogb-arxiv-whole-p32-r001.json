@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "ogb-arxiv-whole-p32-r001",
+  "steps": [
+    {
+      "name": "compile-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident/resident/physical.py",
+      "args": [
+        "compile-csl",
+        "--case",
+        "arxiv-whole-p32",
+        "--out",
+        "{output}/compile-csl"
+      ]
+    },
+    {
+      "name": "run-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident/resident/physical.py",
+      "args": [
+        "run-csl",
+        "--case",
+        "arxiv-whole-p32",
+        "--out",
+        "{output}/run-csl",
+        "--compiled",
+        "{output}/compile-csl/compiled.json"
+      ]
+    },
+    {
+      "name": "run-tungsten",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident/resident/physical.py",
+      "args": [
+        "run-tungsten",
+        "--case",
+        "arxiv-whole-p32",
+        "--out",
+        "{output}/run-tungsten",
+        "--peer",
+        "{output}/run-csl/capture.zip"
+      ]
+    }
+  ],
+  "description": "Run both layers of the trained arxiv GraphSAGE model in one resident program per language on 169343 original destinations and all their two-hop dependencies. Preserve all raw clock and output words."
+}

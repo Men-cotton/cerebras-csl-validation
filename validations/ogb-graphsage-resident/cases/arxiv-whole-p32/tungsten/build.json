@@ -1,0 +1,83 @@
+{
+  "dataset": "arxiv",
+  "language": "tungsten",
+  "params": {
+    "P": 32,
+    "R": 12,
+    "D": 128,
+    "F": 9,
+    "Q": 40,
+    "E": 192,
+    "K": 96
+  },
+  "roles": {
+    "simulator": {
+      "fabric": [
+        32,
+        2
+      ],
+      "elf": "0195298babffe24f8541716ed4b30e269cab205ad9f8d62ec6e65293c521c081"
+    },
+    "hardware": {
+      "fabric": [
+        762,
+        1172
+      ],
+      "elf": "aeaabfa36dcb960942cffb5040050f467e4ca519050c6ef345d30fbc06d03f62"
+    }
+  },
+  "canonical_sha256": "430af364b7097b1adcf7c82b2c330e6ecadaea85cb7cf3bba65cd95670f067b8",
+  "port_map_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "machine_image_sha256": "28dbbc879ff5cfbe362aaf7e7a0eeb4e33975997a55ea93391cd7bb0f9c731a5",
+  "commands": [
+    [
+      "paint",
+      "arch=sdr",
+      "toolname",
+      "w",
+      "carbide",
+      "toolname",
+      "yeti",
+      "carbide",
+      "lib=src",
+      "source=src/program.paint",
+      "image=program.obj",
+      "map=program.map",
+      "note=program.note",
+      "entrymap=program.entry",
+      "regiondump=regions.json"
+    ],
+    [
+      "milink",
+      "image=program.obj",
+      "out=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "weight",
+      "image=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/resident-arxiv-tungsten-p32/simulator/out/program.elf",
+      "w=32",
+      "h=2"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/resident-arxiv-tungsten-p32/hardware/out/program.elf",
+      "w=762",
+      "h=1172"
+    ]
+  ],
+  "source": {
+    "collect.w": "f137602993cb508d2a952f6e127585929fb76278515250201bc22ad262fd177b",
+    "owner.w": "74222b6f264f67f5866e3a363f12c25c5eeab7e196f91815a98e40d8db75d345",
+    "program.paint": "343d3f52362e20949a33ceac0ca659541c3d5c2d27669bf73db5cbad9308c9e1"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "dataset": "arxiv",
+  "scope": "four",
+  "graph_sha256": "34ff543650a173d28c590646b4ec51295fb866c86cf4f956580b507eb0736366",
+  "chunks": [
+    {
+      "file": "x-000.npz",
+      "rows": 5578,
+      "sha256": "519f5c35d9c691c902fb0fd2f6e98511a2a672120a83aa8c85cd6783ae8ead83"
+    }
+  ],
+  "original_graph": {
+    "processed_sha256": "83c746379a528be58e0c07f782ab388fa157c7be505da53012fffabce0314dba",
+    "input_edges": 1166243,
+    "undirected_unique_arcs": 2315598,
+    "self_loops": 0,
+    "ptr_sha256": "15b6a4516229b383ffca391cb19c57d0a68a52bd2b054f591c0ef06fd12f6376",
+    "index_sha256": "957986a8463b43a0abd8f51e0686ebe510bcdac7cde36eaadfab8b31544e393c",
+    "split_sha256": {
+      "train": "84983391900af45194e5db8d977ec9e01d4eda96e20328f3d7575fdd45c6797c",
+      "valid": "ebe6cdcd77c75eedbce2064a05a49bc28e2c4a631f49d66b9e9ff317eef993eb",
+      "test": "588fb66ce57bcaef51ac0235f0a49a056370ac31fc27c8ebf556d3f5cdd02545"
+    }
+  },
+  "original_checkpoint_sha256": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b",
+  "model_hidden": 16,
+  "raw_nodes": 5578,
+  "hidden_nodes": 31,
+  "destinations": 4,
+  "features": 128,
+  "hidden_live": 9,
+  "classes": 40,
+  "original_gpu_logits_sha256": "14491f54d59dab6b4a04c2b5cfdca66315decd2401db71d695e5048d3599cf15",
+  "first_edges": 7273,
+  "final_edges": 27
+}

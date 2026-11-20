@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "ogb-graphsage-resident",
+  "entrypoints": [
+    "resident/physical.py"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "description": "Both complete GraphSAGE layers and all learned projections on one resident CS-3 program per language."
+}

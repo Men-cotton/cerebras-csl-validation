@@ -1,0 +1,123 @@
+param memcpy_params;
+param X:u16;
+param R:u16;
+param D:u16;
+param F:u16;
+param Q:u16;
+param E:u16;
+param K:u16;
+const sys=@import_module("<memcpy/memcpy>",memcpy_params);
+const ts=@import_module("<time>");
+const FO:u16=D*2*F+F;
+var weights:[FO+(2*F+1)*Q]f32;
+var rawx:[R*D]f32;
+var roots:[R*F]f32;
+var inverse:[R]f32;
+var features:[E*F]f32;
+var sums:[R*F]f32;
+var targets:[R]u32;
+var indices:[R]u32;
+var control:[5]u32;
+var reply:[4+6*(K+2)+R*(1+Q)]u32;
+var clocks:[3]u16;
+var part:u16;
+var total:u32;
+const fvec=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{F}->sums[i]});
+const fsum=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{R*F}->sums[i]});
+const qvec=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{Q}->weights[i]});
+const pair=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{2*F}->weights[i]});
+const out_ds=@get_dsr(dsr_dest,1);
+const a_ds=@get_dsr(dsr_src0,1);
+const b_ds=@get_dsr(dsr_src1,1);
+const Addr=[*]f32;
+fn stamp(i:u16) void {
+  ts.get_timestamp(&clocks);
+  for (@range(u16,3)) |j| { reply[4+i+j]=@as(u32,clocks[j]); }
+}
+fn begin_frame() void {
+  ts.enable_tsc();part=0;total=0;
+  stamp(0);
+  if (control[1]!=0) { @fmovs(fsum,0.0); }
+  stamp(3);sys.unblock_cmd_stream();
+}
+fn accumulate() void {
+  total+=control[4];
+  stamp(6+6*part);
+  @load_to_dsr(out_ds,fvec);@load_to_dsr(a_ds,fvec);@load_to_dsr(b_ds,fvec);
+  var e:u16=0;
+  for (@range(u16,@as(u16,control[3]))) |row| {
+    const end=@as(u16,targets[row]);
+    const a=@ptrcast(Addr,&sums[row*F]);
+    @set_dsr_base_addr(out_ds,a);@set_dsr_base_addr(a_ds,a);
+    while (e<end) : (e+=1) {
+      @set_dsr_base_addr(b_ds,@ptrcast(Addr,&features[e*F]));
+      @fadds(out_ds,a_ds,b_ds);
+    }
+  }
+  stamp(9+6*part);part+=1;sys.unblock_cmd_stream();
+}
+fn finish() void {
+  const n=@as(u16,control[3]);
+  const mode=control[1];
+  const head:u16=4+(2+part)*6;
+  stamp(6+6*part);
+  if (mode==0) {
+    @load_to_dsr(out_ds,pair);@load_to_dsr(a_ds,pair);@load_to_dsr(b_ds,pair);
+    for (@range(u16,n)) |row| {
+      const to=@ptrcast(Addr,&reply[head+R+row*2*F]);
+      @fmovs(@set_dsd_base_addr(pair,to),0.0);
+      @set_dsr_base_addr(out_ds,to);@set_dsr_base_addr(a_ds,to);
+      for (@range(u16,D)) |ch| {
+        @set_dsr_base_addr(b_ds,@ptrcast(Addr,&weights[ch*2*F]));
+        @fmacs(out_ds,a_ds,b_ds,rawx[row*D+ch]);
+      }
+    }
+  } else if (mode==1) {
+    for (@range(u16,n)) |row| {
+      for (@range(u16,F)) |ch| {
+        const i=row*F+ch;
+        const v=(roots[i]+sums[i]*inverse[row])+weights[D*2*F+ch];
+        reply[head+R+i]=@bitcast(u32,if (v<0.0) @as(f32,0.0) else v);
+      }
+    }
+  } else {
+    const bias=@set_dsd_base_addr(qvec,@ptrcast(Addr,&weights[FO+2*F*Q]));
+    @load_to_dsr(out_ds,qvec);@load_to_dsr(a_ds,qvec);@load_to_dsr(b_ds,qvec);
+    for (@range(u16,n)) |row| {
+      const to=@ptrcast(Addr,&reply[head+R+row*Q]);
+      @fmovs(@set_dsd_base_addr(qvec,to),bias);
+      @set_dsr_base_addr(out_ds,to);@set_dsr_base_addr(a_ds,to);
+      for (@range(u16,F)) |ch| {
+        const a=roots[row*F+ch];
+        const b=sums[row*F+ch]*inverse[row];
+        if (a!=0.0) {
+          @set_dsr_base_addr(b_ds,@ptrcast(Addr,&weights[FO+ch*Q]));
+          @fmacs(out_ds,a_ds,b_ds,a);
+        }
+        if (b!=0.0) {
+          @set_dsr_base_addr(b_ds,@ptrcast(Addr,&weights[FO+F*Q+ch*Q]));
+          @fmacs(out_ds,a_ds,b_ds,b);
+        }
+      }
+    }
+  }
+  stamp(9+6*part);ts.disable_tsc();
+  reply[0]=control[0];reply[1]=@as(u32,X);reply[2]=control[3];reply[3]=total;
+  for (@range(u16,R)) |i| { reply[head+i]=indices[i]; }
+  sys.unblock_cmd_stream();
+}
+var wp:[*]f32=&weights;
+var xp:[*]f32=&rawx;
+var rp:[*]f32=&roots;
+var ip:[*]f32=&inverse;
+var fp:[*]f32=&features;
+var tp:[*]u32=&targets;
+var idp:[*]u32=&indices;
+var cp:[*]u32=&control;
+var op:[*]u32=&reply;
+comptime {
+ @export_symbol(wp,"weights");@export_symbol(xp,"rawx");@export_symbol(rp,"roots");
+ @export_symbol(ip,"inverse");@export_symbol(fp,"features");@export_symbol(tp,"targets");
+ @export_symbol(idp,"indices");@export_symbol(cp,"control");@export_symbol(op,"reply");
+ @export_symbol(begin_frame);@export_symbol(accumulate);@export_symbol(finish);
+}
