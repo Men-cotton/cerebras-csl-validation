@@ -13,3 +13,11 @@ uv run --project .. --locked --group dev python -B -m unittest discover -s tests
 
 These utilities are shared operator tools. Keep validation-specific sources,
 checks, and fixtures in the corresponding `validations/<family>/` directory.
+
+
+`publish_request.py` prepares the GitHub Git Data objects for a single new watcher request. It reads the exact full commit message and verifies the two discovery trailers. With `publish` it uploads the objects, checks the remote commit and request blob, and advances main without forcing a ref update. Run from a checkout containing the intended commit. A GitHub CLI login with access to the selected upstream is required for publication.
+
+```sh
+uv run --project .. --locked python publish_request.py plan .. HEAD --out /tmp/watcher-request-plan
+uv run --project .. --locked python publish_request.py publish .. HEAD
+```
