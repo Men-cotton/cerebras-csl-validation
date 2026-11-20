@@ -2,6 +2,7 @@
   "cases": {
     "c16-r16-t8-group": "5868701ade6930b3ebdd7125cc9f26558a78f656ff7951f2cea1d4548ef098a1",
     "c16-r32-t8-group": "4c6742a0d3214c53a24292749440974c9cd6dca2f4020970bd23cf405172ae56",
+    "c16-r64-t8-group": "f70d8902431f42baa462baebc9568600b311585441c74fdfdb40036322094c95",
     "c8-r128-t16-group": "bd7bdd4e3ede0ee592fb56f6fe4ae24e5d1640fcf02e8752245fd264885408a8"
   },
   "family": "native-cora",

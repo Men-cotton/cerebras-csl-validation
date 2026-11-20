@@ -1,0 +1,21 @@
+{
+  "appliance_input_initialization": "native sdk_runner H2D then all-coordinate D2H before launch and after completion",
+  "baseline_manifest_sha256": "c791e082ec81a19ccf0b88462e990201e6b243cdd18f7e2701479fa31f910cc7",
+  "comparison_sha256": "cab063688e2c19f25109794843b3b274f469440e575937b77d24e565699081f0",
+  "compute_pe_static_bytes": 32544,
+  "input_sha256": "527913aa5c62507c7fa7a1e4531a690c9694022d881cab983760fed5c2280edc",
+  "local_input_initialization": "local verified data-only SDK PE image",
+  "local_linked_static_bytes": 35952,
+  "local_max_pe_cycles": 113873,
+  "local_numeric_status": "PASS",
+  "local_raw_sha256": "bba67c6f4c9332a08de68f64a67ead58535ca50b658af3a8249ead802e9d6d28",
+  "local_startup_image_sha256": "46f9e55a5a98d431a08dec6185afddcf0f35c3473d1263dcf067cd654856a70e",
+  "max_static_image_files": [
+    "west/bin/out_5_0.elf",
+    "west/bin/out_6_0.elf",
+    "west/bin/out_7_0.elf"
+  ],
+  "peak_stack_bytes": null,
+  "simulator_source_sha256": "9d7a2fada8103f63fc47538675de4c12caadb5cbb796c090d5958b8de6a926d5",
+  "source_case": "g00-wg00-s11-c16r64-t8-group"
+}
