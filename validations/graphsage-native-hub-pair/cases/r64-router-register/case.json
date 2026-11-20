@@ -1,0 +1,189 @@
+{
+  "schema": 1,
+  "name": "cluster-c16r64-t8-owner-tiles",
+  "original_case": "cluster-c16r64-t8-owner-tiles",
+  "original_case_sha256": "923e20bbbf083da7eec27c1fd5c9647be81e213a06339572bedfc89c4c22d981",
+  "original_checkpoint_sha256": "04b95b83ef86ad5f58402767310495aeb729f86587919d114260f408c432d3bd",
+  "original_node_ids_sha256": "7501e5b2a9480030f41c7bfb7e63158054f141a9427e65bdd70a425f3402239c",
+  "original_inputs_sha256": "01d623831d08d5c9fa87ada15ee2e344a2dd8c15c0530901ce89fa06f33b5585",
+  "original_source": "3f9867dc695f5934e0d1fa395846ec940bf45209005e427eb67a2e05aa867520",
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=762,1172",
+    "--fabric-offsets=4,1",
+    "--params=C:16,COMPACT:0,FW:90,H:16,K:48,L:3,MG:170,MX:116,NRX:166,NTX:126,O:7,R:64,RX:48,T:8",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0"
+  ],
+  "sdk_flags": [
+    "/home/mencotton/research/tungsten/experiments/physical-followup/sage-hub/runs/router-register-source/layout.csl",
+    "--fabric-dims=23,66",
+    "--fabric-offsets=4,1",
+    "--params=C:16,COMPACT:0,FW:90,H:16,K:48,L:3,MG:170,MX:116,NRX:166,NTX:126,O:7,R:64,RX:48,T:8",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1"
+  ],
+  "params": {
+    "C": 16,
+    "COMPACT": 0,
+    "FW": 90,
+    "H": 16,
+    "K": 48,
+    "L": 3,
+    "MG": 170,
+    "MX": 116,
+    "NRX": 166,
+    "NTX": 126,
+    "O": 7,
+    "R": 64,
+    "RX": 48,
+    "T": 8
+  },
+  "inputs": {
+    "b0": [
+      16,
+      "float32"
+    ],
+    "b1": [
+      7,
+      "float32"
+    ],
+    "counts": [
+      2,
+      "uint16"
+    ],
+    "edge_ptr": [
+      4,
+      "uint16"
+    ],
+    "edge_src": [
+      170,
+      "uint16"
+    ],
+    "edge_weight": [
+      170,
+      "float32"
+    ],
+    "packet_template": [
+      1260,
+      "uint32"
+    ],
+    "paired0": [
+      2880,
+      "float32"
+    ],
+    "paired1": [
+      256,
+      "float32"
+    ],
+    "slots": [
+      3,
+      "uint16"
+    ],
+    "tx_slot": [
+      126,
+      "uint16"
+    ],
+    "x_col": [
+      116,
+      "uint16"
+    ],
+    "x_ptr": [
+      49,
+      "uint16"
+    ],
+    "x_val": [
+      116,
+      "float32"
+    ],
+    "split_info": [
+      3,
+      "uint16"
+    ]
+  },
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "hidden": [
+      48,
+      "float32"
+    ],
+    "logits": [
+      21,
+      "float32"
+    ],
+    "pre": [
+      48,
+      "float32"
+    ],
+    "stats": [
+      10,
+      "uint32"
+    ],
+    "traffic": [
+      4,
+      "uint32"
+    ],
+    "split_words": [
+      2,
+      "uint32"
+    ]
+  },
+  "modes": {
+    "control": {
+      "inputs_sha256": "4f1e7729bde9eeb326e34e0e375cee1bf558394c3f0e9b4b8979e156ec766b1b",
+      "tungsten_setup_sha256": "524368ef17ad6a5a85ef5ae618f0b381655789001690642e0789716978480327",
+      "tungsten_result_sha256": "fca0d3fd1df69548882f341b4e4ed7b93d41e71581f8b494d55d97974aa8a4b1",
+      "tungsten_bare_cycles": 63590,
+      "plan": {
+        "helper_xy": [
+          0,
+          2
+        ],
+        "moved": 76,
+        "max_neighbor_occurrences": 95,
+        "max_endpoint_visits_including_partial": 95,
+        "home_visits": 95,
+        "helper_visits": 95,
+        "max_send_packets": 126,
+        "max_receive_packets": 91,
+        "packets_per_tile": 6934,
+        "packet_hops_per_tile": 172412
+      }
+    },
+    "split": {
+      "inputs_sha256": "a49778d40c7ba62cee171e9bc93d8b03643d1c36a7f87460a6805966848c1764",
+      "tungsten_setup_sha256": "8d8f204b304e8886068bdbc6305cdd80f560211240d73ea342ba1fbd4153766a",
+      "tungsten_result_sha256": "dd365bb7c75f21465919739b9beebdbb336c138aea46a7f541210094c1d0c61f",
+      "tungsten_bare_cycles": 54490,
+      "plan": {
+        "helper_xy": [
+          0,
+          2
+        ],
+        "moved": 76,
+        "max_neighbor_occurrences": 95,
+        "max_endpoint_visits_including_partial": 95,
+        "home_visits": 95,
+        "helper_visits": 95,
+        "max_send_packets": 126,
+        "max_receive_packets": 91,
+        "packets_per_tile": 6934,
+        "packet_hops_per_tile": 172412
+      }
+    }
+  },
+  "files": {
+    "src/pe.csl": "42325a311e57ee5b171f4ca1fcf59e02779f80a01959097dc14f4440f11674ed",
+    "src/layout.csl": "594001aee19ed351297a0ce51452618c4a3c21b2ee311b086af9618c6217e524",
+    "control.npz": "4f1e7729bde9eeb326e34e0e375cee1bf558394c3f0e9b4b8979e156ec766b1b",
+    "split.npz": "a49778d40c7ba62cee171e9bc93d8b03643d1c36a7f87460a6805966848c1764"
+  }
+}
