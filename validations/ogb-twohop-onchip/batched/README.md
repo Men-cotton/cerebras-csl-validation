@@ -1,0 +1,7 @@
+# Two-port comparison on 32 original destinations
+
+One request acquires five frames from the 32×2 one-port image and nine from the 16×4 two-port image. Each image has the same 32 first-layer owners, original adjacency, raw features and frozen model weights. `batch.json` identifies the ordered 32 destinations, their range within the recorded 128-destination RCM window and both complete CSR layers. The two physical images use the same 762×1172 fabric. The verifier reconstructs both application load payloads from their SDK and physical ELF files.
+
+`appliance.py check --case NAME --release-sha256 HASH` replays the complete SDK captures. `appliance.py run` stages the two recorded physical firmware images and uses the original family workers. It retrieves five and nine raw frame archives and two termination records. The cross-image replay compares every intermediate host echo and every returned logit word at both input scales. It records input traffic, PE clocks, original node IDs, the observed target and staged ELF digests. `appliance.py replay` independently rechecks a downloaded `--out` directory using the same case and release hash.
+
+`origin.py CASE CACHE` checks the exported graph, all selected raw inputs and both layer references against the complete graph, the original trained checkpoint and the whole-graph GPU outputs. The hardware run uses the frozen batch and original-window provenance without requiring the external whole dataset.

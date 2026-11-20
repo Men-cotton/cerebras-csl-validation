@@ -1,0 +1,21 @@
+{
+  "description": "Compare trained arxiv on the same 32 RCM-selected original roots and 32 first-layer owners. Acquire all five one-port and nine two-port on-chip and host-echo frames and replay both physical returns together.",
+  "id": "ogb-twohop-paired-arxiv-rcm32-p32-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "run",
+        "--case",
+        "arxiv-rcm32-b0-p32",
+        "--release-sha256",
+        "3ca42ecd64028f03a395b3089bfeda43f306b4efbddd03b9462f5e9fba6e2bca",
+        "--out",
+        "{output}/compare"
+      ],
+      "kind": "appliance",
+      "name": "compare",
+      "script": "validations/ogb-twohop-onchip/batched/appliance.py"
+    }
+  ]
+}

@@ -5,7 +5,8 @@
   "entrypoints": [
     "appliance.py",
     "parallel/appliance.py",
-    "parallel/placement/appliance.py"
+    "parallel/placement/appliance.py",
+    "batched/appliance.py"
   ],
   "tests": [
     "tests"
