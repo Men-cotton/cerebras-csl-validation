@@ -1,0 +1,250 @@
+{
+  "role": "simulator",
+  "compared_owner_order": [
+    0,
+    1,
+    3,
+    5,
+    10,
+    11,
+    13,
+    14,
+    2,
+    4,
+    6,
+    7,
+    8,
+    9,
+    12,
+    15
+  ],
+  "first_sha256": "62a4881f296b2032ca8a42617256e4029b69c4a858fd03a76d3c2f47325046a1",
+  "last_sha256": "291872bd173ddeadd84ad0cc17569b828bfb73bc80f4b0e14824b8061ed866fa",
+  "build_sha256": "75e6e8057f819f79054c6cbda1953df6124d359a875b57622410f35f21f29b3e",
+  "original_build_sha256": "680985f2438c15e0c355e06332ebe5d03e390ab704e1cc03ae1115d8206c9acc",
+  "original_role": "simulator",
+  "first_owners": 16,
+  "hidden_vertices": 31,
+  "final_vertices": 4,
+  "arcs": [
+    7273,
+    27
+  ],
+  "one_port_geometry": [
+    16,
+    2
+  ],
+  "two_port_geometry": [
+    8,
+    4
+  ],
+  "frames": [
+    {
+      "tag": 1,
+      "logical": 0,
+      "concurrent": true,
+      "echo": false,
+      "scale": 1.0,
+      "input_words_by_port": [
+        697552,
+        76980
+      ],
+      "one_port_data_interval": 1207601,
+      "hidden_round_trip_words": 0,
+      "first_stage_peak_cycles": 1076411,
+      "collector_first_to_last_cycles": 1101160,
+      "collector_gather_cycles": 1088155,
+      "hidden_echo_interval_cycles": 11,
+      "final_layer_cycles": 12994,
+      "hidden_digest": 1829125833,
+      "hidden_fp64_max_abs": null,
+      "logit_fp64_max_abs": 2.3273209794894e-06,
+      "argmax_disagreements": 0,
+      "collector_from_data_tag_cycles": 1101094
+    },
+    {
+      "tag": 2,
+      "logical": 1,
+      "concurrent": true,
+      "echo": true,
+      "scale": 1.0,
+      "input_words_by_port": [
+        614930,
+        194384
+      ],
+      "one_port_data_interval": 1211912,
+      "hidden_round_trip_words": 992,
+      "first_stage_peak_cycles": 1027433,
+      "collector_first_to_last_cycles": 1054625,
+      "collector_gather_cycles": 1033098,
+      "hidden_echo_interval_cycles": 8533,
+      "final_layer_cycles": 12994,
+      "hidden_digest": 1829125833,
+      "hidden_fp64_max_abs": 2.8039101522825405e-06,
+      "logit_fp64_max_abs": 2.3273209794894e-06,
+      "argmax_disagreements": 0,
+      "collector_from_data_tag_cycles": 1054379
+    },
+    {
+      "tag": 3,
+      "logical": 1,
+      "concurrent": true,
+      "echo": true,
+      "scale": 1.0,
+      "input_words_by_port": [
+        693440,
+        72868
+      ],
+      "one_port_data_interval": 1211912,
+      "hidden_round_trip_words": 992,
+      "first_stage_peak_cycles": 1076411,
+      "collector_first_to_last_cycles": 1105520,
+      "collector_gather_cycles": 1084057,
+      "hidden_echo_interval_cycles": 8469,
+      "final_layer_cycles": 12994,
+      "hidden_digest": 1829125833,
+      "hidden_fp64_max_abs": 2.8039101522825405e-06,
+      "logit_fp64_max_abs": 2.3273209794894e-06,
+      "argmax_disagreements": 0,
+      "collector_from_data_tag_cycles": 1105445
+    },
+    {
+      "tag": 4,
+      "logical": 2,
+      "concurrent": true,
+      "echo": true,
+      "scale": 0.5,
+      "input_words_by_port": [
+        693440,
+        72868
+      ],
+      "one_port_data_interval": 1211978,
+      "hidden_round_trip_words": 992,
+      "first_stage_peak_cycles": 1076407,
+      "collector_first_to_last_cycles": 1105570,
+      "collector_gather_cycles": 1084051,
+      "hidden_echo_interval_cycles": 8525,
+      "final_layer_cycles": 12994,
+      "hidden_digest": 1757432656,
+      "hidden_fp64_max_abs": 1.2687759479712568e-06,
+      "logit_fp64_max_abs": 1.6280136936330791e-06,
+      "argmax_disagreements": 0,
+      "collector_from_data_tag_cycles": 1105497
+    },
+    {
+      "tag": 5,
+      "logical": 2,
+      "concurrent": true,
+      "echo": true,
+      "scale": 0.5,
+      "input_words_by_port": [
+        614930,
+        194384
+      ],
+      "one_port_data_interval": 1211978,
+      "hidden_round_trip_words": 992,
+      "first_stage_peak_cycles": 1027433,
+      "collector_first_to_last_cycles": 1054389,
+      "collector_gather_cycles": 1032919,
+      "hidden_echo_interval_cycles": 8476,
+      "final_layer_cycles": 12994,
+      "hidden_digest": 1757432656,
+      "hidden_fp64_max_abs": 1.2687759479712568e-06,
+      "logit_fp64_max_abs": 1.6280136936330791e-06,
+      "argmax_disagreements": 0,
+      "collector_from_data_tag_cycles": 1054322
+    },
+    {
+      "tag": 6,
+      "logical": 3,
+      "concurrent": true,
+      "echo": false,
+      "scale": 0.5,
+      "input_words_by_port": [
+        614930,
+        194384
+      ],
+      "one_port_data_interval": 1203453,
+      "hidden_round_trip_words": 0,
+      "first_stage_peak_cycles": 1027433,
+      "collector_first_to_last_cycles": 1045970,
+      "collector_gather_cycles": 1032965,
+      "hidden_echo_interval_cycles": 11,
+      "final_layer_cycles": 12994,
+      "hidden_digest": 1757432656,
+      "hidden_fp64_max_abs": null,
+      "logit_fp64_max_abs": 1.6280136936330791e-06,
+      "argmax_disagreements": 0,
+      "collector_from_data_tag_cycles": 1045857
+    },
+    {
+      "tag": 7,
+      "logical": 3,
+      "concurrent": true,
+      "echo": false,
+      "scale": 0.5,
+      "input_words_by_port": [
+        693440,
+        72868
+      ],
+      "one_port_data_interval": 1203453,
+      "hidden_round_trip_words": 0,
+      "first_stage_peak_cycles": 1076407,
+      "collector_first_to_last_cycles": 1097076,
+      "collector_gather_cycles": 1084071,
+      "hidden_echo_interval_cycles": 11,
+      "final_layer_cycles": 12994,
+      "hidden_digest": 1757432656,
+      "hidden_fp64_max_abs": null,
+      "logit_fp64_max_abs": 1.6280136936330791e-06,
+      "argmax_disagreements": 0,
+      "collector_from_data_tag_cycles": 1096983
+    },
+    {
+      "tag": 8,
+      "logical": 4,
+      "concurrent": true,
+      "echo": false,
+      "scale": 1.0,
+      "input_words_by_port": [
+        693440,
+        72868
+      ],
+      "one_port_data_interval": 1203453,
+      "hidden_round_trip_words": 0,
+      "first_stage_peak_cycles": 1076411,
+      "collector_first_to_last_cycles": 1097117,
+      "collector_gather_cycles": 1084112,
+      "hidden_echo_interval_cycles": 11,
+      "final_layer_cycles": 12994,
+      "hidden_digest": 1829125833,
+      "hidden_fp64_max_abs": null,
+      "logit_fp64_max_abs": 2.3273209794894e-06,
+      "argmax_disagreements": 0,
+      "collector_from_data_tag_cycles": 1096987
+    },
+    {
+      "tag": 9,
+      "logical": 4,
+      "concurrent": true,
+      "echo": false,
+      "scale": 1.0,
+      "input_words_by_port": [
+        614930,
+        194384
+      ],
+      "one_port_data_interval": 1203453,
+      "hidden_round_trip_words": 0,
+      "first_stage_peak_cycles": 1027433,
+      "collector_first_to_last_cycles": 1045926,
+      "collector_gather_cycles": 1032921,
+      "hidden_echo_interval_cycles": 11,
+      "final_layer_cycles": 12994,
+      "hidden_digest": 1829125833,
+      "hidden_fp64_max_abs": null,
+      "logit_fp64_max_abs": 2.3273209794894e-06,
+      "argmax_disagreements": 0,
+      "collector_from_data_tag_cycles": 1045857
+    }
+  ]
+}

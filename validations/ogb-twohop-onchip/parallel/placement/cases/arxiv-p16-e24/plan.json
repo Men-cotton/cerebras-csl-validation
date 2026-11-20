@@ -1,0 +1,41 @@
+{
+  "first_sha256": "62a4881f296b2032ca8a42617256e4029b69c4a858fd03a76d3c2f47325046a1",
+  "last_sha256": "291872bd173ddeadd84ad0cc17569b828bfb73bc80f4b0e14824b8061ed866fa",
+  "build_sha256": "75e6e8057f819f79054c6cbda1953df6124d359a875b57622410f35f21f29b3e",
+  "legal_rank": 3997,
+  "possible_assignments": 12870,
+  "original_words": [
+    693440,
+    72868
+  ],
+  "balanced_words": [
+    614930,
+    194384
+  ],
+  "compiled_selector_caps": [
+    23,
+    11
+  ],
+  "balanced_selector_maxima": [
+    23,
+    11
+  ],
+  "order": [
+    0,
+    1,
+    3,
+    5,
+    10,
+    11,
+    13,
+    14,
+    2,
+    4,
+    6,
+    7,
+    8,
+    9,
+    12,
+    15
+  ]
+}

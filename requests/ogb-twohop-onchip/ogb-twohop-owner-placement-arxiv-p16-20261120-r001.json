@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "ogb-twohop-owner-placement-arxiv-p16-20261120-r001",
+  "description": "Compare two assignments of the same 16 first-layer owners to two concurrent WEST inputs in a single loaded 8 by 4 trained arxiv two-layer application. Replay all nine original and placed frames including full intermediate echo, original IDs, logits and collector clocks.",
+  "steps": [
+    {
+      "name": "compare-owners",
+      "kind": "appliance",
+      "script": "validations/ogb-twohop-onchip/parallel/placement/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "arxiv-p16-e24",
+        "--release-sha256",
+        "11c0bc719f9618616f0947beac37cf55ee4f1fafd276ed54f42117241105dc88",
+        "--out",
+        "{output}/compare-owners"
+      ]
+    }
+  ]
+}
