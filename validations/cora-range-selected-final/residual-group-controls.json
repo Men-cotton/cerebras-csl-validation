@@ -1,0 +1,1848 @@
+{
+  "active_pe": 64,
+  "backend": "SDK WSE-3 simulator",
+  "cases": {
+    "csl": {
+      "capture_sha256": "f0ab2c9c22c60197677df8735552bafd63b2017d4c4f0dc8b480849415a71f40",
+      "release_sha256": "4cde4a049489599da25d26f81d5366369e42bba9aef625dc7e54d48e9b0adc21",
+      "result_sha256": "725612c7576310cc9388e7c5665f6f6930fee182b32fd181fe9f4a52cf9dcc91",
+      "same_all_active_and_padded_owner_words_as_previous": true,
+      "same_all_eleven_graph_wires_as_previous": true,
+      "summary": {
+        "compute_sum": [
+          51212,
+          51212,
+          51212
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.9688540742230306e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.9688540742230306e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.9688540742230306e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          53217,
+          104429,
+          155641
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          53217,
+          104429,
+          155641
+        ],
+        "setup_sum": 2005,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              5275,
+              5275,
+              5275
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              5468,
+              10743,
+              16018
+            ],
+            "setup_max": 193,
+            "start": 0,
+            "sum_phase_max": [
+              5468,
+              10743,
+              16018
+            ]
+          },
+          {
+            "compute_max": [
+              5055,
+              5055,
+              5055
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              5244,
+              10299,
+              15354
+            ],
+            "setup_max": 189,
+            "start": 256,
+            "sum_phase_max": [
+              5244,
+              10299,
+              15354
+            ]
+          },
+          {
+            "compute_max": [
+              6178,
+              6178,
+              6178
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              6385,
+              12563,
+              18741
+            ],
+            "setup_max": 207,
+            "start": 512,
+            "sum_phase_max": [
+              6385,
+              12563,
+              18741
+            ]
+          },
+          {
+            "compute_max": [
+              4799,
+              4799,
+              4799
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              4986,
+              9785,
+              14584
+            ],
+            "setup_max": 187,
+            "start": 768,
+            "sum_phase_max": [
+              4986,
+              9785,
+              14584
+            ]
+          },
+          {
+            "compute_max": [
+              4775,
+              4775,
+              4775
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              4958,
+              9733,
+              14508
+            ],
+            "setup_max": 183,
+            "start": 1024,
+            "sum_phase_max": [
+              4958,
+              9733,
+              14508
+            ]
+          },
+          {
+            "compute_max": [
+              4845,
+              4845,
+              4845
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              5031,
+              9876,
+              14721
+            ],
+            "setup_max": 186,
+            "start": 1280,
+            "sum_phase_max": [
+              5031,
+              9876,
+              14721
+            ]
+          },
+          {
+            "compute_max": [
+              4484,
+              4484,
+              4484
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              4662,
+              9146,
+              13630
+            ],
+            "setup_max": 178,
+            "start": 1536,
+            "sum_phase_max": [
+              4662,
+              9146,
+              13630
+            ]
+          },
+          {
+            "compute_max": [
+              4042,
+              4042,
+              4042
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              4215,
+              8257,
+              12299
+            ],
+            "setup_max": 173,
+            "start": 1792,
+            "sum_phase_max": [
+              4215,
+              8257,
+              12299
+            ]
+          },
+          {
+            "compute_max": [
+              4299,
+              4299,
+              4299
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              4476,
+              8775,
+              13074
+            ],
+            "setup_max": 177,
+            "start": 2048,
+            "sum_phase_max": [
+              4476,
+              8775,
+              13074
+            ]
+          },
+          {
+            "compute_max": [
+              4337,
+              4337,
+              4337
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              4514,
+              8851,
+              13188
+            ],
+            "setup_max": 177,
+            "start": 2304,
+            "sum_phase_max": [
+              4514,
+              8851,
+              13188
+            ]
+          },
+          {
+            "compute_max": [
+              3123,
+              3123,
+              3123
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              3278,
+              6401,
+              9524
+            ],
+            "setup_max": 155,
+            "start": 2560,
+            "sum_phase_max": [
+              3278,
+              6401,
+              9524
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "tungsten": {
+      "capture_sha256": "b90d0874c90741e0f3ee5c3d5627dc93115d6adc11f057e8c288adec6a8f3143",
+      "release_sha256": "3b6c78932b788a2b64466958b90de2a11f6398212d25fb5e4b98e216cf48bf6c",
+      "result_sha256": "f5d76523082af4b5078c858e3a3a87acbe21584712fbcad353c8b53f8352a524",
+      "same_all_active_and_padded_owner_words_as_previous": true,
+      "same_all_eleven_graph_wires_as_previous": true,
+      "summary": {
+        "compute_sum": [
+          55426,
+          55426,
+          55426
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.9688540742230306e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.9688540742230306e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.9688540742230306e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          73456,
+          128878,
+          184300
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          73460,
+          128886,
+          184312
+        ],
+        "setup_sum": 18034,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              5582,
+              5582,
+              5582
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              7568,
+              13150,
+              18732
+            ],
+            "setup_max": 1986,
+            "start": 0,
+            "sum_phase_max": [
+              7568,
+              13150,
+              18732
+            ]
+          },
+          {
+            "compute_max": [
+              5396,
+              5396,
+              5396
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              7679,
+              13074,
+              18469
+            ],
+            "setup_max": 2284,
+            "start": 256,
+            "sum_phase_max": [
+              7680,
+              13076,
+              18472
+            ]
+          },
+          {
+            "compute_max": [
+              6367,
+              6367,
+              6367
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              9044,
+              15411,
+              21778
+            ],
+            "setup_max": 2677,
+            "start": 512,
+            "sum_phase_max": [
+              9044,
+              15411,
+              21778
+            ]
+          },
+          {
+            "compute_max": [
+              5216,
+              5216,
+              5216
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              6904,
+              12120,
+              17336
+            ],
+            "setup_max": 1688,
+            "start": 768,
+            "sum_phase_max": [
+              6904,
+              12120,
+              17336
+            ]
+          },
+          {
+            "compute_max": [
+              5118,
+              5118,
+              5118
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              7016,
+              12133,
+              17250
+            ],
+            "setup_max": 1899,
+            "start": 1024,
+            "sum_phase_max": [
+              7017,
+              12135,
+              17253
+            ]
+          },
+          {
+            "compute_max": [
+              5234,
+              5234,
+              5234
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              6944,
+              12178,
+              17412
+            ],
+            "setup_max": 1710,
+            "start": 1280,
+            "sum_phase_max": [
+              6944,
+              12178,
+              17412
+            ]
+          },
+          {
+            "compute_max": [
+              4880,
+              4880,
+              4880
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              6324,
+              11204,
+              16084
+            ],
+            "setup_max": 1444,
+            "start": 1536,
+            "sum_phase_max": [
+              6324,
+              11204,
+              16084
+            ]
+          },
+          {
+            "compute_max": [
+              4509,
+              4509,
+              4509
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              5614,
+              10123,
+              14632
+            ],
+            "setup_max": 1105,
+            "start": 1792,
+            "sum_phase_max": [
+              5614,
+              10123,
+              14632
+            ]
+          },
+          {
+            "compute_max": [
+              4741,
+              4741,
+              4741
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              6108,
+              10849,
+              15590
+            ],
+            "setup_max": 1367,
+            "start": 2048,
+            "sum_phase_max": [
+              6108,
+              10849,
+              15590
+            ]
+          },
+          {
+            "compute_max": [
+              4767,
+              4767,
+              4767
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              6068,
+              10833,
+              15598
+            ],
+            "setup_max": 1303,
+            "start": 2304,
+            "sum_phase_max": [
+              6070,
+              10837,
+              15604
+            ]
+          },
+          {
+            "compute_max": [
+              3616,
+              3616,
+              3616
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              4187,
+              7803,
+              11419
+            ],
+            "setup_max": 571,
+            "start": 2560,
+            "sum_phase_max": [
+              4187,
+              7803,
+              11419
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    }
+  },
+  "native_selection": "15",
+  "per_window_work_and_critical_shards": [
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        173,
+        151,
+        163,
+        169,
+        142,
+        59,
+        44,
+        48,
+        36,
+        59,
+        50,
+        40,
+        36,
+        48,
+        46,
+        39
+      ],
+      "all_shard_counts": [
+        343,
+        237,
+        163,
+        169,
+        142,
+        59,
+        44,
+        48,
+        36,
+        59,
+        50,
+        40,
+        36,
+        48,
+        46,
+        39
+      ],
+      "busiest_shards": [
+        0
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 5190,
+        "setup": 193,
+        "slowest_steady_shards": [
+          0
+        ],
+        "slowest_three_panel_shards": [
+          0
+        ],
+        "steady": 5275,
+        "three_panel": 16018
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 5369,
+        "setup": 193,
+        "slowest_steady_shards": [
+          0
+        ],
+        "slowest_three_panel_shards": [
+          0
+        ],
+        "steady": 5454,
+        "three_panel": 16555
+      },
+      "edges": 1559,
+      "old_dynamic_count": [
+        13,
+        7,
+        3,
+        9,
+        14,
+        11,
+        12,
+        0,
+        4,
+        11,
+        2,
+        8,
+        4,
+        0,
+        14,
+        7
+      ],
+      "original_rows": [
+        0,
+        256
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 5321,
+        "setup": 1986,
+        "slowest_steady_shards": [
+          0,
+          1
+        ],
+        "slowest_three_panel_shards": [
+          0
+        ],
+        "steady": 5372,
+        "three_panel": 18102
+      },
+      "tungsten_four": {
+        "min_pe_steady": 5536,
+        "setup": 1986,
+        "slowest_steady_shards": [
+          0
+        ],
+        "slowest_three_panel_shards": [
+          0
+        ],
+        "steady": 5582,
+        "three_panel": 18732
+      },
+      "window": 0
+    },
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        149,
+        170,
+        159,
+        204,
+        85,
+        29,
+        30,
+        58,
+        30,
+        50,
+        32,
+        39,
+        36,
+        45,
+        49,
+        34
+      ],
+      "all_shard_counts": [
+        149,
+        254,
+        329,
+        206,
+        85,
+        29,
+        30,
+        58,
+        30,
+        50,
+        32,
+        39,
+        36,
+        45,
+        49,
+        34
+      ],
+      "busiest_shards": [
+        2
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 4982,
+        "setup": 189,
+        "slowest_steady_shards": [
+          2
+        ],
+        "slowest_three_panel_shards": [
+          2
+        ],
+        "steady": 5055,
+        "three_panel": 15354
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 5209,
+        "setup": 189,
+        "slowest_steady_shards": [
+          2
+        ],
+        "slowest_three_panel_shards": [
+          2
+        ],
+        "steady": 5282,
+        "three_panel": 16035
+      },
+      "edges": 1455,
+      "old_dynamic_count": [
+        5,
+        10,
+        15,
+        12,
+        5,
+        13,
+        14,
+        10,
+        14,
+        2,
+        0,
+        7,
+        4,
+        13,
+        1,
+        2
+      ],
+      "original_rows": [
+        256,
+        512
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 5129,
+        "setup": 2284,
+        "slowest_steady_shards": [
+          2
+        ],
+        "slowest_three_panel_shards": [
+          3
+        ],
+        "steady": 5169,
+        "three_panel": 17788
+      },
+      "tungsten_four": {
+        "min_pe_steady": 5361,
+        "setup": 2284,
+        "slowest_steady_shards": [
+          2
+        ],
+        "slowest_three_panel_shards": [
+          3
+        ],
+        "steady": 5396,
+        "three_panel": 18469
+      },
+      "window": 1
+    },
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        188,
+        178,
+        191,
+        236,
+        133,
+        46,
+        56,
+        51,
+        61,
+        56,
+        48,
+        53,
+        34,
+        40,
+        50,
+        44
+      ],
+      "all_shard_counts": [
+        188,
+        178,
+        191,
+        404,
+        221,
+        46,
+        56,
+        51,
+        61,
+        56,
+        48,
+        53,
+        34,
+        40,
+        50,
+        44
+      ],
+      "busiest_shards": [
+        3
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 6111,
+        "setup": 207,
+        "slowest_steady_shards": [
+          3
+        ],
+        "slowest_three_panel_shards": [
+          3
+        ],
+        "steady": 6178,
+        "three_panel": 18741
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 6278,
+        "setup": 207,
+        "slowest_steady_shards": [
+          3
+        ],
+        "slowest_three_panel_shards": [
+          3
+        ],
+        "steady": 6345,
+        "three_panel": 19242
+      },
+      "edges": 1721,
+      "old_dynamic_count": [
+        12,
+        2,
+        15,
+        12,
+        5,
+        14,
+        8,
+        3,
+        13,
+        8,
+        0,
+        5,
+        2,
+        8,
+        2,
+        12
+      ],
+      "original_rows": [
+        512,
+        768
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 6128,
+        "setup": 2677,
+        "slowest_steady_shards": [
+          3
+        ],
+        "slowest_three_panel_shards": [
+          3
+        ],
+        "steady": 6161,
+        "three_panel": 21160
+      },
+      "tungsten_four": {
+        "min_pe_steady": 6337,
+        "setup": 2677,
+        "slowest_steady_shards": [
+          3
+        ],
+        "slowest_three_panel_shards": [
+          3
+        ],
+        "steady": 6367,
+        "three_panel": 21778
+      },
+      "window": 2
+    },
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        69,
+        27,
+        31,
+        50,
+        80,
+        146,
+        99,
+        129,
+        115,
+        90,
+        33,
+        13,
+        20,
+        13,
+        13,
+        16
+      ],
+      "all_shard_counts": [
+        69,
+        27,
+        31,
+        50,
+        162,
+        316,
+        103,
+        129,
+        115,
+        90,
+        33,
+        13,
+        20,
+        13,
+        13,
+        16
+      ],
+      "busiest_shards": [
+        5
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 4744,
+        "setup": 187,
+        "slowest_steady_shards": [
+          5
+        ],
+        "slowest_three_panel_shards": [
+          5
+        ],
+        "steady": 4799,
+        "three_panel": 14584
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 4764,
+        "setup": 187,
+        "slowest_steady_shards": [
+          5
+        ],
+        "slowest_three_panel_shards": [
+          5
+        ],
+        "steady": 4819,
+        "three_panel": 14644
+      },
+      "edges": 1200,
+      "old_dynamic_count": [
+        5,
+        11,
+        15,
+        2,
+        0,
+        2,
+        3,
+        1,
+        3,
+        10,
+        1,
+        13,
+        4,
+        13,
+        13,
+        0
+      ],
+      "original_rows": [
+        768,
+        1024
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 4833,
+        "setup": 1688,
+        "slowest_steady_shards": [
+          5
+        ],
+        "slowest_three_panel_shards": [
+          5
+        ],
+        "steady": 4888,
+        "three_panel": 16352
+      },
+      "tungsten_four": {
+        "min_pe_steady": 5164,
+        "setup": 1688,
+        "slowest_steady_shards": [
+          5
+        ],
+        "slowest_three_panel_shards": [
+          5
+        ],
+        "steady": 5216,
+        "three_panel": 17336
+      },
+      "window": 3
+    },
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        62,
+        23,
+        43,
+        71,
+        91,
+        97,
+        140,
+        167,
+        111,
+        108,
+        29,
+        11,
+        16,
+        24,
+        17,
+        18
+      ],
+      "all_shard_counts": [
+        62,
+        23,
+        43,
+        71,
+        91,
+        97,
+        306,
+        257,
+        111,
+        108,
+        29,
+        11,
+        16,
+        24,
+        17,
+        18
+      ],
+      "busiest_shards": [
+        6
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 4726,
+        "setup": 183,
+        "slowest_steady_shards": [
+          6
+        ],
+        "slowest_three_panel_shards": [
+          6
+        ],
+        "steady": 4775,
+        "three_panel": 14508
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 4891,
+        "setup": 183,
+        "slowest_steady_shards": [
+          6
+        ],
+        "slowest_three_panel_shards": [
+          6
+        ],
+        "steady": 4940,
+        "three_panel": 15003
+      },
+      "edges": 1284,
+      "old_dynamic_count": [
+        14,
+        7,
+        11,
+        7,
+        11,
+        1,
+        12,
+        7,
+        15,
+        12,
+        13,
+        11,
+        0,
+        8,
+        1,
+        2
+      ],
+      "original_rows": [
+        1024,
+        1280
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 4821,
+        "setup": 1899,
+        "slowest_steady_shards": [
+          6
+        ],
+        "slowest_three_panel_shards": [
+          7
+        ],
+        "steady": 4887,
+        "three_panel": 16557
+      },
+      "tungsten_four": {
+        "min_pe_steady": 5055,
+        "setup": 1899,
+        "slowest_steady_shards": [
+          6
+        ],
+        "slowest_three_panel_shards": [
+          7
+        ],
+        "steady": 5118,
+        "three_panel": 17250
+      },
+      "window": 4
+    },
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        44,
+        33,
+        46,
+        67,
+        77,
+        111,
+        146,
+        145,
+        148,
+        91,
+        27,
+        6,
+        22,
+        19,
+        21,
+        14
+      ],
+      "all_shard_counts": [
+        44,
+        33,
+        46,
+        67,
+        77,
+        111,
+        146,
+        225,
+        318,
+        97,
+        27,
+        6,
+        22,
+        19,
+        21,
+        14
+      ],
+      "busiest_shards": [
+        8
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 4808,
+        "setup": 186,
+        "slowest_steady_shards": [
+          8
+        ],
+        "slowest_three_panel_shards": [
+          8
+        ],
+        "steady": 4845,
+        "three_panel": 14721
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 4862,
+        "setup": 186,
+        "slowest_steady_shards": [
+          8
+        ],
+        "slowest_three_panel_shards": [
+          8
+        ],
+        "steady": 4899,
+        "three_panel": 14883
+      },
+      "edges": 1273,
+      "old_dynamic_count": [
+        12,
+        1,
+        14,
+        3,
+        13,
+        15,
+        2,
+        1,
+        4,
+        11,
+        11,
+        6,
+        6,
+        3,
+        5,
+        14
+      ],
+      "original_rows": [
+        1280,
+        1536
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 4852,
+        "setup": 1710,
+        "slowest_steady_shards": [
+          8
+        ],
+        "slowest_three_panel_shards": [
+          8
+        ],
+        "steady": 4940,
+        "three_panel": 16530
+      },
+      "tungsten_four": {
+        "min_pe_steady": 5149,
+        "setup": 1710,
+        "slowest_steady_shards": [
+          8
+        ],
+        "slowest_three_panel_shards": [
+          8
+        ],
+        "steady": 5234,
+        "three_panel": 17412
+      },
+      "window": 5
+    },
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        73,
+        25,
+        53,
+        51,
+        67,
+        68,
+        86,
+        80,
+        63,
+        124,
+        58,
+        32,
+        28,
+        27,
+        24,
+        31
+      ],
+      "all_shard_counts": [
+        73,
+        25,
+        53,
+        51,
+        67,
+        68,
+        86,
+        80,
+        63,
+        288,
+        150,
+        32,
+        28,
+        27,
+        24,
+        31
+      ],
+      "busiest_shards": [
+        9
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 4453,
+        "setup": 178,
+        "slowest_steady_shards": [
+          9
+        ],
+        "slowest_three_panel_shards": [
+          9
+        ],
+        "steady": 4484,
+        "three_panel": 13630
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 4644,
+        "setup": 178,
+        "slowest_steady_shards": [
+          9
+        ],
+        "slowest_three_panel_shards": [
+          9
+        ],
+        "steady": 4675,
+        "three_panel": 14203
+      },
+      "edges": 1146,
+      "old_dynamic_count": [
+        9,
+        9,
+        5,
+        3,
+        3,
+        4,
+        6,
+        0,
+        15,
+        12,
+        10,
+        0,
+        12,
+        11,
+        8,
+        15
+      ],
+      "original_rows": [
+        1536,
+        1792
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 4556,
+        "setup": 1444,
+        "slowest_steady_shards": [
+          9
+        ],
+        "slowest_three_panel_shards": [
+          9
+        ],
+        "steady": 4655,
+        "three_panel": 15409
+      },
+      "tungsten_four": {
+        "min_pe_steady": 4784,
+        "setup": 1444,
+        "slowest_steady_shards": [
+          9
+        ],
+        "slowest_three_panel_shards": [
+          9
+        ],
+        "steady": 4880,
+        "three_panel": 16084
+      },
+      "window": 6
+    },
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        51,
+        24,
+        42,
+        51,
+        33,
+        17,
+        12,
+        8,
+        8,
+        18,
+        92,
+        93,
+        86,
+        67,
+        77,
+        57
+      ],
+      "all_shard_counts": [
+        51,
+        24,
+        42,
+        51,
+        33,
+        17,
+        12,
+        8,
+        8,
+        18,
+        170,
+        263,
+        94,
+        67,
+        77,
+        57
+      ],
+      "busiest_shards": [
+        11
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 4010,
+        "setup": 173,
+        "slowest_steady_shards": [
+          11
+        ],
+        "slowest_three_panel_shards": [
+          11
+        ],
+        "steady": 4042,
+        "three_panel": 12299
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 4221,
+        "setup": 173,
+        "slowest_steady_shards": [
+          11
+        ],
+        "slowest_three_panel_shards": [
+          11
+        ],
+        "steady": 4253,
+        "three_panel": 12932
+      },
+      "edges": 992,
+      "old_dynamic_count": [
+        3,
+        8,
+        10,
+        3,
+        1,
+        1,
+        12,
+        8,
+        8,
+        2,
+        12,
+        13,
+        6,
+        3,
+        13,
+        9
+      ],
+      "original_rows": [
+        1792,
+        2048
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 4151,
+        "setup": 1105,
+        "slowest_steady_shards": [
+          11
+        ],
+        "slowest_three_panel_shards": [
+          11
+        ],
+        "steady": 4272,
+        "three_panel": 13921
+      },
+      "tungsten_four": {
+        "min_pe_steady": 4391,
+        "setup": 1105,
+        "slowest_steady_shards": [
+          11
+        ],
+        "slowest_three_panel_shards": [
+          11
+        ],
+        "steady": 4509,
+        "three_panel": 14632
+      },
+      "window": 7
+    },
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        57,
+        21,
+        37,
+        37,
+        19,
+        15,
+        14,
+        25,
+        18,
+        13,
+        59,
+        85,
+        117,
+        114,
+        70,
+        59
+      ],
+      "all_shard_counts": [
+        57,
+        21,
+        37,
+        37,
+        19,
+        15,
+        14,
+        25,
+        18,
+        13,
+        59,
+        85,
+        279,
+        208,
+        70,
+        59
+      ],
+      "busiest_shards": [
+        12
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 4264,
+        "setup": 177,
+        "slowest_steady_shards": [
+          12
+        ],
+        "slowest_three_panel_shards": [
+          12
+        ],
+        "steady": 4299,
+        "three_panel": 13074
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 4339,
+        "setup": 177,
+        "slowest_steady_shards": [
+          12
+        ],
+        "slowest_three_panel_shards": [
+          12
+        ],
+        "steady": 4374,
+        "three_panel": 13299
+      },
+      "edges": 1016,
+      "old_dynamic_count": [
+        9,
+        5,
+        5,
+        5,
+        3,
+        15,
+        14,
+        9,
+        2,
+        13,
+        11,
+        5,
+        5,
+        2,
+        6,
+        11
+      ],
+      "original_rows": [
+        2048,
+        2304
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 4316,
+        "setup": 1367,
+        "slowest_steady_shards": [
+          12
+        ],
+        "slowest_three_panel_shards": [
+          12
+        ],
+        "steady": 4448,
+        "three_panel": 14711
+      },
+      "tungsten_four": {
+        "min_pe_steady": 4612,
+        "setup": 1367,
+        "slowest_steady_shards": [
+          12
+        ],
+        "slowest_three_panel_shards": [
+          12
+        ],
+        "steady": 4741,
+        "three_panel": 15590
+      },
+      "window": 8
+    },
+    {
+      "active_destination_rows": 256,
+      "all_ordinary_counts": [
+        54,
+        31,
+        61,
+        60,
+        22,
+        18,
+        19,
+        21,
+        21,
+        19,
+        55,
+        77,
+        68,
+        87,
+        111,
+        78
+      ],
+      "all_shard_counts": [
+        54,
+        31,
+        61,
+        60,
+        22,
+        18,
+        19,
+        21,
+        21,
+        19,
+        55,
+        77,
+        68,
+        163,
+        281,
+        88
+      ],
+      "busiest_shards": [
+        14
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 4296,
+        "setup": 177,
+        "slowest_steady_shards": [
+          14
+        ],
+        "slowest_three_panel_shards": [
+          14
+        ],
+        "steady": 4337,
+        "three_panel": 13188
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 4524,
+        "setup": 177,
+        "slowest_steady_shards": [
+          14
+        ],
+        "slowest_three_panel_shards": [
+          14
+        ],
+        "steady": 4565,
+        "three_panel": 13872
+      },
+      "edges": 1058,
+      "old_dynamic_count": [
+        6,
+        15,
+        13,
+        12,
+        6,
+        2,
+        3,
+        5,
+        5,
+        3,
+        7,
+        13,
+        4,
+        7,
+        15,
+        14
+      ],
+      "original_rows": [
+        2304,
+        2560
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 4380,
+        "setup": 1303,
+        "slowest_steady_shards": [
+          14
+        ],
+        "slowest_three_panel_shards": [
+          14
+        ],
+        "steady": 4534,
+        "three_panel": 14905
+      },
+      "tungsten_four": {
+        "min_pe_steady": 4614,
+        "setup": 1303,
+        "slowest_steady_shards": [
+          15
+        ],
+        "slowest_three_panel_shards": [
+          14
+        ],
+        "steady": 4767,
+        "three_panel": 15598
+      },
+      "window": 9
+    },
+    {
+      "active_destination_rows": 148,
+      "all_ordinary_counts": [
+        27,
+        13,
+        27,
+        30,
+        14,
+        10,
+        8,
+        13,
+        11,
+        14,
+        37,
+        29,
+        41,
+        44,
+        49,
+        45
+      ],
+      "all_shard_counts": [
+        27,
+        13,
+        27,
+        30,
+        14,
+        10,
+        8,
+        13,
+        11,
+        14,
+        37,
+        29,
+        41,
+        44,
+        49,
+        193
+      ],
+      "busiest_shards": [
+        15
+      ],
+      "csl_chosen": {
+        "min_pe_steady": 3077,
+        "setup": 155,
+        "slowest_steady_shards": [
+          15
+        ],
+        "slowest_three_panel_shards": [
+          15
+        ],
+        "steady": 3123,
+        "three_panel": 9524
+      },
+      "csl_dynamic": {
+        "min_pe_steady": 3259,
+        "setup": 155,
+        "slowest_steady_shards": [
+          15
+        ],
+        "slowest_three_panel_shards": [
+          15
+        ],
+        "steady": 3305,
+        "three_panel": 10070
+      },
+      "edges": 560,
+      "old_dynamic_count": [
+        11,
+        13,
+        11,
+        14,
+        14,
+        10,
+        8,
+        13,
+        11,
+        14,
+        5,
+        13,
+        9,
+        12,
+        1,
+        13
+      ],
+      "original_rows": [
+        2560,
+        2708
+      ],
+      "tungsten_dynamic": {
+        "min_pe_steady": 3204,
+        "setup": 571,
+        "slowest_steady_shards": [
+          15
+        ],
+        "slowest_three_panel_shards": [
+          15
+        ],
+        "steady": 3363,
+        "three_panel": 10660
+      },
+      "tungsten_four": {
+        "min_pe_steady": 3457,
+        "setup": 571,
+        "slowest_steady_shards": [
+          15
+        ],
+        "slowest_three_panel_shards": [
+          15
+        ],
+        "steady": 3616,
+        "three_panel": 11419
+      },
+      "window": 10
+    }
+  ],
+  "static_end": 39888,
+  "tungsten": "four-edge"
+}

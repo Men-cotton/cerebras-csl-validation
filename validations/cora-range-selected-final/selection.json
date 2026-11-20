@@ -1,0 +1,2998 @@
+{
+  "active_pe": 64,
+  "backend": "SDK WSE-3 simulator",
+  "best": {
+    "csl": "csl_static_residual_suffix",
+    "tungsten": "tungsten_final_self"
+  },
+  "cases": {
+    "csl_final_self": {
+      "capture_sha256": "a9981f78ad31c419800f50cb356eb18d4b6b6d1e43a598fb87e6e1262e6c509d",
+      "data_scope": "ordered original Cora; all padded words equal in each window and all three panels",
+      "elf_sha256": {
+        "out_0_0.elf": "1618021def71e5a3dd418cc15648a2848e75f86dec96edcc32e89cb82cc94c98",
+        "out_10_0.elf": "fd36b495c25b46f137a214936528b40938f937449b29b49fbb8e7e473b46fd13",
+        "out_11_0.elf": "9a7a8b7dbd99360a99757cca46b1c2e64a9c654565f5f069da0cefd35beca7c7",
+        "out_12_0.elf": "d370abbd12dc99488d4d340daa2676200c580e8d2823707d7dbd64f8c7671cd0",
+        "out_13_0.elf": "1da73ac060c26f1ce0e189bb92386bf3a010925ce07991ed7f064f4069d1b6d4",
+        "out_14_0.elf": "b087b8b0acde50f2714fb04b73c390bad88e4cd0ecd205c6e812c3038528a2a1",
+        "out_15_0.elf": "e44fc60d25b9ee4d81c8c136c5d471fc4cc2c389d2dabd480c611599757066c3",
+        "out_16_0.elf": "0ee17dd68439666e2162f4fa8590ddbc21803ab73cdf52c1459cca9b30ec87a8",
+        "out_17_0.elf": "760872751a100dacf3b859e56b5b86fa1a28e4e876e385d45a9e8d80b73858c3",
+        "out_18_0.elf": "fe4b55c2dd3e970dc5aa051de1cd5652b581c72c34bce204c1c953f6498832cb",
+        "out_19_0.elf": "c36a8cbde3c3af12f5706a6c864517580ca49d2e0e3eb68e5482e82a55bf4d80",
+        "out_1_0.elf": "274d446b116971230ffd40a723bce8ca40f0b75b6e87a9cb422641c8f785e25f",
+        "out_20_0.elf": "12c6ad4e39b9e1d6164d76212ebba77a263b7c01619bbe9bb41cca23db293d38",
+        "out_21_0.elf": "76666f589ca60d571abc4c9fb1822ead75733971fc4f4eade2cfd2815ca7b040",
+        "out_22_0.elf": "c0ee07144a5c146a5e43c63919ee00491f6138bf16b831e80d8e3c30bee74114",
+        "out_23_0.elf": "189ddeda6d9b1e97018e9c459217b52b228d3d8e44abed03b3bb45b7ae8a14dd",
+        "out_24_0.elf": "a4ac94204c3705aaa5c6ad7165cf08067bef8be6900048a3ccd76c9bff8b7949",
+        "out_25_0.elf": "15dbed8de1c8ae178184b9a97c290a4830cef1f56ae4feb3fd57ecda5a206dc2",
+        "out_26_0.elf": "b8ae3bcc3483f6aebe41b7bb86589a1b367f9f517dc4cae08a61aafcd5511b45",
+        "out_27_0.elf": "46bc306d9f55a998be40665b493e7ea61e0b944ad4680f674bb856f5a41b69ea",
+        "out_28_0.elf": "2bd36f5822aab49d4595cd36fe4ea49dc7f38ea8d577f905d194497c1399f73a",
+        "out_29_0.elf": "9749ed1f5415aa1751a52bbb2ba8d041b519e17ca44cc030c292d9b567856240",
+        "out_2_0.elf": "a7ee8b457db59722b38f3cfb3da1feda3e19907c9e496d160e8d9395854277cc",
+        "out_30_0.elf": "41b492d024a0bcaa20b414a7fe431787d6fef5eea0536d38886a8660bfe47f44",
+        "out_31_0.elf": "b641426d4dc91a49a6220e254d0600bc20b1a1576d8087f1368279eac5e6e126",
+        "out_32_0.elf": "4ebacfc92004cb98a3b91b2ec2c734b1b6115896f0795191b2562c31c41014e7",
+        "out_33_0.elf": "8c930e052a07aca61c6d3d48ea0198981f22d60fe47f7dfadde2eb865238542f",
+        "out_34_0.elf": "7f6c098de4e2832993988f762eaa06977c0803bea9f05b4611bc54cb33d04b05",
+        "out_35_0.elf": "7d08b1b8da8e95cf82b65dbd5066b402c088c9e5e66ded69aaf47cab28784049",
+        "out_36_0.elf": "01f0b3c11e059fbc2daf4b0b1c7f34ac809558c5ff7d943c5ccc1605716b37d6",
+        "out_37_0.elf": "c2bb859dfcd01c1d92a62e8069b29b9b084c9543b01770f9d929a38e7f46c8a2",
+        "out_38_0.elf": "8a021997cbdf7d74e334439a7d020dad2fd5f2bb8857036e4586c6795180a7ec",
+        "out_39_0.elf": "3f202e768e5724bbf12d18664732e5efd3943851b6220f8721f7aca1e47322c3",
+        "out_3_0.elf": "b72577c58b2a09013820e85f72a32bacab64c178d2ce618188f0441eefb61406",
+        "out_40_0.elf": "c7572b65c05268f5d245abe8e415e7fdca31aeb4e48dd51a7d942dcb8f5e2e84",
+        "out_41_0.elf": "5a8dec82a73b29f190dc03506df911b95c6392113efb6f4d714ed395aa6551af",
+        "out_42_0.elf": "4931ef4cad5c992a1885cd9e94b1af7a1e3f4e24b6738603b3f12fd828c09a1f",
+        "out_43_0.elf": "120dc0f1f7a499e1bd1b9747d25161fee3428b44bf22827491c4b2d9dba5492a",
+        "out_44_0.elf": "6f5d30946af0cd2becbb307c2d2ef6c7981f9cd39befc5c948d88f6f4f528585",
+        "out_45_0.elf": "4963a8e46ad7d67edf34350cb1b803bda7a9e77ec799a8165af3be899eab04da",
+        "out_46_0.elf": "cf2f7a427a7d6e4f7dd867a370b428a30e6b11d76c2643f63412d9ad1c4c813c",
+        "out_47_0.elf": "d36894f58cd916c96e0b66628fd68a3c89294618c8a1c9d761e665242b02810d",
+        "out_48_0.elf": "88d94a72217f110d8376a7fc24ee862cda463b3e80c0e345be371a5c1bf9f5a8",
+        "out_49_0.elf": "5a1606600d651a9fe96ad8f60ef65e68c1f0f085c3d5091c211ff6cf6c7e32e9",
+        "out_4_0.elf": "4f986622a08c186d142e92d06013f4a4486b763082468e373d250fcbf0145ec4",
+        "out_50_0.elf": "ec9beefcb866753ace24411b48b4b6c5a30177303fec098be0bc950599894ffc",
+        "out_51_0.elf": "06729c78f0c0e148a8448d71d8cab985926d5f10f53a5745280699a3707c4d64",
+        "out_52_0.elf": "d1bc949bb6f9df0167a9e8adf249ed46500eeddb15c98ad6b97c4e74b62a59b8",
+        "out_53_0.elf": "d22d7f285f93a123e1915b4def94b2db43ce907eb2902b73f8e3dc00cedb67a6",
+        "out_54_0.elf": "5f3fe9f288800434793995791c046d50577b94f18e4b1f83afa431cc13e2f4c9",
+        "out_55_0.elf": "60ad758591cb050a11567732f391e5496cec4cdade9d9859ccb94a22d22bafc7",
+        "out_56_0.elf": "a620cf2293713e84bbd6bece6d32285d6c50afe83f3ab8ce93baac8a73aa65cc",
+        "out_57_0.elf": "1d0708d0150f5a04f7da039df141ec90f8d916d0ef7271e596fd0c9f6dc6664a",
+        "out_58_0.elf": "49e2b14f6db4f25f224cc43f1b024c38864990ee80a0bc616e6cb044d81fa4cc",
+        "out_59_0.elf": "678ba8eb498728367cbefade583a2194dfa9352c007476aa8e596d3b519b0669",
+        "out_5_0.elf": "54121b9459da5b85a86ddbaccdc0dde2fb9222c91b349b1a2d7318c88f9be72e",
+        "out_60_0.elf": "b09b7e707632ad2164287e0c34ac3ed06a95808f529dbe2365d7a6b8f4a6fafc",
+        "out_61_0.elf": "615615fb3753f81b9bfd0a657df4e448b37688482306b3a5338cdaa425e169be",
+        "out_62_0.elf": "ec08726298391f5fef94a98157d09fde014cb3e24ae8285e73cc619c2a9279d0",
+        "out_63_0.elf": "785465fa1660d80854979bdec6fe909979a8a2d42ce1f8eca16d39536d075fb8",
+        "out_6_0.elf": "1b2ea3e1f36c8089cd56d293a41d8723a528633100f83c58c3f6f61d396ffde9",
+        "out_7_0.elf": "38054049d598c4329a39a33f22a70424dbbe2d0c63ab460681a55385918fd702",
+        "out_8_0.elf": "6b0c633aaa0b54fe4fe7da7188fd3caa7ffc95e2d781f2e4a4f4f45549355c1a",
+        "out_9_0.elf": "07f41c8d08a073a057ed67e35365addad282e2862a90e8c5ba3a1624cc022712"
+      },
+      "language": "csl",
+      "method": "tail",
+      "release_sha256": "c0a9c0d26e06c2b4bf0cf8ab051e9027d178ace7bbc0cf84404468e2da620454",
+      "result_sha256": "a3216722543b29d300e0c75751ce408f0654df1251c45a790f475d3569ff5548",
+      "summary": {
+        "compute_sum": [
+          52911,
+          52911,
+          52911
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          54916,
+          107827,
+          160738
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          54916,
+          107827,
+          160738
+        ],
+        "setup_sum": 2005,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              5454,
+              5454,
+              5454
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              5647,
+              11101,
+              16555
+            ],
+            "setup_max": 193,
+            "start": 0,
+            "sum_phase_max": [
+              5647,
+              11101,
+              16555
+            ]
+          },
+          {
+            "compute_max": [
+              5282,
+              5282,
+              5282
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              5471,
+              10753,
+              16035
+            ],
+            "setup_max": 189,
+            "start": 256,
+            "sum_phase_max": [
+              5471,
+              10753,
+              16035
+            ]
+          },
+          {
+            "compute_max": [
+              6345,
+              6345,
+              6345
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              6552,
+              12897,
+              19242
+            ],
+            "setup_max": 207,
+            "start": 512,
+            "sum_phase_max": [
+              6552,
+              12897,
+              19242
+            ]
+          },
+          {
+            "compute_max": [
+              4819,
+              4819,
+              4819
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              5006,
+              9825,
+              14644
+            ],
+            "setup_max": 187,
+            "start": 768,
+            "sum_phase_max": [
+              5006,
+              9825,
+              14644
+            ]
+          },
+          {
+            "compute_max": [
+              4940,
+              4940,
+              4940
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              5123,
+              10063,
+              15003
+            ],
+            "setup_max": 183,
+            "start": 1024,
+            "sum_phase_max": [
+              5123,
+              10063,
+              15003
+            ]
+          },
+          {
+            "compute_max": [
+              4899,
+              4899,
+              4899
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              5085,
+              9984,
+              14883
+            ],
+            "setup_max": 186,
+            "start": 1280,
+            "sum_phase_max": [
+              5085,
+              9984,
+              14883
+            ]
+          },
+          {
+            "compute_max": [
+              4675,
+              4675,
+              4675
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              4853,
+              9528,
+              14203
+            ],
+            "setup_max": 178,
+            "start": 1536,
+            "sum_phase_max": [
+              4853,
+              9528,
+              14203
+            ]
+          },
+          {
+            "compute_max": [
+              4253,
+              4253,
+              4253
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              4426,
+              8679,
+              12932
+            ],
+            "setup_max": 173,
+            "start": 1792,
+            "sum_phase_max": [
+              4426,
+              8679,
+              12932
+            ]
+          },
+          {
+            "compute_max": [
+              4374,
+              4374,
+              4374
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              4551,
+              8925,
+              13299
+            ],
+            "setup_max": 177,
+            "start": 2048,
+            "sum_phase_max": [
+              4551,
+              8925,
+              13299
+            ]
+          },
+          {
+            "compute_max": [
+              4565,
+              4565,
+              4565
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              4742,
+              9307,
+              13872
+            ],
+            "setup_max": 177,
+            "start": 2304,
+            "sum_phase_max": [
+              4742,
+              9307,
+              13872
+            ]
+          },
+          {
+            "compute_max": [
+              3305,
+              3305,
+              3305
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              3460,
+              6765,
+              10070
+            ],
+            "setup_max": 155,
+            "start": 2560,
+            "sum_phase_max": [
+              3460,
+              6765,
+              10070
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "csl_original": {
+      "capture_sha256": "65d5d3af4a599682b50d081655f33b7c5e08eafa7d6c23735df798bacebfd606",
+      "data_scope": "ordered original Cora; all padded words equal in each window and all three panels",
+      "elf_sha256": {
+        "out_0_0.elf": "870d1652fb04926dc075959e17b6d007b863c2f0e6caed72dd1dfa5bf8d8459a",
+        "out_10_0.elf": "514330e339f140ad5205752bf6a0d49017dec108ace66bc792f0d712dfb3b177",
+        "out_11_0.elf": "25af74eea6eacebdd0bad451e3b5094ee790523cb177a73eb0ea455a55c032b8",
+        "out_12_0.elf": "af9f6b35fcfcc6d0949bf8021019e579ac8b34a5a3aefb14c2ac6d63030bab7a",
+        "out_13_0.elf": "827d7d112d4ea1a9c8fdd80f78330f13d74f2cc0fc4df3765663497c2d6172c8",
+        "out_14_0.elf": "f455155bc382e4e4dc015b8d79ae3f52e1fa0cfad5c0cc03074726eaa098cc26",
+        "out_15_0.elf": "20244d2ee05272abeece7e128d3e3603b40270036c02d317cb9620be76e7b376",
+        "out_16_0.elf": "b52bdf87788b033b371ab78a5f6d447cd44d84fe4493742941911bd02e669a08",
+        "out_17_0.elf": "a63fc4ae10bf93bc70fab2c8c0d24d102ecb99d098567e477ba54fc965c454ff",
+        "out_18_0.elf": "624a9073ed0c914d58231219ce2e13c16a4e6cbb7470bd31901f83894005cd2b",
+        "out_19_0.elf": "8a5bc7d3235cfe63a1347d4494170acf82bc3423ab86f3b0767cc803d5241e6a",
+        "out_1_0.elf": "acc840b7c543603aa25e008473226295e4088b5e8a61af400cac4b6146d502de",
+        "out_20_0.elf": "9e1174487e88560bcafa0c70f88d2292ed719176954d001aa9f6658c307d2ddb",
+        "out_21_0.elf": "84a036744d416eedecbf78cb958a30a2450e8e9d326dd75f5c948adb9d4cafb3",
+        "out_22_0.elf": "106f0b16f99b9e9f287e4cbd549a9a3e8778137b231c1ed7665fa4acb578c098",
+        "out_23_0.elf": "1b8485dd9336408be25db769882b4099930c705a7126da9eb029d25a55c692b3",
+        "out_24_0.elf": "986dac64013138bae69eff03e9817911123f527f6aa80a01f05759e24ad943cf",
+        "out_25_0.elf": "a8612cd4d34ffafd07975d3c204338def32dd10f84730868f43ac6273ff071f0",
+        "out_26_0.elf": "4937a2a033c0f4c2923a39a62e27c60cb4c34cf0450f4e7e489d4c9450bb30e2",
+        "out_27_0.elf": "6a1ce2d2c0eac1b6db0643423e759e2940e7d2aa575cf2e6be87e165d3af43b5",
+        "out_28_0.elf": "552f4c64fee002f0bcce7d5ea6b373b109b3ecbcf82b8ad1fa1372cafed55123",
+        "out_29_0.elf": "ed3322930d62eb55092ba0c601ecbe292dcee31d1e2d68fd6b088921e524e975",
+        "out_2_0.elf": "24e6458a28990b5da4795fda1cfe5d864f0b5f344dad56b0170ebb61c32a8adc",
+        "out_30_0.elf": "31787a9ab63a7f7737fe28adac678f305aadec20586f9b537ef689ce718a4b92",
+        "out_31_0.elf": "7cd83aa4574fe63f0f89873dd84da4a9813d69197250d694f77ae5b664b35289",
+        "out_32_0.elf": "e91f5af1d49e0655e1fc9470c108918b1c4fd6853ac53104f7284040576f288d",
+        "out_33_0.elf": "d506d18280163d4682acb73434c4d23e97001bfe0e81dc8ec419ffcd22c63630",
+        "out_34_0.elf": "f59b2aecd70e92e97e85b409be40586df16cae22ddb565323e2c94c45a8c623e",
+        "out_35_0.elf": "b59c81c81e851cff436e54a12309727ba12fa538f883281ab22c955be41e05e3",
+        "out_36_0.elf": "cc1c61d96123b7ef766f4030645f7883340fc471ce65e084dc5bf9a45850ada4",
+        "out_37_0.elf": "f0490bddf0135ce1104874b550cae26b6c85d30372d08ffac54c57d474a0c24c",
+        "out_38_0.elf": "bdbb18c35a6c8358027b4d851ea06f9ad54d99581bda74afc6be8587865c40c9",
+        "out_39_0.elf": "36b29f71bf8af707bf53071c28220a1316a6ae0329b6f5a1dfb7f1de82ed70dd",
+        "out_3_0.elf": "56d4670f69e33a9c948be4200b57da02bf75c0f8601061fd59b0c77c935bbbfd",
+        "out_40_0.elf": "163c8a60e905b7bcc7e681c1b5f346e6a93b4de677af919b1e441ac23d0b2725",
+        "out_41_0.elf": "19611bb16ab729517fe6195aca0b54e9cf0abaeddc8c6fd0e1a328fe3a553ed6",
+        "out_42_0.elf": "a2a31dd8abf1ffe389a5f163e5462e62cddbdb6e61b7c5643f3db95d4500ffdd",
+        "out_43_0.elf": "fd6cba93324dabb30b2c8dbac06ff962e45393ec23b9866c11857071fba13366",
+        "out_44_0.elf": "8baf96027f2b658921562238825a75585d2519495226bea211336573f6e78ada",
+        "out_45_0.elf": "70dda534403f118afc74fb542937223d1c6a88deaea94849fd3201078054d3d1",
+        "out_46_0.elf": "8755935b957dba9f8ccad4db42d9e4f2789ac277c90ae7dbde24f415c0644845",
+        "out_47_0.elf": "14a70d2e38f04ce9a1689272bce5008b3f1933332095e2672a5f8c32cb0858b7",
+        "out_48_0.elf": "9f6da905dca2104b41375709194d1e7fa13db2fbf832456f50f1c17dcc14c77c",
+        "out_49_0.elf": "c27b1205595ca5a76a4bd7414b4b8a405194e2326a6a78c3b55628f475f562f6",
+        "out_4_0.elf": "1b3c82ccd33096040545973c9ef7662ad4c67e5cd0b004b78e48d8d286e5471a",
+        "out_50_0.elf": "c62a5992f89ea478f96d097786b9a59a1d4706ae717904386bceef1f9b0668b6",
+        "out_51_0.elf": "bdd188089c126f86b1638b87589bc32631233e46434a9cfece9b8847b048a454",
+        "out_52_0.elf": "73cdce3140645f9e94c4b580973b7a44e3fb9a6e61791309a51188df7428f57c",
+        "out_53_0.elf": "b95ef98c25a6b9c3b3695c1a3a901b01c42a1e571159a6247b8b26b8e865a1cc",
+        "out_54_0.elf": "4d4ddd900f6de52572473258180e65a68072cc1c61ae3c12dcbeb02434434c02",
+        "out_55_0.elf": "4a516e4fe8f88c2b5b9d53c4b3d988de86020d9fef35443f45979b88196b785b",
+        "out_56_0.elf": "6b5c044e049140982798e1ce7935c3dad2b814b03a3cb26960c78fc8c12d925f",
+        "out_57_0.elf": "237a505e74f30e6e4a94898f0d3a84b9732b825d4a262a20b675cc6aee7c4803",
+        "out_58_0.elf": "b734c395d09dee3f1d31595e6ed5aa1034bebf451974f712ef3a30300d95889b",
+        "out_59_0.elf": "201f49918b6b7b25fc270c9a6792e1cb6e4b4958a10c3f52b7f431bc48ea7fd4",
+        "out_5_0.elf": "fd34aaf5debb9bf65f02c86def47083984cb9328a42a3ef9efd189b8c084dd9f",
+        "out_60_0.elf": "61f45a0e3dee6fe9e862317b93d7d789f2e8b8d70bba450798e42942c9d89495",
+        "out_61_0.elf": "add88e74ddc8fc1fc23f855c08f9ea20a06bdd04f367c311e3ee1aa732822b16",
+        "out_62_0.elf": "556a31789ab3e92c3b814d9b44ec30b44704517aa62e048e1714b629dfcc53af",
+        "out_63_0.elf": "27fe83c2c504dce45eb58e0cc3e0863bda516f4beb1c37bfe2572d33d438e786",
+        "out_6_0.elf": "3dd52868f3785dbdeddc34a24fc7e84fd06d4c072f7c1ae1a98a3ed0fbe3dd4f",
+        "out_7_0.elf": "73eaf229d1cd693630246ca4d9603447142331e852f523e73ddf91d8ee0815d6",
+        "out_8_0.elf": "e8a973c1154727c290051a61c227689ddd42948552f1f280d078d8c901257be0",
+        "out_9_0.elf": "5e384f8d9df5d49046aa72b3b385e730932887f7709e260e3844e95aabef6886"
+      },
+      "language": "csl",
+      "method": "original",
+      "release_sha256": "32fc9e8e11e6413c38173da3ac3cd26e48bb48ac528bc66b28a1dcecbcea14a6",
+      "result_sha256": "dbc57eb5d13826e0c6755bd12abdd502bba9fc9907d8f6929b2663f799d985f6",
+      "summary": {
+        "compute_sum": [
+          132021,
+          132021,
+          132021
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          235106,
+          367127,
+          499148
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          235106,
+          367127,
+          499148
+        ],
+        "setup_sum": 103085,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              13518,
+              13518,
+              13518
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              24166,
+              37684,
+              51202
+            ],
+            "setup_max": 10648,
+            "start": 0,
+            "sum_phase_max": [
+              24166,
+              37684,
+              51202
+            ]
+          },
+          {
+            "compute_max": [
+              13001,
+              13001,
+              13001
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              23215,
+              36216,
+              49217
+            ],
+            "setup_max": 10214,
+            "start": 256,
+            "sum_phase_max": [
+              23215,
+              36216,
+              49217
+            ]
+          },
+          {
+            "compute_max": [
+              15761,
+              15761,
+              15761
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              28300,
+              44061,
+              59822
+            ],
+            "setup_max": 12539,
+            "start": 512,
+            "sum_phase_max": [
+              28300,
+              44061,
+              59822
+            ]
+          },
+          {
+            "compute_max": [
+              12525,
+              12525,
+              12525
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              22336,
+              34861,
+              47386
+            ],
+            "setup_max": 9811,
+            "start": 768,
+            "sum_phase_max": [
+              22336,
+              34861,
+              47386
+            ]
+          },
+          {
+            "compute_max": [
+              12161,
+              12161,
+              12161
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              21662,
+              33823,
+              45984
+            ],
+            "setup_max": 9501,
+            "start": 1024,
+            "sum_phase_max": [
+              21662,
+              33823,
+              45984
+            ]
+          },
+          {
+            "compute_max": [
+              12607,
+              12607,
+              12607
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              22480,
+              35087,
+              47694
+            ],
+            "setup_max": 9873,
+            "start": 1280,
+            "sum_phase_max": [
+              22480,
+              35087,
+              47694
+            ]
+          },
+          {
+            "compute_max": [
+              11509,
+              11509,
+              11509
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              20452,
+              31961,
+              43470
+            ],
+            "setup_max": 8943,
+            "start": 1536,
+            "sum_phase_max": [
+              20452,
+              31961,
+              43470
+            ]
+          },
+          {
+            "compute_max": [
+              10579,
+              10579,
+              10579
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              18747,
+              29326,
+              39905
+            ],
+            "setup_max": 8168,
+            "start": 1792,
+            "sum_phase_max": [
+              18747,
+              29326,
+              39905
+            ]
+          },
+          {
+            "compute_max": [
+              11161,
+              11161,
+              11161
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              19825,
+              30986,
+              42147
+            ],
+            "setup_max": 8664,
+            "start": 2048,
+            "sum_phase_max": [
+              19825,
+              30986,
+              42147
+            ]
+          },
+          {
+            "compute_max": [
+              11241,
+              11241,
+              11241
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              19967,
+              31208,
+              42449
+            ],
+            "setup_max": 8726,
+            "start": 2304,
+            "sum_phase_max": [
+              19967,
+              31208,
+              42449
+            ]
+          },
+          {
+            "compute_max": [
+              7958,
+              7958,
+              7958
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              13956,
+              21914,
+              29872
+            ],
+            "setup_max": 5998,
+            "start": 2560,
+            "sum_phase_max": [
+              13956,
+              21914,
+              29872
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "csl_sole_self": {
+      "capture_sha256": "0c737b59e5038a5474e136cbae5a2634cd789733b8f0f9a366d027017b070ec2",
+      "data_scope": "ordered original Cora; all padded words equal in each window and all three panels",
+      "elf_sha256": {
+        "out_0_0.elf": "64080d9e7e0eb3a22fe5c60b35414cb1437a4413550c4d621060a06db84e437b",
+        "out_10_0.elf": "42bd64f99f9b2f8de7e6c68ab9609fd2884498769c0add43254fd578ef1170b4",
+        "out_11_0.elf": "9750aff05705095378a99eac0ec7438b131ad6da1f3ace7c1d4fdd2dbf459854",
+        "out_12_0.elf": "15876ce537ea78851fdcbc4ab208c364af95ba9f4b0a1e9820820f5628e3d06e",
+        "out_13_0.elf": "16a0769583529d9a94359e81c7d55f75e612605b04c3873a2882033ece26d13e",
+        "out_14_0.elf": "308fd8bcb72fa34b819431f092ada8e545020bfdd2a1a26fa6052821a5e794d2",
+        "out_15_0.elf": "3d551f16b85b0bcb8d10eae104ef0e831234f4be8c49763dd5e18c92d7b6a396",
+        "out_16_0.elf": "adc6a2324a6f35fd5367f1d27060ba12d7e778f96a3cd256ae3bfcb7ce7e9d28",
+        "out_17_0.elf": "a2cde5a7de87261aa6f7bc802bddec6b051d7e0e636118487855003c189f5e8c",
+        "out_18_0.elf": "71f02740f6fb42571404c4e497a9840b387bb1849b311723835c745fc6cb051a",
+        "out_19_0.elf": "444ef9a9bf36382d6125e47e463cf1f43c0daae66feba1fd1419c14ab534e761",
+        "out_1_0.elf": "daacc9d6d8fc9c38b048f6cd17f11fc1cb4d138c6032cf4efe13f0b7b31b0ffb",
+        "out_20_0.elf": "918b7673de049d666e50f0a3344445e92b597d2e7d37101c3266186a5f98bcf1",
+        "out_21_0.elf": "6396541ab8360c813895ff10ea773e9fadcc91edbe777025a7a51382db20d3b0",
+        "out_22_0.elf": "052363ebb79d66f8fbd9c5c6d6edad66903395ce97a4f0a8fa90ae69dd1b179c",
+        "out_23_0.elf": "3ec82c4292c4b890a69ce141384d2a3d50ee91a7a694e273d1f69d800fcd1c6c",
+        "out_24_0.elf": "0fb411b8b6474f02445eb19e36600ba9701211c1ef0f4caac930ef3c3885ba9e",
+        "out_25_0.elf": "d48759b131de4e4db4d4827bceedf275fb614a302a69c9b4e0a393968a821359",
+        "out_26_0.elf": "80d1db8d298e95cc20e1339c738b034ef91bd15e2a7f1e1bef3f026a10b9271b",
+        "out_27_0.elf": "014eb16be6b1ea1547cad62a20872d701acf8c715e5984290f650acae1ed503c",
+        "out_28_0.elf": "fac002da2fb4dd35f2b96462150fe330c2cb64ad3bb55dae4a34af13405fcb63",
+        "out_29_0.elf": "57655e9da828172b043d78d5069a42af60c29153c3ea1c9af76532e8a47ba9df",
+        "out_2_0.elf": "0112e15f2b6b1e71f53b98299426f7819312e9d12b8802e8ec27cfc1e4aabea9",
+        "out_30_0.elf": "80d2705e54163e2cbf5040fd631c86ef1154e3a122e48cd7714778e7b940c219",
+        "out_31_0.elf": "f580a1a235404d4be790402ac509e1b1eaf41e0ce7184a67dce1c56e3aea1184",
+        "out_32_0.elf": "0318331837781828013eb1d38919ffc3ffb6fb0906dbac313561d21caaab4967",
+        "out_33_0.elf": "1184eb19fde15666578dd6b67a9266a43f2326bead07a8a987e8ba52f55a5a10",
+        "out_34_0.elf": "b5a98c6c746911d8e77c0886e493c6a066196827e08225526976b18f51d666e4",
+        "out_35_0.elf": "166d9e69ab540eb1ad31fef770d6c68f4a7e83ef5234496a1c5aff888655da03",
+        "out_36_0.elf": "8fb27c3b86914614e7479e784fe20871e6f660af3e7a459a275abe242317ee3f",
+        "out_37_0.elf": "cce148424affaf780b90430fa2329621eece0294050a89021da40b198ce14aff",
+        "out_38_0.elf": "b0561cec605a9ca6650c1da66022a4748a09ce32ec651be19fe92557084113da",
+        "out_39_0.elf": "4888c0d85af7d518ecde220dc9d17b5609d110fc3bf0f14cffa575d058ff8326",
+        "out_3_0.elf": "dfc949a7a29daf03a6c6444cf06657be81ea089cb5b884e24864521312aca3b8",
+        "out_40_0.elf": "ee939bdc5aca9c43450e78b39593513969968247e0cb486d9d2da352c0ce74be",
+        "out_41_0.elf": "695e681bf1deb90c7927b3ee131f51949bef3fe56220401bdc3f7d48c20db892",
+        "out_42_0.elf": "1091452da0f127d8ec3d832200b8590de0f876241b63b840332e85a619f5bb8a",
+        "out_43_0.elf": "684d16926e4cfe6458a7f2658b77ba8150bd239f39cae2243f1eab323c93ac92",
+        "out_44_0.elf": "2ef8eb117d0555ec0905f2c67a1ba0f5372367a885270f6cd1455c17d01b7bfc",
+        "out_45_0.elf": "53fc8284a764a5ab08feded97ab462ea60e0853c8b2be67372fce7d4a85d204e",
+        "out_46_0.elf": "396deb23ed63676433c66b15f76d5468d1ed7f0257522c39f723aaa8f38a62ab",
+        "out_47_0.elf": "bf62f8d5671cbd70affa135b2b0eb3bc69e79ddc5de143b2b60eaf5e61e3cdbd",
+        "out_48_0.elf": "09de61b3739cdc17ce23ef3c213cc609ff16eab0c88d0affd6734aa652d78b4c",
+        "out_49_0.elf": "1ed5aafcd4a15d507875edd54f25fc516e8ed7e836d2c47323c872d0cc78d2e0",
+        "out_4_0.elf": "5957ecc10a39df7c4f4a756850f174f181867aa5bd220169261558c162461727",
+        "out_50_0.elf": "36fa30311eff6f42a036e960174fb5b3baf5c1325274fc2607b15acb4512815e",
+        "out_51_0.elf": "d39d71fd4ca6bfcc6fc6e1376cef9c71054972089dc802019409c032f6e8824b",
+        "out_52_0.elf": "57e494c6941cdcc998cbb36a642ad9369f0071fa35d2533484987f0e5fd6de98",
+        "out_53_0.elf": "a28c7c1af02da402229be62da2a69698a66c16abae61754fd1d19a6f21813b5a",
+        "out_54_0.elf": "a2c3e987508f39117d337509de2d8d759d79740defde48ff57859e3fe7961be3",
+        "out_55_0.elf": "dbecccd02e6edff59ee0cf6aa53db15b68df2bd8dbbd7be9569a93d6deaae609",
+        "out_56_0.elf": "7a7bfd189094d9b4951dfcad4f90f106b6d77bea5b71916bcf69b38b9a4ae836",
+        "out_57_0.elf": "8f88f7f740d6e96806907882d066a3085625004e3fa19bb7b367c47e5aff439d",
+        "out_58_0.elf": "f970f98cf52cb2c219450229d4d5c6823acf3b5c0fee05607e881276fa3dc758",
+        "out_59_0.elf": "ef690ca743bb1abed2d718a139e5d200f0b4b3563e8b6a0fba5fd7afccf7fbe2",
+        "out_5_0.elf": "d6bc9515574f03bc0cedea131c239923b28737aadf7194093cfa0fce7ad1fd11",
+        "out_60_0.elf": "674de3d1530971b26585884e014a66c6e3f1f1e2a11c662e365d32069e74fbab",
+        "out_61_0.elf": "c7d99f8fa6c091b43c3c427bd6480413141600530147e77a9eb292cba040f1ca",
+        "out_62_0.elf": "fc1fe191ac031533efa5ed4d93bef6d6081218f96f7a87b07f1b30652dde7876",
+        "out_63_0.elf": "5f468a3e78da8ae43c01dea62be37a17152ac382020aff48c0177d5cc8f9ed30",
+        "out_6_0.elf": "8134fc4334b87832a93affa732406441fd5181fca8cf18cfb72ad0a2754e6d15",
+        "out_7_0.elf": "c9d608d992f0c38563e1dd8d46ffb905f8df12a83319e961a1000310403345c2",
+        "out_8_0.elf": "8906b585273251f2808e4c37693491012c6a723163e1e6031c0b1d2a4f104694",
+        "out_9_0.elf": "37a63e80e3821b65e1c6b824dc026b90641cc052e2936fd3ef0fb74e6c39d49f"
+      },
+      "language": "csl",
+      "method": "sole",
+      "release_sha256": "f060d9aaecb7cd30deb61259420dc99114633b088414e3a7b0372f41ba13281b",
+      "result_sha256": "c25ec7cb59d58330e074f6f32314bc97bbb18cb8cf8e77f3ad09638e0daa239a",
+      "summary": {
+        "compute_sum": [
+          56590,
+          56590,
+          56590
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          100794,
+          157384,
+          213974
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          100794,
+          157384,
+          213974
+        ],
+        "setup_sum": 44204,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              5930,
+              5930,
+              5930
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              9966,
+              15896,
+              21826
+            ],
+            "setup_max": 4036,
+            "start": 0,
+            "sum_phase_max": [
+              9966,
+              15896,
+              21826
+            ]
+          },
+          {
+            "compute_max": [
+              5583,
+              5583,
+              5583
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              9715,
+              15298,
+              20881
+            ],
+            "setup_max": 4132,
+            "start": 256,
+            "sum_phase_max": [
+              9715,
+              15298,
+              20881
+            ]
+          },
+          {
+            "compute_max": [
+              7730,
+              7730,
+              7730
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              10896,
+              18626,
+              26356
+            ],
+            "setup_max": 3166,
+            "start": 512,
+            "sum_phase_max": [
+              10896,
+              18626,
+              26356
+            ]
+          },
+          {
+            "compute_max": [
+              5563,
+              5563,
+              5563
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              9263,
+              14826,
+              20389
+            ],
+            "setup_max": 3700,
+            "start": 768,
+            "sum_phase_max": [
+              9263,
+              14826,
+              20389
+            ]
+          },
+          {
+            "compute_max": [
+              5250,
+              5250,
+              5250
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              9154,
+              14404,
+              19654
+            ],
+            "setup_max": 3904,
+            "start": 1024,
+            "sum_phase_max": [
+              9154,
+              14404,
+              19654
+            ]
+          },
+          {
+            "compute_max": [
+              5404,
+              5404,
+              5404
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              9599,
+              15003,
+              20407
+            ],
+            "setup_max": 4195,
+            "start": 1280,
+            "sum_phase_max": [
+              9599,
+              15003,
+              20407
+            ]
+          },
+          {
+            "compute_max": [
+              4920,
+              4920,
+              4920
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              8773,
+              13693,
+              18613
+            ],
+            "setup_max": 3853,
+            "start": 1536,
+            "sum_phase_max": [
+              8773,
+              13693,
+              18613
+            ]
+          },
+          {
+            "compute_max": [
+              4020,
+              4020,
+              4020
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              8632,
+              12652,
+              16672
+            ],
+            "setup_max": 4612,
+            "start": 1792,
+            "sum_phase_max": [
+              8632,
+              12652,
+              16672
+            ]
+          },
+          {
+            "compute_max": [
+              4661,
+              4661,
+              4661
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              8685,
+              13346,
+              18007
+            ],
+            "setup_max": 4024,
+            "start": 2048,
+            "sum_phase_max": [
+              8685,
+              13346,
+              18007
+            ]
+          },
+          {
+            "compute_max": [
+              4702,
+              4702,
+              4702
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              9044,
+              13746,
+              18448
+            ],
+            "setup_max": 4342,
+            "start": 2304,
+            "sum_phase_max": [
+              9044,
+              13746,
+              18448
+            ]
+          },
+          {
+            "compute_max": [
+              2827,
+              2827,
+              2827
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              7067,
+              9894,
+              12721
+            ],
+            "setup_max": 4240,
+            "start": 2560,
+            "sum_phase_max": [
+              7067,
+              9894,
+              12721
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "csl_static_residual_suffix": {
+      "capture_sha256": "f0ab2c9c22c60197677df8735552bafd63b2017d4c4f0dc8b480849415a71f40",
+      "data_scope": "ordered original Cora; all padded words equal in each window and all three panels",
+      "elf_sha256": {
+        "out_0_0.elf": "8659367a692f32c7a5f073439388f169c68eb9ec50a029776e1d71ae40b4e9d7",
+        "out_10_0.elf": "7fdf8bbb1f2a23e103dc23c36318b05f51e2b9858e3d8f8608820f5753508565",
+        "out_11_0.elf": "28c0904a2066dee1c745d744000350c9715f34625189ceed7c1105de116398ce",
+        "out_12_0.elf": "573024427a03672d9fe3296473434557303a58c37149f39c20e24b7b2cdef76a",
+        "out_13_0.elf": "6173f46b4ab3856927b31ed65e8a78ad73d0142e80e2e099693e0bec3e075d08",
+        "out_14_0.elf": "5f174a704fa313e076484f68e65d12a79e3d79b2ebf87a9bc083abaac228c61e",
+        "out_15_0.elf": "f5b36af74981aca478c619b7a0c6ee637a88250dc62b6ab182fab4183b8a9bdb",
+        "out_16_0.elf": "f59511b945639d0e6e1fb34ce4e2a0e03b842715bd09833d6dad1ec01f7e3c21",
+        "out_17_0.elf": "6755c0ebfe863c1452691078cd952c859efbf762118cba5d22b4620b9f66dd71",
+        "out_18_0.elf": "fc5f2609fd5615e17600ded816d1bbcdf072cdaf38c4549ee8578e7b4c700ca1",
+        "out_19_0.elf": "8bb21081d365629f71b5a87f6df32f451a4e6552cc1bb270863b793be3703fc2",
+        "out_1_0.elf": "0f05c857c31dbdb4daac58691769f1a387532ecd9371c9e0c25e171b8f509333",
+        "out_20_0.elf": "de98bf84e0474b0a08a754514f9030ca87459cd804753dcac4c58657d250921e",
+        "out_21_0.elf": "adeec2daa4144e1dd1150ea554adeff0a486a8af82774ae3b109ed65078b6304",
+        "out_22_0.elf": "76a707983bb328162c7ca981a9fb376c3548afcffa3e64d9309639dfe7268bb0",
+        "out_23_0.elf": "9b78a6965ac7fda378b28983c405677ea89593af41f0ea8222c5293fa827fa3f",
+        "out_24_0.elf": "f79672cb2e03716a2925b205f70cf8cb13ffd816a8310f1a2f44f7f3fea353ce",
+        "out_25_0.elf": "5b5cfc706aa1d5ec16e9de9172474348c4de91757e57bfd3388ffd0124456cca",
+        "out_26_0.elf": "a50fb0110a70e69f50378cbd5ff01daad5d102b3b9cd268670776eb5295b2f94",
+        "out_27_0.elf": "1b693524070c8ba55165579dc487f2eddc35fe081446db2b574350e767ad5f34",
+        "out_28_0.elf": "e9bcc6863254ee3f423f81ba2348d395b02540a61fc260308a31d499b8964ac9",
+        "out_29_0.elf": "22193953f88b9efe81593c40f9a6f023c6866db9071ae746c1d3815cb1aef6bc",
+        "out_2_0.elf": "2eb0660db5c72cdaca50c52c7f52b760df91c01be5dd18503072e41d52f23894",
+        "out_30_0.elf": "277faee6168641e92988e6d73520c48b4f96010ca90b9921532cc8d2523bdce7",
+        "out_31_0.elf": "bc2a3f5a7ff5aa2c25b2a47dd2b77e7685422adcc293d162aad02a11326cfb2e",
+        "out_32_0.elf": "16b508710c03a042cb1f4701794779c7e4c14b4fdad1b10d33f4981efaf9c1a0",
+        "out_33_0.elf": "aacdb1f299094beb464a91636839e5c0f72e468db5e9b6154c9ba326771d0a3d",
+        "out_34_0.elf": "2c8b160e9683f579e6e6bff8d75c425af699c281ec92c85921ecb2ffbf440ff3",
+        "out_35_0.elf": "85c2b65c86477164102756e39ab574840f595bd5ef06035825258220f7f27e78",
+        "out_36_0.elf": "e3b71fd64a16ac866a942713b406704d8eaee793ae3ab7e7f4ad920767f7b790",
+        "out_37_0.elf": "e30ea6d5af5b74e19debfe4cf435d07be5a78ea0e64c7c10b1108b19da75c817",
+        "out_38_0.elf": "b8e616f9f122d73598f5d9fbce03f279f01e15ecab7a5a85fbbf29a35b2e3928",
+        "out_39_0.elf": "2f5bc13eaa820f292732e00daf2723e7f12ea716bb0218aa083f98fe78eb0509",
+        "out_3_0.elf": "5a8484b86b07d179a88691613d057547152e120d11b2911e935a8b356a0ca677",
+        "out_40_0.elf": "60098a7ee58596e146d780306096a6994a28285f08dc03c19de52a0710728aa0",
+        "out_41_0.elf": "de68589fb34ea8f2ec0cc99e215428d4e32d7fd346aec4c1ab153a5b51604b7e",
+        "out_42_0.elf": "8a5b17c924e32bb1199c041ffe0c4e199187f88e43bba07ef7a6738b28d63466",
+        "out_43_0.elf": "02b8cd3c173930edc1a80a0b2f917a271da791e47851a35b41039addf64c1f50",
+        "out_44_0.elf": "92f454cc7ee8f3f98ff559fc63f4d51a9ab2d58bc6fa9711c8fb693b857c6a28",
+        "out_45_0.elf": "61f2db37c019149eb20425bc692ee124ffec70a5fed1db9b4cd91826d3ca5d2d",
+        "out_46_0.elf": "0f8adede3297ab30ef5d7817606680712541dd798c160a14560176c826f4f9c3",
+        "out_47_0.elf": "92b93fb2349bae3c0eac791715f6fb9201d3ec8e1732914d4092a906c9fa2824",
+        "out_48_0.elf": "d75c260be1e7aefbae9ea7615f22295f8ef541cb291549132c0dd44f9aaa8218",
+        "out_49_0.elf": "9961a82ce76014b68b5b63e45e54b613e42b4b251f26963c47c0f360deff03ee",
+        "out_4_0.elf": "862bc9db0e36a504a84d36fd750b06616c93d5aa0478413150cfdee7c500849d",
+        "out_50_0.elf": "bbccbd6d30692a095fdaa36968b3df759da7edb8e63b908be655b59f2cf8dd40",
+        "out_51_0.elf": "70157a2e5a3c45353f5c57f875213df4ee66215adf1b9a8159cecec3d125d8f7",
+        "out_52_0.elf": "7e63255d8ab8539cd25013eff3e30185deab0975a6942db6899ee43aa7911b7b",
+        "out_53_0.elf": "cba901b06ad779a0008a2c3842784b7552c308148984953d2ffa75372cf16d8b",
+        "out_54_0.elf": "dbb59c15b32461cebf6477d4db86b01e436096fa1ded4f198ccea0908ff4c1a0",
+        "out_55_0.elf": "0ca854fc447e2462ca1b6f64e588f89f3a3df6c349d0178d4d67b1b6910f617c",
+        "out_56_0.elf": "56f186ad51fa65a354df287c6e3ec0fc7bb9c7b0fb3a886192621e0f7c1a104b",
+        "out_57_0.elf": "a62a5e7875d5b5cc399409cd37ad9bdc9b3d21b89faae52c02bc4e3daff76a13",
+        "out_58_0.elf": "6e3e3e2cf694ea30b5d0ae305ac6f4506f98b75ebf111e2b530b424079a9b653",
+        "out_59_0.elf": "0a1cf4aeb6a081c2a440989ae9dc167d71096e636840273715cc4d90f20630b2",
+        "out_5_0.elf": "daaf239bcea4c853f1d66fc4889db34e4c7c68dd0aa5f6ff7e9b9e0e442717d8",
+        "out_60_0.elf": "151cdd09030e430c4316ba955d9f5fb6ed41eb7cca28a721d1e2953771380b9f",
+        "out_61_0.elf": "cfbb149f77a493770148401f6e9e2b231aee3f50f5e043591adcac0e0f269b0e",
+        "out_62_0.elf": "2b495476ab1f65412b21f682e5b42db975b0513ae48155b3ea0ab97a31be979d",
+        "out_63_0.elf": "b10f2a64b557e6d7d9dbdc7e0cfb2c91a085617390d936fcd1d11fd8e1b3c13d",
+        "out_6_0.elf": "adb3f3c3e9af5f707c631323b8828b3eeddb7ef6397f2a2ebcbd566cf612cd75",
+        "out_7_0.elf": "42b27dc1e37f01a154ac483c0b266c7b1a28a953697ec83bd6fdd7b04c2ac28a",
+        "out_8_0.elf": "40cd164f2bb70d8c734f480a325943b1ea2c81526859c8f9fd07798bdfc43181",
+        "out_9_0.elf": "a15b2206cdc28b309d3295489812fba8e6af63fb4dfa25a3fad8df285586cc21"
+      },
+      "language": "csl",
+      "method": "tail",
+      "release_sha256": "4cde4a049489599da25d26f81d5366369e42bba9aef625dc7e54d48e9b0adc21",
+      "result_sha256": "725612c7576310cc9388e7c5665f6f6930fee182b32fd181fe9f4a52cf9dcc91",
+      "summary": {
+        "compute_sum": [
+          51212,
+          51212,
+          51212
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          53217,
+          104429,
+          155641
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          53217,
+          104429,
+          155641
+        ],
+        "setup_sum": 2005,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              5275,
+              5275,
+              5275
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              5468,
+              10743,
+              16018
+            ],
+            "setup_max": 193,
+            "start": 0,
+            "sum_phase_max": [
+              5468,
+              10743,
+              16018
+            ]
+          },
+          {
+            "compute_max": [
+              5055,
+              5055,
+              5055
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              5244,
+              10299,
+              15354
+            ],
+            "setup_max": 189,
+            "start": 256,
+            "sum_phase_max": [
+              5244,
+              10299,
+              15354
+            ]
+          },
+          {
+            "compute_max": [
+              6178,
+              6178,
+              6178
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              6385,
+              12563,
+              18741
+            ],
+            "setup_max": 207,
+            "start": 512,
+            "sum_phase_max": [
+              6385,
+              12563,
+              18741
+            ]
+          },
+          {
+            "compute_max": [
+              4799,
+              4799,
+              4799
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              4986,
+              9785,
+              14584
+            ],
+            "setup_max": 187,
+            "start": 768,
+            "sum_phase_max": [
+              4986,
+              9785,
+              14584
+            ]
+          },
+          {
+            "compute_max": [
+              4775,
+              4775,
+              4775
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              4958,
+              9733,
+              14508
+            ],
+            "setup_max": 183,
+            "start": 1024,
+            "sum_phase_max": [
+              4958,
+              9733,
+              14508
+            ]
+          },
+          {
+            "compute_max": [
+              4845,
+              4845,
+              4845
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              5031,
+              9876,
+              14721
+            ],
+            "setup_max": 186,
+            "start": 1280,
+            "sum_phase_max": [
+              5031,
+              9876,
+              14721
+            ]
+          },
+          {
+            "compute_max": [
+              4484,
+              4484,
+              4484
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              4662,
+              9146,
+              13630
+            ],
+            "setup_max": 178,
+            "start": 1536,
+            "sum_phase_max": [
+              4662,
+              9146,
+              13630
+            ]
+          },
+          {
+            "compute_max": [
+              4042,
+              4042,
+              4042
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              4215,
+              8257,
+              12299
+            ],
+            "setup_max": 173,
+            "start": 1792,
+            "sum_phase_max": [
+              4215,
+              8257,
+              12299
+            ]
+          },
+          {
+            "compute_max": [
+              4299,
+              4299,
+              4299
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              4476,
+              8775,
+              13074
+            ],
+            "setup_max": 177,
+            "start": 2048,
+            "sum_phase_max": [
+              4476,
+              8775,
+              13074
+            ]
+          },
+          {
+            "compute_max": [
+              4337,
+              4337,
+              4337
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              4514,
+              8851,
+              13188
+            ],
+            "setup_max": 177,
+            "start": 2304,
+            "sum_phase_max": [
+              4514,
+              8851,
+              13188
+            ]
+          },
+          {
+            "compute_max": [
+              3123,
+              3123,
+              3123
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              3278,
+              6401,
+              9524
+            ],
+            "setup_max": 155,
+            "start": 2560,
+            "sum_phase_max": [
+              3278,
+              6401,
+              9524
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "tungsten_final_self": {
+      "capture_sha256": "29656d2c9ae1f0accb4fcec542f7206f1821a262a6dfe09081bc8bd1a36d2325",
+      "data_scope": "ordered original Cora; all padded words equal in each window and all three panels",
+      "elf_sha256": "865e7101f627fc8e4326ee9d70f7846c73c8e3fc09db6950206eb97082fe9c21",
+      "language": "tungsten",
+      "method": "tail",
+      "release_sha256": "4b247a8077e87f7dd38ff95e083322e0cb5ecca5e3973cff70bc83d193a494e0",
+      "result_sha256": "a006f1f96364b8cd8b23176aba70b9d40fb90cb42f181fb825a4d2cd9654e27a",
+      "summary": {
+        "compute_sum": [
+          52689,
+          52689,
+          52689
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          70721,
+          123408,
+          176095
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          70723,
+          123412,
+          176101
+        ],
+        "setup_sum": 18034,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              5372,
+              5372,
+              5372
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              7358,
+              12730,
+              18102
+            ],
+            "setup_max": 1986,
+            "start": 0,
+            "sum_phase_max": [
+              7358,
+              12730,
+              18102
+            ]
+          },
+          {
+            "compute_max": [
+              5169,
+              5169,
+              5169
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              7452,
+              12620,
+              17788
+            ],
+            "setup_max": 2284,
+            "start": 256,
+            "sum_phase_max": [
+              7453,
+              12622,
+              17791
+            ]
+          },
+          {
+            "compute_max": [
+              6161,
+              6161,
+              6161
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              8838,
+              14999,
+              21160
+            ],
+            "setup_max": 2677,
+            "start": 512,
+            "sum_phase_max": [
+              8838,
+              14999,
+              21160
+            ]
+          },
+          {
+            "compute_max": [
+              4888,
+              4888,
+              4888
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              6576,
+              11464,
+              16352
+            ],
+            "setup_max": 1688,
+            "start": 768,
+            "sum_phase_max": [
+              6576,
+              11464,
+              16352
+            ]
+          },
+          {
+            "compute_max": [
+              4887,
+              4887,
+              4887
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              6785,
+              11671,
+              16557
+            ],
+            "setup_max": 1899,
+            "start": 1024,
+            "sum_phase_max": [
+              6786,
+              11673,
+              16560
+            ]
+          },
+          {
+            "compute_max": [
+              4940,
+              4940,
+              4940
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              6650,
+              11590,
+              16530
+            ],
+            "setup_max": 1710,
+            "start": 1280,
+            "sum_phase_max": [
+              6650,
+              11590,
+              16530
+            ]
+          },
+          {
+            "compute_max": [
+              4655,
+              4655,
+              4655
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              6099,
+              10754,
+              15409
+            ],
+            "setup_max": 1444,
+            "start": 1536,
+            "sum_phase_max": [
+              6099,
+              10754,
+              15409
+            ]
+          },
+          {
+            "compute_max": [
+              4272,
+              4272,
+              4272
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              5377,
+              9649,
+              13921
+            ],
+            "setup_max": 1105,
+            "start": 1792,
+            "sum_phase_max": [
+              5377,
+              9649,
+              13921
+            ]
+          },
+          {
+            "compute_max": [
+              4448,
+              4448,
+              4448
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              5815,
+              10263,
+              14711
+            ],
+            "setup_max": 1367,
+            "start": 2048,
+            "sum_phase_max": [
+              5815,
+              10263,
+              14711
+            ]
+          },
+          {
+            "compute_max": [
+              4534,
+              4534,
+              4534
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              5837,
+              10371,
+              14905
+            ],
+            "setup_max": 1303,
+            "start": 2304,
+            "sum_phase_max": [
+              5837,
+              10371,
+              14905
+            ]
+          },
+          {
+            "compute_max": [
+              3363,
+              3363,
+              3363
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              3934,
+              7297,
+              10660
+            ],
+            "setup_max": 571,
+            "start": 2560,
+            "sum_phase_max": [
+              3934,
+              7297,
+              10660
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "tungsten_four_edge": {
+      "capture_sha256": "b90d0874c90741e0f3ee5c3d5627dc93115d6adc11f057e8c288adec6a8f3143",
+      "data_scope": "ordered original Cora; all padded words equal in each window and all three panels",
+      "elf_sha256": "a66e80a75330fb9498d08c5f8d2dc5cee358b61e6061d6b6f9b5bbe073ee02dd",
+      "language": "tungsten",
+      "method": "tail",
+      "release_sha256": "3b6c78932b788a2b64466958b90de2a11f6398212d25fb5e4b98e216cf48bf6c",
+      "result_sha256": "f5d76523082af4b5078c858e3a3a87acbe21584712fbcad353c8b53f8352a524",
+      "summary": {
+        "compute_sum": [
+          55426,
+          55426,
+          55426
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          73456,
+          128878,
+          184300
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          73460,
+          128886,
+          184312
+        ],
+        "setup_sum": 18034,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              5582,
+              5582,
+              5582
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              7568,
+              13150,
+              18732
+            ],
+            "setup_max": 1986,
+            "start": 0,
+            "sum_phase_max": [
+              7568,
+              13150,
+              18732
+            ]
+          },
+          {
+            "compute_max": [
+              5396,
+              5396,
+              5396
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              7679,
+              13074,
+              18469
+            ],
+            "setup_max": 2284,
+            "start": 256,
+            "sum_phase_max": [
+              7680,
+              13076,
+              18472
+            ]
+          },
+          {
+            "compute_max": [
+              6367,
+              6367,
+              6367
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              9044,
+              15411,
+              21778
+            ],
+            "setup_max": 2677,
+            "start": 512,
+            "sum_phase_max": [
+              9044,
+              15411,
+              21778
+            ]
+          },
+          {
+            "compute_max": [
+              5216,
+              5216,
+              5216
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              6904,
+              12120,
+              17336
+            ],
+            "setup_max": 1688,
+            "start": 768,
+            "sum_phase_max": [
+              6904,
+              12120,
+              17336
+            ]
+          },
+          {
+            "compute_max": [
+              5118,
+              5118,
+              5118
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              7016,
+              12133,
+              17250
+            ],
+            "setup_max": 1899,
+            "start": 1024,
+            "sum_phase_max": [
+              7017,
+              12135,
+              17253
+            ]
+          },
+          {
+            "compute_max": [
+              5234,
+              5234,
+              5234
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              6944,
+              12178,
+              17412
+            ],
+            "setup_max": 1710,
+            "start": 1280,
+            "sum_phase_max": [
+              6944,
+              12178,
+              17412
+            ]
+          },
+          {
+            "compute_max": [
+              4880,
+              4880,
+              4880
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              6324,
+              11204,
+              16084
+            ],
+            "setup_max": 1444,
+            "start": 1536,
+            "sum_phase_max": [
+              6324,
+              11204,
+              16084
+            ]
+          },
+          {
+            "compute_max": [
+              4509,
+              4509,
+              4509
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              5614,
+              10123,
+              14632
+            ],
+            "setup_max": 1105,
+            "start": 1792,
+            "sum_phase_max": [
+              5614,
+              10123,
+              14632
+            ]
+          },
+          {
+            "compute_max": [
+              4741,
+              4741,
+              4741
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              6108,
+              10849,
+              15590
+            ],
+            "setup_max": 1367,
+            "start": 2048,
+            "sum_phase_max": [
+              6108,
+              10849,
+              15590
+            ]
+          },
+          {
+            "compute_max": [
+              4767,
+              4767,
+              4767
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              6068,
+              10833,
+              15598
+            ],
+            "setup_max": 1303,
+            "start": 2304,
+            "sum_phase_max": [
+              6070,
+              10837,
+              15604
+            ]
+          },
+          {
+            "compute_max": [
+              3616,
+              3616,
+              3616
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              4187,
+              7803,
+              11419
+            ],
+            "setup_max": 571,
+            "start": 2560,
+            "sum_phase_max": [
+              4187,
+              7803,
+              11419
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "tungsten_original": {
+      "capture_sha256": "e4c202b119cdf061be1e3ffaf6e159a1ae863f8129f8d6d84806bae54f22c5cf",
+      "data_scope": "ordered original Cora; all padded words equal in each window and all three panels",
+      "elf_sha256": "3a21d17bd6d0b7ee2e5aca7050cd60e2d436f546369e6be295e58a8591c32a52",
+      "language": "tungsten",
+      "method": "original",
+      "release_sha256": "32fc9e8e11e6413c38173da3ac3cd26e48bb48ac528bc66b28a1dcecbcea14a6",
+      "result_sha256": "9deba56311a0292db19717ba5f2814593c3eecd27cb42e41453149ee0aca9263",
+      "summary": {
+        "compute_sum": [
+          75365,
+          75365,
+          75365
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          99654,
+          175003,
+          250352
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          99670,
+          175035,
+          250400
+        ],
+        "setup_sum": 24305,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              7675,
+              7675,
+              7675
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              10175,
+              17842,
+              25509
+            ],
+            "setup_max": 2508,
+            "start": 0,
+            "sum_phase_max": [
+              10183,
+              17858,
+              25533
+            ]
+          },
+          {
+            "compute_max": [
+              7387,
+              7387,
+              7387
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              9794,
+              17181,
+              24568
+            ],
+            "setup_max": 2407,
+            "start": 256,
+            "sum_phase_max": [
+              9794,
+              17181,
+              24568
+            ]
+          },
+          {
+            "compute_max": [
+              8872,
+              8872,
+              8872
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              11822,
+              20694,
+              29566
+            ],
+            "setup_max": 2950,
+            "start": 512,
+            "sum_phase_max": [
+              11822,
+              20694,
+              29566
+            ]
+          },
+          {
+            "compute_max": [
+              7132,
+              7132,
+              7132
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              9444,
+              16576,
+              23708
+            ],
+            "setup_max": 2312,
+            "start": 768,
+            "sum_phase_max": [
+              9444,
+              16576,
+              23708
+            ]
+          },
+          {
+            "compute_max": [
+              6938,
+              6938,
+              6938
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              9178,
+              16116,
+              23054
+            ],
+            "setup_max": 2240,
+            "start": 1024,
+            "sum_phase_max": [
+              9178,
+              16116,
+              23054
+            ]
+          },
+          {
+            "compute_max": [
+              7180,
+              7180,
+              7180
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              9507,
+              16687,
+              23867
+            ],
+            "setup_max": 2327,
+            "start": 1280,
+            "sum_phase_max": [
+              9507,
+              16687,
+              23867
+            ]
+          },
+          {
+            "compute_max": [
+              6592,
+              6592,
+              6592
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              8701,
+              15293,
+              21885
+            ],
+            "setup_max": 2109,
+            "start": 1536,
+            "sum_phase_max": [
+              8701,
+              15293,
+              21885
+            ]
+          },
+          {
+            "compute_max": [
+              6087,
+              6087,
+              6087
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              8015,
+              14102,
+              20189
+            ],
+            "setup_max": 1928,
+            "start": 1792,
+            "sum_phase_max": [
+              8015,
+              14102,
+              20189
+            ]
+          },
+          {
+            "compute_max": [
+              6399,
+              6399,
+              6399
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              8441,
+              14838,
+              21235
+            ],
+            "setup_max": 2044,
+            "start": 2048,
+            "sum_phase_max": [
+              8443,
+              14842,
+              21241
+            ]
+          },
+          {
+            "compute_max": [
+              6449,
+              6449,
+              6449
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              8502,
+              14945,
+              21388
+            ],
+            "setup_max": 2059,
+            "start": 2304,
+            "sum_phase_max": [
+              8508,
+              14957,
+              21406
+            ]
+          },
+          {
+            "compute_max": [
+              4654,
+              4654,
+              4654
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              6075,
+              10729,
+              15383
+            ],
+            "setup_max": 1421,
+            "start": 2560,
+            "sum_phase_max": [
+              6075,
+              10729,
+              15383
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "tungsten_sole_dynamic": {
+      "capture_sha256": "5a32eac60a9cd76b1911e22065074a40f6529537efe9fe51e761580040ecea7a",
+      "data_scope": "ordered original Cora; all padded words equal in each window and all three panels",
+      "elf_sha256": "66d933449d8b40fe759667ff2713311f503620d973cae9ae4e17de179b3934a1",
+      "language": "tungsten",
+      "method": "sole",
+      "release_sha256": "95adfa67e2fa6995589d9bd3a0c15e878e87147828d82f9edac43959a2473b99",
+      "result_sha256": "5ddd413f47f394c555ac77e78d27dc1037f521639e88014d7756c75653ee3839",
+      "summary": {
+        "compute_sum": [
+          64362,
+          64362,
+          64362
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          122470,
+          186820,
+          251170
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          122482,
+          186844,
+          251206
+        ],
+        "setup_sum": 58120,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              6354,
+              6354,
+              6354
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              12076,
+              18421,
+              24766
+            ],
+            "setup_max": 5731,
+            "start": 0,
+            "sum_phase_max": [
+              12085,
+              18439,
+              24793
+            ]
+          },
+          {
+            "compute_max": [
+              6449,
+              6449,
+              6449
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              12079,
+              18528,
+              24977
+            ],
+            "setup_max": 5630,
+            "start": 256,
+            "sum_phase_max": [
+              12079,
+              18528,
+              24977
+            ]
+          },
+          {
+            "compute_max": [
+              8755,
+              8755,
+              8755
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              14688,
+              23443,
+              32198
+            ],
+            "setup_max": 5933,
+            "start": 512,
+            "sum_phase_max": [
+              14688,
+              23443,
+              32198
+            ]
+          },
+          {
+            "compute_max": [
+              6448,
+              6448,
+              6448
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              11719,
+              18167,
+              24615
+            ],
+            "setup_max": 5271,
+            "start": 768,
+            "sum_phase_max": [
+              11719,
+              18167,
+              24615
+            ]
+          },
+          {
+            "compute_max": [
+              6083,
+              6083,
+              6083
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              11352,
+              17435,
+              23518
+            ],
+            "setup_max": 5269,
+            "start": 1024,
+            "sum_phase_max": [
+              11352,
+              17435,
+              23518
+            ]
+          },
+          {
+            "compute_max": [
+              6187,
+              6187,
+              6187
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              11732,
+              17919,
+              24106
+            ],
+            "setup_max": 5545,
+            "start": 1280,
+            "sum_phase_max": [
+              11732,
+              17919,
+              24106
+            ]
+          },
+          {
+            "compute_max": [
+              5719,
+              5719,
+              5719
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              10772,
+              16491,
+              22210
+            ],
+            "setup_max": 5053,
+            "start": 1536,
+            "sum_phase_max": [
+              10772,
+              16491,
+              22210
+            ]
+          },
+          {
+            "compute_max": [
+              4681,
+              4681,
+              4681
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              9855,
+              14536,
+              19217
+            ],
+            "setup_max": 5174,
+            "start": 1792,
+            "sum_phase_max": [
+              9855,
+              14536,
+              19217
+            ]
+          },
+          {
+            "compute_max": [
+              5382,
+              5382,
+              5382
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              10426,
+              15808,
+              21190
+            ],
+            "setup_max": 5044,
+            "start": 2048,
+            "sum_phase_max": [
+              10426,
+              15808,
+              21190
+            ]
+          },
+          {
+            "compute_max": [
+              5260,
+              5260,
+              5260
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              10485,
+              15742,
+              20999
+            ],
+            "setup_max": 5228,
+            "start": 2304,
+            "sum_phase_max": [
+              10488,
+              15748,
+              21008
+            ]
+          },
+          {
+            "compute_max": [
+              3044,
+              3044,
+              3044
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              7286,
+              10330,
+              13374
+            ],
+            "setup_max": 4242,
+            "start": 2560,
+            "sum_phase_max": [
+              7286,
+              10330,
+              13374
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "tungsten_sole_fixed": {
+      "capture_sha256": "1d8eb020c447204ae2e94fdca0ae17a9aedd4daec4d56776a65521c94d674910",
+      "data_scope": "ordered original Cora; all padded words equal in each window and all three panels",
+      "elf_sha256": "676004b7c90406675c21b7e055afad38b685a9420b5b661aaa52cee96bd5a4b3",
+      "language": "tungsten",
+      "method": "sole",
+      "release_sha256": "e1900976a5d3c06f872f16a130e88dcb90eb3071717e432e8e2feb5019c2e75b",
+      "result_sha256": "54049da54ceebc3430782690ded5a1ee0fd7a0f4dd48bf67269b1e0f3f835249",
+      "summary": {
+        "compute_sum": [
+          49033,
+          49033,
+          49033
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          },
+          {
+            "max_abs": 1.0490646351613009e-06,
+            "relative_l2": 3.968854074223048e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          107145,
+          156171,
+          205197
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770",
+          "d9034ed5ceb73585bc785848699d63761591ee33b409969cd0e037f5d9525d46",
+          "a84aa27eacf2784a5be70798013e96ab53a4017825fbe71118c9b326cfd34770"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          107153,
+          156186,
+          205219
+        ],
+        "setup_sum": 58120,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              5046,
+              5046,
+              5046
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              10772,
+              15814,
+              20856
+            ],
+            "setup_max": 5731,
+            "start": 0,
+            "sum_phase_max": [
+              10777,
+              15823,
+              20869
+            ]
+          },
+          {
+            "compute_max": [
+              4791,
+              4791,
+              4791
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              10421,
+              15212,
+              20003
+            ],
+            "setup_max": 5630,
+            "start": 256,
+            "sum_phase_max": [
+              10421,
+              15212,
+              20003
+            ]
+          },
+          {
+            "compute_max": [
+              6296,
+              6296,
+              6296
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              12229,
+              18525,
+              24821
+            ],
+            "setup_max": 5933,
+            "start": 512,
+            "sum_phase_max": [
+              12229,
+              18525,
+              24821
+            ]
+          },
+          {
+            "compute_max": [
+              4787,
+              4787,
+              4787
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              10058,
+              14845,
+              19632
+            ],
+            "setup_max": 5271,
+            "start": 768,
+            "sum_phase_max": [
+              10058,
+              14845,
+              19632
+            ]
+          },
+          {
+            "compute_max": [
+              4552,
+              4552,
+              4552
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              9821,
+              14373,
+              18925
+            ],
+            "setup_max": 5269,
+            "start": 1024,
+            "sum_phase_max": [
+              9821,
+              14373,
+              18925
+            ]
+          },
+          {
+            "compute_max": [
+              4648,
+              4648,
+              4648
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              10193,
+              14841,
+              19489
+            ],
+            "setup_max": 5545,
+            "start": 1280,
+            "sum_phase_max": [
+              10193,
+              14841,
+              19489
+            ]
+          },
+          {
+            "compute_max": [
+              4320,
+              4320,
+              4320
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              9373,
+              13693,
+              18013
+            ],
+            "setup_max": 5053,
+            "start": 1536,
+            "sum_phase_max": [
+              9373,
+              13693,
+              18013
+            ]
+          },
+          {
+            "compute_max": [
+              3670,
+              3670,
+              3670
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              8844,
+              12514,
+              16184
+            ],
+            "setup_max": 5174,
+            "start": 1792,
+            "sum_phase_max": [
+              8844,
+              12514,
+              16184
+            ]
+          },
+          {
+            "compute_max": [
+              4109,
+              4109,
+              4109
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              9153,
+              13262,
+              17371
+            ],
+            "setup_max": 5044,
+            "start": 2048,
+            "sum_phase_max": [
+              9153,
+              13262,
+              17371
+            ]
+          },
+          {
+            "compute_max": [
+              4099,
+              4099,
+              4099
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              9324,
+              13420,
+              17516
+            ],
+            "setup_max": 5228,
+            "start": 2304,
+            "sum_phase_max": [
+              9327,
+              13426,
+              17525
+            ]
+          },
+          {
+            "compute_max": [
+              2715,
+              2715,
+              2715
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              6957,
+              9672,
+              12387
+            ],
+            "setup_max": 4242,
+            "start": 2560,
+            "sum_phase_max": [
+              6957,
+              9672,
+              12387
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    }
+  },
+  "compiler_exclusions": {
+    "tungsten_same_fifteen_slot_suffix": {
+      "compile_record_sha256": "dc4805f3a6af388a533c0cf3ae695676df259384b5681e6012f0574b86f1baa3",
+      "diagnostic_sha256": "dcb16fd176b626db9a2c8de0bbfdb6ef664bc0a2c3781de1b8a87aea9d2e1f61",
+      "reason": "origin PE handler allocation exceeds the 0x6000 main memory limit",
+      "source_sha256": "d419b3f9aa2921d77f7c24a256cb142b81b5ffbd64b938516c8313251001d993"
+    }
+  },
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "original_coo_fmaf": "b351fdbbd46ca20bded0b073db3c6285d08c5f8192b798b520bcc85264712736",
+  "origins": {
+    "original_cyclic": "03c10b8e1e3ef3065675222c27add2cc7b382641",
+    "original_range": "c94191dd24535ce37c75779c97fe4c4d8696a8fd"
+  },
+  "ranking": {
+    "inclusive_n1": [
+      "csl_static_residual_suffix",
+      "csl_final_self",
+      "tungsten_final_self",
+      "tungsten_four_edge",
+      "tungsten_original",
+      "csl_sole_self",
+      "tungsten_sole_fixed",
+      "tungsten_sole_dynamic",
+      "csl_original"
+    ],
+    "inclusive_n2": [
+      "csl_static_residual_suffix",
+      "csl_final_self",
+      "tungsten_final_self",
+      "tungsten_four_edge",
+      "tungsten_sole_fixed",
+      "csl_sole_self",
+      "tungsten_original",
+      "tungsten_sole_dynamic",
+      "csl_original"
+    ],
+    "inclusive_n3": [
+      "csl_static_residual_suffix",
+      "csl_final_self",
+      "tungsten_final_self",
+      "tungsten_four_edge",
+      "tungsten_sole_fixed",
+      "csl_sole_self",
+      "tungsten_original",
+      "tungsten_sole_dynamic",
+      "csl_original"
+    ],
+    "setup": [
+      "csl_final_self",
+      "csl_static_residual_suffix",
+      "tungsten_final_self",
+      "tungsten_four_edge",
+      "tungsten_original",
+      "csl_sole_self",
+      "tungsten_sole_dynamic",
+      "tungsten_sole_fixed",
+      "csl_original"
+    ],
+    "steady": [
+      "tungsten_sole_fixed",
+      "csl_static_residual_suffix",
+      "tungsten_final_self",
+      "csl_final_self",
+      "tungsten_four_edge",
+      "csl_sole_self",
+      "tungsten_sole_dynamic",
+      "tungsten_original",
+      "csl_original"
+    ]
+  },
+  "selected_csl_speedup": {
+    "compute_sum": [
+      1.0288408966648441,
+      1.0288408966648441,
+      1.0288408966648441
+    ],
+    "first_measured_inclusive_csl_win_through_three": 1,
+    "max_owner_cumulative_sum": [
+      1.3289174511904092,
+      1.1817407042105161,
+      1.1314178140721276
+    ],
+    "phase_max_cumulative_sum": [
+      1.3289550331660935,
+      1.1817790077468902,
+      1.1314563643255955
+    ],
+    "setup_sum": 8.994513715710724
+  },
+  "selection": "minimum sum of per-window max_PE(setup + compute_1 + compute_2 + compute_3), per language"
+}

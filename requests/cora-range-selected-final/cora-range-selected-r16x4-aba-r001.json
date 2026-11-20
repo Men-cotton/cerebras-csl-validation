@@ -1,0 +1,45 @@
+{
+  "description": "Complete original Cora range-placement on 64 PEs using each language's best measured setup-inclusive program for three resident panels.",
+  "id": "cora-range-selected-r16x4-aba-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile-csl",
+        "--shards",
+        "16",
+        "--out",
+        "{output}/compile-csl"
+      ],
+      "kind": "appliance",
+      "name": "compile-csl",
+      "script": "validations/cora-range-selected-final/csl/appliance.py"
+    },
+    {
+      "args": [
+        "run-csl",
+        "--shards",
+        "16",
+        "--out",
+        "{output}/run-csl",
+        "--build",
+        "{output}/compile-csl/build.json"
+      ],
+      "kind": "appliance",
+      "name": "run-csl",
+      "script": "validations/cora-range-selected-final/csl/appliance.py"
+    },
+    {
+      "args": [
+        "run-tungsten",
+        "--shards",
+        "16",
+        "--out",
+        "{output}/run-tungsten"
+      ],
+      "kind": "appliance",
+      "name": "run-tungsten",
+      "script": "validations/cora-range-selected-final/tungsten/appliance.py"
+    }
+  ]
+}

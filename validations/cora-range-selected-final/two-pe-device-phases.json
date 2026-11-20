@@ -1,0 +1,372 @@
+{
+  "backend": "SDK WSE-3 simulator, two active PEs",
+  "full_window_scope": "only the two largest shards and trained channels 0 and 4, original COO order",
+  "max_window_total_delta_vs_uninstrumented": [
+    [
+      36,
+      36
+    ],
+    [
+      36,
+      36
+    ],
+    [
+      36,
+      36
+    ]
+  ],
+  "phases": [
+    "clear and initialize",
+    "ordinary edges",
+    "contiguous final self",
+    "fabric reduction and completion"
+  ],
+  "units": "raw consecutive 48-bit device timestamp intervals; instrumentation overhead retained",
+  "windows": {
+    "10": {
+      "elf": {
+        "out_0_0.elf": "d820985a90bace54acb3b8e489631230fa91539922cd42e05277a8722c20e8c2",
+        "out_1_0.elf": "ad2f16fcf06768cbc23a95201cb90f4dc342d5ed4185b629fce30174c8b965f0"
+      },
+      "frames": [
+        {
+          "consecutive_tsc": [
+            [
+              12,
+              13,
+              13
+            ],
+            [
+              12,
+              13,
+              13
+            ]
+          ],
+          "output_sha256": "bb43d66ba9c37a5678a1624eadd1822260b58d337e89a7cbe3ced8d4f45e7118",
+          "raw_intervals": [
+            [
+              145,
+              984,
+              1679,
+              532
+            ],
+            [
+              145,
+              782,
+              21,
+              2391
+            ]
+          ],
+          "trial": 1
+        },
+        {
+          "consecutive_tsc": [
+            [
+              12,
+              13,
+              13
+            ],
+            [
+              12,
+              13,
+              13
+            ]
+          ],
+          "output_sha256": "b5a178f38ffdec2ea9f8373dfdc193caaac0a6d7c6f13e8c736dc52c32d7ebc5",
+          "raw_intervals": [
+            [
+              145,
+              984,
+              1679,
+              532
+            ],
+            [
+              145,
+              782,
+              21,
+              2391
+            ]
+          ],
+          "trial": 2
+        },
+        {
+          "consecutive_tsc": [
+            [
+              12,
+              13,
+              13
+            ],
+            [
+              12,
+              13,
+              13
+            ]
+          ],
+          "output_sha256": "bb43d66ba9c37a5678a1624eadd1822260b58d337e89a7cbe3ced8d4f45e7118",
+          "raw_intervals": [
+            [
+              145,
+              984,
+              1679,
+              532
+            ],
+            [
+              145,
+              782,
+              21,
+              2391
+            ]
+          ],
+          "trial": 3
+        }
+      ],
+      "original_source_shards": [
+        15,
+        14
+      ],
+      "plans": [
+        [
+          45,
+          148,
+          296
+        ],
+        [
+          49,
+          0,
+          0
+        ]
+      ],
+      "raw_sha256": "da6b5203b2e00c5778060a8f26d5859a52a0cbac94f699fb824bd7d57d3cddea"
+    },
+    "2": {
+      "elf": {
+        "out_0_0.elf": "d820985a90bace54acb3b8e489631230fa91539922cd42e05277a8722c20e8c2",
+        "out_1_0.elf": "ad2f16fcf06768cbc23a95201cb90f4dc342d5ed4185b629fce30174c8b965f0"
+      },
+      "frames": [
+        {
+          "consecutive_tsc": [
+            [
+              12,
+              13,
+              13
+            ],
+            [
+              12,
+              13,
+              13
+            ]
+          ],
+          "output_sha256": "7e6697b12e3b6fdb61a22a4c0f384d3d1d409fd5cf40d0ccee6ea70a8b8452c0",
+          "raw_intervals": [
+            [
+              145,
+              3845,
+              1858,
+              532
+            ],
+            [
+              145,
+              2169,
+              1023,
+              3042
+            ]
+          ],
+          "trial": 1
+        },
+        {
+          "consecutive_tsc": [
+            [
+              12,
+              13,
+              13
+            ],
+            [
+              12,
+              13,
+              13
+            ]
+          ],
+          "output_sha256": "564945bd0ee0640b12d1f7a1b04058aedcf9354b27f75950f40043abaec4333b",
+          "raw_intervals": [
+            [
+              145,
+              3845,
+              1858,
+              532
+            ],
+            [
+              145,
+              2169,
+              1023,
+              3042
+            ]
+          ],
+          "trial": 2
+        },
+        {
+          "consecutive_tsc": [
+            [
+              12,
+              13,
+              13
+            ],
+            [
+              12,
+              13,
+              13
+            ]
+          ],
+          "output_sha256": "7e6697b12e3b6fdb61a22a4c0f384d3d1d409fd5cf40d0ccee6ea70a8b8452c0",
+          "raw_intervals": [
+            [
+              145,
+              3845,
+              1858,
+              532
+            ],
+            [
+              145,
+              2169,
+              1023,
+              3042
+            ]
+          ],
+          "trial": 3
+        }
+      ],
+      "original_source_shards": [
+        3,
+        4
+      ],
+      "plans": [
+        [
+          236,
+          168,
+          336
+        ],
+        [
+          133,
+          88,
+          176
+        ]
+      ],
+      "raw_sha256": "52786598329c340fd3bf89d107a1de80530e866c325fffe105d7705d310fe9a2"
+    },
+    "4": {
+      "elf": {
+        "out_0_0.elf": "d820985a90bace54acb3b8e489631230fa91539922cd42e05277a8722c20e8c2",
+        "out_1_0.elf": "ad2f16fcf06768cbc23a95201cb90f4dc342d5ed4185b629fce30174c8b965f0"
+      },
+      "frames": [
+        {
+          "consecutive_tsc": [
+            [
+              12,
+              13,
+              13
+            ],
+            [
+              12,
+              13,
+              13
+            ]
+          ],
+          "output_sha256": "2053370f64b1c62590855d236ba8562be29baa91b0048996838ff0280812c393",
+          "raw_intervals": [
+            [
+              145,
+              2414,
+              1884,
+              532
+            ],
+            [
+              145,
+              2710,
+              1054,
+              1065
+            ]
+          ],
+          "trial": 1
+        },
+        {
+          "consecutive_tsc": [
+            [
+              12,
+              13,
+              13
+            ],
+            [
+              12,
+              13,
+              13
+            ]
+          ],
+          "output_sha256": "a9f7ba72a35851e054162bcc679c6b1052914fc96c257af8a76fa00bea9ed21d",
+          "raw_intervals": [
+            [
+              145,
+              2414,
+              1884,
+              532
+            ],
+            [
+              145,
+              2710,
+              1054,
+              1065
+            ]
+          ],
+          "trial": 2
+        },
+        {
+          "consecutive_tsc": [
+            [
+              12,
+              13,
+              13
+            ],
+            [
+              12,
+              13,
+              13
+            ]
+          ],
+          "output_sha256": "2053370f64b1c62590855d236ba8562be29baa91b0048996838ff0280812c393",
+          "raw_intervals": [
+            [
+              145,
+              2414,
+              1884,
+              532
+            ],
+            [
+              145,
+              2710,
+              1054,
+              1065
+            ]
+          ],
+          "trial": 3
+        }
+      ],
+      "original_source_shards": [
+        6,
+        7
+      ],
+      "plans": [
+        [
+          140,
+          166,
+          332
+        ],
+        [
+          167,
+          90,
+          180
+        ]
+      ],
+      "raw_sha256": "7731372ff6536bb68732e550771179376f5f88c82fe1cac03795f0b1a2b117f8"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "commands": [
+    {
+      "command": [
+        "paint",
+        "arch=sdr",
+        "toolname",
+        "w",
+        "carbide",
+        "toolname",
+        "yeti",
+        "carbide",
+        "lib=/home/mencotton/research/tungsten/experiments/kernel-ports/sell-spmm/csl-lanes/cora-diagonal/indexed-residual/remainder-study/predicated-w-origin/source",
+        "source=/home/mencotton/research/tungsten/experiments/kernel-ports/sell-spmm/csl-lanes/cora-diagonal/indexed-residual/remainder-study/predicated-w-origin/source/program.paint",
+        "image=program.obj",
+        "map=program.map",
+        "note=program.note",
+        "entrymap=program.entry",
+        "regiondump=regions.json"
+      ],
+      "exit": 1
+    }
+  ],
+  "fits_same_origin_image": false,
+  "scope": "one origin PE with actual X=0,Y=0,R=16,F=340,E=404 of the 64-PE layout; compile and SRAM-link only",
+  "source_sha256": "d419b3f9aa2921d77f7c24a256cb142b81b5ffbd64b938516c8313251001d993"
+}

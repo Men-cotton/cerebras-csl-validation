@@ -1,0 +1,9 @@
+{
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "language": "tungsten",
+  "method": "tail",
+  "name": "tungsten_final_self",
+  "raw_sha256": "29656d2c9ae1f0accb4fcec542f7206f1821a262a6dfe09081bc8bd1a36d2325",
+  "release_sha256": "4b247a8077e87f7dd38ff95e083322e0cb5ecca5e3973cff70bc83d193a494e0",
+  "result_sha256": "a006f1f96364b8cd8b23176aba70b9d40fb90cb42f181fb825a4d2cd9654e27a"
+}

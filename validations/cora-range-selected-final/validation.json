@@ -1,0 +1,12 @@
+{
+  "description": "Fastest setup-inclusive native CSL and Direct Link Tungsten after complete tuned Cora range-placement captures on 64 PEs.",
+  "entrypoints": [
+    "csl/appliance.py",
+    "tungsten/appliance.py"
+  ],
+  "id": "cora-range-selected-final",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

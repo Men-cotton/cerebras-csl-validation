@@ -1,0 +1,142 @@
+{
+  "candidate_raw_sha256": "77c44a1bb9859987301c73d72938647487d73be4ca464db52852197bf40c735b",
+  "cases": {
+    "indexed_candidate": {
+      "sum_max_owners": [
+        15135,
+        29725,
+        44315
+      ],
+      "windows": [
+        {
+          "compute": [
+            3305,
+            3305,
+            3305
+          ],
+          "cumulative": [
+            3460,
+            6765,
+            10070
+          ],
+          "index": 10,
+          "phase_maxima": [
+            3460,
+            6765,
+            10070
+          ],
+          "setup": 155
+        },
+        {
+          "compute": [
+            4940,
+            4940,
+            4940
+          ],
+          "cumulative": [
+            5123,
+            10063,
+            15003
+          ],
+          "index": 4,
+          "phase_maxima": [
+            5123,
+            10063,
+            15003
+          ],
+          "setup": 183
+        },
+        {
+          "compute": [
+            6345,
+            6345,
+            6345
+          ],
+          "cumulative": [
+            6552,
+            12897,
+            19242
+          ],
+          "index": 2,
+          "phase_maxima": [
+            6552,
+            12897,
+            19242
+          ],
+          "setup": 207
+        }
+      ]
+    },
+    "primary": {
+      "sum_max_owners": [
+        27117,
+        42924,
+        58731
+      ],
+      "windows": [
+        {
+          "compute": [
+            2827,
+            2827,
+            2827
+          ],
+          "cumulative": [
+            7067,
+            9894,
+            12721
+          ],
+          "index": 10,
+          "phase_maxima": [
+            7067,
+            9894,
+            12721
+          ],
+          "setup": 4240
+        },
+        {
+          "compute": [
+            5250,
+            5250,
+            5250
+          ],
+          "cumulative": [
+            9154,
+            14404,
+            19654
+          ],
+          "index": 4,
+          "phase_maxima": [
+            9154,
+            14404,
+            19654
+          ],
+          "setup": 3904
+        },
+        {
+          "compute": [
+            7730,
+            7730,
+            7730
+          ],
+          "cumulative": [
+            10896,
+            18626,
+            26356
+          ],
+          "index": 2,
+          "phase_maxima": [
+            10896,
+            18626,
+            26356
+          ],
+          "setup": 3166
+        }
+      ]
+    }
+  },
+  "chosen": "static-tail",
+  "comparator_raw_sha256": "7f6b3b749ca3e87d1c5e09a4838d45ccd7a3e47713507bb5846e1790bb76d085",
+  "fits_full": true,
+  "method": "tail",
+  "owner_words": 13860
+}

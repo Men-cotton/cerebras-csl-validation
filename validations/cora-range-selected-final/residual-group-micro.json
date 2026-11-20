@@ -1,0 +1,240 @@
+{
+  "candidates": {
+    "15": [
+      14620,
+      28695,
+      42770
+    ],
+    "dynamic": [
+      15133,
+      29721,
+      44309
+    ],
+    "four-edge": [
+      14755,
+      28965,
+      43175
+    ]
+  },
+  "chosen": "15",
+  "criterion": "sum over three representative windows of the longest single-PE setup plus three computations",
+  "data_scope": "two original peak source shards and channels 0 and 4 per window; identical graph wire",
+  "four_edge_captures": {
+    "10": {
+      "csl": {
+        "layout.csl": "9c164d6f4298c8661eee0e424ae7b314d0e0321212b1e6988deba34eb2ef81ed",
+        "pe.csl": "cd02f3fbd250897a43e9c0d98a4d32916eb831177aebbe41d1d72cb27023817b"
+      },
+      "elf": {
+        "out_0_0.elf": "928820fee238f66a62612008bd9f076713b7e47f4b767bb500d1b1db8ed896aa",
+        "out_1_0.elf": "aa3a27433810352b8616bf9ddd44c38192622e3f8fa98e69987e424afd67714e"
+      },
+      "features": [
+        0,
+        4
+      ],
+      "frames": [
+        {
+          "compute": [
+            3092,
+            3091
+          ],
+          "output_sha256": "bb43d66ba9c37a5678a1624eadd1822260b58d337e89a7cbe3ced8d4f45e7118",
+          "setup": [
+            155,
+            93
+          ],
+          "trial": 1
+        },
+        {
+          "compute": [
+            3092,
+            3091
+          ],
+          "output_sha256": "b5a178f38ffdec2ea9f8373dfdc193caaac0a6d7c6f13e8c736dc52c32d7ebc5",
+          "setup": [
+            155,
+            93
+          ],
+          "trial": 2
+        },
+        {
+          "compute": [
+            3092,
+            3091
+          ],
+          "output_sha256": "bb43d66ba9c37a5678a1624eadd1822260b58d337e89a7cbe3ced8d4f45e7118",
+          "setup": [
+            155,
+            93
+          ],
+          "trial": 3
+        }
+      ],
+      "plans": [
+        [
+          45,
+          148,
+          296
+        ],
+        [
+          49,
+          0,
+          0
+        ]
+      ],
+      "raw_sha256": "2c52b6d25b4e66195483e06fd7223abd6355e8755e6531758c1a0f8b2f3ba3ef",
+      "role": "SDK WSE-3 simulator, two active PEs",
+      "shards": [
+        15,
+        14
+      ],
+      "three_exact_fused_panels": true,
+      "window": 10
+    },
+    "2": {
+      "csl": {
+        "layout.csl": "9c164d6f4298c8661eee0e424ae7b314d0e0321212b1e6988deba34eb2ef81ed",
+        "pe.csl": "cd02f3fbd250897a43e9c0d98a4d32916eb831177aebbe41d1d72cb27023817b"
+      },
+      "elf": {
+        "out_0_0.elf": "928820fee238f66a62612008bd9f076713b7e47f4b767bb500d1b1db8ed896aa",
+        "out_1_0.elf": "aa3a27433810352b8616bf9ddd44c38192622e3f8fa98e69987e424afd67714e"
+      },
+      "features": [
+        0,
+        4
+      ],
+      "frames": [
+        {
+          "compute": [
+            6306,
+            6305
+          ],
+          "output_sha256": "7e6697b12e3b6fdb61a22a4c0f384d3d1d409fd5cf40d0ccee6ea70a8b8452c0",
+          "setup": [
+            207,
+            162
+          ],
+          "trial": 1
+        },
+        {
+          "compute": [
+            6306,
+            6305
+          ],
+          "output_sha256": "564945bd0ee0640b12d1f7a1b04058aedcf9354b27f75950f40043abaec4333b",
+          "setup": [
+            207,
+            162
+          ],
+          "trial": 2
+        },
+        {
+          "compute": [
+            6306,
+            6305
+          ],
+          "output_sha256": "7e6697b12e3b6fdb61a22a4c0f384d3d1d409fd5cf40d0ccee6ea70a8b8452c0",
+          "setup": [
+            207,
+            162
+          ],
+          "trial": 3
+        }
+      ],
+      "plans": [
+        [
+          236,
+          168,
+          336
+        ],
+        [
+          133,
+          88,
+          176
+        ]
+      ],
+      "raw_sha256": "33708d89aa264893ae9ab9b4715fcea0a12dbca3e382962029e343dffd07c4eb",
+      "role": "SDK WSE-3 simulator, two active PEs",
+      "shards": [
+        3,
+        4
+      ],
+      "three_exact_fused_panels": true,
+      "window": 2
+    },
+    "4": {
+      "csl": {
+        "layout.csl": "9c164d6f4298c8661eee0e424ae7b314d0e0321212b1e6988deba34eb2ef81ed",
+        "pe.csl": "cd02f3fbd250897a43e9c0d98a4d32916eb831177aebbe41d1d72cb27023817b"
+      },
+      "elf": {
+        "out_0_0.elf": "928820fee238f66a62612008bd9f076713b7e47f4b767bb500d1b1db8ed896aa",
+        "out_1_0.elf": "aa3a27433810352b8616bf9ddd44c38192622e3f8fa98e69987e424afd67714e"
+      },
+      "features": [
+        0,
+        4
+      ],
+      "frames": [
+        {
+          "compute": [
+            4812,
+            4811
+          ],
+          "output_sha256": "2053370f64b1c62590855d236ba8562be29baa91b0048996838ff0280812c393",
+          "setup": [
+            183,
+            171
+          ],
+          "trial": 1
+        },
+        {
+          "compute": [
+            4812,
+            4811
+          ],
+          "output_sha256": "a9f7ba72a35851e054162bcc679c6b1052914fc96c257af8a76fa00bea9ed21d",
+          "setup": [
+            183,
+            171
+          ],
+          "trial": 2
+        },
+        {
+          "compute": [
+            4812,
+            4811
+          ],
+          "output_sha256": "2053370f64b1c62590855d236ba8562be29baa91b0048996838ff0280812c393",
+          "setup": [
+            183,
+            171
+          ],
+          "trial": 3
+        }
+      ],
+      "plans": [
+        [
+          140,
+          166,
+          332
+        ],
+        [
+          167,
+          90,
+          180
+        ]
+      ],
+      "raw_sha256": "cca9885f894ade2421d92d3809ca634918a69ce5eb95e0d8a9c0626d800c7fa6",
+      "role": "SDK WSE-3 simulator, two active PEs",
+      "shards": [
+        6,
+        7
+      ],
+      "three_exact_fused_panels": true,
+      "window": 4
+    }
+  }
+}

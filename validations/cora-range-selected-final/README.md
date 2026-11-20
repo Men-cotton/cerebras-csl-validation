@@ -1,0 +1,5 @@
+# Selected 64-PE Cora range-placement programs
+
+The complete trial selected csl_static_residual_suffix for native CSL and tungsten_final_self for Direct Link Tungsten. Each program uses a single resident executable across eleven destination windows and three resident A, −A, A panels per window. The selection ranks the maximum setup-plus-three-compute interval of an individual PE in each window, summed over all eleven windows. Every selected active output agrees bitwise with the original COO fused FP32 order. Both programs process all 2,708 destinations, 13,264 edges and seven trained channels. [All measured range candidates and rankings](selection.json) · [Source-placement ranking at freeze](placement-ranking-at-freeze.json)
+
+Run each language's appliance with the check action to replay its local simulator trace. The physical launcher rechecks all graph, bank, coordinate and owner evidence. Use returned.py with the compiled archive record and two returned run directories to calculate the physical comparison and optionally compare both published earlier captures. [Prior hardware request revisions](comparators.json)

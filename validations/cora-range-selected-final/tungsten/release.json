@@ -1,0 +1,38 @@
+{
+  "direct": {
+    "16": {
+      "build_sha256": "a9fe300439642b50c71f29cb1802a0fd9f9f2c79cb4ac4a83808068541ec8849",
+      "machine_image_sha256": "191a2631a1c608589c12c9e35d9783654b9732402bcd45a500f36a4112167f01",
+      "roles": {
+        "hardware": {
+          "elf_sha256": "8bf087c45cb97714c5279611ffd7dfcb7b493029d16d02f2738ba8700c1d5d3a",
+          "fabric": [
+            762,
+            1172
+          ]
+        },
+        "simulator": {
+          "elf_sha256": "865e7101f627fc8e4326ee9d70f7846c73c8e3fc09db6950206eb97082fe9c21",
+          "fabric": [
+            4,
+            16
+          ]
+        }
+      },
+      "source": {
+        "aggregation.w": "6d4a86599aac37b01f4bc308874dcde373953268442bc2c01365944da87a2894",
+        "program.paint": "0daf45a0b1cfa5675c548d6fa475003aa774855eedb4a8408cad26ddb871009c"
+      }
+    }
+  },
+  "host": {
+    "contract.py": "8be81b74a36d9255d2f15c97c796acd9f3d53d609bd08ac70d47c69c483d91e5",
+    "worker.py": "4fee11fa298fbd3f5e33011d2a89b99894cf67923f94fdf451169bfef7d1620f"
+  },
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "method": "static-tail",
+  "original_range_release_sha256": "32fc9e8e11e6413c38173da3ac3cd26e48bb48ac528bc66b28a1dcecbcea14a6",
+  "port_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "provenance_sha256": "529cb18d279a1f9728502a6bbf1acdf99cf7c3aa1e15b9a11f04816dfdef580b",
+  "scope": "first 224 residual and 168 final contiguous self records statically addressed; arbitrary remaining records at runtime"
+}

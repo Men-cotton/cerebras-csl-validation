@@ -1,0 +1,14 @@
+{
+  "prior_cyclic": {
+    "family": "cora-resident-cyclic-scaling",
+    "release_sha256": "a2d366c6757141c952da48f0301b99cccff4063cdc0c8b8348e7dfd8048d53a4",
+    "request": "cora-cyclic-all2708-r16x4-aba-r001",
+    "revision": "03c10b8e1e3ef3065675222c27add2cc7b382641"
+  },
+  "prior_range": {
+    "family": "cora-resident-full-scaling",
+    "release_sha256": "32fc9e8e11e6413c38173da3ac3cd26e48bb48ac528bc66b28a1dcecbcea14a6",
+    "request": "cora-all2708-r16x4-aba-r001",
+    "revision": "c94191dd24535ce37c75779c97fe4c4d8696a8fd"
+  }
+}

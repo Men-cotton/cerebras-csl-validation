@@ -1,0 +1,10 @@
+{
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "language": "csl",
+  "method": "tail",
+  "name": "csl_static_residual_suffix",
+  "pointer_sram_sha256": "5c0143f7486be039126bc84d9e92ac326dacc3e17a5c565c1299d31316a24bb7",
+  "raw_sha256": "f0ab2c9c22c60197677df8735552bafd63b2017d4c4f0dc8b480849415a71f40",
+  "release_sha256": "4cde4a049489599da25d26f81d5366369e42bba9aef625dc7e54d48e9b0adc21",
+  "result_sha256": "725612c7576310cc9388e7c5665f6f6930fee182b32fd181fe9f4a52cf9dcc91"
+}

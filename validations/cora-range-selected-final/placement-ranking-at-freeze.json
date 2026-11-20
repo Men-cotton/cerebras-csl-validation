@@ -1,0 +1,306 @@
+{
+  "entries": {
+    "cyclic_all-fmac_tungsten": {
+      "error": 1.2776429034744297e-06,
+      "max_owner": [
+        35974,
+        59628,
+        83282
+      ],
+      "phase_max": [
+        35982,
+        59644,
+        83306
+      ],
+      "setup": 12320,
+      "steady": 23662
+    },
+    "cyclic_original_csl": {
+      "error": 1.2776429034744297e-06,
+      "max_owner": [
+        81363,
+        128926,
+        176489
+      ],
+      "phase_max": [
+        81363,
+        128926,
+        176489
+      ],
+      "setup": 33800,
+      "steady": 47563
+    },
+    "cyclic_original_tungsten": {
+      "error": 1.2776429034744297e-06,
+      "max_owner": [
+        36987,
+        65874,
+        94761
+      ],
+      "phase_max": [
+        36999,
+        65898,
+        94797
+      ],
+      "setup": 8100,
+      "steady": 28899
+    },
+    "cyclic_self-simd_csl": {
+      "error": 1.2776429034744297e-06,
+      "max_owner": [
+        32640,
+        59352,
+        86084
+      ],
+      "phase_max": [
+        32810,
+        59656,
+        86502
+      ],
+      "setup": 5964,
+      "steady": 26846
+    },
+    "cyclic_self-simd_tungsten": {
+      "error": 1.2776429034744297e-06,
+      "max_owner": [
+        37817,
+        61361,
+        84914
+      ],
+      "phase_max": [
+        37841,
+        61407,
+        84973
+      ],
+      "setup": 14275,
+      "steady": 23566
+    },
+    "cyclic_separate_all_fmac_tungsten": {
+      "error": 1.2776429034744297e-06,
+      "max_owner": [
+        31677,
+        55254,
+        78831
+      ],
+      "phase_max": [
+        31696,
+        55292,
+        78888
+      ],
+      "setup": 8100,
+      "steady": 23596
+    },
+    "range_csl_final_self": {
+      "error": 1.0490646351613009e-06,
+      "max_owner": [
+        54916,
+        107827,
+        160738
+      ],
+      "phase_max": [
+        54916,
+        107827,
+        160738
+      ],
+      "setup": 2005,
+      "steady": 52911
+    },
+    "range_csl_original": {
+      "error": 1.0490646351613009e-06,
+      "max_owner": [
+        235106,
+        367127,
+        499148
+      ],
+      "phase_max": [
+        235106,
+        367127,
+        499148
+      ],
+      "setup": 103085,
+      "steady": 132021
+    },
+    "range_csl_sole_self": {
+      "error": 1.0490646351613009e-06,
+      "max_owner": [
+        100794,
+        157384,
+        213974
+      ],
+      "phase_max": [
+        100794,
+        157384,
+        213974
+      ],
+      "setup": 44204,
+      "steady": 56590
+    },
+    "range_csl_static_residual_suffix": {
+      "error": 1.0490646351613009e-06,
+      "max_owner": [
+        53217,
+        104429,
+        155641
+      ],
+      "phase_max": [
+        53217,
+        104429,
+        155641
+      ],
+      "setup": 2005,
+      "steady": 51212
+    },
+    "range_tungsten_final_self": {
+      "error": 1.0490646351613009e-06,
+      "max_owner": [
+        70721,
+        123408,
+        176095
+      ],
+      "phase_max": [
+        70723,
+        123412,
+        176101
+      ],
+      "setup": 18034,
+      "steady": 52689
+    },
+    "range_tungsten_four_edge": {
+      "error": 1.0490646351613009e-06,
+      "max_owner": [
+        73456,
+        128878,
+        184300
+      ],
+      "phase_max": [
+        73460,
+        128886,
+        184312
+      ],
+      "setup": 18034,
+      "steady": 55426
+    },
+    "range_tungsten_original": {
+      "error": 1.0490646351613009e-06,
+      "max_owner": [
+        99654,
+        175003,
+        250352
+      ],
+      "phase_max": [
+        99670,
+        175035,
+        250400
+      ],
+      "setup": 24305,
+      "steady": 75365
+    },
+    "range_tungsten_sole_dynamic": {
+      "error": 1.0490646351613009e-06,
+      "max_owner": [
+        122470,
+        186820,
+        251170
+      ],
+      "phase_max": [
+        122482,
+        186844,
+        251206
+      ],
+      "setup": 58120,
+      "steady": 64362
+    },
+    "range_tungsten_sole_fixed": {
+      "error": 1.0490646351613009e-06,
+      "max_owner": [
+        107145,
+        156171,
+        205197
+      ],
+      "phase_max": [
+        107153,
+        156186,
+        205219
+      ],
+      "setup": 58120,
+      "steady": 49033
+    }
+  },
+  "metric": "sum of individual per-window maxima, both placements over same original Cora; host/dispatch excluded",
+  "pe": 64,
+  "pending": [
+    "cyclic_all-fmac_csl"
+  ],
+  "range_release_selection_sha256": "c14a16dc65c98c7d8ed9b170c40b0c8a76db97a00e9b32a680cbe64e883ed039",
+  "ranking": {
+    "inclusive_n1": [
+      "cyclic_separate_all_fmac_tungsten",
+      "cyclic_self-simd_csl",
+      "cyclic_all-fmac_tungsten",
+      "cyclic_original_tungsten",
+      "cyclic_self-simd_tungsten",
+      "range_csl_static_residual_suffix",
+      "range_csl_final_self",
+      "range_tungsten_final_self",
+      "range_tungsten_four_edge",
+      "cyclic_original_csl",
+      "range_tungsten_original",
+      "range_csl_sole_self",
+      "range_tungsten_sole_fixed",
+      "range_tungsten_sole_dynamic",
+      "range_csl_original"
+    ],
+    "inclusive_n2": [
+      "cyclic_separate_all_fmac_tungsten",
+      "cyclic_self-simd_csl",
+      "cyclic_all-fmac_tungsten",
+      "cyclic_self-simd_tungsten",
+      "cyclic_original_tungsten",
+      "range_csl_static_residual_suffix",
+      "range_csl_final_self",
+      "range_tungsten_final_self",
+      "range_tungsten_four_edge",
+      "cyclic_original_csl",
+      "range_tungsten_sole_fixed",
+      "range_csl_sole_self",
+      "range_tungsten_original",
+      "range_tungsten_sole_dynamic",
+      "range_csl_original"
+    ],
+    "inclusive_n3": [
+      "cyclic_separate_all_fmac_tungsten",
+      "cyclic_all-fmac_tungsten",
+      "cyclic_self-simd_tungsten",
+      "cyclic_self-simd_csl",
+      "cyclic_original_tungsten",
+      "range_csl_static_residual_suffix",
+      "range_csl_final_self",
+      "range_tungsten_final_self",
+      "cyclic_original_csl",
+      "range_tungsten_four_edge",
+      "range_tungsten_sole_fixed",
+      "range_csl_sole_self",
+      "range_tungsten_original",
+      "range_tungsten_sole_dynamic",
+      "range_csl_original"
+    ],
+    "steady": [
+      "cyclic_self-simd_tungsten",
+      "cyclic_separate_all_fmac_tungsten",
+      "cyclic_all-fmac_tungsten",
+      "cyclic_self-simd_csl",
+      "cyclic_original_tungsten",
+      "cyclic_original_csl",
+      "range_tungsten_sole_fixed",
+      "range_csl_static_residual_suffix",
+      "range_tungsten_final_self",
+      "range_csl_final_self",
+      "range_tungsten_four_edge",
+      "range_csl_sole_self",
+      "range_tungsten_sole_dynamic",
+      "range_tungsten_original",
+      "range_csl_original"
+    ]
+  },
+  "role": "SDK WSE-3 simulator"
+}

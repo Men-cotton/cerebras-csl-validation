@@ -1,0 +1,13 @@
+{
+  "checked_residual_source_pointers": 1648,
+  "complete_graph_words": 51840,
+  "pe_count": 64,
+  "raw_sha256": "5c0143f7486be039126bc84d9e92ac326dacc3e17a5c565c1299d31316a24bb7",
+  "source": "stopped 64-PE SDK simulator",
+  "symbols": [
+    "graph",
+    "inputs",
+    "tail_weights"
+  ],
+  "window": 10
+}
