@@ -1,0 +1,53 @@
+{
+  "description": "Run resident paired GraphSAGE on physical CS-3 and verify every output against original-input FP64.",
+  "id": "graphsage-resident-fused-cluster-256-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "cluster-c16r16-t8-fused",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-cluster-c16r16-t8-fused"
+      ],
+      "kind": "appliance",
+      "name": "compile-cluster-c16r16-t8-fused",
+      "script": "validations/graphsage-resident-placement/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "cluster-c16r16-t8-fused",
+        "--backend",
+        "hardware",
+        "--host-timeout",
+        "600",
+        "--artifact-record",
+        "{output}/compile-cluster-c16r16-t8-fused/native-build.json",
+        "--out",
+        "{output}/run-cluster-c16r16-t8-fused"
+      ],
+      "kind": "appliance",
+      "name": "run-cluster-c16r16-t8-fused",
+      "script": "validations/graphsage-resident-placement/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-cluster-c16r16-t8-fused/capture-data",
+        "--out",
+        "{output}/numerical-cluster-c16r16-t8-fused.json"
+      ],
+      "kind": "host",
+      "name": "audit-cluster-c16r16-t8-fused",
+      "script": "validations/graphsage-resident-placement/saved_audit.py"
+    }
+  ]
+}
