@@ -2,7 +2,8 @@
   "cases": {
     "cluster-c16r16-t8": "5fad25dddab656c19c4f0f9ae4da60411034462b1c9481b514c8783f6a792c42",
     "cluster-c16r16-t8-factored": "f01b184ec714eb2b78cbb752d44a7f575219cfdfee3ecc45baff36033e16735f",
-    "cluster-c16r16-t8-fused": "417cdd1f9c1f2356e8f21ada35a08251268f08e5a80505b86fd2e09fd99b26a3"
+    "cluster-c16r16-t8-fused": "417cdd1f9c1f2356e8f21ada35a08251268f08e5a80505b86fd2e09fd99b26a3",
+    "cluster-c16r64-t8-factored": "e18756069b3da9d9686ae9a87e92825da435bfc049cbe52a5a45d968e2e50312"
   },
   "compile_workers": 1,
   "family": "graphsage-resident-placement",
