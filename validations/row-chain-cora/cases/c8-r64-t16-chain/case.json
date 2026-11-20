@@ -1,0 +1,157 @@
+{
+  "admission": {
+    "admitted": true,
+    "code_reserve_bytes": 11194,
+    "forecast_bytes": 44048,
+    "named_bytes": 32854,
+    "scope": "local simulator link including SDK; physical compile undergoes the same native-cora inventory gate"
+  },
+  "atol": 2e-05,
+  "family": "native-cora",
+  "features": 1433,
+  "files": {
+    "checkpoint.json": "3d41050782a2e96f4d9f6b3410c155cd59577bc6a61c521057a9c9bd9a5e0995",
+    "checkpoint.npz": "836c82b82871c76bb1822ace2014c9552690459a952de1b23d4399d5ecce4542",
+    "dataset/cora.cites": "ec1a372391b7f0f60a6aff0084e8abd8f19f0faa7e1f2441a41c492042d5945e",
+    "dataset/cora.content": "b8ebed0fd45e53995abafd1b70cf6a9fcc8f86abc5826d69b97fe6ca46e9c8ee",
+    "expected.npz": "075057875b64d19f5124a41e0982b2c98d114b3e94739f3cda09bc88bccef621",
+    "inputs.npz": "1c23b6a5e6cfedf9e51653c815ef6f3f3a8022a65ab0f2f31946dea36e176f69",
+    "node_ids.npz": "968183a7fb7d1ca8def572d7806153bfc7e5b6376f0bb4503ff20d9977ec9590",
+    "provenance.json": "77960c204cae07f060c91c9e48f9c1e1b4f3917005437b32f99eadceadc44670",
+    "source/layout.csl": "e5fcccc00cb68544ed10bd4a30aa5de96fb3482a9b821d6e163e1e02f896aeca",
+    "source/pe.csl": "93c0d24c17d5ea75d26485a4361f82841af0e86a780f11c19f31fd038d2188f0"
+  },
+  "immutable_inputs": [
+    "counts",
+    "edge_ptr",
+    "edge_src",
+    "edge_weight",
+    "packet_count",
+    "packet_header",
+    "packet_offset",
+    "packet_tag",
+    "send_slot",
+    "slots",
+    "w0",
+    "w1",
+    "x_col",
+    "x_ptr",
+    "x_val"
+  ],
+  "inputs": {
+    "counts": [
+      6,
+      "uint16"
+    ],
+    "edge_ptr": [
+      7,
+      "uint16"
+    ],
+    "edge_src": [
+      201,
+      "uint16"
+    ],
+    "edge_weight": [
+      201,
+      "float32"
+    ],
+    "packet_count": [
+      76,
+      "uint16"
+    ],
+    "packet_header": [
+      76,
+      "uint32"
+    ],
+    "packet_offset": [
+      76,
+      "uint16"
+    ],
+    "packet_tag": [
+      76,
+      "uint32"
+    ],
+    "send_slot": [
+      38,
+      "uint16"
+    ],
+    "slots": [
+      6,
+      "uint16"
+    ],
+    "w0": [
+      2880,
+      "float32"
+    ],
+    "w1": [
+      112,
+      "float32"
+    ],
+    "x_col": [
+      181,
+      "uint16"
+    ],
+    "x_ptr": [
+      46,
+      "uint16"
+    ],
+    "x_val": [
+      181,
+      "float32"
+    ]
+  },
+  "kind": "cora",
+  "launch": {
+    "arguments": [],
+    "entrypoint": "f_run"
+  },
+  "nodes": 2708,
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "logits": [
+      42,
+      "float32"
+    ],
+    "panel_sum": [
+      720,
+      "float32"
+    ],
+    "pre": [
+      96,
+      "float32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ],
+    "traffic": [
+      4,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 8,
+    "COMPACT": 1,
+    "FW": 180,
+    "H": 16,
+    "K": 45,
+    "L": 6,
+    "MG": 201,
+    "MX": 181,
+    "NPLAN": 38,
+    "NRX": 165,
+    "NSEND": 38,
+    "O": 7,
+    "R": 64,
+    "T": 16,
+    "U": 21
+  },
+  "profile": "original",
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "2708-node Cora H16/O7 GCN; fixed 1433-feature checkpoint, westbound row FADD chain and grouped remote projections",
+  "transport": "static row chain and grouped endpoints"
+}

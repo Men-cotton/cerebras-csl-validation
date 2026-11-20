@@ -1,5 +1,6 @@
 {
   "cases": {
+    "c8-r64-t16-chain": "47b5b38262b4109c3a8bddbf813375782b8aa33c4a70b757e6f2c21d5c65c9a7",
     "n256-c4-r4-t8-chain": "9a03a7cf184b8346cdfa316196fe3bb5f8821deebe94d493d383f893bd837026"
   },
   "family": "native-cora",

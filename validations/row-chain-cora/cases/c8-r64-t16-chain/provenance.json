@@ -1,0 +1,15 @@
+{
+  "appliance_input_initialization": "native sdk_runner H2D then all-coordinate D2H before launch and after completion",
+  "baseline_manifest_sha256": "c791e082ec81a19ccf0b88462e990201e6b243cdd18f7e2701479fa31f910cc7",
+  "comparison_sha256": "1e167a0f2c1e4bb657130275273f76d941c08c6ce8999f4416568e4cb0729751",
+  "input_sha256": "1c23b6a5e6cfedf9e51653c815ef6f3f3a8022a65ab0f2f31946dea36e176f69",
+  "local_input_initialization": "local verified data-only SDK PE image",
+  "local_linked_static_bytes": 44048,
+  "local_max_pe_cycles": 119239,
+  "local_numeric_status": "PASS",
+  "local_raw_sha256": "7050e5351def242cefd79668769ed6645646fdf60edacec74824e25147b89386",
+  "local_startup_image_sha256": "1adcd8636fcec820edf417f5cf29792800b750012def4741bf9bf46b67f0a268",
+  "peak_stack_bytes": null,
+  "simulator_source_sha256": "93c0d24c17d5ea75d26485a4361f82841af0e86a780f11c19f31fd038d2188f0",
+  "source_case": "g00-wg00-s11-c8r64-t16-group"
+}

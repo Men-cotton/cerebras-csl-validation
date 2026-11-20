@@ -1,0 +1,53 @@
+{
+  "description": "Full-Cora 512 PE fixed C8/T16 row-chain inference",
+  "id": "cora-row-chain-c8r64-t16-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c8-r64-t16-chain",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c8-r64-t16-chain"
+      ],
+      "kind": "appliance",
+      "name": "compile-c8-r64-t16-chain",
+      "script": "validations/row-chain-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c8-r64-t16-chain",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c8-r64-t16-chain/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c8-r64-t16-chain"
+      ],
+      "kind": "appliance",
+      "name": "run-c8-r64-t16-chain",
+      "script": "validations/row-chain-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c8-r64-t16-chain/capture-data",
+        "--out",
+        "{output}/numerical-c8-r64-t16-chain.json"
+      ],
+      "kind": "host",
+      "name": "audit-c8-r64-t16-chain",
+      "script": "validations/row-chain-cora/saved_audit.py"
+    }
+  ]
+}
