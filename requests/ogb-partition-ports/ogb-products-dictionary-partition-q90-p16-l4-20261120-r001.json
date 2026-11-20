@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "ogb-products-dictionary-partition-q90-p16-l4-20261120-r001",
+  "description": "Measure contiguous, edge-balanced and dictionary-aware row assignments on the same physical 16-compute-PE image with four West ports. Each assignment returns twelve frames, timed on one PE, and preserves every class score on the original trained products window.",
+  "steps": [
+    {
+      "name": "run-contiguous",
+      "kind": "appliance",
+      "script": "validations/ogb-partition-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-partition-ports/cases/products-splits-q90-l4",
+        "--release-sha256",
+        "4f7f54d041a69d4aa5697acbdf3776f210baf21f943903c19117602babaeca11",
+        "--partition",
+        "contiguous",
+        "--out",
+        "{output}/contiguous"
+      ]
+    },
+    {
+      "name": "run-balanced",
+      "kind": "appliance",
+      "script": "validations/ogb-partition-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-partition-ports/cases/products-splits-q90-l4",
+        "--release-sha256",
+        "4f7f54d041a69d4aa5697acbdf3776f210baf21f943903c19117602babaeca11",
+        "--partition",
+        "balanced",
+        "--out",
+        "{output}/balanced"
+      ]
+    },
+    {
+      "name": "run-dictionary",
+      "kind": "appliance",
+      "script": "validations/ogb-partition-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-partition-ports/cases/products-splits-q90-l4",
+        "--release-sha256",
+        "4f7f54d041a69d4aa5697acbdf3776f210baf21f943903c19117602babaeca11",
+        "--partition",
+        "dictionary",
+        "--out",
+        "{output}/dictionary"
+      ]
+    }
+  ]
+}
