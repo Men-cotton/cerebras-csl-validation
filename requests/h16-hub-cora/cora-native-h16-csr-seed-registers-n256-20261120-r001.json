@@ -1,0 +1,53 @@
+{
+  "description": "Measure complete H16 GCN on 32 PEs after the mesh entry barrier. Keep CSR descriptors live across the first multiply and the remaining multiply-adds. Verify standard input uploads, all spatial outputs, the ordered hub suffix and 48-bit PE clocks against the trained 256-node reference.",
+  "id": "cora-native-h16-csr-seed-registers-n256-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "n256-c4r8-csr-seed-registers",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-n256-c4r8-csr-seed-registers"
+      ],
+      "kind": "appliance",
+      "name": "compile-n256-c4r8-csr-seed-registers",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "n256-c4r8-csr-seed-registers",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-n256-c4r8-csr-seed-registers/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-n256-c4r8-csr-seed-registers"
+      ],
+      "kind": "appliance",
+      "name": "run-n256-c4r8-csr-seed-registers",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-n256-c4r8-csr-seed-registers/capture-data",
+        "--out",
+        "{output}/numerical-n256-c4r8-csr-seed-registers.json"
+      ],
+      "kind": "host",
+      "name": "audit-n256-c4r8-csr-seed-registers",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "description": "Measure complete H16 GCN on 32 PEs after the mesh entry barrier. Keep CSR descriptors live across the first multiply and the remaining multiply-adds. Verify standard input uploads, all spatial outputs, the ordered hub suffix and 48-bit PE clocks against the trained 256-node reference.",
+  "fp64": {
+    "logits": {
+      "max_abs": 1.0940489758581862e-06,
+      "max_relative_floor_1e_12": 2.3651112940794278e-05,
+      "relative_l2": 7.177702811961732e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.0940489758581862e-06,
+      "max_relative_floor_1e_12": 1.0641240135406812e-05,
+      "relative_l2": 7.819398411297045e-08
+    },
+    "pre": {
+      "max_abs": 6.301546295883753e-08,
+      "max_relative_floor_1e_12": 0.0005712804173175314,
+      "relative_l2": 4.671652758013378e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 38816,
+    "compute_elfs": 16,
+    "compute_pe_static_bytes": 38816,
+    "largest_image_files": [
+      "bin/out_10_0.elf",
+      "bin/out_11_0.elf",
+      "bin/out_5_0.elf",
+      "bin/out_6_0.elf",
+      "bin/out_7_0.elf",
+      "bin/out_9_0.elf"
+    ],
+    "linked_elfs": 30
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 22457,
+  "local_raw_sha256": "d6a24e10cc2c5a50371265944deec4db6031fcbb35fe44cd67829bc1e8324bd0",
+  "local_split_audit_sha256": "16f5bf453b237fc77654d18564552e359fb1982822ed6f08cccfdbe15e94382e",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "b2a315387fe5483deb1d8847e9f3f57c5a53345f26d69d36fa5342c97203af3e",
+  "packed_input_sha256": "6128718f8691aa8f3d00fa98c7e4204bfad837250d687ca35d1ae0fdbf415246",
+  "source_sha256": {
+    "layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "pe.csl": "471bff067005aa76a49a871f14f5ee35d1d72c3cadbecb9d4ffd53bc13732582"
+  },
+  "split_plan_sha256": "c366ba303fec6c3afe8330cf8965e63c44aea757dade08f4040037b0ca8e60c6"
+}
