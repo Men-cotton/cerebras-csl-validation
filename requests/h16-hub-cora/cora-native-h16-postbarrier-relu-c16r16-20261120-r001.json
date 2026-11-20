@@ -1,0 +1,53 @@
+{
+  "description": "Measure the trained full-Cora GCN at 256 PEs from the completed two-dimensional entry barrier to completion of both layers. Run the registered H16, positive ReLU and ordered hub split on the original packed input. Independently verify PE clocks, transfers, and original-vertex layer results.",
+  "id": "cora-native-h16-postbarrier-relu-c16r16-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r16-postbarrier-relu",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r16-postbarrier-relu"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r16-postbarrier-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r16-postbarrier-relu",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r16-postbarrier-relu/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r16-postbarrier-relu"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r16-postbarrier-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r16-postbarrier-relu/capture-data",
+        "--out",
+        "{output}/numerical-c16-r16-postbarrier-relu.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r16-postbarrier-relu",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "description": "Measure the trained full-Cora GCN at 256 PEs from the completed two-dimensional entry barrier to completion of both layers. Run the registered H16, positive ReLU and ordered hub split on the original packed input. Independently verify PE clocks, transfers, and original-vertex layer results.",
+  "fp64": {
+    "logits": {
+      "max_abs": 1.5439759302182665e-06,
+      "max_relative_floor_1e_12": 0.00013183973156311016,
+      "relative_l2": 6.272524778577736e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.2052094220393883e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.85920214212301e-08
+    },
+    "pre": {
+      "max_abs": 2.1018271234574115e-07,
+      "max_relative_floor_1e_12": 0.003162167094478161,
+      "relative_l2": 5.682025087484996e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 43152,
+    "compute_elfs": 16,
+    "compute_pe_static_bytes": 43152,
+    "largest_image_files": [
+      "bin/out_10_0.elf",
+      "bin/out_5_0.elf",
+      "bin/out_6_0.elf",
+      "bin/out_9_0.elf"
+    ],
+    "linked_elfs": 30
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 90021,
+  "local_raw_sha256": "7573126083f2c1f417a6fa29292c9d871a1a3f1392e92adf581d5010f07710f8",
+  "local_split_audit_sha256": "8b785c2c696755b9af29c68d3f215569ce81ad043053b83d88b57ba8ced9c4a0",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "b51f188a1dda8d6175aedef8e5ff5d20c4733b3b2b1ff223051a2c8ff117777e",
+  "packed_input_sha256": "1fc3d077eaef1dd277527c40b3d338096a9c3d71dadc8ce7f6b8cacc8e67f08c",
+  "source_sha256": {
+    "layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "pe.csl": "236d94d97327e4164109bff1d29729f0a5be0d8443227e8f3d9c997f11c8c740"
+  },
+  "split_plan_sha256": "b8535362136a7ca5048f58fc891071a959772148598116b9a203898bd023a5ed"
+}
