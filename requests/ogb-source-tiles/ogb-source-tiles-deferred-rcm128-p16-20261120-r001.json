@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "id": "ogb-source-tiles-deferred-rcm128-p16-20261120-r001",
+  "description": "Apply each owner\u2019s CSR selectors after every owner has received its slots. Each arxiv/products case uses the exact original 128-root input of the baseline request, both delivery modes, six interleaved frames and all logits.",
+  "steps": [
+    {
+      "name": "run-arxiv",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-source-tiles/cases/arxiv-rcm128-q50-p16-e128-deferred-skip1",
+        "--release-sha256",
+        "e8652caa1478bd28e56f8a675cc535925a4c124b2a7d4bdf3f0397f4910842ce",
+        "--out",
+        "{output}/arxiv"
+      ]
+    },
+    {
+      "name": "run-products",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-source-tiles/cases/products-rcm128-q50-p16-e128-deferred-skip1",
+        "--release-sha256",
+        "1c099f3311090263cb6be1db30d4b8ce182d16d0014c77a140d30db2b7e43e3d",
+        "--out",
+        "{output}/products"
+      ]
+    }
+  ]
+}

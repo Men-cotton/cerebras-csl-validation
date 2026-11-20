@@ -1,0 +1,31 @@
+{
+  "file_sha256": {
+    "build.json": "d2f97841a77c319695306492d6d8cd6638a03bc22f0a8c3ce054d6f628e66f2f",
+    "fixture.npz": "50759c9bcdaacc703e1f02c378ead52593b87e72a3bba1bbac6292aa62e4e3a6",
+    "hardware/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "hardware/out/program.elf": "62b4948d2cad2b343ddca6bd6af1a9c87eb029f4c10d42c08f7e83b23551b50c",
+    "hardware/ranges.txt": "0faea7cd731280ea6810d69075728bfc52e8fb295a5734f4cfc21b23cc94d928",
+    "program.map": "c82de3717dabf6bb5a892ecb7e7c1e6bab796132720daa37f967e9153eff23b1",
+    "program.obj": "fd80665304b30bf0c92d868e7fc4efc6336458323800e5135e08b725ae402959",
+    "sdk/frame-1.npz": "688311cb679a8e53ebde37749d1e268e38fbd101ae5d733ce1692925cfd15d70",
+    "sdk/frame-2.npz": "95061331ff1910a71e6120ebdc353d0b43fe9b714825bb48de388edf00181043",
+    "sdk/frame-3.npz": "a5e8bbd5e933c35bfb5f88acbeef3d2f953ea8cd47c5460cc8431666f148281a",
+    "sdk/frame-4.npz": "3ef1fa77a0bbfd14aff513fa8007b695868607760e4a13513d96cb8671b6dc52",
+    "sdk/frame-5.npz": "42b313475bc8192847e0a5a0e912a229fbd08963b90bfa15f5421f86a9349d7f",
+    "sdk/frame-6.npz": "f3288f5e593b81928cbb1719e1f53c92f6b510e0469f8c948573d9a51be40123",
+    "sdk/result.json": "5e9a212a75945fc09b0e39cca3ed239ea4d2f4fc7cbb8821324f491be39bf9a4",
+    "simulator/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "simulator/out/program.elf": "3f28add7267bf5fd5a05f7bd177ffb832ca2ab5b1365dcef1fa4b2d038e85787",
+    "simulator/ranges.txt": "d14ed81edc87d07b78f01c38cddf729f62e651ffabab4ff4e581b0aa39aae227",
+    "src/collect.w": "5da88537e2300eb263f99046e2fb6057fb371176e5d842c95ac48cdb17d03a3e",
+    "src/owner.w": "75e5fe926b3f7711c222cd79335e10cbc370bd9597068ee82e27ff95d50945b0",
+    "src/program.paint": "74a3bc625bcfce85bb2cb2b326c04dac8cfffc361d96ee32e4d7f75b5d0b3396"
+  },
+  "host_sha256": {
+    "appliance.py": "7c486c313f10d8c18e7f63d3b2a401442a2598b2632e36859a0072f821cddee4",
+    "worker.py": "9a890841b89ce43fdb9acb744384b0b7f80c210e3030fb23a9987bb9ae01ae95",
+    "source_table.py": "1255f3c6b7fea04ffa5018db3c2149e3558f9aa7e38d9243b789ed19f8fdd1e1",
+    "ogb_contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "report.py": "9aa3d4fca836f0db5092ea6ca29d8e843b00c62da2d71bd39f20da31dbacfd51"
+  }
+}
