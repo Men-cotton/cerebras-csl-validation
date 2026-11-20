@@ -1,0 +1,53 @@
+{
+  "description": "Measure the two-layer CSL GCN on the complete original Cora graph using seeded nonempty CSR rows and fixed-stride class packet receives. Match the published 256-PE H16 split on graph, trained weights, ownership, and 74 ordered incidences sent to the neighboring PE.",
+  "id": "cora-native-h16-seeded-c16r16-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r16-t8-seeded-split",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r16-t8-seeded-split"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r16-t8-seeded-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r16-t8-seeded-split",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r16-t8-seeded-split/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r16-t8-seeded-split"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r16-t8-seeded-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r16-t8-seeded-split/capture-data",
+        "--out",
+        "{output}/numerical-c16-r16-t8-seeded-split.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r16-t8-seeded-split",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

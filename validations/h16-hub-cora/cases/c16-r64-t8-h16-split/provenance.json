@@ -1,0 +1,43 @@
+{
+  "description": "Complete fixed-graph CSL H16 strong scaling at 1024 PEs. All original Cora vertices and 13264 incidences, the ordered 85-edge suffix of node 163, its seven-hop same-row partial sums, one full hidden projection and full padded final panel.",
+  "fp64": {
+    "logits": {
+      "max_abs": 2.4976502466245165e-06,
+      "max_relative_floor_1e_12": 0.00022164349546245556,
+      "relative_l2": 6.313580112464385e-08
+    },
+    "panel_sum": {
+      "max_abs": 2.7382577236778616e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.933045039658705e-08
+    },
+    "pre": {
+      "max_abs": 3.3946663258177523e-07,
+      "max_relative_floor_1e_12": 0.0024796520726071093,
+      "relative_l2": 5.630762567797479e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 35952,
+    "compute_elfs": 12,
+    "compute_pe_static_bytes": 28800,
+    "largest_image_files": [
+      "west/bin/out_5_0.elf",
+      "west/bin/out_6_0.elf",
+      "west/bin/out_7_0.elf"
+    ],
+    "linked_elfs": 26
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 83772,
+  "local_raw_sha256": "e61d9cb9fc4977f2e756b27407488de2cd7a5fb403af7ef1c0759fed9fba89be",
+  "local_split_audit_sha256": "edb89bcbcf764bd9be90c0388c8a01c0d4072b9890b21ec86027e2ba5d04db47",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "98ad7949a7c243f9c9d8424d01a2be7b63d478581a5e96e4758b6b4579920e28",
+  "packed_input_sha256": "ddd50b58e3f6bea4a4c07fad2c9d1124b2f564be9a7fee02f06763915b7e29b5",
+  "source_sha256": {
+    "layout.csl": "2a1f6182b368b5b68b58f7211854b3b7ce1a99f83a61674759b5060c74cac29d",
+    "pe.csl": "44b0690717d75997a155ae8ffb660cc6babe69cbc3d2c60e92edca0dc12b6486"
+  },
+  "split_plan_sha256": "cb48c0bf25cee1745e37fae26c8fb21e0a2500516bd8264f01214a8558294488"
+}

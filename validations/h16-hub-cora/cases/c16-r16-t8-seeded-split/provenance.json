@@ -1,0 +1,46 @@
+{
+  "description": "Measure the two-layer CSL GCN on the complete original Cora graph using seeded nonempty CSR rows and fixed-stride class packet receives. Match the published 256-PE H16 split on graph, trained weights, ownership, and 74 ordered incidences sent to the neighboring PE.",
+  "fp64": {
+    "logits": {
+      "max_abs": 1.5439759302182665e-06,
+      "max_relative_floor_1e_12": 0.00013183973156311016,
+      "relative_l2": 6.272524778577736e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.2052094220393883e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.85920214212301e-08
+    },
+    "pre": {
+      "max_abs": 2.1018271234574115e-07,
+      "max_relative_floor_1e_12": 0.003162167094478161,
+      "relative_l2": 5.682025087484996e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 44928,
+    "compute_elfs": 12,
+    "compute_pe_static_bytes": 44928,
+    "largest_image_files": [
+      "bin/out_3_0.elf",
+      "bin/out_4_0.elf",
+      "bin/out_5_0.elf",
+      "bin/out_6_0.elf",
+      "bin/out_7_0.elf",
+      "bin/out_8_0.elf"
+    ],
+    "linked_elfs": 26
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 120941,
+  "local_raw_sha256": "9c87b96311a867089db85b98fd659fa20071e17faf65d78080f0a6c3430aebab",
+  "local_split_audit_sha256": "eff2578a6c54eb3923682bf08bd5cc16327fa6531da64405c55b5dd51a0b538b",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "b51f188a1dda8d6175aedef8e5ff5d20c4733b3b2b1ff223051a2c8ff117777e",
+  "packed_input_sha256": "1fc3d077eaef1dd277527c40b3d338096a9c3d71dadc8ce7f6b8cacc8e67f08c",
+  "source_sha256": {
+    "layout.csl": "5801c44f446003668b5e6eb65652b6d450f54aba8fe05ab5d70970469af50547",
+    "pe.csl": "67f8514604528457fd3f2921314beafea1c31c4bc158417f52011acddc3d4fbe"
+  },
+  "split_plan_sha256": "b8535362136a7ca5048f58fc891071a959772148598116b9a203898bd023a5ed"
+}
