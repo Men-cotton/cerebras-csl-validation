@@ -1,0 +1,166 @@
+{
+  "admission": {
+    "admitted": true,
+    "code_reserve_bytes": 9312,
+    "forecast_bytes": 38928,
+    "named_bytes": 29616,
+    "scope": "H16 host ABI estimate and linked SRAM endpoint; check the physical inventory before execution"
+  },
+  "atol": 2e-05,
+  "family": "native-cora",
+  "features": 1433,
+  "files": {
+    "checkpoint.json": "3d41050782a2e96f4d9f6b3410c155cd59577bc6a61c521057a9c9bd9a5e0995",
+    "checkpoint.npz": "836c82b82871c76bb1822ace2014c9552690459a952de1b23d4399d5ecce4542",
+    "dataset/cora.cites": "ec1a372391b7f0f60a6aff0084e8abd8f19f0faa7e1f2441a41c492042d5945e",
+    "dataset/cora.content": "b8ebed0fd45e53995abafd1b70cf6a9fcc8f86abc5826d69b97fe6ca46e9c8ee",
+    "expected.npz": "60bf9e951e63496e152b36559c33df7133a5a3c802f79800957145ecf1740758",
+    "inputs.npz": "6128718f8691aa8f3d00fa98c7e4204bfad837250d687ca35d1ae0fdbf415246",
+    "node_ids.npz": "cb721f34db04d6ea6979a0b96fe6c20d1ff82a8913012dcd9155071f0b00c639",
+    "provenance.json": "3c1f4351a6e003bc3fea3567c50f2e99fa47512127b157661cd4e11f072f7193",
+    "source/layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "source/pe.csl": "39d4ce469cd98d70a433d5cb0d4572baa2d9244931f0fb36d8ba6fad001d7dbf"
+  },
+  "immutable_inputs": [
+    "counts",
+    "edge_ptr",
+    "edge_src",
+    "edge_weight",
+    "packet_count",
+    "packet_header",
+    "packet_offset",
+    "packet_tag",
+    "send_slot",
+    "slots",
+    "split_control",
+    "w0",
+    "w1",
+    "x_col",
+    "x_ptr",
+    "x_val"
+  ],
+  "inputs": {
+    "counts": [
+      6,
+      "uint16"
+    ],
+    "edge_ptr": [
+      10,
+      "uint16"
+    ],
+    "edge_src": [
+      35,
+      "uint16"
+    ],
+    "edge_weight": [
+      35,
+      "float32"
+    ],
+    "packet_count": [
+      10,
+      "uint16"
+    ],
+    "packet_header": [
+      10,
+      "uint32"
+    ],
+    "packet_offset": [
+      10,
+      "uint16"
+    ],
+    "packet_tag": [
+      10,
+      "uint32"
+    ],
+    "send_slot": [
+      7,
+      "uint16"
+    ],
+    "slots": [
+      8,
+      "uint16"
+    ],
+    "split_control": [
+      2,
+      "uint16"
+    ],
+    "w0": [
+      5744,
+      "float32"
+    ],
+    "w1": [
+      112,
+      "float32"
+    ],
+    "x_col": [
+      181,
+      "uint16"
+    ],
+    "x_ptr": [
+      33,
+      "uint16"
+    ],
+    "x_val": [
+      181,
+      "float32"
+    ]
+  },
+  "kind": "cora",
+  "launch": {
+    "arguments": [],
+    "entrypoint": "f_run"
+  },
+  "nodes": 256,
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "logits": [
+      56,
+      "float32"
+    ],
+    "panel_sum": [
+      256,
+      "float32"
+    ],
+    "pre": [
+      128,
+      "float32"
+    ],
+    "split_words": [
+      2,
+      "uint32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ],
+    "traffic": [
+      4,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 4,
+    "COMPACT": 1,
+    "FW": 359,
+    "H": 16,
+    "K": 32,
+    "L": 8,
+    "MG": 35,
+    "MX": 181,
+    "NPLAN": 5,
+    "NRX": 10,
+    "NSEND": 7,
+    "O": 7,
+    "R": 8,
+    "T": 8,
+    "U": 5
+  },
+  "profile": "original",
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "Unpruned 256-node Cora, trained 1433\u201316\u20137 classifier, ordered split of node 163",
+  "transport": "Run the 256-node Cora GCN prefix on 32 compute PEs with registered CSR descriptors, a full outgoing DMA and a split of the ordered node 163 row. Verify all layers, every original ID and all input transfers against the trained checkpoint."
+}

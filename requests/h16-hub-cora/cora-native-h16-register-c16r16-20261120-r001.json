@@ -1,0 +1,53 @@
+{
+  "description": "Run full 2708-node Cora on 256 compute PEs using pinned CSR descriptor registers, a single outgoing DMA and the ordered node 163 split. Verify all local input transfers and both inferred layers from the trained checkpoint.",
+  "id": "cora-native-h16-register-c16r16-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r16-t8-register",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r16-t8-register"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r16-t8-register",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r16-t8-register",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r16-t8-register/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r16-t8-register"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r16-t8-register",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r16-t8-register/capture-data",
+        "--out",
+        "{output}/numerical-c16-r16-t8-register.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r16-t8-register",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

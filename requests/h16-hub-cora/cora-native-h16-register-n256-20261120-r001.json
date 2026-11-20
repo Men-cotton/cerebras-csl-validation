@@ -1,0 +1,53 @@
+{
+  "description": "Run the 256-node Cora GCN prefix on 32 compute PEs with registered CSR descriptors, a full outgoing DMA and a split of the ordered node 163 row. Verify all layers, every original ID and all input transfers against the trained checkpoint.",
+  "id": "cora-native-h16-register-n256-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "n256-c4r8-register",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-n256-c4r8-register"
+      ],
+      "kind": "appliance",
+      "name": "compile-n256-c4r8-register",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "n256-c4r8-register",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-n256-c4r8-register/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-n256-c4r8-register"
+      ],
+      "kind": "appliance",
+      "name": "run-n256-c4r8-register",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-n256-c4r8-register/capture-data",
+        "--out",
+        "{output}/numerical-n256-c4r8-register.json"
+      ],
+      "kind": "host",
+      "name": "audit-n256-c4r8-register",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}
