@@ -2,6 +2,7 @@
   "cases": {
     "cluster-c16r16-t8-owner-tiles": "9969f7928a7bcf734fa71c18e73ea8bad6a994c72fa005ceeff9a459901af74c",
     "cluster-c16r16-t8-templates": "b73e0489cc1f53e888a196525bbbb15d242c19725d41e28e053eb4cda089676c",
+    "cluster-c16r32-t8-owner-tiles": "ea6e93eacdbf7ca3e00be85934ba33d29b29951e60bf5ba493722b48818e4d92",
     "cluster-c16r32-t8-templates": "18d66bbb603d44020dd55a24d8c0addb962d34a1ad325743bb56cbd737e2b7b1",
     "cluster-c16r64-t8-templates": "2e1c90c3f82c7466a81b2f305bc4e457371edded4c53f20683c89562bf1fa240"
   },
