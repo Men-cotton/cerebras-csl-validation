@@ -1,0 +1,12 @@
+{
+  "description": "One-pass native H16 Cora inference with ordered hub splitting",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py"
+  ],
+  "id": "h16-hub-cora",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

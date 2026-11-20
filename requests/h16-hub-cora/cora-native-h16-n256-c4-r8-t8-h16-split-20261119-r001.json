@@ -1,0 +1,53 @@
+{
+  "description": "Standard CS-3 execution and full readback of the 256-node fixed H16 hub case",
+  "id": "cora-native-h16-n256-c4-r8-t8-h16-split-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "n256-c4-r8-t8-h16-split",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-n256-c4-r8-t8-h16-split"
+      ],
+      "kind": "appliance",
+      "name": "compile-n256-c4-r8-t8-h16-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "n256-c4-r8-t8-h16-split",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-n256-c4-r8-t8-h16-split/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-n256-c4-r8-t8-h16-split"
+      ],
+      "kind": "appliance",
+      "name": "run-n256-c4-r8-t8-h16-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-n256-c4-r8-t8-h16-split/capture-data",
+        "--out",
+        "{output}/numerical-n256-c4-r8-t8-h16-split.json"
+      ],
+      "kind": "host",
+      "name": "audit-n256-c4-r8-t8-h16-split",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}
