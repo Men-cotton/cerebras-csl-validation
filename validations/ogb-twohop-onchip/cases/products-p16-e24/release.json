@@ -1,0 +1,46 @@
+{
+  "dataset": "products",
+  "destinations": 4,
+  "files": {
+    "build.json": "82deff1788b9ed5942cee302eb726c2196556a42c3833900bc64fca9f1bf4f02",
+    "chain.map": "d87f7de249ba915be0737d23fcaa4cf7f732ccc18586a6742399bbb6e05f11f0",
+    "chain.obj": "e5ca4e25d7c896f2d1b66aacee4a22e157d1b0296fac3d6313202601221956c1",
+    "first.npz": "571765c5152755db307db1430c133ffa464cf52dca7f613d3718dae234246c65",
+    "hardware/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "hardware/out/program.elf": "63eac7fc1db710c68ad93a03363ddb072d40c03c388a70b3e7395d351e8b147e",
+    "hardware/ranges.txt": "0f4087b22e6bcc2c9ca48167aee8fa2e662558e4b1e1ec9fad27d4b1959f0867",
+    "last.npz": "54f23247b95ca78c8ce309a38f83be6a6f81152bb781a25e92ba3efacc465b90",
+    "model.json": "2e0cbbc149a5369f71211f1804b52d4eda93f9f614cc1cb66e25bf0f7c544c89",
+    "original.json": "2be66d978c589ba88dfb79c5fc08275f0a68ce8c307d167bba1cd08845b12576",
+    "sdk/frame-1.npz": "65bad7d0bce746e9b24a0c30325cac07adb7017ae58f780c6e0df565d5d667ef",
+    "sdk/frame-2.npz": "b7c7315a8109d0d985be1e4d6b3b5f608e7ccf1715d8d06983cd5689d5ffde8c",
+    "sdk/frame-3.npz": "adb7bcd656cb1c52e88fd78140ff32d5cbb540353b565db49c45b323aec386ff",
+    "sdk/frame-4.npz": "32fe43a131df18a64fc0d43969d181bebdeb6ecda3493a4ebdfe9ebe373c0d72",
+    "sdk/frame-5.npz": "795287957ba2d0920b66edc248656ffe34c95346504098333d07d38b53f4c902",
+    "sdk/result.json": "fb3c24e1013d27e10c840e6af816faaebf599ccdd16ad77154a5c351803d5fe8",
+    "simulator/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "simulator/out/program.elf": "e9623f647275fb7af33f2e333a58fd9918dd5bcaaa99f7e1f55cc118ec55af47",
+    "simulator/ranges.txt": "b1078f88bd8dd8f553578735173f2ecb54ad9fa5c3739c42ad43a311735674c1",
+    "src/collect.w": "1f0c0c70f38c9a4aac55eb44bd00d3183956ca87447c9153fef99614b4ea80b1",
+    "src/final.w": "05c48ad2f3c2aeb388c0da6e1d2efe82cb994e6a91d84fa285d6c2c227cbbe1b",
+    "src/owner.w": "8c76dfe5d962dbfdce7fca58d2658fdd668a82fcdb6f589c26482d843cc31052",
+    "src/program.paint": "47460a393d0dda5a9187619b730aba626959586d4832ac687270f2d7e1ec25d2",
+    "weights.npz": "693690e2583c803686e61198d16f409aa89286d7ea5ff197079e9dd512ea4608"
+  },
+  "hidden_nodes": 203,
+  "host": {
+    "appliance.py": "6d671712786505f06b96fc7f4c466b97a377edb90e4f0c9a5545236773d1ac4f",
+    "chain.py": "42c6277008730f8aeb87edbdfeb44f50e90adbd7e2800ac97810593b956b2b53",
+    "image.py": "3c95441418d4183885adced40240ca8dd603e04924a1c2815cdfe2290c56a587",
+    "ogb_contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "originals.py": "aace3bdd5c4b3bf835e87e008a68f4b39db375c4a7acb86b4ad6d56ae664303f",
+    "report_chain.py": "7748653cbcded84a1b80db954c40be65c192540ea397953f9f6e7596596d8989",
+    "source_table.py": "1255f3c6b7fea04ffa5018db3c2149e3558f9aa7e38d9243b789ed19f8fdd1e1",
+    "worker_chain.py": "dbf8d7aac902f06153f9ae257e1ae2e0ca6d6aed219f79bf34bcb18846b9cff2"
+  },
+  "raw_nodes": 14530,
+  "reference_sources_at_export": {
+    "build_chain.py": "46702a4d32a0fbe9b7f0243a13c0297aaa2e7b808aedf8b33cd94f9470d7d970",
+    "worker_chain.py": "fc691ee9a9b2401ee9e72c5889b7d99dd271dd29d2133149d9d94f6955bb0a34"
+  }
+}

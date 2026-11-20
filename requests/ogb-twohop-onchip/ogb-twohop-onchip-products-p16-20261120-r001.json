@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "ogb-twohop-onchip-products-p16-20261120-r001",
+  "description": "Run both trained ogbn-products GraphSAGE layers from raw features for four original outputs; compare retained on-chip hidden state and exact host echo on one physical image, retaining all five complete frames, all PE clocks and both full intermediate returns.",
+  "steps": [
+    {
+      "name": "run-products",
+      "kind": "appliance",
+      "script": "validations/ogb-twohop-onchip/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "products-p16-e24",
+        "--release-sha256",
+        "c849eaaf62ca38d9ea2efcc07ee7e1a74cc903dec342556dc50a79e11351c17c",
+        "--out",
+        "{output}/run-products"
+      ]
+    }
+  ]
+}
