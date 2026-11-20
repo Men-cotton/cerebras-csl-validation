@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "ogb-parallel-ports",
+  "description": "Measure simultaneous versus serialized West Direct Link port pairs on a fixed original GraphSAGE window.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

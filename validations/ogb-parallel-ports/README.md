@@ -1,0 +1,3 @@
+# Parallel West port pairs for OGB GraphSAGE
+
+Each row pair owns a disjoint set of original destination IDs. The first row computes the trained GraphSAGE layer, and the second returns every class to its West output. The public SDK generated each port map through create_input_stream_from_loc and create_output_stream_from_loc. A single image measures serial and concurrent submissions at both input scales. The first PE records a common 48-bit interval between an acknowledged start and the completion of every port. Five empty fences precede and follow the twelve application frames. The capture includes all clocks and original-node logits. Replaying the physical archive verifies every output word against the corresponding local SDK run.
