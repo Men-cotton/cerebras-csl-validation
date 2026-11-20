@@ -1,0 +1,43 @@
+{
+  "description": "Measure the complete trained Cora GCN at 512 compute PEs after the two-dimensional entry barrier. Retain sparse descriptor registers, positive ReLU projection lanes and the original ordered 91-occurrence suffix of node 163. Verify every graph and weight transfer and the full padded layers against original IDs and FP64.",
+  "fp64": {
+    "logits": {
+      "max_abs": 3.055185979761177e-06,
+      "max_relative_floor_1e_12": 0.00022164349546245556,
+      "relative_l2": 6.497960715865922e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.3639037259594033e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.815162364864652e-08
+    },
+    "pre": {
+      "max_abs": 1.9512493465434488e-07,
+      "max_relative_floor_1e_12": 0.003162167094478161,
+      "relative_l2": 5.6450802743591884e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 35952,
+    "compute_elfs": 16,
+    "compute_pe_static_bytes": 34512,
+    "largest_image_files": [
+      "west/bin/out_5_0.elf",
+      "west/bin/out_6_0.elf",
+      "west/bin/out_7_0.elf"
+    ],
+    "linked_elfs": 30
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 67232,
+  "local_raw_sha256": "8fbd902dd8935a2a2561a48b62e2516c9656dcd5069ec9f77a83fa657fd0d5ce",
+  "local_split_audit_sha256": "f0822cd483e665191fe0a74cd4893f7266a62e593d3a79505ba38f52458b47c7",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "d8872f5aab1828a8234de66e700b42e412c8aa0b198f8df6cd49fae567aaf84b",
+  "packed_input_sha256": "7bcd1ec0f39a3d6bfb76050c04f3b6da52dab6a223e0dcd86309eb0928cf199d",
+  "source_sha256": {
+    "layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "pe.csl": "236d94d97327e4164109bff1d29729f0a5be0d8443227e8f3d9c997f11c8c740"
+  },
+  "split_plan_sha256": "39e8f0f3d4949f05f327d98ab448f45e0bbb1bdaf92e7d5b8ddfe7e7f400983e"
+}

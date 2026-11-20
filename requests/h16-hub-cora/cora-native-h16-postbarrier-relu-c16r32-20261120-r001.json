@@ -1,0 +1,53 @@
+{
+  "description": "Measure the complete trained Cora GCN at 512 compute PEs after the two-dimensional entry barrier. Retain sparse descriptor registers, positive ReLU projection lanes and the original ordered 91-occurrence suffix of node 163. Verify every graph and weight transfer and the full padded layers against original IDs and FP64.",
+  "id": "cora-native-h16-postbarrier-relu-c16r32-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r32-postbarrier-relu",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r32-postbarrier-relu"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r32-postbarrier-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r32-postbarrier-relu",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r32-postbarrier-relu/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r32-postbarrier-relu"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r32-postbarrier-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r32-postbarrier-relu/capture-data",
+        "--out",
+        "{output}/numerical-c16-r32-postbarrier-relu.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r32-postbarrier-relu",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}
