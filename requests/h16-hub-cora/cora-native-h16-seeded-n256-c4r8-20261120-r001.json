@@ -1,0 +1,53 @@
+{
+  "description": "Measure the audited single-pass H16 CSL projection with padded receive slots and nonempty CSR row initialization, on the same 256 nodes and high-degree split as the native control.",
+  "id": "cora-native-h16-seeded-n256-c4r8-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "n256-c4-r8-t8-seeded-split",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-n256-c4-r8-t8-seeded-split"
+      ],
+      "kind": "appliance",
+      "name": "compile-n256-c4-r8-t8-seeded-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "n256-c4-r8-t8-seeded-split",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-n256-c4-r8-t8-seeded-split/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-n256-c4-r8-t8-seeded-split"
+      ],
+      "kind": "appliance",
+      "name": "run-n256-c4-r8-t8-seeded-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-n256-c4-r8-t8-seeded-split/capture-data",
+        "--out",
+        "{output}/numerical-n256-c4-r8-t8-seeded-split.json"
+      ],
+      "kind": "host",
+      "name": "audit-n256-c4-r8-t8-seeded-split",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}
