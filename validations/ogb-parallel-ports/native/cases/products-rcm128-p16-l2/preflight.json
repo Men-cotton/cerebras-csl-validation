@@ -1,0 +1,44 @@
+{
+  "firmware": {
+    "bin/out_0_0.elf": "3e15960da9038881735595cad8ca7c7d2281a9079f30d7d630c1e74d0d3281ed",
+    "bin/out_1_0.elf": "ebd330dd697fff9664307fa31dbdfc7c6429cbf9147b6eb93e79929a106e8539",
+    "bin/out_2_0.elf": "6dff9be5362017a63a31951b03daffe19a66169200f458dd4eb5406e1474da21",
+    "bin/out_3_0.elf": "0e7f3f200d8433c998f4cd89a3c11af26a5dedfa423db51a4a174514e8b8ca84",
+    "bin/out_4_0.elf": "049d1acafe4304d8bed8a8eb7098a28e6cbfd56aeb646da3fa89ecbe1c1fc0d5",
+    "bin/out_5_0.elf": "3b8de9edf256ee80fae15d9f9abac73a47943188a4bc8012cf4df6838f2578da",
+    "bin/out_6_0.elf": "3c57887c0c6870b7bfc9dbfe2dba8ce742a4e899d9587220f716d3a13b7778b6",
+    "bin/out_7_0.elf": "e6cd4352b420b1c049ed66056d722e83114244de8008fb391599358702792d8d",
+    "bin/out_rpc.json": "7471fb70ccaa6c6e078761a524f814128d33d0f00c2ade2e341e20ff29264ca7",
+    "east/bin/out_0_0.elf": "e601e15a4bb440b4c6fe7af292fdaa8365299807ef74a4c809a7a6cccf569eb0",
+    "east/bin/out_1_0.elf": "c53a5dc2ae79bfcd107af6e70f1ffaf58b22acf1d4ee092442c733beddebc453",
+    "east/bin/out_2_0.elf": "c808b56de9836aebf9e56dc2a76a3fceee03b6a6541f36df98e448ad04bd1da8",
+    "east/bin/out_3_0.elf": "0ebd0596ddd9caaca815e2afc81e878c114bd794e612ab355aba0b936794fcc3",
+    "east/out.json": "ab6088266ebc7e6971a30c941d468c9b82b6b6639e78be4e08948146229bc614",
+    "out.json": "bb69debb79966bb0ca9b1f9781a936884cfc32f3ec6a92b47a821a4ff65d15a4",
+    "west/bin/out_0_0.elf": "3c197bef67a41ef8b567f69b4c71f9b053851eb466b40c40ea19776f05aceb34",
+    "west/bin/out_1_0.elf": "5d9612ed624eab1d69341256a2b3ed8252f94985303d5cc7e83fbdd1317e6405",
+    "west/bin/out_2_0.elf": "8c2c268c7e5d42b18e4cb69745d60d7a4d6f08b876e8ea563ada9c76d2cac7c1",
+    "west/bin/out_3_0.elf": "ce8e161384fe7550bd1d368b993ace8c6dafdc00bfd582954c6b22c959c46082",
+    "west/bin/out_4_0.elf": "66586f0691182a92807e34ea310903b803febc625c3166067a25b5ac406f4373",
+    "west/bin/out_5_0.elf": "9c3cda5d22e1f2e9c0a9601db2b4f05ca85ea4693506520a8e132393fe9c9a79",
+    "west/out.json": "19bd0e84a73de29db3c5306a5d735534408a0d3b3bd4cc814406a85034f88f5a"
+  },
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=762,1172",
+    "--fabric-offsets=4,1",
+    "--params=P:8,R:9,F:16,Q:48,E:128,RELU:0,L:2,M:73",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "role": "local compiler, physical fabric dimensions",
+  "source_sha256": {
+    "layout.csl": "dbfe860738f071573b3c1f2d90edf28cc5d3599daaab0943eab70e07634ceadb",
+    "pe.csl": "912df45c0a8d3a3372698f27ac09ccc4c2a8f928a6490341d5be6806f88d25ee"
+  }
+}

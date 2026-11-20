@@ -1,0 +1,67 @@
+{
+  "description": "Measure whole-rectangle and separate native row broadcasts on fixed 16-PE GraphSAGE allocations. Two input scales, twelve interleaved frames and the original per-class logits are verified against the matching multiport Tungsten releases.",
+  "id": "ogb-native-rectangles-rcm128-p16-l2-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "arxiv-rcm128-p16-l2",
+        "--release-sha256",
+        "245fac47c59ca745186bf7dfcc95a65fe88815d584ccaf8532f38344b5709efb",
+        "--out",
+        "{output}/compile-arxiv"
+      ],
+      "kind": "appliance",
+      "name": "compile-arxiv",
+      "script": "validations/ogb-parallel-ports/native/physical.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "arxiv-rcm128-p16-l2",
+        "--release-sha256",
+        "245fac47c59ca745186bf7dfcc95a65fe88815d584ccaf8532f38344b5709efb",
+        "--out",
+        "{output}/run-arxiv",
+        "--compiled",
+        "{output}/compile-arxiv/compiled.json"
+      ],
+      "kind": "appliance",
+      "name": "run-arxiv",
+      "script": "validations/ogb-parallel-ports/native/physical.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "products-rcm128-p16-l2",
+        "--release-sha256",
+        "14c68994cf8208c6ac53aca0d0c447857ec8026799a7791db28472e015454e1b",
+        "--out",
+        "{output}/compile-products"
+      ],
+      "kind": "appliance",
+      "name": "compile-products",
+      "script": "validations/ogb-parallel-ports/native/physical.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "products-rcm128-p16-l2",
+        "--release-sha256",
+        "14c68994cf8208c6ac53aca0d0c447857ec8026799a7791db28472e015454e1b",
+        "--out",
+        "{output}/run-products",
+        "--compiled",
+        "{output}/compile-products/compiled.json"
+      ],
+      "kind": "appliance",
+      "name": "run-products",
+      "script": "validations/ogb-parallel-ports/native/physical.py"
+    }
+  ]
+}
