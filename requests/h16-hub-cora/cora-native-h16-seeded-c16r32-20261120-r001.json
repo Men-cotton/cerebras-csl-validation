@@ -1,0 +1,53 @@
+{
+  "description": "Measure the trained full-Cora 512 PE H16 hub split with padded receive slots and seeded sparse rows using the same source as the measured 256 PE scaling point. Verify complete H2D contents, trained layers and endpoint counters.",
+  "id": "cora-native-h16-seeded-c16r32-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r32-t8-seeded-split",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r32-t8-seeded-split"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r32-t8-seeded-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r32-t8-seeded-split",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r32-t8-seeded-split/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r32-t8-seeded-split"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r32-t8-seeded-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r32-t8-seeded-split/capture-data",
+        "--out",
+        "{output}/numerical-c16-r32-t8-seeded-split.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r32-t8-seeded-split",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "description": "Measure the trained full-Cora 512 PE H16 hub split with padded receive slots and seeded sparse rows using the same source as the measured 256 PE scaling point. Verify complete H2D contents, trained layers and endpoint counters.",
+  "fp64": {
+    "logits": {
+      "max_abs": 3.055185979761177e-06,
+      "max_relative_floor_1e_12": 0.00022164349546245556,
+      "relative_l2": 6.497960715865922e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.3639037259594033e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.815162364864652e-08
+    },
+    "pre": {
+      "max_abs": 1.9512493465434488e-07,
+      "max_relative_floor_1e_12": 0.003162167094478161,
+      "relative_l2": 5.6450802743591884e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 36608,
+    "compute_elfs": 12,
+    "compute_pe_static_bytes": 36608,
+    "largest_image_files": [
+      "bin/out_3_0.elf",
+      "bin/out_4_0.elf",
+      "bin/out_5_0.elf",
+      "bin/out_6_0.elf",
+      "bin/out_7_0.elf",
+      "bin/out_8_0.elf"
+    ],
+    "linked_elfs": 26
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 83659,
+  "local_raw_sha256": "8773b7f803bf9afb9f4929cc639026624d8192dd8811c54c428b5f2cd40ad27f",
+  "local_split_audit_sha256": "54610bcde0cb15f3c36b6d6010d104795452d4dc2a7cf19544cc743f80bb583d",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "d8872f5aab1828a8234de66e700b42e412c8aa0b198f8df6cd49fae567aaf84b",
+  "packed_input_sha256": "7bcd1ec0f39a3d6bfb76050c04f3b6da52dab6a223e0dcd86309eb0928cf199d",
+  "source_sha256": {
+    "layout.csl": "5801c44f446003668b5e6eb65652b6d450f54aba8fe05ab5d70970469af50547",
+    "pe.csl": "67f8514604528457fd3f2921314beafea1c31c4bc158417f52011acddc3d4fbe"
+  },
+  "split_plan_sha256": "39e8f0f3d4949f05f327d98ab448f45e0bbb1bdaf92e7d5b8ddfe7e7f400983e"
+}
