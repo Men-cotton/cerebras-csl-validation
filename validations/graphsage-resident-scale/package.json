@@ -1,7 +1,8 @@
 {
   "cases": {
     "full-c16r16-t8": "65b40edf909e671c234bfcc87936911e2ae4b40c551ff0197f4e04a6747964b8",
-    "full-c16r32-t8": "47debb4ddfa27215be0202fc7bfa3711b635d2c7e841cb15f209779113b912e9"
+    "full-c16r32-t8": "47debb4ddfa27215be0202fc7bfa3711b635d2c7e841cb15f209779113b912e9",
+    "full-c16r64-t8": "aae5fcc8ae85a262175f4cb92d15aaf243cfddf955e307f142d1d29bf18a7dac"
   },
   "compile_workers": 1,
   "family": "graphsage-resident-scale",
