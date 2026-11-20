@@ -1,6 +1,7 @@
 {
   "cases": {
-    "cluster-c16r16-t8-templates": "b73e0489cc1f53e888a196525bbbb15d242c19725d41e28e053eb4cda089676c"
+    "cluster-c16r16-t8-templates": "b73e0489cc1f53e888a196525bbbb15d242c19725d41e28e053eb4cda089676c",
+    "cluster-c16r32-t8-templates": "18d66bbb603d44020dd55a24d8c0addb962d34a1ad325743bb56cbd737e2b7b1"
   },
   "compile_workers": 1,
   "family": "graphsage-resident-templates",
