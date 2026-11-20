@@ -1,0 +1,112 @@
+{
+  "fixture_sha256": "50759c9bcdaacc703e1f02c378ead52593b87e72a3bba1bbac6292aa62e4e3a6",
+  "roles": {
+    "simulator": {
+      "elf_sha256": "f7c1c1147c09bb37c181e5d4a0df286b92c3a36860bf104ba7516898b1d5ed57",
+      "fabric": [
+        2,
+        16
+      ]
+    },
+    "hardware": {
+      "elf_sha256": "30e8f8280a23f790dc28b1c851acf0ceb04adb49581daf4c7af9c860530da3ad",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "lanes": 8,
+  "owners_per_lane": 2,
+  "entries": 128,
+  "lane_params": [
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 48,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 48,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 9,
+      "F": 16,
+      "Q": 48,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 48,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 48,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 48,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 48,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 9,
+      "F": 16,
+      "Q": 48,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    }
+  ],
+  "port_sha256": "a86df9927b082418eeebdee80225858b45b29ec6f4e22e5960d456dcdf430dd9",
+  "canonical_sha256": "1c0b6af3690290dde9d48abad9ba751276caeb99e70e64fa42161edc64628ca9",
+  "source_sha256": {
+    "collect.w": "9cdbb167d42f8812cbec4fee9171a2bb802e43eaf18cb52fac240cf5b796ff65",
+    "owner0.w": "98d1289a54841261ed03f445246661f5398881699a938bc97b69cbba370ffbf1",
+    "owner1.w": "3db44fb85d31dc4ff9c35309a8090ae18fdccc07f2190513694718dc00393ed3",
+    "owner2.w": "ecb2205db058bb6a01bd6f8cf534acc57ff483d555179c064efc9ad4a8844d35",
+    "owner3.w": "acbff1be0bf35902a86c970474d73cefbbcf910bb932d751b5ba7c0a3b6d4517",
+    "owner4.w": "f9616552730d8f7337bf69a5c9ab637cb74577eb15d9e33c94ae3b3a6422a4bf",
+    "owner5.w": "4e385ac3f281948aafdfbe0b5a3c7bc6a2a172299b1ff74564b07dbe75b8a490",
+    "owner6.w": "5c69e1f0c034e9b8bf73f83f063797c4b2db20db9d1b7bbf132fcb9e7c09d431",
+    "owner7.w": "3c9412faab153bdd5373a6caffe6258c28615da904a92e1104b2fa16bcf0d276",
+    "program.paint": "ff6819979b4d38e098f7ffab21aee4dd00fec7375b6fdcef7b8768fd217049a3",
+    "timercollect.w": "ed035f7e71d3606e9bbfb076d79c3b173660f02ec261075282b2e063de03b876"
+  },
+  "map_sha256": "98660932dbaf005280b83712b11b0165bdbc508be1254fd9f79434ffbf3a7a7f"
+}

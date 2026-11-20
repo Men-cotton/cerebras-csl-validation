@@ -1,0 +1,610 @@
+{
+  "role": "simulator",
+  "fixture_sha256": "50759c9bcdaacc703e1f02c378ead52593b87e72a3bba1bbac6292aa62e4e3a6",
+  "build_sha256": "506242622ff53bc22724cf76b4d478a4caa80144b8da37ebf5f14b4290c9c07f",
+  "frames": [
+    {
+      "frame": 1,
+      "method": "edges",
+      "scale": 1.0,
+      "concurrent": true,
+      "common_clock_cycles": 64459,
+      "lane_compute_peaks": [
+        62078,
+        43679,
+        44848,
+        61350,
+        52643,
+        42132,
+        33304,
+        43362
+      ],
+      "port_words": [
+        20554,
+        11174,
+        10372,
+        20366,
+        15804,
+        10118,
+        5674,
+        10186
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 46955883990,
+      "synchronized_fenced_host_ns": 47027101005,
+      "raw_sha256": "ee15ef48cf45a5f4bf250ddb9f71d8acace31dcd479a95d81c9dd582402ef706"
+    },
+    {
+      "frame": 2,
+      "method": "edges",
+      "scale": 1.0,
+      "concurrent": false,
+      "common_clock_cycles": 390049,
+      "lane_compute_peaks": [
+        62078,
+        43679,
+        44848,
+        61350,
+        52643,
+        42132,
+        33304,
+        43362
+      ],
+      "port_words": [
+        18970,
+        9590,
+        8788,
+        18782,
+        14220,
+        8534,
+        4090,
+        8602
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 80111973895,
+      "synchronized_fenced_host_ns": 80167539409,
+      "raw_sha256": "5a4b788c70f967de719e0c37e37a055c0af9767d2725eeba959aae3b6a9a893a"
+    },
+    {
+      "frame": 3,
+      "method": "dictionary",
+      "scale": 1.0,
+      "concurrent": false,
+      "common_clock_cycles": 347172,
+      "lane_compute_peaks": [
+        52918,
+        39728,
+        43567,
+        49055,
+        43885,
+        37528,
+        31226,
+        43190
+      ],
+      "port_words": [
+        10254,
+        5872,
+        7076,
+        6828,
+        5984,
+        4064,
+        2392,
+        8330
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 70383991090,
+      "synchronized_fenced_host_ns": 70418636578,
+      "raw_sha256": "27106c5689ab3536d6849409ef9d74500927551a77657ad80206c3612a32c3c9"
+    },
+    {
+      "frame": 4,
+      "method": "dictionary",
+      "scale": 1.0,
+      "concurrent": true,
+      "common_clock_cycles": 53888,
+      "lane_compute_peaks": [
+        52918,
+        39728,
+        43567,
+        49055,
+        43885,
+        37528,
+        31226,
+        43190
+      ],
+      "port_words": [
+        10254,
+        5872,
+        7076,
+        6828,
+        5984,
+        4064,
+        2392,
+        8330
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 19961924249,
+      "synchronized_fenced_host_ns": 19989589258,
+      "raw_sha256": "d6c84533fc180676fb6025e3020075e3baa8d439aa02af2a0c6edff0e9254e45"
+    },
+    {
+      "frame": 5,
+      "method": "dictionary",
+      "scale": 0.5,
+      "concurrent": true,
+      "common_clock_cycles": 53925,
+      "lane_compute_peaks": [
+        52918,
+        39728,
+        43567,
+        49055,
+        43885,
+        37528,
+        31226,
+        43190
+      ],
+      "port_words": [
+        10254,
+        5872,
+        7076,
+        6828,
+        5984,
+        4064,
+        2392,
+        8330
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 18689111335,
+      "synchronized_fenced_host_ns": 18718221659,
+      "raw_sha256": "3c4a85d8eb4f325dfb9fb89ef9b7c8378992ca5a486c989322e741f9012adf33"
+    },
+    {
+      "frame": 6,
+      "method": "dictionary",
+      "scale": 0.5,
+      "concurrent": false,
+      "common_clock_cycles": 346786,
+      "lane_compute_peaks": [
+        52918,
+        39728,
+        43567,
+        49055,
+        43885,
+        37528,
+        31226,
+        43190
+      ],
+      "port_words": [
+        10254,
+        5872,
+        7076,
+        6828,
+        5984,
+        4064,
+        2392,
+        8330
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 104260032064,
+      "synchronized_fenced_host_ns": 104303926225,
+      "raw_sha256": "8fcd053756bffb82f5eec90231fcc082b55ee99d2f229e3841ec8c87b00edb2f"
+    },
+    {
+      "frame": 7,
+      "method": "edges",
+      "scale": 0.5,
+      "concurrent": false,
+      "common_clock_cycles": 389176,
+      "lane_compute_peaks": [
+        62078,
+        43679,
+        44848,
+        61350,
+        52643,
+        42132,
+        33304,
+        43362
+      ],
+      "port_words": [
+        18970,
+        9590,
+        8788,
+        18782,
+        14220,
+        8534,
+        4090,
+        8602
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 80920098281,
+      "synchronized_fenced_host_ns": 80954354235,
+      "raw_sha256": "6d5e7ca47d9d85d1d9f53fb9a661ee40aed1806ef14ac8d860a3b883031fa661"
+    },
+    {
+      "frame": 8,
+      "method": "edges",
+      "scale": 0.5,
+      "concurrent": true,
+      "common_clock_cycles": 62801,
+      "lane_compute_peaks": [
+        62078,
+        43679,
+        44848,
+        61350,
+        52643,
+        42132,
+        33304,
+        43362
+      ],
+      "port_words": [
+        18970,
+        9590,
+        8788,
+        18782,
+        14220,
+        8534,
+        4090,
+        8602
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 21912022055,
+      "synchronized_fenced_host_ns": 21939545974,
+      "raw_sha256": "14d16a7f2c296a89404aa6a546c8d5590fc784cd91eeab9cf836bf11fcb57f31"
+    },
+    {
+      "frame": 9,
+      "method": "dictionary",
+      "scale": 1.0,
+      "concurrent": true,
+      "common_clock_cycles": 53954,
+      "lane_compute_peaks": [
+        52918,
+        39728,
+        43567,
+        49055,
+        43885,
+        37528,
+        31226,
+        43190
+      ],
+      "port_words": [
+        10254,
+        5872,
+        7076,
+        6828,
+        5984,
+        4064,
+        2392,
+        8330
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 30944108511,
+      "synchronized_fenced_host_ns": 31007853410,
+      "raw_sha256": "25a8c5e8736d219769dfe11c48df38b0915ef1aefd12e1eebd9bd1fc1e83074f"
+    },
+    {
+      "frame": 10,
+      "method": "dictionary",
+      "scale": 1.0,
+      "concurrent": false,
+      "common_clock_cycles": 346898,
+      "lane_compute_peaks": [
+        52918,
+        39728,
+        43567,
+        49055,
+        43885,
+        37528,
+        31226,
+        43190
+      ],
+      "port_words": [
+        10254,
+        5872,
+        7076,
+        6828,
+        5984,
+        4064,
+        2392,
+        8330
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 89944024160,
+      "synchronized_fenced_host_ns": 90037002977,
+      "raw_sha256": "eb1d13a161bb093717e95c5cd394b4777a5f3441c69a55669d974271537e5b85"
+    },
+    {
+      "frame": 11,
+      "method": "edges",
+      "scale": 1.0,
+      "concurrent": false,
+      "common_clock_cycles": 389097,
+      "lane_compute_peaks": [
+        62078,
+        43679,
+        44848,
+        61350,
+        52643,
+        42132,
+        33304,
+        43362
+      ],
+      "port_words": [
+        18970,
+        9590,
+        8788,
+        18782,
+        14220,
+        8534,
+        4090,
+        8602
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 88796117731,
+      "synchronized_fenced_host_ns": 88872328232,
+      "raw_sha256": "b49dfd0025a7dac1126f94a281a707b4ae0c1bc6ecdfe9830f1351154d019a1f"
+    },
+    {
+      "frame": 12,
+      "method": "edges",
+      "scale": 1.0,
+      "concurrent": true,
+      "common_clock_cycles": 62851,
+      "lane_compute_peaks": [
+        62078,
+        43679,
+        44848,
+        61350,
+        52643,
+        42132,
+        33304,
+        43362
+      ],
+      "port_words": [
+        18970,
+        9590,
+        8788,
+        18782,
+        14220,
+        8534,
+        4090,
+        8602
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 26548125306,
+      "synchronized_fenced_host_ns": 26607053797,
+      "raw_sha256": "49bf2655a80f7685a11c849ce97f6922f6fa0e74fa58f49e172f62b79a372349"
+    }
+  ],
+  "stopped": true,
+  "empty_before": [
+    {
+      "tag": 100,
+      "ack": [
+        100,
+        206637585
+      ],
+      "timer": [
+        100,
+        100,
+        43587,
+        26198,
+        29444,
+        43657,
+        26198,
+        29444
+      ],
+      "cycles": 70,
+      "host_ns": 91429318
+    },
+    {
+      "tag": 101,
+      "ack": [
+        101,
+        206637585
+      ],
+      "timer": [
+        101,
+        101,
+        43765,
+        26198,
+        29444,
+        43847,
+        26198,
+        29444
+      ],
+      "cycles": 82,
+      "host_ns": 67309063
+    },
+    {
+      "tag": 102,
+      "ack": [
+        102,
+        206637585
+      ],
+      "timer": [
+        102,
+        102,
+        43964,
+        26198,
+        29444,
+        44100,
+        26198,
+        29444
+      ],
+      "cycles": 136,
+      "host_ns": 75354695
+    },
+    {
+      "tag": 103,
+      "ack": [
+        103,
+        206637585
+      ],
+      "timer": [
+        103,
+        103,
+        44207,
+        26198,
+        29444,
+        44266,
+        26198,
+        29444
+      ],
+      "cycles": 59,
+      "host_ns": 59241925
+    },
+    {
+      "tag": 104,
+      "ack": [
+        104,
+        206637585
+      ],
+      "timer": [
+        104,
+        104,
+        44389,
+        26198,
+        29444,
+        44522,
+        26198,
+        29444
+      ],
+      "cycles": 133,
+      "host_ns": 83353765
+    }
+  ],
+  "empty_after": [
+    {
+      "tag": 200,
+      "ack": [
+        200,
+        206637585
+      ],
+      "timer": [
+        200,
+        200,
+        58943,
+        26237,
+        29444,
+        59028,
+        26237,
+        29444
+      ],
+      "cycles": 85,
+      "host_ns": 44829343
+    },
+    {
+      "tag": 201,
+      "ack": [
+        201,
+        206637585
+      ],
+      "timer": [
+        201,
+        201,
+        59118,
+        26237,
+        29444,
+        59243,
+        26237,
+        29444
+      ],
+      "cycles": 125,
+      "host_ns": 47409238
+    },
+    {
+      "tag": 202,
+      "ack": [
+        202,
+        206637585
+      ],
+      "timer": [
+        202,
+        202,
+        59383,
+        26237,
+        29444,
+        59463,
+        26237,
+        29444
+      ],
+      "cycles": 80,
+      "host_ns": 39079130
+    },
+    {
+      "tag": 203,
+      "ack": [
+        203,
+        206637585
+      ],
+      "timer": [
+        203,
+        203,
+        59568,
+        26237,
+        29444,
+        59635,
+        26237,
+        29444
+      ],
+      "cycles": 67,
+      "host_ns": 35738903
+    },
+    {
+      "tag": 204,
+      "ack": [
+        204,
+        206637585
+      ],
+      "timer": [
+        204,
+        204,
+        59774,
+        26237,
+        29444,
+        59842,
+        26237,
+        29444
+      ],
+      "cycles": 68,
+      "host_ns": 42989323
+    }
+  ]
+}

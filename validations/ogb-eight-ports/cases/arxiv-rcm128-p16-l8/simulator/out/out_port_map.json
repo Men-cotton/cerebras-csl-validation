@@ -1,0 +1,166 @@
+{
+  "buses": [
+    {
+      "io_type": "IN",
+      "lvds_id": 0,
+      "port_name": "rx0_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 1,
+      "port_name": "tx0_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 2,
+      "port_name": "rx1_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 3,
+      "port_name": "tx1_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 4,
+      "port_name": "rx2_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 5,
+      "port_name": "tx2_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 6,
+      "port_name": "rx3_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 7,
+      "port_name": "tx3_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 8,
+      "port_name": "rx4_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 9,
+      "port_name": "tx4_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 10,
+      "port_name": "rx5_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 11,
+      "port_name": "tx5_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 12,
+      "port_name": "rx6_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 13,
+      "port_name": "tx6_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 14,
+      "port_name": "rx7_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 15,
+      "port_name": "tx7_port"
+    }
+  ],
+  "lvds_ports": [
+    {
+      "color": 0,
+      "loc": 0,
+      "side": "WEST"
+    },
+    {
+      "color": 1,
+      "loc": 1,
+      "side": "WEST"
+    },
+    {
+      "color": 2,
+      "loc": 2,
+      "side": "WEST"
+    },
+    {
+      "color": 3,
+      "loc": 3,
+      "side": "WEST"
+    },
+    {
+      "color": 4,
+      "loc": 4,
+      "side": "WEST"
+    },
+    {
+      "color": 5,
+      "loc": 5,
+      "side": "WEST"
+    },
+    {
+      "color": 6,
+      "loc": 6,
+      "side": "WEST"
+    },
+    {
+      "color": 7,
+      "loc": 7,
+      "side": "WEST"
+    },
+    {
+      "color": 8,
+      "loc": 8,
+      "side": "WEST"
+    },
+    {
+      "color": 9,
+      "loc": 9,
+      "side": "WEST"
+    },
+    {
+      "color": 10,
+      "loc": 10,
+      "side": "WEST"
+    },
+    {
+      "color": 11,
+      "loc": 11,
+      "side": "WEST"
+    },
+    {
+      "color": 12,
+      "loc": 12,
+      "side": "WEST"
+    },
+    {
+      "color": 13,
+      "loc": 13,
+      "side": "WEST"
+    },
+    {
+      "color": 14,
+      "loc": 14,
+      "side": "WEST"
+    },
+    {
+      "color": 15,
+      "loc": 15,
+      "side": "WEST"
+    }
+  ]
+}

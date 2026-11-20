@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "ogb-eight-ports",
+  "description": "Hold 16 GraphSAGE owners fixed across eight West input and output pairs.",
+  "entrypoints": [
+    "physical.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

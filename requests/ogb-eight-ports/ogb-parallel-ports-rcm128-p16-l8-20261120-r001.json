@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "id": "ogb-parallel-ports-rcm128-p16-l8-20261120-r001",
+  "description": "Measure the two original GraphSAGE windows at eight West input ports with the same total compute PE count and the same enclosing clock as the 1/2/4-port controls.",
+  "steps": [
+    {
+      "name": "run-arxiv-l8",
+      "kind": "appliance",
+      "script": "validations/ogb-eight-ports/physical.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-eight-ports/cases/arxiv-rcm128-p16-l8",
+        "--release-sha256",
+        "742c9718667eb97fa441db2258ec4101364d7141e836953e107ae4bf6e8fbe0d",
+        "--out",
+        "{output}/arxiv-rcm128-p16-l8"
+      ]
+    },
+    {
+      "name": "run-products-l8",
+      "kind": "appliance",
+      "script": "validations/ogb-eight-ports/physical.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-eight-ports/cases/products-rcm128-p16-l8",
+        "--release-sha256",
+        "da0e11b20eff0f80813ded20f46986a92e22e13ea2fda2b38a9f63d1a1e755a9",
+        "--out",
+        "{output}/products-rcm128-p16-l8"
+      ]
+    }
+  ]
+}

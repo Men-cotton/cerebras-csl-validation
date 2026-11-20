@@ -1,0 +1,112 @@
+{
+  "fixture_sha256": "e4d6b03fa56ea8a050a0c387781e1d723cacf9f7144091e2af56dcc4719d730d",
+  "roles": {
+    "simulator": {
+      "elf_sha256": "c65de4ac411e21db42dd31b5c69b982ea3ba689c10fa386b288bb435db96270e",
+      "fabric": [
+        2,
+        16
+      ]
+    },
+    "hardware": {
+      "elf_sha256": "2f5d9ae8fb445327f43c27b100956cda46b65076bb87e89a403aaf486b112f03",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "lanes": 8,
+  "owners_per_lane": 2,
+  "entries": 128,
+  "lane_params": [
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 2,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    }
+  ],
+  "port_sha256": "a86df9927b082418eeebdee80225858b45b29ec6f4e22e5960d456dcdf430dd9",
+  "canonical_sha256": "2dca335ba871ca199f1a06f8628258bbedf8ec65f104aef202d1aca8dcdd5d3e",
+  "source_sha256": {
+    "collect.w": "9cdbb167d42f8812cbec4fee9171a2bb802e43eaf18cb52fac240cf5b796ff65",
+    "owner0.w": "bdff818b32481e613560b34a60a13450c55c9b6a1f00eb172745648b3fa078c6",
+    "owner1.w": "efb492d6fdbd9f059a2a85f5d0c93d6ed99731754371c27fbe5a588ec6f7d5e3",
+    "owner2.w": "ba7a6a4c0ed2cbc2b93d12c300b64e82ac5e6c2dc1508dd46045f55a889795f2",
+    "owner3.w": "84ebe155d586e7cb170b9d10b898405544d6929f77ad8eaaf35f87463942a06c",
+    "owner4.w": "69840d5d933666c4f9d7d592f6e3bbe126fe5c41e83f39d126c7c3c3dc3c1e43",
+    "owner5.w": "8ae6abdbd74d2c5b0158b8b86209845813e55d828a45f2e6e5ec5a6474f8f6b0",
+    "owner6.w": "c108b5a578bf77185ddefbe003b7206d68a37f21e2f754e2f0086c841cdf5394",
+    "owner7.w": "6b8b213614df8b3774653fc8fcf12e3d03f27e300aa736dceb72344b5b6772e2",
+    "program.paint": "f1704a7d46195b18c1d0f3110786896fecc68c10d84d818c0407c9f699fa604b",
+    "timercollect.w": "ed035f7e71d3606e9bbfb076d79c3b173660f02ec261075282b2e063de03b876"
+  },
+  "map_sha256": "0a61a5cebfce5d41152cf94394f7782e2702eb5063141315600896534609445b"
+}
