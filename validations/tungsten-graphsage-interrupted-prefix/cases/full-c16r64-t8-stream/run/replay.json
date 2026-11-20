@@ -1,0 +1,9 @@
+{
+  "interruption": "service restart 01:31 UTC",
+  "stage": "frame-3",
+  "trials": 2,
+  "capture_sha256": "8556ac43b6cb5d7ce296b1b6abe77a609959213f7f43489820e8bda09a9479ee",
+  "build_sha256": "3e1f2e916ac720acf2938736bcc3ebce615438ba7a3a98d5de40ab79d6136104",
+  "worker_sha256": "93622da2e437f2fecb263b3a8fa8064d1e107f6248056815036cbf56c3c3de27",
+  "image_sha256": "638b79525c8a3219593c530850d628009eed6a17f21519c041019737984fe12c"
+}

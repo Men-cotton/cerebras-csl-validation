@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-full-c16r64-stream-prefix-r001",
+  "description": "Run all three physical GraphSAGE inputs on 1,024 PEs. The interrupted 1,024-PE SDK run retained two verified replies. The 512-PE SDK control completed all three.",
+  "steps": [
+    {
+      "name": "run-1024-three-physical-inputs",
+      "kind": "appliance",
+      "script": "validations/tungsten-graphsage-interrupted-prefix/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-graphsage-interrupted-prefix/cases/full-c16r64-t8-stream",
+        "--build-sha256",
+        "3e1f2e916ac720acf2938736bcc3ebce615438ba7a3a98d5de40ab79d6136104",
+        "--prefix-sha256",
+        "6e7cd0c11bcf9ea58c32e773679e7815be64175bd0df6db4c8f63d2d0b905e93",
+        "--out",
+        "{output}/sage-full-c16r64-stream-prefix"
+      ]
+    }
+  ]
+}

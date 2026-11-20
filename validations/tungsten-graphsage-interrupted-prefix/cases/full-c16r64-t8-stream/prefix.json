@@ -1,0 +1,51 @@
+{
+  "local_completed_trials": [
+    1,
+    2
+  ],
+  "hardware_required_trials": [
+    1,
+    2,
+    3
+  ],
+  "hardware_numerical_references": [
+    1,
+    2,
+    1
+  ],
+  "interruption": "The SDK service restarted during trial 3. Only trials 1 and 2 returned, and stop_success is false.",
+  "local_files": {
+    "run/capture.json": "8556ac43b6cb5d7ce296b1b6abe77a609959213f7f43489820e8bda09a9479ee",
+    "run/frame-1.npz": "df0f251c4b809deb2943d017637758df019a42a852b6bf5c65dd0225fbb44965",
+    "run/frame-2.npz": "5a8a7303afba49f5c9f5b890ac84a8c3446bc6028b1c0c13a4dd18ee6f67aa8d",
+    "run/replay.json": "2bbd3490805ec49b908df1d252d38d8a37fb872d2cfc052929ef6b7cb460ac48"
+  },
+  "build_sha256": "3e1f2e916ac720acf2938736bcc3ebce615438ba7a3a98d5de40ab79d6136104",
+  "verified_canonical_elf": "5d8592e25567337e04509b37ebbe91050b297f31972835746bbf56063d3ccdbe",
+  "verified_ordered_loads": 64,
+  "original_bare_cycles": 72548,
+  "original_bare_result_sha256": "f694d7e669f8308a944d97c0d99b882787960e2064904b9dfd50f48ee9111c49",
+  "original_bare_outputs": {
+    "out-pre.bin": "f662604369ff08b508ac7663d75b31a90f798a0105d0b0f04d5fd500d9eb93ef",
+    "out-hidden.bin": "90eb0de22b464ad90d83cceeee63d6f43baba3c9e4b978479ec3dccc4df448cc",
+    "out-logits.bin": "8860fc7ee4e53570390b1b6efbdaeb0033bb0851e4d34dbd1067058d953d56b7",
+    "out-clocks.bin": "4fc1d0f65e762911854e1f0a6057fd45977f7ae86a481dc51663e7b0f28f35f5"
+  },
+  "three_frame_control": {
+    "case": "full-c16r32-t8-stream",
+    "files": {
+      "build.json": "0ffcc424d137ee7a61df3c467950904c2006e56b62eb2323e6368cb3edb32195",
+      "reference.npz": "7c6f8c451a390a22d57d592b8710958f79ad70127eadcaa63c7f55c5307463e4",
+      "run/capture.json": "5509d2781ce3e29b2c29fb77ed890deb551568a6593da41fd8f58ec11296b96b",
+      "run/frame-1.npz": "2c3a2f9f29a59ec3dc2f84c4a3640fbba5d3058e64b95731f94cb9eb05a4869d",
+      "run/frame-2.npz": "d70b5ec1d598dae040fa10209dca9e5f91f22f2923945beeba351944f82d503a",
+      "run/frame-3.npz": "fc04e0abf94ccec0b4c302a79728aeaded0192fb74c775601e554a9b478f85e4"
+    },
+    "published_request": "tungsten-graphsage-skip-hidden-full-c16r32-stream-r001",
+    "family_sources": {
+      "appliance.py": "51a9edf0dadd6fb4437bcbc40e3eee276a4e54df58995ceacc3d7c13322c329f",
+      "worker.py": "93622da2e437f2fecb263b3a8fa8064d1e107f6248056815036cbf56c3c3de27",
+      "oracle.py": "2feadfd6f9b11756912f84303c0fa6fb07fbc24d32b6e22f369e67a4589deee4"
+    }
+  }
+}

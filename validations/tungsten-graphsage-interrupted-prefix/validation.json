@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-interrupted-prefix",
+  "description": "Run all three physical GraphSAGE inputs on 1,024 PEs. The interrupted 1,024-PE SDK run retained two verified replies. The 512-PE SDK control completed all three.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}
