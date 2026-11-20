@@ -1,0 +1,5 @@
+# Runtime self-edge counts on 64 PEs
+
+One compiled native CSL archive runs all eleven windows twice, with the self-edge count enabled and disabled. The loaded application ELF and the frozen feature banks, graph endpoints, weights and edge order match across those jobs. The only changed graph bits encode the count. The independently compiled cyclic all-FMAC Tungsten and source-balanced Tungsten use the same trained Cora checkpoint; source balancing changes the order of the FP32 shard reduction. The disabled Tungsten has the exact physical ELF used by the earlier enabled request. [Frozen simulator outputs and earlier revision](comparison.json)
+
+Run `python3 -B returned.py WATCHER_OUTPUT comparison-hardware.json` after the five physical runs. Add `--prior-enabled-tungsten earlier-return-one.json` to compare the older enabled job with the same physical Tungsten ELF. The audit checks the two physical CSL ELF inventories, all owners and padding, each placement's original COO and all PE-local clocks. Timing sums the largest setup-plus-compute interval of a single PE in each window and omits host work, transfers and inter-window dispatch.

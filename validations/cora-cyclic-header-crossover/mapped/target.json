@@ -1,0 +1,9 @@
+{
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "language": "tungsten",
+  "method": "original",
+  "name": "mapped",
+  "raw_sha256": "dca991a076293559b3fef7e32c1dd2d898df896d233dbfc5a5d13906a442e1c2",
+  "release_sha256": "66f3024291cf0f3dbc380ddc72fdd2ac87760bab7f2797afc05db1a01670300d",
+  "result_sha256": "d4708a877af970dcea7312ce4af8682226c70cfd2c0e4ef072e2f95e6214b1b2"
+}

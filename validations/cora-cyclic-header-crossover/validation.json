@@ -1,0 +1,14 @@
+{
+  "description": "Measure the crossover between resident panels with identical native physical application ELFs.",
+  "entrypoints": [
+    "off/appliance.py",
+    "on/appliance.py",
+    "cyclic/appliance.py",
+    "mapped/appliance.py"
+  ],
+  "id": "cora-cyclic-header-crossover",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

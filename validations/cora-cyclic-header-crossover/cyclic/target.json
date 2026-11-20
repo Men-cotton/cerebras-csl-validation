@@ -1,0 +1,9 @@
+{
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "language": "tungsten",
+  "method": "original",
+  "name": "cyclic",
+  "raw_sha256": "a49899227638affa2c62b00e8c299b33a9dae0b7c1b4e4597ed2b4c203335ac9",
+  "release_sha256": "721e35eac7bc5b3824a8c034973aecbbdd3fcaef342556a0bcaa935479e94620",
+  "result_sha256": "308f94f940e377ec12ead0423c25116c3e7eec7587c04859687a8843b6a4e1e1"
+}

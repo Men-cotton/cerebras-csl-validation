@@ -1,0 +1,724 @@
+{
+  "all_original_fused_words_bit_exact": true,
+  "cases": {
+    "csl": {
+      "elf_sha256": {
+        "out_0_0.elf": "95e799f1993bda16721474180d9c8efa8e5db218b7a1bb2ee8703b7a5068a912",
+        "out_10_0.elf": "92f8d67acf69941c2ece016440229aa1a7f5a8f986f2eb690ca5b8c346d98c01",
+        "out_11_0.elf": "00f5d6f7cbe4a0a92aed4f92d35bac42c79fd3f2b04fee35fc0649a42f388074",
+        "out_12_0.elf": "9af1062ddf06dfbb3c86f3c4d614dec9398ec1e0f60601ab5a23b95989d86c01",
+        "out_13_0.elf": "5ceea459184f7e9126dc23f3ab58e8fa3e4ed924a302543ad1baa4224e08230b",
+        "out_14_0.elf": "f68975bd289c06acbf571a9ed8681c611fec0eafaf7404fb9301988903007106",
+        "out_15_0.elf": "8c19a645beaae1c5009dd8c18ce21743f7b9553114f0f509b237a24b77c09c51",
+        "out_16_0.elf": "6358ff464d60160c82012fc1eff74a6fb73ff25816e03c004746446f5c79e063",
+        "out_17_0.elf": "08f4023c79bc4f1ae755c22bda8b8c4d17a666ef1960090d9858779facce70a4",
+        "out_18_0.elf": "368ac12abf93c8762708b6c02f56231372f875ca62bf6c8c01ed02ba98dd36a2",
+        "out_19_0.elf": "81c1e57842ab3c81acba5cfcc140c0ed4027762a773ab7e3b145551c5a4b2465",
+        "out_1_0.elf": "f609f96094874e6b96449a87d3f9fec94333a613809e01a4360a8482a63d500e",
+        "out_20_0.elf": "5cad9b0ceab93e653a5ba211de08dcac29baa7485bf41ab460375225b680f0b0",
+        "out_21_0.elf": "4f2d34c2687da241911dd0dce05e898127ef1a4f933350e42298a4220680b5f1",
+        "out_22_0.elf": "434b87dd2416d95aff4528df428999019a54fd59253ac03b11358c2c2684ac17",
+        "out_23_0.elf": "a8d3d8d43e2bb93e7f7a5bdbbc4fe3142ff8a90f3f78a9698ffda4b264c9b2de",
+        "out_24_0.elf": "69938d898073fd70edcaab2e7c94f251694735bee5359c4a2175cb7451697e4d",
+        "out_25_0.elf": "d33a330be97a554d20be0155afb7be87052bd6b1130ae87e0e3d82fb0d33c1c2",
+        "out_26_0.elf": "2a97dc8b51b4c82b607a85f0753e0830627df35c44da1cd86a39ec8698115ae5",
+        "out_27_0.elf": "00fd9e17d58b31c3df34fb8f0bc6a704685c931147291b1d16739e5b3b48d95e",
+        "out_28_0.elf": "07cd046aa84f00f5b5a2a4e5a90df46e5872107c96616271d02bfb43b82e1a52",
+        "out_29_0.elf": "344a2847715edfabc98b10eb34b00414378d506d4ccc817876ccad614f9c4e84",
+        "out_2_0.elf": "e16815e2af68a39d042ffafc08440abef95aaa5e62579121c2b036f98fe76b6f",
+        "out_30_0.elf": "21322bb23547577c3624c9dd10646b09b6894a3f20f62ea7935deca68d9e9a75",
+        "out_31_0.elf": "67943e13e9f284c6606b7ad7224c5eb4b342fb36139004a8a3cbc4c4d2f45f4e",
+        "out_32_0.elf": "9bcdee9822090adc3a71a02d7c2511ec02e4e24c19686ae94349032461744314",
+        "out_33_0.elf": "37cc163e74468b3d8015b83d264de6cd8b962874634f2338eeefb1b02f5be5f4",
+        "out_34_0.elf": "31478f690b021f91deb7fb6302794c13ff4e2de2e4f334cf9577ba7c752ade34",
+        "out_35_0.elf": "39637c73ecdec17f6a1224d83e29943044d065b82b8b35d5738c8625a21afd73",
+        "out_36_0.elf": "85b2c9dc14f4b31e316b5b8734d75642edcff2ee64776c6715160ddb9a250b47",
+        "out_37_0.elf": "6a9e8f5274a450df1a528da22b35e35e971e238327b8c68fc53dbe04fe5776bc",
+        "out_38_0.elf": "0cceed33b865340fe4b75014f78ab92327bfc2ec2c6c193720ae193ea091b90d",
+        "out_39_0.elf": "1c1d5ccbe9c7b085d9b33a27bd5357eaccaba27771a6749dd74907bec6033930",
+        "out_3_0.elf": "8fcc712b73b12c0f6137bcbf4f58122d1332c01dd4d4299a474acc12fd53f56e",
+        "out_40_0.elf": "e258b53c3fb03c5fd4b555a8b1dfc43ae9937ee2b227621d7b50c89a6860e768",
+        "out_41_0.elf": "aeb1bbc7c30dc5b49624c4db20b518b28b5978113cfb582a86f0461d307c63cb",
+        "out_42_0.elf": "5160e83b83e7a476c52f8742287199290e8c83ad2571ee6064cc6df017bd50b5",
+        "out_43_0.elf": "a172f031476911d62a5515144255e6f3a3634670a3cde26e553a8036fa45f321",
+        "out_44_0.elf": "1684ad39394220fa05cd2bcce57c18d961ade93eb4f34b5fc1165f4c102dcffb",
+        "out_45_0.elf": "6f8ca8e904152f5b3fcc398bf9d2f90150ef0e71fcfe83d9bf38d77dd694d968",
+        "out_46_0.elf": "caa2ec543ec9ae2e18b866dbb66b9451e9f45fad06fa43d9c4881f7dda74021e",
+        "out_47_0.elf": "5ff33a7cd8d4dba651d3a6ae6c8c9f89e15b3f4df857068b5e0b41690764b577",
+        "out_48_0.elf": "167c286acf606292d0580cef913d8fe7f03ae55c838dd6dc51a136d61b79b65a",
+        "out_49_0.elf": "f3eb2122f7d4ebcbc2be6099052e407ba981b350b2d92abf1aa298f8da33b13b",
+        "out_4_0.elf": "883b6cafa4530d537322baa4c7bbdc9ef84e9328f10911f48da723d477d5370b",
+        "out_50_0.elf": "61cb849aaedfe069d5283709ba17685de43fdce532ebddab2565905fa3c3525f",
+        "out_51_0.elf": "6cc2ce43ca07610a53a0ef75a29086bef82780ccb67f53267bd12fed94615a2f",
+        "out_52_0.elf": "4a8194ff3f1bc9b2e34529c1ae9437787bb8bfdd46b1270b7daf8bb24b7edf3b",
+        "out_53_0.elf": "f7ee1c12379bdc91d4831c0010b2282f6f4938bece33c12a4e49408e8ba931f3",
+        "out_54_0.elf": "ba111dbf2ad33cd1b0492c01dddb0a69a5260f590b300c70ecaaeff6d2737022",
+        "out_55_0.elf": "fa4465dcbf9ec6a3d0f8e0e23708d58455a78e823f873e05b44e214764639fbf",
+        "out_56_0.elf": "2a3eb94e9db69b62fbd7b4ec4ed54a78b0454027653ff54a01acf1ca382b89dd",
+        "out_57_0.elf": "9130ccfa2f93b57ed4710e79f7a0331a59b9174e4ff2bd1716b883c079ed93ff",
+        "out_58_0.elf": "2997a20ddaf4d887781d92a2ffc0e84cff2cfbaf7e66e178bb797d6c6ebd1963",
+        "out_59_0.elf": "a16b22d07af2c12d346348264c19c71fb6c3ccd6167e8d185bb7373725f03c0e",
+        "out_5_0.elf": "4a28c2306072420ea2f890c4db2236ce038dcd238d00f47d76244534ad1fec10",
+        "out_60_0.elf": "c0d6486e6cd6290dd67ff78dc112eea1d3d2255b4a01bcd10f59dad2b1252831",
+        "out_61_0.elf": "1d38a715daa617d1f066bab4f61f642d46fcf1bfb4b59ca6a5c9e1e5e1fc37cc",
+        "out_62_0.elf": "ead699626c35aed5ac5a27d82458cc5805e2ca3350958e7934104c343a41e588",
+        "out_63_0.elf": "8537429ae5a7b283d71865adad9c84dc7d0904994c38d2de7e9859f454accab2",
+        "out_6_0.elf": "103749e651ccabade5f02a43ae2a320a1f8eda1df3762fc911bb6d7a63655960",
+        "out_7_0.elf": "ae330e08c15f59c6197b7658bf1c856fe060f59504d1685bfe19c887d8ad4eeb",
+        "out_8_0.elf": "a96df2a64ec9de5c4977da851c24b31f46e997489dee9f44d39a0f08e901e712",
+        "out_9_0.elf": "71443baffd3d5691d6279290d43fe28c31de14a79be38f364c93153bf9ec9056"
+      },
+      "host_sha256": {
+        "contract.py": "8b2f6e42995470405e641d16dead819e80a41e1d17ff7fc11d1b33672fbcb255",
+        "worker.py": "9528a34397318f422458f3091e7691f3c15ad7536330489384cb20f3b82a2d8c"
+      },
+      "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+      "raw_sha256": "bd9ec940b3a4140c65a740205993626c0ee96c84b4ea65f84326949cad954afc",
+      "result_sha256": "fcc28edd1e5b9150393df75383805159daa44c686499c17c98f9f99ec9578e87",
+      "summary": {
+        "compute_sum": [
+          26200,
+          26200,
+          26200
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.2776429034744297e-06,
+            "relative_l2": 4.197836695996703e-08
+          },
+          {
+            "max_abs": 1.2776429034744297e-06,
+            "relative_l2": 4.197836695996703e-08
+          },
+          {
+            "max_abs": 1.2776429034744297e-06,
+            "relative_l2": 4.197836695996703e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          27459,
+          53659,
+          79859
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "f1a50137555e0e1f622eded7a5e1da820de7ff54924a0cabc6ae14d80c8b27b2",
+          "5a05ba402420272fe599a0d49411f6fe14f13e182508077ce6d42bd47e92dc3f",
+          "f1a50137555e0e1f622eded7a5e1da820de7ff54924a0cabc6ae14d80c8b27b2"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          27464,
+          53664,
+          79864
+        ],
+        "setup_sum": 1264,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              2766,
+              2766,
+              2766
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              2887,
+              5653,
+              8419
+            ],
+            "setup_max": 121,
+            "start": 0,
+            "sum_phase_max": [
+              2887,
+              5653,
+              8419
+            ]
+          },
+          {
+            "compute_max": [
+              2676,
+              2676,
+              2676
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              2796,
+              5472,
+              8148
+            ],
+            "setup_max": 120,
+            "start": 256,
+            "sum_phase_max": [
+              2796,
+              5472,
+              8148
+            ]
+          },
+          {
+            "compute_max": [
+              2992,
+              2992,
+              2992
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              3119,
+              6111,
+              9103
+            ],
+            "setup_max": 127,
+            "start": 512,
+            "sum_phase_max": [
+              3119,
+              6111,
+              9103
+            ]
+          },
+          {
+            "compute_max": [
+              2207,
+              2207,
+              2207
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              2317,
+              4524,
+              6731
+            ],
+            "setup_max": 112,
+            "start": 768,
+            "sum_phase_max": [
+              2319,
+              4526,
+              6733
+            ]
+          },
+          {
+            "compute_max": [
+              2584,
+              2584,
+              2584
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              2701,
+              5285,
+              7869
+            ],
+            "setup_max": 117,
+            "start": 1024,
+            "sum_phase_max": [
+              2701,
+              5285,
+              7869
+            ]
+          },
+          {
+            "compute_max": [
+              2381,
+              2381,
+              2381
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              2495,
+              4876,
+              7257
+            ],
+            "setup_max": 115,
+            "start": 1280,
+            "sum_phase_max": [
+              2496,
+              4877,
+              7258
+            ]
+          },
+          {
+            "compute_max": [
+              2413,
+              2413,
+              2413
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              2529,
+              4942,
+              7355
+            ],
+            "setup_max": 116,
+            "start": 1536,
+            "sum_phase_max": [
+              2529,
+              4942,
+              7355
+            ]
+          },
+          {
+            "compute_max": [
+              2102,
+              2102,
+              2102
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              2211,
+              4313,
+              6415
+            ],
+            "setup_max": 110,
+            "start": 1792,
+            "sum_phase_max": [
+              2212,
+              4314,
+              6416
+            ]
+          },
+          {
+            "compute_max": [
+              2319,
+              2319,
+              2319
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              2432,
+              4751,
+              7070
+            ],
+            "setup_max": 113,
+            "start": 2048,
+            "sum_phase_max": [
+              2432,
+              4751,
+              7070
+            ]
+          },
+          {
+            "compute_max": [
+              2129,
+              2129,
+              2129
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              2239,
+              4368,
+              6497
+            ],
+            "setup_max": 111,
+            "start": 2304,
+            "sum_phase_max": [
+              2240,
+              4369,
+              6498
+            ]
+          },
+          {
+            "compute_max": [
+              1631,
+              1631,
+              1631
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              1733,
+              3364,
+              4995
+            ],
+            "setup_max": 102,
+            "start": 2560,
+            "sum_phase_max": [
+              1733,
+              3364,
+              4995
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    },
+    "tungsten": {
+      "elf_sha256": "6d03f40052e90201e6ec479bb2a04f7ddb9ecceef20d2760b946a952bcd1b6d3",
+      "host_sha256": {
+        "contract.py": "8b2f6e42995470405e641d16dead819e80a41e1d17ff7fc11d1b33672fbcb255",
+        "worker.py": "9528a34397318f422458f3091e7691f3c15ad7536330489384cb20f3b82a2d8c"
+      },
+      "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+      "raw_sha256": "3245c963762d13a4a00e7079963eddcad7ac9d3d8b5d8e14a115c5d216906913",
+      "result_sha256": "a3e8b870bf0447855c45aae4d439c40ef151a76942d868d44dbc1d85dd93d4cd",
+      "summary": {
+        "compute_sum": [
+          23662,
+          23662,
+          23662
+        ],
+        "edges": 13264,
+        "fp64_error": [
+          {
+            "max_abs": 1.2776429034744297e-06,
+            "relative_l2": 4.197836695996703e-08
+          },
+          {
+            "max_abs": 1.2776429034744297e-06,
+            "relative_l2": 4.197836695996703e-08
+          },
+          {
+            "max_abs": 1.2776429034744297e-06,
+            "relative_l2": 4.197836695996703e-08
+          }
+        ],
+        "max_owner_cumulative_sum": [
+          35974,
+          59628,
+          83282
+        ],
+        "nodes": 2708,
+        "original_class_mismatches": [
+          0,
+          0,
+          0
+        ],
+        "owner_sha256": [
+          "f1a50137555e0e1f622eded7a5e1da820de7ff54924a0cabc6ae14d80c8b27b2",
+          "5a05ba402420272fe599a0d49411f6fe14f13e182508077ce6d42bd47e92dc3f",
+          "f1a50137555e0e1f622eded7a5e1da820de7ff54924a0cabc6ae14d80c8b27b2"
+        ],
+        "pe": 64,
+        "phase_max_cumulative_sum": [
+          35982,
+          59644,
+          83306
+        ],
+        "setup_sum": 12320,
+        "shards": 16,
+        "validation": [
+          402,
+          500
+        ],
+        "windows": [
+          {
+            "compute_max": [
+              2498,
+              2498,
+              2498
+            ],
+            "edges": 1559,
+            "end": 256,
+            "max_owner_cumulative": [
+              3875,
+              6373,
+              8871
+            ],
+            "setup_max": 1377,
+            "start": 0,
+            "sum_phase_max": [
+              3875,
+              6373,
+              8871
+            ]
+          },
+          {
+            "compute_max": [
+              2443,
+              2443,
+              2443
+            ],
+            "edges": 1455,
+            "end": 512,
+            "max_owner_cumulative": [
+              3795,
+              6235,
+              8675
+            ],
+            "setup_max": 1355,
+            "start": 256,
+            "sum_phase_max": [
+              3798,
+              6241,
+              8684
+            ]
+          },
+          {
+            "compute_max": [
+              2799,
+              2799,
+              2799
+            ],
+            "edges": 1721,
+            "end": 768,
+            "max_owner_cumulative": [
+              4451,
+              7250,
+              10049
+            ],
+            "setup_max": 1652,
+            "start": 512,
+            "sum_phase_max": [
+              4451,
+              7250,
+              10049
+            ]
+          },
+          {
+            "compute_max": [
+              1954,
+              1954,
+              1954
+            ],
+            "edges": 1200,
+            "end": 1024,
+            "max_owner_cumulative": [
+              2935,
+              4889,
+              6843
+            ],
+            "setup_max": 981,
+            "start": 768,
+            "sum_phase_max": [
+              2935,
+              4889,
+              6843
+            ]
+          },
+          {
+            "compute_max": [
+              2306,
+              2306,
+              2306
+            ],
+            "edges": 1284,
+            "end": 1280,
+            "max_owner_cumulative": [
+              3529,
+              5835,
+              8141
+            ],
+            "setup_max": 1223,
+            "start": 1024,
+            "sum_phase_max": [
+              3529,
+              5835,
+              8141
+            ]
+          },
+          {
+            "compute_max": [
+              2166,
+              2166,
+              2166
+            ],
+            "edges": 1273,
+            "end": 1536,
+            "max_owner_cumulative": [
+              3301,
+              5467,
+              7633
+            ],
+            "setup_max": 1135,
+            "start": 1280,
+            "sum_phase_max": [
+              3301,
+              5467,
+              7633
+            ]
+          },
+          {
+            "compute_max": [
+              2215,
+              2215,
+              2215
+            ],
+            "edges": 1146,
+            "end": 1792,
+            "max_owner_cumulative": [
+              3383,
+              5598,
+              7813
+            ],
+            "setup_max": 1168,
+            "start": 1536,
+            "sum_phase_max": [
+              3383,
+              5598,
+              7813
+            ]
+          },
+          {
+            "compute_max": [
+              1868,
+              1868,
+              1868
+            ],
+            "edges": 992,
+            "end": 2048,
+            "max_owner_cumulative": [
+              2778,
+              4641,
+              6504
+            ],
+            "setup_max": 915,
+            "start": 1792,
+            "sum_phase_max": [
+              2783,
+              4651,
+              6519
+            ]
+          },
+          {
+            "compute_max": [
+              2079,
+              2079,
+              2079
+            ],
+            "edges": 1016,
+            "end": 2304,
+            "max_owner_cumulative": [
+              3115,
+              5194,
+              7273
+            ],
+            "setup_max": 1036,
+            "start": 2048,
+            "sum_phase_max": [
+              3115,
+              5194,
+              7273
+            ]
+          },
+          {
+            "compute_max": [
+              1909,
+              1909,
+              1909
+            ],
+            "edges": 1058,
+            "end": 2560,
+            "max_owner_cumulative": [
+              2857,
+              4766,
+              6675
+            ],
+            "setup_max": 948,
+            "start": 2304,
+            "sum_phase_max": [
+              2857,
+              4766,
+              6675
+            ]
+          },
+          {
+            "compute_max": [
+              1425,
+              1425,
+              1425
+            ],
+            "edges": 560,
+            "end": 2708,
+            "max_owner_cumulative": [
+              1955,
+              3380,
+              4805
+            ],
+            "setup_max": 530,
+            "start": 2560,
+            "sum_phase_max": [
+              1955,
+              3380,
+              4805
+            ]
+          }
+        ],
+        "words": 56868
+      }
+    }
+  },
+  "csl_speedup_vs_matched_tungsten": {
+    "compute_sum": [
+      0.9031297709923665,
+      0.9031297709923665,
+      0.9031297709923665
+    ],
+    "first_measured_strict_inclusive_gain_through_three": 1,
+    "max_owner_cumulative_sum": [
+      1.3100986925962343,
+      1.111239493840735,
+      1.0428630461187844
+    ],
+    "phase_max_cumulative_sum": [
+      1.3101514710166036,
+      1.1114341085271318,
+      1.043098267053992
+    ],
+    "setup_sum": 9.746835443037975
+  },
+  "metric": "sum of window maximum individual PE intervals; wall time for graph packing, transfer and dispatch excluded",
+  "mode": "all-fmac",
+  "old_cyclic_comparison_sha256": "703bc56acacd0d760dcc9673e895d69366839e289369f0298d100e3ac969e384",
+  "pe": 64,
+  "peak_static_end": 23824,
+  "role": "SDK WSE-3 simulator",
+  "shards": 16,
+  "speedup_vs_old_cyclic": {
+    "csl": {
+      "compute_sum": [
+        1.815381679389313,
+        1.815381679389313,
+        1.815381679389313
+      ],
+      "first_measured_strict_inclusive_gain_through_three": 1,
+      "max_owner_cumulative_sum": [
+        2.9630722167595325,
+        2.402691067668052,
+        2.2100076384627907
+      ],
+      "phase_max_cumulative_sum": [
+        2.9625327701718613,
+        2.402467203339296,
+        2.2098692777722126
+      ],
+      "setup_sum": 26.740506329113924
+    },
+    "tungsten": {
+      "compute_sum": [
+        1.2213253317555575,
+        1.2213253317555575,
+        1.2213253317555575
+      ],
+      "first_measured_strict_inclusive_gain_through_three": 1,
+      "max_owner_cumulative_sum": [
+        1.0281592261077446,
+        1.1047494465687262,
+        1.1378329050695228
+      ],
+      "phase_max_cumulative_sum": [
+        1.028264132066033,
+        1.1048554758232179,
+        1.1379372434158403
+      ],
+      "setup_sum": 0.6574675324675324
+    }
+  }
+}
