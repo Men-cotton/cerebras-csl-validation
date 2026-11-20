@@ -1,0 +1,127 @@
+{
+  "role": "simulator",
+  "fixture_sha256": "e4d6b03fa56ea8a050a0c387781e1d723cacf9f7144091e2af56dcc4719d730d",
+  "build_sha256": "83d82f634ce44e2b2ae1cbea7e45db8a9e5a9164116b0e8ca0c5b1dcba222269",
+  "frames": [
+    {
+      "frame": 1,
+      "method": "edges",
+      "scale": 1.0,
+      "concurrent": true,
+      "common_clock_cycles": 35043,
+      "lane_compute_peaks": [
+        31083,
+        29244
+      ],
+      "port_words": [
+        11980,
+        11020
+      ],
+      "fence_words_each_direction": [
+        4,
+        10
+      ],
+      "synchronized_data_host_ns": 110716272146,
+      "synchronized_fenced_host_ns": 111287330245,
+      "raw_sha256": "d3e119aadc9737751a207e74d3b91fae4107dbf9419d8ae01e3b427b3135b338"
+    }
+  ],
+  "stopped": false,
+  "empty_before": [
+    {
+      "tag": 100,
+      "ack": [
+        100,
+        206637585
+      ],
+      "timer": [
+        100,
+        100,
+        43587,
+        26198,
+        29444,
+        43647,
+        26198,
+        29444
+      ],
+      "cycles": 60,
+      "host_ns": 545506018
+    },
+    {
+      "tag": 101,
+      "ack": [
+        101,
+        206637585
+      ],
+      "timer": [
+        101,
+        101,
+        43739,
+        26198,
+        29444,
+        43798,
+        26198,
+        29444
+      ],
+      "cycles": 59,
+      "host_ns": 367498417
+    },
+    {
+      "tag": 102,
+      "ack": [
+        102,
+        206637585
+      ],
+      "timer": [
+        102,
+        102,
+        43887,
+        26198,
+        29444,
+        43950,
+        26198,
+        29444
+      ],
+      "cycles": 63,
+      "host_ns": 391117911
+    },
+    {
+      "tag": 103,
+      "ack": [
+        103,
+        206637585
+      ],
+      "timer": [
+        103,
+        103,
+        44048,
+        26198,
+        29444,
+        44107,
+        26198,
+        29444
+      ],
+      "cycles": 59,
+      "host_ns": 394929346
+    },
+    {
+      "tag": 104,
+      "ack": [
+        104,
+        206637585
+      ],
+      "timer": [
+        104,
+        104,
+        44196,
+        26198,
+        29444,
+        44256,
+        26198,
+        29444
+      ],
+      "cycles": 60,
+      "host_ns": 419785871
+    }
+  ]
+}

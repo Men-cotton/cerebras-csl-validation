@@ -1,0 +1,11 @@
+{
+  "description": "Check trained GraphSAGE on a two-lane WEST physical route with an 18-row lane interval.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "id": "ogb-spaced-west",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

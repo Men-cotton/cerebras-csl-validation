@@ -1,0 +1,21 @@
+{
+  "description": "Validate the 18-row WEST lane pitch for two arxiv GraphSAGE input/output pairs across 128 original trained-model destinations. All 12 compact reference transactions and a physical single-port comparison passed. The new pitched SDK has 1/12 completed transactions at release; require all 12 actual physical transactions and normal stop.",
+  "id": "ogb-spaced-west-arxiv-rcm128-p16-l2-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-spaced-west/cases/arxiv-128-p16-l2-pitch18",
+        "--release-sha256",
+        "17d8abd958ee457865f885715e8f6bf63c31c7e530941c6f49e6147e297aa1c8",
+        "--out",
+        "{output}/arxiv-pitch18"
+      ],
+      "kind": "appliance",
+      "name": "run-arxiv-pitch18",
+      "script": "validations/ogb-spaced-west/appliance.py"
+    }
+  ]
+}

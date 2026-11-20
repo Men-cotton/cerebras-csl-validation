@@ -1,0 +1,45 @@
+{
+  "bundle_sha256": "0f3390643427226aefeded3bdb4c8bf8175db27995b89739073abd450ead7c48",
+  "fixture_sha256": "e4d6b03fa56ea8a050a0c387781e1d723cacf9f7144091e2af56dcc4719d730d",
+  "frames": [
+    {
+      "blocks": 9,
+      "fp64_argmax_disagreements": 0,
+      "fp64_max_abs": 3.035407310392202e-06,
+      "logits_sha256": "717a18281f7ce6a01436da9ccab4a023e616e37dfc64d3252cdec903bbd91586",
+      "method": "edges",
+      "peak_active_edge_cycles": null,
+      "peak_edge_interval": 81456,
+      "peak_interval": 115947,
+      "raw_sha256": "910d2f16c48206520292ad4c744c05e6c0651730acd4ba386ed49996cd203728",
+      "scale": 1.0,
+      "source_vectors": 1056,
+      "total_words": 21747,
+      "trial": 1,
+      "wire_source_words": 16896
+    },
+    {
+      "blocks": 6,
+      "fp64_argmax_disagreements": 0,
+      "fp64_max_abs": 1.2623365188701996e-06,
+      "logits_sha256": "817ef5f8351e3bef8f474ac222862b9179ae4212d8511d8e8056de86e09be18c",
+      "method": "dictionary",
+      "peak_active_edge_cycles": null,
+      "peak_edge_interval": 61884,
+      "peak_interval": 114859,
+      "raw_sha256": "1871a84a42152adada88d7357ae7f881a34d1f1b9eb3fb4c81933c703dc9f126",
+      "scale": 0.5,
+      "source_vectors": 763,
+      "total_words": 15688,
+      "trial": 3,
+      "wire_source_words": 12208
+    }
+  ],
+  "jobs": [
+    "wsjob-5j6zwfm2hpapqkpwwfckry",
+    "wsjob-aspbmneaszlu9glvivf9tc"
+  ],
+  "request": "ogb-source-tiles-rcm128-p16-20261120-r001",
+  "revision": "4761b39a276e280a2ed314d9b858a4f483e3cd98",
+  "role": "hardware"
+}

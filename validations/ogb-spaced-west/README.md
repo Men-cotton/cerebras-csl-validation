@@ -1,0 +1,5 @@
+# Spaced WEST ports for original arxiv GraphSAGE
+
+Sixteen compute PEs and sixteen gathering PEs process the original Q50 128-root final-layer window with its frozen trained weights. Eight compute owners occupy each of the two WEST input rows. The two input/output pairs are placed at rows 0/1 and 18/19. Every other kernel, input and source-table choice is shared with the original compact L2 case. Only the placement of the second lane changes in the rendered paint source.
+
+The emulator and system ELF use fabric dimensions 8×20 and 762×1172. The host validates their complete canonical payloads, every active SRAM footprint, all router loads and both public-SDK port maps. The release also replays the compact SDK control through 12 complete transactions, and checks original scores at both scales against two independent single-port CS-3 readbacks. The pitched SDK journal records exactly the local frames available at freeze time. The hardware launcher requires all twelve actual serial/concurrent transactions, ten empty fences, the downloaded worker exit code and normal stop. A failure of the initial runtime port configuration remains a failed hardware attempt.
