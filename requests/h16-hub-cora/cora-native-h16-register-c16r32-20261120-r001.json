@@ -1,0 +1,53 @@
+{
+  "description": "Scale the registered native GCN kernel from the existing 256-PE request to 512 compute PEs on complete Cora and the same trained 1433-16-7 model. Accumulate ordered hub 163 across two links, retain all layer/counter outputs and PE clocks, and check immutable H2D inputs before and after the forward pass.",
+  "id": "cora-native-h16-register-c16r32-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r32-t8-register",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r32-t8-register"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r32-t8-register",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r32-t8-register",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r32-t8-register/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r32-t8-register"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r32-t8-register",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r32-t8-register/capture-data",
+        "--out",
+        "{output}/numerical-c16-r32-t8-register.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r32-t8-register",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

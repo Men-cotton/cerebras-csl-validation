@@ -1,0 +1,43 @@
+{
+  "description": "Scale the registered native GCN kernel from the existing 256-PE request to 512 compute PEs on complete Cora and the same trained 1433-16-7 model. Accumulate ordered hub 163 across two links, retain all layer/counter outputs and PE clocks, and check immutable H2D inputs before and after the forward pass.",
+  "fp64": {
+    "logits": {
+      "max_abs": 3.055185979761177e-06,
+      "max_relative_floor_1e_12": 0.00022164349546245556,
+      "relative_l2": 6.497960715865922e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.3639037259594033e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.815162364864652e-08
+    },
+    "pre": {
+      "max_abs": 1.9512493465434488e-07,
+      "max_relative_floor_1e_12": 0.003162167094478161,
+      "relative_l2": 5.6450802743591884e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 35952,
+    "compute_elfs": 16,
+    "compute_pe_static_bytes": 34400,
+    "largest_image_files": [
+      "west/bin/out_5_0.elf",
+      "west/bin/out_6_0.elf",
+      "west/bin/out_7_0.elf"
+    ],
+    "linked_elfs": 30
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 67648,
+  "local_raw_sha256": "af5307614ebf4bdc8a4753c55682a954a0e2343d5df9b46d47df761aa520a18e",
+  "local_split_audit_sha256": "e3e413ba78824625b4d7cb4d56e8f11a5bf9fd06b690f3af2f63b57d71f4cce4",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "d8872f5aab1828a8234de66e700b42e412c8aa0b198f8df6cd49fae567aaf84b",
+  "packed_input_sha256": "7bcd1ec0f39a3d6bfb76050c04f3b6da52dab6a223e0dcd86309eb0928cf199d",
+  "source_sha256": {
+    "layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "pe.csl": "39d4ce469cd98d70a433d5cb0d4572baa2d9244931f0fb36d8ba6fad001d7dbf"
+  },
+  "split_plan_sha256": "39e8f0f3d4949f05f327d98ab448f45e0bbb1bdaf92e7d5b8ddfe7e7f400983e"
+}
