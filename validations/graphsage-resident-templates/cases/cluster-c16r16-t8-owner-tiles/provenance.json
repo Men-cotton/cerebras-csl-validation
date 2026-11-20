@@ -1,0 +1,39 @@
+{
+  "base_case_sha256": "a79ae1454a5cf8c86ba5a7e369ca5ca8d058de8dcce7655c059f60c491787e40",
+  "base_inputs_sha256": "e1dc1111c0292fe3998b52d35e7671125f85b718b07696caf8b1a0e4b0ec4620",
+  "base_prepared_case_sha256": "ca48730c4535e0c8bb72616ad0713168d8f0c2b54e51e5c97b5631dbe38d6f30",
+  "blocking_receive": true,
+  "concurrent_rows": true,
+  "dma_counts": true,
+  "early_first_exchange": true,
+  "guarded_norm": true,
+  "multicast_barrier": true,
+  "newton_rsqrt": true,
+  "owner_tile_copy": true,
+  "packet_templates": true,
+  "prepared_case_sha256": "2af95b80de21146b45af9ea248fe07806dc575a0fbd3157dcc99c75f16c6757b",
+  "reciprocal_normalization": true,
+  "register_descriptors": true,
+  "reuse_completed_row_buffer": false,
+  "reuse_send_buffer": true,
+  "row_mean": "factor",
+  "schema": 1,
+  "simulator_case_sha256": "947ab7eeb865de73fc15b54f193109465a3752be86c93b6b6eac55e4f0814271",
+  "simulator_initialization": {
+    "final_core_sha256": "0ad50c4c458f08cdc5b133b0ab37e67a8ff37b87a90a6b902c45014e5ebed557",
+    "initial_core_sha256": "99b9ef00632ec604d11b70b6b6eee15b1c8e4f7d02e631995c46187300c05b7a",
+    "mode": "SDK data-only PE-local images",
+    "verified_input_bytes": 5155328
+  },
+  "simulator_raw_sha256": "5bb7667bac55cc5d3b20b7dd7266cc27000cc8becf4fb98599aaaef0fb56326f",
+  "skip_zero_hidden": true,
+  "source_sha256": {
+    "models/graphsage/cora_device/layout.csl": "02146ab02f5ef8421dc0a12dab9aea7b6f727f450a6305d7572c48bb428450f1",
+    "models/graphsage/cora_device/pe.csl": "3f9867dc695f5934e0d1fa395846ec940bf45209005e427eb67a2e05aa867520"
+  },
+  "transport": "direct bidirectional reduce-scatter to owners with endpoint-addressed neighbor messages",
+  "unrolled_norm": true,
+  "vector_output": true,
+  "vector_packet_headers": true,
+  "weight_layout": "output tile, input feature, neighbor/self branch, output lane"
+}

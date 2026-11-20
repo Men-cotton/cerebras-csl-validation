@@ -1,4 +1,29 @@
 {
+  "cluster-c16r16-t8-owner-tiles": {
+    "all_elf_static_end": 44736,
+    "base_case_sha256": "a79ae1454a5cf8c86ba5a7e369ca5ca8d058de8dcce7655c059f60c491787e40",
+    "case_sha256": "9969f7928a7bcf734fa71c18e73ea8bad6a994c72fa005ceeff9a459901af74c",
+    "compiled_application_elf_sha256": {
+      "out_0_0.elf": "41438238735e2e244c22aead9c7aaa097ef3d2226d731e0feef7eca81e9a4e1b",
+      "out_10_0.elf": "684cd0e053c4d36d8e2bfe57983dd74f841302a922a89f7945d6c55420a9d648",
+      "out_11_0.elf": "455f1f4612952ae6b4d8f4ce64e97eb8ccacb82bf07d8cc17f5316dc1341db29",
+      "out_12_0.elf": "e2f84b8cc56c3add2a443252dcb3508b991c143b9047e7ccca2a7ab152da914b",
+      "out_13_0.elf": "0d5d47d5a341d725340d3a35aba0da0e1a7ec20e2136b09b0c039b8a8eca5086",
+      "out_14_0.elf": "d6469ab52fc89e84906ef9d763b9b29f4b357c008d6efcf9772dd9e455f4ef12",
+      "out_15_0.elf": "dec1630086a1bbd985da632bb9cb5c428650ad6b0353da1ef59ef3bd86477a5f",
+      "out_1_0.elf": "85294313237e2288c34374035e31975962cd58869b391c799cfbea3e981c4ba7",
+      "out_2_0.elf": "3c7e744d6a4e50d04da6556849ccb3af6e0ca73bba6de7d9b7e78344c5e899cf",
+      "out_3_0.elf": "58d21cb9e221695307210f997b1a9737ed07c924c24236ab95d43138a082237e",
+      "out_4_0.elf": "4c0411f72512bf65fbb47bedf46394fe49cfbb55cef12e9ed6088503a047332a",
+      "out_5_0.elf": "1cf610bb101d2ce21b3d0a320c6d9147e3be11dae400b216b127f99a2d2a8521",
+      "out_6_0.elf": "094de17a260f27f569de9e7480518412f9f6ec2a7b833b99efb2c45c6139d697",
+      "out_7_0.elf": "11a1ceab0cea56cb31a82b7a5ea87f79c5621b656bfad86a81be63165d059b93",
+      "out_8_0.elf": "df56b787f40cbd9575eeed89b606b236c23e3fa6653e570c3f35e8c3a79857b3",
+      "out_9_0.elf": "7d60d204eacee2d29050265e9d96dbadd130d14105f3987d1bcc8852b17430d5"
+    },
+    "simulation_cycles": 96599,
+    "simulation_raw_sha256": "5bb7667bac55cc5d3b20b7dd7266cc27000cc8becf4fb98599aaaef0fb56326f"
+  },
   "cluster-c16r16-t8-templates": {
     "all_elf_static_end": 44608,
     "base_case_sha256": "a79ae1454a5cf8c86ba5a7e369ca5ca8d058de8dcce7655c059f60c491787e40",
