@@ -1,0 +1,81 @@
+{
+  "dataset": "arxiv",
+  "input_sha256": "dd53acdd722b2f02edeac3c154a914ad3d37fa0f1bc2c326255ef0c0aa68cb34",
+  "nodes": 169343,
+  "arcs": 2315598,
+  "features": 9,
+  "classes": 40,
+  "original_hidden": 16,
+  "initial_hidden_sha256": "d43f9878506aa59537bc3c2af45117df3d5d26208384cff7b1f6e067aeeb62d0",
+  "original_gpu_logits_sha256": "14491f54d59dab6b4a04c2b5cfdca66315decd2401db71d695e5048d3599cf15",
+  "original_fp64_all_splits": {
+    "train": {
+      "correct": 59108,
+      "count": 90941
+    },
+    "valid": {
+      "correct": 19585,
+      "count": 29799
+    },
+    "test": {
+      "correct": 31544,
+      "count": 48603
+    }
+  },
+  "original_graph": {
+    "processed_sha256": "83c746379a528be58e0c07f782ab388fa157c7be505da53012fffabce0314dba",
+    "input_edges": 1166243,
+    "undirected_unique_arcs": 2315598,
+    "self_loops": 0,
+    "ptr_sha256": "15b6a4516229b383ffca391cb19c57d0a68a52bd2b054f591c0ef06fd12f6376",
+    "index_sha256": "957986a8463b43a0abd8f51e0686ebe510bcdac7cde36eaadfab8b31544e393c",
+    "split_sha256": {
+      "train": "84983391900af45194e5db8d977ec9e01d4eda96e20328f3d7575fdd45c6797c",
+      "valid": "ebe6cdcd77c75eedbce2064a05a49bc28e2c4a631f49d66b9e9ff317eef993eb",
+      "test": "588fb66ce57bcaef51ac0235f0a49a056370ac31fc27c8ebf556d3f5cdd02545"
+    }
+  },
+  "original_checkpoint_sha256": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b",
+  "live_channels": [
+    3,
+    6,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    15
+  ],
+  "deleted_max_preactivations": {
+    "0": [
+      -0.27530425849190604,
+      -0.14699775197918838
+    ],
+    "1": [
+      -0.48414484973426525,
+      -0.24974283344758483
+    ],
+    "2": [
+      -0.049704887389646096,
+      -0.011432884469383023
+    ],
+    "4": [
+      -0.04555087911208716,
+      -0.021245506253380314
+    ],
+    "5": [
+      -0.46068203557107146,
+      -0.24865736307488528
+    ],
+    "7": [
+      -0.3919516598127812,
+      -0.2009684402156636
+    ],
+    "14": [
+      -0.04675952279275519,
+      -0.03622851580980352
+    ]
+  },
+  "scope": "entire final GraphSAGE layer including both learned dense projections and bias; preceding hidden vectors from full model"
+}

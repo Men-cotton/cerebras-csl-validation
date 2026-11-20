@@ -1,0 +1,85 @@
+{
+  "language": "csl",
+  "params": {
+    "P": 8,
+    "R": 64,
+    "F": 9,
+    "Q": 40,
+    "E": 420,
+    "K": 32,
+    "RELU": 0
+  },
+  "input_sha256": "dd53acdd722b2f02edeac3c154a914ad3d37fa0f1bc2c326255ef0c0aa68cb34",
+  "windows": 331,
+  "full_frames": 339,
+  "control_windows": [
+    0,
+    2,
+    165,
+    330
+  ],
+  "min_window_edges": 4342,
+  "max_window_edges": 19887,
+  "part_histogram": {
+    "2": 74,
+    "3": 175,
+    "4": 50,
+    "5": 8,
+    "6": 7,
+    "7": 4,
+    "8": 2,
+    "9": 2,
+    "10": 4,
+    "11": 1,
+    "12": 1,
+    "23": 1,
+    "31": 1,
+    "32": 1
+  },
+  "windows_sha256": "6af51c92feb5ddf0d0e90f0967f0542e9fd3dc098108dba13c6aa9e7af20674c",
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=15,3",
+    "--fabric-offsets=4,1",
+    "--params=P:8,R:64,F:9,Q:40,E:420,K:32,RELU:0",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "role": "simulator",
+  "elf": {
+    "out_3_0.elf": "ce8d3914873a124e46f712195314e9fcfb8e32e77ea57a8677aa76bf2f5c67d2",
+    "out_7_0.elf": "437ef8a70c2beabfbad4fe4289ff4ae9877f4b53f3bd6e271160b6c44d0e323e",
+    "out_6_0.elf": "3d9a2f6b03871233e5041666933ffea5a383a957de7a49be2924c0580afa1519",
+    "out_1_0.elf": "8efa58259926e0e429fa77f42f0d0c5af30dc01fc86d1747a14e3f3b935b41fd",
+    "out_2_0.elf": "6925ca29c6fd74d9e97a3ee2502b133b34c610ed95f31490765fc34509076a53",
+    "out_0_0.elf": "ca90c1b2cc4863295c6ceae56fbb82497448fd9ac27719fb583fb0607f2cdf1b",
+    "out_5_0.elf": "0ddc583f33485100a834d6c1dba1658ebbe58fb48788f136ca9139b7e4106eb8",
+    "out_4_0.elf": "15b084ddcd0ad4dcecfa635aa83e99c1d2131a192282690c2f88cd10a02e53be"
+  },
+  "source": {
+    "layout.csl": "427ed94ee0f62be2df117e98378ed7a5a08285538b7a03d424106e3b8c93f3a3",
+    "pe.csl": "c9d05249605cb840d7d0b617d1402b14a97194b0b254e3182a8d23d7f290c8f2"
+  },
+  "commands": [
+    [
+      "/tmp/tungsten-csl-bin/cslc",
+      "/tmp/tungsten-ogb-v1/all-arxiv-csl-p8/src/layout.csl",
+      "--arch=wse3",
+      "--fabric-dims=15,3",
+      "--fabric-offsets=4,1",
+      "--params=P:8,R:64,F:9,Q:40,E:420,K:32,RELU:0",
+      "--memcpy",
+      "--channels=1",
+      "--width-west-buf=0",
+      "--width-east-buf=0",
+      "--max-parallelism=1",
+      "-o",
+      "out"
+    ]
+  ]
+}

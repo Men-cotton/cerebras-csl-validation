@@ -1,0 +1,198 @@
+{
+  "versions": {
+    "pytorch": "2.4.0+cu121",
+    "pyg": "2.7.0"
+  },
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "weights_sha256": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b",
+  "graph": {
+    "processed_sha256": "83c746379a528be58e0c07f782ab388fa157c7be505da53012fffabce0314dba",
+    "input_edges": 1166243,
+    "undirected_unique_arcs": 2315598,
+    "self_loops": 0,
+    "ptr_sha256": "15b6a4516229b383ffca391cb19c57d0a68a52bd2b054f591c0ef06fd12f6376",
+    "index_sha256": "957986a8463b43a0abd8f51e0686ebe510bcdac7cde36eaadfab8b31544e393c",
+    "split_sha256": {
+      "train": "84983391900af45194e5db8d977ec9e01d4eda96e20328f3d7575fdd45c6797c",
+      "valid": "ebe6cdcd77c75eedbce2064a05a49bc28e2c4a631f49d66b9e9ff317eef993eb",
+      "test": "588fb66ce57bcaef51ac0235f0a49a056370ac31fc27c8ebf556d3f5cdd02545"
+    }
+  },
+  "scope": "resident tensors, two-layer forward, no training or transfers",
+  "whole": {
+    "pyg": [
+      {
+        "cuda_ms": 357.6117858886719,
+        "synchronized_host_ns": 400898989,
+        "warmup": true
+      },
+      {
+        "cuda_ms": 97.57049560546875,
+        "synchronized_host_ns": 107748176,
+        "warmup": false
+      },
+      {
+        "cuda_ms": 92.49791717529297,
+        "synchronized_host_ns": 102114076,
+        "warmup": false
+      },
+      {
+        "cuda_ms": 87.666015625,
+        "synchronized_host_ns": 96936845,
+        "warmup": false,
+        "max_abs": 4.76837158203125e-06,
+        "argmax_mismatches": 0
+      }
+    ],
+    "factored": [
+      {
+        "cuda_ms": 31.409151077270508,
+        "synchronized_host_ns": 34826954,
+        "warmup": true
+      },
+      {
+        "cuda_ms": 4.1696319580078125,
+        "synchronized_host_ns": 4750083,
+        "warmup": false
+      },
+      {
+        "cuda_ms": 4.248256206512451,
+        "synchronized_host_ns": 5778594,
+        "warmup": false
+      },
+      {
+        "cuda_ms": 4.222976207733154,
+        "synchronized_host_ns": 4878026,
+        "warmup": false,
+        "max_abs": 7.62939453125e-06,
+        "argmax_mismatches": 0
+      }
+    ]
+  },
+  "slice": [
+    {
+      "cuda_ms": 21.72118377685547,
+      "synchronized_host_ns": 24391667,
+      "warmup": true
+    },
+    {
+      "cuda_ms": 1.8575359582901,
+      "synchronized_host_ns": 2274007,
+      "warmup": true
+    },
+    {
+      "cuda_ms": 0.631712019443512,
+      "synchronized_host_ns": 825353,
+      "warmup": true
+    },
+    {
+      "cuda_ms": 0.7423999905586243,
+      "synchronized_host_ns": 960282,
+      "warmup": true
+    },
+    {
+      "cuda_ms": 0.5602560043334961,
+      "synchronized_host_ns": 768949,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.5088639855384827,
+      "synchronized_host_ns": 674720,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.6635519862174988,
+      "synchronized_host_ns": 824835,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.3970879912376404,
+      "synchronized_host_ns": 663147,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.5949440002441406,
+      "synchronized_host_ns": 745429,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.5456640124320984,
+      "synchronized_host_ns": 718351,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.7069759964942932,
+      "synchronized_host_ns": 886876,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 1.3383680582046509,
+      "synchronized_host_ns": 1639960,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.886784017086029,
+      "synchronized_host_ns": 1088520,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.8499199748039246,
+      "synchronized_host_ns": 1097822,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.9410560131072998,
+      "synchronized_host_ns": 1143217,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.7272319793701172,
+      "synchronized_host_ns": 907668,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.47411200404167175,
+      "synchronized_host_ns": 619748,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.45875200629234314,
+      "synchronized_host_ns": 586200,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.6203839778900146,
+      "synchronized_host_ns": 788665,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.5160959959030151,
+      "synchronized_host_ns": 691075,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.46086400747299194,
+      "synchronized_host_ns": 593826,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.5511680245399475,
+      "synchronized_host_ns": 731775,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.5242879986763,
+      "synchronized_host_ns": 692198,
+      "warmup": false
+    },
+    {
+      "cuda_ms": 0.3973119854927063,
+      "synchronized_host_ns": 557865,
+      "warmup": false,
+      "max_abs": 4.182888314829825e-06,
+      "argmax_mismatches": 0
+    }
+  ],
+  "fixture_sha256": "9b50b1f450a1363982f29a1a43253bcd69c998441fa2649941bd44258f1437ef",
+  "peak_allocated_bytes": 290004992
+}

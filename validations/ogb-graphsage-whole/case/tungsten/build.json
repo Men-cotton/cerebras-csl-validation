@@ -1,0 +1,110 @@
+{
+  "language": "tungsten",
+  "params": {
+    "P": 8,
+    "R": 64,
+    "F": 9,
+    "Q": 40,
+    "E": 420,
+    "K": 32,
+    "RELU": 0
+  },
+  "input_sha256": "dd53acdd722b2f02edeac3c154a914ad3d37fa0f1bc2c326255ef0c0aa68cb34",
+  "windows": 331,
+  "full_frames": 339,
+  "control_windows": [
+    0,
+    2,
+    165,
+    330
+  ],
+  "min_window_edges": 4342,
+  "max_window_edges": 19887,
+  "part_histogram": {
+    "2": 74,
+    "3": 175,
+    "4": 50,
+    "5": 8,
+    "6": 7,
+    "7": 4,
+    "8": 2,
+    "9": 2,
+    "10": 4,
+    "11": 1,
+    "12": 1,
+    "23": 1,
+    "31": 1,
+    "32": 1
+  },
+  "windows_sha256": "6af51c92feb5ddf0d0e90f0967f0542e9fd3dc098108dba13c6aa9e7af20674c",
+  "roles": {
+    "simulator": {
+      "fabric": [
+        8,
+        2
+      ],
+      "elf": "26724c5f9207d444b6100a7ea32764bbd6d549a9d00a71dbaa01a025e7ab8edb"
+    },
+    "hardware": {
+      "fabric": [
+        762,
+        1172
+      ],
+      "elf": "e3f61d46cdb19139bda1bbc92aa153008fbdbf73d1f87390cda817c8fa7943ef"
+    }
+  },
+  "canonical_sha256": "e7c95f46434ddd2a5ffa8c316c128f3efe00a16485b264ccb0cb836e8212d17e",
+  "port_map_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "machine_image_sha256": "e323dbb865925f03f6c66933264f94cdd1876690ff6e7ae97312420204b51d75",
+  "source": {
+    "owner.w": "69c4df3f9c535af82049c223ef26edcaae9683c4510d88f051a9863aa5987a6e",
+    "collect.w": "61d1099049951c3599f7e3a689905243890f608821b6fb4108a8846d3fafa1e2",
+    "program.paint": "84c71c72cc6f71d0ee51154c5e9f315e37ec70c3e1e285fde8f4d09eb487bfd3"
+  },
+  "commands": [
+    [
+      "paint",
+      "arch=sdr",
+      "toolname",
+      "w",
+      "carbide",
+      "toolname",
+      "yeti",
+      "carbide",
+      "lib=src",
+      "source=src/program.paint",
+      "image=program.obj",
+      "map=program.map",
+      "note=program.note",
+      "entrymap=program.entry",
+      "regiondump=regions.json"
+    ],
+    [
+      "milink",
+      "image=program.obj",
+      "out=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "weight",
+      "image=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/all-arxiv-tungsten-p8/simulator/out/program.elf",
+      "w=8",
+      "h=2"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/all-arxiv-tungsten-p8/hardware/out/program.elf",
+      "w=762",
+      "h=1172"
+    ]
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "id": "ogb-arxiv-whole-final-p8-r001",
+  "steps": [
+    {
+      "name": "compile-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-whole/whole/physical.py",
+      "args": [
+        "compile-csl",
+        "--out",
+        "{output}/compile-csl"
+      ]
+    },
+    {
+      "name": "run-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-whole/whole/physical.py",
+      "args": [
+        "run-csl",
+        "--out",
+        "{output}/run-csl",
+        "--compiled",
+        "{output}/compile-csl/compiled.json"
+      ]
+    },
+    {
+      "name": "run-tungsten",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-whole/whole/physical.py",
+      "args": [
+        "run-tungsten",
+        "--out",
+        "{output}/run-tungsten",
+        "--peer",
+        "{output}/run-csl/capture.zip"
+      ]
+    }
+  ],
+  "description": "Complete ogbn-arxiv final layer on the CS-3, one resident ELF per language, every original destination, edge and class."
+}

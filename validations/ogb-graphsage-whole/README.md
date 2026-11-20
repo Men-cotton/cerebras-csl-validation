@@ -1,0 +1,3 @@
+# Full ogbn-arxiv final layer
+
+The 331 destination windows cover all 169,343 nodes, 2,315,598 arcs and 40 class logits. Both backends consume the same full-model hidden features. Nine live channels reproduce the original 16-channel representation. Four windows carry A, half-A and A controls. Each backend uses a single resident program and weights. Every step preserves the returned PE words, original IDs, clocks, host input counts and class predictions. The source checkout contains independently replayable SDK examples at minimum, median and maximum window edge counts. Each physical worker audits all windows and the Tungsten step also compares all class outputs with the native physical run.

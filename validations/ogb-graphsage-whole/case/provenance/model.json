@@ -1,0 +1,87 @@
+{
+  "dataset": "arxiv",
+  "nodes": 169343,
+  "classes": 40,
+  "input_features": 128,
+  "hidden": 16,
+  "graph": {
+    "processed_sha256": "83c746379a528be58e0c07f782ab388fa157c7be505da53012fffabce0314dba",
+    "input_edges": 1166243,
+    "undirected_unique_arcs": 2315598,
+    "self_loops": 0,
+    "ptr_sha256": "15b6a4516229b383ffca391cb19c57d0a68a52bd2b054f591c0ef06fd12f6376",
+    "index_sha256": "957986a8463b43a0abd8f51e0686ebe510bcdac7cde36eaadfab8b31544e393c",
+    "split_sha256": {
+      "train": "84983391900af45194e5db8d977ec9e01d4eda96e20328f3d7575fdd45c6797c",
+      "valid": "ebe6cdcd77c75eedbce2064a05a49bc28e2c4a631f49d66b9e9ff317eef993eb",
+      "test": "588fb66ce57bcaef51ac0235f0a49a056370ac31fc27c8ebf556d3f5cdd02545"
+    }
+  },
+  "dataset_contract": "unweighted unique undirected neighbours; original self loops retained",
+  "training": {
+    "seed": 1107,
+    "epochs": 28,
+    "batch": 1024,
+    "first_layer": "all neighbours",
+    "second_layer_fanout_with_replacement": 15,
+    "best_validation_epoch": 24,
+    "optimizer": "AdamW",
+    "lr": 0.005,
+    "weight_decay": 0.0005
+  },
+  "weights_sha256": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "torch": "2.4.0+cu121",
+  "csr_upload_and_training_mean_s": 0.25559846199757885,
+  "times": {
+    "mean_first": {
+      "warmup_ns": 155428500,
+      "whole_forward_ns": [
+        118931165,
+        101122759,
+        100742666
+      ],
+      "all_splits": {
+        "train": {
+          "correct": 59108,
+          "count": 90941
+        },
+        "valid": {
+          "correct": 19585,
+          "count": 29799
+        },
+        "test": {
+          "correct": 31544,
+          "count": 48603
+        }
+      }
+    },
+    "projection_first": {
+      "warmup_ns": 6197620,
+      "whole_forward_ns": [
+        5603353,
+        5725996,
+        4900699
+      ],
+      "all_splits": {
+        "train": {
+          "correct": 59108,
+          "count": 90941
+        },
+        "valid": {
+          "correct": 19585,
+          "count": 29799
+        },
+        "test": {
+          "correct": 31544,
+          "count": 48603
+        }
+      },
+      "max_abs_vs_mean_first": 7.62939453125e-06,
+      "argmax_mismatches": 0
+    }
+  },
+  "gpu_logits_sha256": "14491f54d59dab6b4a04c2b5cfdca66315decd2401db71d695e5048d3599cf15",
+  "gpu_hidden_sha256": "d43f9878506aa59537bc3c2af45117df3d5d26208384cff7b1f6e067aeeb62d0",
+  "gpu_peak_allocated_bytes": 304676352
+}

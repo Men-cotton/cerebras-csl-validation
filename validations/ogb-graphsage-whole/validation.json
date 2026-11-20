@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "ogb-graphsage-whole",
+  "entrypoints": [
+    "whole/physical.py"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "description": "Full ogbn-arxiv final GraphSAGE layer on native CSL and Tungsten with frozen whole-model hidden features."
+}
