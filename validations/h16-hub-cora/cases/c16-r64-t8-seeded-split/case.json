@@ -1,0 +1,166 @@
+{
+  "admission": {
+    "admitted": true,
+    "code_reserve_bytes": 19456,
+    "forecast_bytes": 35952,
+    "named_bytes": 16496,
+    "scope": "H16 host ABI estimate and linked SRAM endpoint; check the physical inventory before execution"
+  },
+  "atol": 2e-05,
+  "family": "native-cora",
+  "features": 1433,
+  "files": {
+    "checkpoint.json": "3d41050782a2e96f4d9f6b3410c155cd59577bc6a61c521057a9c9bd9a5e0995",
+    "checkpoint.npz": "836c82b82871c76bb1822ace2014c9552690459a952de1b23d4399d5ecce4542",
+    "dataset/cora.cites": "ec1a372391b7f0f60a6aff0084e8abd8f19f0faa7e1f2441a41c492042d5945e",
+    "dataset/cora.content": "b8ebed0fd45e53995abafd1b70cf6a9fcc8f86abc5826d69b97fe6ca46e9c8ee",
+    "expected.npz": "2e0f0def36589876ed7eb62237ae2a84708fe82261e3b0958b4da43a0768bf24",
+    "inputs.npz": "ddd50b58e3f6bea4a4c07fad2c9d1124b2f564be9a7fee02f06763915b7e29b5",
+    "node_ids.npz": "16f482b50c7ce6be3f5bfccb3b2a7408c54bdf47308dc6c1c54272669eae3e5c",
+    "provenance.json": "8e98da797ee33e8165af2042119aa4c409dd8f60cc0bc44955f9f36b9da165d5",
+    "source/layout.csl": "5801c44f446003668b5e6eb65652b6d450f54aba8fe05ab5d70970469af50547",
+    "source/pe.csl": "67f8514604528457fd3f2921314beafea1c31c4bc158417f52011acddc3d4fbe"
+  },
+  "immutable_inputs": [
+    "counts",
+    "edge_ptr",
+    "edge_src",
+    "edge_weight",
+    "packet_count",
+    "packet_header",
+    "packet_offset",
+    "packet_tag",
+    "send_slot",
+    "slots",
+    "split_control",
+    "w0",
+    "w1",
+    "x_col",
+    "x_ptr",
+    "x_val"
+  ],
+  "inputs": {
+    "counts": [
+      6,
+      "uint16"
+    ],
+    "edge_ptr": [
+      5,
+      "uint16"
+    ],
+    "edge_src": [
+      177,
+      "uint16"
+    ],
+    "edge_weight": [
+      177,
+      "float32"
+    ],
+    "packet_count": [
+      42,
+      "uint16"
+    ],
+    "packet_header": [
+      42,
+      "uint32"
+    ],
+    "packet_offset": [
+      42,
+      "uint16"
+    ],
+    "packet_tag": [
+      42,
+      "uint32"
+    ],
+    "send_slot": [
+      29,
+      "uint16"
+    ],
+    "slots": [
+      3,
+      "uint16"
+    ],
+    "split_control": [
+      2,
+      "uint16"
+    ],
+    "w0": [
+      1440,
+      "float32"
+    ],
+    "w1": [
+      112,
+      "float32"
+    ],
+    "x_col": [
+      96,
+      "uint16"
+    ],
+    "x_ptr": [
+      48,
+      "uint16"
+    ],
+    "x_val": [
+      96,
+      "float32"
+    ]
+  },
+  "kind": "cora",
+  "launch": {
+    "arguments": [],
+    "entrypoint": "f_run"
+  },
+  "nodes": 2708,
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "logits": [
+      21,
+      "float32"
+    ],
+    "panel_sum": [
+      376,
+      "float32"
+    ],
+    "pre": [
+      48,
+      "float32"
+    ],
+    "split_words": [
+      2,
+      "uint32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ],
+    "traffic": [
+      4,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 16,
+    "COMPACT": 1,
+    "FW": 90,
+    "H": 16,
+    "K": 47,
+    "L": 3,
+    "MG": 177,
+    "MX": 96,
+    "NPLAN": 21,
+    "NRX": 88,
+    "NSEND": 29,
+    "O": 7,
+    "R": 64,
+    "T": 8,
+    "U": 16
+  },
+  "profile": "original",
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "Unpruned 2708-node Cora, trained 1433\u201316\u20137 classifier, ordered split of node 163",
+  "transport": "Measure the third fixed-source full-Cora seeded H16 split at 1,024 PEs. Check the physical input transfers, all layer tensors, ordered Cora hub suffix, and 161 partial-word hops against the same trained checkpoint as the 256 and 512 PE series."
+}
