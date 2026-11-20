@@ -1,5 +1,6 @@
 {
   "cases": {
+    "c16-r16-csr-seed-registers": "816d417e9726349112871036bcfb9a5ed062b6c2fb69ad8e10f1a9e2cd316c2c",
     "c16-r16-postbarrier-relu": "2bf1c016cb19d0aaa1dc50fed40b16433d9cebbf520dc67e67b29f458bcc0768",
     "c16-r16-t8-h16-split": "644c16d39c99daea0ebc6e463466dc856d054bb283c6c72e9b355c2d5bea7a15",
     "c16-r16-t8-register": "7b340d5552387619b75c91a1b4cdb1fcdbc560929520adf1208e5962da2a34b5",

@@ -1,0 +1,53 @@
+{
+  "description": "Measure both trained layers of full Cora GCN on 256 PEs after the mesh entry barrier, retaining sparse-row descriptors for the first multiply and remaining multiply-adds. Verify the complete regular SDK uploads, original graph inputs, layer readbacks, ordered hub split and PE-local clocks.",
+  "id": "cora-native-h16-csr-seed-registers-c16r16-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r16-csr-seed-registers",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r16-csr-seed-registers"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r16-csr-seed-registers",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r16-csr-seed-registers",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r16-csr-seed-registers/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r16-csr-seed-registers"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r16-csr-seed-registers",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r16-csr-seed-registers/capture-data",
+        "--out",
+        "{output}/numerical-c16-r16-csr-seed-registers.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r16-csr-seed-registers",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

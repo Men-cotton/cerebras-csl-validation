@@ -1,0 +1,46 @@
+{
+  "description": "Measure both trained layers of full Cora GCN on 256 PEs after the mesh entry barrier, retaining sparse-row descriptors for the first multiply and remaining multiply-adds. Verify the complete regular SDK uploads, original graph inputs, layer readbacks, ordered hub split and PE-local clocks.",
+  "fp64": {
+    "logits": {
+      "max_abs": 1.5439759302182665e-06,
+      "max_relative_floor_1e_12": 0.00013183973156311016,
+      "relative_l2": 6.272524778577736e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.2052094220393883e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.85920214212301e-08
+    },
+    "pre": {
+      "max_abs": 2.1018271234574115e-07,
+      "max_relative_floor_1e_12": 0.003162167094478161,
+      "relative_l2": 5.682025087484996e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 42944,
+    "compute_elfs": 16,
+    "compute_pe_static_bytes": 42944,
+    "largest_image_files": [
+      "bin/out_10_0.elf",
+      "bin/out_11_0.elf",
+      "bin/out_5_0.elf",
+      "bin/out_6_0.elf",
+      "bin/out_7_0.elf",
+      "bin/out_9_0.elf"
+    ],
+    "linked_elfs": 30
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 86609,
+  "local_raw_sha256": "80b8e6e3132f993fe28aa9966fa6316d984990b5963c9a2046cabb496d9ed5f5",
+  "local_split_audit_sha256": "500ebfecda339f5c95f7b394213a230ed4ea8dbcf3479fbc6e77b86c45f2beef",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "b51f188a1dda8d6175aedef8e5ff5d20c4733b3b2b1ff223051a2c8ff117777e",
+  "packed_input_sha256": "1fc3d077eaef1dd277527c40b3d338096a9c3d71dadc8ce7f6b8cacc8e67f08c",
+  "source_sha256": {
+    "layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "pe.csl": "471bff067005aa76a49a871f14f5ee35d1d72c3cadbecb9d4ffd53bc13732582"
+  },
+  "split_plan_sha256": "b8535362136a7ca5048f58fc891071a959772148598116b9a203898bd023a5ed"
+}
