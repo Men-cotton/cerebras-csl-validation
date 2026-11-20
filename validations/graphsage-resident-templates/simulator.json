@@ -99,6 +99,31 @@
     "simulation_cycles": 72716,
     "simulation_raw_sha256": "e649130eca1608925b8a52063dbe8b1d61b8e86a9b6e814f4deb6436be77e6d4"
   },
+  "cluster-c16r64-t8-owner-tiles": {
+    "all_elf_static_end": 36544,
+    "base_case_sha256": "88a44e14821cfaa392b19b9428d950585b6f0782983b7aee60af59ac17043240",
+    "case_sha256": "923e20bbbf083da7eec27c1fd5c9647be81e213a06339572bedfc89c4c22d981",
+    "compiled_application_elf_sha256": {
+      "out_0_0.elf": "97c9213ec85cec0902d535d4e7278e1cf323eec9d084d69a373d4ecd5052a72e",
+      "out_10_0.elf": "ab5cbb933637d3a176678e3ea11c0c0d3b5c39877933eeb443261013b3d87c40",
+      "out_11_0.elf": "57c5f3b953471366d98ed263f2e7f19912b9b04e7602ec48a2a8e5fe2b0a7c07",
+      "out_12_0.elf": "7f8e0ff52623a47d6d557656884db743d6ef36ad05bd510169b839be9f3989bc",
+      "out_13_0.elf": "9dc820eea5a952aa9cf101e4204e8a177736e259549d789b8f4df7869931d404",
+      "out_14_0.elf": "ad29832efc993208462a403ee814cc331142c6338d64b0256c5a2f1f3b4c7ecb",
+      "out_15_0.elf": "17ef4895e5561ae7d57706a73cb608536e613d94bd69983b94732d8884838b3d",
+      "out_1_0.elf": "733d004ced6fa7c1ba09a54b6ca136d095a655867b918ec201c04991eb17024b",
+      "out_2_0.elf": "6bc4b655a5456c3b4bfb7197370472bca49ab42322f014c7bd81ec4f15393828",
+      "out_3_0.elf": "ef66a95ef7a5a54f9a631b65e02101c3a4b168261149794d35bb243202d9657d",
+      "out_4_0.elf": "0383ef22519604bd8fac7301966085d6ac337ca5d19f32b162b91b458edefb0d",
+      "out_5_0.elf": "ae2da25f331c4a7781ff2741406639af651c73a99e2381ec486ace3f7ddc0d35",
+      "out_6_0.elf": "cad9d10a50a42e54e5df9ca6b3bb8717e9f8444ed55400e32963c16b7bd4ec6a",
+      "out_7_0.elf": "472fad1c1197044dbb34e7d3d9b6d11abc4df3973e2cad7741fbc66eb871ddb6",
+      "out_8_0.elf": "350d49d5f860408a07f074d64490045d45b53aa365aae3c0358dba7c961f42e4",
+      "out_9_0.elf": "41e886d161f0fc3ef570a8a895e8d3d415310e12d82af007b3a7be110d068300"
+    },
+    "simulation_cycles": 63752,
+    "simulation_raw_sha256": "f617c34b66563e416270c4a5b5d31532a294eca67356b09445ddce3119abfe3e"
+  },
   "cluster-c16r64-t8-templates": {
     "all_elf_static_end": 36640,
     "base_case_sha256": "88a44e14821cfaa392b19b9428d950585b6f0782983b7aee60af59ac17043240",
