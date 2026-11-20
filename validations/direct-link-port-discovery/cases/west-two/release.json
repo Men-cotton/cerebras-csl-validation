@@ -1,0 +1,27 @@
+{
+  "file_sha256": {
+    "build.json": "e13b15ae6abb4b2c00123f255dbc8b8bcfdf7e6a2ce3b07ec20464b2f5885d53",
+    "hardware/out/out_port_map.json": "9f078e8d6380e8e73af3dfd6f0c070c00ad7cce6357f6445e2d6a7143689c54e",
+    "hardware/out/program.elf": "2f6771961acb0daa574a9418af5ba63373cc37371af2ed12fc29fe92417c5cb9",
+    "hardware/out/ranges.txt": "5d7db58c6a9652b28f598122904ad939c923c76624b9f1aa05cf49601ad7e4e3",
+    "sdk/automatic/port-map.json": "2a1c4695c9363683ad88a612d810d33d2d4bdd293db8e0cf05eb2102be523bfb",
+    "sdk/automatic/trace.json": "dfda7af66bf5485563b6a901960b22c7716168b8a3da55f823efc1364edd7020",
+    "sdk/driver.json": "2e37cf9a839da1548e39b6c3bb2d75e807fdb5038e3e93336436a04c0430cd0e",
+    "sdk/fixed/port-map.json": "9f078e8d6380e8e73af3dfd6f0c070c00ad7cce6357f6445e2d6a7143689c54e",
+    "sdk/fixed/trace.json": "ee9b5a766739c1c745a90590bf6bbcd603f366a2c984c1a436c623a8cc604769",
+    "simulator/out/out_port_map.json": "9f078e8d6380e8e73af3dfd6f0c070c00ad7cce6357f6445e2d6a7143689c54e",
+    "simulator/out/program.elf": "92c8767c4d3442a13bebcc96e9f7be1989fe939a489fbeab52f446eed8684f07",
+    "simulator/out/ranges.txt": "d4d0690c29e201e7e4a72a27a66b3d6b2d87ab76562e531656c7e2f180f3811e",
+    "source/echo.w": "3ebc37a4809e6e03655c0eb5c9a69c7b75ea72e8516d43fced97f7634b23dbdb",
+    "source/paired.paint": "2e354904365e38093246f9be5d82a033c54ee2cbc7d354f959f4f3ba9a752a59",
+    "source/relay.w": "2ff5d236afbdb84ff8e65c70668412d40e1429302c3cb14e9e5f37d5f4250a9d"
+  },
+  "host_sha256": {
+    "appliance.py": "5e3fc27a532ed8e806abd46615095744c0f1b21170e8c0f5440821ab14f4c70e",
+    "probe.py": "ec8fd118e2ec2c19b791498d7e81af93125bb66f5158f49e9ead950179dd4a7b",
+    "fixed_worker.py": "ae2b4ac22bd6d970503d76fb58025943475547ed3cad93afae0ca6956b86f653",
+    "driver.py": "88fdb0e47fcf945313e6bdd73f284ee0f5b711362164d139fe80837a346945e1",
+    "echo0.csl": "f1459adcdaae1262a70fa1b757ae837f8f13b52d766aa3983be50f994fc9d165",
+    "echo1.csl": "a1a9c7521b31d6be6cd3f8a1fcd5d8814de893be5dc191078f17811eae69023a"
+  }
+}

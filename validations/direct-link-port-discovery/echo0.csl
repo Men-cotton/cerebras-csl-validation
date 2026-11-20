@@ -1,0 +1,11 @@
+param rx0: u16;
+param tx0: u16;
+const input = @get_input_queue(0);
+const output = @get_output_queue(0);
+const dst = @get_dsd(fabout_dsd, .{ .extent = 1, .output_queue = output });
+task echo(word: u32) void { @mov32(dst, word ^ 0x61a72d90); }
+comptime {
+  @initialize_queue(input, .{ .color = @get_color(rx0) });
+  @initialize_queue(output, .{ .color = @get_color(tx0) });
+  @bind_data_task(echo, @get_data_task_id(input));
+}

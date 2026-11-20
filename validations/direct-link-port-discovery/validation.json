@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "direct-link-port-discovery",
+  "description": "Identify and replay automatic and fixed physical Direct Link endpoint pairs.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

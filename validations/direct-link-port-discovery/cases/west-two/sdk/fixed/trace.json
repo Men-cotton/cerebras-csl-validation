@@ -1,0 +1,79 @@
+{
+  "backend": "simulator",
+  "names": [
+    [
+      "rx0_port",
+      "tx0_port"
+    ],
+    [
+      "rx1_port",
+      "tx1_port"
+    ]
+  ],
+  "masks": [
+    1638346128,
+    382048687
+  ],
+  "endpoints": {
+    "rx0_port": {
+      "io_type": "IN",
+      "side": "WEST",
+      "loc": 0,
+      "color": 0
+    },
+    "tx0_port": {
+      "io_type": "OUT",
+      "side": "WEST",
+      "loc": 1,
+      "color": 1
+    },
+    "rx1_port": {
+      "io_type": "IN",
+      "side": "WEST",
+      "loc": 18,
+      "color": 2
+    },
+    "tx1_port": {
+      "io_type": "OUT",
+      "side": "WEST",
+      "loc": 19,
+      "color": 3
+    }
+  },
+  "historical_fabric_sha256": "be48ea564742296b6d966b4828832a6fab21bdfbefe753d9e83ab2bf6a150f96",
+  "physical_or_simulated_elf_sha256": "92c8767c4d3442a13bebcc96e9f7be1989fe939a489fbeab52f446eed8684f07",
+  "port_map_sha256": "9f078e8d6380e8e73af3dfd6f0c070c00ad7cce6357f6445e2d6a7143689c54e",
+  "transactions": [
+    {
+      "pair": 0,
+      "input": [
+        1,
+        2147483648,
+        19,
+        4294967295
+      ],
+      "output": [
+        1638346129,
+        3785829776,
+        1638346115,
+        2656621167
+      ]
+    },
+    {
+      "pair": 1,
+      "input": [
+        1073741824,
+        7,
+        0,
+        31
+      ],
+      "output": [
+        1455790511,
+        382048680,
+        382048687,
+        382048688
+      ]
+    }
+  ],
+  "last_phase": "stopped"
+}

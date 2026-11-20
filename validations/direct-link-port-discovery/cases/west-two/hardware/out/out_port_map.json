@@ -1,0 +1,46 @@
+{
+  "buses": [
+    {
+      "io_type": "IN",
+      "lvds_id": 0,
+      "port_name": "rx0_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 1,
+      "port_name": "tx0_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 2,
+      "port_name": "rx1_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 3,
+      "port_name": "tx1_port"
+    }
+  ],
+  "lvds_ports": [
+    {
+      "color": 0,
+      "loc": 0,
+      "side": "WEST"
+    },
+    {
+      "color": 1,
+      "loc": 1,
+      "side": "WEST"
+    },
+    {
+      "color": 2,
+      "loc": 18,
+      "side": "WEST"
+    },
+    {
+      "color": 3,
+      "loc": 19,
+      "side": "WEST"
+    }
+  ]
+}

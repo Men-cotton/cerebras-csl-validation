@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "direct-link-physical-west-pairs-20261120-r001",
+  "description": "In one allocation execute two independent four-word pairs using a system-selected native CSL placement and the recorded West 0/1 + 18/19 Tungsten placement. Preserve maps, per-stage progress and every output word.",
+  "steps": [
+    {
+      "name": "probe-west-pairs",
+      "kind": "appliance",
+      "script": "validations/direct-link-port-discovery/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/direct-link-port-discovery/cases/west-two",
+        "--release-sha256",
+        "316acff36089cf135913948bf915dc6a7a7c42600c8857caf6f958aafcba65c8",
+        "--out",
+        "{output}/west-pairs"
+      ]
+    }
+  ]
+}

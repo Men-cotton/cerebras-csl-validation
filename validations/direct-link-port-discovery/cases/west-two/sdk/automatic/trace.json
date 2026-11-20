@@ -1,0 +1,84 @@
+{
+  "backend": "simulator",
+  "masks": [
+    1638346128,
+    382048687
+  ],
+  "sources": {
+    "echo0.csl": "f1459adcdaae1262a70fa1b757ae837f8f13b52d766aa3983be50f994fc9d165",
+    "echo1.csl": "a1a9c7521b31d6be6cd3f8a1fcd5d8814de893be5dc191078f17811eae69023a"
+  },
+  "transactions": [
+    {
+      "pair": 0,
+      "input": [
+        1,
+        2147483648,
+        19,
+        4294967295
+      ],
+      "output": [
+        1638346129,
+        3785829776,
+        1638346115,
+        2656621167
+      ]
+    },
+    {
+      "pair": 1,
+      "input": [
+        1073741824,
+        7,
+        0,
+        31
+      ],
+      "output": [
+        1455790511,
+        382048680,
+        382048687,
+        382048688
+      ]
+    }
+  ],
+  "last_phase": "stopped",
+  "names": [
+    [
+      "echo0_rx0_port",
+      "echo0_tx0_port"
+    ],
+    [
+      "echo1_rx1_port",
+      "echo1_tx1_port"
+    ]
+  ],
+  "port_map_sha256": "2a1c4695c9363683ad88a612d810d33d2d4bdd293db8e0cf05eb2102be523bfb",
+  "endpoints": {
+    "echo0_rx0_port": {
+      "io_type": "IN",
+      "side": "WEST",
+      "loc": 0,
+      "color": 0
+    },
+    "echo0_tx0_port": {
+      "io_type": "OUT",
+      "side": "WEST",
+      "loc": 1,
+      "color": 1
+    },
+    "echo1_rx1_port": {
+      "io_type": "IN",
+      "side": "WEST",
+      "loc": 2,
+      "color": 2
+    },
+    "echo1_tx1_port": {
+      "io_type": "OUT",
+      "side": "WEST",
+      "loc": 3,
+      "color": 3
+    }
+  },
+  "native_elf_sha256": {
+    "out.elf": "7bd9a89e5d8213546ff586ee74d9c516726cb746588a643ab263f4d6875dfffe"
+  }
+}
