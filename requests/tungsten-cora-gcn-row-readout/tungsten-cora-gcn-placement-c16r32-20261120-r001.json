@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn-placement-c16r32-20261120-r001",
+  "description": "Return every node and PE timestamp, certify each row replica by bitwise comparison, and measure full Cora GCN on CS-3.",
+  "steps": [
+    {
+      "name": "run-cora-c16r32-t8-busy-link",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn-row-readout/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn-row-readout/cases/cora-c16r32-t8-busy-link",
+        "--build-sha256",
+        "e22a0fd60ff7b8704fb983ec6de4f3c0f0c59d9527683c4842c6c53ef6f26d8f",
+        "--out",
+        "{output}/gcn-cora-c16r32-t8-busy-link"
+      ]
+    }
+  ]
+}
