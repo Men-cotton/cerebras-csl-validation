@@ -1,0 +1,50 @@
+{
+  "local_completed_trials": [
+    1,
+    2
+  ],
+  "hardware_required_trials": [
+    1,
+    2,
+    3
+  ],
+  "hardware_numerical_references": [
+    1,
+    2,
+    1
+  ],
+  "sdk_status_at_snapshot": "frame-3",
+  "local_files": {
+    "capture.json": "f011ab747f6113a0379d848eedeb3cee56035a3c533ee7553fd261abe4945931",
+    "frame-1.npz": "5fe4d5feaaca93b9e67201669ec73f7501c076e00b572d0e1271e148bb3c77b7",
+    "frame-2.npz": "eb44704ad37acbb3ef2a02fd56fc17d7cf771609bbd81c2935ffc0f4463e983e"
+  },
+  "build_sha256": "ea3d0605722b42bc7ca8da4cd96534424b0c6e16122d5b8e238681cfebf8d025",
+  "paired_canonical_sha256": "12007cb97855354fba39eb2410dc8400f03b5516036c3d1f80b6d6b9df5e5d72",
+  "ordered_loads": 64,
+  "max_linked_bytes": 36168,
+  "bare_result_sha256": "3cb0498730c05153c093923ff714ca34063dafe5a08fbf96560f8bb5e90671d4",
+  "bare_output_sha256": {
+    "out-pre.bin": "b8c5bd4d82172c0e3eada5e2952d608a148c88e6bae012956fcab46a330211bb",
+    "out-hidden.bin": "bca026fe86df62d957fcdafd994cc942ad0ad5e9c8379267d090c44ea8b57f2e",
+    "out-logits.bin": "f249d280849fa23bee4d892a13708f8c6c19f220944ff1e42f63846bbbaed8a7",
+    "out-clocks.bin": "36e4305b0c639af222b8aa0a6d5bf5531ba10fb78dd8b203b90946cbdb3bf99f"
+  },
+  "complete_control": {
+    "rows": 32,
+    "case": "full-c16r32-t8-cluster-mean-factor",
+    "files": {
+      "build.json": "d0f9fda33c1659847be08cb4148f346f994929c2ddeddaa97159186c121b04a9",
+      "reference.npz": "f39e0e1d469b4c874f9f2177f4b61ec9b56c33c904dc91c45b955fa896b04f00",
+      "run/capture.json": "c8fbb4659acb771c0cfe13de7e47c9aa3d897bacdb60b62fae67828ffff5993b",
+      "run/frame-1.npz": "b054552a4b28cc55a1fc5e7ac2d247db30c25c2618b830e5306c755ec20a7bdb",
+      "run/frame-2.npz": "8b9a0eb03299f0cf2fed2d1a97f6f55edc488861596be464782e367f320ddc58",
+      "run/frame-3.npz": "2bf832f091285c2f069e512dad30e868ab0d6d41f6b0e27b73b03bbf75db5fc1"
+    },
+    "family_sources": {
+      "appliance.py": "51a9edf0dadd6fb4437bcbc40e3eee276a4e54df58995ceacc3d7c13322c329f",
+      "worker.py": "93622da2e437f2fecb263b3a8fa8064d1e107f6248056815036cbf56c3c3de27",
+      "oracle.py": "2feadfd6f9b11756912f84303c0fa6fb07fbc24d32b6e22f369e67a4589deee4"
+    }
+  }
+}

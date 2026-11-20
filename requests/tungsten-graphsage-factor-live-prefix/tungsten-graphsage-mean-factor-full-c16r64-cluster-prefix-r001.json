@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-mean-factor-full-c16r64-cluster-prefix-r001",
+  "description": "Run all three physical cluster-factor GraphSAGE inputs at 1,024 PEs. The local snapshot contains two completed replies, recorded while the third was in progress. The fixed-source 512-PE SDK control completed all three.",
+  "steps": [
+    {
+      "name": "run-1024-three-physical-inputs",
+      "kind": "appliance",
+      "script": "validations/tungsten-graphsage-factor-live-prefix/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-graphsage-factor-live-prefix/cases/full-c16r64-t8-cluster-mean-factor",
+        "--build-sha256",
+        "ea3d0605722b42bc7ca8da4cd96534424b0c6e16122d5b8e238681cfebf8d025",
+        "--prefix-sha256",
+        "81a67c0198055b6df60a7d47c0ca8a5867fa91a1981fe0c792a657f7856a01f1",
+        "--out",
+        "{output}/cluster-factor-1024-live"
+      ]
+    }
+  ]
+}

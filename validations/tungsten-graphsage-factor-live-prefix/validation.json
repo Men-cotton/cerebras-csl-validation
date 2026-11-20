@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-factor-live-prefix",
+  "description": "Run all three physical cluster-factor GraphSAGE inputs at 1,024 PEs. The local snapshot contains two completed replies, recorded while the third was in progress. The fixed-source 512-PE SDK control completed all three.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}
