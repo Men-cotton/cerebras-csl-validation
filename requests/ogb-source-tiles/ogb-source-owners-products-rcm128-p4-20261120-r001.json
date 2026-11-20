@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "ogb-source-owners-products-rcm128-p4-20261120-r001",
+  "description": "Strong-scale the same 128 original products destinations, trained final layer and 128-entry dictionary behind one West input. Each case runs the same bulk input and output protocol on physical CS-3 and compares all six replies with its SDK and 16-owner controls.",
+  "steps": [
+    {
+      "name": "run-products-p4",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-source-tiles/cases/products-fixed-rcm128-p4-e128",
+        "--release-sha256",
+        "bacfaf5a1c8a94a270c0535ee1e41f3d69ea3cf56e26da501b214a4e49df6e91",
+        "--out",
+        "{output}/products-fixed-rcm128-p4-e128"
+      ]
+    }
+  ]
+}
