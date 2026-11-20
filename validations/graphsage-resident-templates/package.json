@@ -1,0 +1,15 @@
+{
+  "cases": {
+    "cluster-c16r16-t8-templates": "b73e0489cc1f53e888a196525bbbb15d242c19725d41e28e053eb4cda089676c"
+  },
+  "compile_workers": 1,
+  "family": "graphsage-resident-templates",
+  "host_sha256": {
+    "appliance.py": "14b6de96d8855e053985d8963b8e3e82c0b9a2582dcad9306e8ed3cc90bae8d0",
+    "appliance_worker.py": "b5e849a160445865a5d931e2e71e1f21c523cb8f8592806b0154323ca48eeeef",
+    "portable.py": "72f487280c44bfdd4786d1c54f4d20d6319519642f4ff924d7350b203a32d930",
+    "saved_audit.py": "713c035b5051de9d982e00442db733421087c2f5aa42c98ef90ed9243c8383d4",
+    "sdk_runner.py": "de61a55a946683b2884e9b2662b8dbe39317a90447a73428895a35e674ce1d78"
+  },
+  "schema": 1
+}
