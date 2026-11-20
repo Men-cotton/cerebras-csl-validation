@@ -1,0 +1,28 @@
+{
+  "elements": 1024,
+  "files": {
+    "baseline/reproduce.py": "c66b1dcc0ea30740d5d3ca2d0062caafe9575e67295a35df75fd24fad5929ca2",
+    "baseline/sum.w": "0a6d0d323ccdb21c72e2bae59604e92c03c7560a539ef88de18ea96fb6647213",
+    "build.json": "ba4c1a3af0bbb1028fa66eb72f4b095904fc8c0e63cd0c2dca49e7e5a7ed9ec4",
+    "compute.yeti": "6fa672862ec16d2124029804251353f405b6f13cd84a88341fb6ab248aa00a14",
+    "fixture.npz": "089a94154fa9b06551da4cd2c3e0cd750a063f91199d4f95f2a50fba893283d4",
+    "hardware/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "hardware/out/program.elf": "a3824d62c64482ca9f6ba481afeb51735f42867c5d06f78152ad919c99c0c6fe",
+    "hardware/ranges.txt": "4675907da32b6ed7157ba771517e39b0081ad8172ea533c19b57ad407babfcc5",
+    "pair.img": "5d06645b70187394544a1aee89ade85b0a2af4094a2d75d19bf8035490a01c6b",
+    "sdk/audit.json": "9942e1c1076104aebca5849bd72e06ddc6fd27c50a2985d99ff6bb7bf407ccdd",
+    "sdk/capture.json": "916600aefe76c0a08a371e77896e85bd8518c54e29d203461c1e9e2ea4151444",
+    "sdk/raw.npz": "4905bd85fc7883df67cccca9ba4a6c7877c505d32d54820c5f3034454cf5e997",
+    "simulator/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "simulator/out/program.elf": "07fcb1cc73ea45fe5d8915476c1c421d816e93d91949795cc1367ae5fd82ad95",
+    "simulator/ranges.txt": "a226d6f130165115f10a91a7cbcc3c524b2557d1c83b65e1e66d7ff4684a8abc",
+    "src/bench.paint": "029c828ae0e621bc393cb4fd9df830d5041940a6764d872aafdcf7aec3b7e639",
+    "src/pair.w": "5af7b97ea3d1c910fc86ff6082462bcf4747ec8852500465e7454734e1ae3f53",
+    "src/relay.w": "54f3296303956e0a41ee64209b0c079f553cb6af081b3b3e4ac448a71dd0b7b8"
+  },
+  "host": {
+    "appliance.py": "a3e22c874cf83bd3731679aa76827719744bf5691f1ef2614433a694662696b3",
+    "contract.py": "0235eab0f0075419897fb33e1b665c662692298079a01599b84c40aa61144114",
+    "worker.py": "5bb545cdf87655d602a6f659f963ea25eb2afeae4db5be0eb8e85f02203a4965"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "role": "simulator",
+  "build_sha256": "ba4c1a3af0bbb1028fa66eb72f4b095904fc8c0e63cd0c2dca49e7e5a7ed9ec4",
+  "worker_sha256": {
+    "worker.py": "5bb545cdf87655d602a6f659f963ea25eb2afeae4db5be0eb8e85f02203a4965",
+    "contract.py": "0235eab0f0075419897fb33e1b665c662692298079a01599b84c40aa61144114"
+  },
+  "elf_sha256": "07fcb1cc73ea45fe5d8915476c1c421d816e93d91949795cc1367ae5fd82ad95",
+  "ports_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "coordinates": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "system_target": false,
+  "stopped": true,
+  "stage": "complete",
+  "raw_sha256": "4905bd85fc7883df67cccca9ba4a6c7877c505d32d54820c5f3034454cf5e997"
+}

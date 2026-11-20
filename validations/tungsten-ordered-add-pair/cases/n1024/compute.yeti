@@ -1,0 +1,217 @@
+oqueue OQ0 register(OQ0) = { .color=23, };
+iqueue IQ0 register(IQ0) = { .color=0, .filter=0, .doubling=0, };
+sp a[n=1024] address(0x0800)  align(2) ;
+sp b[n=1024] address(0x1804)  align(2) ;
+sp c[n=1024] address(0x2808)  align(2) ;
+sp out[n=1024] address(0x380c)  align(2) ;
+u16 counter[n0=3] address(0x7b30)  align(1) ;
+u16 control[n0=1] address(0x7b34)  align(1) ;
+u16 clocks[n=6] address(0x0001)  align(1) ;
+xp ss_iter_mem[n=1] address(0x0000)  align(1) ;
+xp __frame_slots[n=4] address(0x0008)  align(2) ;
+recv rx_r_X0 register(T0a) = { .length=1, .utid=0, .transform=0, .fa=0, .fi=0, .lp=1, .terminate=0, .upr=NONE, .qid=0, };
+recv rx_r_X0_2 register(T09) = { .length=1, .utid=0, .transform=0, .fa=0, .fi=0, .lp=1, .terminate=0, .upr=NONE, .qid=0, };
+recv rx_r_X0_1 register(T08) = { .length=1, .utid=0, .transform=0, .fa=0, .fi=0, .lp=1, .terminate=0, .upr=NONE, .qid=0, };
+vector a_dst_1 register(T2c) = {.base=(a+0), .length=0, .stride=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+recv rx_r_X2 register(T1b) = { .length=1024, .utid=0, .transform=0, .fa=0, .fi=0, .lp=1, .terminate=0, .upr=NONE, .qid=0, };
+recv rx_r_X2_2 register(T1a) = { .length=1024, .utid=0, .transform=0, .fa=0, .fi=0, .lp=1, .terminate=0, .upr=NONE, .qid=0, };
+recv rx_r_X2_1 register(T19) = { .length=1024, .utid=0, .transform=0, .fa=0, .fi=0, .lp=1, .terminate=0, .upr=NONE, .qid=0, };
+vector b_dst_3 register(T2d) = {.base=(b+0), .length=0, .stride=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector c_dst_4 register(T2e) = {.base=(c+0), .length=0, .stride=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+send tx_w_X5 register(T25) = {.length=1, .utid=0, .upr=NONE, .qid=0, .transform=0, .lp=1, .control=0, .fs=0, .xc=0, };
+send tx_w_X5_4 register(T24) = {.length=1, .utid=0, .upr=NONE, .qid=0, .transform=0, .lp=1, .control=0, .fs=0, .xc=0, };
+send tx_w_X5_3 register(T23) = {.length=1, .utid=0, .upr=NONE, .qid=0, .transform=0, .lp=1, .control=0, .fs=0, .xc=0, };
+send tx_w_X5_2 register(T22) = {.length=1, .utid=0, .upr=NONE, .qid=0, .transform=0, .lp=1, .control=0, .fs=0, .xc=0, };
+send tx_w_X5_1 register(T21) = {.length=1, .utid=0, .upr=NONE, .qid=0, .transform=0, .lp=1, .control=0, .fs=0, .xc=0, };
+send tx_w_X6 register(T26) = {.length=1024, .utid=0, .upr=NONE, .qid=0, .transform=0, .lp=1, .control=0, .fs=0, .xc=0, };
+vector out_src1_7 register(T11) = {.base=(out+0), .length=0, .stride=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector out_dst_0 register(T20) = {.base=(out+0), .length=1024, .stride=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector out_dst_0_1 register(T0e) = {.base=(out+0), .length=1024, .stride=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector a_src0_1 register(T0d) = {.base=(a+0), .length=1024, .stride=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector b_src1_2 register(T1e) = {.base=(b+0), .length=1024, .stride=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector c_src1_5 register(T1f) = {.base=(c+0), .length=1024, .stride=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector ss_iter_mem_iter_0  = {.base=(ss_iter_mem+0), .length=1024, .stride=1, .step=1, .save=0, .vp=0, .ua=0, .rchoasjt=1, };
+vector a_src_1  = {.base=(a+0), .length=1024, .stride=1, .step=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector b_src_2  = {.base=(b+0), .length=1024, .stride=1, .step=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector c_src_3  = {.base=(c+0), .length=1024, .stride=1, .step=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector out_dst_4  = {.base=(out+0), .length=1024, .stride=1, .step=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector ss_iter_mem_iter_5  = {.base=(ss_iter_mem+0), .length=6, .stride=1, .step=1, .save=0, .vp=0, .ua=0, .rchoasjt=1, };
+vector clocks_src_6  = {.base=(clocks+0), .length=6, .stride=1, .step=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+vector clocks_dsd_0 register(T27) = {.base=(clocks+0), .length=1, .stride=1, .wave=1, .save=0, .vp=0, .ua=0, .rchoasjt=0, };
+param local_task_0 = 0;
+
+
+task main id(8) status(active) {
+	ld16 R0 = [control];  //@src/pair.w:32
+	or16 R1 = R0, 0x0004;  //@src/pair.w:32
+	st16 [control] = R1;  //@src/pair.w:32
+	jmp main_split_handler;
+
+}
+task trigger_task id(0) status(block) {
+}
+
+
+handler main_split_handler  {
+main_split_entry: 
+	imov16 R2 = 0x0000;  //@src/pair.w:1
+
+main_bb1: 
+	lt16 P0 = R2, 0x0004;  //@src/pair.w:34
+	!P0? jnc main_bb15;  //@src/pair.w:34
+
+main_bb2: 
+	imov32 D4 = [T08];  //@src/pair.w:35
+	imov32 Dc = [T09];  //@src/pair.w:36
+	imov32 D6 = [T0a];  //@src/pair.w:37
+	imov16 R3 = 0x0000;  //@src/pair.w:1
+	st32 [(__frame_slots+0x0000)] = D6;  //@src/pair.w:37
+	fmov32 [T2c] = [T19];  //@src/pair.w:38
+	fmov32 [T2d] = [T1a];  //@src/pair.w:39
+	fmov32 [T2e] = [T1b];  //@src/pair.w:40
+	st16 [(__frame_slots+0x0002)] = R3;  //@src/pair.w:1
+
+main_bb3: 
+	ld16 R8 = [(__frame_slots+0x0002)];  //@src/pair.w:41
+	lt16 P1 = R8, 0x0004;  //@src/pair.w:41
+	!P1? jnc main_bb14;  //@src/pair.w:41
+
+main_bb4: 
+	ld32 Da = [(__frame_slots+0x0000)];  //@src/pair.w:42
+	eq32 P2 = Da, 0x00000000;  //@src/pair.w:42
+	!P2? jnc main_bb9;  //@src/pair.w:42
+
+main_bb5: 
+	imov16 R8 = 0x0000;  //@src/pair.w:43
+	imov16 R8 = R8;  //@src/pair.w:43
+	imov16 R0 = IP;  //@src/pair.w:43
+	add16 [--SP] = R0, 0x0006;  //@src/pair.w:43
+	jmp stamp;  //@src/pair.w:43
+	lds0wds T0b = [ss_iter_mem_iter_0];  //@src/pair.w:44
+	lds0wds T0c = [a_src_1];  //@src/pair.w:44
+	lds1wds T1c = [b_src_2];  //@src/pair.w:44
+	lds1wds T1d = [c_src_3];  //@src/pair.w:44
+	lddwds T2f = [out_dst_4];  //@src/pair.w:44
+	setjt JTR0 = main_bb8;  //@src/pair.w:44
+
+main_bb6: 
+	imov16 R9 = [T0b];  //@src/pair.w:44
+	fadds De = [T0c], [T1c];  //@src/pair.w:44
+	fadds [T2f] = De, [T1d];  //@src/pair.w:44
+	jmp main_bb6;  //@src/pair.w:44
+
+main_bb8: 
+	imov16 R8 = 0x0003;  //@src/pair.w:45
+	imov16 R8 = R8;  //@src/pair.w:45
+	imov16 R0 = IP;  //@src/pair.w:45
+	add16 [--SP] = R0, 0x0006;  //@src/pair.w:45
+	jmp stamp;  //@src/pair.w:45
+	jmp main_bb10;  //@src/pair.w:42
+
+main_bb9: 
+	imov16 R3 = 0x0003;  //@src/pair.w:50
+	imov16 R8 = 0x0000;  //@src/pair.w:47
+	imov16 R8 = R8;  //@src/pair.w:47
+	imov16 R0 = IP;  //@src/pair.w:47
+	add16 [--SP] = R0, 0x0006;  //@src/pair.w:47
+	jmp stamp;  //@src/pair.w:47
+	fadds [T20] = [T0d], [T1e];  //@src/pair.w:48
+	fadds [T20] = [T0e], [T1f];  //@src/pair.w:49
+	imov16 R8 = R3;  //@src/pair.w:50
+	imov16 R0 = IP;  //@src/pair.w:50
+	add16 [--SP] = R0, 0x0006;  //@src/pair.w:50
+	jmp stamp;  //@src/pair.w:50
+
+main_bb10: 
+	imov32 [T21] = D4;  //@src/pair.w:52
+	imov32 [T22] = Dc;  //@src/pair.w:53
+	ld16 R0 = [(__frame_slots+0x0002)];  //@src/pair.w:54
+	sxtd16 [T23] = R0;  //@src/pair.w:54
+	ld32 D6 = [(__frame_slots+0x0000)];  //@src/pair.w:55
+	imov32 [T24] = D6;  //@src/pair.w:55
+	lds0wds T0f = [ss_iter_mem_iter_5];  //@src/pair.w:56
+	lds1wds T10 = [clocks_src_6];  //@src/pair.w:56
+	setjt JTR0 = main_bb13;  //@src/pair.w:56
+
+main_bb11: 
+	imov16 R1 = [T0f];  //@src/pair.w:56
+	imov16 R9 = [T10];  //@src/pair.w:56
+	merge32 Da = 0x0000, R9;  //@src/pair.w:56
+	imov32 [T25] = Da;  //@src/pair.w:56
+	jmp main_bb11;  //@src/pair.w:56
+
+main_bb13: 
+	fmov32 [T26] = [T11];  //@src/pair.w:57
+	ld32 De = [(__frame_slots+0x0000)];  //@src/pair.w:58
+	sub32 D0 = 0x00000001, De;  //@src/pair.w:58
+	st32 [(__frame_slots+0x0000)] = D0;  //@src/pair.w:58
+	ld16 R3 = [(__frame_slots+0x0002)];  //@src/pair.w:1
+	add16 R6 = R3, 0x0001;  //@src/pair.w:1
+	st16 [(__frame_slots+0x0002)] = R6;  //@src/pair.w:1
+	jmp main_bb3;  //@src/pair.w:41
+
+main_bb14: 
+	add16 R2 = R2, 0x0001;  //@src/pair.w:1
+	jmp main_bb1;  //@src/pair.w:34
+
+main_bb15: 
+	nop ;
+
+}
+
+handler stamp  {
+	imov16 [--SP] = R2;
+	imov16 [--SP] = R4;
+	imov16 [--SP] = R5;
+	imov16 [--SP] = Rc;
+	imov16 [--SP] = Rd;
+	ld16 R5 = [(counter+0x0002)];  //@src/pair.w:14
+	ld16 Rc = [(counter+0x0001)];  //@src/pair.w:15
+	ld16 Rd = [counter];  //@src/pair.w:16
+	ld16 R4 = [(counter+0x0001)];  //@src/pair.w:17
+	ld16 R2 = [(counter+0x0002)];  //@src/pair.w:18
+	eq16 P0 = R5, R2;  //@src/pair.w:1
+	eq16 P1 = Rc, R4;  //@src/pair.w:1
+	imov16 R4 = 0x0001;
+	P0? movc16 R4 = 0x0000;
+	imov16 R7 = 0x0001;
+	P1? movc16 R7 = 0x0000;
+	or16 R9 = R4, R7;  //@src/pair.w:19
+
+stamp_bb1: 
+	ltu16 P2 = 0x0, R9;
+	!P2? jnc stamp_bb3;  //@src/pair.w:19
+
+stamp_bb2: 
+	ld16 Rc = [(counter+0x0001)];  //@src/pair.w:21
+	ld16 Rd = [counter];  //@src/pair.w:22
+	ld16 Ra = [(counter+0x0001)];  //@src/pair.w:23
+	ld16 Rb = [(counter+0x0002)];  //@src/pair.w:24
+	eq16 P0 = R2, Rb;  //@src/pair.w:1
+	eq16 P1 = Rc, Ra;  //@src/pair.w:1
+	imov16 Re = 0x0001;
+	P0? movc16 Re = 0x0000;
+	imov16 Rf = 0x0001;
+	P1? movc16 Rf = 0x0000;
+	or16 R9 = Re, Rf;  //@src/pair.w:19
+	imov16 R5 = R2;
+	imov16 R2 = Rb;
+	jmp stamp_bb1;  //@src/pair.w:19
+
+stamp_bb3: 
+	imov16 R4 = R8;  //@src/pair.w:26
+	imov16 [T27] = Rd;  //@src/pair.w:26
+	add16 R4 = R8, 0x0001;  //@src/pair.w:27
+	imov16 [T27] = Rc;  //@src/pair.w:27
+	add16 R4 = R8, 0x0002;  //@src/pair.w:28
+	imov16 [T27] = R5;  //@src/pair.w:28
+	imov16 Rd = [SP++];
+	imov16 Rc = [SP++];
+	imov16 R5 = [SP++];
+	imov16 R4 = [SP++];
+	imov16 R2 = [SP++];
+	jmp [SP++];  //@src/pair.w:28
+
+}
+
+

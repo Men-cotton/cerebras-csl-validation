@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-ordered-add-alternating-20261120-r001",
+  "description": "One compute PE and one relay, four resident blocks, four alternating measurements per input block, exact FP32 output and PE clocks.",
+  "steps": [
+    {
+      "name": "run-n1024-alternating",
+      "kind": "appliance",
+      "script": "validations/tungsten-ordered-add-pair/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-ordered-add-pair/cases/n1024",
+        "--release-sha256",
+        "c5c4808bdbe9f2d27a83aa65da71a383d5ee28a8c9a6d4a04218e95255df078c",
+        "--out",
+        "{output}/run-n1024"
+      ]
+    }
+  ]
+}

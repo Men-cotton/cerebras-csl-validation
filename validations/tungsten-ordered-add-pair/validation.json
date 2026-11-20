@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-ordered-add-pair",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "description": "Both ordered FP32 addition forms on one compute PE, in one resident Direct Link image."
+}
