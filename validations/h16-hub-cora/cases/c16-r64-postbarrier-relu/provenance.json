@@ -1,0 +1,43 @@
+{
+  "description": "Run the complete trained Cora GCN on 1024 compute PEs. Check every immutable H2D upload and all per-PE intermediate and final readbacks. Start the native timestamp after the two-dimensional entry barrier and retain positive ReLU projection lanes, registered sparse descriptors, and the ordered 85-occurrence partial for original vertex 163.",
+  "fp64": {
+    "logits": {
+      "max_abs": 2.4976502466245165e-06,
+      "max_relative_floor_1e_12": 0.00022164349546245556,
+      "relative_l2": 6.313580112464385e-08
+    },
+    "panel_sum": {
+      "max_abs": 2.7382577236778616e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.933045039658705e-08
+    },
+    "pre": {
+      "max_abs": 3.3946663258177523e-07,
+      "max_relative_floor_1e_12": 0.0024796520726071093,
+      "relative_l2": 5.630762567797479e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 35952,
+    "compute_elfs": 16,
+    "compute_pe_static_bytes": 29328,
+    "largest_image_files": [
+      "west/bin/out_5_0.elf",
+      "west/bin/out_6_0.elf",
+      "west/bin/out_7_0.elf"
+    ],
+    "linked_elfs": 30
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 60474,
+  "local_raw_sha256": "168279ae24d11a9dc66af11a108027194b8b2449041cf0f339e930de54204819",
+  "local_split_audit_sha256": "b43c40e68926f72615ee46a0177b518c844a8af2c26d912ccd324781970aca03",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "98ad7949a7c243f9c9d8424d01a2be7b63d478581a5e96e4758b6b4579920e28",
+  "packed_input_sha256": "ddd50b58e3f6bea4a4c07fad2c9d1124b2f564be9a7fee02f06763915b7e29b5",
+  "source_sha256": {
+    "layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "pe.csl": "236d94d97327e4164109bff1d29729f0a5be0d8443227e8f3d9c997f11c8c740"
+  },
+  "split_plan_sha256": "cb48c0bf25cee1745e37fae26c8fb21e0a2500516bd8264f01214a8558294488"
+}

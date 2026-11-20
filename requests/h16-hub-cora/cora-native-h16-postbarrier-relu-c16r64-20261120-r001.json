@@ -1,0 +1,53 @@
+{
+  "description": "Run the complete trained Cora GCN on 1024 compute PEs. Check every immutable H2D upload and all per-PE intermediate and final readbacks. Start the native timestamp after the two-dimensional entry barrier and retain positive ReLU projection lanes, registered sparse descriptors, and the ordered 85-occurrence partial for original vertex 163.",
+  "id": "cora-native-h16-postbarrier-relu-c16r64-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r64-postbarrier-relu",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r64-postbarrier-relu"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r64-postbarrier-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r64-postbarrier-relu",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r64-postbarrier-relu/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r64-postbarrier-relu"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r64-postbarrier-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r64-postbarrier-relu/capture-data",
+        "--out",
+        "{output}/numerical-c16-r64-postbarrier-relu.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r64-postbarrier-relu",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}
