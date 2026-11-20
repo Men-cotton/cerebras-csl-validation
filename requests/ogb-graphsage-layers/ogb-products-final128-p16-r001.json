@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "id": "ogb-products-final128-p16-r001",
+  "steps": [
+    {
+      "name": "compile-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-layers/appliance.py",
+      "args": [
+        "compile-csl",
+        "--case",
+        "products-final128-p16",
+        "--out",
+        "{output}/compile-csl"
+      ]
+    },
+    {
+      "name": "run-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-layers/appliance.py",
+      "args": [
+        "run-csl",
+        "--case",
+        "products-final128-p16",
+        "--out",
+        "{output}/run-csl",
+        "--compiled",
+        "{output}/compile-csl/compiled.json"
+      ]
+    },
+    {
+      "name": "run-tungsten",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-layers/appliance.py",
+      "args": [
+        "run-tungsten",
+        "--case",
+        "products-final128-p16",
+        "--out",
+        "{output}/run-tungsten"
+      ]
+    }
+  ],
+  "description": "Matched OGB GraphSAGE products-final128-p16: all incident neighbours, both learned dense transforms, bias, all class logits, raw PE timing and input A, half-A, A."
+}

@@ -1,0 +1,100 @@
+{
+  "language": "tungsten",
+  "role": "simulator",
+  "fixture_sha256": "44f15d6116c1b827169bc1752654dba80cda2c9c23cdccc4a95a8e6006fe4170",
+  "params": {
+    "P": 16,
+    "R": 9,
+    "F": 16,
+    "Q": 48,
+    "E": 388,
+    "K": 2,
+    "RELU": 0
+  },
+  "placement": "balanced",
+  "build_sha256": "c4916e1d55fbfbcd9665fd90653989bb83cb47cc6d9576945ce52b9954a6ffb9",
+  "frames": [
+    {
+      "trial": 1,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "edge-chunk",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 36004,
+      "sum_phase_max_cycles": 38208,
+      "max_aggregation_cycles": 11296,
+      "max_projection_cycles": 26870,
+      "max_reduce_cycles": 0,
+      "host_input_to_reply_ns": 107007976647,
+      "input_word_count": 140073,
+      "output_word_count": 7504,
+      "numerics": {
+        "max_abs": 1.384574559892826e-05,
+        "relative_l2": 9.452363589956706e-08,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": 1.5599320789760895e-05
+      }
+    },
+    {
+      "trial": 2,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "edge-chunk",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 36004,
+      "sum_phase_max_cycles": 38208,
+      "max_aggregation_cycles": 11296,
+      "max_projection_cycles": 26870,
+      "max_reduce_cycles": 0,
+      "host_input_to_reply_ns": 102891589899,
+      "input_word_count": 138489,
+      "output_word_count": 7504,
+      "numerics": {
+        "max_abs": 7.2208960233410835e-06,
+        "relative_l2": 9.631632283718396e-08,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": null
+      }
+    },
+    {
+      "trial": 3,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "edge-chunk",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 36004,
+      "sum_phase_max_cycles": 38208,
+      "max_aggregation_cycles": 11296,
+      "max_projection_cycles": 26870,
+      "max_reduce_cycles": 0,
+      "host_input_to_reply_ns": 105607671331,
+      "input_word_count": 138489,
+      "output_word_count": 7504,
+      "numerics": {
+        "max_abs": 1.384574559892826e-05,
+        "relative_l2": 9.452363589956706e-08,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": 1.5599320789760895e-05
+      }
+    }
+  ],
+  "stopped": true,
+  "override_x_sha256": null,
+  "stage": "PASS",
+  "platform": {
+    "system": false,
+    "simulation": true
+  },
+  "host_sha256": {
+    "worker.py": "48fd0de466eae74da0ad17a8d14e467a071080b4b2bcfab76899f4399c36fc44",
+    "contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6"
+  },
+  "executed_elf_sha256": "b727e255da6bab996675b9c0288a67075d8a278112257633dd4acbffc9c35404",
+  "raw_sha256": "42754fa06414d9bb1b1b9025b2183e538fcd04320014b3000200ff6b59963451"
+}

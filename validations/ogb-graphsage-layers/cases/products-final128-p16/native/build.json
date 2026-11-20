@@ -1,0 +1,109 @@
+{
+  "language": "csl",
+  "params": {
+    "P": 16,
+    "R": 9,
+    "F": 16,
+    "Q": 48,
+    "E": 388,
+    "K": 2,
+    "RELU": 0
+  },
+  "placement": "balanced",
+  "edge_capacity": null,
+  "fixture_sha256": "44f15d6116c1b827169bc1752654dba80cda2c9c23cdccc4a95a8e6006fe4170",
+  "ingress": "scalar",
+  "skip_zero": true,
+  "row_runs": true,
+  "census": {
+    "rows_per_owner": [
+      7,
+      7,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      9,
+      9,
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    "edges_per_owner": [
+      592,
+      571,
+      561,
+      499,
+      498,
+      497,
+      495,
+      484,
+      477,
+      476,
+      476,
+      477,
+      476,
+      476,
+      477,
+      476
+    ]
+  },
+  "commands": [
+    [
+      "/tmp/tungsten-csl-bin/cslc",
+      "/tmp/tungsten-ogb-v1/suite/products-final-128-csl-p16-balanced-skip-row/build/src/layout.csl",
+      "--arch=wse3",
+      "--fabric-dims=23,3",
+      "--fabric-offsets=4,1",
+      "--params=P:16,R:9,F:16,Q:48,E:388,K:2,RELU:0",
+      "--memcpy",
+      "--channels=1",
+      "--width-west-buf=0",
+      "--width-east-buf=0",
+      "--max-parallelism=1",
+      "-o",
+      "out"
+    ]
+  ],
+  "source": {
+    "layout.csl": "427ed94ee0f62be2df117e98378ed7a5a08285538b7a03d424106e3b8c93f3a3",
+    "pe.csl": "c9d05249605cb840d7d0b617d1402b14a97194b0b254e3182a8d23d7f290c8f2"
+  },
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=23,3",
+    "--fabric-offsets=4,1",
+    "--params=P:16,R:9,F:16,Q:48,E:388,K:2,RELU:0",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "role": "simulator",
+  "elf": {
+    "out_11_0.elf": "735d71cbb7b9d5a85853d718d40048632dce023fc521d1a46250687af7964e78",
+    "out_3_0.elf": "2e2ff9d2219ac156bf2c695ff6efcfe6f6201960f4794fc710811dbfca0ec838",
+    "out_13_0.elf": "39cbeeae3bc1a3a14a7722f85bbe0525b7b4d5aad3d3e93df496d6be02ed82c4",
+    "out_7_0.elf": "0b4b7809383108183a2b456a7857eac99ce81c6d2c29348a701d1123dee3a869",
+    "out_6_0.elf": "ab9dcc52076be48104f4065d5bb4e35f89a0c49a1efc729c84a9ba65f4a98138",
+    "out_1_0.elf": "149f4b6e3b569d44e04d6b7fac0ae483d43b563d876c9ab2e3a93ceeaf02e447",
+    "out_9_0.elf": "26acf8441c1edf774fd436b37017877bd849d7a20e045b8d2a799cfa9fff8d9f",
+    "out_2_0.elf": "703ec1e485b3f155b330076a6cf610fee1d3a2f741b943a1178c7faff45930ed",
+    "out_12_0.elf": "26a7802a920784f0fe95ae40363e80cee8fb2b979f2b3942bcd1df62ec257191",
+    "out_0_0.elf": "f62ad74ffd3bc9d1b85c1cb6acd5a29abe46c6310e551acc3e89479dda79925d",
+    "out_10_0.elf": "6957a24d916d3ba78cb6bd074a437678eb9a6467639007c7e9f7c799d4fc1ccf",
+    "out_5_0.elf": "e9b293f50a2a2ab35fa4fcc3a07f1b31ce2e4f4dd97e62e1c62f5c1a6242469d",
+    "out_14_0.elf": "584c936953968c751840860ab73add5ae8ce6f0b9c6dbd7bf170a9010815962f",
+    "out_15_0.elf": "c1f07f1c28b818f0fb72a5d43964634e7a71267121de804423f0f6c6bc6ba946",
+    "out_8_0.elf": "7aec140c19b8889ce79a130fd80ed809873fc97d0228ff300ccf76f67f9e7c36",
+    "out_4_0.elf": "728857909e5e802e620ae7e62e38c2d6dcbc1f4671452f43d65d73f3be34f283"
+  }
+}
