@@ -1,0 +1,11 @@
+{
+  "description": "Compare four and eight native row-broadcast groups at the same 16 compute PEs and original GraphSAGE window.",
+  "entrypoints": [
+    "physical.py"
+  ],
+  "id": "ogb-native-row-scale",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

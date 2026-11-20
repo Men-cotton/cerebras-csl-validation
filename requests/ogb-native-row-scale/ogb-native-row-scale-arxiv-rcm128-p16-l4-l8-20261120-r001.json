@@ -1,0 +1,67 @@
+{
+  "description": "Hold 128 trained destination IDs and 16 native compute PEs fixed. Measure four and eight row groups on physical CS-3, verify the original and half inputs across 12 interleaved frames on each image, and compare with the matched Tungsten captures.",
+  "id": "ogb-native-row-scale-arxiv-rcm128-p16-l4-l8-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "arxiv-rcm128-p16-l4",
+        "--release-sha256",
+        "2795bedbfc782ae8c3bff6c452b2c453bb7dd8b5593793d91146c65165ed81f1",
+        "--out",
+        "{output}/compile-l4"
+      ],
+      "kind": "appliance",
+      "name": "compile-l4",
+      "script": "validations/ogb-native-row-scale/physical.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "arxiv-rcm128-p16-l4",
+        "--release-sha256",
+        "2795bedbfc782ae8c3bff6c452b2c453bb7dd8b5593793d91146c65165ed81f1",
+        "--out",
+        "{output}/run-l4",
+        "--compiled",
+        "{output}/compile-l4/compiled.json"
+      ],
+      "kind": "appliance",
+      "name": "run-l4",
+      "script": "validations/ogb-native-row-scale/physical.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "arxiv-rcm128-p16-l8",
+        "--release-sha256",
+        "7f33310ac8b99475b30ad5871c3f72e7cfa9cb10cbe319f959469f8cfac4a5ef",
+        "--out",
+        "{output}/compile-l8"
+      ],
+      "kind": "appliance",
+      "name": "compile-l8",
+      "script": "validations/ogb-native-row-scale/physical.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "arxiv-rcm128-p16-l8",
+        "--release-sha256",
+        "7f33310ac8b99475b30ad5871c3f72e7cfa9cb10cbe319f959469f8cfac4a5ef",
+        "--out",
+        "{output}/run-l8",
+        "--compiled",
+        "{output}/compile-l8/compiled.json"
+      ],
+      "kind": "appliance",
+      "name": "run-l8",
+      "script": "validations/ogb-native-row-scale/physical.py"
+    }
+  ]
+}
