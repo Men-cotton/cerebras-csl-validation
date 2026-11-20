@@ -1,0 +1,18 @@
+{
+  "cases": {
+    "c16-r16-t8-hub-control": "4259763aee80638b8d8a4e376c90c472b48d2556a005d9046b1c17a8ef843003",
+    "c16-r16-t8-hub-split": "f39c516abbef6d725c323d9aa13455ead837710b8d0b05f179d3a27f9fa93c68"
+  },
+  "family": "native-cora",
+  "host_sha256": {
+    "appliance.py": "2487412d1f22a57ad487b8972450b40e7111e40480c2b74dbd453fc446c5e1ab",
+    "appliance_worker.py": "88dd6a1a9140712eaad13cec6d05e409dbe7147e807a3f695137177ad12a2189",
+    "compare_pair.py": "3f62a23ed4ef3e5a9437b45285e180b88d7f0b56c00cf630921d958dd29ba4a0",
+    "grouped_contract.py": "4af89f3d022e3b1999557fa7af4f5012d07c577a8dd56498b55e3d2ed672be39",
+    "hub_contract.py": "769c4961f5a2c029c79d80e6066c1706425e4739ed644d22f709bfadb04a2830",
+    "portable.py": "4c56b1f31197abd9fcd9af7da578d514888a73523abad868c47abbe9f22d1519",
+    "saved_audit.py": "bb50268379137e253bd1d09e141be3fbb7bd492a9c90feca4f94b12621874f1a",
+    "sdk_runner.py": "58c3e03ff9b2efb4281be327a3b110875e87c8752347f5fe4dfdb5e61b164a73"
+  },
+  "schema": 1
+}

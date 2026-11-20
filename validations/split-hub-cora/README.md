@@ -1,0 +1,5 @@
+# Native CSL Cora hub split on CS-3
+
+Both cases run the frozen 1,433–16–7 GCN with its original node owners and checkpoint. The split case moves a contiguous suffix of vertex 163's incoming edges to a helper in the same row. The helper sends the owner 16 hidden-layer and seven output-layer partial sums. The owner and helper are one hop apart at C16/R16 and two hops apart at C16/R32, so the PEs transmit 23 and 46 words, respectively. The worker independently reconstructs every edge occurrence, its weight, its assigned PE, the grouped packet tables and the partial-sum route. It checks the hidden states, summed projection, final logits and predictions against full-precision CPU inference.
+
+The watcher compiles both cases with identical source and dimensions through the existing native Cora compiler. Its terminal comparison reports the complete worker-observed ELF digest sets, the verification status and the maximum same-PE elapsed cycles for both captures. The ordinary host transfers all immutable inputs before each launch. Returned device captures include prelaunch/postlaunch inputs and outputs from every PE.

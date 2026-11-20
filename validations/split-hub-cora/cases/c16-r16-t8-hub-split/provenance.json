@@ -1,0 +1,78 @@
+{
+  "input_sha256": "1fc3d077eaef1dd277527c40b3d338096a9c3d71dadc8ce7f6b8cacc8e67f08c",
+  "local_common_elf_segments": 5792,
+  "local_common_elf_sha256": "eaf3c3c35082fd4c97642b3124e7f8c7fdef2f33f86bca5505511445fc1a5b6c",
+  "local_input_mode": "verified SDK startup data image",
+  "local_max_pe_cycles": 134830,
+  "local_raw_sha256": "2d50bb1e5bd3815ec9dd0db395a686239f66751592d658d58271d0d6bae0d4e7",
+  "matched_tungsten_raw_sha256": "ba46427d40eae6e040d0fa42b4ba04c6c682d9204925f0665730f7972c3d63b5",
+  "source_sha256": {
+    "layout.csl": "594d9cfd35074f59acb0d8a16c40a33b4fc3c0faacdfdd2413419faa2c2dc69a",
+    "pe.csl": "9b221d3c5d07cd2a7746a046a69a3f50afc20c74b819b8ae13186354c098ff0d"
+  },
+  "split_plan": {
+    "capacities_original": {
+      "ENV": 426,
+      "MG": 220,
+      "NPLAN": 21,
+      "NRX": 148,
+      "NSEND": 48
+    },
+    "capacities_split": {
+      "ENV": 426,
+      "MG": 149,
+      "NPLAN": 21,
+      "NRX": 103,
+      "NSEND": 48
+    },
+    "common_capacities": {
+      "ENV": 426,
+      "MG": 220,
+      "NPLAN": 21,
+      "NRX": 148,
+      "NSEND": 48
+    },
+    "endpoint_consumers_after": 5069,
+    "endpoint_consumers_before": 5072,
+    "grouped_endpoint_words_after": 132707,
+    "grouped_endpoint_words_before": 132778,
+    "helper_edges_after": 146,
+    "helper_edges_before": 72,
+    "helper_xy": [
+      6,
+      13
+    ],
+    "home_slot": 3,
+    "hub": 163,
+    "hub_degree": 169,
+    "max_cycle_saving_if_untouched_intervals_fixed": 3536,
+    "original": "g00-wg00-s11-c16r16-t8-group",
+    "original_degree_order_sha256": "3eb455d29ee39069083c49f3f8ecdea51facc362a3394825aaccbe4952bc0041",
+    "original_helper_cycles": 102290,
+    "original_max_untouched_pe_cycles": 106657,
+    "original_owner_cycles": 110193,
+    "owner_edges_after": 146,
+    "owner_edges_before": 220,
+    "owner_xy": [
+      5,
+      13
+    ],
+    "peak_edge_macs_after": 3427,
+    "peak_edge_macs_before": 5060,
+    "peak_edges_after": 149,
+    "peak_edges_before": 220,
+    "per_pe_added_split_state_bytes": 46,
+    "per_pe_common_static_bytes_delta": 46,
+    "per_pe_natural_static_bytes_delta": -1820,
+    "preserved_prefix_occurrences": 95,
+    "split_occurrences_sha256": "0c5ecb7d6af14784729e80d222ef0457d4dfcaf438c5501a8a9156ce29428ac9",
+    "split_reduction_word_hops": 23,
+    "split_reduction_words": 23,
+    "split_suffix_occurrences": 74,
+    "unchanged_owner_peak_edges": 149,
+    "vertical_packets_after": 8060,
+    "vertical_packets_before": 8061,
+    "vertical_word_hops_after": 623986,
+    "vertical_word_hops_before": 624053
+  }
+}

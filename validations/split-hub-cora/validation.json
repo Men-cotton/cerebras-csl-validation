@@ -1,0 +1,13 @@
+{
+  "description": "Ordered Cora hub 163 edge split on native CSL",
+  "entrypoints": [
+    "appliance.py",
+    "saved_audit.py",
+    "compare_pair.py"
+  ],
+  "id": "split-hub-cora",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}
