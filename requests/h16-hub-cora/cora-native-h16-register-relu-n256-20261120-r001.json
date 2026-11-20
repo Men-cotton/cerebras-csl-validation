@@ -1,0 +1,53 @@
+{
+  "description": "Compare the 32-PE native Cora GCN against the registered Tungsten ReLU request on the identical 256-node, 1433-16-7 trained split fixture. Skip inactive class-weight products while retaining logical work counters. Capture every layer and PE clock and verify all host transfers.",
+  "id": "cora-native-h16-register-relu-n256-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "n256-c4r8-register-relu",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-n256-c4r8-register-relu"
+      ],
+      "kind": "appliance",
+      "name": "compile-n256-c4r8-register-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "n256-c4r8-register-relu",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-n256-c4r8-register-relu/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-n256-c4r8-register-relu"
+      ],
+      "kind": "appliance",
+      "name": "run-n256-c4r8-register-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-n256-c4r8-register-relu/capture-data",
+        "--out",
+        "{output}/numerical-n256-c4r8-register-relu.json"
+      ],
+      "kind": "host",
+      "name": "audit-n256-c4r8-register-relu",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "description": "Run the native 32-PE Cora GCN with its trained 1433-16-7 weights, split hub 163 and a runtime ReLU guard. The reported PE intervals start after the two-dimensional grid entry barrier and end before the completion marker, matching the Tungsten ReLU Direct Link request. Verify all 256 original predictions, both layers, traffic, and every uploaded input before and after execution.",
+  "id": "cora-native-h16-postbarrier-relu-n256-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "n256-c4r8-postbarrier-relu",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-n256-c4r8-postbarrier-relu"
+      ],
+      "kind": "appliance",
+      "name": "compile-n256-c4r8-postbarrier-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "n256-c4r8-postbarrier-relu",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-n256-c4r8-postbarrier-relu/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-n256-c4r8-postbarrier-relu"
+      ],
+      "kind": "appliance",
+      "name": "run-n256-c4r8-postbarrier-relu",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-n256-c4r8-postbarrier-relu/capture-data",
+        "--out",
+        "{output}/numerical-n256-c4r8-postbarrier-relu.json"
+      ],
+      "kind": "host",
+      "name": "audit-n256-c4r8-postbarrier-relu",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

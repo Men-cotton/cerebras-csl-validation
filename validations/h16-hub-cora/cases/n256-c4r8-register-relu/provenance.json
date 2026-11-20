@@ -1,0 +1,49 @@
+{
+  "description": "Compare the 32-PE native Cora GCN against the registered Tungsten ReLU request on the identical 256-node, 1433-16-7 trained split fixture. Skip inactive class-weight products while retaining logical work counters. Capture every layer and PE clock and verify all host transfers.",
+  "fp64": {
+    "logits": {
+      "max_abs": 1.0940489758581862e-06,
+      "max_relative_floor_1e_12": 2.3651112940794278e-05,
+      "relative_l2": 7.177702811961732e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.0940489758581862e-06,
+      "max_relative_floor_1e_12": 1.0641240135406812e-05,
+      "relative_l2": 7.819398411297045e-08
+    },
+    "pre": {
+      "max_abs": 6.301546295883753e-08,
+      "max_relative_floor_1e_12": 0.0005712804173175314,
+      "relative_l2": 4.671652758013378e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 38896,
+    "compute_elfs": 16,
+    "compute_pe_static_bytes": 38896,
+    "largest_image_files": [
+      "bin/out_10_0.elf",
+      "bin/out_11_0.elf",
+      "bin/out_1_0.elf",
+      "bin/out_2_0.elf",
+      "bin/out_3_0.elf",
+      "bin/out_5_0.elf",
+      "bin/out_6_0.elf",
+      "bin/out_7_0.elf",
+      "bin/out_9_0.elf"
+    ],
+    "linked_elfs": 33
+  },
+  "local_initialization": "standard SDK transfers",
+  "local_max_pe_cycles": 23541,
+  "local_raw_sha256": "5fa90309ab0a5e4a0b4be9a0d70454213a459147815aca4794c94cfbbdfc952e",
+  "local_split_audit_sha256": "0e629ddad246619fb378e69224580b31f0bc9048ed6bb58bd99fc70f3cfb0986",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "b2a315387fe5483deb1d8847e9f3f57c5a53345f26d69d36fa5342c97203af3e",
+  "packed_input_sha256": "6128718f8691aa8f3d00fa98c7e4204bfad837250d687ca35d1ae0fdbf415246",
+  "source_sha256": {
+    "layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "pe.csl": "ecc7831509bef81f27aae8a5bb23a5ffa7fa2950ad280a27ed68f8999a0d76ae"
+  },
+  "split_plan_sha256": "c366ba303fec6c3afe8330cf8965e63c44aea757dade08f4040037b0ca8e60c6"
+}
