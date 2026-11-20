@@ -1,0 +1,61 @@
+{
+  "description": "Measure the 2,708-node H16 native GCN on 256 PEs after verifying that all FP32 feature scales in each live CSR row are identical. Read one scale per row, retain every MAC and its ordering, use post-barrier clocks, and verify prelaunch and postlaunch input words and both original-ID layers.",
+  "fp64": {
+    "logits": {
+      "max_abs": 1.5439759302182665e-06,
+      "max_relative_floor_1e_12": 0.00013183973156311016,
+      "relative_l2": 6.272524778577736e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.2052094220393883e-06,
+      "max_relative_floor_1e_12": 0.0020410677574859795,
+      "relative_l2": 7.85920214212301e-08
+    },
+    "pre": {
+      "max_abs": 2.1018271234574115e-07,
+      "max_relative_floor_1e_12": 0.003162167094478161,
+      "relative_l2": 5.682025087484996e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 42928,
+    "compute_elfs": 16,
+    "compute_pe_static_bytes": 42928,
+    "largest_image_files": [
+      "bin/out_10_0.elf",
+      "bin/out_11_0.elf",
+      "bin/out_5_0.elf",
+      "bin/out_6_0.elf",
+      "bin/out_7_0.elf",
+      "bin/out_9_0.elf"
+    ],
+    "linked_elfs": 30
+  },
+  "local_initialization": "SDK data-only PE images checked at initial and stopped SRAM",
+  "local_max_pe_cycles": 85595,
+  "local_raw_sha256": "e21f2e72f11e0869dfec53cf3ceee11c15e16f8e1cceb06b8b25e921c51fc32e",
+  "local_split_audit_sha256": "10e33235daa17ab1b7cb10e02158fd6b0d6571b977de0c2ff9341022f8afcc6a",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "b51f188a1dda8d6175aedef8e5ff5d20c4733b3b2b1ff223051a2c8ff117777e",
+  "packed_input_sha256": "1fc3d077eaef1dd277527c40b3d338096a9c3d71dadc8ce7f6b8cacc8e67f08c",
+  "source_sha256": {
+    "layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "pe.csl": "94788714f0781034a518eb1af3d374515be7f744a85f212944615a10fc6d1f49"
+  },
+  "split_plan_sha256": "b8535362136a7ca5048f58fc891071a959772148598116b9a203898bd023a5ed",
+  "uniform_feature_rows": {
+    "checked_feature_scales": [
+      1.0,
+      0.5,
+      1.0
+    ],
+    "feature_occurrences": 49216,
+    "nonempty_rows": 28845,
+    "packed_input_sha256": "1fc3d077eaef1dd277527c40b3d338096a9c3d71dadc8ce7f6b8cacc8e67f08c",
+    "pes": 256,
+    "repeated_occurrences": 20371,
+    "rows_per_pe": 174,
+    "rows_starting_at_capacity": 0,
+    "singleton_rows": 15072
+  }
+}

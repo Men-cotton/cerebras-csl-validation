@@ -1,0 +1,53 @@
+{
+  "description": "Measure the 2,708-node H16 native GCN on 256 PEs after verifying that all FP32 feature scales in each live CSR row are identical. Read one scale per row, retain every MAC and its ordering, use post-barrier clocks, and verify prelaunch and postlaunch input words and both original-ID layers.",
+  "id": "cora-native-h16-uniform-feature-c16r16-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r16-uniform-feature-rows",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r16-uniform-feature-rows"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r16-uniform-feature-rows",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r16-uniform-feature-rows",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r16-uniform-feature-rows/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r16-uniform-feature-rows"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r16-uniform-feature-rows",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r16-uniform-feature-rows/capture-data",
+        "--out",
+        "{output}/numerical-c16-r16-uniform-feature-rows.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r16-uniform-feature-rows",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}
