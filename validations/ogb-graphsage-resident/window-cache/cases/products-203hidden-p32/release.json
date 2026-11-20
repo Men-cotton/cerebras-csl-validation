@@ -1,0 +1,28 @@
+{
+  "base_sha256": "d68d5db48fd4c7aad3950a4e7c2539877b0bdfeefe86effd5412155e129e9111",
+  "files": {
+    "audit.json": "a7050c259cf694596c9d9c757bc169c54610520fd04542c75f2e6827a99d6d43",
+    "fixture.json": "f76f2274015658ee167934577a4b8965f4a0736f7a9c752d61008fb2a71c34f1",
+    "fixture.npz": "0c2315af694c5a29e71c89a2dccae3c40aeb349c3c397bfbb6eea3faf1e91f92",
+    "sdk/result.json": "e251a615f3cf2be28ab9d4ed309d25df3a30376992fcb60855ec6ac7add1fbaf"
+  },
+  "host_sha256": {
+    "bootstrap.py": "d63833c55346886b180a0e606c8d9e8c5bc22fa211ee5a9970b21255a1c013fb",
+    "calibration.py": "3d955f014c860d3990d7974df8f1114f7ca420536d47572db206ebd400034ae5",
+    "codec.py": "88e2831aa41e42ab97a0cff21f33bc3451f9e0285cdbb99d579690df8eab95bd",
+    "graph.py": "4b03e62b6b6a4bcfcca4de2da5f90835350d81faed6692086b24b5a151a17751",
+    "inventory.py": "37e0ff787ac8a66fbfd987a7f6920d7c649d21b226e83ea893c15b1803c16cd6",
+    "prepare.py": "1006ea5dfe12f58caf01242b75b36a563ea0b052fefe703d8054e09fd973e344",
+    "rectangles.py": "203e51beb0eb2b57fcce81479ebea3a1c1037210e596160efd63f5f052850baa",
+    "report.py": "7fe1738c8f5de0618457f1ebbd06d28b5f0efa4f7a8969f7cc1c52d08ecc9e4e",
+    "run.py": "fd9249407f0d93fed25558d6ace06db411be992c1bb46ae6f2a7d8be81c39ca7",
+    "sparse_events.py": "ae073a6f5294483bed946b30a8160b6bdbcaf8f1db1ff98d0c40efe27471558b",
+    "traffic.py": "c893971b5b2c355af3780771b341daa84dd602eac9cb34fe846372aeba80235c",
+    "uniform.py": "546d1270d6456f7eaee93912b1b23cbae44b1847af6edbc62cb07a429b394b2d",
+    "window_cache.py": "0286dd754a5399885148eafe0b3ad0cdbb9cccc8d3ea09891ddf7ca692614b16",
+    "worker.py": "fd863019802e342a17e73deb8279fee586233ed9631f083031a50a1a9fa435c4"
+  },
+  "key": "products-203hidden-p32",
+  "local_calibration": "same-image-full-input-prefix",
+  "same_image_peer": "77e52eddac27605d51d15c426bc8b2ca8e7f896af0d8c39e147577b1db6514ca"
+}

@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "ogb-native-window-products-203hidden-p32-20261120-r001",
+  "description": "Run all 203 products hidden rows and 41,102 original arcs with two source delivery modes on one 32-PE native image. Require all six system frames and normal stop. At registration the full input had 0/6 local frames, same-image two-row calibration six, with all original features and the 40-window upstream rechecked.",
+  "steps": [
+    {
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident/window-cache/physical.py",
+      "name": "compile",
+      "args": [
+        "compile",
+        "--case",
+        "products-203hidden-p32",
+        "--release-sha256",
+        "d565fcaef2df59d46296cc6da034d144ef96c8d0b0ec5b76d2a84e0efc56e87d",
+        "--out",
+        "{output}/compile"
+      ]
+    },
+    {
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident/window-cache/physical.py",
+      "name": "run",
+      "args": [
+        "run",
+        "--case",
+        "products-203hidden-p32",
+        "--release-sha256",
+        "d565fcaef2df59d46296cc6da034d144ef96c8d0b0ec5b76d2a84e0efc56e87d",
+        "--out",
+        "{output}/run",
+        "--compiled",
+        "{output}/compile/compiled.json"
+      ]
+    }
+  ]
+}

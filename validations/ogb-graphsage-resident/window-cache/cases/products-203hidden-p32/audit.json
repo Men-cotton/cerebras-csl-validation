@@ -1,0 +1,8 @@
+{
+  "capture_sha256": "e251a615f3cf2be28ab9d4ed309d25df3a30376992fcb60855ec6ac7add1fbaf",
+  "frames": [],
+  "observed_frames": 0,
+  "required_frames": 6,
+  "role": "simulator",
+  "stopped": false
+}
