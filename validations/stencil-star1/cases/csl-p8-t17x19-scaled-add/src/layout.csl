@@ -1,0 +1,46 @@
+param TILE_X: comptime_int;
+param TILE_Y: comptime_int;
+param RADIUS: comptime_int;
+param PATTERN_ID: comptime_int;
+param ITERATIONS: comptime_int;
+param KERNEL_X_DIM: i16;
+param KERNEL_Y_DIM: i16;
+param SW_DELAY: comptime_int;
+
+const memcpy = @import_module("<memcpy/get_params>", .{.width=KERNEL_X_DIM,.height=KERNEL_Y_DIM});
+const routes = @import_module("routes.csl", .{
+  .colors=[8]color{@get_color(0),@get_color(1),@get_color(2),@get_color(3),
+                   @get_color(4),@get_color(5),@get_color(6),@get_color(7)},
+  .entrypoints=[3]local_task_id{@get_local_task_id(14),@get_local_task_id(15),@get_local_task_id(16)},
+  .width=KERNEL_X_DIM,.height=KERNEL_Y_DIM
+});
+
+layout {
+  @comptime_assert(KERNEL_X_DIM >= 1 and KERNEL_Y_DIM >= 1);
+  @comptime_assert(KERNEL_X_DIM == KERNEL_Y_DIM and (KERNEL_X_DIM == 2 or KERNEL_X_DIM == 4 or KERNEL_X_DIM == 8 or KERNEL_X_DIM == 16 or KERNEL_X_DIM == 32 or KERNEL_X_DIM == 64));
+  @comptime_assert(PATTERN_ID == 1 and RADIUS == 1);
+  @comptime_assert(TILE_X > RADIUS and TILE_Y > RADIUS and TILE_X <= 64 and TILE_Y <= 64);
+  @comptime_assert(ITERATIONS >= 1 and ITERATIONS <= 8);
+  @comptime_assert(SW_DELAY == 0 or SW_DELAY == 1);
+  @set_rectangle(KERNEL_X_DIM,KERNEL_Y_DIM);
+  for (@range(i16,KERNEL_Y_DIM)) |py| {
+    for (@range(i16,KERNEL_X_DIM)) |px| {
+      const routes_here = routes.get_params(px,py);
+      @set_tile_code(px,py,"pe.csl", .{
+        .c_recv_west=routes_here.c_recv_west,.c_send_east=routes_here.c_send_east,.c_recv_east=routes_here.c_recv_east,.c_send_west=routes_here.c_send_west,.c_recv_south=routes_here.c_recv_south,.c_send_north=routes_here.c_send_north,.c_recv_north=routes_here.c_recv_north,.c_send_south=routes_here.c_send_south,.SEND=routes_here.SEND,.RECV=routes_here.RECV,.COMM=routes_here.COMM,.first_px=routes_here.first_px,.last_px=routes_here.last_px,.first_py=routes_here.first_py,.last_py=routes_here.last_py,
+        .TILE_X=TILE_X,.TILE_Y=TILE_Y,.RADIUS=RADIUS,.PATTERN_ID=PATTERN_ID,.ITERATIONS=ITERATIONS,
+        .KERNEL_X_DIM=KERNEL_X_DIM,.KERNEL_Y_DIM=KERNEL_Y_DIM,.PE_X=px,.PE_Y=py,
+        .PE_ID=py*KERNEL_X_DIM+px,.SW_DELAY=(SW_DELAY == 1),.memcpy_params=memcpy.get_params(px)
+      });
+    }
+  }
+  @export_name("grid_prev",[*]f32,true);
+  @export_name("grid_next",[*]f32,true);
+  @export_name("stencil_meta",[*]u32,true);
+  @export_name("done_flag",[*]u32,true);
+  @export_name("tsc_start",[*]u16,true);
+  @export_name("tsc_end",[*]u16,true);
+  @export_name("transport_status",[*]u32,true);
+  @export_name("diagnostic_delay",[*]u32,true);
+  @export_name("run_kernel",fn()void);
+}

@@ -1,0 +1,318 @@
+// E073: fixed-extent direct face transfers; original row arithmetic is inserted
+// verbatim by run.py. This template is not a standalone compilation target.
+param TILE_X: comptime_int;
+param TILE_Y: comptime_int;
+param RADIUS: comptime_int;
+param PATTERN_ID: comptime_int;
+param ITERATIONS: comptime_int;
+param KERNEL_X_DIM: comptime_int;
+param KERNEL_Y_DIM: comptime_int;
+param PE_X: comptime_int;
+param PE_Y: comptime_int;
+param PE_ID: comptime_int;
+param SW_DELAY: bool;
+param memcpy_params;
+param c_recv_west: color;
+param c_send_east: color;
+param c_recv_east: color;
+param c_send_west: color;
+param c_recv_south: color;
+param c_send_north: color;
+param c_recv_north: color;
+param c_send_south: color;
+param SEND: local_task_id;
+param RECV: local_task_id;
+param COMM: local_task_id;
+param first_px: bool;
+param last_px: bool;
+param first_py: bool;
+param last_py: bool;
+
+const sys_mod = @import_module("<memcpy/memcpy>",memcpy_params);
+const timestamp = @import_module("<time>");
+const PATTERN_STAR: u32 = 1;
+const META_TAG: u32 = 0x4353544e;
+const PITCH: comptime_int = TILE_X+2*RADIUS;
+const LOCAL_ELEMS: comptime_int = PITCH*(TILE_Y+2*RADIUS);
+const STAR_CENTER_WEIGHT: f32 = 0.5;
+const STAR_NEIGHBOR_WEIGHT: f32 = 0.5/@as(f32,4*RADIUS);
+var grid_prev_buf: [LOCAL_ELEMS]f32;
+var grid_next_buf: [LOCAL_ELEMS]f32;
+var stencil_meta_buf = @zeros([16]u32);
+var done_flag_buf = @zeros([1]u32);
+var tsc_start_buf = @zeros([timestamp.tsc_size_words]u16);
+var tsc_end_buf = @zeros([timestamp.tsc_size_words]u16);
+var e067_delay = @zeros([4]u32);
+var e067_delay_clock = @zeros([timestamp.tsc_size_words]u16);
+// epochs, TX issued/completed, RX issued/completed, TX/RX words, chain ends,
+// joins, final epoch, TX/RX states, pending flags, signature.
+var transport_status = @zeros([16]u32);
+var current_iter: u32 = 0;
+var send_state: i16 = 0;
+var recv_state: i16 = 0;
+var tx_pending: bool = false;
+var rx_pending: bool = false;
+var send_finished: bool = false;
+var recv_finished: bool = false;
+var join_queued: bool = false;
+const out_ut = @get_ut_id(3);
+const send_dest = @get_dsr(dsr_dest,2);
+const send_src = @get_dsr(dsr_src1,2);
+const recv_dest = @get_dsr(dsr_dest,3);
+const recv_src = @get_dsr(dsr_src1,3);
+
+// Every operation reloads a complete constant DSD: no carried tail/base state.
+// XDSR/SR allocation for these eight mem4d values is compiler-managed. DSR2/3
+// are not a complete extended-register lease; compile/SIM must admit this use.
+const east_face = @get_dsd(mem1d_dsd, .{.tensor_access=|y|{TILE_Y}->grid_prev_buf[(y+RADIUS)*PITCH+TILE_X]});
+const west_face = @get_dsd(mem1d_dsd, .{.tensor_access=|y|{TILE_Y}->grid_prev_buf[(y+RADIUS)*PITCH+RADIUS]});
+const north_face = @get_dsd(mem1d_dsd, .{.tensor_access=|x|{TILE_X}->grid_prev_buf[(RADIUS)*PITCH+RADIUS+x]});
+const south_face = @get_dsd(mem1d_dsd, .{.tensor_access=|x|{TILE_X}->grid_prev_buf[(TILE_Y)*PITCH+RADIUS+x]});
+const west_halo = @get_dsd(mem1d_dsd, .{.tensor_access=|y|{TILE_Y}->grid_prev_buf[(y+RADIUS)*PITCH]});
+const east_halo = @get_dsd(mem1d_dsd, .{.tensor_access=|y|{TILE_Y}->grid_prev_buf[(y+RADIUS)*PITCH+RADIUS+TILE_X]});
+const south_halo = @get_dsd(mem1d_dsd, .{.tensor_access=|x|{TILE_X}->grid_prev_buf[(RADIUS+TILE_Y)*PITCH+RADIUS+x]});
+const north_halo = @get_dsd(mem1d_dsd, .{.tensor_access=|x|{TILE_X}->grid_prev_buf[RADIUS+x]});
+const send_east = @get_dsd(fabout_dsd, .{.extent=TILE_Y*RADIUS,.fabric_color=c_send_east,.output_queue=@get_output_queue(4)});
+const send_west = @get_dsd(fabout_dsd, .{.extent=TILE_Y*RADIUS,.fabric_color=c_send_west,.output_queue=@get_output_queue(5)});
+const send_north = @get_dsd(fabout_dsd, .{.extent=TILE_X*RADIUS,.fabric_color=c_send_north,.output_queue=@get_output_queue(6)});
+const send_south = @get_dsd(fabout_dsd, .{.extent=TILE_X*RADIUS,.fabric_color=c_send_south,.output_queue=@get_output_queue(7)});
+const recv_west = @get_dsd(fabin_dsd, .{.extent=TILE_Y*RADIUS,.fabric_color=c_recv_west,.input_queue=@get_input_queue(4)});
+const recv_east = @get_dsd(fabin_dsd, .{.extent=TILE_Y*RADIUS,.fabric_color=c_recv_east,.input_queue=@get_input_queue(5)});
+const recv_south = @get_dsd(fabin_dsd, .{.extent=TILE_X*RADIUS,.fabric_color=c_recv_south,.input_queue=@get_input_queue(6)});
+const recv_north = @get_dsd(fabin_dsd, .{.extent=TILE_X*RADIUS,.fabric_color=c_recv_north,.input_queue=@get_input_queue(7)});
+
+// E075: independent cells share a whole-interior traversal. No halo is written.
+const tile_prev_dsd = @get_dsd(mem4d_dsd, .{
+  .tensor_access=|y,x|{TILE_Y,TILE_X}->grid_prev_buf[(y+RADIUS)*PITCH+x+RADIUS]
+});
+const tile_next_dsd = @get_dsd(mem4d_dsd, .{
+  .tensor_access=|y,x|{TILE_Y,TILE_X}->grid_next_buf[(y+RADIUS)*PITCH+x+RADIUS]
+});
+
+fn compute_one_iteration_star_dsd() void {
+  @comptime_assert(RADIUS == 1);
+  @fmuls(tile_next_dsd,tile_prev_dsd,4.0);
+  @fadds(tile_next_dsd,tile_next_dsd,@increment_dsd_offset(tile_prev_dsd,-@as(i16,PITCH),f32));
+  @fadds(tile_next_dsd,tile_next_dsd,@increment_dsd_offset(tile_prev_dsd,@as(i16,PITCH),f32));
+  @fadds(tile_next_dsd,tile_next_dsd,@increment_dsd_offset(tile_prev_dsd,-1,f32));
+  @fadds(tile_next_dsd,tile_next_dsd,@increment_dsd_offset(tile_prev_dsd,1,f32));
+  @fmuls(tile_next_dsd,tile_next_dsd,0.125);
+  @fmovs(tile_prev_dsd,tile_next_dsd);
+}
+
+fn finish_kernel() void {
+  timestamp.get_timestamp(&tsc_end_buf);
+  timestamp.disable_tsc();
+
+  const neighbor_count: u32 = if (PATTERN_ID == PATTERN_STAR)
+    @as(u32, 4 * RADIUS)
+  else
+    @as(u32, ((2 * RADIUS) + 1) * ((2 * RADIUS) + 1) - 1);
+  const updates: u32 = @as(u32, TILE_X * TILE_Y);
+  const flops_per_update: u32 = 2 * (neighbor_count + 1);
+  const mem_access_per_update: u32 = neighbor_count + 2; // reads plus one write
+
+  stencil_meta_buf[0] = META_TAG;
+  stencil_meta_buf[1] = @as(u32, TILE_X);
+  stencil_meta_buf[2] = @as(u32, TILE_Y);
+  stencil_meta_buf[3] = @as(u32, RADIUS);
+  stencil_meta_buf[4] = @as(u32, PATTERN_ID);
+  stencil_meta_buf[5] = neighbor_count;
+  stencil_meta_buf[6] = updates;
+  stencil_meta_buf[7] = flops_per_update;
+  stencil_meta_buf[8] = mem_access_per_update;
+  stencil_meta_buf[9] = mem_access_per_update * 4;
+  stencil_meta_buf[10] = @as(u32, PE_ID);
+  stencil_meta_buf[11] = @as(u32, PE_X);
+  stencil_meta_buf[12] = @as(u32, PE_Y);
+  stencil_meta_buf[13] = @as(u32, KERNEL_X_DIM);
+  stencil_meta_buf[14] = @as(u32, KERNEL_Y_DIM);
+  stencil_meta_buf[15] = @as(u32, ITERATIONS);
+
+  done_flag_buf[0] = 1;
+  sys_mod.unblock_cmd_stream();
+}
+
+
+
+fn maybe_join() void {
+  if (send_finished and recv_finished) {
+    @assert(!tx_pending and !rx_pending and !join_queued);
+    join_queued = true;
+    @activate(COMM);
+  }
+}
+
+fn begin_epoch() void {
+  @assert(!tx_pending and !rx_pending);
+  send_state=0; recv_state=0;
+  send_finished=false; recv_finished=false; join_queued=false;
+  @activate(SEND);
+  @activate(RECV);
+}
+
+task send_progress() void {
+  if (tx_pending) { tx_pending=false; transport_status[2]+=1; }
+  if (send_state == 0) {
+    send_state=1;
+    if (!last_px) {
+      tx_pending=true; transport_status[1]+=1; transport_status[5]+=@as(u32,TILE_Y*RADIUS);
+      @load_to_dsr(send_dest,send_east,.{.async=true,.activate=send_progress,.ut_id=out_ut});
+      @load_to_dsr(send_src,east_face);
+      @mov32(send_dest,send_src,.{.async=true,.ut_id=out_ut});
+    } else { @activate(SEND); }
+  } else if (send_state == 1) {
+    send_state=2;
+    if (!first_px) {
+      tx_pending=true; transport_status[1]+=1; transport_status[5]+=@as(u32,TILE_Y*RADIUS);
+      @load_to_dsr(send_dest,send_west,.{.async=true,.activate=send_progress,.ut_id=out_ut});
+      @load_to_dsr(send_src,west_face);
+      @mov32(send_dest,send_src,.{.async=true,.ut_id=out_ut});
+    } else { @activate(SEND); }
+  } else if (send_state == 2) {
+    send_state=3;
+    if (!first_py) {
+      tx_pending=true; transport_status[1]+=1; transport_status[5]+=@as(u32,TILE_X*RADIUS);
+      @load_to_dsr(send_dest,send_north,.{.async=true,.activate=send_progress,.ut_id=out_ut});
+      @load_to_dsr(send_src,north_face);
+      @mov32(send_dest,send_src,.{.async=true,.ut_id=out_ut});
+    } else { @activate(SEND); }
+  } else if (send_state == 3) {
+    send_state=4;
+    if (!last_py) {
+      tx_pending=true; transport_status[1]+=1; transport_status[5]+=@as(u32,TILE_X*RADIUS);
+      @load_to_dsr(send_dest,send_south,.{.async=true,.activate=send_progress,.ut_id=out_ut});
+      @load_to_dsr(send_src,south_face);
+      @mov32(send_dest,send_src,.{.async=true,.ut_id=out_ut});
+    } else { @activate(SEND); }
+  } else {
+    @assert(send_state == 4 and !send_finished);
+    send_finished=true; transport_status[7]+=1; maybe_join();
+  }
+}
+
+task recv_progress() void {
+  if (rx_pending) { rx_pending=false; transport_status[4]+=1; }
+  if (recv_state == 0) {
+    recv_state=1;
+    if (!first_px) {
+      rx_pending=true; transport_status[3]+=1; transport_status[6]+=@as(u32,TILE_Y*RADIUS);
+      @load_to_dsr(recv_dest,west_halo);
+      @load_to_dsr(recv_src,recv_west,.{.async=true,.activate=recv_progress});
+      @mov32(recv_dest,recv_src,.{.async=true});
+    } else { @activate(RECV); }
+  } else if (recv_state == 1) {
+    recv_state=2;
+    if (!last_px) {
+      rx_pending=true; transport_status[3]+=1; transport_status[6]+=@as(u32,TILE_Y*RADIUS);
+      @load_to_dsr(recv_dest,east_halo);
+      @load_to_dsr(recv_src,recv_east,.{.async=true,.activate=recv_progress});
+      @mov32(recv_dest,recv_src,.{.async=true});
+    } else { @activate(RECV); }
+  } else if (recv_state == 2) {
+    recv_state=3;
+    if (!last_py) {
+      rx_pending=true; transport_status[3]+=1; transport_status[6]+=@as(u32,TILE_X*RADIUS);
+      @load_to_dsr(recv_dest,south_halo);
+      @load_to_dsr(recv_src,recv_south,.{.async=true,.activate=recv_progress});
+      @mov32(recv_dest,recv_src,.{.async=true});
+    } else { @activate(RECV); }
+  } else if (recv_state == 3) {
+    recv_state=4;
+    if (!first_py) {
+      rx_pending=true; transport_status[3]+=1; transport_status[6]+=@as(u32,TILE_X*RADIUS);
+      @load_to_dsr(recv_dest,north_halo);
+      @load_to_dsr(recv_src,recv_north,.{.async=true,.activate=recv_progress});
+      @mov32(recv_dest,recv_src,.{.async=true});
+    } else { @activate(RECV); }
+  } else {
+    @assert(recv_state == 4 and !recv_finished);
+    recv_finished=true; transport_status[8]+=1; maybe_join();
+  }
+}
+
+task joined() void {
+  @assert(send_finished and recv_finished and join_queued and !tx_pending and !rx_pending);
+  transport_status[9]+=1;
+  compute_one_iteration_star_dsd();
+  current_iter+=1; transport_status[0]=current_iter;
+  if (current_iter < @as(u32,ITERATIONS)) { begin_epoch(); }
+  else {
+    transport_status[10]=current_iter;
+    transport_status[11]=@as(u32,send_state); transport_status[12]=@as(u32,recv_state);
+    transport_status[13]=@as(u32,tx_pending); transport_status[14]=@as(u32,rx_pending);
+    transport_status[15]=0x44534431;
+    finish_kernel();
+  }
+}
+
+fn run_kernel() void {
+  for (@range(u16,LOCAL_ELEMS)) |i| { grid_next_buf[i]=0.0; }
+  for (@range(u16,16)) |i| { stencil_meta_buf[i]=0; transport_status[i]=0; }
+  for (@range(u16,4)) |i| { e067_delay[i]=0; }
+  done_flag_buf[0]=0; current_iter=0;
+  tx_pending=false; rx_pending=false;
+  timestamp.enable_tsc();
+  timestamp.get_timestamp(&tsc_start_buf);
+  if (comptime SW_DELAY) {
+  // E067 diagnostic only: preserve arithmetic/transport; delay first SW send.
+  // Timestamp polling has observable hardware reads; export verifies waiting.
+  if (comptime PE_X == 0 and PE_Y == 1) {
+    timestamp.get_timestamp(&e067_delay_clock);
+    const e067_start: u32 = @as(u32, e067_delay_clock[0]);
+    var e067_elapsed: u32 = 0;
+    while (e067_elapsed < 16384) {
+      timestamp.get_timestamp(&e067_delay_clock);
+      e067_elapsed = (@as(u32, e067_delay_clock[0]) + 65536 - e067_start) % 65536;
+      e067_delay[1] += 1;
+    }
+    e067_delay[0] = 1;
+    e067_delay[2] = e067_elapsed;
+    e067_delay[3] = 16384;
+  }
+
+
+  }
+  begin_epoch();
+}
+
+var grid_prev_ptr: [*]f32=&grid_prev_buf;
+var grid_next_ptr: [*]f32=&grid_next_buf;
+var stencil_meta_ptr: [*]u32=&stencil_meta_buf;
+var done_flag_ptr: [*]u32=&done_flag_buf;
+var tsc_start_ptr: [*]u16=&tsc_start_buf;
+var tsc_end_ptr: [*]u16=&tsc_end_buf;
+var transport_ptr: [*]u32=&transport_status;
+var delay_ptr: [*]u32=&e067_delay;
+comptime {
+  @bind_local_task(send_progress,SEND);
+  @bind_local_task(recv_progress,RECV);
+  @bind_local_task(joined,COMM);
+  // The vendor parity assignment is imported unchanged. Suppressing absent
+  // edges also supports one-PE axes, which the vendor wrapper does not admit.
+  if (!first_px) { @set_local_color_config(c_recv_west,.{.routes=.{.rx=.{WEST},.tx=.{RAMP}}}); }
+  if (!last_px) { @set_local_color_config(c_send_east,.{.routes=.{.rx=.{RAMP},.tx=.{EAST}}}); }
+  if (!last_px) { @set_local_color_config(c_recv_east,.{.routes=.{.rx=.{EAST},.tx=.{RAMP}}}); }
+  if (!first_px) { @set_local_color_config(c_send_west,.{.routes=.{.rx=.{RAMP},.tx=.{WEST}}}); }
+  if (!last_py) { @set_local_color_config(c_recv_south,.{.routes=.{.rx=.{SOUTH},.tx=.{RAMP}}}); }
+  if (!first_py) { @set_local_color_config(c_send_north,.{.routes=.{.rx=.{RAMP},.tx=.{NORTH}}}); }
+  if (!first_py) { @set_local_color_config(c_recv_north,.{.routes=.{.rx=.{NORTH},.tx=.{RAMP}}}); }
+  if (!last_py) { @set_local_color_config(c_send_south,.{.routes=.{.rx=.{RAMP},.tx=.{SOUTH}}}); }
+  @initialize_queue(@get_input_queue(4),.{.color=c_recv_west});
+  @initialize_queue(@get_input_queue(5),.{.color=c_recv_east});
+  @initialize_queue(@get_input_queue(6),.{.color=c_recv_south});
+  @initialize_queue(@get_input_queue(7),.{.color=c_recv_north});
+  @initialize_queue(@get_output_queue(4),.{.color=c_send_east});
+  @initialize_queue(@get_output_queue(5),.{.color=c_send_west});
+  @initialize_queue(@get_output_queue(6),.{.color=c_send_north});
+  @initialize_queue(@get_output_queue(7),.{.color=c_send_south});
+  @export_symbol(grid_prev_ptr,"grid_prev");
+  @export_symbol(grid_next_ptr,"grid_next");
+  @export_symbol(stencil_meta_ptr,"stencil_meta");
+  @export_symbol(done_flag_ptr,"done_flag");
+  @export_symbol(tsc_start_ptr,"tsc_start");
+  @export_symbol(tsc_end_ptr,"tsc_end");
+  @export_symbol(transport_ptr,"transport_status");
+  @export_symbol(delay_ptr,"diagnostic_delay");
+  @export_symbol(run_kernel);
+}
