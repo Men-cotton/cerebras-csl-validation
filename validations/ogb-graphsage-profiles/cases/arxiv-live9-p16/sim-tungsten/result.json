@@ -1,0 +1,97 @@
+{
+  "language": "tungsten",
+  "role": "simulator",
+  "fixture_sha256": "0de61d8bc851983653a1fe9046017e4b02cc0f2a80eeb6eb0db82690545938b6",
+  "params": {
+    "P": 16,
+    "R": 8,
+    "F": 9,
+    "Q": 40,
+    "E": 126,
+    "K": 1,
+    "RELU": 0
+  },
+  "placement": "balanced",
+  "build_sha256": "3a4b1eadf8654af81e31dfb2f050195fc993dbefdd66516011575a0cef9599df",
+  "frames": [
+    {
+      "trial": 1,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 11100,
+      "sum_phase_max_cycles": 11356,
+      "max_aggregation_cycles": 2326,
+      "max_projection_cycles": 9006,
+      "max_reduce_cycles": 0,
+      "host_input_to_reply_ns": 22026615437,
+      "input_word_count": 16401,
+      "output_word_count": 5600,
+      "numerics": {
+        "max_abs": 2.842450090412285e-06,
+        "relative_l2": 1.0284209787805713e-07,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": 4.316547173033314e-06
+      }
+    },
+    {
+      "trial": 2,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 11100,
+      "sum_phase_max_cycles": 11356,
+      "max_aggregation_cycles": 2326,
+      "max_projection_cycles": 9006,
+      "max_reduce_cycles": 0,
+      "host_input_to_reply_ns": 17922814280,
+      "input_word_count": 15641,
+      "output_word_count": 5600,
+      "numerics": {
+        "max_abs": 1.8049299459477197e-06,
+        "relative_l2": 1.033818613570265e-07,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": null
+      }
+    },
+    {
+      "trial": 3,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 11100,
+      "sum_phase_max_cycles": 11356,
+      "max_aggregation_cycles": 2326,
+      "max_projection_cycles": 9006,
+      "max_reduce_cycles": 0,
+      "host_input_to_reply_ns": 28274261574,
+      "input_word_count": 15641,
+      "output_word_count": 5600,
+      "numerics": {
+        "max_abs": 2.842450090412285e-06,
+        "relative_l2": 1.0284209787805713e-07,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": 4.316547173033314e-06
+      }
+    }
+  ],
+  "stopped": true,
+  "override_x_sha256": null,
+  "stage": "PASS",
+  "platform": {
+    "system": false,
+    "simulation": true
+  },
+  "host_sha256": {
+    "worker.py": "48fd0de466eae74da0ad17a8d14e467a071080b4b2bcfab76899f4399c36fc44",
+    "contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6"
+  },
+  "executed_elf_sha256": "461dde6bf09d81a074698ebaa226980991b1363a553e9544d7324c35918eb24a",
+  "raw_sha256": "774f901cefe285f4a12246fc77a2f87a23663011be14d8ffe009cbb24ed9ea17"
+}

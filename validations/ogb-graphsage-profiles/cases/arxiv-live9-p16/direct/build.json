@@ -1,0 +1,130 @@
+{
+  "language": "tungsten",
+  "params": {
+    "P": 16,
+    "R": 8,
+    "F": 9,
+    "Q": 40,
+    "E": 126,
+    "K": 1,
+    "RELU": 0
+  },
+  "placement": "balanced",
+  "edge_capacity": null,
+  "fixture_sha256": "0de61d8bc851983653a1fe9046017e4b02cc0f2a80eeb6eb0db82690545938b6",
+  "ingress": "bulk",
+  "skip_zero": true,
+  "row_runs": false,
+  "census": {
+    "rows_per_owner": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    "edges_per_owner": [
+      126,
+      123,
+      93,
+      84,
+      84,
+      84,
+      84,
+      84,
+      84,
+      83,
+      83,
+      82,
+      82,
+      82,
+      81,
+      81
+    ]
+  },
+  "commands": [
+    [
+      "paint",
+      "arch=sdr",
+      "toolname",
+      "w",
+      "carbide",
+      "toolname",
+      "yeti",
+      "carbide",
+      "lib=src",
+      "source=src/program.paint",
+      "image=program.obj",
+      "map=program.map",
+      "note=program.note",
+      "entrymap=program.entry",
+      "regiondump=regions.json"
+    ],
+    [
+      "milink",
+      "image=program.obj",
+      "out=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "weight",
+      "image=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/suite/arxiv-final-128-live-tungsten-p16-balanced-skip-bulk-lanes/build/simulator/out/program.elf",
+      "w=16",
+      "h=2"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/suite/arxiv-final-128-live-tungsten-p16-balanced-skip-bulk-lanes/build/hardware/out/program.elf",
+      "w=762",
+      "h=1172"
+    ]
+  ],
+  "specialization": {
+    "unrolled_projection_channels": 9,
+    "edge_offsets": false
+  },
+  "source": {
+    "owner.w": "d2eaa09a6db3c83fabbae19c0b23844d65a23424d8c57db952e88c63318450ad",
+    "collect.w": "fe4d6455b3d5c4f3282b9ba6e9db8bac7c303a34a93b5756f6f8ea31c4259018",
+    "program.paint": "610104a2f71a5938d7dd9b968c96c24350b93b37b14b56822f0478ccedc76264"
+  },
+  "roles": {
+    "simulator": {
+      "elf": "461dde6bf09d81a074698ebaa226980991b1363a553e9544d7324c35918eb24a",
+      "fabric": [
+        16,
+        2
+      ]
+    },
+    "hardware": {
+      "elf": "2148f050d70e3f830a34ca303a9f11e54c00b0733d3f8f9aa672d9b4a9229ef2",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "canonical_sha256": "1b3f20ba569757ac51d59962dd577f0d54858afd6cb073c88df4962c49955793",
+  "machine_image_sha256": "88d01d94f315ace78ca3473be39176323fb7b853ebc41d495a3a54945376e0b0",
+  "port_map_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e"
+}

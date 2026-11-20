@@ -1,0 +1,174 @@
+{
+  "nodes": 169343,
+  "arcs": 2315598,
+  "degrees": {
+    "all": {
+      "nodes": 169343,
+      "arcs": 2315598,
+      "isolated": 0,
+      "percentiles": {
+        "0": 1.0,
+        "50": 6.0,
+        "90": 27.0,
+        "99": 106.0,
+        "99.9": 491.9480000001495,
+        "100": 13161.0
+      },
+      "max_node": 1353
+    },
+    "train": {
+      "nodes": 90941,
+      "arcs": 1312984,
+      "isolated": 0,
+      "percentiles": {
+        "0": 1.0,
+        "50": 5.0,
+        "90": 25.0,
+        "99": 144.60000000000582,
+        "99.9": 762.1800000000367,
+        "100": 13161.0
+      },
+      "max_node": 1353
+    },
+    "valid": {
+      "nodes": 29799,
+      "arcs": 400590,
+      "isolated": 0,
+      "percentiles": {
+        "0": 1.0,
+        "50": 7.0,
+        "90": 31.0,
+        "99": 86.0,
+        "99.9": 232.8080000000191,
+        "100": 2412.0
+      },
+      "max_node": 113095
+    },
+    "test": {
+      "nodes": 48603,
+      "arcs": 602024,
+      "isolated": 0,
+      "percentiles": {
+        "0": 1.0,
+        "50": 9.0,
+        "90": 28.0,
+        "99": 55.0,
+        "99.9": 122.79600000001665,
+        "100": 586.0
+      },
+      "max_node": 77301
+    }
+  },
+  "last_layer_cpu_static_fp32": {
+    "original_input_features": 86703616,
+    "hidden_input": 10837952,
+    "output_logits": 27094880,
+    "csr_row_offsets": 677376,
+    "csr_source_ids": 9262392,
+    "shared_weights_and_bias": 5280
+  },
+  "checkpoint_sha256": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b",
+  "graph": {
+    "processed_sha256": "83c746379a528be58e0c07f782ab388fa157c7be505da53012fffabce0314dba",
+    "input_edges": 1166243,
+    "undirected_unique_arcs": 2315598,
+    "self_loops": 0,
+    "ptr_sha256": "15b6a4516229b383ffca391cb19c57d0a68a52bd2b054f591c0ef06fd12f6376",
+    "index_sha256": "957986a8463b43a0abd8f51e0686ebe510bcdac7cde36eaadfab8b31544e393c",
+    "split_sha256": {
+      "train": "84983391900af45194e5db8d977ec9e01d4eda96e20328f3d7575fdd45c6797c",
+      "valid": "ebe6cdcd77c75eedbce2064a05a49bc28e2c4a631f49d66b9e9ff317eef993eb",
+      "test": "588fb66ce57bcaef51ac0235f0a49a056370ac31fc27c8ebf556d3f5cdd02545"
+    }
+  },
+  "cyclic_whole_graph_distribution": {
+    "4": {
+      "edge_min": 569705,
+      "edge_max": 588236,
+      "max_local_rows": 42336,
+      "mean_edges": 578899.5
+    },
+    "16": {
+      "edge_min": 137700,
+      "edge_max": 156487,
+      "max_local_rows": 10584,
+      "mean_edges": 144724.875
+    },
+    "64": {
+      "edge_min": 31598,
+      "edge_max": 48456,
+      "max_local_rows": 2646,
+      "mean_edges": 36181.21875
+    },
+    "256": {
+      "edge_min": 6593,
+      "edge_max": 21480,
+      "max_local_rows": 662,
+      "mean_edges": 9045.3046875
+    },
+    "1024": {
+      "edge_min": 1438,
+      "edge_max": 15464,
+      "max_local_rows": 166,
+      "mean_edges": 2261.326171875
+    }
+  },
+  "degree16": {
+    "nodes": [
+      5,
+      1353,
+      13897,
+      17298,
+      22533,
+      28547,
+      29841,
+      34153,
+      58003,
+      67226,
+      78155,
+      86994,
+      92797,
+      110319,
+      120811,
+      150991
+    ],
+    "degrees": [
+      1,
+      13161,
+      5,
+      2,
+      9,
+      4,
+      6,
+      11,
+      23,
+      3,
+      34,
+      7,
+      1,
+      17,
+      2,
+      13
+    ],
+    "arcs": 13299,
+    "fixture_sha256": "fbd3bbe8d1e11344d28fced53bb21ae93cb6ca4c38195a420999673513a2c18c"
+  },
+  "exact_zero_hidden_by_channel": [
+    169343,
+    169343,
+    169343,
+    8933,
+    169343,
+    169343,
+    8244,
+    169343,
+    11582,
+    46141,
+    18179,
+    10110,
+    20217,
+    7277,
+    169343,
+    17898
+  ]
+}
