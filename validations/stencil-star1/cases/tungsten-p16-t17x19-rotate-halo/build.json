@@ -1,0 +1,67 @@
+{
+  "params": {
+    "C": 16,
+    "R": 16,
+    "TX": 17,
+    "TY": 19,
+    "E": 8
+  },
+  "variant": "rotate-halo",
+  "scaled_add": true,
+  "bank": 0,
+  "mapped_static_endpoint_bytes": 7640,
+  "declared_array_bytes": 3316,
+  "source_sha256": {
+    "bench.paint": "66b2ad306ecf52ab4ad8263188ba7f6279bf0daecadc03ead7349a4e03a301aa",
+    "stencil.w": "6b157d41df481c3f86293219bb7b0ae1a818669173c802fa3fef8be62fc6450f"
+  },
+  "commands": [
+    [
+      "paint",
+      "source=src/bench.paint",
+      "lib=src",
+      "arch=sdr",
+      "annotate",
+      "image=stencil.obj",
+      "map=stencil.map",
+      "set=C=16",
+      "set=R=16",
+      "set=TX=17",
+      "set=TY=19",
+      "set=E=8"
+    ],
+    [
+      "mielf",
+      "image=stencil.obj",
+      "elf=simulator/out/program.elf",
+      "w=16",
+      "h=16"
+    ],
+    [
+      "mielf",
+      "image=stencil.obj",
+      "elf=hardware/out/program.elf",
+      "w=762",
+      "h=1172"
+    ]
+  ],
+  "ports_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "roles": {
+    "simulator": {
+      "elf_sha256": "8fe78a30e343bdb90c7f170bce00ec756a4f6a251d5f6b999b803df3b8974c9c",
+      "fabric": [
+        16,
+        16
+      ]
+    },
+    "hardware": {
+      "elf_sha256": "30f59707d3795e7e94eb21c2b09bbfec8c4cdf3a3e01be472e5ed6dd7c3c5281",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "canonical_sha256": "8f74bbb8d4075b6f4e8a8f46dfea2ff842ed3a79af86899b08b7d442a5cae9eb",
+  "halo_schedule": "all"
+}

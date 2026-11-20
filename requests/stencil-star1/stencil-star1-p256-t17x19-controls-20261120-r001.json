@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "id": "stencil-star1-p256-t17x19-controls-20261120-r001",
+  "description": "Measure eight Jacobi epochs for 17 by 19 owned cells per PE on a 16 by 16 mesh. Validate both complete padded buffers, every neighbor transfer and three independently uploaded fields on the physical CS-3.",
+  "steps": [
+    {
+      "name": "run-tungsten-p16-t17x19-reference",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/tungsten-p16-t17x19-reference",
+        "--case-sha256",
+        "f9edb9b09221d9988cca21f57300a0b62c6acc812dec3702e238524b75847506",
+        "--out",
+        "{output}/run-tungsten-p16-t17x19-reference"
+      ]
+    },
+    {
+      "name": "run-tungsten-p16-t17x19-rotate-halo",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/tungsten-p16-t17x19-rotate-halo",
+        "--case-sha256",
+        "1cd359d9c413ee7cbcaaa430942abe382188865b2c69d780c6ea201ae95dbba7",
+        "--out",
+        "{output}/run-tungsten-p16-t17x19-rotate-halo"
+      ]
+    },
+    {
+      "name": "compile-csl-p16-t17x19-reference",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/stencil-star1/cases/csl-p16-t17x19-reference",
+        "--case-sha256",
+        "3b2d4d374a3c848cec43bbc788af57e8c6485eec7590ab434f3163bdfc1b1aef",
+        "--out",
+        "{output}/compile-csl-p16-t17x19-reference"
+      ]
+    },
+    {
+      "name": "run-csl-p16-t17x19-reference",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/csl-p16-t17x19-reference",
+        "--case-sha256",
+        "3b2d4d374a3c848cec43bbc788af57e8c6485eec7590ab434f3163bdfc1b1aef",
+        "--out",
+        "{output}/run-csl-p16-t17x19-reference",
+        "--build",
+        "{output}/compile-csl-p16-t17x19-reference/build.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "kind": "csl",
+  "params": {
+    "C": 16,
+    "R": 16,
+    "TX": 17,
+    "TY": 19,
+    "E": 8
+  },
+  "variant": "reference",
+  "workers": {
+    "native_worker.py": "6582d13ce7cb3c50b127392b3ec4040e02efdb8a4f9cb0672278c91693bdcf00"
+  },
+  "files": {
+    "sim/frame-1.npz": "c998b8f4b355f0cf64fbc6d512fc8501309e3af6a5794526ddaad6b1c90bfb8b",
+    "sim/frame-2.npz": "18fd19417e7502b5dddbe8be362eee771373fdaa949584b289b2fa2fd3c21022",
+    "sim/frame-3.npz": "c998b8f4b355f0cf64fbc6d512fc8501309e3af6a5794526ddaad6b1c90bfb8b",
+    "sim/result.json": "93a0c7b5af9aa7a72d03392a8a7506dac7aa5e8d326a953ee998ee30521d90dc",
+    "src/layout.csl": "160028a3d9fe5c75a9902381a281b3dfbf7edf453de86fdd483f42f79896abe5",
+    "src/pe.csl": "2a7fd3fe54b7adc8de28bc3ffc27da1750efe02ed2679ec76e132daa520f4829",
+    "src/routes.csl": "02e772588d3e0ea9c0609f705de00b0d033e7e97dd5d4fe757fe93a7b796e9db"
+  },
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=762,1172",
+    "--fabric-offsets=4,1",
+    "--params=TILE_X:17,TILE_Y:19,RADIUS:1,PATTERN_ID:1,ITERATIONS:8,KERNEL_X_DIM:16,KERNEL_Y_DIM:16,SW_DELAY:0",
+    "--memcpy",
+    "--channels=1",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "source_local": {
+    "layout.csl": "160028a3d9fe5c75a9902381a281b3dfbf7edf453de86fdd483f42f79896abe5",
+    "pe.csl": "2a7fd3fe54b7adc8de28bc3ffc27da1750efe02ed2679ec76e132daa520f4829",
+    "routes.csl": "02e772588d3e0ea9c0609f705de00b0d033e7e97dd5d4fe757fe93a7b796e9db"
+  },
+  "sim_build": "153ba7648a2c3bb2727c1913e29f7c466226f2defa13377a3191562429a62bc3"
+}
