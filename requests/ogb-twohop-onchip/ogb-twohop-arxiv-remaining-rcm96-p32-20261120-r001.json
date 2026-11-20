@@ -1,0 +1,49 @@
+{
+  "description": "Complete the other 96 unique original arxiv roots in the registered median 128-root window. Each independent 32-root request step runs both trained layers on one 32-owner image, covers five A/half-A/restored frames, and returns all intermediate echoes, final logits and PE clocks.",
+  "id": "ogb-twohop-arxiv-remaining-rcm96-p32-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "run",
+        "--case",
+        "arxiv-rcm32-b1-p32",
+        "--release-sha256",
+        "96e0357056f1c7fbfeee030497f85474cde93dea3a06765a5a8bbdb938e4dd5a",
+        "--out",
+        "{output}/batch-1"
+      ],
+      "kind": "appliance",
+      "name": "batch-1",
+      "script": "validations/ogb-twohop-onchip/batched/single.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "arxiv-rcm32-b2-p32",
+        "--release-sha256",
+        "b4d8f4ebc8499d09ae647b87e4acd7a631efd766526f059623a2bb3a970e84da",
+        "--out",
+        "{output}/batch-2"
+      ],
+      "kind": "appliance",
+      "name": "batch-2",
+      "script": "validations/ogb-twohop-onchip/batched/single.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "arxiv-rcm32-b3-p32",
+        "--release-sha256",
+        "ebf8e211be39f66fba16d30de565944acd113d2c165c3740c939c3bcabb4021a",
+        "--out",
+        "{output}/batch-3"
+      ],
+      "kind": "appliance",
+      "name": "batch-3",
+      "script": "validations/ogb-twohop-onchip/batched/single.py"
+    }
+  ]
+}

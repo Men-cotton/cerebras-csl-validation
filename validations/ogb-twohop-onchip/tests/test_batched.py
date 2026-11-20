@@ -16,8 +16,9 @@ spec.loader.exec_module(app)
 
 class BatchedControls(unittest.TestCase):
     def test_registered_pairs(self):
-        for path in sorted((BATCHED / "cases").glob("*/release.json")):
-            case = path.parent
+        for name in sorted(app.CASES):
+            case = BATCHED / "cases" / name
+            path = case / "release.json"
             with self.subTest(case=case.name):
                 _, refs = app.checked_case(case.name, app.sha(path))
                 self.assertEqual({a.shape[0] for a in refs["logits"].values()}, {32})

@@ -1,0 +1,49 @@
+{
+  "first": {
+    "P": 32,
+    "R": 8,
+    "F": 128,
+    "Q": 16,
+    "E": 16,
+    "RELU": 1,
+    "FRAMES": 5
+  },
+  "final": {
+    "P": 32,
+    "R": 8,
+    "H": 16,
+    "N": 225,
+    "Z": 32,
+    "A": 234,
+    "Q": 40,
+    "FRAMES": 5,
+    "SETUP": 1907
+  },
+  "first_sha256": "d210b37f991991d1093155289ce91e0c2261944283744b3070418aabd986d05a",
+  "last_sha256": "2f9b4d4354fa27eb583bf8074a5d76a6a0bdbffc4dcd60912096d06605469f41",
+  "roles": {
+    "simulator": {
+      "fabric": [
+        32,
+        2
+      ],
+      "elf_sha256": "28fada581f093aedca5f948dd72dc59f3c203dc5d23ff1751ed73b125d238c75"
+    },
+    "hardware": {
+      "fabric": [
+        762,
+        1172
+      ],
+      "elf_sha256": "aaa75de6c74530a44552f6151a59d9ba16b324db769d828501cfbce6a351aac7"
+    }
+  },
+  "canonical_sha256": "1991e34129f42d15269670d206cc5e772f45610676df63419a23cb78b18ff877",
+  "port_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "source_sha256": {
+    "final.w": "05c48ad2f3c2aeb388c0da6e1d2efe82cb994e6a91d84fa285d6c2c227cbbe1b",
+    "owner.w": "31188ff62059f4a31328b0f4e65a7e4869d888b5d00525726c4ba4d21f654b9c",
+    "collect.w": "1f0c0c70f38c9a4aac55eb44bd00d3183956ca87447c9153fef99614b4ea80b1",
+    "program.paint": "ae4ba3f3a6b84e3725564f92af36bd8557dd0427fc5a1e5aa0544f0d15efe8c7"
+  },
+  "map_sha256": "c45a4d33e3d11816edd899a6c4a1f5bc89e6f4b1e5616b547c07f589aae763ab"
+}

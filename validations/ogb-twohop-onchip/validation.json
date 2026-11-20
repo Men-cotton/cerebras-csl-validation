@@ -7,7 +7,8 @@
     "parallel/appliance.py",
     "parallel/placement/appliance.py",
     "batched/appliance.py",
-    "batched/products_single.py"
+    "batched/products_single.py",
+    "batched/single.py"
   ],
   "tests": [
     "tests"
