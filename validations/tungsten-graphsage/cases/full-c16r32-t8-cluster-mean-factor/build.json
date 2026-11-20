@@ -1,0 +1,80 @@
+{
+  "case": "scatter-mean-factor-cluster-c16r32-t8",
+  "params": {
+    "C": 16,
+    "R": 32,
+    "K": 96,
+    "L": 6,
+    "FW": 90,
+    "H": 16,
+    "O": 7,
+    "T": 8,
+    "MX": 215,
+    "MG": 175,
+    "NTX": 92,
+    "NRX": 164,
+    "X0": 4,
+    "Y0": 1,
+    "COMPACT": 1,
+    "U": 30
+  },
+  "roles": {
+    "simulator": {
+      "elf_sha256": "0d341c20da32697408f23c0d7ca48f07984d9ff178464c0fbf400decf8bd5041",
+      "fabric": [
+        16,
+        32
+      ]
+    },
+    "hardware": {
+      "elf_sha256": "468479a6fd5897e54928741be594123b174fd029a18e2feed74290767f6f7d6f",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "readout": "register",
+  "shared_row_scratch": false,
+  "stream_packets": false,
+  "original_source": {
+    "bench.paint": "a159f934210ad032bbc9828064d7cd24f13851f830f66be302cfb98d96fcdfa9",
+    "sage.w": "ce5108db08d87ca9b9bcd43b8d4d8531c5e815abd1ab4019a80e74882e91ecc7"
+  },
+  "original_object_sha256": "3912017a34ffce43c5ac8235e26549bcf12d9352f07b2f57516744e01bc48fc1",
+  "original_elf_sha256": "53d51df841b169eb0436d331ff10338bcc6d48d97e0cc966d5585abff536c070",
+  "source": {
+    "sage.w": "95ddf832a025ee62828698feaecd2353a59cb8e0a0d6c8119d5fc7755465c7f7",
+    "bench.paint": "ea58b660ac0c3d8ecb9a8f6ecd5c1b0becd982ff834a78330e69fb7591534494"
+  },
+  "nodes": 2708,
+  "edges": 10556,
+  "input_buffers_sha256": {
+    "x_ptr": "f4098b4d3d74fa7e097bb0b1b713915df24a2a38f508421150020d025b4be690",
+    "x_col": "3fc4940f10ba01bc092f17bd5977222c8d5a2bd7febc72acc9a5828d267e4918",
+    "x_val": "218f6cea0566b3c1cbbd9a215105311d763ee99a5066da561a7d61ff9efc469e",
+    "b0": "351d25c2c5c5afa39876b9d444c5c304f94009a1b71c23685dc6bd33e6f7d318",
+    "b1": "73d8df7e02b91ad90f1bc5f64bf79a5473e8b057f48c7a7cc4d666c259934484",
+    "slots": "9adac5e279c18499a239e32b7a1002dfe34e79661ec62a381f6c18e47011b5cf",
+    "tx_hdr": "b88bc7ac7d1a0b65647cbedbecfaf5c65f3324fcfcf62dac295b8157d7095614",
+    "tx_tag": "89f0cfcfea56305093ce63daebff939d7ce1eec4615c6eeb98bc708decc959b3",
+    "tx_slot": "039bffbe64c72d5f56384af3b9aaa27b568b75d1d7e9d7e61507526e9d983a3b",
+    "counts": "a4350af9ba0ed9cc80a1fe7092b4c7b7bcb99a1ea386f0ebbb1caa616b95bee4",
+    "edge_ptr": "7885cf4f89a70ad9871666213aa407320e236a99f2f353e7c303f6298780996d",
+    "edge_src": "1105705e21bcd824371c55d797ee3b1a006e15580fa0296d7aa8fed91667a736",
+    "edge_weight": "cc94026a65bf0636409ab1ff37751d52947e78f0438a23eed743f19a4ad8b295",
+    "paired0": "53fa8d7ef529da456d53d226bfb4de23f9939762b47852e3fc0c645ed14a9d8b",
+    "paired1": "0b0b5c7698192622294f30ff95c62a48c12e09be10befb35adc0e389001b827c"
+  },
+  "original_fixture_sha256": "b7d2f95310cf4e1cd9537a1c29ff0f482837349fda7bef822fb85687f5e3ed8c",
+  "original_checkpoint_sha256": "04b95b83ef86ad5f58402767310495aeb729f86587919d114260f408c432d3bd",
+  "node_ids_sha256": "26b09557473df12eb3741230a499c4127daff773499bc9d70b593050a65e788c",
+  "original_result_sha256": "b40e53e9382afe675d33311ee5b9e3f6669d7fe25539664ae20da625490d572a",
+  "original_cycles": 73284,
+  "dataset_scope": "full-checkpoint",
+  "comparison_reference_sha256": "f39e0e1d469b4c874f9f2177f4b61ec9b56c33c904dc91c45b955fa896b04f00",
+  "machine_image": "8635a0e72fe8792ee2391e8d10cc558a3e9afe652347727539740a3d92a225d3",
+  "ports_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "canonical_sha256": "2b51bcffe3fa249e3104c4f6896ccfda247435fe994edfb03fd4293ccdb4a1f1",
+  "ordered_loads": 64
+}

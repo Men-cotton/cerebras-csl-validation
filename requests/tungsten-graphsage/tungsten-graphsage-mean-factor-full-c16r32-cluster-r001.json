@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-mean-factor-full-c16r32-cluster-r001",
+  "description": "Run a frozen two-layer mean GraphSAGE classifier on physical CS-3. Return every owned preactivation, normalized hidden channel, logit and PE clock.",
+  "steps": [
+    {
+      "name": "run-full-c16r32-t8-cluster-mean-factor",
+      "kind": "appliance",
+      "script": "validations/tungsten-graphsage/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-graphsage/cases/full-c16r32-t8-cluster-mean-factor",
+        "--build-sha256",
+        "d0f9fda33c1659847be08cb4148f346f994929c2ddeddaa97159186c121b04a9",
+        "--out",
+        "{output}/sage-full-c16r32-t8-cluster-mean-factor"
+      ]
+    }
+  ]
+}
