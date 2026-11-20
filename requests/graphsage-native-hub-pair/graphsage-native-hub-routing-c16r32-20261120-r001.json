@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "graphsage-native-hub-routing-c16r32-20261120-r001",
+  "description": "Original and split full-Cora GraphSAGE on one resident physical CS-3 executable with complete upload/readback and a six-frame FP64 audit.",
+  "steps": [
+    {
+      "name": "compile",
+      "kind": "appliance",
+      "script": "validations/graphsage-native-hub-pair/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/graphsage-native-hub-pair/cases/r32-router-register",
+        "--release",
+        "1e59f5185a3bb62141cfa67702ececb398deadfcacdeeb19ca490f10b980b5a0",
+        "--out",
+        "{output}/compile"
+      ]
+    },
+    {
+      "name": "pair",
+      "kind": "appliance",
+      "script": "validations/graphsage-native-hub-pair/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/graphsage-native-hub-pair/cases/r32-router-register",
+        "--release",
+        "1e59f5185a3bb62141cfa67702ececb398deadfcacdeeb19ca490f10b980b5a0",
+        "--build",
+        "{output}/compile/build.json",
+        "--out",
+        "{output}/pair"
+      ]
+    }
+  ]
+}

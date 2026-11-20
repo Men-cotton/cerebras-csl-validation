@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "graphsage-native-hub-pair",
+  "description": "Original and split full-Cora GraphSAGE on one resident physical CS-3 executable with complete upload/readback and a six-frame FP64 audit.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}
