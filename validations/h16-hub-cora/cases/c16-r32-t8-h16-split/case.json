@@ -1,0 +1,166 @@
+{
+  "admission": {
+    "admitted": true,
+    "code_reserve_bytes": 11994,
+    "forecast_bytes": 35952,
+    "named_bytes": 23958,
+    "scope": "linked native images; appliance validates the physical compiled ELF inventory"
+  },
+  "atol": 2e-05,
+  "family": "native-cora",
+  "features": 1433,
+  "files": {
+    "checkpoint.json": "3d41050782a2e96f4d9f6b3410c155cd59577bc6a61c521057a9c9bd9a5e0995",
+    "checkpoint.npz": "836c82b82871c76bb1822ace2014c9552690459a952de1b23d4399d5ecce4542",
+    "dataset/cora.cites": "ec1a372391b7f0f60a6aff0084e8abd8f19f0faa7e1f2441a41c492042d5945e",
+    "dataset/cora.content": "b8ebed0fd45e53995abafd1b70cf6a9fcc8f86abc5826d69b97fe6ca46e9c8ee",
+    "expected.npz": "df4f1203dac0f91e682ad4444159a588ec9deef3f432ba24d71a59dd4f473ef3",
+    "inputs.npz": "7bcd1ec0f39a3d6bfb76050c04f3b6da52dab6a223e0dcd86309eb0928cf199d",
+    "node_ids.npz": "8d96ca06a93226669cdf68cd0a72f9004e3f0aac9e400ad258a57a7ffc0bf941",
+    "provenance.json": "995485665aa9d4292fe2c4b8f9e8a2f0923deb3a2ce528626ee6f57ab1d3d0af",
+    "source/layout.csl": "2a1f6182b368b5b68b58f7211854b3b7ce1a99f83a61674759b5060c74cac29d",
+    "source/pe.csl": "44b0690717d75997a155ae8ffb660cc6babe69cbc3d2c60e92edca0dc12b6486"
+  },
+  "immutable_inputs": [
+    "counts",
+    "edge_ptr",
+    "edge_src",
+    "edge_weight",
+    "packet_count",
+    "packet_header",
+    "packet_offset",
+    "packet_tag",
+    "send_slot",
+    "slots",
+    "split_control",
+    "w0",
+    "w1",
+    "x_col",
+    "x_ptr",
+    "x_val"
+  ],
+  "inputs": {
+    "counts": [
+      6,
+      "uint16"
+    ],
+    "edge_ptr": [
+      8,
+      "uint16"
+    ],
+    "edge_src": [
+      201,
+      "uint16"
+    ],
+    "edge_weight": [
+      201,
+      "float32"
+    ],
+    "packet_count": [
+      42,
+      "uint16"
+    ],
+    "packet_header": [
+      42,
+      "uint32"
+    ],
+    "packet_offset": [
+      42,
+      "uint16"
+    ],
+    "packet_tag": [
+      42,
+      "uint32"
+    ],
+    "send_slot": [
+      38,
+      "uint16"
+    ],
+    "slots": [
+      6,
+      "uint16"
+    ],
+    "split_control": [
+      2,
+      "uint16"
+    ],
+    "w0": [
+      1440,
+      "float32"
+    ],
+    "w1": [
+      112,
+      "float32"
+    ],
+    "x_col": [
+      173,
+      "uint16"
+    ],
+    "x_ptr": [
+      91,
+      "uint16"
+    ],
+    "x_val": [
+      173,
+      "float32"
+    ]
+  },
+  "kind": "cora",
+  "launch": {
+    "arguments": [],
+    "entrypoint": "f_run"
+  },
+  "nodes": 2708,
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "logits": [
+      42,
+      "float32"
+    ],
+    "panel_sum": [
+      720,
+      "float32"
+    ],
+    "pre": [
+      96,
+      "float32"
+    ],
+    "split_words": [
+      2,
+      "uint32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ],
+    "traffic": [
+      4,
+      "uint32"
+    ]
+  },
+  "params": {
+    "C": 16,
+    "COMPACT": 1,
+    "FW": 90,
+    "H": 16,
+    "K": 90,
+    "L": 6,
+    "MG": 201,
+    "MX": 173,
+    "NPLAN": 21,
+    "NRX": 158,
+    "NSEND": 38,
+    "O": 7,
+    "R": 32,
+    "T": 8,
+    "U": 22
+  },
+  "profile": "original",
+  "rtol": 0.0002,
+  "schema": 1,
+  "scope": "2708 original Cora nodes, two-layer 1433-16-7 GCN, vertex 163 split",
+  "transport": "grouped packets and same-row hub partial reduction with fixed H16 CSR projection"
+}

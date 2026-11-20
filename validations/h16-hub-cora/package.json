@@ -1,6 +1,7 @@
 {
   "cases": {
     "c16-r16-t8-h16-split": "644c16d39c99daea0ebc6e463466dc856d054bb283c6c72e9b355c2d5bea7a15",
+    "c16-r32-t8-h16-split": "559e588c478df7c1b019693766054319c60c0514179237b12463a6dd3cf1f5d8",
     "n256-c4-r8-t8-h16-split": "b72495013326cf86ac48c8116f4a914761e382d581a27d60d0e3447cd9a46323"
   },
   "family": "native-cora",
