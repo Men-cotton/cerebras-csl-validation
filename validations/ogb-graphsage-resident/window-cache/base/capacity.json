@@ -1,0 +1,407 @@
+{
+  "cached_physical": {
+    "allocated_bytes": 47286,
+    "build_sha256": "ee6b927d3cd7e3b3f7127048df8dfe0331b6bbfb1a6769da3e021e92c3c6a4ac",
+    "last_byte": 47296,
+    "owners": {
+      "0": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "1": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "10": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "11": {
+        "sram_bytes": 47286,
+        "sram_end": 47296
+      },
+      "12": {
+        "sram_bytes": 47286,
+        "sram_end": 47296
+      },
+      "13": {
+        "sram_bytes": 47286,
+        "sram_end": 47296
+      },
+      "14": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "15": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "16": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "17": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "18": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "19": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "2": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "20": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "21": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "22": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "23": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "24": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "25": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "26": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "27": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "28": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "29": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "3": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "30": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "31": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "4": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "5": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "6": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "7": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "8": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "9": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      }
+    }
+  },
+  "cached_sim": {
+    "allocated_bytes": 47286,
+    "build_sha256": "a80a183435f66eee8975630e991e50f237a40b7cc18e7fe350d17add02f91172",
+    "last_byte": 47296,
+    "owners": {
+      "0": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "1": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "10": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "11": {
+        "sram_bytes": 47286,
+        "sram_end": 47296
+      },
+      "12": {
+        "sram_bytes": 47286,
+        "sram_end": 47296
+      },
+      "13": {
+        "sram_bytes": 47286,
+        "sram_end": 47296
+      },
+      "14": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "15": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "16": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "17": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "18": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "19": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "2": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "20": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "21": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "22": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "23": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "24": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "25": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "26": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "27": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "28": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "29": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "3": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "30": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "31": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "4": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "5": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "6": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "7": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "8": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      },
+      "9": {
+        "sram_bytes": 47282,
+        "sram_end": 47296
+      }
+    }
+  },
+  "original_sim": {
+    "allocated_bytes": 46698,
+    "build_sha256": "c3b6bc0923cd0dce6d72c2d2120cf46cd2105180010f22505ad8e38f81ea20d9",
+    "last_byte": 46704,
+    "owners": {
+      "0": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "1": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "10": {
+        "sram_bytes": 46698,
+        "sram_end": 46704
+      },
+      "11": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "12": {
+        "sram_bytes": 46698,
+        "sram_end": 46704
+      },
+      "13": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "14": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "15": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "16": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "17": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "18": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "19": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "2": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "20": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "21": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "22": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "23": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "24": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "25": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "26": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "27": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "28": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "29": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "3": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "30": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "31": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "4": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "5": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "6": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "7": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "8": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      },
+      "9": {
+        "sram_bytes": 46694,
+        "sram_end": 46704
+      }
+    }
+  }
+}

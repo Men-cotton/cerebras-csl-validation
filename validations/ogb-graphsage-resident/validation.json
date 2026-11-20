@@ -2,7 +2,8 @@
   "schema": 1,
   "id": "ogb-graphsage-resident",
   "entrypoints": [
-    "resident/physical.py"
+    "resident/physical.py",
+    "window-cache/physical.py"
   ],
   "tests": [
     "tests"

@@ -1,0 +1,32 @@
+{
+  "base_sha256": "d68d5db48fd4c7aad3950a4e7c2539877b0bdfeefe86effd5412155e129e9111",
+  "files": {
+    "audit.json": "8562609063ef55be05919c9e35f3e18b78cdb759c04d3d2e78ce26479a550db5",
+    "fixture.json": "be3665d2a5b052d5e4760de3f83ad306afc641b854be494601744888aa4bb144",
+    "fixture.npz": "10af88099bd8ec91f798e1428c83b2a1f9feafd9e8212a9f08b0e340d043e41f",
+    "sdk/frame-1.npz": "4a79dfc501546a9ed0eafd700709dacb204fe5c8b3cf70d8b982a559ba8d1ec9",
+    "sdk/frame-2.npz": "ba84b9c13991e75b23123cbc196aa54cb31b7d2a67c42f3491c222e96e483dd2",
+    "sdk/frame-3.npz": "d47fe7641df905fac1721d991b6c5dfdf277268eb2630a62c0ae81eac115edd6",
+    "sdk/frame-4.npz": "02658fd66401ac31a4d5ca6c44357034b58aa0e02bb2c3a2ac70410028239ed1",
+    "sdk/frame-5.npz": "e02ef3c1a8235afe235ff755703224326491d779ed60f1f0c31dfd42e2b300a8",
+    "sdk/frame-6.npz": "97164ecf76d321462fb1cdb7a2deeac470f30f55e264447202d8e4fc9d84a3a6",
+    "sdk/result.json": "5132b6097ae52b421d9d76e2ba8aae76a382881a93efe1eea8d71c74ce5a94a9"
+  },
+  "host_sha256": {
+    "bootstrap.py": "d63833c55346886b180a0e606c8d9e8c5bc22fa211ee5a9970b21255a1c013fb",
+    "calibration.py": "3d955f014c860d3990d7974df8f1114f7ca420536d47572db206ebd400034ae5",
+    "codec.py": "88e2831aa41e42ab97a0cff21f33bc3451f9e0285cdbb99d579690df8eab95bd",
+    "graph.py": "4b03e62b6b6a4bcfcca4de2da5f90835350d81faed6692086b24b5a151a17751",
+    "inventory.py": "37e0ff787ac8a66fbfd987a7f6920d7c649d21b226e83ea893c15b1803c16cd6",
+    "prepare.py": "1006ea5dfe12f58caf01242b75b36a563ea0b052fefe703d8054e09fd973e344",
+    "rectangles.py": "203e51beb0eb2b57fcce81479ebea3a1c1037210e596160efd63f5f052850baa",
+    "report.py": "7fe1738c8f5de0618457f1ebbd06d28b5f0efa4f7a8969f7cc1c52d08ecc9e4e",
+    "run.py": "fd9249407f0d93fed25558d6ace06db411be992c1bb46ae6f2a7d8be81c39ca7",
+    "sparse_events.py": "ae073a6f5294483bed946b30a8160b6bdbcaf8f1db1ff98d0c40efe27471558b",
+    "traffic.py": "c893971b5b2c355af3780771b341daa84dd602eac9cb34fe846372aeba80235c",
+    "uniform.py": "546d1270d6456f7eaee93912b1b23cbae44b1847af6edbc62cb07a429b394b2d",
+    "window_cache.py": "0286dd754a5399885148eafe0b3ad0cdbb9cccc8d3ea09891ddf7ca692614b16",
+    "worker.py": "fd863019802e342a17e73deb8279fee586233ed9631f083031a50a1a9fa435c4"
+  },
+  "key": "products-2hidden-p32"
+}

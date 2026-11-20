@@ -1,0 +1,97 @@
+{
+  "rpc_symbols": [
+    {
+      "id": 7,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "indices",
+      "sym_name": "idp",
+      "type": "[*]u32"
+    },
+    {
+      "id": 8,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "control",
+      "sym_name": "cp",
+      "type": "[*]u32"
+    },
+    {
+      "id": 2,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "rawx",
+      "sym_name": "xp",
+      "type": "[*]f32"
+    },
+    {
+      "id": 11,
+      "kind": "Func",
+      "name": "accumulate",
+      "sym_name": "accumulate",
+      "type": "void"
+    },
+    {
+      "id": 10,
+      "kind": "Func",
+      "name": "begin_frame",
+      "sym_name": "begin_frame",
+      "type": "void"
+    },
+    {
+      "id": 12,
+      "kind": "Func",
+      "name": "finish",
+      "sym_name": "finish",
+      "type": "void"
+    },
+    {
+      "id": 3,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "roots",
+      "sym_name": "rp",
+      "type": "[*]f32"
+    },
+    {
+      "id": 6,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "targets",
+      "sym_name": "tp",
+      "type": "[*]u32"
+    },
+    {
+      "id": 1,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "weights",
+      "sym_name": "wp",
+      "type": "[*]f32"
+    },
+    {
+      "id": 4,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "inverse",
+      "sym_name": "ip",
+      "type": "[*]f32"
+    },
+    {
+      "id": 9,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "reply",
+      "sym_name": "op",
+      "type": "[*]u32"
+    },
+    {
+      "id": 5,
+      "immutable": 0,
+      "kind": "Var",
+      "name": "features",
+      "sym_name": "fp",
+      "type": "[*]f32"
+    }
+  ]
+}

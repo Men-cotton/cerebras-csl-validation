@@ -1,0 +1,83 @@
+{
+  "dataset": "products",
+  "language": "csl",
+  "params": {
+    "P": 32,
+    "R": 12,
+    "D": 100,
+    "F": 16,
+    "Q": 48,
+    "E": 128,
+    "K": 160
+  },
+  "role": "hardware",
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=762,1172",
+    "--fabric-offsets=4,1",
+    "--params=P:32,R:12,D:100,F:16,Q:48,E:128,K:160",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "elf": {
+    "out_0_0.elf": "f45a3a1848d8a7b5473301e0f5a46812efe21404238aaf32d6221e8fa3d3c0c3",
+    "out_10_0.elf": "3111413e30e08dd3d504dedb71dc5b80f6436fbafe1d0e7cf2b72adcea70cf8a",
+    "out_11_0.elf": "2d2168bee897d45b57df0512bff1963b5b5fb62d2cc97adb0e9f7169759e594d",
+    "out_12_0.elf": "2029c534d3b6894e07f081be977bedce4818ee1b484bfdd57a802e15c5ce4339",
+    "out_13_0.elf": "08b1ee6340cd86ef803b6aed815547d2733c8306be34cacc3ba2fb9a4753a641",
+    "out_14_0.elf": "35c3c0ad7e207042fde31c9686196591319f44bde49332d04832cf68e46cfa70",
+    "out_15_0.elf": "65b26d76af3e29639b4544e16cc9c8ee330e73639083ab92eb8cd7ad07fc084e",
+    "out_16_0.elf": "49f896bf6fec033d1282a21799f0634095f8e88fabd87ff0ce07f3dff1708ff6",
+    "out_17_0.elf": "843c823a60237f60072d756816f9ca2282a4c1fb21c66e77aa79edbe6c668b5d",
+    "out_18_0.elf": "dd09b6b174d24531627a9cbbdeddada57303bdc877f79d865ced01bd3f9a232b",
+    "out_19_0.elf": "9c9606c20c837a6b37b68439782964c0c6baf7961dfbdfead6d63c90bce641e4",
+    "out_1_0.elf": "abef8b7cee28cc8e0c559b93e08389fb288d01e2ee5060917794cb239ff77b72",
+    "out_20_0.elf": "a3b4ba1c8d0896d1aa1744bc6779150844ef9a29acf948f61e67f5a511cde0e0",
+    "out_21_0.elf": "5c7dcabe0c09abddd3122523a58a0a7762566f1a385e8dbdc108da9899b7af79",
+    "out_22_0.elf": "86a57b61e32a6eb4b26c8daf88be0dc05f230192e2ad73b800ee5ae8a09169fa",
+    "out_23_0.elf": "3120780c0e556b32fe707b88d45cfeeb0160758b2068571019d00c3680d9499d",
+    "out_24_0.elf": "7c6584a98a4c33a769c5d6b490e58d786d9f7c535d8bdb539d4de326e5fede48",
+    "out_25_0.elf": "916a420c23b8598d7007f448aab3de88f051fe8140ec62cf7b7479b9bdd31568",
+    "out_26_0.elf": "5bd2ea93bf2ef024061219b694b392c76863d2160f17b41712c4388f78056a21",
+    "out_27_0.elf": "c62fc28408bd9fc46ed311c0cb04e3656d0ee5e69d7d4d0db0abacefd09f3dd7",
+    "out_28_0.elf": "aec8d62ae9717533205297e250afaa7b4c2d1c48d40aa716ce8b8182ee0fc5bb",
+    "out_29_0.elf": "09eaa29d7196a7c15c4ed9b11937c5c385b2525e9cabc4039baf4eaf61d60820",
+    "out_2_0.elf": "c2388aa9bae55f7ad3289433db227b32c61a88240af3661f4f1d6c8855906da0",
+    "out_30_0.elf": "f79aa62e8996ea1ec99793373081856a52cd54f1ac09ac1b1bbd54cc672416ab",
+    "out_31_0.elf": "43443ee668b4a4ffadbba1c4e3b956d4d2c8a41b012ba2ec9e0043542dcbb09c",
+    "out_3_0.elf": "e4e216886a1e7c94ff0edffe62da6356ec87d50cf42bf354850a91f882fedc34",
+    "out_4_0.elf": "9676fffd1fa94f924044d591fb43c9725e0701f974a9dfea24b54d85e0b68f8e",
+    "out_5_0.elf": "de14bdfaeebb0a9670f9307fa954f33984fc8966c1bcc7b2647c8be30d13bbeb",
+    "out_6_0.elf": "648559528d70d73f84493a568b14ea74a08f10e933dd16ce701804745f5ece89",
+    "out_7_0.elf": "f42efbf3b94f41af889bfc915a62bf645f38a09d80fa3d484996cd581348bffd",
+    "out_8_0.elf": "ec400c2fc0c618f88fe34a55e9b10194683aa9377735036fa8aac39be80c918c",
+    "out_9_0.elf": "e921a6d8c51a84d0e8dc871872b7406ccae1e572b0d047cb80519c8637630681"
+  },
+  "commands": [
+    [
+      "/tmp/tungsten-csl-bin/cslc",
+      "/tmp/tungsten-ogb-v1/resident-products-csl-p32/src/layout.csl",
+      "--arch=wse3",
+      "--fabric-dims=39,3",
+      "--fabric-offsets=4,1",
+      "--params=P:32,R:12,D:100,F:16,Q:48,E:128,K:160",
+      "--memcpy",
+      "--channels=1",
+      "--width-west-buf=0",
+      "--width-east-buf=0",
+      "--max-parallelism=1",
+      "-o",
+      "out"
+    ]
+  ],
+  "source": {
+    "pe.csl": "0f4672f109910e737aece984841faea00da9ae7f35f447cb6d1cc0a3abaeecb1",
+    "layout.csl": "a60dc79ff91f16572edca002910e03356ba556c3217925c7dacbd4bb567fc930"
+  },
+  "original_build_sha256": "c3b6bc0923cd0dce6d72c2d2120cf46cd2105180010f22505ad8e38f81ea20d9"
+}

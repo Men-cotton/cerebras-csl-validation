@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "ogb-native-window-products-2hidden-p32-20261120-r001",
+  "description": "Compare dense feature delivery and an on-chip source table on one 32-PE native products image using the original measured projections and six verified frames.",
+  "steps": [
+    {
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident/window-cache/physical.py",
+      "name": "compile",
+      "args": [
+        "compile",
+        "--case",
+        "products-2hidden-p32",
+        "--release-sha256",
+        "77e52eddac27605d51d15c426bc8b2ca8e7f896af0d8c39e147577b1db6514ca",
+        "--out",
+        "{output}/compile"
+      ]
+    },
+    {
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident/window-cache/physical.py",
+      "name": "run",
+      "args": [
+        "run",
+        "--case",
+        "products-2hidden-p32",
+        "--release-sha256",
+        "77e52eddac27605d51d15c426bc8b2ca8e7f896af0d8c39e147577b1db6514ca",
+        "--out",
+        "{output}/run",
+        "--compiled",
+        "{output}/compile/compiled.json"
+      ]
+    }
+  ]
+}
