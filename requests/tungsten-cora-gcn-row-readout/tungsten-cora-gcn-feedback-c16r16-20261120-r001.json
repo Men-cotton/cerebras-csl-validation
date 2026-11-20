@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-gcn-feedback-c16r16-20261120-r001",
+  "description": "Return every node and PE timestamp, certify each row replica by bitwise comparison, and measure full Cora GCN on CS-3.",
+  "steps": [
+    {
+      "name": "run-cora-c16r16-feedback",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn-row-readout/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn-row-readout/cases/cora-c16r16-feedback",
+        "--build-sha256",
+        "67e6403839f10e03fbb41df66d2c05ac271f75480b1c0c9960da2fc6481e1425",
+        "--out",
+        "{output}/gcn-cora-c16r16-feedback"
+      ]
+    }
+  ]
+}
