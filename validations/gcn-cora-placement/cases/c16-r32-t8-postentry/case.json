@@ -1,0 +1,152 @@
+{
+  "nodes": 2708,
+  "inputs": {
+    "counts": [
+      6,
+      "uint16"
+    ],
+    "edge_ptr": [
+      8,
+      "uint16"
+    ],
+    "edge_src": [
+      201,
+      "uint16"
+    ],
+    "edge_weight": [
+      201,
+      "float32"
+    ],
+    "packet_count": [
+      42,
+      "uint16"
+    ],
+    "packet_header": [
+      42,
+      "uint32"
+    ],
+    "packet_offset": [
+      42,
+      "uint16"
+    ],
+    "packet_tag": [
+      42,
+      "uint32"
+    ],
+    "send_slot": [
+      38,
+      "uint16"
+    ],
+    "slots": [
+      6,
+      "uint16"
+    ],
+    "split_control": [
+      2,
+      "uint16"
+    ],
+    "w0": [
+      1440,
+      "float32"
+    ],
+    "w1": [
+      112,
+      "float32"
+    ],
+    "x_col": [
+      173,
+      "uint16"
+    ],
+    "x_ptr": [
+      91,
+      "uint16"
+    ],
+    "x_val": [
+      173,
+      "float32"
+    ]
+  },
+  "outputs": {
+    "clocks": [
+      6,
+      "uint16"
+    ],
+    "logits": [
+      42,
+      "float32"
+    ],
+    "panel_sum": [
+      720,
+      "float32"
+    ],
+    "pre": [
+      96,
+      "float32"
+    ],
+    "split_words": [
+      2,
+      "uint32"
+    ],
+    "stats": [
+      8,
+      "uint32"
+    ],
+    "traffic": [
+      4,
+      "uint32"
+    ]
+  },
+  "launch": {
+    "arguments": [],
+    "entrypoint": "f_run"
+  },
+  "params": {
+    "C": 16,
+    "COMPACT": 1,
+    "FW": 90,
+    "H": 16,
+    "K": 90,
+    "L": 6,
+    "MG": 201,
+    "MX": 173,
+    "NPLAN": 21,
+    "NRX": 158,
+    "NSEND": 38,
+    "O": 7,
+    "R": 32,
+    "T": 8,
+    "U": 22
+  },
+  "baseline_case": "c16-r32-postbarrier-relu",
+  "baseline_case_sha256": "dac499987718a2908fc0692fa689136b01dcd34441a12fbe6a74527cda30bd5b",
+  "mode_order": [
+    "original",
+    "swap"
+  ],
+  "modes": {
+    "original": {
+      "file": "inputs.npz",
+      "inputs_sha256": "7bcd1ec0f39a3d6bfb76050c04f3b6da52dab6a223e0dcd86309eb0928cf199d"
+    },
+    "swap": {
+      "file": "swap.npz",
+      "inputs_sha256": "31f002e13b338138af478d003b5635d6af3f85711e991b24ba348eb7e915a9c2"
+    }
+  },
+  "retain_input_words": true,
+  "split_plans": [
+    {
+      "hub": 163,
+      "home": 421,
+      "helper": 423,
+      "slot": 2,
+      "moved": 91,
+      "degree": 169,
+      "ordered_occurrences_sha256": "b7d6376269375df51f624eeba0ef636712197fb7fb7dccfd63bea8770151be28",
+      "split_occurrences_sha256": "030e031693a5e919a982b2a7cd8fe61f4ad2718dbdaa5bb7f484a925b9e488ea"
+    }
+  ],
+  "flags": "--arch=wse3 --fabric-dims=762,1172 --fabric-offsets=4,1 --params=C:16,COMPACT:1,FW:90,H:16,K:90,L:6,MG:201,MX:173,NPLAN:21,NRX:158,NSEND:38,O:7,R:32,T:8,U:22 --max-parallelism=1 --memcpy --channels=1 --width-west-buf=0 --width-east-buf=0 -o out",
+  "new_nodes_sha256": "487a484b197bd6ecd50f6f5c667de31ddf905503af37d3f37e218d618f7c45da",
+  "link_plan_sha256": "7711f6fe10e774bbc53800b9fe101889eb0f843b2ee9aa58f256dd803271557d"
+}

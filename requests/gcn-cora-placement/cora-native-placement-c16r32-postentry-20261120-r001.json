@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "cora-native-placement-c16r32-postentry-20261120-r001",
+  "description": "Compare the original placement and a link-balanced original-ID exchange on one loaded physical CSL executable across 512 PEs. Upload and read back every input before launch and after each frame, retain three full outputs per placement, and compare the complete trained Cora model to FP64.",
+  "steps": [
+    {
+      "name": "compile",
+      "kind": "appliance",
+      "script": "validations/gcn-cora-placement/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/gcn-cora-placement/cases/c16-r32-t8-postentry",
+        "--release",
+        "c8799efd3d95e47f17cbab89449fce24339426888b31382588b7f37ffc2fbc1c",
+        "--out",
+        "{output}/compile"
+      ]
+    },
+    {
+      "name": "compare",
+      "kind": "appliance",
+      "script": "validations/gcn-cora-placement/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/gcn-cora-placement/cases/c16-r32-t8-postentry",
+        "--release",
+        "c8799efd3d95e47f17cbab89449fce24339426888b31382588b7f37ffc2fbc1c",
+        "--out",
+        "{output}/compare",
+        "--build",
+        "{output}/compile/build.json"
+      ]
+    }
+  ]
+}
