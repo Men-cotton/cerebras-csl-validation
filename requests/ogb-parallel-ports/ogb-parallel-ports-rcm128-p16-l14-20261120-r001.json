@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "id": "ogb-parallel-ports-rcm128-p16-l14-20261120-r001",
+  "description": "Measure the same original 128-root median windows and total 16 compute PEs through independent public-SDK West port pairs. One resident image reports serialized and concurrent full transfers, both input scales, local owner clocks and the enclosing interval on a single PE with ten empty-fence controls.",
+  "steps": [
+    {
+      "name": "run-arxiv-l1",
+      "kind": "appliance",
+      "script": "validations/ogb-parallel-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-parallel-ports/cases/arxiv-rcm128-p16-l1",
+        "--release-sha256",
+        "1ee06e00027034173f1b6a2a58d9fd53c9a86aa2457f80eec9f21cce0c618c08",
+        "--out",
+        "{output}/arxiv-rcm128-p16-l1"
+      ]
+    },
+    {
+      "name": "run-products-l1",
+      "kind": "appliance",
+      "script": "validations/ogb-parallel-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-parallel-ports/cases/products-rcm128-p16-l1",
+        "--release-sha256",
+        "f68cb1ff5abd1331707812af08030fd7d29f2645dc9b7a1900bc518774c06bca",
+        "--out",
+        "{output}/products-rcm128-p16-l1"
+      ]
+    },
+    {
+      "name": "run-arxiv-l4",
+      "kind": "appliance",
+      "script": "validations/ogb-parallel-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-parallel-ports/cases/arxiv-rcm128-p16-l4",
+        "--release-sha256",
+        "ea63834fdf4c6934c6aad586018506fa8753d25e680c891434ef4a0e4fbfdb74",
+        "--out",
+        "{output}/arxiv-rcm128-p16-l4"
+      ]
+    },
+    {
+      "name": "run-products-l4",
+      "kind": "appliance",
+      "script": "validations/ogb-parallel-ports/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-parallel-ports/cases/products-rcm128-p16-l4",
+        "--release-sha256",
+        "106832fac81dfc81cef540bd16aa79f8065e6ad0ce9e318244ffdd824537df65",
+        "--out",
+        "{output}/products-rcm128-p16-l4"
+      ]
+    }
+  ]
+}

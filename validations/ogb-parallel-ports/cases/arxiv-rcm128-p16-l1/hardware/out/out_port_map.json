@@ -1,0 +1,26 @@
+{
+  "buses": [
+    {
+      "io_type": "IN",
+      "lvds_id": 0,
+      "port_name": "rx0_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 1,
+      "port_name": "tx0_port"
+    }
+  ],
+  "lvds_ports": [
+    {
+      "color": 0,
+      "loc": 0,
+      "side": "WEST"
+    },
+    {
+      "color": 1,
+      "loc": 1,
+      "side": "WEST"
+    }
+  ]
+}

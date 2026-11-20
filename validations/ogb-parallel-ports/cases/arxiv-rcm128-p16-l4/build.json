@@ -1,0 +1,72 @@
+{
+  "fixture_sha256": "e4d6b03fa56ea8a050a0c387781e1d723cacf9f7144091e2af56dcc4719d730d",
+  "roles": {
+    "simulator": {
+      "elf_sha256": "3c01611d248cdc5aea8cbaca3f2fd5075a960a8ce3286ef04413d5467b63ca84",
+      "fabric": [
+        4,
+        8
+      ]
+    },
+    "hardware": {
+      "elf_sha256": "61f6a1134a409859f3066179fc9e875e6f748428efeb17297a229c196b1c9c38",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "lanes": 4,
+  "owners_per_lane": 4,
+  "entries": 128,
+  "lane_params": [
+    {
+      "P": 4,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 4,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 4,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    },
+    {
+      "P": 4,
+      "R": 8,
+      "F": 16,
+      "Q": 40,
+      "E": 128,
+      "RELU": 0,
+      "FRAMES": 6
+    }
+  ],
+  "port_sha256": "05e4df8a9bf654f589ad79e4678db519dc7fb895720955b5313c4d206a6cffb9",
+  "canonical_sha256": "f0f1b443b1e21d3adbdc2ca6aebefbf38de12e532422ed1bb0da2aa5c6924862",
+  "source_sha256": {
+    "collect.w": "9cdbb167d42f8812cbec4fee9171a2bb802e43eaf18cb52fac240cf5b796ff65",
+    "owner0.w": "f4ca4f9a23b50ab6420875fb546f891296f29d0157e05e5b5c0ce5ea0120bc28",
+    "owner1.w": "55082c0478a0d45352ff8841a16e64f2273b082ca9e26002848160b4972c542a",
+    "owner2.w": "69840d5d933666c4f9d7d592f6e3bbe126fe5c41e83f39d126c7c3c3dc3c1e43",
+    "owner3.w": "03fb3dfd9127d8a1bb5c9d7c44417dcba7d454883a26228dde5854a1a27f7a74",
+    "program.paint": "9df95a47f5492c85a4a214cdc69acbd62a41b08115cbdf80c15d3623045fd546",
+    "timercollect.w": "ed035f7e71d3606e9bbfb076d79c3b173660f02ec261075282b2e063de03b876"
+  },
+  "map_sha256": "4c82c3205936c1c01aeeb0fd5cfc58c3641df4ebc8e2f07b94e222903b94d6cb"
+}

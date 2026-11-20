@@ -1,0 +1,42 @@
+{
+  "file_sha256": {
+    "build.json": "34f3acb4788182ee78b8b3b8c061ed5e750d518b6269ff0ca4ccdcada208f06f",
+    "fixture.npz": "e4d6b03fa56ea8a050a0c387781e1d723cacf9f7144091e2af56dcc4719d730d",
+    "hardware/out/out_port_map.json": "05e4df8a9bf654f589ad79e4678db519dc7fb895720955b5313c4d206a6cffb9",
+    "hardware/out/program.elf": "61f6a1134a409859f3066179fc9e875e6f748428efeb17297a229c196b1c9c38",
+    "hardware/ranges.txt": "a445a2314fb99a63a3eb21b5d31afe4cd130a47d1f08e4884ee721e10997c207",
+    "lanes.map": "4c82c3205936c1c01aeeb0fd5cfc58c3641df4ebc8e2f07b94e222903b94d6cb",
+    "lanes.obj": "0be1823ec98ae08710af565166b307b936b2a3f6aadbddf13de966e5dbc7cc01",
+    "sdk/frame-1.npz": "fcd7397c8fd3729b7d12efe675f1cf38b084c3e739540e7d6f4d800d132ca4a6",
+    "sdk/frame-10.npz": "37798212693ae8b914b63dfcb41bd437ce0e465f01cf62ba6d1b8a1f8bfc827c",
+    "sdk/frame-11.npz": "43d36ce9d8fad1c00ac145f35986f244a74767e007c27c6631d321a829e773f3",
+    "sdk/frame-12.npz": "3362d8607c9e2e6ff4873296aa4df0c93da791d6959a36eee4d1f43f2ea52f65",
+    "sdk/frame-2.npz": "73fc7235d64add9df9f019869117c38d4a6ba34fc7c1450ba3c687e2a4b8dc8d",
+    "sdk/frame-3.npz": "64840622339f09a9de14a8cdf0fabf818a0d1663ec63e9ea5b9f7095b6f7c7b1",
+    "sdk/frame-4.npz": "afd5e62b74811099dcd9ff1b00409a8e1d897ab94d7e815d58a85874b3044f1c",
+    "sdk/frame-5.npz": "4a8b960901c1ebce31a621777b964ccc317142b7ab3f130cfa0b4c68ba3fb300",
+    "sdk/frame-6.npz": "6b94fbfbbc8a13e69b9dd4674526f8c65111959fdb525e6af49369a8d0d0332c",
+    "sdk/frame-7.npz": "f2f050caaed4e8ec310aac62b1c13ef387bdb3ad95818d57ce024deaff4c26fe",
+    "sdk/frame-8.npz": "b952c5f2cd94ca446552a66cfa9397be60b9bc1e11260a44ea13c09d53afc274",
+    "sdk/frame-9.npz": "01d5821c1edc7079028de38f20f332ecd9a4d29d50c1a17985b2835d80a1be6d",
+    "sdk/result.json": "5573713433ad20d20420f3e1218cd53da4f595b0ad3630fbc4df4df4794acb49",
+    "simulator/out/out_port_map.json": "05e4df8a9bf654f589ad79e4678db519dc7fb895720955b5313c4d206a6cffb9",
+    "simulator/out/program.elf": "3c01611d248cdc5aea8cbaca3f2fd5075a960a8ce3286ef04413d5467b63ca84",
+    "simulator/ranges.txt": "f70749e50f0d5b25aae836755f78a164494040aa19a41e9e4a289dc95cceb823",
+    "src/collect.w": "9cdbb167d42f8812cbec4fee9171a2bb802e43eaf18cb52fac240cf5b796ff65",
+    "src/owner0.w": "f4ca4f9a23b50ab6420875fb546f891296f29d0157e05e5b5c0ce5ea0120bc28",
+    "src/owner1.w": "55082c0478a0d45352ff8841a16e64f2273b082ca9e26002848160b4972c542a",
+    "src/owner2.w": "69840d5d933666c4f9d7d592f6e3bbe126fe5c41e83f39d126c7c3c3dc3c1e43",
+    "src/owner3.w": "03fb3dfd9127d8a1bb5c9d7c44417dcba7d454883a26228dde5854a1a27f7a74",
+    "src/program.paint": "9df95a47f5492c85a4a214cdc69acbd62a41b08115cbdf80c15d3623045fd546",
+    "src/timercollect.w": "ed035f7e71d3606e9bbfb076d79c3b173660f02ec261075282b2e063de03b876"
+  },
+  "host_sha256": {
+    "appliance.py": "c8a4960cc7b0dbc172ee590930841479110163e4b6e3a4db6f26fe2f51d2c2c7",
+    "worker_lanes.py": "e92d25219cafb6cbdcd963024939f16b2b852318acfa135d5a941e1017d7a4f1",
+    "contract_lanes.py": "8caecaae6f2e5fd7293ad5e81e7710f785b78153177c0e0a95bc5efdfcb5fa83",
+    "source_table.py": "1255f3c6b7fea04ffa5018db3c2149e3558f9aa7e38d9243b789ed19f8fdd1e1",
+    "ogb_contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "report_lanes.py": "6615124fd66b5421f05950ef56b5b3a19c62988a843afc97a1629b1bfbf9dbd8"
+  }
+}

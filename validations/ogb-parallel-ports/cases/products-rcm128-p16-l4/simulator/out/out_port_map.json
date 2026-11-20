@@ -1,0 +1,86 @@
+{
+  "buses": [
+    {
+      "io_type": "IN",
+      "lvds_id": 0,
+      "port_name": "rx0_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 1,
+      "port_name": "tx0_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 2,
+      "port_name": "rx1_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 3,
+      "port_name": "tx1_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 4,
+      "port_name": "rx2_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 5,
+      "port_name": "tx2_port"
+    },
+    {
+      "io_type": "IN",
+      "lvds_id": 6,
+      "port_name": "rx3_port"
+    },
+    {
+      "io_type": "OUT",
+      "lvds_id": 7,
+      "port_name": "tx3_port"
+    }
+  ],
+  "lvds_ports": [
+    {
+      "color": 0,
+      "loc": 0,
+      "side": "WEST"
+    },
+    {
+      "color": 1,
+      "loc": 1,
+      "side": "WEST"
+    },
+    {
+      "color": 2,
+      "loc": 2,
+      "side": "WEST"
+    },
+    {
+      "color": 3,
+      "loc": 3,
+      "side": "WEST"
+    },
+    {
+      "color": 4,
+      "loc": 4,
+      "side": "WEST"
+    },
+    {
+      "color": 5,
+      "loc": 5,
+      "side": "WEST"
+    },
+    {
+      "color": 6,
+      "loc": 6,
+      "side": "WEST"
+    },
+    {
+      "color": 7,
+      "loc": 7,
+      "side": "WEST"
+    }
+  ]
+}
