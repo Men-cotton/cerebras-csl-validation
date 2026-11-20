@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "id": "ogb-arxiv-degree16-p16-s8-r001",
+  "steps": [
+    {
+      "name": "compile-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-profiles/appliance.py",
+      "args": [
+        "compile-csl",
+        "--case",
+        "arxiv-degree16-p16-s8",
+        "--out",
+        "{output}/compile-csl"
+      ]
+    },
+    {
+      "name": "run-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-profiles/appliance.py",
+      "args": [
+        "run-csl",
+        "--case",
+        "arxiv-degree16-p16-s8",
+        "--out",
+        "{output}/run-csl",
+        "--compiled",
+        "{output}/compile-csl/compiled.json"
+      ]
+    },
+    {
+      "name": "run-tungsten",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-profiles/appliance.py",
+      "args": [
+        "run-tungsten",
+        "--case",
+        "arxiv-degree16-p16-s8",
+        "--out",
+        "{output}/run-tungsten"
+      ]
+    }
+  ],
+  "description": "Matched OGB GraphSAGE arxiv-degree16-p16-s8: all incident neighbours, both learned dense transforms, bias, all class logits, raw PE timing and input A, half-A, A."
+}

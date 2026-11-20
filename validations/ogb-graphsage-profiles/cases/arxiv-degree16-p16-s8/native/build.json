@@ -1,0 +1,110 @@
+{
+  "language": "csl",
+  "params": {
+    "P": 16,
+    "R": 15,
+    "F": 16,
+    "Q": 40,
+    "E": 380,
+    "K": 5,
+    "RELU": 0,
+    "S": 8
+  },
+  "placement": "balanced",
+  "edge_capacity": null,
+  "fixture_sha256": "fbd3bbe8d1e11344d28fced53bb21ae93cb6ca4c38195a420999673513a2c18c",
+  "ingress": "scalar",
+  "skip_zero": true,
+  "row_runs": true,
+  "census": {
+    "rows_per_owner": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15
+    ],
+    "edges_per_owner": [
+      1645,
+      1645,
+      1645,
+      1645,
+      1645,
+      1645,
+      1645,
+      1646,
+      11,
+      17,
+      16,
+      20,
+      15,
+      17,
+      16,
+      26
+    ]
+  },
+  "commands": [
+    [
+      "/tmp/tungsten-csl-bin/cslc",
+      "/tmp/tungsten-ogb-v1/pilot-shard8-csl/src/layout.csl",
+      "--arch=wse3",
+      "--fabric-dims=23,3",
+      "--fabric-offsets=4,1",
+      "--params=P:16,R:15,F:16,Q:40,E:380,K:5,RELU:0,S:8",
+      "--memcpy",
+      "--channels=1",
+      "--width-west-buf=0",
+      "--width-east-buf=0",
+      "--max-parallelism=1",
+      "-o",
+      "out"
+    ]
+  ],
+  "source": {
+    "layout.csl": "79cf689d9017ef6256259400da35297b89b1ac1e76b6eae00f6a9ab024cd0737",
+    "pe.csl": "d61efa07ee3ce516c9b7a985a5926fbbf1a7aa043c8c28b56556e485164c715b"
+  },
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=23,3",
+    "--fabric-offsets=4,1",
+    "--params=P:16,R:15,F:16,Q:40,E:380,K:5,RELU:0,S:8",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "role": "simulator",
+  "elf": {
+    "out_11_0.elf": "2c5983234bfa19f9955c2684b94a85e40ed102f6dd0f042c689dc30e21cc63dc",
+    "out_3_0.elf": "8646e043e624d820dd51012e243e93136b46d10e4542b5a5278db141143aa342",
+    "out_13_0.elf": "fb602cbeaddd2a93a72ef9e3768a9229444ca1a05e412ea2afd7357f8a6f7e75",
+    "out_7_0.elf": "8a5e42d494d65e38c052f87cdd6224a77293d067ad1055efc895f66a0ef2fd3d",
+    "out_6_0.elf": "251ab6323b9d1afb6d5ef8c366bf9f16839ab118444dcfa970ba75f649e49e6d",
+    "out_1_0.elf": "07aac067acc837bbb1f2fd74cf7361acc2cf40c75c0caacafe32c9d2495cd09a",
+    "out_9_0.elf": "4d51be469e60693cfb9be40b7005c3db9c85e6ae64dd059ac9681abefa8ecc60",
+    "out_2_0.elf": "d3ff47e0e3074494e0d4347a10de7c636c54262f7b4075f8dbaaf6aae2809bf6",
+    "out_12_0.elf": "deec61a7f12eb6559ebae8756bb0812448f5ff97a226462fc2f6675b12b40810",
+    "out_0_0.elf": "ab78a0655e0db44279fae502e788f8aad39e1e2c4704ff0cbbe3751c87f3357f",
+    "out_10_0.elf": "6f2ca01fa7e26f77b3843cd7bf4d49d6c5657e9474c4d4a6dbd82ab8100b125c",
+    "out_5_0.elf": "27426ccda1cee32d52815ed9a404f0722c16af0689201ef8dd49bc854d271388",
+    "out_14_0.elf": "69223c0a099363cc88b068fd643139a8b779d7c3b9473469df4bd32b23060e9a",
+    "out_15_0.elf": "ead89ec26fd0e67d918678389c54a072248f8b07014b3fa20a6a9f5a795bb561",
+    "out_8_0.elf": "73ed96b506145e4c1ddf4f97b6ba0e949aa026679668d987a6a7814cbb15c7ec",
+    "out_4_0.elf": "6e7493aa37b670b157bc7a19c14209d813eb930ef6678bcda74bc891ad0cccaa"
+  }
+}

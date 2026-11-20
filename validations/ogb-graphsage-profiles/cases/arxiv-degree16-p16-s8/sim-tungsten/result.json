@@ -1,0 +1,113 @@
+{
+  "language": "tungsten",
+  "role": "simulator",
+  "fixture_sha256": "fbd3bbe8d1e11344d28fced53bb21ae93cb6ca4c38195a420999673513a2c18c",
+  "params": {
+    "P": 16,
+    "R": 15,
+    "F": 16,
+    "Q": 40,
+    "E": 380,
+    "K": 5,
+    "RELU": 0,
+    "S": 8
+  },
+  "placement": "balanced",
+  "build_sha256": "5d62e1e6d42f312d96d622dbc4ae154b9ac5042ce0650dca2cb9b56a3b1dfbc2",
+  "frames": [
+    {
+      "trial": 1,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "edge-chunk",
+        "edge-chunk",
+        "edge-chunk",
+        "edge-chunk",
+        "reduce",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 34135,
+      "sum_phase_max_cycles": 64839,
+      "max_aggregation_cycles": 31394,
+      "max_projection_cycles": 30719,
+      "max_reduce_cycles": 2660,
+      "host_input_to_reply_ns": 192548257083,
+      "input_word_count": 229804,
+      "output_word_count": 10672,
+      "numerics": {
+        "max_abs": 2.386426693590238e-06,
+        "relative_l2": 1.1156541882756222e-07,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": 3.250040304436652e-06
+      }
+    },
+    {
+      "trial": 2,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "edge-chunk",
+        "edge-chunk",
+        "edge-chunk",
+        "edge-chunk",
+        "reduce",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 34135,
+      "sum_phase_max_cycles": 64839,
+      "max_aggregation_cycles": 31394,
+      "max_projection_cycles": 30719,
+      "max_reduce_cycles": 2660,
+      "host_input_to_reply_ns": 206994383304,
+      "input_word_count": 228484,
+      "output_word_count": 10672,
+      "numerics": {
+        "max_abs": 1.2863456042566668e-06,
+        "relative_l2": 1.1674257931686966e-07,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": null
+      }
+    },
+    {
+      "trial": 3,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "edge-chunk",
+        "edge-chunk",
+        "edge-chunk",
+        "edge-chunk",
+        "reduce",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 34135,
+      "sum_phase_max_cycles": 64839,
+      "max_aggregation_cycles": 31394,
+      "max_projection_cycles": 30719,
+      "max_reduce_cycles": 2660,
+      "host_input_to_reply_ns": 192469866227,
+      "input_word_count": 228484,
+      "output_word_count": 10672,
+      "numerics": {
+        "max_abs": 2.386426693590238e-06,
+        "relative_l2": 1.1156541882756222e-07,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": 3.250040304436652e-06
+      }
+    }
+  ],
+  "stopped": true,
+  "override_x_sha256": null,
+  "stage": "PASS",
+  "platform": {
+    "system": false,
+    "simulation": true
+  },
+  "host_sha256": {
+    "worker.py": "48fd0de466eae74da0ad17a8d14e467a071080b4b2bcfab76899f4399c36fc44",
+    "contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6"
+  },
+  "executed_elf_sha256": "a9aa1fad766002226efec0d4b0b5865b619b8dede6d8b7eea13ab29fd2e948e1",
+  "raw_sha256": "723433edaecdba2e52f4c15804b58323a333cdc4d5cc523d5348e12f98deb723"
+}

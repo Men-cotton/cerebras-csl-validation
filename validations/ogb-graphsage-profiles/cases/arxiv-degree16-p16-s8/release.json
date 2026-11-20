@@ -1,0 +1,79 @@
+{
+  "dataset": "ogbn-arxiv",
+  "name": "arxiv-degree16-p16-s8",
+  "fixture": "degree-16.npz",
+  "whole_checkpoint_sha256": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b",
+  "params": {
+    "P": 16,
+    "R": 15,
+    "F": 16,
+    "Q": 40,
+    "E": 380,
+    "K": 5,
+    "RELU": 0,
+    "S": 8
+  },
+  "host": {
+    "worker.py": "48fd0de466eae74da0ad17a8d14e467a071080b4b2bcfab76899f4399c36fc44",
+    "contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "audit.py": "bc3ad9890fc4711cd083fc5fd5b50a1648231fd80b5b740b395b5a0d6929b7e4",
+    "appliance.py": "433cae30d212ec2dfbd48e5d2e304026824cce04ff59b12dde23a600194811f1"
+  },
+  "files": {
+    "direct/build.json": "5d62e1e6d42f312d96d622dbc4ae154b9ac5042ce0650dca2cb9b56a3b1dfbc2",
+    "direct/hardware/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "direct/hardware/out/program.elf": "2287e079973e76dc17f2a49436598f00f3befeeccd8c133a14ed88b3f986e5e2",
+    "direct/hardware/ranges.txt": "b7ce5767763d9e14f6903241bb36ac9659dd58b78ef69eecb147ebfa0e3edf71",
+    "direct/simulator/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "direct/simulator/out/program.elf": "a9aa1fad766002226efec0d4b0b5865b619b8dede6d8b7eea13ab29fd2e948e1",
+    "direct/simulator/ranges.txt": "6200e2c8275d4cb49117b385a0855f355e6c982a765ee081dbfc6286d142e677",
+    "direct/src/collect.w": "fe4d6455b3d5c4f3282b9ba6e9db8bac7c303a34a93b5756f6f8ea31c4259018",
+    "direct/src/owner.w": "ea6f0a295f232b89a1699f10714a41fd1b84004fd4cfd03fffc49fb1d3c3aa1b",
+    "direct/src/program.paint": "3bb71d34c7c2dbcaa44fe19bd665948b676a9b0009a8d931414dc75389024cf9",
+    "fixture.npz": "fbd3bbe8d1e11344d28fced53bb21ae93cb6ca4c38195a420999673513a2c18c",
+    "native/build.json": "4a21085f9c3f7275aafd0cb2241da00eb5fb0af9ba7015beca80459bff983298",
+    "native/out/bin/out_0_0.elf": "ab78a0655e0db44279fae502e788f8aad39e1e2c4704ff0cbbe3751c87f3357f",
+    "native/out/bin/out_10_0.elf": "6f2ca01fa7e26f77b3843cd7bf4d49d6c5657e9474c4d4a6dbd82ab8100b125c",
+    "native/out/bin/out_11_0.elf": "2c5983234bfa19f9955c2684b94a85e40ed102f6dd0f042c689dc30e21cc63dc",
+    "native/out/bin/out_12_0.elf": "deec61a7f12eb6559ebae8756bb0812448f5ff97a226462fc2f6675b12b40810",
+    "native/out/bin/out_13_0.elf": "fb602cbeaddd2a93a72ef9e3768a9229444ca1a05e412ea2afd7357f8a6f7e75",
+    "native/out/bin/out_14_0.elf": "69223c0a099363cc88b068fd643139a8b779d7c3b9473469df4bd32b23060e9a",
+    "native/out/bin/out_15_0.elf": "ead89ec26fd0e67d918678389c54a072248f8b07014b3fa20a6a9f5a795bb561",
+    "native/out/bin/out_1_0.elf": "07aac067acc837bbb1f2fd74cf7361acc2cf40c75c0caacafe32c9d2495cd09a",
+    "native/out/bin/out_2_0.elf": "d3ff47e0e3074494e0d4347a10de7c636c54262f7b4075f8dbaaf6aae2809bf6",
+    "native/out/bin/out_3_0.elf": "8646e043e624d820dd51012e243e93136b46d10e4542b5a5278db141143aa342",
+    "native/out/bin/out_4_0.elf": "6e7493aa37b670b157bc7a19c14209d813eb930ef6678bcda74bc891ad0cccaa",
+    "native/out/bin/out_5_0.elf": "27426ccda1cee32d52815ed9a404f0722c16af0689201ef8dd49bc854d271388",
+    "native/out/bin/out_6_0.elf": "251ab6323b9d1afb6d5ef8c366bf9f16839ab118444dcfa970ba75f649e49e6d",
+    "native/out/bin/out_7_0.elf": "8a5e42d494d65e38c052f87cdd6224a77293d067ad1055efc895f66a0ef2fd3d",
+    "native/out/bin/out_8_0.elf": "73ed96b506145e4c1ddf4f97b6ba0e949aa026679668d987a6a7814cbb15c7ec",
+    "native/out/bin/out_9_0.elf": "4d51be469e60693cfb9be40b7005c3db9c85e6ae64dd059ac9681abefa8ecc60",
+    "native/src/layout.csl": "79cf689d9017ef6256259400da35297b89b1ac1e76b6eae00f6a9ab024cd0737",
+    "native/src/pe.csl": "d61efa07ee3ce516c9b7a985a5926fbbf1a7aa043c8c28b56556e485164c715b",
+    "provenance/census.json": "4e55ea7dfa3a1a13b18d379aa4c0dd6d597e1373bc27be26189ec47d047373ff",
+    "provenance/fp64.json": "cc9bdbea5bab369316e3ce9e9abcc41fe5c4a765ebda639c9c38b2bce07e4023",
+    "provenance/model.json": "bfc3ca5990e56912125af54d921eb2638bb8b046db254c336627dc105551dfbf",
+    "provenance/weights.npz": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b",
+    "sim-csl/raw.npz": "0e7494d6843f9162e17d0f1d6c13c94b51bc29bb95f347e47e3f8109bbab9fb4",
+    "sim-csl/result.json": "8e40946d5cea9ff9ded4cc59543d583e65cdf413d147972f44b718d7e9d3c2d4",
+    "sim-tungsten/raw.npz": "723433edaecdba2e52f4c15804b58323a333cdc4d5cc523d5348e12f98deb723",
+    "sim-tungsten/result.json": "0b5d2b27d56864d0c11753ab4c112b195e5855b7bc8f77546328f9c7a727f4e3"
+  },
+  "cross_language": [
+    {
+      "max_abs": 0.0,
+      "different_words": 0,
+      "argmax_mismatches": 0
+    },
+    {
+      "max_abs": 0.0,
+      "different_words": 0,
+      "argmax_mismatches": 0
+    },
+    {
+      "max_abs": 0.0,
+      "different_words": 0,
+      "argmax_mismatches": 0
+    }
+  ]
+}
