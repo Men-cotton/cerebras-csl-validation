@@ -1,0 +1,37 @@
+{
+  "description": "Replay three GraphSAGE destination assignments on a single native CSL 4 by 4 image. All nine frame captures use rectangular row broadcasts, including half-scale and restored original features, and must match the single-port and four-port Tungsten scores.",
+  "id": "ogb-native-products-dictionary-partition-q90-p16-l4-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "products-splits-q90-l4",
+        "--release-sha256",
+        "5a86ab79e18748a0021a5312025e477ad16025ebd7eb625cbced3ad5cd9e2240",
+        "--out",
+        "{output}/compile-products"
+      ],
+      "kind": "appliance",
+      "name": "compile-products",
+      "script": "validations/ogb-partition-ports/native/physical.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "products-splits-q90-l4",
+        "--release-sha256",
+        "5a86ab79e18748a0021a5312025e477ad16025ebd7eb625cbced3ad5cd9e2240",
+        "--out",
+        "{output}/run-products",
+        "--compiled",
+        "{output}/compile-products/compiled.json"
+      ],
+      "kind": "appliance",
+      "name": "run-products",
+      "script": "validations/ogb-partition-ports/native/physical.py"
+    }
+  ]
+}

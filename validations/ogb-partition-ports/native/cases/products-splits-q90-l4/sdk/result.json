@@ -1,0 +1,286 @@
+{
+  "role": "simulator",
+  "build_sha256": "b1a5060b0ab79a6ed3055e9cf017f430b1014cd2eab73bdb588c5af73f7bafc8",
+  "fixture_sha256": "72d3a49f3e89616f0d3ee56466b0d95358a753d3c77f904f714fba4ce796bf94",
+  "frames": [
+    {
+      "frame": 1,
+      "partition": "contiguous",
+      "scale": 1.0,
+      "mode": "dictionary",
+      "combined_rectangle": true,
+      "common_clock_cycles": 380218,
+      "peak_local_cycles": 388806,
+      "peak_active_edge_cycles": 44064,
+      "table_calls": 36,
+      "table_words": 289408,
+      "useful_table_words": 173872,
+      "h2d_words": 331232,
+      "synchronized_host_ns": 368851690210,
+      "raw_sha256": "c92a035d77420ee5c9cb3b874ff1f70def09957211ecf9841c071b88ecd0dcae"
+    },
+    {
+      "frame": 2,
+      "partition": "balanced",
+      "scale": 1.0,
+      "mode": "dictionary",
+      "combined_rectangle": true,
+      "common_clock_cycles": 258546,
+      "peak_local_cycles": 273792,
+      "peak_active_edge_cycles": 41280,
+      "table_calls": 24,
+      "table_words": 196608,
+      "useful_table_words": 193936,
+      "h2d_words": 222368,
+      "synchronized_host_ns": 279567192264,
+      "raw_sha256": "4b3c30cee20f36bf73f44ed8eed1130995f32c13cb96b1e8d6707c1e45d1bf70"
+    },
+    {
+      "frame": 3,
+      "partition": "dictionary",
+      "scale": 1.0,
+      "mode": "dictionary",
+      "combined_rectangle": true,
+      "common_clock_cycles": 244615,
+      "peak_local_cycles": 263824,
+      "peak_active_edge_cycles": 41079,
+      "table_calls": 23,
+      "table_words": 180928,
+      "useful_table_words": 179616,
+      "h2d_words": 206624,
+      "synchronized_host_ns": 320503865062,
+      "raw_sha256": "fbe73b7de6a6c08e7e6d4a27a5bcf811d1910d0ca0cb982a8b1ac3e7e85a2ba9"
+    },
+    {
+      "frame": 4,
+      "partition": "dictionary",
+      "scale": 0.5,
+      "mode": "dictionary",
+      "combined_rectangle": true,
+      "common_clock_cycles": 244615,
+      "peak_local_cycles": 263828,
+      "peak_active_edge_cycles": 41079,
+      "table_calls": 23,
+      "table_words": 180928,
+      "useful_table_words": 179616,
+      "h2d_words": 206624,
+      "synchronized_host_ns": 267599603323,
+      "raw_sha256": "e2e04d961ee01a8060f916520dde6b512cb781197e43fe7524166e4e906e3092"
+    },
+    {
+      "frame": 5,
+      "partition": "balanced",
+      "scale": 0.5,
+      "mode": "dictionary",
+      "combined_rectangle": true,
+      "common_clock_cycles": 258526,
+      "peak_local_cycles": 273780,
+      "peak_active_edge_cycles": 41280,
+      "table_calls": 24,
+      "table_words": 196608,
+      "useful_table_words": 193936,
+      "h2d_words": 222368,
+      "synchronized_host_ns": 218827790088,
+      "raw_sha256": "e3faacbd51b0206fc215bc86685b7ef901f64978a9da2f856b85f47e96d163f2"
+    },
+    {
+      "frame": 6,
+      "partition": "contiguous",
+      "scale": 0.5,
+      "mode": "dictionary",
+      "combined_rectangle": true,
+      "common_clock_cycles": 379646,
+      "peak_local_cycles": 388238,
+      "peak_active_edge_cycles": 44064,
+      "table_calls": 36,
+      "table_words": 289408,
+      "useful_table_words": 173872,
+      "h2d_words": 324896,
+      "synchronized_host_ns": 285168044227,
+      "raw_sha256": "dfeea0b6368f0618f9de12ecdf169522c8400c1d7494c91fda87d411ca36c910"
+    },
+    {
+      "frame": 7,
+      "partition": "contiguous",
+      "scale": 1.0,
+      "mode": "dictionary",
+      "combined_rectangle": true,
+      "common_clock_cycles": 379630,
+      "peak_local_cycles": 388238,
+      "peak_active_edge_cycles": 44064,
+      "table_calls": 36,
+      "table_words": 289408,
+      "useful_table_words": 173872,
+      "h2d_words": 324896,
+      "synchronized_host_ns": 288607237129,
+      "raw_sha256": "cd3118a081fc8b8fd0edc6d1fd07d8565daa3d8c0bd793e71a99decc3bbbe5a0"
+    },
+    {
+      "frame": 8,
+      "partition": "balanced",
+      "scale": 1.0,
+      "mode": "dictionary",
+      "combined_rectangle": true,
+      "common_clock_cycles": 258526,
+      "peak_local_cycles": 273772,
+      "peak_active_edge_cycles": 41280,
+      "table_calls": 24,
+      "table_words": 196608,
+      "useful_table_words": 193936,
+      "h2d_words": 222368,
+      "synchronized_host_ns": 271931046129,
+      "raw_sha256": "f9bdaad0b8e7a677f2b4aae8a68310488b5254763ae0532a17d9bf177454d662"
+    },
+    {
+      "frame": 9,
+      "partition": "dictionary",
+      "scale": 1.0,
+      "mode": "dictionary",
+      "combined_rectangle": true,
+      "common_clock_cycles": 244615,
+      "peak_local_cycles": 263824,
+      "peak_active_edge_cycles": 41079,
+      "table_calls": 23,
+      "table_words": 180928,
+      "useful_table_words": 179616,
+      "h2d_words": 206624,
+      "synchronized_host_ns": 223133167760,
+      "raw_sha256": "b514d26f45669231bf420afd9a548268abcecf03472c2b5578050e1417837a23"
+    }
+  ],
+  "stopped": true,
+  "empty_before": [
+    {
+      "tag": 100,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 11989076
+    },
+    {
+      "tag": 101,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 7548239
+    },
+    {
+      "tag": 102,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 144274
+    },
+    {
+      "tag": 103,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 151393
+    },
+    {
+      "tag": 104,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 150159
+    }
+  ],
+  "empty_after": [
+    {
+      "tag": 200,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 141936
+    },
+    {
+      "tag": 201,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 96053
+    },
+    {
+      "tag": 202,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 3623604
+    },
+    {
+      "tag": 203,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 178455
+    },
+    {
+      "tag": 204,
+      "clock": [
+        5,
+        0,
+        0,
+        215,
+        0,
+        0
+      ],
+      "cycles": 210,
+      "synchronized_host_ns": 140095
+    }
+  ]
+}
