@@ -1,0 +1,26 @@
+{
+  "files": {
+    "case.json": "2dec3abf1bb3eee7531c2e3dfdbe12790a6fb0320559cc423c18d8ff5bc4108b",
+    "local.json": "2b4d7ff99812a4ffa7ecea8bbb5bc6eee2a98c75d3998b866e150de2d53a9e0e",
+    "ordinary-sdk.json": "50d1cd156e1f949b26ab2d82bc55c43732307e513f8336657c181c2559a2022c",
+    "original-sdk.npz": "760bc51c69580a0df13026d875867ddad0be3dd57576d1639adf0ae137673be5",
+    "plan.json": "8e9f1c800d070dd379592683a15547603f65072cbc161954374eca8ac1eb27ad",
+    "swap-sdk.npz": "8a311d84e08272dc2157ac995e6d1e459adea5b28588423f51a7ef18b653f5ba",
+    "swap.npz": "e63e83e4f6860b4a5734672fb395038cbb8e5b41e26ecf817348e18bc9dce93d",
+    "swap_nodes.npy": "37548ccb69a69b192bf36350512949dbaf3ece6dc6e7e7570521201c4b84a10b",
+    "target.json": "6217414ba6dc4734247e53b6888d4762b6f48d807c396b313f2d6f6d3e058da2"
+  },
+  "host_files": {
+    "appliance.py": "f961652c71812e39844e4d143806d7a5f732aa461b55814dda9ad8f325a8328f",
+    "contract.py": "8d22bb8258e7381bedcea6a9169bca522aa016686959832f398e5b0726361bf3",
+    "paired_launch.py": "af8f964b0ef0133506a26951985657783cac8148cef241d3f4c085a2bf1005ce",
+    "paired_worker.py": "d2cf0c17649021612abc13be515e2a8095fd9e1ebea37a217d7a3d8d5a12e157",
+    "multi_upload.py": "1eaaa251fa5655f8c586ab67c733c4bc24f3fa3d82f8b35b829217d343cab394"
+  },
+  "baseline_host": {
+    "portable.py": "4c56b1f31197abd9fcd9af7da578d514888a73523abad868c47abbe9f22d1519",
+    "saved_audit.py": "bb50268379137e253bd1d09e141be3fbb7bd492a9c90feca4f94b12621874f1a",
+    "hub_contract.py": "281e4c09fc4cfbc644291f585da532e86d977d5e331edcd3a9acbe11a4d60110",
+    "grouped_contract.py": "4af89f3d022e3b1999557fa7af4f5012d07c577a8dd56498b55e3d2ed672be39"
+  }
+}
