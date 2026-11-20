@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "stencil-star1-p256-t17x19-scaled-add-20261120-r001",
+  "description": "Measure eight Jacobi epochs for 17 by 19 owned cells per PE on a 16 by 16 mesh. Validate both complete padded buffers, every neighbor transfer and three independently uploaded fields on the physical CS-3.",
+  "steps": [
+    {
+      "name": "compile-csl-p16-t17x19-scaled-add",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/stencil-star1/cases/csl-p16-t17x19-scaled-add",
+        "--case-sha256",
+        "f34ffede12cc9c1c85a987c0207962496755c25c3c2bee609884fae8f8c3be58",
+        "--out",
+        "{output}/compile-csl-p16-t17x19-scaled-add"
+      ]
+    },
+    {
+      "name": "run-csl-p16-t17x19-scaled-add",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/csl-p16-t17x19-scaled-add",
+        "--case-sha256",
+        "f34ffede12cc9c1c85a987c0207962496755c25c3c2bee609884fae8f8c3be58",
+        "--out",
+        "{output}/run-csl-p16-t17x19-scaled-add",
+        "--build",
+        "{output}/compile-csl-p16-t17x19-scaled-add/build.json"
+      ]
+    }
+  ]
+}
