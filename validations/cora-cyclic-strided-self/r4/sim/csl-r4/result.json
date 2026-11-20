@@ -1,0 +1,1830 @@
+{
+  "bank_sha256": "4ea7b49647eea8fb952a6d440e6d6c493f904bd9742c77b1135a5552d4b43761",
+  "elf_sha256": {
+    "out_0_0.elf": "e9e462034727ea5fecf8806bf2968510e3eac3cd9b1ab457596db297baa55f06",
+    "out_10_0.elf": "94529b6d7e4b2581d78ae64729201b13f0da6c7cbbfd8fcf5122dea02f5dd8d6",
+    "out_11_0.elf": "3d864be8cd8ddff545b99d8088d6668e7b30f6eafee0d7f82804a7b1c186cad2",
+    "out_12_0.elf": "fe3ae39c86a11b619d77b7cbf42ea3a398ee94b73277cf0a4f4c6139fde3638c",
+    "out_13_0.elf": "d3bb7d5628933953ebb3517b883c734241e32ad2bc2fe7b5610e2c00df3c82a1",
+    "out_14_0.elf": "f3101ba7926d6e9832c0c9071d7bc60b5b26fd1a00b0c68192db65e098db4b29",
+    "out_15_0.elf": "217fd78de287fade652da6835c0d226e14f124b6b705bc8c7afc6f8b003ddd4c",
+    "out_1_0.elf": "98b45e75791dc8ef6cde6c5bf0cf1168d7f987c87d040c36a82cb58d5b00708c",
+    "out_2_0.elf": "0250f7a1676d9a5a848fed95a6b7041a4189b7cea7def9a312995bc29854629c",
+    "out_3_0.elf": "625a0a3edf13c28f70431652fa3574e7401122dd3825cf623e8d522a6a9809a6",
+    "out_4_0.elf": "e8908b10530799e9a9bce669c8eb442d5986fb07390fc322333802172df802c1",
+    "out_5_0.elf": "59912ab7d4f39c7d4b09d2fe3c3a9aa74ed0fa548bef6da36e6c6d6cfb9d0e95",
+    "out_6_0.elf": "4ee3463a7c1e7b72c60166ab3cf245da9587ada5c61f1630eb3be29c7aff1850",
+    "out_7_0.elf": "5bb1678dcccf037602a4643610cf088142c558b68fe92756ee29deeae9136038",
+    "out_8_0.elf": "02a4f391d81e779d4f76e29f987408c5d53ee222e308393bdef2dc31ca14c075",
+    "out_9_0.elf": "c2d24e21b3dd08a334b6d666147aacfa1c6af4fe928c2975e250cc34cdba5de9"
+  },
+  "host": {
+    "contract.py": "02aded969277d75429a7215f76c9b7c1af8dd085259e6793022d3ae2fa2fd114",
+    "worker.py": "9528a34397318f422458f3091e7691f3c15ad7536330489384cb20f3b82a2d8c"
+  },
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "language": "csl",
+  "platform": {
+    "simulation": true,
+    "system": false
+  },
+  "raw_sha256": "ea4d6a139f49218dbe88d46e9e3727fd8c2b25c92f34086e38d22bc3e5fd5452",
+  "release_sha256": "d4e9b62b9e6f43bce32d5176c211cc4511569811c60785633a27a594ebc7703d",
+  "role": "simulator",
+  "shards": 4,
+  "stage": "PASS",
+  "stopped": true,
+  "summary": {
+    "compute_sum": [
+      99979,
+      99979,
+      99979
+    ],
+    "edges": 13264,
+    "fp64_error": [
+      {
+        "max_abs": 6.297057293380703e-07,
+        "relative_l2": 3.737238579118059e-08
+      },
+      {
+        "max_abs": 6.297057293380703e-07,
+        "relative_l2": 3.737238579118059e-08
+      },
+      {
+        "max_abs": 6.297057293380703e-07,
+        "relative_l2": 3.737238579118059e-08
+      }
+    ],
+    "max_owner_cumulative_sum": [
+      111977,
+      211880,
+      311783
+    ],
+    "nodes": 2708,
+    "original_class_mismatches": [
+      0,
+      0,
+      0
+    ],
+    "owner_sha256": [
+      "cec283211d3d7f60d2f823eea7960ddcdfdfeba8fd616335b3af0ae68768f03b",
+      "7bf07749109df36f818bc454b749ba22b57440be021700787e3b91a029bcb645",
+      "cec283211d3d7f60d2f823eea7960ddcdfdfeba8fd616335b3af0ae68768f03b"
+    ],
+    "pe": 16,
+    "phase_max_cumulative_sum": [
+      112053,
+      212032,
+      312011
+    ],
+    "setup_sum": 12074,
+    "shards": 4,
+    "validation": [
+      402,
+      500
+    ],
+    "windows": [
+      {
+        "compute_max": [
+          12796,
+          12796,
+          12796
+        ],
+        "edges": 1559,
+        "end": 256,
+        "max_owner_cumulative": [
+          13958,
+          26747,
+          39536
+        ],
+        "setup_max": 1169,
+        "start": 0,
+        "sum_phase_max": [
+          13965,
+          26761,
+          39557
+        ]
+      },
+      {
+        "compute_max": [
+          11672,
+          11672,
+          11672
+        ],
+        "edges": 1455,
+        "end": 512,
+        "max_owner_cumulative": [
+          12749,
+          24419,
+          36089
+        ],
+        "setup_max": 1079,
+        "start": 256,
+        "sum_phase_max": [
+          12751,
+          24423,
+          36095
+        ]
+      },
+      {
+        "compute_max": [
+          13758,
+          13758,
+          13758
+        ],
+        "edges": 1721,
+        "end": 768,
+        "max_owner_cumulative": [
+          14762,
+          28513,
+          42264
+        ],
+        "setup_max": 1011,
+        "start": 512,
+        "sum_phase_max": [
+          14769,
+          28527,
+          42285
+        ]
+      },
+      {
+        "compute_max": [
+          8276,
+          8276,
+          8276
+        ],
+        "edges": 1200,
+        "end": 1024,
+        "max_owner_cumulative": [
+          9364,
+          17629,
+          25894
+        ],
+        "setup_max": 1099,
+        "start": 768,
+        "sum_phase_max": [
+          9375,
+          17651,
+          25927
+        ]
+      },
+      {
+        "compute_max": [
+          9397,
+          9397,
+          9397
+        ],
+        "edges": 1284,
+        "end": 1280,
+        "max_owner_cumulative": [
+          10502,
+          19898,
+          29294
+        ],
+        "setup_max": 1106,
+        "start": 1024,
+        "sum_phase_max": [
+          10503,
+          19900,
+          29297
+        ]
+      },
+      {
+        "compute_max": [
+          9415,
+          9415,
+          9415
+        ],
+        "edges": 1273,
+        "end": 1536,
+        "max_owner_cumulative": [
+          10509,
+          19920,
+          29331
+        ],
+        "setup_max": 1098,
+        "start": 1280,
+        "sum_phase_max": [
+          10513,
+          19928,
+          29343
+        ]
+      },
+      {
+        "compute_max": [
+          8620,
+          8620,
+          8620
+        ],
+        "edges": 1146,
+        "end": 1792,
+        "max_owner_cumulative": [
+          9735,
+          18348,
+          26961
+        ],
+        "setup_max": 1122,
+        "start": 1536,
+        "sum_phase_max": [
+          9742,
+          18362,
+          26982
+        ]
+      },
+      {
+        "compute_max": [
+          7068,
+          7068,
+          7068
+        ],
+        "edges": 992,
+        "end": 2048,
+        "max_owner_cumulative": [
+          8229,
+          15287,
+          22345
+        ],
+        "setup_max": 1171,
+        "start": 1792,
+        "sum_phase_max": [
+          8239,
+          15307,
+          22375
+        ]
+      },
+      {
+        "compute_max": [
+          8066,
+          8066,
+          8066
+        ],
+        "edges": 1016,
+        "end": 2304,
+        "max_owner_cumulative": [
+          9365,
+          17421,
+          25477
+        ],
+        "setup_max": 1309,
+        "start": 2048,
+        "sum_phase_max": [
+          9375,
+          17441,
+          25507
+        ]
+      },
+      {
+        "compute_max": [
+          7608,
+          7608,
+          7608
+        ],
+        "edges": 1058,
+        "end": 2560,
+        "max_owner_cumulative": [
+          8797,
+          16395,
+          23993
+        ],
+        "setup_max": 1199,
+        "start": 2304,
+        "sum_phase_max": [
+          8807,
+          16415,
+          24023
+        ]
+      },
+      {
+        "compute_max": [
+          3303,
+          3303,
+          3303
+        ],
+        "edges": 560,
+        "end": 2708,
+        "max_owner_cumulative": [
+          4007,
+          7303,
+          10599
+        ],
+        "setup_max": 711,
+        "start": 2560,
+        "sum_phase_max": [
+          4014,
+          7317,
+          10620
+        ]
+      }
+    ],
+    "words": 56868
+  },
+  "windows": [
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            369,
+            18,
+            56
+          ],
+          [
+            369,
+            18,
+            56
+          ],
+          [
+            369,
+            18,
+            56
+          ],
+          [
+            369,
+            18,
+            56
+          ]
+        ],
+        [
+          [
+            316,
+            34,
+            64
+          ],
+          [
+            316,
+            34,
+            64
+          ],
+          [
+            316,
+            34,
+            64
+          ],
+          [
+            316,
+            34,
+            64
+          ]
+        ],
+        [
+          [
+            365,
+            29,
+            62
+          ],
+          [
+            365,
+            29,
+            62
+          ],
+          [
+            365,
+            29,
+            62
+          ],
+          [
+            365,
+            29,
+            62
+          ]
+        ],
+        [
+          [
+            405,
+            23,
+            62
+          ],
+          [
+            405,
+            23,
+            62
+          ],
+          [
+            405,
+            23,
+            62
+          ],
+          [
+            405,
+            23,
+            62
+          ]
+        ]
+      ],
+      "device_plan_sha256": "ed4347c075a2619f46904cabc021745e86b3f443d638619cc4eef7633fa9cebd",
+      "expected_plan": [
+        [
+          369,
+          18,
+          56
+        ],
+        [
+          316,
+          34,
+          64
+        ],
+        [
+          365,
+          29,
+          62
+        ],
+        [
+          405,
+          23,
+          62
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 34205422476,
+          "reply_sha256": "19ded224b2c1cceb61b7b4440c81f45c87c55e8e391d29bdb97cca3d30908340",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 34684426293,
+          "reply_sha256": "165629e6fb3de1c0941ae9791eeca0b3b5385d5008708d1f6feb9de414a129ab",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 44166848172,
+          "reply_sha256": "7aa2aa95794fa1007ed808007bb23e806e854ad06d8da03649c4b323a831fec0",
+          "trial": 3
+        }
+      ],
+      "index": 0,
+      "packed_graph_sha256": "e0093dcf085f021ac74edab84b5f0d5696e3124fd618db46b405c9c76ecfddcf"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            324,
+            30,
+            62
+          ],
+          [
+            324,
+            30,
+            62
+          ],
+          [
+            324,
+            30,
+            62
+          ],
+          [
+            324,
+            30,
+            62
+          ]
+        ],
+        [
+          [
+            302,
+            31,
+            63
+          ],
+          [
+            302,
+            31,
+            63
+          ],
+          [
+            302,
+            31,
+            63
+          ],
+          [
+            302,
+            31,
+            63
+          ]
+        ],
+        [
+          [
+            375,
+            21,
+            58
+          ],
+          [
+            375,
+            21,
+            58
+          ],
+          [
+            375,
+            21,
+            58
+          ],
+          [
+            375,
+            21,
+            58
+          ]
+        ],
+        [
+          [
+            351,
+            21,
+            59
+          ],
+          [
+            351,
+            21,
+            59
+          ],
+          [
+            351,
+            21,
+            59
+          ],
+          [
+            351,
+            21,
+            59
+          ]
+        ]
+      ],
+      "device_plan_sha256": "d979882edc75073a3a23b0498cb2cb53dc089d973baf726ed6c54931441c2609",
+      "expected_plan": [
+        [
+          324,
+          30,
+          62
+        ],
+        [
+          302,
+          31,
+          63
+        ],
+        [
+          375,
+          21,
+          58
+        ],
+        [
+          351,
+          21,
+          59
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 38197151697,
+          "reply_sha256": "a778e5af04b5c0992fcc5c8cbb5db68d7134701fe4d33deb8a93b28d0d128cea",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 36537866386,
+          "reply_sha256": "81d7bfe94dd88d2482331994e4a71495dc691fc857fab12b9c50a67fd31b4679",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 27977945208,
+          "reply_sha256": "a8d5544495402a1c60cc8f86b8e027cbff0b6821c1b2751ec67b64cb13b832ec",
+          "trial": 3
+        }
+      ],
+      "index": 1,
+      "packed_graph_sha256": "05196efa72bf3df1079823b9906a42e7c5bca40f5f516bbfec550bc20c7508a8"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            415,
+            19,
+            61
+          ],
+          [
+            415,
+            19,
+            61
+          ],
+          [
+            415,
+            19,
+            61
+          ],
+          [
+            415,
+            19,
+            61
+          ]
+        ],
+        [
+          [
+            379,
+            28,
+            57
+          ],
+          [
+            379,
+            28,
+            57
+          ],
+          [
+            379,
+            28,
+            57
+          ],
+          [
+            379,
+            28,
+            57
+          ]
+        ],
+        [
+          [
+            404,
+            27,
+            61
+          ],
+          [
+            404,
+            27,
+            61
+          ],
+          [
+            404,
+            27,
+            61
+          ],
+          [
+            404,
+            27,
+            61
+          ]
+        ],
+        [
+          [
+            432,
+            17,
+            61
+          ],
+          [
+            432,
+            17,
+            61
+          ],
+          [
+            432,
+            17,
+            61
+          ],
+          [
+            432,
+            17,
+            61
+          ]
+        ]
+      ],
+      "device_plan_sha256": "5c94754003e7bd8a45a57c68420713483dfed3ae0cf1def80929203ef98d6c7a",
+      "expected_plan": [
+        [
+          415,
+          19,
+          61
+        ],
+        [
+          379,
+          28,
+          57
+        ],
+        [
+          404,
+          27,
+          61
+        ],
+        [
+          432,
+          17,
+          61
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 42308381128,
+          "reply_sha256": "59bd4b9983a3803a8024cdff182b81b983a8858c84b219ffb7204de2c55c5491",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 43260266716,
+          "reply_sha256": "ae1205a724de4c24273f90dc308800737aa39c067a8eae1e3b1e70c9753c6930",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 39604976069,
+          "reply_sha256": "ec168949ffec8386c3437a68901c6552c942f94946ffdd97546caefe1ca53c18",
+          "trial": 3
+        }
+      ],
+      "index": 2,
+      "packed_graph_sha256": "9a661b8d0aa863a8d054057e199eaeac63fae6046be48b08f1c01bed36060971"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            280,
+            29,
+            59
+          ],
+          [
+            280,
+            29,
+            59
+          ],
+          [
+            280,
+            29,
+            59
+          ],
+          [
+            280,
+            29,
+            59
+          ]
+        ],
+        [
+          [
+            258,
+            30,
+            64
+          ],
+          [
+            258,
+            30,
+            64
+          ],
+          [
+            258,
+            30,
+            64
+          ],
+          [
+            258,
+            30,
+            64
+          ]
+        ],
+        [
+          [
+            267,
+            32,
+            61
+          ],
+          [
+            267,
+            32,
+            61
+          ],
+          [
+            267,
+            32,
+            61
+          ],
+          [
+            267,
+            32,
+            61
+          ]
+        ],
+        [
+          [
+            279,
+            25,
+            58
+          ],
+          [
+            279,
+            25,
+            58
+          ],
+          [
+            279,
+            25,
+            58
+          ],
+          [
+            279,
+            25,
+            58
+          ]
+        ]
+      ],
+      "device_plan_sha256": "f36740bf245c22e94fede1bdf52c3776e2ad669419a13cd47ef2d376a431cea3",
+      "expected_plan": [
+        [
+          280,
+          29,
+          59
+        ],
+        [
+          258,
+          30,
+          64
+        ],
+        [
+          267,
+          32,
+          61
+        ],
+        [
+          279,
+          25,
+          58
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 44991972447,
+          "reply_sha256": "2d4097ac18a302e800a2927c838cc348c9b991b204bf93c0753550b2e2bb05cd",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 39480334622,
+          "reply_sha256": "075d2b1efd0b53acab19740d0d373ae5bd9484246cfd2154cbf78a1f66f4b113",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 36422812057,
+          "reply_sha256": "f31a5b996a9959e03e7cb7d5b3818c0ba6070efa9a8bde4707cc80c595dae26a",
+          "trial": 3
+        }
+      ],
+      "index": 3,
+      "packed_graph_sha256": "f253c3b1e89dace812ee462b7a02bb69e38eeeb308953e7661e56effb2719445"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            295,
+            22,
+            61
+          ],
+          [
+            295,
+            22,
+            61
+          ],
+          [
+            295,
+            22,
+            61
+          ],
+          [
+            295,
+            22,
+            61
+          ]
+        ],
+        [
+          [
+            277,
+            24,
+            55
+          ],
+          [
+            277,
+            24,
+            55
+          ],
+          [
+            277,
+            24,
+            55
+          ],
+          [
+            277,
+            24,
+            55
+          ]
+        ],
+        [
+          [
+            310,
+            29,
+            63
+          ],
+          [
+            310,
+            29,
+            63
+          ],
+          [
+            310,
+            29,
+            63
+          ],
+          [
+            310,
+            29,
+            63
+          ]
+        ],
+        [
+          [
+            295,
+            32,
+            64
+          ],
+          [
+            295,
+            32,
+            64
+          ],
+          [
+            295,
+            32,
+            64
+          ],
+          [
+            295,
+            32,
+            64
+          ]
+        ]
+      ],
+      "device_plan_sha256": "742491df7bb72f8df998b4704b0ccbbb02bf0d99eb38dc41262f2bce127bb824",
+      "expected_plan": [
+        [
+          295,
+          22,
+          61
+        ],
+        [
+          277,
+          24,
+          55
+        ],
+        [
+          310,
+          29,
+          63
+        ],
+        [
+          295,
+          32,
+          64
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 36791758753,
+          "reply_sha256": "7bb9cdc165d6b9f025a18988454af353afc73b8cd081aa72407f5de230674912",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 49356692770,
+          "reply_sha256": "941bf79794307f12c0563623da07ca24dad31897a93baaafe2d0bf1a31368171",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 43644002073,
+          "reply_sha256": "276ef222a23d28d6845c49ebda414b6f17f756ef4ed1312f24abe88354f20a93",
+          "trial": 3
+        }
+      ],
+      "index": 4,
+      "packed_graph_sha256": "d023e16ba157a34475126638ab0c1d8e66ff8127473dde771a5042fcf085dcaa"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            299,
+            29,
+            63
+          ],
+          [
+            299,
+            29,
+            63
+          ],
+          [
+            299,
+            29,
+            63
+          ],
+          [
+            299,
+            29,
+            63
+          ]
+        ],
+        [
+          [
+            291,
+            22,
+            62
+          ],
+          [
+            291,
+            22,
+            62
+          ],
+          [
+            291,
+            22,
+            62
+          ],
+          [
+            291,
+            22,
+            62
+          ]
+        ],
+        [
+          [
+            264,
+            32,
+            61
+          ],
+          [
+            264,
+            32,
+            61
+          ],
+          [
+            264,
+            32,
+            61
+          ],
+          [
+            264,
+            32,
+            61
+          ]
+        ],
+        [
+          [
+            311,
+            25,
+            62
+          ],
+          [
+            311,
+            25,
+            62
+          ],
+          [
+            311,
+            25,
+            62
+          ],
+          [
+            311,
+            25,
+            62
+          ]
+        ]
+      ],
+      "device_plan_sha256": "00af0cac68db3137a654d92806f510cb47fddfe9ef51a6ab56fba363bb1b5b9d",
+      "expected_plan": [
+        [
+          299,
+          29,
+          63
+        ],
+        [
+          291,
+          22,
+          62
+        ],
+        [
+          264,
+          32,
+          61
+        ],
+        [
+          311,
+          25,
+          62
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 33074970720,
+          "reply_sha256": "28780d662ab44a40d2657242d34f53722adbb78247c7c8c8957b0ad0608b35e2",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 38351345263,
+          "reply_sha256": "3cbb7f2a12da59db8241fd67a89d1a010cdd74a4dbf166ce59cad93b4f837cec",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 33829449363,
+          "reply_sha256": "6f61392a94224defc5937fbee74f02c54b67d05138fda97febdbda0f99fae6ef",
+          "trial": 3
+        }
+      ],
+      "index": 5,
+      "packed_graph_sha256": "e391ab548f3759ec7ec28c2557e0432f47f2e3cc93b7dd8776affef88ec6c1f6"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            248,
+            31,
+            63
+          ],
+          [
+            248,
+            31,
+            63
+          ],
+          [
+            248,
+            31,
+            63
+          ],
+          [
+            248,
+            31,
+            63
+          ]
+        ],
+        [
+          [
+            241,
+            33,
+            62
+          ],
+          [
+            241,
+            33,
+            62
+          ],
+          [
+            241,
+            33,
+            62
+          ],
+          [
+            241,
+            33,
+            62
+          ]
+        ],
+        [
+          [
+            250,
+            31,
+            63
+          ],
+          [
+            250,
+            31,
+            63
+          ],
+          [
+            250,
+            31,
+            63
+          ],
+          [
+            250,
+            31,
+            63
+          ]
+        ],
+        [
+          [
+            290,
+            22,
+            59
+          ],
+          [
+            290,
+            22,
+            59
+          ],
+          [
+            290,
+            22,
+            59
+          ],
+          [
+            290,
+            22,
+            59
+          ]
+        ]
+      ],
+      "device_plan_sha256": "1c8f856f119f32e9ba7d8dc270a571e2cd2da3c9d4582624a640c108db87b53f",
+      "expected_plan": [
+        [
+          248,
+          31,
+          63
+        ],
+        [
+          241,
+          33,
+          62
+        ],
+        [
+          250,
+          31,
+          63
+        ],
+        [
+          290,
+          22,
+          59
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 43984623509,
+          "reply_sha256": "62e2eb8e7a3b73b3ee5767f6e97ae324ccee176cc721ba30c5b66bbb0607167f",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 41480505599,
+          "reply_sha256": "bcf67428e4425c9d743eec9811c7085f849725eab9b069c8fc0da055a03d0d3f",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 35228756876,
+          "reply_sha256": "f9b8e9b2c1d987d78b56b1f0f6c4fc1bde66810a22c2c937a542192ba546040e",
+          "trial": 3
+        }
+      ],
+      "index": 6,
+      "packed_graph_sha256": "fbed34882b3c3f90b0992c4ddc9c72ff5453c213f0abdd689729cc1642bcb925"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            205,
+            35,
+            58
+          ],
+          [
+            205,
+            35,
+            58
+          ],
+          [
+            205,
+            35,
+            58
+          ],
+          [
+            205,
+            35,
+            58
+          ]
+        ],
+        [
+          [
+            206,
+            27,
+            58
+          ],
+          [
+            206,
+            27,
+            58
+          ],
+          [
+            206,
+            27,
+            58
+          ],
+          [
+            206,
+            27,
+            58
+          ]
+        ],
+        [
+          [
+            226,
+            30,
+            63
+          ],
+          [
+            226,
+            30,
+            63
+          ],
+          [
+            226,
+            30,
+            63
+          ],
+          [
+            226,
+            30,
+            63
+          ]
+        ],
+        [
+          [
+            247,
+            16,
+            57
+          ],
+          [
+            247,
+            16,
+            57
+          ],
+          [
+            247,
+            16,
+            57
+          ],
+          [
+            247,
+            16,
+            57
+          ]
+        ]
+      ],
+      "device_plan_sha256": "6c6e01c1398c325dbcb2b0efe60132a51017dc665a96e7d06e0391ffcbf4c150",
+      "expected_plan": [
+        [
+          205,
+          35,
+          58
+        ],
+        [
+          206,
+          27,
+          58
+        ],
+        [
+          226,
+          30,
+          63
+        ],
+        [
+          247,
+          16,
+          57
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 38480613375,
+          "reply_sha256": "b29dc4f0b8acc38f0ad2f9d3de06349f2468b7b2d7c3ec8155dbf3b61d9a07c2",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 37198831378,
+          "reply_sha256": "5a13db3e69ed3234f1e853e81b82c5d8d43d70c5247e1fcacf3b4eea230380db",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 37351928266,
+          "reply_sha256": "4a542dc2c8880772fc49c6740eda3f3de5b535eee277a98773585bd56ef15049",
+          "trial": 3
+        }
+      ],
+      "index": 7,
+      "packed_graph_sha256": "571b2bd00926cc35f27f75d6003e5609dfaa1762e0652fbbc05ef5ef06ec05a7"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            177,
+            40,
+            61
+          ],
+          [
+            177,
+            40,
+            61
+          ],
+          [
+            177,
+            40,
+            61
+          ],
+          [
+            177,
+            40,
+            61
+          ]
+        ],
+        [
+          [
+            212,
+            37,
+            63
+          ],
+          [
+            212,
+            37,
+            63
+          ],
+          [
+            212,
+            37,
+            63
+          ],
+          [
+            212,
+            37,
+            63
+          ]
+        ],
+        [
+          [
+            220,
+            33,
+            63
+          ],
+          [
+            220,
+            33,
+            63
+          ],
+          [
+            220,
+            33,
+            63
+          ],
+          [
+            220,
+            33,
+            63
+          ]
+        ],
+        [
+          [
+            275,
+            22,
+            59
+          ],
+          [
+            275,
+            22,
+            59
+          ],
+          [
+            275,
+            22,
+            59
+          ],
+          [
+            275,
+            22,
+            59
+          ]
+        ]
+      ],
+      "device_plan_sha256": "925cd2684d2f1925fa4fda88b8a89c258d8ed8f000cf5474a3a9d550bc68c4f4",
+      "expected_plan": [
+        [
+          177,
+          40,
+          61
+        ],
+        [
+          212,
+          37,
+          63
+        ],
+        [
+          220,
+          33,
+          63
+        ],
+        [
+          275,
+          22,
+          59
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 32095377126,
+          "reply_sha256": "d848b1549ba980fe50a8d85ec0572060ebe48b9d2a8402913bb7d43b6bc845ba",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 42644531844,
+          "reply_sha256": "1e17dda318d52f06c048addc2be88cdbed4bf2549dc290ce15c8569c1dd62f20",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 36647001031,
+          "reply_sha256": "f15386fa0c26579c5d97277e9f046c55876933dfe805180fa95766a35672fc69",
+          "trial": 3
+        }
+      ],
+      "index": 8,
+      "packed_graph_sha256": "0e67f0774bef6fddc8d1fd4928cf174b567716b1a1c6656e8beac6628c61ba58"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            202,
+            36,
+            60
+          ],
+          [
+            202,
+            36,
+            60
+          ],
+          [
+            202,
+            36,
+            60
+          ],
+          [
+            202,
+            36,
+            60
+          ]
+        ],
+        [
+          [
+            219,
+            28,
+            62
+          ],
+          [
+            219,
+            28,
+            62
+          ],
+          [
+            219,
+            28,
+            62
+          ],
+          [
+            219,
+            28,
+            62
+          ]
+        ],
+        [
+          [
+            259,
+            25,
+            60
+          ],
+          [
+            259,
+            25,
+            60
+          ],
+          [
+            259,
+            25,
+            60
+          ],
+          [
+            259,
+            25,
+            60
+          ]
+        ],
+        [
+          [
+            261,
+            28,
+            62
+          ],
+          [
+            261,
+            28,
+            62
+          ],
+          [
+            261,
+            28,
+            62
+          ],
+          [
+            261,
+            28,
+            62
+          ]
+        ]
+      ],
+      "device_plan_sha256": "527cc6eeea041950e0e223eca8601d9739db054ced9fc3c89927c60d071ba372",
+      "expected_plan": [
+        [
+          202,
+          36,
+          60
+        ],
+        [
+          219,
+          28,
+          62
+        ],
+        [
+          259,
+          25,
+          60
+        ],
+        [
+          261,
+          28,
+          62
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 34449537984,
+          "reply_sha256": "e11eed885081e4329eaad56c0412f82fbf43d23ffc056e0a8ef60736760ec69e",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 24927023527,
+          "reply_sha256": "e2403d41e4695f2ee53462774673146b2bedb117af0ab20f7932197a5774da65",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 35106477663,
+          "reply_sha256": "d44e7beac498cabd6ac965db25da1080ecf7febb87536ec7a459b14b137821ff",
+          "trial": 3
+        }
+      ],
+      "index": 9,
+      "packed_graph_sha256": "02240ae58d72b8f604ee3cb67f4585f8af2490bc6486e3ce064a8b6b4c6e8ce5"
+    },
+    {
+      "device_plan_all_pe": [
+        [
+          [
+            132,
+            16,
+            37
+          ],
+          [
+            132,
+            16,
+            37
+          ],
+          [
+            132,
+            16,
+            37
+          ],
+          [
+            132,
+            16,
+            37
+          ]
+        ],
+        [
+          [
+            106,
+            20,
+            35
+          ],
+          [
+            106,
+            20,
+            35
+          ],
+          [
+            106,
+            20,
+            35
+          ],
+          [
+            106,
+            20,
+            35
+          ]
+        ],
+        [
+          [
+            114,
+            18,
+            33
+          ],
+          [
+            114,
+            18,
+            33
+          ],
+          [
+            114,
+            18,
+            33
+          ],
+          [
+            114,
+            18,
+            33
+          ]
+        ],
+        [
+          [
+            138,
+            16,
+            34
+          ],
+          [
+            138,
+            16,
+            34
+          ],
+          [
+            138,
+            16,
+            34
+          ],
+          [
+            138,
+            16,
+            34
+          ]
+        ]
+      ],
+      "device_plan_sha256": "eeb07c84507e4b8589ef59c71473d1eca3eb2cc3c3f040000cb09541509246f6",
+      "expected_plan": [
+        [
+          132,
+          16,
+          37
+        ],
+        [
+          106,
+          20,
+          35
+        ],
+        [
+          114,
+          18,
+          33
+        ],
+        [
+          138,
+          16,
+          34
+        ]
+      ],
+      "frames": [
+        {
+          "control_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+          "host_interval_ns": 25590110910,
+          "reply_sha256": "84547bca6eb34feba35a7ecdc40b2d31948ae28b21ebeedb601678bdbcf9b313",
+          "trial": 1
+        },
+        {
+          "control_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece",
+          "host_interval_ns": 25335037002,
+          "reply_sha256": "97d081c0ed4178b9bf93b44493d71795078e03bda83d299d84e22485e1155d63",
+          "trial": 2
+        },
+        {
+          "control_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178",
+          "host_interval_ns": 30996768116,
+          "reply_sha256": "c2302e8c113c9b0ea735573380a7a9244a304d7221fb9500fa09dbff008abe75",
+          "trial": 3
+        }
+      ],
+      "index": 10,
+      "packed_graph_sha256": "8451eea1d9e45b5025881d6c8a890cabc69c3efe804fba157f36b948760b88d0"
+    }
+  ]
+}

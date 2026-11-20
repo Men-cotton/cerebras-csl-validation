@@ -1,0 +1,72 @@
+{
+  "csl": {
+    "layout.csl": "abfe63866b145341f58e2d287da1f81ca3094b118df2e0c0aa29f99c8a642394",
+    "pe.csl": "491a306b066c8787ca6561e2c57a9063c403c0a214d9c66b411ed612a6cf4868"
+  },
+  "csl_simulator": {
+    "4": {
+      "elf": {
+        "out_0_0.elf": "e9e462034727ea5fecf8806bf2968510e3eac3cd9b1ab457596db297baa55f06",
+        "out_10_0.elf": "94529b6d7e4b2581d78ae64729201b13f0da6c7cbbfd8fcf5122dea02f5dd8d6",
+        "out_11_0.elf": "3d864be8cd8ddff545b99d8088d6668e7b30f6eafee0d7f82804a7b1c186cad2",
+        "out_12_0.elf": "fe3ae39c86a11b619d77b7cbf42ea3a398ee94b73277cf0a4f4c6139fde3638c",
+        "out_13_0.elf": "d3bb7d5628933953ebb3517b883c734241e32ad2bc2fe7b5610e2c00df3c82a1",
+        "out_14_0.elf": "f3101ba7926d6e9832c0c9071d7bc60b5b26fd1a00b0c68192db65e098db4b29",
+        "out_15_0.elf": "217fd78de287fade652da6835c0d226e14f124b6b705bc8c7afc6f8b003ddd4c",
+        "out_1_0.elf": "98b45e75791dc8ef6cde6c5bf0cf1168d7f987c87d040c36a82cb58d5b00708c",
+        "out_2_0.elf": "0250f7a1676d9a5a848fed95a6b7041a4189b7cea7def9a312995bc29854629c",
+        "out_3_0.elf": "625a0a3edf13c28f70431652fa3574e7401122dd3825cf623e8d522a6a9809a6",
+        "out_4_0.elf": "e8908b10530799e9a9bce669c8eb442d5986fb07390fc322333802172df802c1",
+        "out_5_0.elf": "59912ab7d4f39c7d4b09d2fe3c3a9aa74ed0fa548bef6da36e6c6d6cfb9d0e95",
+        "out_6_0.elf": "4ee3463a7c1e7b72c60166ab3cf245da9587ada5c61f1630eb3be29c7aff1850",
+        "out_7_0.elf": "5bb1678dcccf037602a4643610cf088142c558b68fe92756ee29deeae9136038",
+        "out_8_0.elf": "02a4f391d81e779d4f76e29f987408c5d53ee222e308393bdef2dc31ca14c075",
+        "out_9_0.elf": "c2d24e21b3dd08a334b6d666147aacfa1c6af4fe928c2975e250cc34cdba5de9"
+      },
+      "flags": "--arch=wse3 --fabric-dims=11,6 --fabric-offsets=4,1 --params=R:4,F:1354,E:957 --memcpy --channels=1 --width-west-buf=0 --width-east-buf=0 --max-parallelism=1 -o out",
+      "source": {
+        "layout.csl": "abfe63866b145341f58e2d287da1f81ca3094b118df2e0c0aa29f99c8a642394",
+        "pe.csl": "491a306b066c8787ca6561e2c57a9063c403c0a214d9c66b411ed612a6cf4868"
+      }
+    }
+  },
+  "direct": {
+    "4": {
+      "build_sha256": "c785ecc530515a63051cc0bfd1569f466f0eab037619435a7a3dfc8496b2458e",
+      "machine_image_sha256": "168a297354a5db511e1677cd3be2f55a42b4faa5957af866e8db1ce4497b10ff",
+      "roles": {
+        "hardware": {
+          "elf_sha256": "16313751e6cf318fb9c4f181d8ddb504175b2e884adc137d90bfa32b8d9e80f0",
+          "fabric": [
+            762,
+            1172
+          ]
+        },
+        "simulator": {
+          "elf_sha256": "7fc1b3f10cdcd98f4c586b760536280f9f09588549b529116ff1015278bdab5c",
+          "fabric": [
+            4,
+            4
+          ]
+        }
+      },
+      "source": {
+        "aggregation.w": "8f44896b8c1b1735b058aa1480c06fa38593d1372dc6ff2e0f9ee1723d82ffea",
+        "program.paint": "3a813d70f6492b90746e7808d20445bac8ceb36f5fe498b4393a1f026f0b5dd4"
+      }
+    }
+  },
+  "host": {
+    "contract.py": "02aded969277d75429a7215f76c9b7c1af8dd085259e6793022d3ae2fa2fd114",
+    "worker.py": "9528a34397318f422458f3091e7691f3c15ad7536330489384cb20f3b82a2d8c"
+  },
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "mode": "self-simd",
+  "parent_cyclic_release_sha256": "a2d366c6757141c952da48f0301b99cccff4063cdc0c8b8348e7dfd8048d53a4",
+  "port_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "prefix": 144,
+  "provenance_sha256": "529cb18d279a1f9728502a6bbf1acdf99cf7c3aa1e15b9a11f04816dfdef580b",
+  "runtime_difference": "only high 16 bits of per-shard count; all ordered endpoints and weights are unchanged",
+  "shards": 4,
+  "source_placement": "shard = original source ID % R; local row = original source ID // R"
+}

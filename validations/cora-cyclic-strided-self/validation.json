@@ -1,0 +1,12 @@
+{
+  "description": "Complete trained Cora aggregation with cyclic source placement and matched strided self-edge SIMD in CSL and Direct Link Tungsten.",
+  "entrypoints": [
+    "r4/appliance.py",
+    "r16/appliance.py"
+  ],
+  "id": "cora-cyclic-strided-self",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}

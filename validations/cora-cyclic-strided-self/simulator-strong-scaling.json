@@ -1,0 +1,45 @@
+{
+  "mode": "self-simd",
+  "same_active_problem": true,
+  "same_source": true,
+  "strong_scaling": {
+    "csl": {
+      "compute_sum": [
+        3.7241674737391044,
+        3.7241674737391044,
+        3.7241674737391044
+      ],
+      "first_measured_strict_inclusive_gain_through_three": 1,
+      "max_owner_cumulative_sum": [
+        3.4306678921568627,
+        3.569888125084243,
+        3.621846103805585
+      ],
+      "phase_max_cumulative_sum": [
+        3.415208777811643,
+        3.554244334182647,
+        3.6069801854292387
+      ],
+      "setup_sum": 2.0244802146210596
+    },
+    "tungsten": {
+      "compute_sum": [
+        2.953662055503692,
+        2.953662055503692,
+        2.953662055503692
+      ],
+      "first_measured_strict_inclusive_gain_through_three": 1,
+      "max_owner_cumulative_sum": [
+        3.008170928418436,
+        2.988152083570998,
+        2.978919848317121
+      ],
+      "phase_max_cumulative_sum": [
+        3.006527311646098,
+        2.986239353819597,
+        2.9772045237899096
+      ],
+      "setup_sum": 3.093800350262697
+    }
+  }
+}

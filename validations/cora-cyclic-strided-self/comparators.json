@@ -1,0 +1,12 @@
+{
+  "family": "cora-resident-cyclic-scaling",
+  "release_sha256": "a2d366c6757141c952da48f0301b99cccff4063cdc0c8b8348e7dfd8048d53a4",
+  "requests": {
+    "16": "cora-cyclic-all2708-r16x4-aba-r001",
+    "4": "cora-cyclic-all2708-r4x4-aba-r001"
+  },
+  "revisions": {
+    "16": "03c10b8e1e3ef3065675222c27add2cc7b382641",
+    "4": "ef16f7d103594fec37badc4d2ca667fcc0ca4508"
+  }
+}

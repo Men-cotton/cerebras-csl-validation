@@ -1,0 +1,27 @@
+{
+  "compiler_executed_by_this_invocation": true,
+  "elf": {
+    "out_0_0.elf": "e9e462034727ea5fecf8806bf2968510e3eac3cd9b1ab457596db297baa55f06",
+    "out_10_0.elf": "94529b6d7e4b2581d78ae64729201b13f0da6c7cbbfd8fcf5122dea02f5dd8d6",
+    "out_11_0.elf": "3d864be8cd8ddff545b99d8088d6668e7b30f6eafee0d7f82804a7b1c186cad2",
+    "out_12_0.elf": "fe3ae39c86a11b619d77b7cbf42ea3a398ee94b73277cf0a4f4c6139fde3638c",
+    "out_13_0.elf": "d3bb7d5628933953ebb3517b883c734241e32ad2bc2fe7b5610e2c00df3c82a1",
+    "out_14_0.elf": "f3101ba7926d6e9832c0c9071d7bc60b5b26fd1a00b0c68192db65e098db4b29",
+    "out_15_0.elf": "217fd78de287fade652da6835c0d226e14f124b6b705bc8c7afc6f8b003ddd4c",
+    "out_1_0.elf": "98b45e75791dc8ef6cde6c5bf0cf1168d7f987c87d040c36a82cb58d5b00708c",
+    "out_2_0.elf": "0250f7a1676d9a5a848fed95a6b7041a4189b7cea7def9a312995bc29854629c",
+    "out_3_0.elf": "625a0a3edf13c28f70431652fa3574e7401122dd3825cf623e8d522a6a9809a6",
+    "out_4_0.elf": "e8908b10530799e9a9bce669c8eb442d5986fb07390fc322333802172df802c1",
+    "out_5_0.elf": "59912ab7d4f39c7d4b09d2fe3c3a9aa74ed0fa548bef6da36e6c6d6cfb9d0e95",
+    "out_6_0.elf": "4ee3463a7c1e7b72c60166ab3cf245da9587ada5c61f1630eb3be29c7aff1850",
+    "out_7_0.elf": "5bb1678dcccf037602a4643610cf088142c558b68fe92756ee29deeae9136038",
+    "out_8_0.elf": "02a4f391d81e779d4f76e29f987408c5d53ee222e308393bdef2dc31ca14c075",
+    "out_9_0.elf": "c2d24e21b3dd08a334b6d666147aacfa1c6af4fe928c2975e250cc34cdba5de9"
+  },
+  "expected_flags": "--arch=wse3 --fabric-dims=11,6 --fabric-offsets=4,1 --params=R:4,F:1354,E:957 --memcpy --channels=1 --width-west-buf=0 --width-east-buf=0 --max-parallelism=1 -o out",
+  "max_application_static_end": 41712,
+  "source": {
+    "layout.csl": "abfe63866b145341f58e2d287da1f81ca3094b118df2e0c0aa29f99c8a642394",
+    "pe.csl": "491a306b066c8787ca6561e2c57a9063c403c0a214d9c66b411ed612a6cf4868"
+  }
+}

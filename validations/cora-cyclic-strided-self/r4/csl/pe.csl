@@ -1,0 +1,174 @@
+param X: u16;
+param Y: u16;
+param R: u16;
+param F: u16;
+param E: u16;
+param send_color: color;
+param receive_color: color;
+param ready_out: color;
+param ready_in: color;
+param memcpy_params;
+const system = @import_module("<memcpy/memcpy>", memcpy_params);
+const timestamp = @import_module("<time>");
+const done = @get_local_task_id(12);
+const north = @get_input_queue(3);
+const south = @get_output_queue(3);
+const ready_tx = @get_output_queue(4);
+const ready_rx = @get_input_queue(4);
+var token: [1]u32;
+const token_word = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->token[i]});
+const send_ready = @get_dsd(fabout_dsd,.{.output_queue=ready_tx,.extent=1});
+const recv_ready = @get_dsd(fabin_dsd,.{.input_queue=ready_rx,.extent=1});
+const send_go = @get_dsd(fabout_dsd,.{.output_queue=south,.extent=1});
+const recv_go = @get_dsd(fabin_dsd,.{.input_queue=north,.extent=1});
+const Address = [*]f32;
+var banks: [F*2]f32;
+var graph: [2+2*E]u32;
+var inputs: [E]Address;
+const SELF_ROWS=(256+R-1)/R;
+var diagonal_weights: [SELF_ROWS]f32;
+var first_source: u16;
+var first_dest: u16;
+var width: u16;
+var residual_count: u16;
+var plan: [3]u32;
+var pointer_shape: [1]u16;
+var bases: [2]Address;
+var unsigned_bases: [2]u16;
+const pointer_dsd=@get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->pointer_shape[i]});
+var features: [F]f32;
+var partial: [512]f32;
+var owner: [512]f32;
+var header: [20]u32;
+var clocks: [3]u16;
+const indexed_lane = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{2}->partial[i],.wavelet_index_offset=true});
+const output_reg = @get_dsr(dsr_dest,1);
+const accumulator = @get_dsr(dsr_src0,1);
+const input_reg = @get_dsr(dsr_src1,1);
+const lane = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{2}->partial[i]});
+const active_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{F}->features[i]});
+const bank_a = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{F}->banks[i]});
+const bank_b = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{F}->banks[@as(i16,F)+i]});
+const partials = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{512}->partial[i]});
+const diagonal = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{SELF_ROWS}->diagonal_weights[i]});
+const owners = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{512}->owner[i]});
+const incoming = @get_dsd(fabin_dsd,.{.input_queue=north,.extent=512});
+const outgoing = @get_dsd(fabout_dsd,.{.output_queue=south,.extent=512});
+
+fn mix(h:u32,v:u32) u32 { return ((h << 5) | (h >> 27)) ^ v; }
+fn clock_words(position:u16) void {
+  timestamp.get_timestamp(&clocks);
+  for (@range(u16,3)) |i| { header[position+i]=@as(u32,clocks[i]); }
+}
+fn verify_banks() void {
+  var ha:u32=0x811c9dc5;
+  var hb:u32=0x811c9dc5;
+  for (@range(u16,F)) |i| {
+    ha=mix(ha,@bitcast(u32,banks[i])); hb=mix(hb,@bitcast(u32,banks[F+i]));
+  }
+  header[5]=ha; header[6]=hb;
+  system.unblock_cmd_stream();
+}
+fn prepare() void {
+  const n=@as(u16,graph[1] & 0xffff);
+  header[0]=graph[0];header[2]=Y*4+X;header[3]=graph[1];
+  var h:u32=0x811c9dc5;
+  for (@range(u16,n)) |e| { h=mix(mix(h,graph[2+e]),graph[2+E+e]); }
+  header[4]=h;
+  timestamp.enable_tsc(); clock_words(8);
+  @fmovs(diagonal,0.0);
+  residual_count=@as(u16,graph[1] >> 16);
+  first_dest=0; first_source=0; width=0;
+  if (residual_count>0) {
+    // Each packed 32-bit pair holds the destination and source byte offsets as adjacent u16 values.
+    bases[0]=@ptrcast(Address,&features[0]); bases[1]=@ptrcast(Address,&partial[0]);
+    const two=@set_dsd_length(pointer_dsd,2);
+    @mov16(@set_dsd_base_addr(two,@ptrcast([*]u16,&unsigned_bases)),@set_dsd_base_addr(two,@ptrcast([*]u16,&bases)));
+    const pair_half=@ptrcast([*]u16,&graph[2]);
+    const lane_plan=@set_dsd_length(pointer_dsd,residual_count);
+    const every_other=@set_dsd_stride(lane_plan,2);
+    const input_offsets=@set_dsd_base_addr(every_other,@ptrcast([*]u16,&pair_half[1]));
+    @add16(@set_dsd_base_addr(lane_plan,@ptrcast([*]u16,&inputs)),input_offsets,unsigned_bases[0]);
+  }
+  var e:u16=residual_count;
+  while (e<n) : (e+=1) {
+    const raw=graph[2+e];
+    const src=@as(u16,raw >> 16)/4;
+    const dst=@as(u16,raw & 0xffff)/4;
+    if (width==0) { first_dest=dst; first_source=src; }
+    const slot=(dst-first_dest)/(2*R);
+    width=slot+1;
+    const w=@bitcast(f32,graph[2+E+e]);
+    diagonal_weights[slot]=w;
+  }
+  plan[0]=residual_count; plan[1]=n-residual_count; plan[2]=width;
+  clock_words(11); timestamp.disable_tsc();
+  system.unblock_cmd_stream();
+}
+fn compute(trial:u16) void {
+  header[1]=trial;
+  if (trial==2) { @fmovs(active_dsd,bank_b); } else { @fmovs(active_dsd,bank_a); }
+  var h:u32=0x811c9dc5;
+  for (@range(u16,F)) |i| { h=mix(h,@bitcast(u32,features[i])); }
+  header[7]=h;
+  token[0]=trial;
+  if (Y<R-1) { @mov32(token_word,recv_ready); }
+  if (Y>0) { @mov32(send_ready,token_word); @mov32(token_word,recv_go); }
+  if (Y<R-1) { @mov32(send_go,token_word); }
+  if (token[0]!=trial) { header[1]=0; }
+  timestamp.enable_tsc(); clock_words(14);
+  @fmovs(partials,0.0);
+  if (width>0) {
+    const coeff=@set_dsd_length(diagonal,width);
+    inline for (@range(u16,2)) |feature| {
+      const dst_start=@set_dsd_base_addr(partials,@ptrcast(Address,&partial[first_dest+feature]));
+      const src_start=@set_dsd_base_addr(active_dsd,@ptrcast(Address,&features[first_source+feature]));
+      const dst=@set_dsd_length(@set_dsd_stride(dst_start,2*R),width);
+      const src=@set_dsd_length(@set_dsd_stride(src_start,2),width);
+      @fmuls(dst,src,coeff); @fadds(dst,dst,0.0);
+    }
+  }
+  @load_to_dsr(output_reg,indexed_lane); @load_to_dsr(accumulator,indexed_lane); @load_to_dsr(input_reg,lane);
+  const count=residual_count;
+  var groups=count/16; if (groups>9) { groups=9; }
+  inline for (@range(u16,9)) |g| {
+    if (groups>g) {
+      inline for (@range(u16,16)) |j| {
+        const fixed=g*16+j;
+        @set_dsr_base_addr(input_reg,inputs[fixed]);
+        const index=@as(u16,graph[2+fixed] & 0xffff) >> 1;
+        const w=@bitcast(f32,graph[2+E+fixed]);
+        @fmacs(output_reg,accumulator,input_reg,w,.{.index=index});
+      }
+    }
+  }
+  var e:u16=groups*16;
+  while (e<count) : (e+=1) {
+    @set_dsr_base_addr(input_reg,inputs[e]);
+    const index=@as(u16,graph[2+e] & 0xffff) >> 1;
+    const w=@bitcast(f32,graph[2+E+e]);
+    @fmacs(output_reg,accumulator,input_reg,w,.{.index=index});
+  }
+  if (Y==0) { @fmovs(outgoing,partials,.{.async=true,.activate=done}); }
+  else if (Y<R-1) { @fadds(outgoing,partials,incoming,.{.async=true,.activate=done}); }
+  else { @fadds(owners,partials,incoming,.{.async=true,.activate=done}); }
+}
+task complete() void {
+  clock_words(17); timestamp.disable_tsc(); system.unblock_cmd_stream();
+}
+var bank_ptr:[*]f32=&banks;
+var graph_ptr:[*]u32=&graph;
+var owner_ptr:[*]f32=&owner;
+var header_ptr:[*]u32=&header;
+var plan_ptr:[*]u32=&plan;
+comptime {
+  if (Y<R-1) { @initialize_queue(south,.{.color=send_color}); }
+  if (Y>0) { @initialize_queue(north,.{.color=receive_color}); }
+  if (Y>0) { @initialize_queue(ready_tx,.{.color=ready_out}); }
+  if (Y<R-1) { @initialize_queue(ready_rx,.{.color=ready_in}); }
+  @bind_local_task(complete,done);
+  @export_symbol(bank_ptr,"banks"); @export_symbol(graph_ptr,"graph");
+  @export_symbol(owner_ptr,"owner"); @export_symbol(header_ptr,"header");
+  @export_symbol(plan_ptr,"plan");
+  @export_symbol(verify_banks); @export_symbol(prepare); @export_symbol(compute);
+}
