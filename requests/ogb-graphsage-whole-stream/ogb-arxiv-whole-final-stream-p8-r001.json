@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "id": "ogb-arxiv-whole-final-stream-p8-r001",
+  "steps": [
+    {
+      "name": "compile-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-whole-stream/worker.py",
+      "args": [
+        "compile-csl",
+        "--out",
+        "{output}/compile-csl"
+      ]
+    },
+    {
+      "name": "run-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-whole-stream/worker.py",
+      "args": [
+        "run-csl",
+        "--out",
+        "{output}/run-csl",
+        "--compiled",
+        "{output}/compile-csl/compiled.json"
+      ]
+    }
+  ],
+  "description": "Measure the trained whole-arxiv native final layer on eight compute PEs using streamed neighbor vectors and compact DMA."
+}

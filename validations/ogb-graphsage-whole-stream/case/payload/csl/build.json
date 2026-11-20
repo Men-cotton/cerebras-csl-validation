@@ -1,0 +1,86 @@
+{
+  "language": "csl",
+  "params": {
+    "P": 8,
+    "R": 64,
+    "F": 9,
+    "Q": 40,
+    "E": 420,
+    "K": 32,
+    "RELU": 0
+  },
+  "input_sha256": "dd53acdd722b2f02edeac3c154a914ad3d37fa0f1bc2c326255ef0c0aa68cb34",
+  "windows": 331,
+  "full_frames": 339,
+  "control_windows": [
+    0,
+    2,
+    165,
+    330
+  ],
+  "min_window_edges": 4342,
+  "max_window_edges": 19887,
+  "part_histogram": {
+    "2": 74,
+    "3": 175,
+    "4": 50,
+    "5": 8,
+    "6": 7,
+    "7": 4,
+    "8": 2,
+    "9": 2,
+    "10": 4,
+    "11": 1,
+    "12": 1,
+    "23": 1,
+    "31": 1,
+    "32": 1
+  },
+  "windows_sha256": "6af51c92feb5ddf0d0e90f0967f0542e9fd3dc098108dba13c6aa9e7af20674c",
+  "aggregation": "one auto-advancing CSR edge source DSR per part",
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=15,3",
+    "--fabric-offsets=4,1",
+    "--params=P:8,R:64,F:9,Q:40,E:420,K:32,RELU:0",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "role": "simulator",
+  "elf": {
+    "out_3_0.elf": "5e6e367bae3fa2f7986ccf5932143a50c348695116716be7dd7f0b2c611f77a1",
+    "out_7_0.elf": "360354a3dd0a1ac87710809573a2fd867a58dd68ab50722f2fce6f0be8b76c24",
+    "out_6_0.elf": "1a91d85482ca74bcd6e77c1eaa0c623ca51717aceaff9f495bec594e590fa45d",
+    "out_1_0.elf": "277b286d4dc957643858a8fd646c4948a0c5be190966872d25367c9e5f14bc05",
+    "out_2_0.elf": "80285d505a972fae52f07b34b1c587d3769e909a0eb36ae19ead257f4597e48f",
+    "out_0_0.elf": "a2918d90de00af723728cf8382a6259284abd30f2dff437846ac4f9e8069a35c",
+    "out_5_0.elf": "5ec43f3e3e14a05ab7c0bba1408700fee95f2d5fa72fa842db67a178e488f957",
+    "out_4_0.elf": "53abb8e13c6c6582d8f16d7af5c193000e51a1a6e2066d59c84f831e464e5666"
+  },
+  "source": {
+    "layout.csl": "427ed94ee0f62be2df117e98378ed7a5a08285538b7a03d424106e3b8c93f3a3",
+    "pe.csl": "451d8a47ff77e56c62c9da593621004455cc16670e649bc17202c38192128a2b"
+  },
+  "commands": [
+    [
+      "/tmp/tungsten-csl-bin/cslc",
+      "/tmp/tungsten-ogb-v1/all-arxiv-csl-p8-stream/src/layout.csl",
+      "--arch=wse3",
+      "--fabric-dims=15,3",
+      "--fabric-offsets=4,1",
+      "--params=P:8,R:64,F:9,Q:40,E:420,K:32,RELU:0",
+      "--memcpy",
+      "--channels=1",
+      "--width-west-buf=0",
+      "--width-east-buf=0",
+      "--max-parallelism=1",
+      "-o",
+      "out"
+    ]
+  ]
+}

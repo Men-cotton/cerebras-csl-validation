@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "ogb-graphsage-whole-stream",
+  "entrypoints": [
+    "worker.py"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "description": "All 169,343 arxiv final outputs using the native streamed source DSR and compact host transfers."
+}

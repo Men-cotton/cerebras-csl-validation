@@ -1,0 +1,190 @@
+{
+  "parent_release_sha256": "1c28ae24692b4170333605ead2e4f6caf0b0091f351873397fb6d4afdbbb0391",
+  "parent_request": "ogb-arxiv-whole-final-p8-r001",
+  "windows": 331,
+  "frames": 339,
+  "params": {
+    "P": 8,
+    "R": 64,
+    "F": 9,
+    "Q": 40,
+    "E": 420,
+    "K": 32,
+    "RELU": 0
+  },
+  "representative_windows": [
+    131,
+    176,
+    330
+  ],
+  "physical_compile": {
+    "source": {
+      "layout.csl": "427ed94ee0f62be2df117e98378ed7a5a08285538b7a03d424106e3b8c93f3a3",
+      "pe.csl": "451d8a47ff77e56c62c9da593621004455cc16670e649bc17202c38192128a2b"
+    },
+    "flags": [
+      "--arch=wse3",
+      "--fabric-dims=762,1172",
+      "--fabric-offsets=4,1",
+      "--params=P:8,R:64,F:9,Q:40,E:420,K:32,RELU:0",
+      "--memcpy",
+      "--channels=1",
+      "--width-west-buf=0",
+      "--width-east-buf=0",
+      "--max-parallelism=1",
+      "-o",
+      "out"
+    ],
+    "elf": {
+      "out_3_0.elf": "690f921365221efcb6970b16398bcb0ff6384c9f621abf44a797fe5069c82c2f",
+      "out_7_0.elf": "08a361ea96ae070a9f0f12091c4c70b446569f31f28e11cd254d139f758f1725",
+      "out_6_0.elf": "ac3366f63b89aa6996f1f595c7e5d5c3d3fe039636dbcae401c7e83796a7326a",
+      "out_1_0.elf": "f177f9d3032b0aae20e7ded9f88456417a06a7f6dfe8cf8b4519443abb4d71b3",
+      "out_2_0.elf": "2decd6483f62a31cf893b6434fd0aeef3bf0d61a6e35f242f04aa6a5d8fa199b",
+      "out_0_0.elf": "efdae0187cb564666b7bf19b593942cf968a74f4166a3d40ea4f70475efbe187",
+      "out_5_0.elf": "e28d4fa10195fee3b6bb5124d5f88d285f8404c5e692c3199b933b0e831e3f1e",
+      "out_4_0.elf": "7a88197ca0565cf955b05b3b482ee838a9fc9ccbaf4800a33c6c4a5ca25db919"
+    }
+  },
+  "native_sdk": {
+    "nodes": 1407,
+    "edges": 31019,
+    "whole_model_argmax_mismatches": 0,
+    "fp64_argmax_mismatches": 0,
+    "peer_argmax_mismatches": 0,
+    "sum_of_window_peak_active_cycles": 426423
+  },
+  "measured_feedback_sha256": "426b887e6e21b2b367e7c2a1689f0e90155ddf21457e5b104116fd91c8864b40",
+  "host": {
+    "device/appliance.py": {
+      "source": "parent",
+      "sha256": "433cae30d212ec2dfbd48e5d2e304026824cce04ff59b12dde23a600194811f1"
+    },
+    "device/audit.py": {
+      "source": "parent",
+      "sha256": "5c60727842e54f585c13b5014f4594095dfd9c8d6a69a61d9d05f112dbc6a73c"
+    },
+    "device/contract.py": {
+      "source": "parent",
+      "sha256": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6"
+    },
+    "whole/dispatch.py": {
+      "source": "parent",
+      "sha256": "61514e0438791a208b401bb55376fd5a68c424e6fe60dada1e3da9d656116810"
+    },
+    "whole/physical.py": {
+      "source": "variant",
+      "sha256": "890c55d15fee63e59d5153854cfdcf1d1f1804f245d685de5d67601b0eb3e2f4"
+    },
+    "whole/rectangles.py": {
+      "source": "variant",
+      "sha256": "203e51beb0eb2b57fcce81479ebea3a1c1037210e596160efd63f5f052850baa"
+    },
+    "whole/remote.py": {
+      "source": "variant",
+      "sha256": "5b181d1dfb2e2b7b3e27b0d62deedb48f6659f26fb47d41a536eb60a367a5dca"
+    },
+    "whole/replay.py": {
+      "source": "variant",
+      "sha256": "eef7118333c8af6725755ed85b014920d19db1bdceb90ed7cfb609e4a5c90665"
+    },
+    "whole/run.py": {
+      "source": "variant",
+      "sha256": "d2884db04d3d25a4f8f8377a614e76826b809ea6dc49c31aabfc38cc2d93c7a6"
+    },
+    "whole/stream_variant.py": {
+      "source": "worker",
+      "sha256": "3921cda23e1a730f97be338e9a2daaf145aa48b7378be07e435c6424f5c8bfe5"
+    }
+  },
+  "payload": {
+    "csl/build.json": {
+      "source": "variant",
+      "sha256": "435709270f299819f259c4583b754b63bd9b0e44ca0b8a4ceba27da32e081cc5"
+    },
+    "csl/out/bin/out_0_0.elf": {
+      "source": "variant",
+      "sha256": "a2918d90de00af723728cf8382a6259284abd30f2dff437846ac4f9e8069a35c"
+    },
+    "csl/out/bin/out_1_0.elf": {
+      "source": "variant",
+      "sha256": "277b286d4dc957643858a8fd646c4948a0c5be190966872d25367c9e5f14bc05"
+    },
+    "csl/out/bin/out_2_0.elf": {
+      "source": "variant",
+      "sha256": "80285d505a972fae52f07b34b1c587d3769e909a0eb36ae19ead257f4597e48f"
+    },
+    "csl/out/bin/out_3_0.elf": {
+      "source": "variant",
+      "sha256": "5e6e367bae3fa2f7986ccf5932143a50c348695116716be7dd7f0b2c611f77a1"
+    },
+    "csl/out/bin/out_4_0.elf": {
+      "source": "variant",
+      "sha256": "53abb8e13c6c6582d8f16d7af5c193000e51a1a6e2066d59c84f831e464e5666"
+    },
+    "csl/out/bin/out_5_0.elf": {
+      "source": "variant",
+      "sha256": "5ec43f3e3e14a05ab7c0bba1408700fee95f2d5fa72fa842db67a178e488f957"
+    },
+    "csl/out/bin/out_6_0.elf": {
+      "source": "variant",
+      "sha256": "1a91d85482ca74bcd6e77c1eaa0c623ca51717aceaff9f495bec594e590fa45d"
+    },
+    "csl/out/bin/out_7_0.elf": {
+      "source": "variant",
+      "sha256": "360354a3dd0a1ac87710809573a2fd867a58dd68ab50722f2fce6f0be8b76c24"
+    },
+    "csl/src/layout.csl": {
+      "source": "parent",
+      "sha256": "427ed94ee0f62be2df117e98378ed7a5a08285538b7a03d424106e3b8c93f3a3"
+    },
+    "csl/src/pe.csl": {
+      "source": "variant",
+      "sha256": "451d8a47ff77e56c62c9da593621004455cc16670e649bc17202c38192128a2b"
+    },
+    "csl/windows.json": {
+      "source": "parent",
+      "sha256": "6af51c92feb5ddf0d0e90f0967f0542e9fd3dc098108dba13c6aa9e7af20674c"
+    },
+    "provenance.json": {
+      "source": "parent",
+      "sha256": "59e0c4b5f1ac9b6c53e1bc45b4076f19790bb53b4a684ff77d4f30ec98d5cbdf"
+    },
+    "sim-csl/result.json": {
+      "source": "variant",
+      "sha256": "1904baf49c91442be279e1ff1eb1973a8c4d9cef79ba7fdfdbb69723ea36a8d5"
+    },
+    "sim-csl/w0131.npz": {
+      "source": "variant",
+      "sha256": "ac26e76b7fba542c8901abb060d7341acd67d6487328b8648456138aea512975"
+    },
+    "sim-csl/w0176.npz": {
+      "source": "variant",
+      "sha256": "1e67032876a29f3564e7e082d759c3f2b655ad36e6533f28ef0564f4d2669fb6"
+    },
+    "sim-csl/w0330.npz": {
+      "source": "variant",
+      "sha256": "6363a5395b6fb6e4ccb0dd6a91609e14501e0014eb799f52ee5de49096127559"
+    },
+    "sim-tungsten/result.json": {
+      "source": "parent",
+      "sha256": "984903f5bb4683a650dafbadf84cc7e225ab767071ce2cc8443b59266f9bd73f"
+    },
+    "sim-tungsten/w0131.npz": {
+      "source": "parent",
+      "sha256": "ab04cc5339324530877fc8bbaf6a9dcf677defbc8000e760e8eea2e693f70fb9"
+    },
+    "sim-tungsten/w0176.npz": {
+      "source": "parent",
+      "sha256": "e6956c3a9ee9085c6351475c4c890478f59479780b3e4f58af0d441aab8b6476"
+    },
+    "sim-tungsten/w0330.npz": {
+      "source": "parent",
+      "sha256": "87b1d7df150b020d369eed9d353225f9f6d5d1638312bf248d53cb4b18a17662"
+    },
+    "whole.npz": {
+      "source": "parent",
+      "sha256": "dd53acdd722b2f02edeac3c154a914ad3d37fa0f1bc2c326255ef0c0aa68cb34"
+    }
+  }
+}

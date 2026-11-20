@@ -1,0 +1,153 @@
+{
+  "stage": "PARTIAL",
+  "language": "csl",
+  "role": "simulator",
+  "params": {
+    "P": 8,
+    "R": 64,
+    "F": 9,
+    "Q": 40,
+    "E": 420,
+    "K": 32,
+    "RELU": 0
+  },
+  "build_sha256": "435709270f299819f259c4583b754b63bd9b0e44ca0b8a4ceba27da32e081cc5",
+  "input_sha256": "dd53acdd722b2f02edeac3c154a914ad3d37fa0f1bc2c326255ef0c0aa68cb34",
+  "windows_sha256": "6af51c92feb5ddf0d0e90f0967f0542e9fd3dc098108dba13c6aa9e7af20674c",
+  "expected_windows": 331,
+  "requested_order": [
+    131,
+    176,
+    330
+  ],
+  "selected_guards": [
+    0,
+    2,
+    165,
+    330
+  ],
+  "completed": [
+    {
+      "window": 131,
+      "first": 67072,
+      "last": 67584,
+      "edges": 19887,
+      "parts": 31,
+      "raw_sha256": "ac26e76b7fba542c8901abb060d7341acd67d6487328b8648456138aea512975",
+      "frames": [
+        {
+          "trial": 1,
+          "peak_sum_pe_cycles": 269108,
+          "sum_phase_max_cycles": 271331,
+          "max_aggregation_cycles": 195868,
+          "max_projection_cycles": 75303,
+          "host_input_to_reply_ns": 294246469513,
+          "input_words": 202015,
+          "response_words": 22656,
+          "max_abs": 2.5927472758979775e-05,
+          "relative_l2": 1.3696424296404416e-07,
+          "argmax_vs_final_fp64": 0,
+          "argmax_vs_original_model": 0
+        }
+      ]
+    },
+    {
+      "window": 176,
+      "first": 90112,
+      "last": 90624,
+      "edges": 6790,
+      "parts": 3,
+      "raw_sha256": "1e67032876a29f3564e7e082d759c3f2b655ad36e6533f28ef0564f4d2669fb6",
+      "frames": [
+        {
+          "trial": 1,
+          "peak_sum_pe_cycles": 91907,
+          "sum_phase_max_cycles": 92778,
+          "max_aggregation_cycles": 17644,
+          "max_projection_cycles": 74902,
+          "host_input_to_reply_ns": 177721189687,
+          "input_words": 68581,
+          "response_words": 22656,
+          "max_abs": 4.86949207711973e-06,
+          "relative_l2": 1.022268384605886e-07,
+          "argmax_vs_final_fp64": 0,
+          "argmax_vs_original_model": 0
+        }
+      ]
+    },
+    {
+      "window": 330,
+      "first": 168960,
+      "last": 169343,
+      "edges": 4342,
+      "parts": 2,
+      "raw_sha256": "6363a5395b6fb6e4ccb0dd6a91609e14501e0014eb799f52ee5de49096127559",
+      "frames": [
+        {
+          "trial": 1,
+          "peak_sum_pe_cycles": 65408,
+          "sum_phase_max_cycles": 65635,
+          "max_aggregation_cycles": 9204,
+          "max_projection_cycles": 56267,
+          "host_input_to_reply_ns": 153098787544,
+          "input_words": 45842,
+          "response_words": 22656,
+          "max_abs": 3.399241979451517e-06,
+          "relative_l2": 1.0409793823126831e-07,
+          "argmax_vs_final_fp64": 0,
+          "argmax_vs_original_model": 0
+        },
+        {
+          "trial": 2,
+          "peak_sum_pe_cycles": 65408,
+          "sum_phase_max_cycles": 65635,
+          "max_aggregation_cycles": 9204,
+          "max_projection_cycles": 56267,
+          "host_input_to_reply_ns": 139463002227,
+          "input_words": 45842,
+          "response_words": 22656,
+          "max_abs": 1.967585728124277e-06,
+          "relative_l2": 1.0391217983338634e-07,
+          "argmax_vs_final_fp64": 0,
+          "argmax_vs_original_model": null
+        },
+        {
+          "trial": 3,
+          "peak_sum_pe_cycles": 65408,
+          "sum_phase_max_cycles": 65635,
+          "max_aggregation_cycles": 9204,
+          "max_projection_cycles": 56267,
+          "host_input_to_reply_ns": 128119773507,
+          "input_words": 45842,
+          "response_words": 22656,
+          "max_abs": 3.399241979451517e-06,
+          "relative_l2": 1.0409793823126831e-07,
+          "argmax_vs_final_fp64": 0,
+          "argmax_vs_original_model": 0
+        }
+      ]
+    }
+  ],
+  "stopped": true,
+  "source": {
+    "run.py": "d2884db04d3d25a4f8f8377a614e76826b809ea6dc49c31aabfc38cc2d93c7a6",
+    "dispatch.py": "61514e0438791a208b401bb55376fd5a68c424e6fe60dada1e3da9d656116810",
+    "contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6"
+  },
+  "transfer_sha256": "203e51beb0eb2b57fcce81479ebea3a1c1037210e596160efd63f5f052850baa",
+  "platform": {
+    "system": false,
+    "simulation": true
+  },
+  "elf_sha256": {
+    "out_3_0.elf": "5e6e367bae3fa2f7986ccf5932143a50c348695116716be7dd7f0b2c611f77a1",
+    "out_7_0.elf": "360354a3dd0a1ac87710809573a2fd867a58dd68ab50722f2fce6f0be8b76c24",
+    "out_6_0.elf": "1a91d85482ca74bcd6e77c1eaa0c623ca51717aceaff9f495bec594e590fa45d",
+    "out_1_0.elf": "277b286d4dc957643858a8fd646c4948a0c5be190966872d25367c9e5f14bc05",
+    "out_2_0.elf": "80285d505a972fae52f07b34b1c587d3769e909a0eb36ae19ead257f4597e48f",
+    "out_0_0.elf": "a2918d90de00af723728cf8382a6259284abd30f2dff437846ac4f9e8069a35c",
+    "out_5_0.elf": "5ec43f3e3e14a05ab7c0bba1408700fee95f2d5fa72fa842db67a178e488f957",
+    "out_4_0.elf": "53abb8e13c6c6582d8f16d7af5c193000e51a1a6e2066d59c84f831e464e5666"
+  },
+  "host_wall_s": 893.614943063003
+}
