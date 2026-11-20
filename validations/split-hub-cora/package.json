@@ -1,7 +1,9 @@
 {
   "cases": {
     "c16-r16-t8-hub-control": "4259763aee80638b8d8a4e376c90c472b48d2556a005d9046b1c17a8ef843003",
-    "c16-r16-t8-hub-split": "f39c516abbef6d725c323d9aa13455ead837710b8d0b05f179d3a27f9fa93c68"
+    "c16-r16-t8-hub-split": "f39c516abbef6d725c323d9aa13455ead837710b8d0b05f179d3a27f9fa93c68",
+    "c16-r32-t8-hub-control": "83d352d5da52c66f15febf3f27c1b7f0e6a43a352021e54861347c4aabb18a5b",
+    "c16-r32-t8-hub-split": "2a49b0e943f3c9ad2bbc2d0b16d0fb42343b3580bc00c98af7dc103674d1fb74"
   },
   "family": "native-cora",
   "host_sha256": {

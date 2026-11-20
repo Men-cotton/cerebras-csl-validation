@@ -1,0 +1,110 @@
+{
+  "description": "Compare ordered full-Cora hub cases on 512 PEs",
+  "id": "cora-native-hub163-c16r32-t8-20261119-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r32-t8-hub-control",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r32-t8-hub-control"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r32-t8-hub-control",
+      "script": "validations/split-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r32-t8-hub-control",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r32-t8-hub-control/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r32-t8-hub-control"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r32-t8-hub-control",
+      "script": "validations/split-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r32-t8-hub-control/capture-data",
+        "--out",
+        "{output}/numerical-c16-r32-t8-hub-control.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r32-t8-hub-control",
+      "script": "validations/split-hub-cora/saved_audit.py"
+    },
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r32-t8-hub-split",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r32-t8-hub-split"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r32-t8-hub-split",
+      "script": "validations/split-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r32-t8-hub-split",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r32-t8-hub-split/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r32-t8-hub-split"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r32-t8-hub-split",
+      "script": "validations/split-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r32-t8-hub-split/capture-data",
+        "--out",
+        "{output}/numerical-c16-r32-t8-hub-split.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r32-t8-hub-split",
+      "script": "validations/split-hub-cora/saved_audit.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r32-t8-hub-control/capture-data",
+        "{output}/run-c16-r32-t8-hub-split/capture-data",
+        "--out",
+        "{output}/pair.json"
+      ],
+      "kind": "host",
+      "name": "compare-physical-compiles",
+      "script": "validations/split-hub-cora/compare_pair.py"
+    }
+  ]
+}

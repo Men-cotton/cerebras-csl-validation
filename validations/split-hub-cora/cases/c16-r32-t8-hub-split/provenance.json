@@ -1,0 +1,78 @@
+{
+  "input_sha256": "7bcd1ec0f39a3d6bfb76050c04f3b6da52dab6a223e0dcd86309eb0928cf199d",
+  "local_common_elf_segments": 11520,
+  "local_common_elf_sha256": "75cf50f4d35a6049f71ffd3a99d7ab1b6c783532e1bc671aaa9e240a22e02d19",
+  "local_input_mode": "verified SDK startup data image",
+  "local_max_pe_cycles": 91810,
+  "local_raw_sha256": "b6d4d78b3aa5aca6532d7b551b08f83127e60c75f6fdb570515e37a3eb66f5c9",
+  "matched_tungsten_raw_sha256": "800cd83bf010771807c9e1c23626074d318b5fda74e1ce36cd80a60fe2a25ab2",
+  "source_sha256": {
+    "layout.csl": "594d9cfd35074f59acb0d8a16c40a33b4fc3c0faacdfdd2413419faa2c2dc69a",
+    "pe.csl": "9b221d3c5d07cd2a7746a046a69a3f50afc20c74b819b8ae13186354c098ff0d"
+  },
+  "split_plan": {
+    "capacities_original": {
+      "ENV": 346,
+      "MG": 201,
+      "NPLAN": 21,
+      "NRX": 158,
+      "NSEND": 38
+    },
+    "capacities_split": {
+      "ENV": 346,
+      "MG": 110,
+      "NPLAN": 21,
+      "NRX": 88,
+      "NSEND": 38
+    },
+    "common_capacities": {
+      "ENV": 346,
+      "MG": 201,
+      "NPLAN": 21,
+      "NRX": 158,
+      "NSEND": 38
+    },
+    "endpoint_consumers_after": 6325,
+    "endpoint_consumers_before": 6317,
+    "grouped_endpoint_words_after": 171361,
+    "grouped_endpoint_words_before": 171145,
+    "helper_edges_after": 109,
+    "helper_edges_before": 18,
+    "helper_xy": [
+      7,
+      26
+    ],
+    "home_slot": 2,
+    "hub": 163,
+    "hub_degree": 169,
+    "max_cycle_saving_if_untouched_intervals_fixed": 4257,
+    "original": "g00-wg00-s11-c16r32-t8-group",
+    "original_degree_order_sha256": "b7d6376269375df51f624eeba0ef636712197fb7fb7dccfd63bea8770151be28",
+    "original_helper_cycles": 75919,
+    "original_max_untouched_pe_cycles": 84216,
+    "original_owner_cycles": 88473,
+    "owner_edges_after": 110,
+    "owner_edges_before": 201,
+    "owner_xy": [
+      5,
+      26
+    ],
+    "peak_edge_macs_after": 2530,
+    "peak_edge_macs_before": 4623,
+    "peak_edges_after": 110,
+    "peak_edges_before": 201,
+    "per_pe_added_split_state_bytes": 46,
+    "per_pe_common_static_bytes_delta": 46,
+    "per_pe_natural_static_bytes_delta": -2740,
+    "preserved_prefix_occurrences": 78,
+    "split_occurrences_sha256": "030e031693a5e919a982b2a7cd8fe61f4ad2718dbdaa5bb7f484a925b9e488ea",
+    "split_reduction_word_hops": 46,
+    "split_reduction_words": 23,
+    "split_suffix_occurrences": 91,
+    "unchanged_owner_peak_edges": 110,
+    "vertical_packets_after": 12943,
+    "vertical_packets_before": 12927,
+    "vertical_word_hops_after": 1352426,
+    "vertical_word_hops_before": 1351640
+  }
+}
