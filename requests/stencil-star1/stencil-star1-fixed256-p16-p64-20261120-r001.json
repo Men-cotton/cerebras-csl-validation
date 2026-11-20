@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "id": "stencil-star1-fixed256-p16-p64-20261120-r001",
+  "description": "Strong-scale eight Jacobi epochs over the same 256 by 256 global input. Use the same Tungsten stencil source on each mesh. Upload and verify three full fields and every on-chip clock, halo count and padded output.",
+  "steps": [
+    {
+      "name": "run-tungsten-p4-t64x64-rotate-halo",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/tungsten-p4-t64x64-rotate-halo",
+        "--case-sha256",
+        "ad9c1ac68d5c3c0a609f2d5930ea1b90c74ec92ad6286293b176e1a2e9928538",
+        "--out",
+        "{output}/run-tungsten-p4-t64x64-rotate-halo"
+      ]
+    },
+    {
+      "name": "run-tungsten-p8-t32x32-rotate-halo",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/tungsten-p8-t32x32-rotate-halo",
+        "--case-sha256",
+        "c90b66a4dc3f51e2dc989b48e25dd3fa7d34ce0139c05ccbabf3b6281847afeb",
+        "--out",
+        "{output}/run-tungsten-p8-t32x32-rotate-halo"
+      ]
+    }
+  ]
+}
