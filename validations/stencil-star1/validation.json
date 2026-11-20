@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "id": "stencil-star1",
+  "description": "Full-grid CS-3 comparisons of CSL and Tungsten Star stencils with independent padded-buffer and traffic audits.",
+  "entrypoints": ["appliance.py"],
+  "tests": ["tests"]
+}
