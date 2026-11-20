@@ -1,0 +1,14 @@
+{
+  "base_case": "arxiv-whole-p32",
+  "base_release_sha256": "1197718728e5ef1b3398c2d3de0d0553889a3da9211e08ac3d77994dbe7e882e",
+  "release_sha256": "38e51de1637776c84de07c753d15bcd4fab4919b64b62e85ba82fe5a9851e71c",
+  "changed_languages": [
+    "csl",
+    "tungsten"
+  ],
+  "changed_host": [
+    "resident/graph.py",
+    "resident/limits.py",
+    "resident/run.py"
+  ]
+}

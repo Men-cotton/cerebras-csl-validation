@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "ogb-arxiv-whole-s8-p32-r001",
+  "steps": [
+    {
+      "name": "compile-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident-variants/variant.py",
+      "args": [
+        "compile-csl",
+        "--case",
+        "arxiv-whole-s8-p32",
+        "--out",
+        "{output}/compile-csl"
+      ]
+    },
+    {
+      "name": "run-csl",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident-variants/variant.py",
+      "args": [
+        "run-csl",
+        "--case",
+        "arxiv-whole-s8-p32",
+        "--out",
+        "{output}/run-csl",
+        "--compiled",
+        "{output}/compile-csl/compiled.json"
+      ]
+    },
+    {
+      "name": "run-tungsten",
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident-variants/variant.py",
+      "args": [
+        "run-tungsten",
+        "--case",
+        "arxiv-whole-s8-p32",
+        "--out",
+        "{output}/run-tungsten",
+        "--peer",
+        "{output}/run-csl/capture.zip"
+      ]
+    }
+  ],
+  "description": "Measure changed csl, tungsten firmware on the identical resident two-layer arxiv graph and trained model."
+}

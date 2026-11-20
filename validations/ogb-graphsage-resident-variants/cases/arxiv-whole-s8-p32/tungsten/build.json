@@ -1,0 +1,94 @@
+{
+  "dataset": "arxiv",
+  "language": "tungsten",
+  "params": {
+    "P": 32,
+    "R": 20,
+    "D": 128,
+    "F": 9,
+    "Q": 40,
+    "E": 288,
+    "K": 96,
+    "S": 8
+  },
+  "tungsten_projection": {
+    "raw_weight_bank_offset": 1,
+    "dot_product": true,
+    "unaltered_input_wire": true,
+    "static_output_channels": 18,
+    "clear_only_inactive_rows": true
+  },
+  "shared_raw_and_edges": true,
+  "nested_gather": true,
+  "conditional_source_shards": 8,
+  "roles": {
+    "simulator": {
+      "fabric": [
+        32,
+        2
+      ],
+      "elf": "3b49a044007ea145a3ec19bc26cfc7988a8fd3e92ee34a02fc075dede518f959"
+    },
+    "hardware": {
+      "fabric": [
+        762,
+        1172
+      ],
+      "elf": "3a86bd3ef697aa5071610ddad838d59ffedad67082f3915e2fb0dde9259d3c1e"
+    }
+  },
+  "canonical_sha256": "caf0395c1486d234fe224a1dfa963b0f8d900f439a0269f6a73bd583ec1ad378",
+  "port_map_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "machine_image_sha256": "d19f268f16434683312cd44287ff0c0402d7cef5825f8b9a711ae22fff632e22",
+  "commands": [
+    [
+      "paint",
+      "arch=sdr",
+      "toolname",
+      "w",
+      "carbide",
+      "toolname",
+      "yeti",
+      "carbide",
+      "lib=src",
+      "source=src/program.paint",
+      "image=program.obj",
+      "map=program.map",
+      "note=program.note",
+      "entrymap=program.entry",
+      "regiondump=regions.json"
+    ],
+    [
+      "milink",
+      "image=program.obj",
+      "out=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "weight",
+      "image=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/resident-arxiv-tungsten-p32-r20-s8-flag/simulator/out/program.elf",
+      "w=32",
+      "h=2"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/resident-arxiv-tungsten-p32-r20-s8-flag/hardware/out/program.elf",
+      "w=762",
+      "h=1172"
+    ]
+  ],
+  "source": {
+    "collect.w": "25c3c01d1a5ea267023ce53e7618fcac5051ff4874b7d2459cf663c9bd37f057",
+    "owner.w": "b100978f41236c84c6ffbe7b6fddafaa2bcc18d3949a25c7e896278c10aaca46",
+    "program.paint": "b5ff5c9fb6d036827f6f220c859b1f3e83b1e15cbabd0e7b2a996c3a40e87b71"
+  }
+}

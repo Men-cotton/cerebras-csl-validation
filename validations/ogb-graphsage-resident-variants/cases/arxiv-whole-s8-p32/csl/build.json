@@ -1,0 +1,93 @@
+{
+  "dataset": "arxiv",
+  "language": "csl",
+  "params": {
+    "P": 32,
+    "R": 20,
+    "D": 128,
+    "F": 9,
+    "Q": 40,
+    "E": 288,
+    "K": 96,
+    "S": 8
+  },
+  "native_projection": {
+    "mapped_input": true,
+    "accumulator_bank_offset": 1,
+    "unaltered_input_wire": true,
+    "padded_channels": 18,
+    "weight_relocation": false
+  },
+  "native_stream_edges": true,
+  "shared_raw_and_edges": true,
+  "conditional_source_shards": 8,
+  "role": "simulator",
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=39,3",
+    "--fabric-offsets=4,1",
+    "--params=P:32,R:20,D:128,F:9,Q:40,E:288,K:96,S:8",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "elf": {
+    "out_11_0.elf": "4a79741a90053ae1552d2bda187a263fa1f05ee4624dd5d7789bf1bd0c7893cb",
+    "out_3_0.elf": "d55f7d7a1ddbe2e7affc9ae3470a9c9521bfbd626224afc2ef7fe2147c5bbb58",
+    "out_21_0.elf": "2c7a2d5ee23bfae3e85f4eae50ff22d0dcb48f9bb497a1594ebfba38d46a7d0f",
+    "out_18_0.elf": "60bc09ecf928f661b0c31e5b6806d07f0f0c18d4c72bb5026560a898de4c301a",
+    "out_13_0.elf": "6235fe99b01c74e6470eca0fd105756ef8ca15b5ec764673324375390f96d045",
+    "out_28_0.elf": "3ca9e0ebb9f14cc89e92080a3fe1a1afd27a9b5bbe36bd05da5e912ab7d6421c",
+    "out_19_0.elf": "5e995d6da4ec4b3a7e5fc308d63fe46d97f042d0b79486804cc0f65506e97501",
+    "out_7_0.elf": "5c55707d74ff95a8662747bef63b68052fa15fa60598267695a5c4c38a676bff",
+    "out_6_0.elf": "d08c25fdf3c9f0413da17eff930cacf5f624446918c168171f5084c5a960b5d1",
+    "out_31_0.elf": "8fb16899ae06fdea62e9d94bfacc2973a5a2abbf62df566aba92537982981c3a",
+    "out_1_0.elf": "0a2dffed1bf9d76bfae157e6add1e8ff62da417e0fae9de344e07d7aa66c0372",
+    "out_9_0.elf": "e83dd446a7d8f4c19e2cd78d8b8e1e3acfc7ef304f00b2f010f79604c8988c0e",
+    "out_24_0.elf": "2c6f4f35f03c8229d2f47b7d4da027a4b16903ae493c3efc46430d0842bf5cd5",
+    "out_27_0.elf": "c085355c847f3089d1702c518e71125f5fbfa335414837f26bc8d4411e9ae00c",
+    "out_26_0.elf": "9d053d112112e86cd8bce1dcf6395e7e2fc64eac4166852af3091f09a4e20eb1",
+    "out_25_0.elf": "ad2aabfeadad93ed437a5d44423203792f66de7d55620176f494b879fbcfad31",
+    "out_29_0.elf": "35c7f7c057633c618dbcb45c41521796ff4f8bf4bfe3209e2b4c4e51df7caeaa",
+    "out_2_0.elf": "8746f65eedb01e20b5686b42cacc8789bd06c7f70885c49b0533e4aba5d15078",
+    "out_12_0.elf": "689badd1dcb19bf7a8d51c48ce9fda1b08cdde97910ab1ccf0f5a11d3d73f398",
+    "out_0_0.elf": "133c03fafd47f7ed41a943875242c3e5a4ba9849d14ef3fc7eb8e67cc71e52bc",
+    "out_10_0.elf": "33ef597998216b8d7e74336678852e04f04490c5bdae182a7576d8c4edf08bb9",
+    "out_5_0.elf": "16703759168ac2b5cac7f57d0f6e6402c0f202f2502bfd801c16d484f709e81c",
+    "out_16_0.elf": "273f718025aa4564e8db4dc89a87e54772eb728ccafd90c401edc6deaa917eec",
+    "out_14_0.elf": "1ed3ef578ac7ed7daaf41285d8478042444ed6d07f7b28043d2a72eb57892b95",
+    "out_15_0.elf": "744df47cef0c2b0f54a1708140431a5833bda1cb9deab383ed772d592fe223c8",
+    "out_8_0.elf": "0afc08a2d03b451e43e5df924d411207533eccb6d0c1d71be0561445cae38036",
+    "out_30_0.elf": "9058a329330107bb3b6ce2412a1bb944fef91de9c952e8ff0694415eceac75b7",
+    "out_4_0.elf": "300db608ec6e05aac760d23550a6663d349419e4bc76677fa0dfe7384bb0acc6",
+    "out_22_0.elf": "add78877889e58f86639cdf9d595b847c453202a65611146baf5dea1e446ca22",
+    "out_17_0.elf": "2ce7523c39030d94d353251cf6ddee025d310f0304099dcea9a4611ac8a6b67c",
+    "out_20_0.elf": "74e71e09865fe64a8a68048a83794a86f769c4a7d521b10be9e8fe5f298d1399",
+    "out_23_0.elf": "029f66dcf054d6f10038d1a06274e32b72ac82d95ce3445bde7e9e08dd234245"
+  },
+  "commands": [
+    [
+      "/tmp/tungsten-csl-bin/cslc",
+      "/tmp/tungsten-ogb-v1/resident-arxiv-csl-p32-r20-s8-alias/src/layout.csl",
+      "--arch=wse3",
+      "--fabric-dims=39,3",
+      "--fabric-offsets=4,1",
+      "--params=P:32,R:20,D:128,F:9,Q:40,E:288,K:96,S:8",
+      "--memcpy",
+      "--channels=1",
+      "--width-west-buf=0",
+      "--width-east-buf=0",
+      "--max-parallelism=1",
+      "-o",
+      "out"
+    ]
+  ],
+  "source": {
+    "layout.csl": "3b2b2b9c0bbbf803a94229ea3aa5e236f17dbedd665162362d3c7a94777faa10",
+    "pe.csl": "f308600703e040bfc704f94fafc5e5616dda3f84947ac102cbdcefaed53c5fd6"
+  }
+}

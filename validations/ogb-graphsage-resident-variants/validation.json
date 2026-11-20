@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "ogb-graphsage-resident-variants",
+  "entrypoints": [
+    "variant.py"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "description": "Evaluate changed resident GraphSAGE firmware on a previously published immutable graph and numerical contract."
+}
