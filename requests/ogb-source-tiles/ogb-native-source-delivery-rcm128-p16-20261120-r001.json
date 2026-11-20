@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "id": "ogb-native-source-delivery-rcm128-p16-20261120-r001",
+  "description": "Measure shared-table row broadcast versus replicated unicast on one physical native CSL image per dataset, with 12 interleaved complete original-ID OGB GraphSAGE windows, blocking H2D times and paired numerical and firmware audits.",
+  "steps": [
+    {
+      "name": "compile-arxiv",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/native/physical.py",
+      "args": [
+        "compile",
+        "--case",
+        "arxiv-rcm128-q50-p16-e128",
+        "--release-sha256",
+        "ea831ec323f10952822f9446b84b32f873386e9b20fca5f52cbe9d754e0caf74",
+        "--out",
+        "{output}/compile-arxiv"
+      ]
+    },
+    {
+      "name": "run-arxiv",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/native/physical.py",
+      "args": [
+        "run",
+        "--case",
+        "arxiv-rcm128-q50-p16-e128",
+        "--release-sha256",
+        "ea831ec323f10952822f9446b84b32f873386e9b20fca5f52cbe9d754e0caf74",
+        "--out",
+        "{output}/run-arxiv",
+        "--compiled",
+        "{output}/compile-arxiv/compiled.json"
+      ]
+    },
+    {
+      "name": "compile-products",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/native/physical.py",
+      "args": [
+        "compile",
+        "--case",
+        "products-rcm128-q50-p16-e128",
+        "--release-sha256",
+        "cacc039ae0be9d3779cc2b9cb69e10b194a198d6c63818c1b9cdf345284a143d",
+        "--out",
+        "{output}/compile-products"
+      ]
+    },
+    {
+      "name": "run-products",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/native/physical.py",
+      "args": [
+        "run",
+        "--case",
+        "products-rcm128-q50-p16-e128",
+        "--release-sha256",
+        "cacc039ae0be9d3779cc2b9cb69e10b194a198d6c63818c1b9cdf345284a143d",
+        "--out",
+        "{output}/run-products",
+        "--compiled",
+        "{output}/compile-products/compiled.json"
+      ]
+    }
+  ]
+}

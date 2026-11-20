@@ -1,0 +1,87 @@
+{
+  "build": {
+    "csl_params": {
+      "E": 128,
+      "F": 16,
+      "M": 40,
+      "P": 16,
+      "Q": 48,
+      "R": 9,
+      "RELU": 0
+    },
+    "elf_sha256": {
+      "out_0_0.elf": "f46e854e9a13614e94437f0f720edb3eecf4c770ecb71e710a70a4a3dce5b070",
+      "out_10_0.elf": "2656a7629f64337f120590b0ff4c96925c6115716cbeb9b61508dac475b9c8e4",
+      "out_11_0.elf": "db565d0582c7f027a721aff78e957b76396682a1a052abc28ec6cafd43d40a7a",
+      "out_12_0.elf": "cea7d5cccad6097cb1327bb160dc1c6877196dc87e86d35e07afde245d6748c1",
+      "out_13_0.elf": "beb6073d15eea87588c7b49671ef12d50b0027341b48cc738764b1db9110106d",
+      "out_14_0.elf": "edd5e523f98d44bc1976952163509c86b23e4d76347d350e2d38c3936289e0e2",
+      "out_15_0.elf": "2e64d4bd9b7eeda5915548e820b85f8cf80deda7d0e0ca6a8bbdc2a75dc6dabf",
+      "out_1_0.elf": "134ce1a56d0cc9fe1413f8b28e8f2a7c9d517552dc0d0cbd751a6521d3ef4ed2",
+      "out_2_0.elf": "a7b694795be70e09a386beedbfd8a1c767bf0304e872ea6fea7c6d148a14e427",
+      "out_3_0.elf": "876606683ff8fd48aa81e5701ed7bc06cde86756fc4bab1a5290c3d4c9cdf6bf",
+      "out_4_0.elf": "fce68dd64f5c0f4e1c3d3dc804a2717db65082f61ae318eb107d1c0b1bd7194f",
+      "out_5_0.elf": "5a1a1b440f2a45d9f151adc843db04b92d917430693389537a9da8be9c8d28c9",
+      "out_6_0.elf": "875d6089ead59358344d9d3190e51a8ba3e857af0d40492e40d077676520d9a7",
+      "out_7_0.elf": "b5b3ecf7d77bc1e17b7b91fa208ec1f4b0a1d6be8991354a5da14b36deb7ce94",
+      "out_8_0.elf": "7b3564b0d29d577d4e8abb98d67b7418048156087b70fa78205c1db308bae194",
+      "out_9_0.elf": "195ef5656c05c0cbb3cfaae2c1bc4163e3bbb89bbdc6c0b8eb1bf9a376efc1f8"
+    },
+    "fixture_sha256": "50759c9bcdaacc703e1f02c378ead52593b87e72a3bba1bbac6292aa62e4e3a6",
+    "flags": [
+      "--arch=wse3",
+      "--fabric-dims=762,1172",
+      "--fabric-offsets=4,1",
+      "--params=P:16,R:9,F:16,Q:48,E:128,RELU:0,M:40",
+      "--memcpy",
+      "--channels=1",
+      "--width-west-buf=0",
+      "--width-east-buf=0",
+      "--max-parallelism=1",
+      "-o",
+      "out"
+    ],
+    "params": {
+      "E": 128,
+      "F": 16,
+      "FRAMES": 6,
+      "P": 16,
+      "Q": 48,
+      "R": 9,
+      "RELU": 0
+    },
+    "role": "hardware",
+    "source_sha256": {
+      "layout.csl": "a0da7473c228a1e798ab250662e2636deaa522e8aad20233fa2df4386374d848",
+      "pe.csl": "184e16be3402ea1a720231595561cd38508491408ad80a352ab1e833f668b909"
+    }
+  },
+  "inventory": {
+    "bin/out_0_0.elf": "f46e854e9a13614e94437f0f720edb3eecf4c770ecb71e710a70a4a3dce5b070",
+    "bin/out_10_0.elf": "2656a7629f64337f120590b0ff4c96925c6115716cbeb9b61508dac475b9c8e4",
+    "bin/out_11_0.elf": "db565d0582c7f027a721aff78e957b76396682a1a052abc28ec6cafd43d40a7a",
+    "bin/out_12_0.elf": "cea7d5cccad6097cb1327bb160dc1c6877196dc87e86d35e07afde245d6748c1",
+    "bin/out_13_0.elf": "beb6073d15eea87588c7b49671ef12d50b0027341b48cc738764b1db9110106d",
+    "bin/out_14_0.elf": "edd5e523f98d44bc1976952163509c86b23e4d76347d350e2d38c3936289e0e2",
+    "bin/out_15_0.elf": "2e64d4bd9b7eeda5915548e820b85f8cf80deda7d0e0ca6a8bbdc2a75dc6dabf",
+    "bin/out_1_0.elf": "134ce1a56d0cc9fe1413f8b28e8f2a7c9d517552dc0d0cbd751a6521d3ef4ed2",
+    "bin/out_2_0.elf": "a7b694795be70e09a386beedbfd8a1c767bf0304e872ea6fea7c6d148a14e427",
+    "bin/out_3_0.elf": "876606683ff8fd48aa81e5701ed7bc06cde86756fc4bab1a5290c3d4c9cdf6bf",
+    "bin/out_4_0.elf": "fce68dd64f5c0f4e1c3d3dc804a2717db65082f61ae318eb107d1c0b1bd7194f",
+    "bin/out_5_0.elf": "5a1a1b440f2a45d9f151adc843db04b92d917430693389537a9da8be9c8d28c9",
+    "bin/out_6_0.elf": "875d6089ead59358344d9d3190e51a8ba3e857af0d40492e40d077676520d9a7",
+    "bin/out_7_0.elf": "b5b3ecf7d77bc1e17b7b91fa208ec1f4b0a1d6be8991354a5da14b36deb7ce94",
+    "bin/out_8_0.elf": "7b3564b0d29d577d4e8abb98d67b7418048156087b70fa78205c1db308bae194",
+    "bin/out_9_0.elf": "195ef5656c05c0cbb3cfaae2c1bc4163e3bbb89bbdc6c0b8eb1bf9a376efc1f8",
+    "bin/out_rpc.json": "1645d4f8bb72ea91f4cc7ea16350e3369bf678f41c8e99eb4858c7293d13e0de",
+    "east/bin/out_0_0.elf": "db8bd97e4e4f57b80665a407df86c80ab0f3c159dd71ed4ae8ebf4d342d20a3e",
+    "east/bin/out_1_0.elf": "d792623a3585fb17442cebc49f27841b5157db6471bfc2321fa1bc01eccbdfb3",
+    "east/out.json": "46ea180801c589023f5daf7351fb473475b50f302d72cf40f86e4ce5f7d320b7",
+    "out.json": "2d166c35220945b58509bcf172188f699abefa46be575235821956abde75802b",
+    "west/bin/out_0_0.elf": "7e363a9feb428c8d9c71bbe3cc2d05a1ae1791a46bd94a6212967ff674fdebcf",
+    "west/bin/out_1_0.elf": "e4dede6245086e979cddb4a0bf4d1401c362a1eabf45045c397094c2336bb63e",
+    "west/bin/out_2_0.elf": "f5913cfc8a7d7aa1039f5a520b442269b5ae67cef341904e25b862a166713b73",
+    "west/out.json": "248ecbf17b2090e46e426ee7b905c25f2b9770e8f6a382868cd2e07ab91e7a3a"
+  },
+  "role": "local CLI physical geometry"
+}

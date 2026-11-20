@@ -3,7 +3,8 @@
   "id": "ogb-source-tiles",
   "description": "Compare complete original-ID OGB source tables against per-edge ingress in one physical Tungsten image.",
   "entrypoints": [
-    "appliance.py"
+    "appliance.py",
+    "native/physical.py"
   ],
   "tests": [
     "tests"

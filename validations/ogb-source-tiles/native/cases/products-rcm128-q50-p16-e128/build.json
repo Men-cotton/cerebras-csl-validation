@@ -1,0 +1,57 @@
+{
+  "params": {
+    "P": 16,
+    "R": 9,
+    "F": 16,
+    "Q": 48,
+    "E": 128,
+    "RELU": 0,
+    "FRAMES": 6
+  },
+  "csl_params": {
+    "P": 16,
+    "R": 9,
+    "F": 16,
+    "Q": 48,
+    "E": 128,
+    "RELU": 0,
+    "M": 40
+  },
+  "fixture_sha256": "50759c9bcdaacc703e1f02c378ead52593b87e72a3bba1bbac6292aa62e4e3a6",
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=23,3",
+    "--fabric-offsets=4,1",
+    "--params=P:16,R:9,F:16,Q:48,E:128,RELU:0,M:40",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "role": "simulator",
+  "elf_sha256": {
+    "out_0_0.elf": "659919b391b85eaa0f41464e1f3e3a5aeceb74a2484c26f3d2288efbe1507323",
+    "out_10_0.elf": "c9502bdec3006c6e7b662b4bb1f42613a7233244ab7c7279e5a83389249db147",
+    "out_11_0.elf": "e519ddf70d12974b2c8992e4f7b07ae331f0505c8ddbaa74ab90514f350a6235",
+    "out_12_0.elf": "2bbef9aa14c94565606e61dd9026fd984cd568614f90fd5d28a8de866ac65feb",
+    "out_13_0.elf": "b139bbed75828488c04b3a2f40833fff0b4e56e37652622d193712bfa113ed4c",
+    "out_14_0.elf": "7145b0ce699c1430f6aeac531d0c1ba12b9b27844ef5a8c1a02c9414714e88f4",
+    "out_15_0.elf": "5cff0f69aadfed70039e2e9706455ac8c1bd32392ee963fd88c91e22f86aebc7",
+    "out_1_0.elf": "f50f08c403894f89443b22447e44088494929c24feb770b8165dbc65896d09e0",
+    "out_2_0.elf": "d7b04e3787e875008af1f3ff3b0247ee4a42bf94f7c038f3db83cf32a5c6c8af",
+    "out_3_0.elf": "061b1538e5edbde61a4ec88884fd6a9f049bbb489f2c747427c9a12e68c9541a",
+    "out_4_0.elf": "8a4905a1217bcd56519e0b9cb471c1904c18165136a9cb192cb552151af76540",
+    "out_5_0.elf": "85aa37f69575b3ea94b9e87a8234d72e16f8e86765a47f29c3dfe6fd4f58e8dd",
+    "out_6_0.elf": "efc7c47e2605a7bdef5539b355b88ac985405a35e63d70310ab73b891ded58ef",
+    "out_7_0.elf": "1980f3cdb3ed15feb68a4c148e1251468e3bc15dc0645d2607f911c58452bda6",
+    "out_8_0.elf": "2a1d5fb4576d3ff4824df2cb94fdbd1c8fdeb81a165889e30138174e248d1bd8",
+    "out_9_0.elf": "9e904ef7f037ede795f0c89b13965a3e797d395158a919d36060de6af5319a57"
+  },
+  "source_sha256": {
+    "layout.csl": "a0da7473c228a1e798ab250662e2636deaa522e8aad20233fa2df4386374d848",
+    "pe.csl": "184e16be3402ea1a720231595561cd38508491408ad80a352ab1e833f668b909"
+  }
+}

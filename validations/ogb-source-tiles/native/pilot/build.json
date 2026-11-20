@@ -1,0 +1,62 @@
+{
+  "csl_params": {
+    "E": 16,
+    "F": 16,
+    "M": 12,
+    "P": 2,
+    "Q": 48,
+    "R": 2,
+    "RELU": 0
+  },
+  "elf_sha256": {
+    "out_0_0.elf": "7ff22e6e2b872bb857daeb6faeb15ba89fa167acb11ec49101a64326114e19a2",
+    "out_1_0.elf": "b1f9a51a663859ec44f0b7da268f002e349f59b5a208a5afbf1ee66d3b9b15df"
+  },
+  "fixture_sha256": "54f23247b95ca78c8ce309a38f83be6a6f81152bb781a25e92ba3efacc465b90",
+  "flags": [
+    "--arch=wse3",
+    "--fabric-dims=9,3",
+    "--fabric-offsets=4,1",
+    "--params=P:2,R:2,F:16,Q:48,E:16,RELU:0,M:12",
+    "--memcpy",
+    "--channels=1",
+    "--width-west-buf=0",
+    "--width-east-buf=0",
+    "--max-parallelism=1",
+    "-o",
+    "out"
+  ],
+  "inventory": {
+    "bin/out_0_0.elf": "7ff22e6e2b872bb857daeb6faeb15ba89fa167acb11ec49101a64326114e19a2",
+    "bin/out_1_0.elf": "b1f9a51a663859ec44f0b7da268f002e349f59b5a208a5afbf1ee66d3b9b15df",
+    "bin/out_rpc.json": "1645d4f8bb72ea91f4cc7ea16350e3369bf678f41c8e99eb4858c7293d13e0de",
+    "east/bin/out_0_0.elf": "b02d2f3f1af06d5aacf2d2164f7f19c3c16c3a7af2e3ba1b9513769cb2e9720b",
+    "east/bin/out_1_0.elf": "748e86900a613ad4e5c0e837cd2fe55e3a7a5229d9939e82b3a676f6cc368d6d",
+    "east/out.json": "46ea180801c589023f5daf7351fb473475b50f302d72cf40f86e4ce5f7d320b7",
+    "out.json": "d73836b16c65a334a647037e00cb50e75efd5096506d2b99e83792b0b99902e4",
+    "west/bin/out_0_0.elf": "bfa350c5eb85ebdabacb10de2c5cb8be47b5b2721ac0fd14f37919cfefff6991",
+    "west/bin/out_1_0.elf": "ce56edc15e7efc64ef592d5a929f9ba00c2a778ab5ca384cf75e74221eeae979",
+    "west/bin/out_2_0.elf": "b40d337d2f1ae7a3593063df9347c98ea2abc1db87bdbc7a02a26425a88b5edb",
+    "west/out.json": "248ecbf17b2090e46e426ee7b905c25f2b9770e8f6a382868cd2e07ab91e7a3a"
+  },
+  "params": {
+    "E": 16,
+    "F": 16,
+    "FRAMES": 6,
+    "P": 2,
+    "Q": 48,
+    "R": 2,
+    "RELU": 0
+  },
+  "role": "simulator",
+  "source_sha256": {
+    "layout.csl": "a0da7473c228a1e798ab250662e2636deaa522e8aad20233fa2df4386374d848",
+    "pe.csl": "184e16be3402ea1a720231595561cd38508491408ad80a352ab1e833f668b909"
+  },
+  "worker_sha256": {
+    "inventory.py": "37e0ff787ac8a66fbfd987a7f6920d7c649d21b226e83ea893c15b1803c16cd6",
+    "ogb_contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "paired_worker.py": "7b119d700396541e1a4f2c623320466de3cb71e42341cbc7921b28e54dc46390",
+    "source_table.py": "1255f3c6b7fea04ffa5018db3c2149e3558f9aa7e38d9243b789ed19f8fdd1e1"
+  }
+}

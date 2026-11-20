@@ -1,0 +1,1437 @@
+{
+  "build_sha256": "8d0f488ec1c0aa068d0fbea567d8671b0ebcd6c8a3290a9b27699fc23c48ffec",
+  "fixture_sha256": "54f23247b95ca78c8ce309a38f83be6a6f81152bb781a25e92ba3efacc465b90",
+  "frames": [
+    {
+      "calls": [
+        {
+          "delivered_words": 3168,
+          "end_ns": 118059668461021,
+          "source_words": 1584,
+          "start_ns": 118059665035910,
+          "symbol": "weights"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059677017410,
+          "source_words": 256,
+          "start_ns": 118059676948353,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059677505976,
+          "source_words": 256,
+          "start_ns": 118059677432092,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059678594496,
+          "source_words": 256,
+          "start_ns": 118059677995126,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059679127609,
+          "source_words": 256,
+          "start_ns": 118059679067710,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059679541387,
+          "source_words": 256,
+          "start_ns": 118059679431829,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059692509733,
+          "source_words": 256,
+          "start_ns": 118059684586752,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059693206704,
+          "source_words": 256,
+          "start_ns": 118059693112872,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059693662219,
+          "source_words": 256,
+          "start_ns": 118059693569963,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059697590024,
+          "source_words": 256,
+          "start_ns": 118059697477876,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059698057761,
+          "source_words": 256,
+          "start_ns": 118059697958066,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059698550504,
+          "source_words": 256,
+          "start_ns": 118059698461764,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118059701384196,
+          "source_words": 256,
+          "start_ns": 118059701169289,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118059701923502,
+          "source_words": 112,
+          "start_ns": 118059701844030,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "row",
+      "end_ns": 118069072545385,
+      "input_words": 5170,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 4.6386668088871374e-06,
+        "fp64_relative_l2": 9.254440352865844e-08,
+        "peak_edge_interval": 51743,
+        "peak_first_to_last": 56224,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "edges",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "ee3b502ecb3230bae6f0f39880597aac4afca85812909249d36243f1301c32b5",
+      "scale": 1.0,
+      "selector_words": 246,
+      "source_words": 3184,
+      "start_ns": 118059665013461,
+      "tag": 1,
+      "trial": 1
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 3168,
+          "end_ns": 118069092493816,
+          "source_words": 3168,
+          "start_ns": 118069084661306,
+          "symbol": "weights"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069097166578,
+          "source_words": 512,
+          "start_ns": 118069097037457,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069112451864,
+          "source_words": 512,
+          "start_ns": 118069104634981,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069113095296,
+          "source_words": 512,
+          "start_ns": 118069113013366,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069120812671,
+          "source_words": 512,
+          "start_ns": 118069120692125,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069124713089,
+          "source_words": 512,
+          "start_ns": 118069124595926,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069125309781,
+          "source_words": 512,
+          "start_ns": 118069125202934,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069130849455,
+          "source_words": 512,
+          "start_ns": 118069130692518,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069131348116,
+          "source_words": 512,
+          "start_ns": 118069131262958,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069131918545,
+          "source_words": 512,
+          "start_ns": 118069131818244,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069132427710,
+          "source_words": 512,
+          "start_ns": 118069132348943,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069136899946,
+          "source_words": 512,
+          "start_ns": 118069136799248,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118069137347173,
+          "source_words": 512,
+          "start_ns": 118069137262996,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118069137782057,
+          "source_words": 224,
+          "start_ns": 118069137684908,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "replicated",
+      "end_ns": 118080332592578,
+      "input_words": 9938,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 4.6386668088871374e-06,
+        "fp64_relative_l2": 9.254440352865844e-08,
+        "peak_edge_interval": 55653,
+        "peak_first_to_last": 60134,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "edges",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "e50395e4e4282f27f95cebfab547d4290e5768aebe56402efabcf70e78e5e47e",
+      "scale": 1.0,
+      "selector_words": 246,
+      "source_words": 6368,
+      "start_ns": 118069084574109,
+      "tag": 2,
+      "trial": 1
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118080350183358,
+          "source_words": 512,
+          "start_ns": 118080350071695,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080350720956,
+          "source_words": 512,
+          "start_ns": 118080350597798,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080351312997,
+          "source_words": 512,
+          "start_ns": 118080351203527,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080351846220,
+          "source_words": 512,
+          "start_ns": 118080351707897,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080352529933,
+          "source_words": 512,
+          "start_ns": 118080352419008,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080353037268,
+          "source_words": 512,
+          "start_ns": 118080352917394,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080353606551,
+          "source_words": 512,
+          "start_ns": 118080353498436,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080365005669,
+          "source_words": 512,
+          "start_ns": 118080364856623,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080365600212,
+          "source_words": 512,
+          "start_ns": 118080365484989,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080366119339,
+          "source_words": 512,
+          "start_ns": 118080366015754,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080366775018,
+          "source_words": 512,
+          "start_ns": 118080366652345,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118080372763528,
+          "source_words": 512,
+          "start_ns": 118080372589166,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118080373268934,
+          "source_words": 224,
+          "start_ns": 118080373197210,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "replicated",
+      "end_ns": 118088028614460,
+      "input_words": 6770,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 4.6386668088871374e-06,
+        "fp64_relative_l2": 9.254440352865844e-08,
+        "peak_edge_interval": 55702,
+        "peak_first_to_last": 60183,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "dictionary",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "4e7c59692095090f5e9df2f10faa52b5fd11196fece3e9c05224eb5606641427",
+      "scale": 1.0,
+      "selector_words": 246,
+      "source_words": 6368,
+      "start_ns": 118080349294371,
+      "tag": 3,
+      "trial": 2
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118088046372890,
+          "source_words": 256,
+          "start_ns": 118088046251462,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088046860112,
+          "source_words": 256,
+          "start_ns": 118088046760450,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088047338825,
+          "source_words": 256,
+          "start_ns": 118088047227426,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088047860212,
+          "source_words": 256,
+          "start_ns": 118088047761751,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088048414683,
+          "source_words": 256,
+          "start_ns": 118088048284196,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088048826213,
+          "source_words": 256,
+          "start_ns": 118088048740360,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088049193561,
+          "source_words": 256,
+          "start_ns": 118088049117175,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088049544631,
+          "source_words": 256,
+          "start_ns": 118088049446820,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088056946060,
+          "source_words": 256,
+          "start_ns": 118088056848239,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088057486689,
+          "source_words": 256,
+          "start_ns": 118088057395040,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088057887926,
+          "source_words": 256,
+          "start_ns": 118088057796023,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118088058256916,
+          "source_words": 256,
+          "start_ns": 118088058180387,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118088058661117,
+          "source_words": 112,
+          "start_ns": 118088058566271,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "row",
+      "end_ns": 118093957914732,
+      "input_words": 3586,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 4.6386668088871374e-06,
+        "fp64_relative_l2": 9.254440352865844e-08,
+        "peak_edge_interval": 51825,
+        "peak_first_to_last": 56306,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "dictionary",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "9eb25635f339a0a0598371033db2e66305dec752ab7dd459e2097df20221db45",
+      "scale": 1.0,
+      "selector_words": 246,
+      "source_words": 3184,
+      "start_ns": 118088045475482,
+      "tag": 4,
+      "trial": 2
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118093979163407,
+          "source_words": 256,
+          "start_ns": 118093979060142,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093979649913,
+          "source_words": 256,
+          "start_ns": 118093979540927,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093979993576,
+          "source_words": 256,
+          "start_ns": 118093979931452,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093980463727,
+          "source_words": 256,
+          "start_ns": 118093980258584,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093980915792,
+          "source_words": 256,
+          "start_ns": 118093980810884,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093981326859,
+          "source_words": 256,
+          "start_ns": 118093981238472,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093988831837,
+          "source_words": 256,
+          "start_ns": 118093988680642,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093989629233,
+          "source_words": 256,
+          "start_ns": 118093989529968,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093990091944,
+          "source_words": 256,
+          "start_ns": 118093989979432,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093990486877,
+          "source_words": 256,
+          "start_ns": 118093990402480,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093990931680,
+          "source_words": 256,
+          "start_ns": 118093990793478,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118093991216316,
+          "source_words": 256,
+          "start_ns": 118093991159393,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118093991405687,
+          "source_words": 112,
+          "start_ns": 118093991366255,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "row",
+      "end_ns": 118104244526578,
+      "input_words": 3586,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 2.7663682402589984e-06,
+        "fp64_relative_l2": 9.366227147257845e-08,
+        "peak_edge_interval": 51825,
+        "peak_first_to_last": 56306,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "dictionary",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "36c1e199008f4e10538a9a8f50c274cd1c87c111d2e155cff972d27594abf61f",
+      "scale": 0.5,
+      "selector_words": 246,
+      "source_words": 3184,
+      "start_ns": 118093978506927,
+      "tag": 5,
+      "trial": 3
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118104276897598,
+          "source_words": 512,
+          "start_ns": 118104276749786,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104277475323,
+          "source_words": 512,
+          "start_ns": 118104277366757,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104277973808,
+          "source_words": 512,
+          "start_ns": 118104277878246,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104278535454,
+          "source_words": 512,
+          "start_ns": 118104278419371,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104280807407,
+          "source_words": 512,
+          "start_ns": 118104280680755,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104284764593,
+          "source_words": 512,
+          "start_ns": 118104284632475,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104291871787,
+          "source_words": 512,
+          "start_ns": 118104288561481,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104292540523,
+          "source_words": 512,
+          "start_ns": 118104292449854,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104292990097,
+          "source_words": 512,
+          "start_ns": 118104292891736,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104293398960,
+          "source_words": 512,
+          "start_ns": 118104293318706,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104293783423,
+          "source_words": 512,
+          "start_ns": 118104293695708,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118104294152623,
+          "source_words": 512,
+          "start_ns": 118104294075862,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118104295007027,
+          "source_words": 224,
+          "start_ns": 118104294897105,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "replicated",
+      "end_ns": 118116032560511,
+      "input_words": 6770,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 2.7663682402589984e-06,
+        "fp64_relative_l2": 9.366227147257845e-08,
+        "peak_edge_interval": 55740,
+        "peak_first_to_last": 60221,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "dictionary",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "ae9d49cf47da8b5ca6207c85169cef01cbcc91d92366856c8ef942d6590a35a7",
+      "scale": 0.5,
+      "selector_words": 246,
+      "source_words": 6368,
+      "start_ns": 118104257723288,
+      "tag": 6,
+      "trial": 3
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118116057194734,
+          "source_words": 512,
+          "start_ns": 118116057131221,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116057509358,
+          "source_words": 512,
+          "start_ns": 118116057439916,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116057750649,
+          "source_words": 512,
+          "start_ns": 118116057696978,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116057989328,
+          "source_words": 512,
+          "start_ns": 118116057928537,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116058207090,
+          "source_words": 512,
+          "start_ns": 118116058161011,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116059068460,
+          "source_words": 512,
+          "start_ns": 118116058857509,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116059784960,
+          "source_words": 512,
+          "start_ns": 118116059626898,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116060351609,
+          "source_words": 512,
+          "start_ns": 118116060177159,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116060878803,
+          "source_words": 512,
+          "start_ns": 118116060772782,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116064570695,
+          "source_words": 512,
+          "start_ns": 118116061263883,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116065127481,
+          "source_words": 512,
+          "start_ns": 118116065040460,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118116065557151,
+          "source_words": 512,
+          "start_ns": 118116065453731,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118116066102431,
+          "source_words": 224,
+          "start_ns": 118116066015035,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "replicated",
+      "end_ns": 118127140541981,
+      "input_words": 6770,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 2.7663682402589984e-06,
+        "fp64_relative_l2": 9.366227147257845e-08,
+        "peak_edge_interval": 55702,
+        "peak_first_to_last": 60183,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "edges",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "821dbf2f4b380d78fdf7cf76b5f77dd97bb0dd7c234775b8be4622367b8f85a0",
+      "scale": 0.5,
+      "selector_words": 246,
+      "source_words": 6368,
+      "start_ns": 118116050847794,
+      "tag": 7,
+      "trial": 4
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118127159010205,
+          "source_words": 256,
+          "start_ns": 118127158913541,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127159628145,
+          "source_words": 256,
+          "start_ns": 118127159543185,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127164850473,
+          "source_words": 256,
+          "start_ns": 118127164774628,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127165163345,
+          "source_words": 256,
+          "start_ns": 118127165106510,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127165459751,
+          "source_words": 256,
+          "start_ns": 118127165397990,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127165840511,
+          "source_words": 256,
+          "start_ns": 118127165705252,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127166169859,
+          "source_words": 256,
+          "start_ns": 118127166109498,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127166512542,
+          "source_words": 256,
+          "start_ns": 118127166421917,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127166861375,
+          "source_words": 256,
+          "start_ns": 118127166766099,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127167294826,
+          "source_words": 256,
+          "start_ns": 118127167208940,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127167651274,
+          "source_words": 256,
+          "start_ns": 118127167574679,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118127168055431,
+          "source_words": 256,
+          "start_ns": 118127167922387,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118127168509105,
+          "source_words": 112,
+          "start_ns": 118127168399238,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "row",
+      "end_ns": 118137524914288,
+      "input_words": 3586,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 2.7663682402589984e-06,
+        "fp64_relative_l2": 9.366227147257845e-08,
+        "peak_edge_interval": 51825,
+        "peak_first_to_last": 56306,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "edges",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "65af6165623bd529320e4d0300b64383467a16fae018c61fa4552bf34f7bd4c2",
+      "scale": 0.5,
+      "selector_words": 246,
+      "source_words": 3184,
+      "start_ns": 118127154830044,
+      "tag": 8,
+      "trial": 4
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118137537536326,
+          "source_words": 256,
+          "start_ns": 118137537410953,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137537868738,
+          "source_words": 256,
+          "start_ns": 118137537796915,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137538133492,
+          "source_words": 256,
+          "start_ns": 118137538077142,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137538625871,
+          "source_words": 256,
+          "start_ns": 118137538546113,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137539004361,
+          "source_words": 256,
+          "start_ns": 118137538893017,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137539479934,
+          "source_words": 256,
+          "start_ns": 118137539378895,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137544213403,
+          "source_words": 256,
+          "start_ns": 118137539954377,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137544832963,
+          "source_words": 256,
+          "start_ns": 118137544726733,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137545273776,
+          "source_words": 256,
+          "start_ns": 118137545179988,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137545804872,
+          "source_words": 256,
+          "start_ns": 118137545691588,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137546262888,
+          "source_words": 256,
+          "start_ns": 118137546162631,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118137546625078,
+          "source_words": 256,
+          "start_ns": 118137546551965,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118137547034547,
+          "source_words": 112,
+          "start_ns": 118137546944143,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "row",
+      "end_ns": 118147688584854,
+      "input_words": 3586,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 4.6386668088871374e-06,
+        "fp64_relative_l2": 9.254440352865844e-08,
+        "peak_edge_interval": 51826,
+        "peak_first_to_last": 56307,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "dictionary",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "27ac6b8eccfb79d36424858d482a01a35b9b3d53fb63254cd4ec8322e851375b",
+      "scale": 1.0,
+      "selector_words": 246,
+      "source_words": 3184,
+      "start_ns": 118137536745843,
+      "tag": 9,
+      "trial": 5
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118147713286570,
+          "source_words": 512,
+          "start_ns": 118147713175932,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147713836159,
+          "source_words": 512,
+          "start_ns": 118147713722622,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147714411008,
+          "source_words": 512,
+          "start_ns": 118147714300479,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147714869399,
+          "source_words": 512,
+          "start_ns": 118147714762375,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147715273215,
+          "source_words": 512,
+          "start_ns": 118147715190988,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147715680910,
+          "source_words": 512,
+          "start_ns": 118147715588246,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147716084064,
+          "source_words": 512,
+          "start_ns": 118147715987422,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147716707294,
+          "source_words": 512,
+          "start_ns": 118147716585227,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147724499887,
+          "source_words": 512,
+          "start_ns": 118147720869756,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147724991991,
+          "source_words": 512,
+          "start_ns": 118147724912255,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147725524564,
+          "source_words": 512,
+          "start_ns": 118147725412768,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118147725974293,
+          "source_words": 512,
+          "start_ns": 118147725892529,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118147726374042,
+          "source_words": 224,
+          "start_ns": 118147726281830,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "replicated",
+      "end_ns": 118155408545417,
+      "input_words": 6770,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 4.6386668088871374e-06,
+        "fp64_relative_l2": 9.254440352865844e-08,
+        "peak_edge_interval": 55702,
+        "peak_first_to_last": 60183,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "dictionary",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "1b2e66d32e2e6073dfb1af60f4edbbdbfa5c1f74a065a5f12dc78d91f0183780",
+      "scale": 1.0,
+      "selector_words": 246,
+      "source_words": 6368,
+      "start_ns": 118147712495426,
+      "tag": 10,
+      "trial": 5
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118155425645439,
+          "source_words": 512,
+          "start_ns": 118155425514687,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155426138072,
+          "source_words": 512,
+          "start_ns": 118155426020578,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155436959718,
+          "source_words": 512,
+          "start_ns": 118155436817306,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155437473412,
+          "source_words": 512,
+          "start_ns": 118155437357043,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155441143312,
+          "source_words": 512,
+          "start_ns": 118155441049293,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155441620945,
+          "source_words": 512,
+          "start_ns": 118155441519443,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155442248165,
+          "source_words": 512,
+          "start_ns": 118155442155689,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155442718602,
+          "source_words": 512,
+          "start_ns": 118155442589471,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155443174833,
+          "source_words": 512,
+          "start_ns": 118155443089609,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155443706678,
+          "source_words": 512,
+          "start_ns": 118155443555703,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155444201471,
+          "source_words": 512,
+          "start_ns": 118155444116743,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118155444628982,
+          "source_words": 512,
+          "start_ns": 118155444551858,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118155453236640,
+          "source_words": 224,
+          "start_ns": 118155453132405,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "replicated",
+      "end_ns": 118170488513418,
+      "input_words": 6770,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 4.6386668088871374e-06,
+        "fp64_relative_l2": 9.254440352865844e-08,
+        "peak_edge_interval": 55702,
+        "peak_first_to_last": 60183,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "edges",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "d85aa8656a6912de4bdf865581eb6d3ad4149155466ea7244ab468f2cff9c3eb",
+      "scale": 1.0,
+      "selector_words": 246,
+      "source_words": 6368,
+      "start_ns": 118155424801361,
+      "tag": 11,
+      "trial": 6
+    },
+    {
+      "calls": [
+        {
+          "delivered_words": 512,
+          "end_ns": 118170517092237,
+          "source_words": 256,
+          "start_ns": 118170516960306,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170517516188,
+          "source_words": 256,
+          "start_ns": 118170517443428,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170518027777,
+          "source_words": 256,
+          "start_ns": 118170517948361,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170518494654,
+          "source_words": 256,
+          "start_ns": 118170518315301,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170518963956,
+          "source_words": 256,
+          "start_ns": 118170518875403,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170519296863,
+          "source_words": 256,
+          "start_ns": 118170519231069,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170519611135,
+          "source_words": 256,
+          "start_ns": 118170519554300,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170532480530,
+          "source_words": 256,
+          "start_ns": 118170524669560,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170533108488,
+          "source_words": 256,
+          "start_ns": 118170533005432,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170533482459,
+          "source_words": 256,
+          "start_ns": 118170533408465,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170533908901,
+          "source_words": 256,
+          "start_ns": 118170533752790,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 512,
+          "end_ns": 118170534337778,
+          "source_words": 256,
+          "start_ns": 118170534214223,
+          "symbol": "features"
+        },
+        {
+          "delivered_words": 224,
+          "end_ns": 118170534655256,
+          "source_words": 112,
+          "start_ns": 118170534595325,
+          "symbol": "features"
+        }
+      ],
+      "delivery": "row",
+      "end_ns": 118185776542057,
+      "input_words": 3586,
+      "measured": {
+        "argmax_differences": 0,
+        "fp64_max_abs": 4.6386668088871374e-06,
+        "fp64_relative_l2": 9.254440352865844e-08,
+        "peak_edge_interval": 51825,
+        "peak_first_to_last": 56306,
+        "peak_projection": 4457,
+        "peak_roots_clear": 24
+      },
+      "method": "edges",
+      "peak_active_edge_cycles": 4135,
+      "raw_sha256": "9c754cb0d7ca1371aeee86063a698356e826d7a533698ac4d0f21b936300162f",
+      "scale": 1.0,
+      "selector_words": 246,
+      "source_words": 3184,
+      "start_ns": 118170505243023,
+      "tag": 12,
+      "trial": 6
+    }
+  ],
+  "inventory": {
+    "bin/out_0_0.elf": "7ff22e6e2b872bb857daeb6faeb15ba89fa167acb11ec49101a64326114e19a2",
+    "bin/out_1_0.elf": "b1f9a51a663859ec44f0b7da268f002e349f59b5a208a5afbf1ee66d3b9b15df",
+    "bin/out_rpc.json": "1645d4f8bb72ea91f4cc7ea16350e3369bf678f41c8e99eb4858c7293d13e0de",
+    "east/bin/out_0_0.elf": "b02d2f3f1af06d5aacf2d2164f7f19c3c16c3a7af2e3ba1b9513769cb2e9720b",
+    "east/bin/out_1_0.elf": "748e86900a613ad4e5c0e837cd2fe55e3a7a5229d9939e82b3a676f6cc368d6d",
+    "east/out.json": "46ea180801c589023f5daf7351fb473475b50f302d72cf40f86e4ce5f7d320b7",
+    "out.json": "d73836b16c65a334a647037e00cb50e75efd5096506d2b99e83792b0b99902e4",
+    "west/bin/out_0_0.elf": "bfa350c5eb85ebdabacb10de2c5cb8be47b5b2721ac0fd14f37919cfefff6991",
+    "west/bin/out_1_0.elf": "ce56edc15e7efc64ef592d5a929f9ba00c2a778ab5ca384cf75e74221eeae979",
+    "west/bin/out_2_0.elf": "b40d337d2f1ae7a3593063df9347c98ea2abc1db87bdbc7a02a26425a88b5edb",
+    "west/out.json": "248ecbf17b2090e46e426ee7b905c25f2b9770e8f6a382868cd2e07ab91e7a3a"
+  },
+  "platform": {
+    "simulation": true,
+    "system": false
+  },
+  "role": "simulator",
+  "stopped": true,
+  "workers": {
+    "inventory.py": "37e0ff787ac8a66fbfd987a7f6920d7c649d21b226e83ea893c15b1803c16cd6",
+    "ogb_contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "paired_worker.py": "7b119d700396541e1a4f2c623320466de3cb71e42341cbc7921b28e54dc46390",
+    "source_table.py": "1255f3c6b7fea04ffa5018db3c2149e3558f9aa7e38d9243b789ed19f8fdd1e1"
+  }
+}
