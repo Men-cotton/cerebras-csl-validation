@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "graphsage-native-hub-dual-postentry-c16r32-20261120-r001",
+  "description": "Original and split full-Cora GraphSAGE on one resident physical CS-3 executable with complete upload/readback and a six-frame FP64 audit.",
+  "steps": [
+    {
+      "name": "compile",
+      "kind": "appliance",
+      "script": "validations/graphsage-native-hub-pair/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/graphsage-native-hub-pair/cases/r32-dual-entry",
+        "--release",
+        "fb1e11368d1ba80e72f8dee73e7c093e41ba8a7dbc2c56cbe32875beae996d1e",
+        "--out",
+        "{output}/compile"
+      ]
+    },
+    {
+      "name": "pair",
+      "kind": "appliance",
+      "script": "validations/graphsage-native-hub-pair/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/graphsage-native-hub-pair/cases/r32-dual-entry",
+        "--release",
+        "fb1e11368d1ba80e72f8dee73e7c093e41ba8a7dbc2c56cbe32875beae996d1e",
+        "--build",
+        "{output}/compile/build.json",
+        "--out",
+        "{output}/pair"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "case_sha256": "64c0b4064400844f47a4373e8f1e1bbaa0f6ad07b72176ba7530f7179dd98431",
+  "linked_sdk_sha256": "9d0c387d29f2a0dcdb1b3f01190dbfb7e6d01ef13a24fcdf24b14e5576c111d1",
+  "sdk_audit_sha256": "ce787630cfe0405cb32b624bebbf3c51d2283c28c5590631554923ac90f4836f",
+  "host": {
+    "appliance.py": "32e2effaaf1f5e7c94b01444bc34ad45256c8547bc375e26dd5c4d238fe10a57",
+    "paired_worker.py": "d2cf0c17649021612abc13be515e2a8095fd9e1ebea37a217d7a3d8d5a12e157",
+    "paired_audit.py": "7f81e3ceb9bfeec071e9e6c7696eb0cafdcf642142a92c8fc07f24ced223f25b",
+    "paired_launch.py": "af8f964b0ef0133506a26951985657783cac8148cef241d3f4c085a2bf1005ce",
+    "sample_audit.py": "913f4ef10f6c1b9019a2906d184ace418a78cc33ff1b3844ef237b84c7fc7072"
+  },
+  "original_host": {
+    "portable.py": "72f487280c44bfdd4786d1c54f4d20d6319519642f4ff924d7350b203a32d930",
+    "saved_audit.py": "713c035b5051de9d982e00442db733421087c2f5aa42c98ef90ed9243c8383d4"
+  },
+  "simulator": {
+    "control-1.json": "cb647a9746693a0615c423dc0a8370c0ae365de40626475a6e7bbf9f5dd57f69",
+    "control-1.npz": "5ca6527a7ed316007a3026557b1e6bf5f99e61951beed18b80131d70b5b0cc74",
+    "split-1.json": "a773e07488c3ad6eb01bdf9d930456b25e12736038158aac1bd16e82bba0e78e",
+    "split-1.npz": "a3500e4d1072e589860e7757558853d80ab7295030b2baa3eef3d6d1238cd470"
+  },
+  "sdk_measurement": "two stopped-core A frames",
+  "target_inventory_sha256": "bda1b3ff7aa9a073fcbfbcb0220eddd821c6d2faee54bbc1b62cb678696bac50"
+}

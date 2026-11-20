@@ -1,0 +1,559 @@
+// SPDX-License-Identifier: Apache-2.0
+// First-layer reduction/scatter to source owners, followed by endpoint-addressed delivery.
+param memcpy_params;
+param c2d_params;
+param even_column: bool;
+param west_edge: bool;
+param east_edge: bool;
+param even_row: bool;
+param north_edge: bool;
+param south_edge: bool;
+param hub_route: u16;
+param C: u16;
+param R: u16;
+param K: u16;
+param L: u16;
+param FW: u16;
+param H: u16;
+param O: u16;
+param T: u16;
+param MX: u16;
+param MG: u16;
+param NRX: u16;
+param NTX: u16;
+param COMPACT: u16;
+param RX: u16;
+const sys = @import_module("<memcpy/memcpy>",memcpy_params);
+const math = @import_module("<math>");
+const timestamp = @import_module("<time>");
+const loc = @import_module("<layout>");
+const COMPUTE = @get_local_task_id(12);
+const SHARED = @get_local_task_id(14);
+const mp = @import_module("<message_passing>", .{
+  .bank_id=14, .input_queue_id=6, .output_queue_id=6
+});
+const exchange_task = @get_local_task_id(16);
+const tx_task = @get_local_task_id(17);
+const aggregate_task = @get_local_task_id(20);
+
+var x_ptr = @zeros([K+1]u16);
+var x_col = @zeros([MX]u16);
+var x_val = @zeros([MX]f32);
+// Weights are indexed by output tile, input feature, branch, then lane.
+var paired0 = @zeros([((H+T-1)/T)*FW*2*T]f32);
+var paired1 = @zeros([((O+T-1)/T)*H*2*T]f32);
+var b0 = @zeros([H]f32);
+var b1 = @zeros([O]f32);
+// Roles 1, 2 and 3 receive, produce and relay a partial neighbor sum.
+var split_info = @zeros([3]u16);
+var split_words = @zeros([2]u32);
+var edge_ptr = @zeros([L+1]u16);
+var edge_src = @zeros([MG]u16);
+var edge_weight = @zeros([MG]f32);
+var tx_slot = @zeros([NTX]u16);
+var packet_template = @zeros([NTX*(T+2)]u32);
+var counts = @zeros([2]u16);
+var traffic = @zeros([4]u32);
+var header_tag = @zeros([2]u32);
+var barrier_value = [1]f32{0.0};
+var slots = @zeros([L]u16);
+var pre = @zeros([L*H]f32);
+var hidden = @zeros([L*H]f32);
+var logits = @zeros([L*O]f32);
+// Each bidirectional reduction leaves the owner's block in panel_local.
+// After copying its self contribution, compact the local neighbors into the
+// beginning of that same array and receive remote values after those slots.
+const CACHE_ROWS = if (2*K > L+NRX) 2*K else L+NRX;
+// The first projection tile also supplies the original addressed-receive cache.
+// Place the second tile beyond that full cache until the next row reduction.
+var panel_local = @zeros([(CACHE_ROWS+2*K)*T]f32);
+const saved_tile = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{2*K*T}->panel_local[@as(i16,CACHE_ROWS*T)+i]});
+const projection_pair = @get_dsd(mem4d_dsd,.{.tensor_access=|tile,i|{2,2*T}->
+    panel_local[tile*@as(i16,CACHE_ROWS*T)+i]});
+const weight_pair = @get_dsd(mem4d_dsd,.{.tensor_access=|tile,i|{2,2*T}->
+    paired0[tile*@as(i16,FW*2*T)+i]});
+var self_tile = @zeros([L*T]f32);
+var accum = @zeros([L*T]f32);
+// completion, row reductions, row scatters, received addressed packets,
+// input projection FMAs, graph FMAs, hidden projection FMAs, output tiles,
+// valid local vertices, nonzero hidden norms
+var norm_terms = @zeros([H]f32);
+var stats = @zeros([10]u32);
+var clocks = @zeros([9]u16);
+const lane_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{T}->panel_local[i]});
+const pair_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{2*T}->panel_local[i]});
+const local_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{K*2*T}->panel_local[i]});
+const accum_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{L*T}->accum[i]});
+// Row collectives use DSRs 1 and 2. The sparsity loops share register set 3.
+const dst_reg = @get_dsr(dsr_dest,3);
+const accum_reg = @get_dsr(dsr_src0,3);
+const src_reg = @get_dsr(dsr_src1,3);
+fn set_accumulator(address: [*]f32) void {
+  @set_dsr_base_addr(dst_reg,address);
+  @set_dsr_base_addr(accum_reg,address);
+}
+var phase: u16 = 0;
+var lane: u16 = 0;
+var active: u16 = T;
+var sent: u16 = 0;
+var tx_extent: u16 = 0;
+var received: u16 = 0;
+var px: u16 = 0;
+const header_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{2}->header_tag[i]});
+const packet_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{NTX*(T+2)}->packet_template[i]});
+const rx = @get_dsd(fabin_dsd, .{.extent=2, .input_queue=mp.mp_input_queue, .simd_mode=.{.simd_off=true}});
+const tx = @get_dsd(fabout_dsd, .{.extent=1, .output_queue=mp.mp_output_queue, .simd_mode=.{.simd_off=true}});
+
+
+fn mesh_barrier() void {
+  // Row arrivals go west; row releases go east after column zero synchronizes.
+  if (!east_edge) { @mov32(token,w_in); }
+  if (!west_edge) { @mov32(w_out,token); }
+  else {
+    if (!south_edge) { @mov32(token,n_in); }
+    if (!north_edge) { @mov32(n_out,token); }
+  }
+  if (west_edge and north_edge) { @mov32(release_out,token); }
+  else { @mov32(token,release_in); }
+}
+
+fn f_run() void {
+  mp.init(); px = loc.get_x_coord();
+  for (@range(u16,4)) |i| { traffic[i] = 0; }
+  phase = 0; lane = 0;
+  split_words[0] = 0; split_words[1] = 0;
+  for (@range(u16,10)) |i| { stats[i] = 0; }
+  for (@range(u16,L*H)) |i| { pre[i] = 0.0; hidden[i] = 0.0; }
+  for (@range(u16,L*O)) |i| { logits[i] = 0.0; }
+  for (@range(u16,L)) |v| { if (slots[v] != 65535) { stats[8] += 1; } }
+  timestamp.enable_tsc();
+  timestamp.get_timestamp(@ptrcast(*[3]u16,&clocks[6]));
+  mesh_barrier();
+  timestamp.get_timestamp(@ptrcast(*[3]u16,&clocks[0]));
+  @activate(COMPUTE);
+}
+
+task compute_tile() void {
+  const width = if (phase == 0) H else O;
+  active = if (lane+T <= width) T else width-lane;
+  if (phase == 0 and lane == 0) {
+    @fmovs(local_dsd,0.0);
+    @fmovs(saved_tile,0.0);
+  } else if (phase == 0) {
+    @mov32(local_dsd,saved_tile);
+  } else { @fmovs(@set_dsd_length(local_dsd,L*2*T),0.0); }
+  @fmovs(accum_dsd,0.0);
+  @load_to_dsr(dst_reg,pair_dsd);
+  @load_to_dsr(accum_reg,pair_dsd);
+  @load_to_dsr(src_reg,pair_dsd);
+  if (phase == 0) {
+    if (lane == 0) {
+      const panel_xdsr = @get_xdsr(0);
+      const weight_xdsr = @get_xdsr(1);
+      @load_to_dsr_xdsr_sr(dst_reg,panel_xdsr,.{},projection_pair);
+      @load_to_dsr_xdsr_sr(accum_reg,panel_xdsr,.{},projection_pair);
+      @load_to_dsr_xdsr_sr(src_reg,weight_xdsr,.{},weight_pair);
+      for (@range(u16,K)) |v| {
+        set_accumulator(@ptrcast([*]f32,&panel_local[v*2*T]));
+        var e = x_ptr[v];
+        const end = x_ptr[v+1];
+        while (e < end) : (e += 1) {
+          @set_dsr_base_addr(src_reg,@ptrcast([*]f32,&paired0[x_col[e]*2*T]));
+          @fmacs(dst_reg,accum_reg,src_reg,x_val[e]);
+        }
+      }
+    }
+    stats[4] += @as(u32,x_ptr[K])*2*@as(u32,active);
+  } else {
+    const tile_base = (lane/T)*H;
+    for (@range(u16,L)) |v| {
+      if (slots[v] != 65535) {
+        const slot = v;
+        set_accumulator(@ptrcast([*]f32,&panel_local[slot*2*T]));
+        for (@range(u16,H)) |h| {
+          const value = hidden[v*H+h];
+          if (value != 0.0) {
+            @set_dsr_base_addr(src_reg,@ptrcast([*]f32,&paired1[(tile_base+h)*2*T]));
+            @fmacs(dst_reg,accum_reg,src_reg,value);
+          }
+        }
+      }
+    }
+    stats[6] += stats[8]*2*@as(u32,H)*@as(u32,active);
+  }
+  if (phase == 0 and C > 1) {
+    stats[1] += 1;
+    reduce_scatter();
+    return;
+  }
+  if (phase == 0) { stats[1] += 1; }
+  @activate(SHARED);
+}
+
+const west_in_color = if (even_column) @get_color(0) else @get_color(1);
+const west_out_color = if (even_column) @get_color(1) else @get_color(0);
+const east_in_color = if (even_column) @get_color(2) else @get_color(3);
+const east_out_color = if (even_column) @get_color(3) else @get_color(2);
+const w_in = @get_dsd(fabin_dsd,.{.extent=1,.input_queue=@get_input_queue(2)});
+const w_out = @get_dsd(fabout_dsd,.{.extent=1,.output_queue=@get_output_queue(2)});
+const e_in = @get_dsd(fabin_dsd,.{.extent=1,.input_queue=@get_input_queue(4)});
+const e_out = @get_dsd(fabout_dsd,.{.extent=1,.output_queue=@get_output_queue(4)});
+const token = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->barrier_value[i]});
+const north_in_color = if (even_row) @get_color(4) else @get_color(5);
+const north_out_color = if (even_row) @get_color(5) else @get_color(4);
+const release_color = @get_color(6);
+const hub_color = @get_color(7);
+const hub_in = @get_dsd(fabin_dsd,.{.extent=T,.input_queue=@get_input_queue(7)});
+const hub_out = @get_dsd(fabout_dsd,.{.extent=T,.output_queue=@get_output_queue(7)});
+const n_in = @get_dsd(fabin_dsd,.{.extent=1,.input_queue=@get_input_queue(3)});
+const n_out = @get_dsd(fabout_dsd,.{.extent=1,.output_queue=@get_output_queue(3)});
+const release_in = @get_dsd(fabin_dsd,.{.extent=1,.input_queue=@get_input_queue(5)});
+const release_out = @get_dsd(fabout_dsd,.{.extent=1,.output_queue=@get_output_queue(5)});
+const BLOCK = L*2*T;
+fn portion(offset: u16, words: u16) mem1d_dsd {
+  return @set_dsd_base_addr(@set_dsd_length(local_dsd,words),@ptrcast([*]f32,&panel_local[offset]));
+}
+
+const READ_RIGHT_OWNER = @get_local_task_id(8);
+const WEST_DONE = @get_local_task_id(13);
+var right_owner = @zeros([BLOCK]f32);
+const right_dsd = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{BLOCK}->right_owner[i]});
+var east_ready: bool = false;
+var west_ready: bool = false;
+
+fn finish_row() void {
+  if (east_ready and west_ready) {
+    if (px < C-1) {
+      const own = portion(px*BLOCK,BLOCK);
+      @fadds(own,own,right_dsd);
+    }
+    @activate(SHARED);
+  }
+}
+
+fn read_right_owner() void {
+  @mov32(right_dsd,@set_dsd_length(w_in,BLOCK),.{.async=true,.ut_id=@get_ut_id(4),.activate=WEST_DONE});
+}
+task right_own() void { read_right_owner(); }
+task west_complete() void { west_ready = true; finish_row(); }
+
+fn reduce_scatter() void {
+  const prefix = px*BLOCK;
+  const suffix = (C-1-px)*BLOCK;
+  const own = portion(prefix,BLOCK);
+  east_ready = false;
+  west_ready = false;
+
+  // Prefixes travel west on a microthread while suffixes move east. Keep
+  // the two incoming partials separate until both streams are complete.
+  if (px == C-1) {
+    @mov32(@set_dsd_length(w_out,prefix),portion(0,prefix),
+           .{.async=true,.ut_id=@get_ut_id(4),.activate=WEST_DONE});
+  } else if (prefix > 0) {
+    @fadds(@set_dsd_length(w_out,prefix),portion(0,prefix),@set_dsd_length(w_in,prefix),
+           .{.async=true,.ut_id=@get_ut_id(4),.activate=READ_RIGHT_OWNER});
+  } else { read_right_owner(); }
+
+  if (px == 0) {
+    @mov32(@set_dsd_length(e_out,suffix),portion(BLOCK,suffix));
+  } else {
+    @fadds(own,own,@set_dsd_length(e_in,BLOCK));
+    if (suffix > 0) {
+      @fadds(@set_dsd_length(e_out,suffix),portion(prefix+BLOCK,suffix),@set_dsd_length(e_in,suffix));
+    }
+  }
+  east_ready = true;
+  finish_row();
+}
+
+const paired_rows = @get_dsd(mem4d_dsd,.{.tensor_access=|v,i|{L,T}->panel_local[v*@as(i16,2*T)+i]});
+const all_self = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{L*T}->self_tile[i]});
+const all_neighbors = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{L*T}->panel_local[i]});
+
+task shared() void {
+  const base = if (phase == 0) px*BLOCK else 0;
+  const self_in = @set_dsd_base_addr(paired_rows,@ptrcast([*]f32,&panel_local[base+T]));
+  const neighbor_in = @set_dsd_base_addr(paired_rows,@ptrcast([*]f32,&panel_local[base]));
+  @fmovs(all_self,self_in);
+  @fmovs(all_neighbors,neighbor_in);
+  for (@range(u16,counts[0])) |j| {
+    const base = j*(T+2);
+    const from = @set_dsd_base_addr(lane_dsd,@ptrcast([*]f32,&panel_local[tx_slot[j]*T]));
+    const to = @set_dsd_base_addr(lane_dsd,@ptrcast([*]f32,&packet_template[base+2]));
+    @fmovs(to,from);
+  }
+  // At launch all receives are empty. Later tiles use the global barrier
+  // before sending so a future tile cannot overtake this first exchange.
+  if (phase == 0 and lane == 0) { @activate(exchange_task); return; }
+  mesh_barrier();
+  @activate(exchange_task);
+}
+task exchange() void {
+  sent = 0;
+  received = 0;
+  if (counts[0] != 0) {
+    tx_extent = counts[0]*(T+2);
+    const words = tx_extent;
+    @mov32(@set_dsd_length(tx,words),@set_dsd_length(packet_dsd,words),
+           .{.async=true,.ut_id=@get_ut_id(4),.activate=tx_task});
+  }
+  for (@range(u16,counts[1])) |j| {
+    @mov32(header_dsd,rx);
+    const slot = @as(u16,header_tag[1]);
+    @assert(slot >= L and slot < L+NRX and (header_tag[0] & 31) == @as(u32,T+1));
+    const dst = @set_dsd_base_addr(lane_dsd,@ptrcast([*]f32,&panel_local[slot*T]));
+    @mov32(dst,@set_dsd_length(rx,T));
+  }
+  received = counts[1];
+  traffic[1] += @as(u32,received);
+  traffic[3] += @as(u32,received*(T+2));
+  if (sent == counts[0]) { @activate(aggregate_task); }
+}
+task transmitted() void {
+  sent = counts[0];
+  traffic[0] += @as(u32,sent);
+  traffic[2] += @as(u32,tx_extent);
+  if (received == counts[1]) { @activate(aggregate_task); }
+}
+
+// Fold pairs in place. An odd middle element carries to the next level.
+fn fold_norm(add: bool) f32 {
+  var n: u16 = H;
+  while (n > 1) {
+    const upper = (n+1)/2;
+    const half = @set_dsd_length(lane_dsd,n/2);
+    const low = @set_dsd_base_addr(half,@ptrcast([*]f32,&norm_terms[0]));
+    const high = @set_dsd_base_addr(half,@ptrcast([*]f32,&norm_terms[upper]));
+    if (add) { @fadds(low,low,high); }
+    else { @fmaxs(low,low,high); }
+    n = upper;
+  }
+  return norm_terms[0];
+}
+
+fn max_norm() f32 {
+  if (H == 16) {
+    const low16 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{8}->norm_terms[i]});
+    const high16 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{8}->norm_terms[8+i]});
+    @fmaxs(low16,low16,high16);
+    const low8 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{4}->norm_terms[i]});
+    const high8 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{4}->norm_terms[4+i]});
+    @fmaxs(low8,low8,high8);
+    const low4 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{2}->norm_terms[i]});
+    const high4 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{2}->norm_terms[2+i]});
+    @fmaxs(low4,low4,high4);
+    const low2 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->norm_terms[i]});
+    const high2 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->norm_terms[1+i]});
+    @fmaxs(low2,low2,high2);
+    return norm_terms[0];
+  } else { return fold_norm(false); }
+}
+
+fn sum_norm() f32 {
+  if (H == 16) {
+    const low16 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{8}->norm_terms[i]});
+    const high16 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{8}->norm_terms[8+i]});
+    @fadds(low16,low16,high16);
+    const low8 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{4}->norm_terms[i]});
+    const high8 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{4}->norm_terms[4+i]});
+    @fadds(low8,low8,high8);
+    const low4 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{2}->norm_terms[i]});
+    const high4 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{2}->norm_terms[2+i]});
+    @fadds(low4,low4,high4);
+    const low2 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->norm_terms[i]});
+    const high2 = @get_dsd(mem1d_dsd,.{.tensor_access=|i|{1}->norm_terms[1+i]});
+    @fadds(low2,low2,high2);
+    return norm_terms[0];
+  } else { return fold_norm(true); }
+}
+
+task aggregate() void {
+  stats[3] += @as(u32,received);
+  stats[5] += @as(u32,edge_ptr[L])*@as(u32,active);
+  const width = if (phase == 0) H else O;
+  const vec = @set_dsd_length(lane_dsd,active);
+  @load_to_dsr(dst_reg,vec);
+  @load_to_dsr(accum_reg,vec);
+  @load_to_dsr(src_reg,vec);
+  // Every PE completes its ordinary addressed sends and receives before it
+  // reaches aggregate. On column zero each partial precedes the next tile's
+  // one-word barrier on the same northbound FIFO. The completed right-owner
+  // row buffer can hold this tile's partial until the owner applies its mean.
+  const partial = @set_dsd_base_addr(vec,@ptrcast([*]f32,&right_owner[0]));
+  const role = split_info[0];
+  if (hub_route == 3 and role == 2) {
+    @fmovs(partial,0.0);
+    set_accumulator(@ptrcast([*]f32,&right_owner[0]));
+    var e = split_info[1];
+    const end = split_info[2];
+    while (e < end) : (e += 1) {
+      @set_dsr_base_addr(src_reg,@ptrcast([*]f32,&panel_local[edge_src[e]*T]));
+      @fadds(dst_reg,accum_reg,src_reg);
+    }
+    @mov32(@set_dsd_length(hub_out,active),partial);
+    split_words[1] += @as(u32,active);
+    stats[5] += @as(u32,split_info[2]-split_info[1])*@as(u32,active);
+  } else if (hub_route == 2 and role == 3) {
+    // Logical link-word accounting for the configured SOUTH-to-NORTH router path.
+    // No compute task or SRAM buffer handles this middle hop.
+    split_words[0] += @as(u32,active);
+    split_words[1] += @as(u32,active);
+  }
+  for (@range(u16,L)) |v| {
+    set_accumulator(@ptrcast([*]f32,&accum[v*T]));
+    var e = edge_ptr[v];
+    const end = edge_ptr[v+1];
+    if (e < end) {
+      const weight = edge_weight[e];
+      while (e < end) : (e += 1) {
+        @set_dsr_base_addr(src_reg,@ptrcast([*]f32,&panel_local[edge_src[e]*T]));
+        @fadds(dst_reg,accum_reg,src_reg);
+      }
+      const target = @set_dsd_base_addr(vec,@ptrcast([*]f32,&accum[v*T]));
+      if (hub_route == 1 and role == 1 and v == split_info[1]) {
+        // The helper can reduce its suffix while this PE reduces the prefix.
+        @mov32(partial,@set_dsd_length(hub_in,active));
+        split_words[0] += @as(u32,active);
+        @fadds(target,target,partial);
+      }
+      @fmuls(target,target,weight);
+    }
+  }
+  const bias = if (phase == 0) @ptrcast([*]f32,&b0[lane]) else @ptrcast([*]f32,&b1[lane]);
+  const bias_vector = @set_dsd_base_addr(vec,bias);
+  for (@range(u16,L)) |v| {
+    if (slots[v] != 65535) {
+      const self = @set_dsd_base_addr(vec,@ptrcast([*]f32,&self_tile[v*T]));
+      const graph = @set_dsd_base_addr(vec,@ptrcast([*]f32,&accum[v*T]));
+      const target = if (phase == 0) @ptrcast([*]f32,&pre[v*H+lane])
+                     else @ptrcast([*]f32,&logits[v*O+lane]);
+      const output = @set_dsd_base_addr(vec,target);
+      @fadds(output,self,graph);
+      @fadds(output,output,bias_vector);
+    }
+  }
+  stats[7] += 1;
+  lane += T;
+  if (lane < width) { @activate(COMPUTE); }
+  else if (phase == 0) {
+    for (@range(u16,L)) |v| {
+      if (slots[v] != 65535) {
+        // Scaled L2 norm avoids overflow from squaring finite activations.
+        const whole = @set_dsd_length(lane_dsd,H);
+        const before = @set_dsd_base_addr(whole,@ptrcast([*]f32,&pre[v*H]));
+        const after = @set_dsd_base_addr(whole,@ptrcast([*]f32,&hidden[v*H]));
+        @fmaxs(after,before,0.0);
+        const terms = @set_dsd_base_addr(whole,@ptrcast([*]f32,&norm_terms));
+        @fmovs(terms,after);
+        const scale = max_norm();
+        if (scale > 0.0) {
+          if (scale < 1.0e-12 or scale > 1.0e12) {
+            if (scale >= @as(f32,1.17549435e-38)) {
+              @fmuls(after,after,@as(f32,1.0)/scale);
+            } else {
+              for (@range(u16,H)) |h| { hidden[v*H+h] /= scale; }
+            }
+          }
+          @fmuls(terms,after,after);
+          const squares = sum_norm();
+          var inv_norm = @bitcast(f32,@as(u32,0x5f3759df)-(@bitcast(u32,squares) >> 1));
+          for (@range(u16,3)) |iteration| {
+            inv_norm = inv_norm*(@as(f32,1.5)-((@as(f32,0.5)*squares)*inv_norm)*inv_norm);
+          }
+          @fmuls(after,after,inv_norm);
+          stats[9] += 1;
+        }
+      }
+    }
+    phase = 1; lane = 0;
+    @activate(COMPUTE);
+  } else {
+    timestamp.get_timestamp(@ptrcast(*[3]u16,&clocks[3]));
+    timestamp.disable_tsc(); stats[0] = 0x600D; sys.unblock_cmd_stream();
+  }
+}
+var pxp: [*]u16 = &x_ptr;
+var pxc: [*]u16 = &x_col;
+var pxv: [*]f32 = &x_val;
+var pp0: [*]f32 = &paired0;
+var pp1: [*]f32 = &paired1;
+var pb0: [*]f32 = &b0;
+var pb1: [*]f32 = &b1;
+var ptr_info: [*]u16 = &split_info;
+var ptr_words: [*]u32 = &split_words;
+var ptr_edge_ptr: [*]u16 = &edge_ptr;
+var ptr_edge_src: [*]u16 = &edge_src;
+var ptr_edge_weight: [*]f32 = &edge_weight;
+var ptr_tx_slot: [*]u16 = &tx_slot;
+var ptr_template: [*]u32 = &packet_template;
+var ptr_counts: [*]u16 = &counts;
+var ptr_traffic: [*]u32 = &traffic;
+var ps: [*]u16 = &slots;
+var pp: [*]f32 = &pre;
+var ph: [*]f32 = &hidden;
+var pl: [*]f32 = &logits;
+var pst: [*]u32 = &stats;
+var pcl: [*]u16 = &clocks;
+comptime {
+  @comptime_assert(H == 2*T);
+  @initialize_queue(@get_input_queue(2),.{.color=west_in_color});
+  @initialize_queue(@get_output_queue(2),.{.color=west_out_color});
+  @initialize_queue(@get_input_queue(4),.{.color=east_in_color});
+  @initialize_queue(@get_output_queue(4),.{.color=east_out_color});
+  @set_local_color_config(west_in_color,.{.routes=.{.rx=.{EAST},.tx=.{RAMP}}});
+  @set_local_color_config(west_out_color,.{.routes=.{.rx=.{RAMP},.tx=.{WEST}}});
+  @set_local_color_config(east_in_color,.{.routes=.{.rx=.{WEST},.tx=.{RAMP}}});
+  @set_local_color_config(east_out_color,.{.routes=.{.rx=.{RAMP},.tx=.{EAST}}});
+  @bind_local_task(right_own,READ_RIGHT_OWNER);
+  @bind_local_task(west_complete,WEST_DONE);
+  @bind_local_task(compute_tile,COMPUTE);
+  @initialize_queue(@get_input_queue(3),.{.color=north_in_color});
+  @initialize_queue(@get_output_queue(3),.{.color=north_out_color});
+  @initialize_queue(@get_input_queue(5),.{.color=release_color});
+  @initialize_queue(@get_output_queue(5),.{.color=release_color});
+  // One dedicated color delivers every helper word over the two northbound links.
+  if (hub_route == 1) {
+    @initialize_queue(@get_input_queue(7),.{.color=hub_color});
+    @set_local_color_config(hub_color,.{.routes=.{.rx=.{SOUTH},.tx=.{RAMP}}});
+  } else if (hub_route == 2) {
+    @set_local_color_config(hub_color,.{.routes=.{.rx=.{SOUTH},.tx=.{NORTH}}});
+  } else if (hub_route == 3) {
+    @initialize_queue(@get_output_queue(7),.{.color=hub_color});
+    @set_local_color_config(hub_color,.{.routes=.{.rx=.{RAMP},.tx=.{NORTH}}});
+  }
+  if (west_edge) {
+    if (!south_edge) { @set_local_color_config(north_in_color,.{.routes=.{.rx=.{SOUTH},.tx=.{RAMP}}}); }
+    if (!north_edge) { @set_local_color_config(north_out_color,.{.routes=.{.rx=.{RAMP},.tx=.{NORTH}}}); }
+    if (north_edge) {
+      @set_local_color_config(release_color,.{.routes=.{.rx=.{RAMP},.tx=.{EAST,SOUTH}}});
+    } else if (south_edge) {
+      @set_local_color_config(release_color,.{.routes=.{.rx=.{NORTH},.tx=.{RAMP,EAST}}});
+    } else {
+      @set_local_color_config(release_color,.{.routes=.{.rx=.{NORTH},.tx=.{RAMP,EAST,SOUTH}}});
+    }
+  } else if (east_edge) {
+    @set_local_color_config(release_color,.{.routes=.{.rx=.{WEST},.tx=.{RAMP}}});
+  } else {
+    @set_local_color_config(release_color,.{.routes=.{.rx=.{WEST},.tx=.{RAMP,EAST}}});
+  }
+  @bind_local_task(shared,SHARED);
+  @bind_local_task(exchange, exchange_task);
+  @bind_local_task(transmitted, tx_task);
+  @bind_local_task(aggregate, aggregate_task);
+
+  @export_symbol(pxp,"x_ptr"); @export_symbol(pxc,"x_col"); @export_symbol(pxv,"x_val");
+  @export_symbol(pp0,"paired0"); @export_symbol(pp1,"paired1");
+  @export_symbol(pb0,"b0"); @export_symbol(pb1,"b1");
+  @export_symbol(ptr_info, "split_info");
+  @export_symbol(ptr_words, "split_words");
+  @export_symbol(ptr_edge_ptr, "edge_ptr");
+  @export_symbol(ptr_edge_src, "edge_src");
+  @export_symbol(ptr_edge_weight, "edge_weight");
+  @export_symbol(ptr_tx_slot, "tx_slot");
+  @export_symbol(ptr_template, "packet_template");
+  @export_symbol(ptr_counts, "counts");
+  @export_symbol(ptr_traffic, "traffic");
+  @export_symbol(ps,"slots"); @export_symbol(pp,"pre"); @export_symbol(ph,"hidden");
+  @export_symbol(pl,"logits"); @export_symbol(pst,"stats"); @export_symbol(pcl,"clocks");
+  @export_symbol(f_run);
+}
