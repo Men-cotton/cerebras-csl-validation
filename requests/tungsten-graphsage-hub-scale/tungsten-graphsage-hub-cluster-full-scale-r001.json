@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-hub-cluster-full-scale-r001",
+  "description": "Run the trained Cora GraphSAGE hub split independently at 512 and 1,024 PEs. Require all three physical frames, original-ID FP64 checks and normal stop. The 512-PE split has a verified first SDK reply. The 512-PE unsplit control has the full three-frame sequence.",
+  "steps": [
+    {
+      "name": "run-hub-512",
+      "kind": "appliance",
+      "script": "validations/tungsten-graphsage-hub-scale/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-graphsage-hub-scale/cases/full-c16r32-t8-cluster-mean-factor-hub-split",
+        "--build-sha256",
+        "90b437136b5dc2e85cfa41ead1d8359ecbc532f64cd402c5e4f1bf7709be91f5",
+        "--proof-sha256",
+        "e735cdefb8d3623e403b85c12e19b4b640fe9f4e0a4b40c2561951824974931b",
+        "--out",
+        "{output}/hub-512"
+      ]
+    },
+    {
+      "name": "run-hub-1024",
+      "kind": "appliance",
+      "script": "validations/tungsten-graphsage-hub-scale/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-graphsage-hub-scale/cases/full-c16r64-t8-cluster-mean-factor-hub-split",
+        "--build-sha256",
+        "410ab4f588198bcbd634ce3bd91cc3f4c8238cb917b9e58a5ff66d9730b17852",
+        "--proof-sha256",
+        "50d43848525fef1f0b94d5c6fc319566f463d960941672382a4dff50631ba3cb",
+        "--out",
+        "{output}/hub-1024"
+      ]
+    }
+  ]
+}

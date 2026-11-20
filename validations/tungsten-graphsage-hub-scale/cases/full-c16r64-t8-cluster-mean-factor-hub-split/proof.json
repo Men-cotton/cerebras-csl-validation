@@ -1,0 +1,183 @@
+{
+  "build_sha256": "410ab4f588198bcbd634ce3bd91cc3f4c8238cb917b9e58a5ff66d9730b17852",
+  "required_hardware_trials": [
+    1,
+    2,
+    3
+  ],
+  "local_completed_trials": [],
+  "local_stage": "frame-1",
+  "local_stop_success": false,
+  "local_files": {
+    "capture.json": "318b47843017a177398be61cd3050fda8b0bc0a7e53344bc3f3865aada20fd24"
+  },
+  "complete_unsplit_control": {
+    "case": "full-c16r32-t8-cluster-mean-factor",
+    "files": {
+      "build.json": "d0f9fda33c1659847be08cb4148f346f994929c2ddeddaa97159186c121b04a9",
+      "reference.npz": "f39e0e1d469b4c874f9f2177f4b61ec9b56c33c904dc91c45b955fa896b04f00",
+      "run/capture.json": "c8fbb4659acb771c0cfe13de7e47c9aa3d897bacdb60b62fae67828ffff5993b",
+      "run/frame-1.npz": "b054552a4b28cc55a1fc5e7ac2d247db30c25c2618b830e5306c755ec20a7bdb",
+      "run/frame-2.npz": "8b9a0eb03299f0cf2fed2d1a97f6f55edc488861596be464782e367f320ddc58",
+      "run/frame-3.npz": "2bf832f091285c2f069e512dad30e868ab0d6d41f6b0e27b73b03bbf75db5fc1"
+    },
+    "runtime": {
+      "appliance.py": "51a9edf0dadd6fb4437bcbc40e3eee276a4e54df58995ceacc3d7c13322c329f",
+      "worker.py": "93622da2e437f2fecb263b3a8fa8064d1e107f6248056815036cbf56c3c3de27",
+      "oracle.py": "2feadfd6f9b11756912f84303c0fa6fb07fbc24d32b6e22f369e67a4589deee4"
+    }
+  },
+  "split_512_sdk_control": {
+    "case": "full-c16r32-t8-cluster-mean-factor-hub-split",
+    "files": {
+      "build.json": "90b437136b5dc2e85cfa41ead1d8359ecbc532f64cd402c5e4f1bf7709be91f5",
+      "reference.npz": "7e84030dd1be00010152847f750960e74956d72babfafadc0997d7ee22e696bd",
+      "run/frame-1.npz": "c37b17e3d2f2c6999791101e94e8f171ecb3361aad13f591120fb990b0ea62cf"
+    },
+    "cycles": 66136,
+    "reply_sha256": "4cee19cc05d5f649143c10dcfa8692d79c87b733d08df2c502509d6cbc454b35"
+  },
+  "initialized_input_readbacks": {
+    "x_ptr": {
+      "original": "0e041ff5f55be7129435ce43ac90b4b52d4488b0eda16c9f186677283eac64b8",
+      "expected": "0e041ff5f55be7129435ce43ac90b4b52d4488b0eda16c9f186677283eac64b8",
+      "readback": "0e041ff5f55be7129435ce43ac90b4b52d4488b0eda16c9f186677283eac64b8",
+      "bytes": 100352
+    },
+    "x_col": {
+      "original": "eb31f4e222bd09970a41a01384d5225306b0bd49ef55082d40ad411932094549",
+      "expected": "eb31f4e222bd09970a41a01384d5225306b0bd49ef55082d40ad411932094549",
+      "readback": "eb31f4e222bd09970a41a01384d5225306b0bd49ef55082d40ad411932094549",
+      "bytes": 237568
+    },
+    "x_val": {
+      "original": "9ba669dc78c26d0d507ecba0e2816a0eec0f1d10657592e6f4389cc3a71900f4",
+      "expected": "9ba669dc78c26d0d507ecba0e2816a0eec0f1d10657592e6f4389cc3a71900f4",
+      "readback": "9ba669dc78c26d0d507ecba0e2816a0eec0f1d10657592e6f4389cc3a71900f4",
+      "bytes": 475136
+    },
+    "b0": {
+      "original": "17878808eac967f6c56435ba43cabb14a79be2fb9156301852697d84689f53aa",
+      "expected": "17878808eac967f6c56435ba43cabb14a79be2fb9156301852697d84689f53aa",
+      "readback": "17878808eac967f6c56435ba43cabb14a79be2fb9156301852697d84689f53aa",
+      "bytes": 65536
+    },
+    "b1": {
+      "original": "fe71bcbf3fff285fc87888eb6adc54a7df2bbbe31429c896047c2a1e0f299eb6",
+      "expected": "fe71bcbf3fff285fc87888eb6adc54a7df2bbbe31429c896047c2a1e0f299eb6",
+      "readback": "fe71bcbf3fff285fc87888eb6adc54a7df2bbbe31429c896047c2a1e0f299eb6",
+      "bytes": 28672
+    },
+    "slots": {
+      "original": "e98861d609d5da3cf0b0f25415a0201269c3c7c42bdd727a7900dc1a69394e04",
+      "expected": "e98861d609d5da3cf0b0f25415a0201269c3c7c42bdd727a7900dc1a69394e04",
+      "readback": "e98861d609d5da3cf0b0f25415a0201269c3c7c42bdd727a7900dc1a69394e04",
+      "bytes": 6144
+    },
+    "tx_hdr": {
+      "original": "e13c153f646ba18ff6a125ee354005c18feb3ae161f7089485f42e901603441c",
+      "expected": "620f310a3ac97ddc21c800b07eec62e17bc438472166fddb38cabe429f440044",
+      "readback": "620f310a3ac97ddc21c800b07eec62e17bc438472166fddb38cabe429f440044",
+      "bytes": 516096
+    },
+    "tx_tag": {
+      "original": "1adb826ccc180e3330a418be39a1ce62cb3d61ca77c99c21e64a698987b1bc44",
+      "expected": "1adb826ccc180e3330a418be39a1ce62cb3d61ca77c99c21e64a698987b1bc44",
+      "readback": "1adb826ccc180e3330a418be39a1ce62cb3d61ca77c99c21e64a698987b1bc44",
+      "bytes": 258048
+    },
+    "tx_slot": {
+      "original": "0f66108b3eba50fe27732c2443446fcda3c80ab65f30833c819f99cbc8f45f34",
+      "expected": "0f66108b3eba50fe27732c2443446fcda3c80ab65f30833c819f99cbc8f45f34",
+      "readback": "0f66108b3eba50fe27732c2443446fcda3c80ab65f30833c819f99cbc8f45f34",
+      "bytes": 258048
+    },
+    "counts": {
+      "original": "7e24e99d53565e75867c9052f45f839b96fc06172431e8d189acc3f981c34581",
+      "expected": "7e24e99d53565e75867c9052f45f839b96fc06172431e8d189acc3f981c34581",
+      "readback": "7e24e99d53565e75867c9052f45f839b96fc06172431e8d189acc3f981c34581",
+      "bytes": 4096
+    },
+    "edge_ptr": {
+      "original": "294d0bc0c5e44f133e1401876f2e397d7c7c2cbed42ccf893d5e849bcbeb64fc",
+      "expected": "294d0bc0c5e44f133e1401876f2e397d7c7c2cbed42ccf893d5e849bcbeb64fc",
+      "readback": "294d0bc0c5e44f133e1401876f2e397d7c7c2cbed42ccf893d5e849bcbeb64fc",
+      "bytes": 8192
+    },
+    "edge_src": {
+      "original": "239f97993180e97be29cba800d8c743ec7ac881df162b7299971fac617919244",
+      "expected": "239f97993180e97be29cba800d8c743ec7ac881df162b7299971fac617919244",
+      "readback": "239f97993180e97be29cba800d8c743ec7ac881df162b7299971fac617919244",
+      "bytes": 348160
+    },
+    "edge_weight": {
+      "original": "ebc16a90d082a49055676a6f86bea4a395a311345bdec49c238c9d16bdd30326",
+      "expected": "ebc16a90d082a49055676a6f86bea4a395a311345bdec49c238c9d16bdd30326",
+      "readback": "ebc16a90d082a49055676a6f86bea4a395a311345bdec49c238c9d16bdd30326",
+      "bytes": 696320
+    },
+    "paired0": {
+      "original": "bed148b96bec6be0e072f8bc6d2c8319d428990343c7182fe9d3b628bb8a5649",
+      "expected": "bed148b96bec6be0e072f8bc6d2c8319d428990343c7182fe9d3b628bb8a5649",
+      "readback": "bed148b96bec6be0e072f8bc6d2c8319d428990343c7182fe9d3b628bb8a5649",
+      "bytes": 11796480
+    },
+    "paired1": {
+      "original": "2a5a6225836c48f34edf6bd2315435af7bb94c7bf10ca3ab1c1bd0bc139e9673",
+      "expected": "2a5a6225836c48f34edf6bd2315435af7bb94c7bf10ca3ab1c1bd0bc139e9673",
+      "readback": "2a5a6225836c48f34edf6bd2315435af7bb94c7bf10ca3ab1c1bd0bc139e9673",
+      "bytes": 1048576
+    },
+    "split_info": {
+      "original": "40c1ca607b871e420140ce53a6e890feb88bf01e27da2cbf732063525ce92d0c",
+      "expected": "40c1ca607b871e420140ce53a6e890feb88bf01e27da2cbf732063525ce92d0c",
+      "readback": "40c1ca607b871e420140ce53a6e890feb88bf01e27da2cbf732063525ce92d0c",
+      "bytes": 6144
+    }
+  },
+  "frozen_frame_checker_sha256": "d60d52cb82a762107696c11fb4d6278597e47e2a2aa62b1969e2891c9b3376e9",
+  "canonical_elf_sha256": "6ef19426cb8786026086995140e3f79cde5ad0856bb67835c6e82e4ed09e1707",
+  "ordered_loads": 79,
+  "linked_bytes": 36432,
+  "linked_proof": {
+    "case": "full-c16r64-t8-cluster-mean-factor-hub-split",
+    "mode": "Direct Link",
+    "metadata_sha256": "410ab4f588198bcbd634ce3bd91cc3f4c8238cb917b9e58a5ff66d9730b17852",
+    "image_sha256": "9f8405af9002ef28951f47ea225617de97247dbe9d4c5dcbbb6cd0ae503bc224",
+    "map_sha256": "5fe7203f531cdb9e3f78c9cd8c9e04a7d0c83a72e1c6d6f26d455982078d4170",
+    "shape": [
+      16,
+      64
+    ],
+    "origin": [
+      0,
+      0
+    ],
+    "image_extent": {
+      "table_base_word_range": [
+        14976,
+        14976
+      ],
+      "table_words": 512,
+      "mapped_end_bytes": 36432,
+      "static_end_bytes": 36432,
+      "min_static_end_bytes": 36432
+    },
+    "elfs": {
+      "simulator": {
+        "elf_sha256": "96d2f4a968a19b85e591db60c6bd8f9362747640f792b8ce680d7a3dce02f868",
+        "ordered_loads": 79,
+        "min_loaded_end_bytes": 36432,
+        "max_loaded_end_bytes": 36432
+      },
+      "hardware": {
+        "elf_sha256": "a2f8151fc2d9fab441758b14153df6eef332eeb60cf25d6241847f4620892b83",
+        "ordered_loads": 79,
+        "min_loaded_end_bytes": 36432,
+        "max_loaded_end_bytes": 36432
+      }
+    },
+    "static_end_bytes": 36432,
+    "margin_to_44_kib": 8624
+  }
+}

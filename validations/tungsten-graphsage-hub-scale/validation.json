@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-hub-scale",
+  "description": "Run the trained Cora GraphSAGE hub split independently at 512 and 1,024 PEs. Require all three physical frames, original-ID FP64 checks and normal stop. The 512-PE split has a verified first SDK reply. The 512-PE unsplit control has the full three-frame sequence.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

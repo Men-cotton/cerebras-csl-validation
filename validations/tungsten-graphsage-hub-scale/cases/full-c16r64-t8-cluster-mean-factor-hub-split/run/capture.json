@@ -1,0 +1,9 @@
+{
+  "backend": "simulator",
+  "case": "c16r64-hub-direct-source",
+  "build_sha256": "410ab4f588198bcbd634ce3bd91cc3f4c8238cb917b9e58a5ff66d9730b17852",
+  "worker_sha256": "93622da2e437f2fecb263b3a8fa8064d1e107f6248056815036cbf56c3c3de27",
+  "trials": [],
+  "stop_success": false,
+  "stage": "frame-1"
+}
