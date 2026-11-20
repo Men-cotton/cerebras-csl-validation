@@ -1,0 +1,14 @@
+{
+  "continuation_driver_sha256": "fb306f65b3430555057b485b47a1d4dd1cff30ab082bd82b7a9fe11282808b53",
+  "first_result_sha256": "5454d3eab7283ea789c366a6281d783b2fade2fd9061152d7b4ecffaf3117eec",
+  "first_journal_sha256": "f6714e5c76a02a2c58349e6702c1b8e34803954a6b37b5d59d47202eb429848a",
+  "completed_original_frames": 118,
+  "guard_tag": 38,
+  "newly_sent_frames": 3,
+  "scope": "two separate SDK loads of the same executable; original local clocks are retained",
+  "guard_projection_words": 10304,
+  "guard_sha256": "105e1f6842c10742f53453f1855dec7506925c894283f89651a9aa7ef1fd0a86",
+  "guard_H2D_words": 37358,
+  "guard_D2H_words": 13184,
+  "guard_host_ns": 180304500911
+}

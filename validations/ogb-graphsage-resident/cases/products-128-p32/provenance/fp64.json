@@ -1,0 +1,40 @@
+{
+  "nodes": 2449029,
+  "classes": 47,
+  "seconds": 29.756486680998933,
+  "threads": "see invocation",
+  "gpu_comparison": {
+    "hidden": {
+      "max_abs": 8.19497541968417e-05,
+      "relative_l2": 1.3295694154392542e-07
+    },
+    "logits": {
+      "max_abs": 0.00026461574259428744,
+      "relative_l2": 8.341166352478011e-08
+    }
+  },
+  "argmax": {
+    "nodes": 0,
+    "examples": []
+  },
+  "splits": {
+    "train": {
+      "correct": 177497,
+      "count": 196615
+    },
+    "valid": {
+      "correct": 34923,
+      "count": 39323
+    },
+    "test": {
+      "correct": 1578539,
+      "count": 2213091
+    }
+  },
+  "checkpoint_sha256": "693690e2583c803686e61198d16f409aa89286d7ea5ff197079e9dd512ea4608",
+  "fixtures": {
+    "first-closure.npz": "571765c5152755db307db1430c133ffa464cf52dca7f613d3718dae234246c65",
+    "final-4.npz": "54f23247b95ca78c8ce309a38f83be6a6f81152bb781a25e92ba3efacc465b90",
+    "final-128.npz": "44f15d6116c1b827169bc1752654dba80cda2c9c23cdccc4a95a8e6006fe4170"
+  }
+}

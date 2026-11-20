@@ -1,0 +1,83 @@
+{
+  "dataset": "products",
+  "language": "tungsten",
+  "params": {
+    "P": 32,
+    "R": 12,
+    "D": 100,
+    "F": 16,
+    "Q": 48,
+    "E": 128,
+    "K": 160
+  },
+  "roles": {
+    "simulator": {
+      "fabric": [
+        32,
+        2
+      ],
+      "elf": "3476d9ce27c8fe09c00cca38f37f99c2bb6378c091fb92bb93f52f53ae0bbe2e"
+    },
+    "hardware": {
+      "fabric": [
+        762,
+        1172
+      ],
+      "elf": "7ae899837464a51e430b4beae3f0854a5e7e95d1475b6a811a02b7ba8e560e1a"
+    }
+  },
+  "canonical_sha256": "c2705b9eaeb157df62d2cf666b0253ef976f02c18381da273d1a42e2d954c670",
+  "port_map_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+  "machine_image_sha256": "787c534c9057af9aad6e1165be58e8f5159952f27ee79153c6da86b0cb560bec",
+  "commands": [
+    [
+      "paint",
+      "arch=sdr",
+      "toolname",
+      "w",
+      "carbide",
+      "toolname",
+      "yeti",
+      "carbide",
+      "lib=src",
+      "source=src/program.paint",
+      "image=program.obj",
+      "map=program.map",
+      "note=program.note",
+      "entrymap=program.entry",
+      "regiondump=regions.json"
+    ],
+    [
+      "milink",
+      "image=program.obj",
+      "out=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "weight",
+      "image=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/resident-products-tungsten-p32/simulator/out/program.elf",
+      "w=32",
+      "h=2"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/resident-products-tungsten-p32/hardware/out/program.elf",
+      "w=762",
+      "h=1172"
+    ]
+  ],
+  "source": {
+    "collect.w": "f137602993cb508d2a952f6e127585929fb76278515250201bc22ad262fd177b",
+    "owner.w": "74222b6f264f67f5866e3a363f12c25c5eeab7e196f91815a98e40d8db75d345",
+    "program.paint": "1180afcc5f9aab6106d08b468ccf51c2183f5c678c1a508f5c8fc19d57bb51a3"
+  }
+}
