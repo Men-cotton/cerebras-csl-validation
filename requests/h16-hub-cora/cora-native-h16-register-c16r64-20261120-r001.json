@@ -1,0 +1,53 @@
+{
+  "description": "Measure the third fixed-source H16 register-backed full-Cora native GCN on 1,024 PEs. Verify ordinary host transfers, every trained layer and counter, the original ID hub-163 split and 161 partial-word hops. Compare PE clocks with the R16 and R32 register series.",
+  "id": "cora-native-h16-register-c16r64-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "c16-r64-t8-register-split",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-c16-r64-t8-register-split"
+      ],
+      "kind": "appliance",
+      "name": "compile-c16-r64-t8-register-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "c16-r64-t8-register-split",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-c16-r64-t8-register-split/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-c16-r64-t8-register-split"
+      ],
+      "kind": "appliance",
+      "name": "run-c16-r64-t8-register-split",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-c16-r64-t8-register-split/capture-data",
+        "--out",
+        "{output}/numerical-c16-r64-t8-register-split.json"
+      ],
+      "kind": "host",
+      "name": "audit-c16-r64-t8-register-split",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}
