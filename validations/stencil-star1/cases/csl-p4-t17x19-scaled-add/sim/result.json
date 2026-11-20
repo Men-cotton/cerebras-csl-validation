@@ -1,0 +1,46 @@
+{
+  "backend": "SDK simulator",
+  "params": {
+    "TILE_X": "17",
+    "TILE_Y": "19",
+    "RADIUS": "1",
+    "PATTERN_ID": "1",
+    "ITERATIONS": "8",
+    "KERNEL_X_DIM": "4",
+    "KERNEL_Y_DIM": "4",
+    "SW_DELAY": "0"
+  },
+  "stopped": true,
+  "trials": [
+    {
+      "frame": 1,
+      "gain": 1.0,
+      "max_cycles": 17393,
+      "min_cycles": 17012,
+      "max_fp64_abs": 1.9371509552001953e-07,
+      "sent_words": 6912,
+      "output_sha256": "a40a6045a8bb86622ae2b467e2c51e196488256ba8debf9ac998d66b0c062a76",
+      "raw_sha256": "19aeea61f08b7f020c4a377f635d5148b2d3b00966be8b4b0b1af792d4cdd88e"
+    },
+    {
+      "frame": 2,
+      "gain": -0.5,
+      "max_cycles": 17393,
+      "min_cycles": 17012,
+      "max_fp64_abs": 9.685754776000977e-08,
+      "sent_words": 6912,
+      "output_sha256": "23649dc8d49c75f625c873bf155709e8e54e945e5e8d4234f283c750e42bb48f",
+      "raw_sha256": "92ad20c3dc89f58ebd07ca8d2675df9f783cbbfcab86416f7eb9c9b1e4f59ee1"
+    },
+    {
+      "frame": 3,
+      "gain": 1.0,
+      "max_cycles": 17393,
+      "min_cycles": 17012,
+      "max_fp64_abs": 1.9371509552001953e-07,
+      "sent_words": 6912,
+      "output_sha256": "a40a6045a8bb86622ae2b467e2c51e196488256ba8debf9ac998d66b0c062a76",
+      "raw_sha256": "19aeea61f08b7f020c4a377f635d5148b2d3b00966be8b4b0b1af792d4cdd88e"
+    }
+  ]
+}
