@@ -1,0 +1,53 @@
+{
+  "description": "Retry the full 512-PE fixed-placement GraphSAGE A, 0.5A, A run and complete numerical audit after the prior appliance returned HTTP 503.",
+  "id": "graphsage-resident-full-512-20261120-r002",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "full-c16r32-t8",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-full-c16r32-t8"
+      ],
+      "kind": "appliance",
+      "name": "compile-full-c16r32-t8",
+      "script": "validations/graphsage-resident-scale/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "full-c16r32-t8",
+        "--backend",
+        "hardware",
+        "--host-timeout",
+        "600",
+        "--artifact-record",
+        "{output}/compile-full-c16r32-t8/native-build.json",
+        "--out",
+        "{output}/run-full-c16r32-t8"
+      ],
+      "kind": "appliance",
+      "name": "run-full-c16r32-t8",
+      "script": "validations/graphsage-resident-scale/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-full-c16r32-t8/capture-data",
+        "--out",
+        "{output}/numerical-full-c16r32-t8.json"
+      ],
+      "kind": "host",
+      "name": "audit-full-c16r32-t8",
+      "script": "validations/graphsage-resident-scale/saved_audit.py"
+    }
+  ]
+}
