@@ -1,0 +1,22 @@
+{
+  "original": {
+    "raw_sha256": "168279ae24d11a9dc66af11a108027194b8b2449041cf0f339e930de54204819",
+    "post_entry_max": 60474,
+    "pre_entry_max": 61413,
+    "barrier_range": [
+      717,
+      983
+    ],
+    "pre_entry_capture_sha256": "28f7d7eb7b144b97f3f1a2dfb60cc1fb7b123afc78e844aa6141d08d4659d9f9"
+  },
+  "swap": {
+    "raw_sha256": "95c7c676c4e3873d498ee2d4e1eae9fbdf22065dbded6c2ea918a439a94f280d",
+    "post_entry_max": 57883,
+    "pre_entry_max": 58822,
+    "barrier_range": [
+      717,
+      983
+    ],
+    "pre_entry_capture_sha256": "28f7d7eb7b144b97f3f1a2dfb60cc1fb7b123afc78e844aa6141d08d4659d9f9"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "original_ids": 2708,
+  "directed_incidences_checked": 13264,
+  "unchanged_packed_fields": [
+    "x_ptr",
+    "x_col",
+    "x_val",
+    "w0",
+    "w1",
+    "split_control"
+  ],
+  "original_native_peak_xy": [
+    5,
+    52
+  ],
+  "original_native_cycles": 60352,
+  "original_pair_pe_cycles": [
+    58767,
+    49489
+  ],
+  "swapped_original_ids": [
+    523,
+    1731
+  ],
+  "swapped_pe_xy": [
+    [
+      5,
+      57
+    ],
+    [
+      15,
+      57
+    ]
+  ],
+  "original_link_max_per_column": [
+    2654,
+    2591,
+    3809,
+    2805,
+    3186,
+    4577,
+    2499,
+    2371,
+    3063,
+    1652,
+    2300,
+    1925,
+    2530,
+    1854,
+    2092,
+    2180
+  ],
+  "new_link_max_per_column": [
+    2654,
+    2591,
+    3809,
+    2805,
+    3186,
+    4191,
+    2499,
+    2371,
+    3063,
+    1652,
+    2300,
+    1925,
+    2530,
+    1854,
+    2092,
+    2452
+  ],
+  "original_maximum_link_words": 4577,
+  "new_maximum_link_words": 4191,
+  "original_word_hops": 2923455,
+  "new_word_hops": 2922018,
+  "original_input_sha256": "ddd50b58e3f6bea4a4c07fad2c9d1124b2f564be9a7fee02f06763915b7e29b5",
+  "new_input_sha256": "e63e83e4f6860b4a5734672fb395038cbb8e5b41e26ecf817348e18bc9dce93d",
+  "original_owner_sha256": "04f71cf95a8e343345a11564f89d6971506467c5f7bd882c7b6e15776a6f5054",
+  "candidate_owner_sha256": "2625439b6b6b8e3053a45f82ba4c0ed8c9a8f20af1b0dae32df69da718be49d1",
+  "preserved_split": {
+    "hub": 163,
+    "home": 837,
+    "helper": 844,
+    "slot": 1,
+    "moved": 85,
+    "degree": 169,
+    "ordered_occurrences_sha256": "57d2a74bfd9544c935d8bedfda5accb92ac25c27956b373de1051ec3f4c84a27",
+    "split_occurrences_sha256": "e758b94fba67e99910e045d24e16be2c49c3a116c4d2fd70fa43a44e8a884ad7"
+  },
+  "considered_source_vertices": [
+    523,
+    1687,
+    145,
+    1683,
+    2334,
+    314,
+    1333,
+    120
+  ],
+  "considered_same_row_swaps": 321
+}
