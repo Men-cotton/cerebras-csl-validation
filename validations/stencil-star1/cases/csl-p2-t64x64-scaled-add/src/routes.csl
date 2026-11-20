@@ -1,0 +1,29 @@
+param colors: [8]color;
+param entrypoints: [3]local_task_id;
+param width: i16;
+param height: i16;
+
+const Ports = struct {
+  c_recv_west: color, c_send_east: color, c_recv_east: color, c_send_west: color,
+  c_recv_south: color, c_send_north: color, c_recv_north: color, c_send_south: color,
+  SEND: local_task_id, RECV: local_task_id, COMM: local_task_id,
+  first_px: bool, last_px: bool, first_py: bool, last_py: bool,
+};
+
+fn get_params(x: i16, y: i16) Ports {
+  const even_x = x % 2 == 0;
+  const even_y = y % 2 == 0;
+  return Ports{
+    .c_recv_west = if (even_x) colors[1] else colors[0],
+    .c_send_east = if (even_x) colors[0] else colors[1],
+    .c_recv_east = if (even_x) colors[2] else colors[3],
+    .c_send_west = if (even_x) colors[3] else colors[2],
+    .c_recv_south = if (even_y) colors[4] else colors[5],
+    .c_send_north = if (even_y) colors[5] else colors[4],
+    .c_recv_north = if (even_y) colors[7] else colors[6],
+    .c_send_south = if (even_y) colors[6] else colors[7],
+    .SEND = entrypoints[0], .RECV = entrypoints[1], .COMM = entrypoints[2],
+    .first_px = x == 0, .last_px = x+1 == width,
+    .first_py = y == 0, .last_py = y+1 == height,
+  };
+}

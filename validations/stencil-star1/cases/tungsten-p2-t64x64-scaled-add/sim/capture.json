@@ -1,0 +1,51 @@
+{
+  "backend": "simulator",
+  "params": {
+    "C": 2,
+    "R": 2,
+    "TX": 64,
+    "TY": 64,
+    "E": 8
+  },
+  "build_sha256": "1b576b5a84f1bd74f35a300c41e3317542d1b54469a0d582f2b49ce9812ae0c9",
+  "trials": [
+    {
+      "frame": 1,
+      "max_cycles": 89584,
+      "halo_max_cycles": 3780,
+      "compute_max_cycles": 85804,
+      "sent_halo_words": 4096,
+      "max_fp64_abs": 2.2724270820617676e-07,
+      "raw_sha256": "5fe529a9c6296155dfa2e159a9f66f8a09ffc5e61e23b2c37d9775aa726e9d10",
+      "gain": 1.0,
+      "input_words": 17424,
+      "output_words": 35100
+    },
+    {
+      "frame": 2,
+      "max_cycles": 89584,
+      "halo_max_cycles": 3780,
+      "compute_max_cycles": 85804,
+      "sent_halo_words": 4096,
+      "max_fp64_abs": 1.1362135410308838e-07,
+      "raw_sha256": "7debaeeb603643a5614ff4b1fc385c26c22a9dd0375558d9e86329771493d53f",
+      "gain": -0.5,
+      "input_words": 17424,
+      "output_words": 35100
+    },
+    {
+      "frame": 3,
+      "max_cycles": 89584,
+      "halo_max_cycles": 3780,
+      "compute_max_cycles": 85804,
+      "sent_halo_words": 4096,
+      "max_fp64_abs": 2.2724270820617676e-07,
+      "raw_sha256": "79bb9973bcd30d7743feed5d7a272acdc3123a0392ff60908cc6a45fceed432c",
+      "gain": 1.0,
+      "input_words": 17424,
+      "output_words": 35100
+    }
+  ],
+  "stopped": true,
+  "stage": "complete"
+}

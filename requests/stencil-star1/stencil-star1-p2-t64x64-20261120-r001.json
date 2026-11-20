@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "id": "stencil-star1-p2-t64x64-20261120-r001",
+  "description": "Measure both implementations of the bounded FP32 Star2d input on physical CS-3. Upload full grids, audit both padded buffers and all halo counts across three resident frames. Each PE clock covers eight halo and computation epochs.",
+  "steps": [
+    {
+      "name": "run-tungsten-p2-t64x64-reference",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/tungsten-p2-t64x64-reference",
+        "--case-sha256",
+        "280c99eed3084b73ff58161a0a7564f06fe634d068b5f65713deb15ea064bd5e",
+        "--out",
+        "{output}/run-tungsten-p2-t64x64-reference"
+      ]
+    },
+    {
+      "name": "run-tungsten-p2-t64x64-scaled-add",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/tungsten-p2-t64x64-scaled-add",
+        "--case-sha256",
+        "8b5d86b6ccace074ab57c17eed1cd8e6c4cf761783aefe8b0a7423e988f02207",
+        "--out",
+        "{output}/run-tungsten-p2-t64x64-scaled-add"
+      ]
+    },
+    {
+      "name": "compile-csl-p2-t64x64-reference",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/stencil-star1/cases/csl-p2-t64x64-reference",
+        "--case-sha256",
+        "935b5ec2c961c266354424a2fee921d3e007c3a29154da13ccb5ef1d193486b1",
+        "--out",
+        "{output}/compile-csl-p2-t64x64-reference"
+      ]
+    },
+    {
+      "name": "run-csl-p2-t64x64-reference",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/csl-p2-t64x64-reference",
+        "--case-sha256",
+        "935b5ec2c961c266354424a2fee921d3e007c3a29154da13ccb5ef1d193486b1",
+        "--out",
+        "{output}/run-csl-p2-t64x64-reference",
+        "--build",
+        "{output}/compile-csl-p2-t64x64-reference/build.json"
+      ]
+    },
+    {
+      "name": "compile-csl-p2-t64x64-scaled-add",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/stencil-star1/cases/csl-p2-t64x64-scaled-add",
+        "--case-sha256",
+        "c4a5cea57b19f879da7e5db599d0216c0bfcc7fa2f07bf833d5906d745e14b58",
+        "--out",
+        "{output}/compile-csl-p2-t64x64-scaled-add"
+      ]
+    },
+    {
+      "name": "run-csl-p2-t64x64-scaled-add",
+      "kind": "appliance",
+      "script": "validations/stencil-star1/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/stencil-star1/cases/csl-p2-t64x64-scaled-add",
+        "--case-sha256",
+        "c4a5cea57b19f879da7e5db599d0216c0bfcc7fa2f07bf833d5906d745e14b58",
+        "--out",
+        "{output}/run-csl-p2-t64x64-scaled-add",
+        "--build",
+        "{output}/compile-csl-p2-t64x64-scaled-add/build.json"
+      ]
+    }
+  ]
+}

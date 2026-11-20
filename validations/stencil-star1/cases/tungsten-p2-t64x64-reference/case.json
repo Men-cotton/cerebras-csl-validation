@@ -1,0 +1,30 @@
+{
+  "kind": "tungsten",
+  "params": {
+    "C": 2,
+    "R": 2,
+    "TX": 64,
+    "TY": 64,
+    "E": 8
+  },
+  "variant": "reference",
+  "workers": {
+    "native_worker.py": "6582d13ce7cb3c50b127392b3ec4040e02efdb8a4f9cb0672278c91693bdcf00",
+    "link_worker.py": "c4a76e3419f5eb12904162c2cc24340b506f1fda76b3e3c92162731ba90bbd03"
+  },
+  "files": {
+    "build.json": "4f50b5dbfc8d800858570cf7035c90dd58bd5ea9bd1f365ed9e89f76ec0c4d36",
+    "hardware/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "hardware/out/program.elf": "275f4df18f149fdd907025205ffc1314d5ff698b765149acdb5416bfdcb15fad",
+    "hardware/ranges.txt": "b016b17feaf904b070a103c71e93d92dcff61fc9e3c0a092b62b7bc173c89772",
+    "sim/capture.json": "6f64bd4a22b6d6df7ee6b542ac4b63362d7337cac5ad3e8222eb5d66d89f3b95",
+    "sim/frame-1.npz": "93537ff5cb3706a8acc2f0eb2d725ad29f2fb3e668296bd5831d2ed665a69c9e",
+    "sim/frame-2.npz": "48d806e3c21abebccb75d87e22dc6ccf2773fff41b0eca7ed1653e0f2e7ca639",
+    "sim/frame-3.npz": "053aa459cdea95a318824554d17b85b2179d90fda34d3f6aee01c9a35785de73",
+    "simulator/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "simulator/out/program.elf": "2ce9f1db102a62cf8149ef58eeb9afe8eae556e8ea8adacecdeba341b5e92b9d",
+    "simulator/ranges.txt": "8e2e8c071f74a30e7a1c9629cb843321bf854df9a611ff04eb6124a0aeab7279",
+    "src/bench.paint": "66b2ad306ecf52ab4ad8263188ba7f6279bf0daecadc03ead7349a4e03a301aa",
+    "src/stencil.w": "4a7114d8da7858466c1835ca528235ca61800eff9c26e46498db46d7632dc23c"
+  }
+}
