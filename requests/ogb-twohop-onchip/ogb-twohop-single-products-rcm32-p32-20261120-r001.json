@@ -1,0 +1,23 @@
+{
+  "description": "Run the five single-WEST products on-chip and host-echo transactions on 32 compute owners for the selected 32 original destinations. Acquire all final values and intermediate echoes from A/half-A/restored A. This case also preserves the 5+9 local one-port and two-port SDK controls.",
+  "id": "ogb-twohop-single-products-rcm32-p32-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "run",
+        "--case",
+        "products-rcm32-b8-p32",
+        "--release-sha256",
+        "63a1834e9668b5a1f1a49815bcd9e3ee769c1509d9db2784919ac30830dd64c7",
+        "--driver-sha256",
+        "922e476da0d41bfc4203fd7e5a403865c2a910301d8d6ae8316b827d6e5633ab",
+        "--out",
+        "{output}/run-products"
+      ],
+      "kind": "appliance",
+      "name": "run-products",
+      "script": "validations/ogb-twohop-onchip/batched/products_single.py"
+    }
+  ]
+}

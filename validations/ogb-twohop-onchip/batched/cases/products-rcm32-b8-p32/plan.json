@@ -1,0 +1,257 @@
+{
+  "dataset": "products",
+  "window_sha256": "50759c9bcdaacc703e1f02c378ead52593b87e72a3bba1bbac6292aa62e4e3a6",
+  "graph": {
+    "processed_sha256": "55b6957450a0355c587dab6e15828f7c82bfc3090147053858f2e820dec653c8",
+    "input_edges": 123718280,
+    "undirected_unique_arcs": 123718152,
+    "self_loops": 128,
+    "ptr_sha256": "7049e0f78c26448a562cd4a194033bff819b436262d9a0ad84310dd83f6bbbb0",
+    "index_sha256": "e9138cf602aba8d19c58b7e1d3c62b0e573a387055f8eae6b07385066f39f910",
+    "split_sha256": {
+      "train": "dc161da99306258bbf1f8cdb4130047dd483c95d59fb68c74186a12e15d8a835",
+      "valid": "9ea7634b51381fd2184c35c5f58b1ef7e10de8ac9dbd07d012655db49d91ee2d",
+      "test": "5c2d6ab62251e5aed9a8808a9cac33ada14e07cd3e87d53a2acd936d81bee193"
+    }
+  },
+  "checkpoint_sha256": "693690e2583c803686e61198d16f409aa89286d7ea5ff197079e9dd512ea4608",
+  "gpu_logits_sha256": "7d1ff445a1d9a027867d6ed9d4ccbd5186ebe010420df82bc0506ba629d0d672",
+  "root_cap": 32,
+  "hidden_cap": 320,
+  "targets": 128,
+  "raw_unique": 36833,
+  "hidden_unique": 2003,
+  "batches": [
+    {
+      "index": 0,
+      "original_targets": [
+        1920725,
+        1071766
+      ],
+      "raw_rows": 598,
+      "hidden_rows": 36,
+      "raw_arcs": 1568,
+      "final_arcs": 34
+    },
+    {
+      "index": 1,
+      "original_targets": [
+        78325
+      ],
+      "raw_rows": 4298,
+      "hidden_rows": 316,
+      "raw_arcs": 61445,
+      "final_arcs": 315
+    },
+    {
+      "index": 2,
+      "original_targets": [
+        2162936,
+        1040155,
+        1892090
+      ],
+      "raw_rows": 6703,
+      "hidden_rows": 289,
+      "raw_arcs": 64026,
+      "final_arcs": 411
+    },
+    {
+      "index": 3,
+      "original_targets": [
+        1227135,
+        663473,
+        465437,
+        284486,
+        1383235,
+        1232458,
+        1146738,
+        1968552,
+        378400,
+        2308475,
+        2374404,
+        658693,
+        751816,
+        1103377,
+        2221305,
+        983977,
+        1284549,
+        1626865,
+        2195794,
+        1426282,
+        1698434
+      ],
+      "raw_rows": 4222,
+      "hidden_rows": 233,
+      "raw_arcs": 30571,
+      "final_arcs": 512
+    },
+    {
+      "index": 4,
+      "original_targets": [
+        1474732,
+        1024713,
+        928317,
+        609055,
+        2372422,
+        1913298,
+        1159703,
+        1299529,
+        2032955,
+        1082744,
+        1515627
+      ],
+      "raw_rows": 5503,
+      "hidden_rows": 316,
+      "raw_arcs": 50878,
+      "final_arcs": 491
+    },
+    {
+      "index": 5,
+      "original_targets": [
+        1792241,
+        665916,
+        2403822,
+        1360936,
+        1341684,
+        761111,
+        2226101,
+        78700
+      ],
+      "raw_rows": 12306,
+      "hidden_rows": 310,
+      "raw_arcs": 56666,
+      "final_arcs": 339
+    },
+    {
+      "index": 6,
+      "original_targets": [
+        1621869,
+        1993912,
+        1990528,
+        1188762,
+        1914880,
+        1259148,
+        2179391,
+        604681,
+        947502,
+        1142549,
+        1304395
+      ],
+      "raw_rows": 5586,
+      "hidden_rows": 314,
+      "raw_arcs": 48382,
+      "final_arcs": 697
+    },
+    {
+      "index": 7,
+      "original_targets": [
+        2323345,
+        1314360,
+        522524,
+        390675,
+        2321016,
+        696712,
+        744320,
+        354437,
+        2097413,
+        1683683,
+        937194,
+        282033,
+        1833303,
+        1547416,
+        1541516,
+        1879710,
+        1640570
+      ],
+      "raw_rows": 966,
+      "hidden_rows": 309,
+      "raw_arcs": 41053,
+      "final_arcs": 981
+    },
+    {
+      "index": 8,
+      "original_targets": [
+        365135,
+        327404,
+        2265487,
+        1080775,
+        522985,
+        395370,
+        1527149,
+        372760,
+        1295440,
+        760741,
+        864465,
+        2413509,
+        564685,
+        664785,
+        967837,
+        925932,
+        826831,
+        2130084,
+        2425951,
+        2066808,
+        1720213,
+        1035757,
+        706314,
+        1677564,
+        1628541,
+        500806,
+        2232123,
+        2196693,
+        1328016,
+        680158,
+        1954339,
+        1390007
+      ],
+      "raw_rows": 2435,
+      "hidden_rows": 317,
+      "raw_arcs": 37516,
+      "final_arcs": 920,
+      "fixtures": {
+        "first.npz": "2cacac13a9f93a42c0e533a7ab82b46995849907d760ee7e63e079e229dfb57d",
+        "last.npz": "2be4aea4b6d91aef0537e27ebdb476f04cb660cb6ee602e5b8899bf9bb152da4"
+      }
+    },
+    {
+      "index": 9,
+      "original_targets": [
+        1413458,
+        1976811,
+        2234380,
+        2397141,
+        2349525,
+        2134920,
+        2092665,
+        862135,
+        1617757,
+        987555,
+        552675,
+        401358,
+        1700677,
+        462626,
+        1967323,
+        595213,
+        376973,
+        1477158,
+        534644,
+        1571250,
+        976021
+      ],
+      "raw_rows": 4150,
+      "hidden_rows": 196,
+      "raw_arcs": 13552,
+      "final_arcs": 224
+    },
+    {
+      "index": 10,
+      "original_targets": [
+        1822897
+      ],
+      "raw_rows": 6442,
+      "hidden_rows": 318,
+      "raw_arcs": 19635,
+      "final_arcs": 317
+    }
+  ]
+}
