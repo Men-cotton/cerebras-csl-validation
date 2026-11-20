@@ -1,0 +1,78 @@
+{
+  "dataset": "ogbn-arxiv",
+  "name": "arxiv-final128-p16",
+  "fixture": "final-128.npz",
+  "whole_checkpoint_sha256": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b",
+  "params": {
+    "P": 16,
+    "R": 8,
+    "F": 16,
+    "Q": 40,
+    "E": 126,
+    "K": 1,
+    "RELU": 0
+  },
+  "host": {
+    "worker.py": "48fd0de466eae74da0ad17a8d14e467a071080b4b2bcfab76899f4399c36fc44",
+    "contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "audit.py": "5c60727842e54f585c13b5014f4594095dfd9c8d6a69a61d9d05f112dbc6a73c",
+    "appliance.py": "433cae30d212ec2dfbd48e5d2e304026824cce04ff59b12dde23a600194811f1"
+  },
+  "files": {
+    "direct/build.json": "3908da9d31aef9ee9837fad026a33884bb8067079dc2f738554722416eb81c7d",
+    "direct/hardware/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "direct/hardware/out/program.elf": "ab53c596f0184ff39be5a1fc30aa4db8b30bdf70d0ffda1ff74827f86dca3a57",
+    "direct/hardware/ranges.txt": "96e1bea76897de3d4b4a167224c39e46308ca82f6e3fd6a52c1815039abd4aac",
+    "direct/simulator/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "direct/simulator/out/program.elf": "b4fd1acd7b03771b3824960dcc333b0d041f2e7ad213150f64e2859a00864632",
+    "direct/simulator/ranges.txt": "3953ae19b8f01efe460e676d4eabc409324a3b1f6a8b7a53d15c1c9e90b2d9a0",
+    "direct/src/collect.w": "fe4d6455b3d5c4f3282b9ba6e9db8bac7c303a34a93b5756f6f8ea31c4259018",
+    "direct/src/owner.w": "2fa1ab8d32d8f0275837585ec6ff223ac31f2e907e71c189c672e0035305fa4b",
+    "direct/src/program.paint": "1c8fd965afe2e5ada49c037a705797db5a61bba8ed6ebe741951fa1ae852a9ce",
+    "fixture.npz": "9b50b1f450a1363982f29a1a43253bcd69c998441fa2649941bd44258f1437ef",
+    "native/build.json": "0fcc7f6c3f073196e198b8612f8e56ed9da58f0e1ab274b48701a32fa01f76e3",
+    "native/out/bin/out_0_0.elf": "9dcf188b4adcde6c373267c9efd300efd3b7ac72543865796727428b8f151f96",
+    "native/out/bin/out_10_0.elf": "94d8022935a2514f569bb40ee4b4571c6790a0cfc1af51657d1514ef0f3a4078",
+    "native/out/bin/out_11_0.elf": "38aced7d7f89d11840fbb958d9c85ba7b8be53bb78d9e289522fcd90eae2ec2a",
+    "native/out/bin/out_12_0.elf": "5293a19890c6f9e0c0f82d00609bfedab7d3b096230f019f6215686838934b86",
+    "native/out/bin/out_13_0.elf": "61b988fe565f7ef9460ee39d38cabe2790f8549effc636c4cf607750e278d9be",
+    "native/out/bin/out_14_0.elf": "57d9377dd9b261cfe4e81ad839f1cbac7c8ba953620450a5eee3731446875731",
+    "native/out/bin/out_15_0.elf": "b92a11209e97db4654c037b0ea2b969e9fd6120e54216ee68793e61a40699e07",
+    "native/out/bin/out_1_0.elf": "f4b63d61e73dab30e3060d8e2473ff776e6dd8464ca99492e81311883f7d1703",
+    "native/out/bin/out_2_0.elf": "3c3df56b9f2228ebb4beb21f3ad7a9a51c38df48f21b01572fde6ec37bf0fbc0",
+    "native/out/bin/out_3_0.elf": "be2de656db82ed19cb5f5b4ee06c1c509a8fc31a7c61dfbcd2e6ff49e3b5c554",
+    "native/out/bin/out_4_0.elf": "f9a54d1f1f2142dcdb15475b5b7bd70fd0d2d915de01fdce212ad518bc721c16",
+    "native/out/bin/out_5_0.elf": "3a574042e8dc37d04f35735af56440b0f74b666fc50d3ba3c3397766c2320d4a",
+    "native/out/bin/out_6_0.elf": "4c67fbe6bc42222c990db43fe7bbbe1b12f6fbfe22b0fbc728a69b7412c81566",
+    "native/out/bin/out_7_0.elf": "a553f2e2a6b9f41dbc15784797d8d2b5ca27f9d49c5d23da4fd9a97737d09984",
+    "native/out/bin/out_8_0.elf": "a8c8757214962400212fa21ece99bd465f4b085fc021a7f314fc8247d70b3de3",
+    "native/out/bin/out_9_0.elf": "9a8dd39c0aac5dc780b80b7d5261e48d8719898c083dd9a7e96368f5053eaf6e",
+    "native/src/layout.csl": "427ed94ee0f62be2df117e98378ed7a5a08285538b7a03d424106e3b8c93f3a3",
+    "native/src/pe.csl": "c9d05249605cb840d7d0b617d1402b14a97194b0b254e3182a8d23d7f290c8f2",
+    "provenance/census.json": "4e55ea7dfa3a1a13b18d379aa4c0dd6d597e1373bc27be26189ec47d047373ff",
+    "provenance/fp64.json": "cc9bdbea5bab369316e3ce9e9abcc41fe5c4a765ebda639c9c38b2bce07e4023",
+    "provenance/model.json": "bfc3ca5990e56912125af54d921eb2638bb8b046db254c336627dc105551dfbf",
+    "provenance/weights.npz": "4149ff8cb1eb7482547b85ebb1a74e7ba733fd053271db947de5f2be9bfd460b",
+    "sim-csl/raw.npz": "d772437e0fb40ce592a854e6c2949cad58e01e6be48d32b19c6c609f844fa5b4",
+    "sim-csl/result.json": "3d137c5293cbac602f344b8b63886886cb4f3e4244968ae9b6b1ba3e690300d3",
+    "sim-tungsten/raw.npz": "bf6244ef0f83e569ed5bd0ddb099c8649c6e64e6ab34aaffceef4e262ba76ce9",
+    "sim-tungsten/result.json": "5b914f032aa802becceb9e7bdd227321eeecbab95d3cf03e8be398920b4ac3b9"
+  },
+  "cross_language": [
+    {
+      "max_abs": 0.0,
+      "different_words": 0,
+      "argmax_mismatches": 0
+    },
+    {
+      "max_abs": 0.0,
+      "different_words": 0,
+      "argmax_mismatches": 0
+    },
+    {
+      "max_abs": 0.0,
+      "different_words": 0,
+      "argmax_mismatches": 0
+    }
+  ]
+}

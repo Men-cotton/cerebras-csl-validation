@@ -1,0 +1,126 @@
+{
+  "language": "tungsten",
+  "params": {
+    "P": 16,
+    "R": 8,
+    "F": 16,
+    "Q": 40,
+    "E": 126,
+    "K": 1,
+    "RELU": 0
+  },
+  "placement": "balanced",
+  "edge_capacity": null,
+  "fixture_sha256": "9b50b1f450a1363982f29a1a43253bcd69c998441fa2649941bd44258f1437ef",
+  "ingress": "bulk",
+  "skip_zero": true,
+  "row_runs": false,
+  "census": {
+    "rows_per_owner": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    "edges_per_owner": [
+      126,
+      123,
+      93,
+      84,
+      84,
+      84,
+      84,
+      84,
+      84,
+      83,
+      83,
+      82,
+      82,
+      82,
+      81,
+      81
+    ]
+  },
+  "commands": [
+    [
+      "paint",
+      "arch=sdr",
+      "toolname",
+      "w",
+      "carbide",
+      "toolname",
+      "yeti",
+      "carbide",
+      "lib=src",
+      "source=src/program.paint",
+      "image=program.obj",
+      "map=program.map",
+      "note=program.note",
+      "entrymap=program.entry",
+      "regiondump=regions.json"
+    ],
+    [
+      "milink",
+      "image=program.obj",
+      "out=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "weight",
+      "image=program.img",
+      "map=program.map",
+      "note=program.note"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/suite/arxiv-final-128-tungsten-p16-balanced-skip-bulk/build/simulator/out/program.elf",
+      "w=16",
+      "h=2"
+    ],
+    [
+      "mielf",
+      "image=program.img",
+      "elf=/tmp/tungsten-ogb-v1/suite/arxiv-final-128-tungsten-p16-balanced-skip-bulk/build/hardware/out/program.elf",
+      "w=762",
+      "h=1172"
+    ]
+  ],
+  "source": {
+    "owner.w": "2fa1ab8d32d8f0275837585ec6ff223ac31f2e907e71c189c672e0035305fa4b",
+    "collect.w": "fe4d6455b3d5c4f3282b9ba6e9db8bac7c303a34a93b5756f6f8ea31c4259018",
+    "program.paint": "1c8fd965afe2e5ada49c037a705797db5a61bba8ed6ebe741951fa1ae852a9ce"
+  },
+  "roles": {
+    "simulator": {
+      "elf": "b4fd1acd7b03771b3824960dcc333b0d041f2e7ad213150f64e2859a00864632",
+      "fabric": [
+        16,
+        2
+      ]
+    },
+    "hardware": {
+      "elf": "ab53c596f0184ff39be5a1fc30aa4db8b30bdf70d0ffda1ff74827f86dca3a57",
+      "fabric": [
+        762,
+        1172
+      ]
+    }
+  },
+  "canonical_sha256": "8c9aa10d3677737b2c844cf2ae12c3f164632a515039d252348e94cab7fee452",
+  "machine_image_sha256": "bdeb492bce0a1fa4b52a674bc95844a04abb0fc991c0c6d30fef37ac46340dc5",
+  "port_map_sha256": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e"
+}

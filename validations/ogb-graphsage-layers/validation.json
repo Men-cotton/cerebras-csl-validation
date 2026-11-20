@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "ogb-graphsage-layers",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "description": "Two-layer GraphSAGE on real OGB graphs, with matched native CSL and Tungsten layer execution."
+}

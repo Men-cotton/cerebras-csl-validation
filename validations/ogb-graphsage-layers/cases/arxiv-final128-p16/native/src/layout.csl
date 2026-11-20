@@ -1,0 +1,25 @@
+param P:u16;
+param R:u16;
+param F:u16;
+param Q:u16;
+param E:u16;
+param K:u16;
+param RELU:u16;
+const memcpy=@import_module("<memcpy/get_params>", .{.width=P,.height=1});
+layout {
+  @set_rectangle(P,1);
+  for (@range(u16,P)) |x| {
+    @set_tile_code(x,0,"pe.csl",.{.memcpy_params=memcpy.get_params(x),.X=x,.R=R,.F=F,.Q=Q,.E=E,.K=K,.RELU=RELU});
+  }
+  @export_name("weights",[*]f32,true);
+  @export_name("roots",[*]f32,true);
+  @export_name("inverse",[*]f32,true);
+  @export_name("features",[*]f32,true);
+  @export_name("targets",[*]u32,true);
+  @export_name("indices",[*]u32,true);
+  @export_name("control",[*]u32,true);
+  @export_name("reply",[*]u32,true);
+  @export_name("begin_frame",fn()void);
+  @export_name("accumulate",fn()void);
+  @export_name("finish",fn()void);
+}

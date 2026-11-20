@@ -1,0 +1,97 @@
+{
+  "language": "tungsten",
+  "role": "simulator",
+  "fixture_sha256": "9b50b1f450a1363982f29a1a43253bcd69c998441fa2649941bd44258f1437ef",
+  "params": {
+    "P": 16,
+    "R": 8,
+    "F": 16,
+    "Q": 40,
+    "E": 126,
+    "K": 1,
+    "RELU": 0
+  },
+  "placement": "balanced",
+  "build_sha256": "3908da9d31aef9ee9837fad026a33884bb8067079dc2f738554722416eb81c7d",
+  "frames": [
+    {
+      "trial": 1,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 18757,
+      "sum_phase_max_cycles": 19334,
+      "max_aggregation_cycles": 2418,
+      "max_projection_cycles": 16878,
+      "max_reduce_cycles": 0,
+      "host_input_to_reply_ns": 28442732426,
+      "input_word_count": 27797,
+      "output_word_count": 5600,
+      "numerics": {
+        "max_abs": 2.842450090412285e-06,
+        "relative_l2": 1.0284209787805713e-07,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": 4.316547173033314e-06
+      }
+    },
+    {
+      "trial": 2,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 18757,
+      "sum_phase_max_cycles": 19334,
+      "max_aggregation_cycles": 2418,
+      "max_projection_cycles": 16878,
+      "max_reduce_cycles": 0,
+      "host_input_to_reply_ns": 24809805730,
+      "input_word_count": 26477,
+      "output_word_count": 5600,
+      "numerics": {
+        "max_abs": 1.8049299459477197e-06,
+        "relative_l2": 1.033818613570265e-07,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": null
+      }
+    },
+    {
+      "trial": 3,
+      "clocks": [
+        "clear",
+        "edge-chunk",
+        "project"
+      ],
+      "peak_sum_pe_cycles": 18757,
+      "sum_phase_max_cycles": 19334,
+      "max_aggregation_cycles": 2418,
+      "max_projection_cycles": 16878,
+      "max_reduce_cycles": 0,
+      "host_input_to_reply_ns": 35535647111,
+      "input_word_count": 26477,
+      "output_word_count": 5600,
+      "numerics": {
+        "max_abs": 2.842450090412285e-06,
+        "relative_l2": 1.0284209787805713e-07,
+        "argmax_mismatch": 0,
+        "whole_checkpoint_max_abs": 4.316547173033314e-06
+      }
+    }
+  ],
+  "stopped": true,
+  "override_x_sha256": null,
+  "stage": "PASS",
+  "platform": {
+    "system": false,
+    "simulation": true
+  },
+  "host_sha256": {
+    "worker.py": "48fd0de466eae74da0ad17a8d14e467a071080b4b2bcfab76899f4399c36fc44",
+    "contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6"
+  },
+  "executed_elf_sha256": "b4fd1acd7b03771b3824960dcc333b0d041f2e7ad213150f64e2859a00864632",
+  "raw_sha256": "bf6244ef0f83e569ed5bd0ddb099c8649c6e64e6ab34aaffceef4e262ba76ce9"
+}
