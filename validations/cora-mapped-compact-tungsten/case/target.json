@@ -1,0 +1,9 @@
+{
+  "input_sha256": "a82c4456f3a6538c7d6befaef57d0060dc9ba3d132b03abd902fde36be17e747",
+  "language": "tungsten",
+  "method": "original",
+  "name": "source-balanced independent all-FMAC Tungsten",
+  "raw_sha256": "9ac1f5c5da65acd7d396d48b6c279d085e1bcbd5ddca7bf1d39c65e7c61a72bb",
+  "release_sha256": "b9d47e3f032f608f78317ce770f256a3c4fb32119b16189862348a13f8f86ecb",
+  "result_sha256": "7c2ac181cee821ee2325c1961a45a27bff08356b7e46fdb69b6ae721cb77f76e"
+}

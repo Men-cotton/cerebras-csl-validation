@@ -1,0 +1,19 @@
+{
+  "description": "One full-Cora run with the published independently unrolled physical ELF and published capacity-balanced source map.",
+  "id": "cora-mapped-compact-tungsten-r16x4-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "run-tungsten",
+        "--shards",
+        "16",
+        "--out",
+        "{output}/run-tungsten"
+      ],
+      "kind": "appliance",
+      "name": "run-tungsten",
+      "script": "validations/cora-mapped-compact-tungsten/case/appliance.py"
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+{
+  "all_active_and_padded_words_bit_exact": true,
+  "backend": "SDK WSE-3 simulator",
+  "method": "independently compiled 144-position all-FMAC Tungsten",
+  "raw_sha256": "9ac1f5c5da65acd7d396d48b6c279d085e1bcbd5ddca7bf1d39c65e7c61a72bb",
+  "release_sha256": "b9d47e3f032f608f78317ce770f256a3c4fb32119b16189862348a13f8f86ecb",
+  "result_sha256": "7c2ac181cee821ee2325c1961a45a27bff08356b7e46fdb69b6ae721cb77f76e",
+  "summary": {
+    "compute_sum": [
+      20296,
+      20296,
+      20296
+    ],
+    "edges": 13264,
+    "fp64_error": [
+      {
+        "max_abs": 1.5833800457443203e-06,
+        "relative_l2": 4.1578330301305405e-08
+      },
+      {
+        "max_abs": 1.5833800457443203e-06,
+        "relative_l2": 4.1578330301305405e-08
+      },
+      {
+        "max_abs": 1.5833800457443203e-06,
+        "relative_l2": 4.1578330301305405e-08
+      }
+    ],
+    "max_owner_cumulative_sum": [
+      26580,
+      46872,
+      67166
+    ],
+    "nodes": 2708,
+    "original_class_mismatches": [
+      0,
+      0,
+      0
+    ],
+    "owner_sha256": [
+      "14a579870282df5814e11bbcb1d69a2af4552f57d48b877b5781add87161395b",
+      "63e4fae54b59bce3b8a326ef5e9d5f6998dcc1e34e77e84acf29733cb793541e",
+      "14a579870282df5814e11bbcb1d69a2af4552f57d48b877b5781add87161395b"
+    ],
+    "pe": 64,
+    "phase_max_cumulative_sum": [
+      26584,
+      46880,
+      67176
+    ],
+    "setup_sum": 6288,
+    "shards": 16,
+    "validation": [
+      402,
+      500
+    ],
+    "windows": [
+      {
+        "compute_max": [
+          2136,
+          2136,
+          2136
+        ],
+        "edges": 1559,
+        "end": 256,
+        "max_owner_cumulative": [
+          2875,
+          5011,
+          7147
+        ],
+        "setup_max": 739,
+        "start": 0,
+        "sum_phase_max": [
+          2875,
+          5011,
+          7147
+        ]
+      },
+      {
+        "compute_max": [
+          2080,
+          2080,
+          2080
+        ],
+        "edges": 1455,
+        "end": 512,
+        "max_owner_cumulative": [
+          2761,
+          4841,
+          6921
+        ],
+        "setup_max": 681,
+        "start": 256,
+        "sum_phase_max": [
+          2761,
+          4841,
+          6921
+        ]
+      },
+      {
+        "compute_max": [
+          2324,
+          2324,
+          2324
+        ],
+        "edges": 1721,
+        "end": 768,
+        "max_owner_cumulative": [
+          3136,
+          5460,
+          7784
+        ],
+        "setup_max": 812,
+        "start": 512,
+        "sum_phase_max": [
+          3136,
+          5460,
+          7784
+        ]
+      },
+      {
+        "compute_max": [
+          1854,
+          1854,
+          1854
+        ],
+        "edges": 1200,
+        "end": 1024,
+        "max_owner_cumulative": [
+          2419,
+          4273,
+          6127
+        ],
+        "setup_max": 565,
+        "start": 768,
+        "sum_phase_max": [
+          2419,
+          4273,
+          6127
+        ]
+      },
+      {
+        "compute_max": [
+          1860,
+          1860,
+          1860
+        ],
+        "edges": 1284,
+        "end": 1280,
+        "max_owner_cumulative": [
+          2469,
+          4329,
+          6189
+        ],
+        "setup_max": 609,
+        "start": 1024,
+        "sum_phase_max": [
+          2469,
+          4329,
+          6189
+        ]
+      },
+      {
+        "compute_max": [
+          1934,
+          1934,
+          1934
+        ],
+        "edges": 1273,
+        "end": 1536,
+        "max_owner_cumulative": [
+          2532,
+          4463,
+          6396
+        ],
+        "setup_max": 601,
+        "start": 1280,
+        "sum_phase_max": [
+          2535,
+          4469,
+          6403
+        ]
+      },
+      {
+        "compute_max": [
+          1793,
+          1793,
+          1793
+        ],
+        "edges": 1146,
+        "end": 1792,
+        "max_owner_cumulative": [
+          2336,
+          4129,
+          5922
+        ],
+        "setup_max": 543,
+        "start": 1536,
+        "sum_phase_max": [
+          2336,
+          4129,
+          5922
+        ]
+      },
+      {
+        "compute_max": [
+          1687,
+          1687,
+          1687
+        ],
+        "edges": 992,
+        "end": 2048,
+        "max_owner_cumulative": [
+          2158,
+          3845,
+          5532
+        ],
+        "setup_max": 471,
+        "start": 1792,
+        "sum_phase_max": [
+          2158,
+          3845,
+          5532
+        ]
+      },
+      {
+        "compute_max": [
+          1706,
+          1706,
+          1706
+        ],
+        "edges": 1016,
+        "end": 2304,
+        "max_owner_cumulative": [
+          2190,
+          3895,
+          5600
+        ],
+        "setup_max": 485,
+        "start": 2048,
+        "sum_phase_max": [
+          2191,
+          3897,
+          5603
+        ]
+      },
+      {
+        "compute_max": [
+          1676,
+          1676,
+          1676
+        ],
+        "edges": 1058,
+        "end": 2560,
+        "max_owner_cumulative": [
+          2183,
+          3859,
+          5535
+        ],
+        "setup_max": 507,
+        "start": 2304,
+        "sum_phase_max": [
+          2183,
+          3859,
+          5535
+        ]
+      },
+      {
+        "compute_max": [
+          1246,
+          1246,
+          1246
+        ],
+        "edges": 560,
+        "end": 2708,
+        "max_owner_cumulative": [
+          1521,
+          2767,
+          4013
+        ],
+        "setup_max": 275,
+        "start": 2560,
+        "sum_phase_max": [
+          1521,
+          2767,
+          4013
+        ]
+      }
+    ],
+    "words": 56868
+  }
+}

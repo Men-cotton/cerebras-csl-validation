@@ -1,0 +1,13 @@
+{
+  "csl_header_off_step": "run-csl",
+  "csl_header_on_step": "run-csl-enabled",
+  "family": "cora-cyclic-header-crossover",
+  "prior_cyclic_release_sha256": "721e35eac7bc5b3824a8c034973aecbbdd3fcaef342556a0bcaa935479e94620",
+  "prior_mapped_release_sha256": "66f3024291cf0f3dbc380ddc72fdd2ac87760bab7f2797afc05db1a01670300d",
+  "request": "cora-cyclic-header-crossover-r16x4-r001",
+  "revision": "5a9dda188913c85cb20b905b5531f0d4d77b8461",
+  "same_hardware_elf_step": "run-cyclic-tungsten",
+  "same_physical_elf_sha256": "f6b61cbbea73bbdaf53d8a730f76f6ac2005a61a8562487599c7e60edffde6d8",
+  "same_placement_step": "run-mapped-tungsten",
+  "same_source_map_sha256": "0ab0a174b32000a599e4d4298c442eecd9e078c45707b4b601d342dcc0434af4"
+}

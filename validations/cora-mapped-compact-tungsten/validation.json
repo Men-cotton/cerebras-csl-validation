@@ -1,0 +1,11 @@
+{
+  "description": "Complete the program by source-placement comparison on 64 physical PEs.",
+  "entrypoints": [
+    "case/appliance.py"
+  ],
+  "id": "cora-mapped-compact-tungsten",
+  "schema": 1,
+  "tests": [
+    "tests"
+  ]
+}
