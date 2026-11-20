@@ -1,0 +1,442 @@
+// SPDX-License-Identifier: Apache-2.0
+// Static row FADD chain and multicast; SDK column collective and grouped packets.
+param memcpy_params;
+param c2d_params;
+param even_column: bool;
+param even_row: bool;
+param top_row: bool;
+param bottom_row: bool;
+param C: u16;
+param R: u16;
+param K: u16;
+param L: u16;
+param FW: u16;
+param H: u16;
+param O: u16;
+param T: u16;
+param MX: u16;
+param MG: u16;
+param NRX: u16;
+param NSEND: u16;
+param NPLAN: u16;
+const sys = @import_module("<memcpy/memcpy>", memcpy_params);
+const timestamp = @import_module("<time>");
+const mp = @import_module("<message_passing>", .{
+  .bank_id=14, .input_queue_id=6, .output_queue_id=6
+});
+const tile_task = @get_local_task_id(12);
+const reduced_task = @get_local_task_id(13);
+const shared_task = @get_local_task_id(14);
+const exchange_task = @get_local_task_id(16);
+const tx_task = @get_local_task_id(17);
+const aggregate_task = @get_local_task_id(20);
+
+var x_ptr = @zeros([K+1]u16);
+var x_col = @zeros([MX]u16);
+var x_val = @zeros([MX]f32);
+var w0 = @zeros([FW*H]f32);
+var w1 = @zeros([H*O]f32);
+var slots = @zeros([L]u16);
+var edge_ptr = @zeros([L+2]u16);
+var split_control = @zeros([2]u16);
+var split_words = @zeros([2]u32);
+var edge_src = @zeros([MG]u16);
+var edge_weight = @zeros([MG]f32);
+var send_slot = @zeros([NSEND]u16);
+var packet_header = @zeros([2*NPLAN]u32);
+var packet_tag = @zeros([2*NPLAN]u32);
+var packet_offset = @zeros([2*NPLAN]u16);
+var packet_count = @zeros([2*NPLAN]u16);
+var counts = @zeros([6]u16);
+var traffic = @zeros([4]u32);
+// Every outgoing endpoint contributes at most T words and every packet two header words.
+const TX_WORDS = NSEND*T+2*NPLAN;
+var packet_tx = @zeros([TX_WORDS]u32);
+var header_tag = @zeros([2]u32);
+var barrier_token = @zeros([1]u32);
+var pre = @zeros([L*H]f32);
+var logits = @zeros([L*O]f32);
+// Project both hidden tiles in the original CSR feature order during the first pass.
+var panel_local = @zeros([K*H]f32);
+// Both home and received slots use a T-word stride. Only the home prefix is exported.
+var panel_sum = @zeros([(K+NRX)*T]f32);
+var accum = @zeros([(L+1)*T]f32);
+var stats = @zeros([8]u32);
+var clocks = @zeros([6]u16);
+const lane_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{T}->panel_local[i]});
+const local_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{K*T}->panel_local[i]});
+const hidden_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{H}->panel_local[i]});
+const first_half = @get_dsd(mem4d_dsd, .{.tensor_access=|v,h|{K,T}->panel_local[v*@as(i16, H)+h]});
+const second_half = @get_dsd(mem4d_dsd, .{.tensor_access=|v,h|{K,T}->panel_local[v*@as(i16, H)+@as(i16, T)+h]});
+const accum_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*T}->accum[i]});
+// Each floating-point move writes all local destinations without stepping through them in a scalar loop.
+const pre_first = @get_dsd(mem4d_dsd, .{.tensor_access=|v,h|{L,T}->pre[v*@as(i16,H)+h]});
+const pre_second = @get_dsd(mem4d_dsd, .{.tensor_access=|v,h|{L,T}->pre[v*@as(i16,H)+@as(i16,T)+h]});
+const class_accum = @get_dsd(mem4d_dsd, .{.tensor_access=|v,h|{L,O}->accum[v*@as(i16,T)+h]});
+const class_logits = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{L*O}->logits[i]});
+
+var phase: u16 = 0;
+var lane: u16 = 0;
+var active: u16 = T;
+var stage: u16 = 0;
+var sent: u16 = 0;
+var received: u16 = 0;
+const header_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{2}->header_tag[i]});
+const packet_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{TX_WORDS}->packet_tx[i]});
+const rx = @get_dsd(fabin_dsd, .{.extent=2, .input_queue=mp.mp_input_queue, .simd_mode=.{.simd_off=true}});
+const tx = @get_dsd(fabout_dsd, .{.extent=1, .output_queue=mp.mp_output_queue, .simd_mode=.{.simd_off=true}});
+
+// The row pipeline starts on the east edge. Alternate ingress/egress colors
+// so intermediate PEs can consume, add, and forward the same vector.
+const row_in_color = if (even_column) @get_color(0) else @get_color(1);
+const row_out_color = if (even_column) @get_color(1) else @get_color(0);
+const row_broadcast_color = @get_color(2);
+const row_iq = @get_input_queue(2);
+const row_oq = @get_output_queue(2);
+const broadcast_iq = @get_input_queue(4);
+const broadcast_oq = @get_output_queue(4);
+const row_in = @get_dsd(fabin_dsd, .{.extent=K*T, .input_queue=row_iq});
+const row_out = @get_dsd(fabout_dsd, .{.extent=K*T, .output_queue=row_oq});
+const broadcast_in = @get_dsd(fabin_dsd, .{.extent=K*T, .input_queue=broadcast_iq});
+const broadcast_out = @get_dsd(fabout_dsd, .{.extent=K*T, .output_queue=broadcast_oq});
+const summed_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{K*T}->panel_sum[i]});
+
+// Each PE forwards one token after completing its row broadcast. The top
+// sends the returning token down a hardware multicast to release every receiver.
+const up_in_color = if (even_row) @get_color(4) else @get_color(5);
+const up_out_color = if (even_row) @get_color(5) else @get_color(4);
+const down_color = @get_color(7);
+const up_iq = @get_input_queue(3);
+const up_oq = @get_output_queue(3);
+const down_iq = @get_input_queue(5);
+const down_oq = @get_output_queue(5);
+const up_in = @get_dsd(fabin_dsd, .{.extent=1, .input_queue=up_iq});
+const up_out = @get_dsd(fabout_dsd, .{.extent=1, .output_queue=up_oq});
+const down_in = @get_dsd(fabin_dsd, .{.extent=1, .input_queue=down_iq});
+const down_out = @get_dsd(fabout_dsd, .{.extent=1, .output_queue=down_oq});
+const token_dsd = @get_dsd(mem1d_dsd, .{.tensor_access=|i|{1}->barrier_token[i]});
+
+fn reduce_row(data: anytype) void {
+  if (comptime c2d_params.x.pe_max) {
+    @mov32(row_out, data);
+  } else if (comptime c2d_params.x.pe_min) {
+    @fadds(summed_dsd, data, row_in);
+  } else {
+    @fadds(row_out, data, row_in);
+  }
+  @activate(reduced_task);
+}
+
+fn broadcast_row() void {
+  if (comptime c2d_params.x.pe_min) {
+    @mov32(broadcast_out, summed_dsd);
+  } else {
+    @mov32(summed_dsd, broadcast_in);
+  }
+  @activate(shared_task);
+}
+
+fn f_run() void {
+  mp.init();
+  for (@range(u16, 4)) |i| { traffic[i] = 0; }
+  split_words[0] = 0;
+  split_words[1] = 0;
+  phase = 0;
+  lane = 0;
+  for (@range(u16, 8)) |i| { stats[i] = 0; }
+  timestamp.enable_tsc();
+  timestamp.get_timestamp(@ptrcast(*[3]u16, &clocks[0]));
+  @activate(tile_task);
+}
+
+task compute_tile() void {
+  const width = if (phase == 0) H else O;
+  active = if (lane+T <= width) T else width-lane;
+  const active_dsd = @set_dsd_length(lane_dsd, active);
+  if (phase == 0) {
+    if (lane == 0) {
+      stats[4] += @as(u32, x_ptr[K]-x_ptr[0]) * @as(u32, H);
+      // Seed each nonempty projection with its first feature in original CSR order.
+      for (@range(u16, K)) |v| {
+        const output = @set_dsd_base_addr(hidden_dsd, @ptrcast([*]f32, &panel_local[v*H]));
+        var e = x_ptr[v];
+        const stop = x_ptr[v+1];
+        if (e == stop) {
+          @fmovs(output, 0.0);
+        } else {
+          const first = @set_dsd_base_addr(hidden_dsd, @ptrcast([*]f32, &w0[x_col[e]*H]));
+          @fmuls(output, first, x_val[e]);
+          e += 1;
+        }
+        while (e < stop) : (e += 1) {
+          const input = @set_dsd_base_addr(hidden_dsd, @ptrcast([*]f32, &w0[x_col[e]*H]));
+          @fmacs(output, output, input, x_val[e]);
+        }
+      }
+      reduce_row(first_half);
+    } else {
+      reduce_row(second_half);
+    }
+  } else {
+    @fmovs(local_dsd, 0.0);
+    // Exactly one owner contributes each row; row reduction assembles the panel.
+    for (@range(u16, L)) |v| {
+      if (slots[v] != 65535) {
+        const output = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &panel_local[slots[v]*T]));
+        for (@range(u16, H)) |h| {
+          const value = if (pre[v*H+h] > 0.0) pre[v*H+h] else @as(f32, 0.0);
+          const input = @set_dsd_base_addr(active_dsd, @ptrcast([*]f32, &w1[h*O+lane]));
+          @fmacs(output, output, input, value);
+        }
+        stats[6] += @as(u32, H) * @as(u32, active);
+      }
+    }
+    reduce_row(local_dsd);
+  }
+}
+
+task reduced() void {
+  stats[1] += 1;
+  broadcast_row();
+}
+
+task shared() void {
+  stats[2] += 1;
+  stage = if (active < T) 1 else 0;
+  pack_transmit_stream();
+  // No previous epoch can have outstanding packets at the first exchange.
+  if (phase == 0 and lane == 0) { @activate(exchange_task); return; }
+  // Every destination has consumed its last tile before any source starts
+  // sending the next tile. Packets travel only inside their source column.
+  if (comptime bottom_row) {
+    @mov32(up_out, @as(u32, 1));
+  } else if (comptime top_row) {
+    @mov32(down_out, up_in);
+  } else {
+    @mov32(up_out, up_in);
+  }
+  if (comptime !top_row) {
+    @mov32(token_dsd, down_in);
+  }
+  @activate(exchange_task);
+}
+
+// A packet carries at most four seven-class rows. Place each row directly
+// into its T-word slot without storing the padding on the wire.
+fn receive_tail(comptime rows: u16, base: [*]f32, fifo: anytype) void {
+  const pattern = @get_dsd(mem4d_dsd, .{.tensor_access=|v,h|{rows,O}->panel_sum[v*@as(i16,T)+h]});
+  const target = @set_dsd_base_addr(pattern, base);
+  @mov32(target, fifo, .{});
+}
+
+fn receive_payload() void {
+  const slot = @as(u16, header_tag[1] & 65535);
+  const count = @as(u16, header_tag[1] >> 16);
+  const payload = active*count;
+  @assert(count != 0 and slot+count <= NRX and payload+1 == @as(u16, header_tag[0] & 31));
+  const base = @ptrcast([*]f32, &panel_sum[(K+slot)*T]);
+  const fifo = @set_dsd_length(rx, payload);
+  if (active == T or count == 1) {
+    const target = @set_dsd_base_addr(@set_dsd_length(lane_dsd, payload), base);
+    @mov32(target, fifo, .{});
+  } else if (count == 2) {
+    receive_tail(2, base, fifo);
+  } else if (count == 3) {
+    receive_tail(3, base, fifo);
+  } else {
+    @assert(count == 4);
+    receive_tail(4, base, fifo);
+  }
+  traffic[3] += @as(u32,payload+2);
+}
+
+fn pack_transmit_stream() void {
+  const copy = @set_dsd_length(lane_dsd, active);
+  var cursor: u16 = 0;
+  @assert(counts[4+stage] <= TX_WORDS);
+  for (@range(u16, counts[stage])) |packet| {
+    const index = stage*NPLAN+packet;
+    const offset = packet_offset[index];
+    const count = packet_count[index];
+    packet_tx[cursor] = packet_header[index];
+    packet_tx[cursor+1] = packet_tag[index];
+    cursor += 2;
+    for (@range(u16, count)) |j| {
+      const from = @set_dsd_base_addr(copy, @ptrcast([*]f32, &panel_sum[send_slot[offset+j]*T]));
+      const to = @set_dsd_base_addr(copy, @ptrcast([*]f32, &packet_tx[cursor]));
+      @fmovs(to, from);
+      cursor += active;
+    }
+  }
+  @assert(cursor == counts[4+stage]);
+}
+
+task exchange() void {
+  sent = 0;
+  received = 0;
+  if (counts[stage] != 0) {
+    const length = counts[4+stage];
+    @mov32(@set_dsd_length(tx, length), @set_dsd_length(packet_dsd, length),
+           .{.async=true,.ut_id=@get_ut_id(4),.activate=tx_task});
+  }
+  while (received < counts[2+stage]) {
+    @mov32(header_dsd, rx);
+    receive_payload();
+    received += 1;
+    traffic[1] += 1;
+  }
+  if (sent == counts[stage]) { @activate(aggregate_task); }
+}
+
+task transmitted() void {
+  sent = counts[stage];
+  traffic[0] += @as(u32, sent);
+  traffic[2] += @as(u32, counts[4+stage]);
+  if (received == counts[2+stage]) { @activate(aggregate_task); }
+}
+
+task aggregate() void {
+  const vec = @set_dsd_length(lane_dsd, active);
+  const values = @set_dsd_base_addr(vec, @ptrcast([*]f32, &panel_sum));
+  const width = if (phase == 0) H else O;
+  const role = split_control[0];
+  const vertices: u16 = if (role == 2) L+1 else L;
+  for (@range(u16, vertices)) |v| {
+    const result = @set_dsd_base_addr(vec, @ptrcast([*]f32, &accum[v*T]));
+    var e = edge_ptr[v];
+    const stop = edge_ptr[v+1];
+    if (e == stop) {
+      @fmovs(result, 0.0);
+    } else {
+      const first = @increment_dsd_offset(values, @as(i16, edge_src[e]*T), f32);
+      @fmuls(result, first, edge_weight[e]);
+      e += 1;
+    }
+    while (e < stop) : (e += 1) {
+      const input = @increment_dsd_offset(values, @as(i16, edge_src[e]*T), f32);
+      @fmacs(result, result, input, edge_weight[e]);
+    }
+  }
+  // The helper and its owner are in one row. The previous horizontal reduction
+  // completed before endpoint exchange; both transfers use the same westbound FIFO.
+  const send = @set_dsd_length(row_out, active);
+  const recv = @set_dsd_length(row_in, active);
+  if (role == 2) {
+    const partial = @set_dsd_base_addr(vec, @ptrcast([*]f32, &accum[L*T]));
+    @mov32(send, partial);
+    split_words[0] += @as(u32, active);
+  } else if (role == 3) {
+    @mov32(send, recv);
+    split_words[0] += @as(u32, active);
+    split_words[1] += @as(u32, active);
+  } else if (role == 1) {
+    const owned = @set_dsd_base_addr(vec, @ptrcast([*]f32, &accum[split_control[1]*T]));
+    @fadds(owned, owned, recv);
+    split_words[1] += @as(u32, active);
+  }
+  if (phase == 0) {
+    if (lane == 0) { @fmovs(pre_first, accum_dsd); }
+    else { @fmovs(pre_second, accum_dsd); }
+  } else {
+    @fmovs(class_logits, class_accum);
+  }
+  stats[3] += @as(u32, received);
+  stats[5] += @as(u32, edge_ptr[L+1]-edge_ptr[0]) * @as(u32, active);
+  stats[7] += 1;
+  lane += T;
+  if (lane < width) { @activate(tile_task); }
+  else if (phase == 0) {
+    phase = 1;
+    lane = 0;
+    @activate(tile_task);
+  } else {
+    timestamp.get_timestamp(@ptrcast(*[3]u16, &clocks[3]));
+    timestamp.disable_tsc();
+    stats[0] = 0x600d;
+    sys.unblock_cmd_stream();
+  }
+}
+
+// Exports require global pointer symbols, as in the official GEMV example.
+var ptr_x_ptr: [*]u16 = &x_ptr;
+var ptr_x_col: [*]u16 = &x_col;
+var ptr_x_val: [*]f32 = &x_val;
+var ptr_w0: [*]f32 = &w0;
+var ptr_w1: [*]f32 = &w1;
+var ptr_edge_ptr: [*]u16 = &edge_ptr;
+var ptr_split_control: [*]u16 = &split_control;
+var ptr_split_words: [*]u32 = &split_words;
+var ptr_edge_src: [*]u16 = &edge_src;
+var ptr_edge_weight: [*]f32 = &edge_weight;
+var ptr_slots: [*]u16 = &slots;
+var ptr_send_slot: [*]u16 = &send_slot;
+var ptr_packet_header: [*]u32 = &packet_header;
+var ptr_packet_tag: [*]u32 = &packet_tag;
+var ptr_packet_offset: [*]u16 = &packet_offset;
+var ptr_packet_count: [*]u16 = &packet_count;
+var ptr_counts: [*]u16 = &counts;
+var ptr_traffic: [*]u32 = &traffic;
+var ptr_pre: [*]f32 = &pre;
+var ptr_logits: [*]f32 = &logits;
+var ptr_panel_sum: [*]f32 = &panel_sum;
+var ptr_stats: [*]u32 = &stats;
+var ptr_clocks: [*]u16 = &clocks;
+
+comptime {
+  @initialize_queue(up_iq, .{.color=up_in_color});
+  @initialize_queue(up_oq, .{.color=up_out_color});
+  @initialize_queue(down_iq, .{.color=down_color});
+  @initialize_queue(down_oq, .{.color=down_color});
+  @set_local_color_config(up_in_color, .{.routes=.{.rx=.{SOUTH}, .tx=.{RAMP}}});
+  @set_local_color_config(up_out_color, .{.routes=.{.rx=.{RAMP}, .tx=.{NORTH}}});
+  if (top_row) {
+    @set_local_color_config(down_color, .{.routes=.{.rx=.{RAMP}, .tx=.{SOUTH}}});
+  } else if (bottom_row) {
+    @set_local_color_config(down_color, .{.routes=.{.rx=.{NORTH}, .tx=.{RAMP}}});
+  } else {
+    @set_local_color_config(down_color, .{.routes=.{.rx=.{NORTH}, .tx=.{RAMP,SOUTH}}});
+  }
+  @initialize_queue(row_iq, .{.color=row_in_color});
+  @initialize_queue(row_oq, .{.color=row_out_color});
+  @initialize_queue(broadcast_iq, .{.color=row_broadcast_color});
+  @initialize_queue(broadcast_oq, .{.color=row_broadcast_color});
+  @set_local_color_config(row_in_color, .{.routes=.{.rx=.{EAST}, .tx=.{RAMP}}});
+  @set_local_color_config(row_out_color, .{.routes=.{.rx=.{RAMP}, .tx=.{WEST}}});
+  if (c2d_params.x.pe_min) {
+    @set_local_color_config(row_broadcast_color, .{.routes=.{.rx=.{RAMP}, .tx=.{EAST}}});
+  } else if (c2d_params.x.pe_max) {
+    @set_local_color_config(row_broadcast_color, .{.routes=.{.rx=.{WEST}, .tx=.{RAMP}}});
+  } else {
+    @set_local_color_config(row_broadcast_color, .{.routes=.{.rx=.{WEST}, .tx=.{RAMP,EAST}}});
+  }
+  @bind_local_task(compute_tile, tile_task);
+  @bind_local_task(reduced, reduced_task);
+  @bind_local_task(shared, shared_task);
+  @bind_local_task(exchange, exchange_task);
+  @bind_local_task(transmitted, tx_task);
+  @bind_local_task(aggregate, aggregate_task);
+  @export_symbol(ptr_x_ptr, "x_ptr");
+  @export_symbol(ptr_x_col, "x_col");
+  @export_symbol(ptr_x_val, "x_val");
+  @export_symbol(ptr_w0, "w0");
+  @export_symbol(ptr_w1, "w1");
+  @export_symbol(ptr_edge_ptr, "edge_ptr");
+  @export_symbol(ptr_split_control, "split_control");
+  @export_symbol(ptr_split_words, "split_words");
+  @export_symbol(ptr_edge_src, "edge_src");
+  @export_symbol(ptr_edge_weight, "edge_weight");
+  @export_symbol(ptr_slots, "slots");
+  @export_symbol(ptr_send_slot, "send_slot");
+  @export_symbol(ptr_packet_header, "packet_header");
+  @export_symbol(ptr_packet_tag, "packet_tag");
+  @export_symbol(ptr_packet_offset, "packet_offset");
+  @export_symbol(ptr_packet_count, "packet_count");
+  @export_symbol(ptr_counts, "counts");
+  @export_symbol(ptr_traffic, "traffic");
+  @export_symbol(ptr_pre, "pre");
+  @export_symbol(ptr_logits, "logits");
+  @export_symbol(ptr_panel_sum, "panel_sum");
+  @export_symbol(ptr_stats, "stats");
+  @export_symbol(ptr_clocks, "clocks");
+  @export_symbol(f_run);
+}

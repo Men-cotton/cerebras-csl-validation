@@ -1,0 +1,44 @@
+{
+  "description": "Measure the complete trained Cora 256-node prefix on 32 PE with one outgoing DMA per tile, blocking receives into padded slots, and static synchronization. Compare all input bytes, original-ID layer values, PE clocks and hub partial counts.",
+  "fp64": {
+    "logits": {
+      "max_abs": 1.0940489758581862e-06,
+      "max_relative_floor_1e_12": 2.3651112940794278e-05,
+      "relative_l2": 7.177702811961732e-08
+    },
+    "panel_sum": {
+      "max_abs": 1.0940489758581862e-06,
+      "max_relative_floor_1e_12": 1.0641240135406812e-05,
+      "relative_l2": 7.819398411297045e-08
+    },
+    "pre": {
+      "max_abs": 6.301546295883753e-08,
+      "max_relative_floor_1e_12": 0.0005712804173175314,
+      "relative_l2": 4.671652758013378e-08
+    }
+  },
+  "linked_sram": {
+    "all_linked_static_bytes": 38736,
+    "compute_elfs": 16,
+    "compute_pe_static_bytes": 38736,
+    "largest_image_files": [
+      "bin/out_10_0.elf",
+      "bin/out_5_0.elf",
+      "bin/out_6_0.elf",
+      "bin/out_9_0.elf"
+    ],
+    "linked_elfs": 33
+  },
+  "local_initialization": "standard SDK transfers",
+  "local_max_pe_cycles": 28696,
+  "local_raw_sha256": "1df34c37fc3ef3163ca5b3997c43ed12045eade77e39d614fc3f1f38557321ac",
+  "local_split_audit_sha256": "25785e19be88ffb4af99c441cf847bace882e548ea187cd343d0ac16a9b5ba6f",
+  "numerical_status": "PASS",
+  "ordered_suffix_sha256": "b2a315387fe5483deb1d8847e9f3f57c5a53345f26d69d36fa5342c97203af3e",
+  "packed_input_sha256": "6128718f8691aa8f3d00fa98c7e4204bfad837250d687ca35d1ae0fdbf415246",
+  "source_sha256": {
+    "layout.csl": "33b8a64da8d37573c5a53756e59003b167ff2db5f445caeb60085be01a5b94e4",
+    "pe.csl": "158b758dce372f05e1b091a96a6c5ff1fbf860eed1a539cb5df0133be8506d14"
+  },
+  "split_plan_sha256": "c366ba303fec6c3afe8330cf8965e63c44aea757dade08f4040037b0ca8e60c6"
+}

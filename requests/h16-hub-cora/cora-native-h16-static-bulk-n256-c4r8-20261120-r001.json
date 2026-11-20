@@ -1,0 +1,53 @@
+{
+  "description": "Measure the complete trained Cora 256-node prefix on 32 PE with one outgoing DMA per tile, blocking receives into padded slots, and static synchronization. Compare all input bytes, original-ID layer values, PE clocks and hub partial counts.",
+  "id": "cora-native-h16-static-bulk-n256-c4r8-20261120-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "n256-c4r8-static-bulk",
+        "--backend",
+        "hardware",
+        "--namespace",
+        "job-operator",
+        "--compile-workers",
+        "1",
+        "--out",
+        "{output}/compile-n256-c4r8-static-bulk"
+      ],
+      "kind": "appliance",
+      "name": "compile-n256-c4r8-static-bulk",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--case",
+        "n256-c4r8-static-bulk",
+        "--backend",
+        "hardware",
+        "--artifact-record",
+        "{output}/compile-n256-c4r8-static-bulk/native-build.json",
+        "--host-timeout",
+        "600",
+        "--out",
+        "{output}/run-n256-c4r8-static-bulk"
+      ],
+      "kind": "appliance",
+      "name": "run-n256-c4r8-static-bulk",
+      "script": "validations/h16-hub-cora/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/run-n256-c4r8-static-bulk/capture-data",
+        "--out",
+        "{output}/numerical-n256-c4r8-static-bulk.json"
+      ],
+      "kind": "host",
+      "name": "audit-n256-c4r8-static-bulk",
+      "script": "validations/h16-hub-cora/saved_audit.py"
+    }
+  ]
+}

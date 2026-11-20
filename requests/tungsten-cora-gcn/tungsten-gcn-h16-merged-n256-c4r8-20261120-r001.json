@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "tungsten-gcn-h16-merged-n256-c4r8-20261120-r001",
+  "description": "Three resident frames of a trained two-layer Cora GCN with full PE record collection on physical CS-3.",
+  "steps": [
+    {
+      "name": "run-n256-c4r8-merged",
+      "kind": "appliance",
+      "script": "validations/tungsten-cora-gcn/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-cora-gcn/cases/n256-c4r8-merged",
+        "--build-sha256",
+        "3e3118567de2cb7b19c6b80936a8e2d4094dbd718df82b305541041722cb80a9",
+        "--out",
+        "{output}/gcn-n256-c4r8-merged"
+      ]
+    }
+  ]
+}
