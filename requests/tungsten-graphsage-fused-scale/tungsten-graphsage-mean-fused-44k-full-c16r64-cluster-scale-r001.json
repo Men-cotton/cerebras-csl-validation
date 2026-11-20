@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "tungsten-graphsage-mean-fused-44k-full-c16r64-cluster-scale-r001",
+  "description": "Run all three resident physical inputs on the full Cora fused GraphSAGE. Each target has a calibrated bare capture, bit-verified initialized device inputs, paired SDK/physical loads, and the complete equal-source 256-PE SDK sequence.",
+  "steps": [
+    {
+      "name": "physical-1024-three-inputs",
+      "kind": "appliance",
+      "script": "validations/tungsten-graphsage-fused-scale/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/tungsten-graphsage-fused-scale/cases/full-c16r64-t8-cluster-mean-fused-44k",
+        "--build-sha256",
+        "fb29e1548ae2893e892455b1ff19f9e4db6c8aa08d7cc4c564c6ca3dd43f1c78",
+        "--proof-sha256",
+        "a837ba508d163769c1d4795b4a5f6b2d41c098abb08f72388574fba75fb9900c",
+        "--out",
+        "{output}/cluster-fused-1024"
+      ]
+    }
+  ]
+}
