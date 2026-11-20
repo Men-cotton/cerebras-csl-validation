@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "id": "ogb-source-tiles-rcm128-p16-20261120-r001",
+  "description": "Measure edges versus distinct source vectors on the same compute PEs and image, with original CSR summation order, both trained projections and all 40 or 47 logits. Two complete 128-destination OGB windows use six interleaved original and scaled frames.",
+  "steps": [
+    {
+      "name": "run-arxiv",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-source-tiles/cases/arxiv-rcm128-q50-p16-e128",
+        "--release-sha256",
+        "67aa2b3985ceed952322f4a8cffb88f8ce4e4bef9b5a3b3f30a9674301d1ae09",
+        "--out",
+        "{output}/arxiv"
+      ]
+    },
+    {
+      "name": "run-products",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-source-tiles/cases/products-rcm128-q50-p16-e128",
+        "--release-sha256",
+        "7dc50063144f90549b27f38c6e2e0642d33b61a8aa5ddc25865498c406b774fa",
+        "--out",
+        "{output}/products"
+      ]
+    }
+  ]
+}
