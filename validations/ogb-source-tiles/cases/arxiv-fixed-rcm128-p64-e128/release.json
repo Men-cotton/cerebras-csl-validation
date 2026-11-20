@@ -1,0 +1,33 @@
+{
+  "file_sha256": {
+    "build.json": "7a419c521c31aaf711dd74113197ca9c41e74daac864c8a41bd71ccfcd4c285b",
+    "fixture.npz": "e4d6b03fa56ea8a050a0c387781e1d723cacf9f7144091e2af56dcc4719d730d",
+    "hardware/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "hardware/out/program.elf": "10a8d28e661696054c55f47b35925a0ab252817a30a9f7eb77c4a71e4c8b063b",
+    "hardware/ranges.txt": "8b43996059d8a92f80a510e2b8e8a30d1e640dbc5dba6cb94d80d6b5e011e655",
+    "program.map": "c62223d32addaa39ca5811bda8d5b5167889dc101a76b2c8f18f12612a34de04",
+    "program.obj": "edc0c2954afceaa492d01ec4471210a18a35fab060f9fd113c0427c0d50f570e",
+    "sdk/frame-1.npz": "413a97fa4465c10dc2f7c5f10461d5305860aef0036700356b10f36180b59121",
+    "sdk/frame-2.npz": "b896a0940207f36086e06bd32ed8090bcaace342817df2cabd7496e2a0be272d",
+    "sdk/frame-3.npz": "a66dda59d677f20185cc8e879f805bfa77111ab6a6f29a1396471c5b6315e7c1",
+    "sdk/frame-4.npz": "633d56085eca171272d0917b844548d351ece12e671557fbb76482ef8cfa938a",
+    "sdk/frame-5.npz": "843f14f46f47baeddca3643bd4ba5a1d834609fbfd738aa41553af14ef672292",
+    "sdk/frame-6.npz": "200925b6b11ebf0c527a31b1f65d72258c1635ba71d4efdfc267393195dfbe71",
+    "sdk/result.json": "308bd4444f67f33848a85a3900c351ab91459912f0164f3abdcc38afaff6a3fb",
+    "simulator/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "simulator/out/program.elf": "2e14d89cfb51d8ce08efc284587e5ba2a5c0fa5a6921f783dbfbd43ab5f2239c",
+    "simulator/ranges.txt": "0b54c753b9029674beb5af7d068536e99a709bea4290017048624dd9db43e717",
+    "src/collect.w": "5da88537e2300eb263f99046e2fb6057fb371176e5d842c95ac48cdb17d03a3e",
+    "src/owner.w": "65309bba280e20c105e52b616e58a3a0a3142f1b7a97cb7d1be6ae792634ac29",
+    "src/program.paint": "e41f58cc2420aa1d32f83d3073471bdfa60805d8b039cc6a4656c04c2a150bf9"
+  },
+  "host_sha256": {
+    "appliance.py": "7c486c313f10d8c18e7f63d3b2a401442a2598b2632e36859a0072f821cddee4",
+    "worker.py": "9a890841b89ce43fdb9acb744384b0b7f80c210e3030fb23a9987bb9ae01ae95",
+    "source_table.py": "1255f3c6b7fea04ffa5018db3c2149e3558f9aa7e38d9243b789ed19f8fdd1e1",
+    "ogb_contract.py": "7214ddb88f0dd3191460a111d569ad544d6ba018e1444957761d395de24b71a6",
+    "report.py": "9aa3d4fca836f0db5092ea6ca29d8e843b00c62da2d71bd39f20da31dbacfd51"
+  },
+  "physical_application_sha256": "4a904bc50fb89d4fdeb621c30035254aff878849d216260e709c78780e785d62",
+  "control_sha256": "a629f76ac6187af09516c8e6b799d7a58a7bf821c4be52b0bfdca12eec321d6b"
+}

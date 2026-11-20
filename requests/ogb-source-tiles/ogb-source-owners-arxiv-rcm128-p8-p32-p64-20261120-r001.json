@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "id": "ogb-source-owners-arxiv-rcm128-p8-p32-p64-20261120-r001",
+  "description": "Strong-scale the same 128 original arxiv destinations, trained final layer and 128-entry dictionary behind one West input. Each case runs the same bulk input and output protocol on physical CS-3 and compares all six replies with its SDK and 16-owner controls.",
+  "steps": [
+    {
+      "name": "run-arxiv-p8",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-source-tiles/cases/arxiv-fixed-rcm128-p8-e128",
+        "--release-sha256",
+        "34336bdefcc28fe9c44dbc0887851d69c6509e0839c468acc8105432a60499e1",
+        "--out",
+        "{output}/arxiv-fixed-rcm128-p8-e128"
+      ]
+    },
+    {
+      "name": "run-arxiv-p32",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-source-tiles/cases/arxiv-fixed-rcm128-p32-e128",
+        "--release-sha256",
+        "56508357f363d45e810162e505bcb7504468e4dc6d835a65863bfc6ca891b8c6",
+        "--out",
+        "{output}/arxiv-fixed-rcm128-p32-e128"
+      ]
+    },
+    {
+      "name": "run-arxiv-p64",
+      "kind": "appliance",
+      "script": "validations/ogb-source-tiles/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/ogb-source-tiles/cases/arxiv-fixed-rcm128-p64-e128",
+        "--release-sha256",
+        "f27594100872f193db681e0b7399dc1d84df0546ca57c5a60f09a143f22a7a10",
+        "--out",
+        "{output}/arxiv-fixed-rcm128-p64-e128"
+      ]
+    }
+  ]
+}
