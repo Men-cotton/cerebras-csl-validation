@@ -1,5 +1,6 @@
 """Compile the registered H16 source once, then load it once for both physical placements."""
 import argparse
+import math
 from pathlib import Path
 import sys
 
@@ -9,6 +10,19 @@ from contract import audit, frame, loaded, read, references, require
 HERE = Path(__file__).resolve().parent
 FAMILY = HERE.parent/'h16-hub-cora'
 NAMESPACE = 'job-operator'
+
+
+def check_measurement(measured, saved, mode):
+    # The reference reduction can round differently across host BLAS builds.
+    errors = 'max_abs_fp64'
+    require(measured.keys() == saved.keys() and
+            all(measured[k] == saved[k] for k in measured if k != errors),
+            'recomputed simulator result '+mode)
+    actual, recorded = measured[errors], saved[errors]
+    require(actual.keys() == recorded.keys() and
+            all(math.isfinite(recorded[k]) and recorded[k] >= 0 and value >= 0 and
+                math.isclose(value, recorded[k], rel_tol=0, abs_tol=1e-12)
+                for k, value in actual.items()), 'recomputed FP64 errors '+mode)
 
 
 def check(case, pin):
@@ -40,7 +54,7 @@ def check(case, pin):
                 and proof['matched_input_bytes']==sum(v.nbytes for v in arrays.values())
                 and proof['writes_outside_input_arrays']==0 and proof['zero_initial_stats'], 'verified startup')
         numeric=frame(loaded(case/(mode+'-sdk.npz')),expected,nodes,ctx,1.)
-        require(numeric==evidence['measurements'][mode], 'recomputed simulator result '+mode)
+        check_measurement(numeric, evidence['measurements'][mode], mode)
     before=evidence['measurements']['original']
     after=evidence['measurements']['swap']
     require(before['original_pre']==after['original_pre'] and before['original_logits']==after['original_logits'],

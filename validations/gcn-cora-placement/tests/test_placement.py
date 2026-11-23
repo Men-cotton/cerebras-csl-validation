@@ -7,12 +7,22 @@ import numpy as np
 
 HOME=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(HOME))
-from appliance import check
+from appliance import check, check_measurement
 from contract import frame, loaded, references
 from paired_worker import sha
 
 
 class PhysicalPlacement(unittest.TestCase):
+    def test_reference_roundoff(self):
+        saved = {'per_pe_cycles': [17], 'max_abs_fp64': {'panel_sum': 1.3639037259594033e-6}}
+        measured = dict(saved, max_abs_fp64={'panel_sum': 1.3639037241830465e-6})
+        check_measurement(measured, saved, 'original')
+        for changed in (dict(measured, per_pe_cycles=[18]),
+                        dict(measured, max_abs_fp64={'panel_sum': 1.4e-6}),
+                        dict(measured, max_abs_fp64={})):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                check_measurement(changed, saved, 'original')
+
     def test_actual_sdk_frames(self):
         cases=list((HOME/'cases').iterdir())
         self.assertTrue(cases)
