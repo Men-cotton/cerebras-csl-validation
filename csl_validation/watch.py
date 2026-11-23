@@ -23,7 +23,10 @@ from .sdk import resolve_uv, sdk_argv, sdk_environment, sdk_step_argv
 SCHEMA = 1
 NAME = re.compile(r"[a-z0-9][a-z0-9_-]{0,79}\Z")
 SHA = re.compile(r"[0-9a-f]{40}\Z")
-JOB = re.compile(r"(?:\bJob id:\s*|\bcerebras\.cluster\.client:Event[ \t][^\r\n]*?\bwsjob=)(wsjob-[A-Za-z0-9-]+)(?=$|[\s,;\'\"])")
+JOB = re.compile(
+    r"(?:\bJob id:\s*|\bcerebras\.cluster\.client:Event[ \t][^\r\n]*?\bwsjob=|"
+    r"^Event \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]\d{4} UTC reason=[\w.-]+ wsjob=)"
+    r"(wsjob-[A-Za-z0-9-]+)(?=$|[\s,;\'\"])", re.MULTILINE)
 MISSING_JOB_IDS = "no job IDs captured; submission outcome unknown"
 TERMINAL = {"SUCCEEDED", "FAILED", "CANCELLED", "CANCELED"}
 ACTIVE = {"CREATED", "QUEUED", "QUEUEING", "PENDING", "SCHEDULED", "INITIALIZING", "RUNNING", "EXECUTING", "FINALIZING", "CANCELLING", "CANCELING"}

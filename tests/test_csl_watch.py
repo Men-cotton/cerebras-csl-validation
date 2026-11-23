@@ -565,7 +565,21 @@ class GitControllerTests(unittest.TestCase):
         self.assertEqual(self.entry(), original)
         self.assertEqual(self.invocations(), [])
 
+    def test_recover_timestamped_console_event_without_client_log(self):
+        self.missed_event_job().unlink()
+        root = self.state / "requests/example"
+        console = root / "logs" / (self.entry()["steps"][0]["name"] + ".log")
+        console.write_text("SDK starting\nEvent 2026-11-23 21:02:07 +0000 UTC "
+                           "reason=InconsistentVersion wsjob=wsjob-step0 message='warning'\n")
+        self.watcher.recover_job("example", "wsjob-step0", "Checked compile event")
+        self.assertEqual(self.entry()["steps"][0]["status"], "awaiting")
+        self.assertEqual(self.entry()["steps"][0]["jobs"], ["wsjob-step0"])
+
     def test_job_parser_rejects_partial_names_and_deduplicates_event_ids(self):
+        event = "Event 2026-11-23 21:02:07 +0000 UTC reason=InconsistentVersion wsjob=wsjob-good"
+        self.assertEqual(watch.JOB.findall("SDK starting\n" + event + " message='warning'\n"), ["wsjob-good"])
+        for text in ("historical " + event, event + "/suffix", event.replace(" UTC ", "\nUTC ")):
+            self.assertEqual(watch.JOB.findall(text), [], text)
         self.assertEqual(watch.JOB.findall("Job id: wsjob-good\nWARNING:cerebras.cluster.client:Event reason=Test wsjob=wsjob-good message='ok'"),
                          ["wsjob-good", "wsjob-good"])
         for text in ("wsjob=wsjob-bad_suffix", "Job id: wsjob-bad/suffix", "otherwsjob=wsjob-other", "diagnostic previous wsjob=wsjob-other",
