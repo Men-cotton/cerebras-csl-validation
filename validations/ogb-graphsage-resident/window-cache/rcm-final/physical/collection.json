@@ -1,0 +1,40 @@
+{
+  "archive_sha256": "bbd096b33a28d12e6ec5e467ab32dbc239f1c820fbce67796dd01f559d20e1fb",
+  "build_sha256": "a913506e1340f3b7f5fb3a8e717ba598b442ed691568b43dd9660737b6c8e3f9",
+  "case": "products-203hidden-p32",
+  "downloads": {
+    "capture/frame-1.npz": {
+      "sha256": "95e6132bfaf55a449d803015a66bbf39241dab21c4003f0b9da552eb42ba9d2a"
+    },
+    "capture/frame-2.npz": {
+      "sha256": "0e6795481df0880738d6ce2699dcd60c4def4d25e7f428f77a4f9f95ceafd6ff"
+    },
+    "capture/frame-3.npz": {
+      "sha256": "a257a40e36d2b60476add1e81f646f7b9cd64b548dce27684dc7e95950d634cb"
+    },
+    "capture/frame-4.npz": {
+      "sha256": "92097d4aded386b45e1646d075ec76e97896532206399c74adb009bb024e5cbc"
+    },
+    "capture/frame-5.npz": {
+      "sha256": "192f16d73a241cb7918bbc104025a19b101b563a010b85fa9d06fc2fa8ce5c6c"
+    },
+    "capture/frame-6.npz": {
+      "sha256": "131098128b5e29a9fc6c11f98474790004840fd740f8b745d95e4a80a8d25b10"
+    },
+    "capture/result.json": {
+      "sha256": "fa50060e98d7432375de9fc14ecb2e832e840379317f485c4ff8a01483a99c2d"
+    },
+    "loaded.json": {
+      "sha256": "1e2000a32a051db1075769e71bce63a2e0de8c7463833342b3aafad06132fa71"
+    },
+    "worker-exit.txt": {
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "worker.log": {
+      "sha256": "ac6d20b3b9fc1e99a680e672011cfaffd66abdacf497ca9967c7cb8d136936c5"
+    }
+  },
+  "numerical_status": "passed",
+  "release_sha256": "d565fcaef2df59d46296cc6da034d144ef96c8d0b0ec5b76d2a84e0efc56e87d",
+  "role": "hardware"
+}

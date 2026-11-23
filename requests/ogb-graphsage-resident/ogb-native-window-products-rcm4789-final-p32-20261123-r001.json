@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "id": "ogb-native-window-products-rcm4789-final-p32-20261123-r001",
+  "description": "Measure dense and shared-table transport on the final GraphSAGE layer of products RCM window 4789. Return all six A, half-A and restored-A frames for 384 destinations and 47 classes on the same previously launched 32-PE CS-3 program. The retained SDK prefix covers the first two frames.",
+  "steps": [
+    {
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident/window-cache/rcm-final/appliance.py",
+      "name": "run",
+      "args": [
+        "run",
+        "--release",
+        "d144cc1de4714027f18da18ab580445e66fd24f4d453004040965a5afa6fea52",
+        "--out",
+        "{output}/run"
+      ]
+    }
+  ]
+}

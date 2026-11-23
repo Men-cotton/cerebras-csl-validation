@@ -1,0 +1,56 @@
+{
+  "arcs": 46117,
+  "classes": 47,
+  "dataset": "products",
+  "dense": {
+    "calls": 14,
+    "words": 739200
+  },
+  "destinations": 384,
+  "files": {
+    "fixture.npz": "089cfc263eabe800d04f0ef060822ae62003abbe4f8aef7b749f9d1fd2ee02a6"
+  },
+  "fp64_vs_gpu_max_abs": 6.835978986430291e-06,
+  "gpu_hidden_sha256": "a24038161d84b5d27dd371d17236c7a50768cf60002fbcaefe62399e233139cb",
+  "gpu_logits_sha256": "7d1ff445a1d9a027867d6ed9d4ccbd5186ebe010420df82bc0506ba629d0d672",
+  "indexed_banks": 12,
+  "mode": 2,
+  "order_sha256": "75a530c5e9c0b274762ce0533d725043d262567d28b71afdcc35316cb9210445",
+  "original_case_sha256": "6f45e1106fc4ec4ae756df177f94c2b9518f3bdbba44769cbdcbfd997fba2f2c",
+  "original_dataset_vertices": 2449029,
+  "original_graph": {
+    "index_sha256": "e9138cf602aba8d19c58b7e1d3c62b0e573a387055f8eae6b07385066f39f910",
+    "input_edges": 123718280,
+    "processed_sha256": "55b6957450a0355c587dab6e15828f7c82bfc3090147053858f2e820dec653c8",
+    "ptr_sha256": "7049e0f78c26448a562cd4a194033bff819b436262d9a0ad84310dd83f6bbbb0",
+    "self_loops": 128,
+    "split_sha256": {
+      "test": "5c2d6ab62251e5aed9a8808a9cac33ada14e07cd3e87d53a2acd936d81bee193",
+      "train": "dc161da99306258bbf1f8cdb4130047dd483c95d59fb68c74186a12e15d8a835",
+      "valid": "9ea7634b51381fd2184c35c5f58b1ef7e10de8ac9dbd07d012655db49d91ee2d"
+    },
+    "undirected_unique_arcs": 123718152
+  },
+  "params": {
+    "D": 100,
+    "E": 128,
+    "F": 16,
+    "K": 160,
+    "P": 32,
+    "Q": 48,
+    "R": 12
+  },
+  "parts": 12,
+  "physical_size_sha256": "694438aac5153fd025a07d768c48fdc2d685695f24e33b8b1540bb87e8b40fe9",
+  "policy_sha256": "9becb2de817f75f4e1df58d9b88b1533a9c03d659288c29f832f588550bddfda",
+  "scope": "highest modeled cost saving among all 6378 original RCM destination windows at penalty 256",
+  "selected": {
+    "calls": 130,
+    "words": 525182
+  },
+  "simulator_sha256": "a80a183435f66eee8975630e991e50f237a40b7cc18e7fe350d17add02f91172",
+  "slots": 75,
+  "source_vertices": 3170,
+  "weights_sha256": "693690e2583c803686e61198d16f409aa89286d7ea5ff197079e9dd512ea4608",
+  "window": 4789
+}

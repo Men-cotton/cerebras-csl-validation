@@ -3,7 +3,8 @@
   "id": "ogb-graphsage-resident",
   "entrypoints": [
     "resident/physical.py",
-    "window-cache/physical.py"
+    "window-cache/physical.py",
+    "window-cache/rcm-final/appliance.py"
   ],
   "tests": [
     "tests"

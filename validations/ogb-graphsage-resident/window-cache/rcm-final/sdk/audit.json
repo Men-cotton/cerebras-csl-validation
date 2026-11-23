@@ -1,0 +1,44 @@
+{
+  "arcs": 46117,
+  "build_sha256": "a80a183435f66eee8975630e991e50f237a40b7cc18e7fe350d17add02f91172",
+  "classes": 47,
+  "destinations": 384,
+  "fixture_sha256": "3e33f07ba0990b0176fb029c41829c8adb178ae957ce2651b71af356605c3815",
+  "frames": [
+    {
+      "encoded": false,
+      "fp64_max_abs": 1.4654090925603214e-05,
+      "ordered_logits_sha256": "e014e658ca4b0369be0f6b633c7cc2d55e9ee45a1f4b7ba98932d4c7bd420d11",
+      "peak_active_cycles": 57903,
+      "peak_edge_cycles": 31809,
+      "peak_elapsed_cycles": 874131,
+      "raw_sha256": "0eacd8af43b9875db3264d039decab69846b6545513b2a05081e28dcdc82f162",
+      "scale": 1.0,
+      "source_calls": 14,
+      "source_dma_ns": 20374870,
+      "source_words": 739200,
+      "tag": 1
+    },
+    {
+      "encoded": true,
+      "fp64_max_abs": 1.4654090925603214e-05,
+      "ordered_logits_sha256": "e014e658ca4b0369be0f6b633c7cc2d55e9ee45a1f4b7ba98932d4c7bd420d11",
+      "peak_active_cycles": 76825,
+      "peak_edge_cycles": 50801,
+      "peak_elapsed_cycles": 824255,
+      "raw_sha256": "b637827659f55cba4d3f1f5d445e034b2dd58386bb6460ea023fc64ce059198a",
+      "scale": 1.0,
+      "source_calls": 130,
+      "source_dma_ns": 348730350,
+      "source_words": 525182,
+      "tag": 2
+    }
+  ],
+  "journal_sha256": "dce3e4ec9088024947e73261c9fbe27585fa25ccfcaef0a9b21f065aecc02edc",
+  "observed": 2,
+  "required": 6,
+  "role": "simulator",
+  "source_vertices": 3170,
+  "stopped": false,
+  "window": 4789
+}
