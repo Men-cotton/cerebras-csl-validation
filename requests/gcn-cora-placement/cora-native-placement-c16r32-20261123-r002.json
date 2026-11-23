@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "cora-native-placement-c16r32-20261123-r002",
+  "description": "Compare the original placement and a link-balanced original-ID exchange and an additional high-degree suffix reduction on one loaded physical CSL executable across 512 PEs. Upload and read back every input before launch and after each frame, retain three full outputs per placement, and compare the complete trained Cora model to FP64.",
+  "steps": [
+    {
+      "name": "compile",
+      "kind": "appliance",
+      "script": "validations/gcn-cora-placement/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/gcn-cora-placement/cases/c16-r32-t8",
+        "--release",
+        "28931adc92f490b0a5957221780e76248f2ffd6d9fdeef117a55b3cfb4fda8b4",
+        "--out",
+        "{output}/compile"
+      ]
+    },
+    {
+      "name": "compare",
+      "kind": "appliance",
+      "script": "validations/gcn-cora-placement/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/gcn-cora-placement/cases/c16-r32-t8",
+        "--release",
+        "28931adc92f490b0a5957221780e76248f2ffd6d9fdeef117a55b3cfb4fda8b4",
+        "--out",
+        "{output}/compare",
+        "--build",
+        "{output}/compile/build.json"
+      ]
+    }
+  ]
+}
