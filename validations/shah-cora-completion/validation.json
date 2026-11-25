@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "id": "shah-cora-completion",
+  "description": "Full Cora Shah resident two-layer GCN with one warmup and five completed same-input calls per fresh runtime.",
+  "entrypoints": [
+    "appliance.py",
+    "summary.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

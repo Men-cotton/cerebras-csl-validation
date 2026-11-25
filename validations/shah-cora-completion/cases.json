@@ -1,0 +1,73 @@
+{
+  "cases": {
+    "cora-r32-p0": {
+      "bundle": "cases/cora-r32-p0.tar.gz",
+      "case_sha256": "be4e76cfae615498636b1ff6a46ddedc5c5d17089e8a893a7395ece246e0e0e2",
+      "kind": "cora",
+      "nodes": 2708,
+      "params": {
+        "F": 16,
+        "FIN": 1433,
+        "GP": 2438,
+        "MX": 1674,
+        "O": 7,
+        "PROFILE": 0,
+        "R": 32,
+        "V": 85
+      },
+      "sha256": "6928a3925f94f8e7a96f3f98032cf4b0bdaff272ebd16c3144267d4c87cf8750"
+    },
+    "cora-r32-p1": {
+      "bundle": "cases/cora-r32-p1.tar.gz",
+      "case_sha256": "16f6f2df4bed1cbbeb545c72b2455853e79050fce064ea5c087fcfc81212ba04",
+      "kind": "cora",
+      "nodes": 2708,
+      "params": {
+        "F": 16,
+        "FIN": 1433,
+        "GP": 2438,
+        "MX": 1674,
+        "O": 7,
+        "PROFILE": 1,
+        "R": 32,
+        "V": 85
+      },
+      "sha256": "579f4b3777507e9acdc6fb5f6a7d377afa1a8a84c357cf3bec854976d0c9eb4b"
+    },
+    "tiny-r2-p0": {
+      "bundle": "cases/tiny-r2-p0.tar.gz",
+      "case_sha256": "1b65896df2d60a1ca4d440d7bd5c939241533d4b420419161fef579473c71cf6",
+      "kind": "tiny",
+      "nodes": 7,
+      "params": {
+        "F": 16,
+        "FIN": 23,
+        "GP": 20,
+        "MX": 38,
+        "O": 7,
+        "PROFILE": 0,
+        "R": 2,
+        "V": 4
+      },
+      "sha256": "e0472d8dc6e698c98514aff140c8e792478c4a5defc91b7ddb0e905fbae23d35"
+    },
+    "tiny-r2-p1": {
+      "bundle": "cases/tiny-r2-p1.tar.gz",
+      "case_sha256": "31301554d6761eef1fc1d12ed2c6f2fad67c53ff2bf1f1d140b201c4df068a5d",
+      "kind": "tiny",
+      "nodes": 7,
+      "params": {
+        "F": 16,
+        "FIN": 23,
+        "GP": 20,
+        "MX": 38,
+        "O": 7,
+        "PROFILE": 1,
+        "R": 2,
+        "V": 4
+      },
+      "sha256": "ca8a0da7eec3c5d6777412f858067f628c77abb012c973e82951f5fdd53251b4"
+    }
+  },
+  "schema": 1
+}
