@@ -114,7 +114,7 @@ def prepare(stage, pin):
 
 def run(args):
     with tempfile.TemporaryDirectory(prefix="rcm4789-") as tmp:
-        stage = Path(tmp) / Path(tmp).name
+        stage = Path(tmp) / "rcm-case"
         stage.mkdir()
         archive, sdk = prepare(stage, args.release)
         if args.action == "check":
@@ -127,21 +127,25 @@ def run(args):
         save(out / "collection.json", state)
         for name in ("build.json", "fixture.json"):
             shutil.copyfile(stage / name, out / name)
-        # stage() packs and expands the named directory under the application root.
-        job = stage.name
+        # SDK directory staging can leave a tarball in the remote application root.
+        # Stage one ordinary file and let the command that consumes it unpack it.
+        payload = Path(shutil.make_archive(str(Path(tmp) / "rcm-payload"), "zip", stage))
+        unpack = shlex.join(["cs_python", "-m", "zipfile", "-e", payload.name, stage.name])
         command = shlex.join(["timeout", "--signal=INT", "--kill-after=30s", "3600s",
-                              "cs_python", "-B", job + "/session.py", "--release", args.release,
+                              "cs_python", "-B", stage.name + "/session.py", "--release", args.release,
                               "--artifact", "out", "--cmaddr", "%CMADDR%"])
         with SdkLauncher(str(archive), simulator=False, mgmt_namespace=args.namespace,
                          resource_cpu=1000, resource_mem=8 << 30, disable_version_check=False) as launcher:
             try:
-                launcher.stage(str(stage))
-                response = launcher.run(command + f' >{job}/worker.log 2>&1; rc=$?; echo "$rc" >{job}/worker-exit.txt; exit "$rc"')
+                launcher.stage(str(payload))
+                response = launcher.run(f"({unpack} && {command}) >worker.log 2>&1; "
+                                        'rc=$?; echo "$rc" >worker-exit.txt; exit "$rc"')
                 (out / "launcher-response.txt").write_text(str(response))
             finally:
                 for name in DOWNLOADS:
                     try:
-                        launcher.download_artifact(job + "/" + name, str(out / name))
+                        remote = name if name in ("worker.log", "worker-exit.txt") else stage.name + "/" + name
+                        launcher.download_artifact(remote, str(out / name))
                         state["downloads"][name] = {"sha256": sha(out / name)}
                     except Exception as error:
                         state["downloads"][name] = {"error": repr(error)}

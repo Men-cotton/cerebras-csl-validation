@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "id": "ogb-native-window-products-rcm4789-final-p32-20261125-r002",
+  "description": "Retry the six-frame products RCM window 4789 final-layer transfer comparison with explicit payload extraction. Reuse the original fixture, release and compiled 32-PE application.",
+  "steps": [
+    {
+      "kind": "appliance",
+      "script": "validations/ogb-graphsage-resident/window-cache/rcm-final/appliance.py",
+      "name": "run",
+      "args": [
+        "run",
+        "--release",
+        "d144cc1de4714027f18da18ab580445e66fd24f4d453004040965a5afa6fea52",
+        "--out",
+        "{output}/run"
+      ]
+    }
+  ]
+}
