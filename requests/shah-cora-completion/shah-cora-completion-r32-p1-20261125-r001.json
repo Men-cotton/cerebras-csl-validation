@@ -1,0 +1,86 @@
+{
+  "description": "Whole resident Cora Shah (1088 PE), E233-matched fresh all-PE completion. One preloaded original input, 1 warmup and 5 same-input measurements per runtime, 2 independent runtimes from profile 1. Each capture is independently replayed.",
+  "id": "shah-cora-completion-r32-p1-20261125-r001",
+  "schema": 1,
+  "steps": [
+    {
+      "args": [
+        "compile",
+        "--case",
+        "cora-r32-p1",
+        "--out",
+        "{output}/compile"
+      ],
+      "kind": "appliance",
+      "name": "compile",
+      "script": "validations/shah-cora-completion/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--mode",
+        "gcn",
+        "--out",
+        "{output}/r1/run"
+      ],
+      "kind": "appliance",
+      "name": "r1-run",
+      "script": "validations/shah-cora-completion/appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--capture",
+        "{output}/r1/run",
+        "--out",
+        "{output}/r1/audit.json"
+      ],
+      "kind": "host",
+      "name": "r1-audit",
+      "script": "validations/shah-cora-completion/appliance.py"
+    },
+    {
+      "args": [
+        "run",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--mode",
+        "gcn",
+        "--out",
+        "{output}/r2/run"
+      ],
+      "kind": "appliance",
+      "name": "r2-run",
+      "script": "validations/shah-cora-completion/appliance.py"
+    },
+    {
+      "args": [
+        "audit",
+        "--artifact-record",
+        "{output}/compile/build.json",
+        "--capture",
+        "{output}/r2/run",
+        "--out",
+        "{output}/r2/audit.json"
+      ],
+      "kind": "host",
+      "name": "r2-audit",
+      "script": "validations/shah-cora-completion/appliance.py"
+    },
+    {
+      "args": [
+        "{output}/r1/audit.json",
+        "{output}/r2/audit.json",
+        "--out",
+        "{output}/matched.json"
+      ],
+      "kind": "host",
+      "name": "summarize",
+      "script": "validations/shah-cora-completion/summary.py"
+    }
+  ]
+}
