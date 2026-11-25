@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "tungsten-gcn-completion",
+  "description": "Measure resident full Cora from a Direct Link command through a witness from every PE before diagnostic readout.",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}

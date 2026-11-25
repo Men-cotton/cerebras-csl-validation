@@ -1,0 +1,119 @@
+{
+  "bundle": "cora-c16r32-t8-busy-link",
+  "case": "cora-c16r32-t8-busy-link",
+  "backend": "hardware",
+  "geometry": [
+    16,
+    32
+  ],
+  "tile": 8,
+  "nodes": 2708,
+  "edges": 13264,
+  "seed": 11,
+  "dataset_sha256": {
+    "content_sha256": "b8ebed0fd45e53995abafd1b70cf6a9fcc8f86abc5826d69b97fe6ca46e9c8ee",
+    "cites_sha256": "ec1a372391b7f0f60a6aff0084e8abd8f19f0faa7e1f2441a41c492042d5945e"
+  },
+  "source_graph_sha256": {
+    "mask": "e14aad16ee7d47f78e8f2271cf4cb6f0306ccca66f0483c6d55bcbe7e30e16aa",
+    "src": "f777b162650b61a4fdf85706e44f7b42160b530713a9d7e74fe8e0b6fb4d858e",
+    "dst": "0f43bb4aa50df57a32618e4a759f7859fdc449405971a32745e7f5c2659cb74f",
+    "coeff": "3e27ea1a53b18da31901ed7c38914ac3473ddab489d93dddc8cd99e80dbdfe29"
+  },
+  "evaluated_graph_sha256": {
+    "src": "f777b162650b61a4fdf85706e44f7b42160b530713a9d7e74fe8e0b6fb4d858e",
+    "dst": "0f43bb4aa50df57a32618e4a759f7859fdc449405971a32745e7f5c2659cb74f",
+    "coeff": "3e27ea1a53b18da31901ed7c38914ac3473ddab489d93dddc8cd99e80dbdfe29"
+  },
+  "packed_input_sha256": "31f002e13b338138af478d003b5635d6af3f85711e991b24ba348eb7e915a9c2",
+  "checkpoint_sha256": "836c82b82871c76bb1822ace2014c9552690459a952de1b23d4399d5ecce4542",
+  "build_sha256": "e22a0fd60ff7b8704fb983ec6de4f3c0f0c59d9527683c4842c6c53ef6f26d8f",
+  "oracle_sha256": "baaa4cc5529b7d30fe8bdcc141d250b27eeba0f660bb1e97dbcdff0637c8bad2",
+  "trials": [
+    {
+      "trial": 1,
+      "max_pe_cycles": 68929,
+      "reply_words": 102912,
+      "reply_sha256": "df93f36d1c6bb5bcaf09ea148c929c39e648506f798878d4900f967d9cc138aa",
+      "host_frame_ns": 1316349,
+      "errors": {
+        "pre": {
+          "max_abs": 1.9512493465434488e-07,
+          "relative_l2": 5.6450802743591884e-08,
+          "max_relative_floor_1e_12": 0.003162167094478161
+        },
+        "logits": {
+          "max_abs": 3.055185979761177e-06,
+          "relative_l2": 6.497960715865922e-08,
+          "max_relative_floor_1e_12": 0.00022164349546245556
+        },
+        "panel_sum": {
+          "max_abs": 1.3639037259594033e-06,
+          "relative_l2": 7.815162364864652e-08,
+          "max_relative_floor_1e_12": 0.0020410677574859795
+        }
+      },
+      "all_node_argmax_mismatches": 0,
+      "validation_correct": 402,
+      "validation_count": 500
+    },
+    {
+      "trial": 2,
+      "max_pe_cycles": 68929,
+      "reply_words": 102912,
+      "reply_sha256": "59c794088e762235c57e72d7b365f1bab8c01c662e79ec5a9eb0b2f8ffa12a2d",
+      "host_frame_ns": 933196,
+      "errors": {
+        "pre": {
+          "max_abs": 9.756246732717244e-08,
+          "relative_l2": 5.6450802743591884e-08,
+          "max_relative_floor_1e_12": 0.003162167094478161
+        },
+        "logits": {
+          "max_abs": 1.5275929898805884e-06,
+          "relative_l2": 6.497960715865922e-08,
+          "max_relative_floor_1e_12": 0.00022164349546245556
+        },
+        "panel_sum": {
+          "max_abs": 6.819518629797017e-07,
+          "relative_l2": 7.815162364864652e-08,
+          "max_relative_floor_1e_12": 0.0020410677574859795
+        }
+      },
+      "all_node_argmax_mismatches": 0,
+      "validation_correct": 402,
+      "validation_count": 500
+    },
+    {
+      "trial": 3,
+      "max_pe_cycles": 68929,
+      "reply_words": 102912,
+      "reply_sha256": "7b0ab2812a1f096a83953c11a2ad03b938d326c076e40da9986ec90e4b38a447",
+      "host_frame_ns": 1010387,
+      "errors": {
+        "pre": {
+          "max_abs": 1.9512493465434488e-07,
+          "relative_l2": 5.6450802743591884e-08,
+          "max_relative_floor_1e_12": 0.003162167094478161
+        },
+        "logits": {
+          "max_abs": 3.055185979761177e-06,
+          "relative_l2": 6.497960715865922e-08,
+          "max_relative_floor_1e_12": 0.00022164349546245556
+        },
+        "panel_sum": {
+          "max_abs": 1.3639037259594033e-06,
+          "relative_l2": 7.815162364864652e-08,
+          "max_relative_floor_1e_12": 0.0020410677574859795
+        }
+      },
+      "all_node_argmax_mismatches": 0,
+      "validation_correct": 402,
+      "validation_count": 500
+    }
+  ],
+  "panel_comparison": "row-root broadcast and bitwise OR of all pairwise FP32 differences",
+  "words_per_frame": 102912,
+  "expanded_words_per_frame": 448000,
+  "panel_words_compared_on_nonroots": 345600
+}

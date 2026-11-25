@@ -1,0 +1,53 @@
+{
+  "role": "simulator",
+  "runtime_id": "faac2864-71f2-41cb-8ab3-eb58b95e7ce6",
+  "build_sha256": "06a4940db6999cfa3cf172feae38491df601c9736973c45f382c4a157448e17b",
+  "worker_sha256": "1b4ef516317d0dda5e9d1ed95e0609b1f16abb124a1a434f64c978be23e90028",
+  "warmup": 1,
+  "repeats": 5,
+  "samples": [
+    {
+      "epoch": 1,
+      "start_ns": 6464277678230,
+      "dispatched_ns": 6464280400784,
+      "completed_ns": 6481740940981,
+      "peak_pe_cycles": 23843
+    },
+    {
+      "epoch": 2,
+      "start_ns": 6486393235285,
+      "dispatched_ns": 6486393504562,
+      "completed_ns": 6497220486492,
+      "peak_pe_cycles": 23843
+    },
+    {
+      "epoch": 3,
+      "start_ns": 6502622105241,
+      "dispatched_ns": 6502622242382,
+      "completed_ns": 6518717476506,
+      "peak_pe_cycles": 23843
+    },
+    {
+      "epoch": 4,
+      "start_ns": 6525420919956,
+      "dispatched_ns": 6525421119192,
+      "completed_ns": 6538172434854,
+      "peak_pe_cycles": 23843
+    },
+    {
+      "epoch": 5,
+      "start_ns": 6542298307477,
+      "dispatched_ns": 6542298416419,
+      "completed_ns": 6554425974792,
+      "peak_pe_cycles": 23843
+    },
+    {
+      "epoch": 6,
+      "start_ns": 6559969924072,
+      "dispatched_ns": 6559976475874,
+      "completed_ns": 6576392451998,
+      "peak_pe_cycles": 23843
+    }
+  ],
+  "stopped": true
+}

@@ -1,0 +1,29 @@
+{
+  "files": {
+    "appliance.py": "2f4a13474ffeadc3843dfc9bd47c316bcba8ef794edd17567bed96628154ba0f",
+    "build.json": "776446c345c62732fb6498a49f936d1ee9832685b995e62e33a957331ee8dcca",
+    "bundle/out/out_port_map.json": "e4a311bc7f0f12ff52503703f4e233182c840339f765d01d49650022fe951d3e",
+    "bundle/out/program.elf": "b6d7516bbcf3cfe366ebaa8655ede1e40c5284ea670973a23c64da769a2ea796",
+    "pilot/build.json": "06a4940db6999cfa3cf172feae38491df601c9736973c45f382c4a157448e17b",
+    "pilot/reference.npz": "d4ee8505e0db16a4986530624cc4f0652687a027052f7f190f5dbb732b345c86",
+    "pilot/run/capture.json": "299ec26ad11212535cbcf0a6140be8e3f41f18d035e4c1649917ae6396285e07",
+    "pilot/run/frame-1.npz": "f30722a829543f8c0a9a24d72d29ecc48110c93b3902c1486ba7f0311b9e63d5",
+    "pilot/run/frame-2.npz": "d3544fb5ff6ef496fab764790d33aa153a931159940914e37bcb6c443a6215eb",
+    "pilot/run/frame-3.npz": "aaf9656d08f1c70c16057ddb07cc428602b713443d386b19553cfab7699dcc73",
+    "pilot/run/frame-4.npz": "44ebdc5d1d12db66cb87cca4e051296edc7031a216bb88cb64cdf8810c30e936",
+    "pilot/run/frame-5.npz": "7cd2acbf48c088a7f5e51139dbf66212691e4919cd95edbcc5ca6f5bdfe91e5d",
+    "pilot/run/frame-6.npz": "39ec66d8ca1cdf1c2564ae48ac155cb6b12e4dc16bb3254d470109fe675805ba",
+    "pilot/run/initial.npy": "fda6eaf8f4948279d3bfcfecf8f77a2ce3d68da2bc49e3709ceaa7b03dcff015",
+    "previous-hardware-fp64.json": "cb6024596f1974d2cffa2e60f0dd052741a9463025bb455ed3517932ff2d3550",
+    "ranges/hardware.txt": "8a3cc922da8c43447f38b54949d00e0219f351b4cb89833b516ca41f133b8bea",
+    "ranges/simulator.txt": "9f7fca6bf3d6ae75c484df0a968d910aad21494c0a789d8bde24ee595805a33e",
+    "reference.npz": "668991e0f619b54765adbfd1cbff83da9515963102f1b4fd6857b790d8348de7",
+    "src/bench.paint": "ade2962c90e5342b81ae59559e170c2b305f739a2f766a2c468b9abf807f5d19",
+    "src/gcn.w": "5250b4093eddff236e4a1cf4a795052f47179422b7f886104ae7a7ae8f95e740",
+    "tests/test_completion.py": "b032d24d103ffcbed706f62f8c9d36b16118fab7df4a0a32a3c723912a074485",
+    "validation.json": "f9762933faaaa8cdcc15bfeb0b2c804b2bb236ac3cf5203cfe53f7b1fcfde816",
+    "wire.py": "e7bf184eab831d19d5b2c28f7ad27e222b6f0ff640051a1965a4642f1a99e15d",
+    "worker.py": "1b4ef516317d0dda5e9d1ed95e0609b1f16abb124a1a434f64c978be23e90028"
+  },
+  "comparison": "One warmup, five measured calls per fresh runtime. Device PE clocks are local. Host interval includes dispatch and all 512 witness words. A separate command releases diagnostics."
+}

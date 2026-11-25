@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "id": "tungsten-cora-all-pe-completion-c16r32-20261125-r001",
+  "description": "Measure resident full Cora from a Direct Link command through a witness from every PE before diagnostic readout.",
+  "steps": [
+    {
+      "name": "runtime-1",
+      "kind": "appliance",
+      "script": "validations/tungsten-gcn-completion/appliance.py",
+      "args": [
+        "run",
+        "--release-sha256",
+        "28c04e4dda5ded7b1e14ab4c21ad6d025b2d8846bae9e592430f62469d831bdb",
+        "--output",
+        "{output}/runtime-1"
+      ]
+    },
+    {
+      "name": "runtime-2",
+      "kind": "appliance",
+      "script": "validations/tungsten-gcn-completion/appliance.py",
+      "args": [
+        "run",
+        "--release-sha256",
+        "28c04e4dda5ded7b1e14ab4c21ad6d025b2d8846bae9e592430f62469d831bdb",
+        "--output",
+        "{output}/runtime-2"
+      ]
+    },
+    {
+      "name": "audit-both",
+      "kind": "host",
+      "script": "validations/tungsten-gcn-completion/appliance.py",
+      "args": [
+        "summarize",
+        "--release-sha256",
+        "28c04e4dda5ded7b1e14ab4c21ad6d025b2d8846bae9e592430f62469d831bdb",
+        "--output",
+        "{output}"
+      ]
+    }
+  ]
+}
