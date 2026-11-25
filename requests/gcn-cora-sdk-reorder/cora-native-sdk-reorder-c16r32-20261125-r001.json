@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "cora-native-sdk-reorder-c16r32-20261125-r001",
+  "description": "Compare original, adapted Cerebras SDK destination groups (swap), and original destination groups with the same column assignment and hub-anchor policy (secondary) on one loaded 512-PE post-entry Cora GCN. Independently reconstruct all edge and halo tables and retain all three full original/half/restored input frames per placement.",
+  "steps": [
+    {
+      "name": "compile",
+      "kind": "appliance",
+      "script": "validations/gcn-cora-sdk-reorder/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/gcn-cora-sdk-reorder/cases/c16-r32-three-row",
+        "--release",
+        "0f9b7322330e3bc007f512d74caefa42a541f11e56568a3af8f329b0c37e692a",
+        "--out",
+        "{output}/compile"
+      ]
+    },
+    {
+      "name": "compare",
+      "kind": "appliance",
+      "script": "validations/gcn-cora-sdk-reorder/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/gcn-cora-sdk-reorder/cases/c16-r32-three-row",
+        "--release",
+        "0f9b7322330e3bc007f512d74caefa42a541f11e56568a3af8f329b0c37e692a",
+        "--out",
+        "{output}/compare",
+        "--build",
+        "{output}/compile/build.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "owner_reassignment": {
+    "original_owner_u32le_sha256": "4a3808c31d517b42b2535d370bb77567cb1fe657828ed488ec622bae97a332cd",
+    "candidate_owner_u32le_sha256": "bb72101ca19ac86d5f86b34efe983e8f08bdeb05b480784a3371ea663da58662",
+    "moved_vertices": 239
+  },
+  "ordered_occurrences": 13264,
+  "placement": "sdk0-10-19-26",
+  "max_edges_per_pe": 110,
+  "edge_standard_deviation": 12.322132970289681,
+  "peak_vertical_link_words": 3839,
+  "vertical_word_hops": 1353540,
+  "packets": 12963,
+  "raw_packet_capacities": {
+    "NRX": 86,
+    "NSEND": 34,
+    "NPLAN": 19,
+    "ENV": 310,
+    "TRIM": 1
+  },
+  "vertices_per_pe_max": 6,
+  "active_source_rows_max": 90,
+  "raw_grouped_directory_slots": 23,
+  "row10_max_edges": 110,
+  "row19_max_edges": 88,
+  "row26_max_edges": 96
+}

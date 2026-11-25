@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "gcn-cora-sdk-reorder",
+  "description": "Complete Cora GCN placement controls on the same physical CSL executable",
+  "entrypoints": [
+    "appliance.py"
+  ],
+  "tests": [
+    "tests"
+  ]
+}
