@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "backend": "WSE3 SDK simulator",
+  "vertices": 4,
+  "compute_pes": 4,
+  "frame_count": 9,
+  "startups": 1,
+  "model": "diagonal CSR, 16 hidden channels and seven logits",
+  "case_sha256": "abd40c19f56e7d5ce22c7adc9d2060a96b74eff736c2f1859c99c23b40244714",
+  "capture_sha256": "23eb22b4852f1eb91f4d10954142af94b6be1995e1fda800ace1e4f703ea300d",
+  "linked_sha256": "161ce0ca863be50366db4ba8b11dd3c7e879f6a2c6c0759636869182ac9668c4",
+  "worker_sha256": "d2cf0c17649021612abc13be515e2a8095fd9e1ebea37a217d7a3d8d5a12e157",
+  "launcher_sha256": "af8f964b0ef0133506a26951985657783cac8148cef241d3f4c085a2bf1005ce",
+  "readbacks": {
+    "original-initial.npz": "0a1be941a5a419faae5128b7560b156420ae9b476a175f6130ee769247dcaafe",
+    "original-1.npz": "467e175dc41cb858d513a58e72b10d14d24336efd5395ae28c0e1c255fcd8ae1",
+    "original-2.npz": "be07213e871e5c854fa634cf6026471f8d17c5b58e69592764b6fe471b873bef",
+    "original-3.npz": "467e175dc41cb858d513a58e72b10d14d24336efd5395ae28c0e1c255fcd8ae1",
+    "swap-initial.npz": "0dfd8666110c0be9e280a6d71a270939c8a0fe261f35dd4cf32e14e59868892b",
+    "swap-1.npz": "2bdcea1d7ed87e54de547797f83b3cc4d068403ad82d98cb546068baf592132b",
+    "swap-2.npz": "467e175dc41cb858d513a58e72b10d14d24336efd5395ae28c0e1c255fcd8ae1",
+    "swap-3.npz": "2bdcea1d7ed87e54de547797f83b3cc4d068403ad82d98cb546068baf592132b",
+    "secondary-initial.npz": "557891e09e2c3cdeb831703d780a66b8906f77f797f2af081e015b81e6e3368a",
+    "secondary-1.npz": "6b348b218c79833f687b4bcd388d18b2ff6e64d82ca4c7ae6c0a51c1bc405ebd",
+    "secondary-2.npz": "165e8b22d9f119fdd9c8cc9e5d91a1a6ede0a39f8a66f0f461a4716dfb93cca8",
+    "secondary-3.npz": "6b348b218c79833f687b4bcd388d18b2ff6e64d82ca4c7ae6c0a51c1bc405ebd"
+  }
+}

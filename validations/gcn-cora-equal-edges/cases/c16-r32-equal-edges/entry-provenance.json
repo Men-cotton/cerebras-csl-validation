@@ -1,0 +1,32 @@
+{
+  "original": {
+    "raw_sha256": "8fbd902dd8935a2a2561a48b62e2516c9656dcd5069ec9f77a83fa657fd0d5ce",
+    "post_entry_max": 67232,
+    "pre_entry_max": 67779,
+    "barrier_range": [
+      493,
+      631
+    ],
+    "pre_entry_capture_sha256": "ffb735e9184998229a2c41d659ea84cfe16f5e852852ae1513710756b16dee9c"
+  },
+  "swap": {
+    "raw_sha256": "c4c9d26999b520d3677e0349c31d7c01319d167f8f05a8c055855a1cd0c51b99",
+    "post_entry_max": 67315,
+    "pre_entry_max": 67862,
+    "barrier_range": [
+      493,
+      631
+    ],
+    "pre_entry_capture_sha256": "ffb735e9184998229a2c41d659ea84cfe16f5e852852ae1513710756b16dee9c"
+  },
+  "secondary": {
+    "raw_sha256": "fa8c9f65292f8343f2deecfad41d2f9f49b29b595ce8872eb4224d1073f6d94d",
+    "post_entry_max": 67101,
+    "pre_entry_max": 67648,
+    "barrier_range": [
+      493,
+      631
+    ],
+    "pre_entry_capture_sha256": "ffb735e9184998229a2c41d659ea84cfe16f5e852852ae1513710756b16dee9c"
+  }
+}

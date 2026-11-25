@@ -1,0 +1,19 @@
+{
+  "owner_reassignment": {
+    "original_owner_u32le_sha256": "4a3808c31d517b42b2535d370bb77567cb1fe657828ed488ec622bae97a332cd",
+    "candidate_owner_u32le_sha256": "39f7a863f0e9d8d9d6ca2d85235b3e6cffa9302db99a8a323c58ee6c2aa7c754",
+    "moved_vertices": 4
+  },
+  "ordered_occurrences": 13264,
+  "placement": "equal-edges-reference",
+  "original_vertex_swaps": [
+    [
+      877,
+      482
+    ],
+    [
+      86,
+      174
+    ]
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "cora-native-equal-edges-link-c16r32-20261125-r001",
+  "description": "Run three complete trained Cora placements on one post-entry 512-PE binary. Compare the last two placements with exact per-PE work, send and receive packet sizes and total vertical word hops. Retain the original graph control, all nine input and output captures, completion status and per-PE clocks.",
+  "steps": [
+    {
+      "name": "compile",
+      "kind": "appliance",
+      "script": "validations/gcn-cora-equal-edges/appliance.py",
+      "args": [
+        "compile",
+        "--case",
+        "validations/gcn-cora-equal-edges/cases/c16-r32-equal-edges",
+        "--release",
+        "b81cb42bea241c6b2eef82d19d2446bd37b7e5e838f550c743c83adc47b57872",
+        "--out",
+        "{output}/compile"
+      ]
+    },
+    {
+      "name": "compare",
+      "kind": "appliance",
+      "script": "validations/gcn-cora-equal-edges/appliance.py",
+      "args": [
+        "run",
+        "--case",
+        "validations/gcn-cora-equal-edges/cases/c16-r32-equal-edges",
+        "--release",
+        "b81cb42bea241c6b2eef82d19d2446bd37b7e5e838f550c743c83adc47b57872",
+        "--out",
+        "{output}/compare",
+        "--build",
+        "{output}/compile/build.json"
+      ]
+    }
+  ]
+}
